@@ -4,6 +4,8 @@
 Run from any directory: python3 -B paper/package_publication.py
 Only the manuscript's TeX/BibTeX closure and its generated figure enter the
 ZIP. The extracted ZIP is compiled independently, with no repository paths.
+The single Hexagon upload is hexagon-standalone.tex, with a matching PDF.
+Requires TeX Live, Poppler utilities and Python pikepdf.
 """
 from pathlib import Path
 from hashlib import sha256
@@ -88,7 +90,8 @@ def package():
         shutil.copy2(compiled/'main.pdf', PAPER/'main.pdf')
         shutil.copy2(compiled/'figures/dependency_graph.pdf', PAPER/'figures/dependency_graph.pdf')
         shutil.copy2(archive, PAPER/'hexagon-source.zip')
-        shutil.copy2(single/'main.tex', PAPER/'hexagon-standalone.tex')
+        shutil.copy2(single/'hexagon-standalone.tex', PAPER/'hexagon-standalone.tex')
+        shutil.copy2(single/'output/paper.pdf', PAPER/'hexagon-standalone.pdf')
         RECORD.parent.mkdir(parents=True, exist_ok=True)
         RECORD.write_text(json.dumps(record, indent=2)+'\n')
         manifest = dict(status='PASS_CLEAN_BUILD_AND_EXTRACTED_UPLOAD',

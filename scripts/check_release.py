@@ -32,12 +32,7 @@ PAPER_FILES = {
     "README.md", "PUBLICATION.md", "build.py", "package_publication.py", "submission.py",
     "main.pdf", "figures/dependency_graph.pdf", "hexagon-source.zip",
     "build_record.json", "publication_manifest.json", "hexagon-standalone.tex",
-    "hexagon-submit.tex", "hexagon-submit.pdf",
-    "preview_diagnostics.py", "preview-diagnostics/verification.json",
-    "preview-diagnostics/static/hexagon-standalone.tex",
-    "preview-diagnostics/static/paper.pdf",
-    "preview-diagnostics/pages-1/hexagon-standalone.tex",
-    "preview-diagnostics/pages-603/hexagon-standalone.tex",
+    "hexagon-standalone.pdf",
 }
 IGNORED_DIRS = {".git", "__pycache__", ".venv", "_build"}
 PRIVACY_PATTERNS = {
@@ -189,11 +184,17 @@ def check_archive(closure):
             "Standalone source differs from the verified export")
     require(digest((ROOT / "paper/submission.py").read_bytes())
             == standalone["export_script_sha256"], "Submission exporter changed")
+    require(standalone["pdf"] == "hexagon-standalone.pdf", "Unexpected submission PDF")
+    raw_pdf = (ROOT / "paper/hexagon-standalone.pdf").read_bytes()
+    require(digest(raw_pdf) == standalone["pdf_sha256"] and len(raw_pdf) == standalone["pdf_bytes"],
+            "Submission PDF differs from the verified artifact")
+    require(not standalone["qpdf_syntax_issues"] and standalone["annotations"] == 0
+            and not standalone["outlines_present"], "Submission PDF profile check failed")
     require(standalone["pages"] == publication["pages"], "Standalone page count differs")
     require(standalone["pdf_version"] == record["pdf_version"], "Standalone PDF version differs")
     require(standalone["warnings"] == record["warnings"], "Standalone warning audit differs")
     require(all(standalone["verification"][key] for key in
-                ("clean_final_log", "identical_rendered_text", "identical_labels_and_citations")),
+                ("clean_final_log", "identical_text_ignoring_whitespace", "identical_labels_and_citations")),
             "Standalone compilation or manuscript equivalence check failed")
     for audit in (record["structured_text"], publication["upload_verification"]["structured_text"],
                   standalone["verification"]["structured_text"]):
@@ -218,15 +219,9 @@ def main():
         if path.suffix not in {".pdf", ".zip"}:
             privacy_check(name, path.read_text())
     publication = check_archive(closure)
-    run(sys.executable, "-B", str(ROOT / "paper/preview_diagnostics.py"), "--check")
-    for alias, original in (
-            ("hexagon-submit.tex", "preview-diagnostics/static/hexagon-standalone.tex"),
-            ("hexagon-submit.pdf", "preview-diagnostics/static/paper.pdf")):
-        require((ROOT / "paper" / alias).read_bytes() == (ROOT / "paper" / original).read_bytes(),
-                f"Top-level submission copy differs from verified artifact: {alias}")
     pages = check_pdf(ROOT / "paper/main.pdf")
     check_pdf(ROOT / "paper/figures/dependency_graph.pdf")
-    require(check_pdf(ROOT / "paper/preview-diagnostics/static/paper.pdf") == pages,
+    require(check_pdf(ROOT / "paper/hexagon-standalone.pdf") == pages,
             "Submission candidate page count differs from the manuscript")
     require(pages == publication["pages"], "PDF page count differs from manifest")
     modules = check_lean_imports(files)

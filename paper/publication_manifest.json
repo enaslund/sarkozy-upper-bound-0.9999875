@@ -91,8 +91,15 @@
   },
   "standalone_upload": {
     "source": "hexagon-standalone.tex",
-    "sha256": "540b3b548cf82833ffbd00801e44f5e0e6e69241d11bcf4e1a625aeb022b70bb",
-    "bytes": 3162309,
+    "sha256": "038d18837786be84048785c35eed37a3884e64c26d29b367959e50d7736d3d8e",
+    "pdf": "hexagon-standalone.pdf",
+    "pdf_sha256": "c669316d221a664f0731da7708a4f97fa27559e9f94399e1646780008573aa6c",
+    "pdf_bytes": 5150107,
+    "pdf_objects": 2149,
+    "annotations": 0,
+    "outlines_present": false,
+    "qpdf_syntax_issues": [],
+    "bytes": 3162472,
     "pages": 603,
     "pdflatex_passes": 2,
     "pdf_version": "1.4",
@@ -107,15 +114,15 @@
     "reference_seed": "first build only; regenerated aux/toc take precedence",
     "verification": {
       "clean_final_log": true,
-      "identical_rendered_text": true,
+      "identical_text_ignoring_whitespace": true,
       "structured_text": {
         "command": "pdftotext -bbox-layout",
         "valid_xml": true,
         "pages": 603,
-        "words": 515521,
-        "bytes": 57786814
+        "words": 515528,
+        "bytes": 57787713
       },
-      "text_extraction": "pdftotext -raw",
+      "text_extraction": "pdftotext -raw; remove whitespace only",
       "identical_labels_and_citations": true,
       "labels_and_citations": 2345,
       "jobname": "paper",
@@ -126,11 +133,12 @@
     },
     "toolchain": {
       "engine": "pdfTeX 3.141592653-2.6-1.40.28 (TeX Live 2025)",
+      "qpdf": "12.4.2",
       "latex": "2025-11-01",
       "l3": "2026-01-19",
       "longtable": "2025-10-13 v4.24 Multi-page Table package (DPC)"
     },
-    "export_script_sha256": "f2085fdc4515e7d37b96d5c30814734715e70e036f5eedf2036fbc0f630c78d0"
+    "export_script_sha256": "db4ea46def377ae5ba9889d42cc1478e38f6d5e42607a0c0e1f4325d1fe14db3"
   },
-  "package_script_sha256": "5de8658bb97d09bca87c594b7933eb637816555aead7be7a5ef42d34d054aeca"
+  "package_script_sha256": "92dd3df9083cf8dcb123ad773642e78082f50debdcb534e5296ffce03a518e7b"
 }

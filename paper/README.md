@@ -1,15 +1,14 @@
 # Reading the paper
 
-For Hexagon, use the revised [hexagon-submit.tex](hexagon-submit.tex) and
-its matching [hexagon-submit.pdf](hexagon-submit.pdf), both directly in `paper/`.
-This fixes invalid characters in extracted mathematical text without changing
-the printed pages. The preceding version passed preview but failed final
-identifier stamping; the repaired version needs a hosted retry. See the
-[publication guide](PUBLICATION.md) for the diagnosis, checks and replacement
-instructions.
+For Hexagon, upload **[hexagon-standalone.tex](hexagon-standalone.tex)**
+under that exact name. Its matching [PDF](hexagon-standalone.pdf) is directly
+beside it in `paper/`. This is the only single-file upload; no copying or
+renaming is required. It includes the text-extraction repair and the preview's
+working PDF configuration. See [PUBLICATION.md](PUBLICATION.md) for checks and
+build instructions.
 
 [main.pdf](main.pdf) is the complete manuscript. The TeX entry point is
-[main.tex](main.tex). The canonical [hexagon-standalone.tex](hexagon-standalone.tex) export
+[main.tex](main.tex). The single-file export
 contains the full paper, bibliography and vector diagram and initializes
 references from the verified build to reduce compilation passes.
 [hexagon-source.zip](hexagon-source.zip) retains the modular sources and figure.
