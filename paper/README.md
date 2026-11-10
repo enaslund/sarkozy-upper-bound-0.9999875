@@ -1,8 +1,15 @@
 # Reading the paper
 
+For the next Hexagon preview, use the complete
+[source without PDF navigation](preview-diagnostics/static/hexagon-standalone.tex)
+and inspect its matching [PDF](preview-diagnostics/static/paper.pdf). It preserves
+the complete manuscript and reference values; hosted acceptance remains
+unconfirmed. See [the publication guide](PUBLICATION.md) for the rejection
+code, local checks and upload instructions.
+
 [main.pdf](main.pdf) is the complete manuscript. The TeX entry point is
-[main.tex](main.tex). For submission, use [hexagon-standalone.tex](hexagon-standalone.tex),
-which contains the full paper, bibliography and vector diagram and initializes
+[main.tex](main.tex). The canonical [hexagon-standalone.tex](hexagon-standalone.tex) export
+contains the full paper, bibliography and vector diagram and initializes
 references from the verified build to reduce compilation passes.
 [hexagon-source.zip](hexagon-source.zip) retains the modular sources and figure.
 

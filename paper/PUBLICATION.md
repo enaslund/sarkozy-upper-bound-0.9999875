@@ -1,5 +1,12 @@
 # Publication files
 
+For the next Hexagon preview, use the complete
+[submission source without PDF navigation](preview-diagnostics/static/hexagon-standalone.tex).
+Its matching [603-page PDF](preview-diagnostics/static/paper.pdf) is provided
+for inspection. The content and reference values have been checked against
+the canonical manuscript. Hosted acceptance is still unconfirmed; this candidate
+addresses the PDF processing failure described below.
+
 The canonical upload is [hexagon-standalone.tex](hexagon-standalone.tex).
 This single file includes every section, appendix, macro, numerical table,
 the typeset bibliography, and the dependency diagram as vector drawing code.
@@ -72,8 +79,13 @@ produced a 603-page, 7,323,843-byte PDF, and ended with
 `Latexmk: All targets ... are up-to-date`. Its final pass had no TeX errors
 or package warnings, but Hexagon still reported “could not prepare a safe
 preview PDF.” The PDF profile changes have not resolved the hosted failure.
-The remaining failure is in preview processing after PDF generation; its
-cause is not exposed in the compiler log.
+The preview-status JSON now identifies `invalid_generated_pdf`, with
+`status: failed`, `current: true` and `hasPdf: false`. This confirms that the
+error concerns the current staged source. The `ready: true` input status and
+soft submission gate do not mean that PDF validation passed. The code gives
+no specific PDF defect or limit; the remaining failure is in preview processing
+after PDF generation. The reported PDF size matches the canonical export,
+not the smaller static candidate.
 [Hexagon's compatibility page](https://hexagonmath.org/compilation) identifies
 the toolchain and recommends reporting failures that do not reproduce locally.
 It does not document an additional PDF restriction.
@@ -117,7 +129,9 @@ they do not reproduce Hexagon's private preview processor.
 The [static diagnostic source](preview-diagnostics/static/hexagon-standalone.tex)
 contains the complete manuscript with PDF links, bookmarks and page anchors
 disabled using hyperref's supported `NoHyper` environment and package options.
-It is a controlled diagnostic, with hosted acceptance still unconfirmed.
+The matching [paper.pdf](preview-diagnostics/static/paper.pdf) is the direct
+PDFLaTeX output of that source, without a separate PDF conversion step.
+It is a complete submission candidate, with hosted acceptance still unconfirmed.
 The canonical paper and upload remain unchanged by this experiment.
 
 Local tests with the matching final TeX Live 2025 engine gave:
@@ -139,19 +153,20 @@ source and PDF hashes, counts, toolchain and comparison results. This reproduces
 the hosted PDF byte count, but not Hexagon's custom format or preview processor.
 There is no confirmed page, file-size or object-count limit.
 
-Before spending another preview, inspect the existing status response in your
-browser: open Developer Tools (F12 in Chrome or Edge, Command-Option-I on macOS),
-select **Network**, filter by `preview`, and refresh the failed preview page.
-Select the GET request ending in `/preview`, without `/log`, `/check` or `/pdf`,
-and open **Response**. Its JSON may contain an `errorCode` or a more specific
-message. Read this response rather than copying request headers, cookies or
-tokens. Refreshing and reading status do not request another compilation.
+Replace the staged source with the static candidate, preserving the filename
+`hexagon-standalone.tex`, apply the file replacement through **Process changes**,
+and request one preview. Its first two lines identify the file as the diagnostic
+export without PDF navigation. The local final PDF is 5,149,913 bytes, compared
+with 7,323,843 bytes for the rejected canonical export. Success would narrow the
+failure to PDF features or processing resources affected by this change; it
+would not identify a specific limit.
 
-If the status response does not identify the cause, replace the staged source
-with the static diagnostic, preserving the filename `hexagon-standalone.tex`,
-and request one preview. Success would narrow the failure to PDF features or
-processing resources affected by this change; it would not identify a specific
-limit. If needed, the [603-page control](preview-diagnostics/pages-603/hexagon-standalone.tex)
+If this preview also fails, retrieve its new status response: open Developer
+Tools (F12 in Chrome or Edge, Command-Option-I on macOS), select **Network**,
+filter by `preview`, and refresh the failed preview page. Select the GET request
+ending in `/preview`, without `/log`, `/check` or `/pdf`, and open **Response**.
+Read this response rather than copying request headers, cookies or tokens.
+Refreshing and reading status do not request another compilation. If needed, the [603-page control](preview-diagnostics/pages-603/hexagon-standalone.tex)
 and [one-page control](preview-diagnostics/pages-1/hexagon-standalone.tex) can
 separately test simple documents. These two controls contain no manuscript
 and must never be used for final submission. Restore the complete manuscript
@@ -166,9 +181,9 @@ python3 -B paper/preview_diagnostics.py --check
 ```
 
 The first command compiles all four versions in separate temporary directories
-with shell escape disabled, then installs the diagnostic sources and receipt
-only after the checks pass. The second checks saved source and receipt hashes;
-it does not recompile. Regenerate the diagnostics after changing the canonical
+with shell escape disabled, then installs the diagnostic sources, complete
+static PDF and receipt only after the checks pass. The second checks saved
+source, PDF and receipt hashes; it does not recompile. Regenerate the diagnostics after changing the canonical
 export. Neither command calls Hexagon or changes the canonical publication files.
 
 For Hexagon's **Report a problem** form, include the canonical source and its

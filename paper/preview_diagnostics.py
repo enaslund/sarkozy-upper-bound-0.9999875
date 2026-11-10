@@ -2,9 +2,10 @@
 """Prepare controlled tests of Hexagon's PDF preview processing.
 
 --verify builds the current export and three diagnostic files in clean temporary
-directories, compares the complete manuscript, then installs sources and a
-verification receipt in preview-diagnostics/. Requires pdflatex, pdftotext and
-the Python package pikepdf. --check checks saved sources and receipt hashes only.
+directories, compares the complete manuscript, then installs sources, the
+complete static PDF and a verification receipt in preview-diagnostics/.
+Requires pdflatex, pdftotext and the Python package pikepdf. --check checks
+saved sources, PDF and receipt hashes only.
 Neither operation calls Hexagon or modifies the canonical manuscript.
 """
 
@@ -154,7 +155,7 @@ def verify(original, variants):
         for count in (1, 603):
             if records[f"pages-{count}"]["pages"] != count:
                 raise ValueError("Page-count diagnostic has the wrong number of pages")
-        return dict(
+        record = dict(
             format=1, status="PASS_LOCAL_CHECKS_HOSTED_ACCEPTANCE_UNKNOWN",
             generator_sha256=digest(Path(__file__).read_bytes()),
             original_source="hexagon-standalone.tex", toolchain=toolchain,
@@ -167,6 +168,7 @@ def verify(original, variants):
                             labels_and_citations=len(references[0]), identical_page_count=True),
             builds=records,
         )
+        return record, (work / "static/output/paper.pdf").read_bytes()
 
 
 def check(original, variants):
@@ -180,6 +182,10 @@ def check(original, variants):
             raise ValueError(f"Diagnostic source changed: {variant}")
         if record["builds"][variant]["source_sha256"] != digest(text.encode()):
             raise ValueError(f"Verification receipt does not match {variant}")
+    pdf = (OUTPUT / "static/paper.pdf").read_bytes()
+    if (digest(pdf) != record["builds"]["static"]["pdf_sha256"]
+            or len(pdf) != record["builds"]["static"]["pdf_bytes"]):
+        raise ValueError("Static PDF does not match the verified submission source")
 
 
 def main():
@@ -191,16 +197,17 @@ def main():
     original = (PAPER / "hexagon-standalone.tex").read_text()
     variants = sources(original)
     if args.verify:
-        record = verify(original, variants)
+        record, pdf = verify(original, variants)
         if original != (PAPER / "hexagon-standalone.tex").read_text():
             raise ValueError("Canonical export changed during verification")
         for variant, text in variants.items():
             path = OUTPUT / variant / "hexagon-standalone.tex"
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(text)
+        (OUTPUT / "static/paper.pdf").write_bytes(pdf)
         (OUTPUT / "verification.json").write_text(json.dumps(record, indent=2) + "\n")
     check(original, variants)
-    print("PASS: diagnostic sources and verification hashes match; hosted acceptance remains unknown.")
+    print("PASS: diagnostic sources, PDF and verification hashes match; hosted acceptance remains unknown.")
 
 
 if __name__ == "__main__":

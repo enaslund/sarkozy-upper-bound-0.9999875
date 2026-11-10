@@ -1,7 +1,7 @@
 {
   "format": 1,
   "status": "PASS_LOCAL_CHECKS_HOSTED_ACCEPTANCE_UNKNOWN",
-  "generator_sha256": "a9fc07c23a9656d1c42dfa0dadc44ec90b109cb652ae9459ed9bb6afdb5e5825",
+  "generator_sha256": "8c02829a8af2684551e5e8e08fa3cb93a9c8d5a902133501b1f8f5519430a0fe",
   "original_source": "hexagon-standalone.tex",
   "toolchain": {
     "engine": "pdfTeX 3.141592653-2.6-1.40.28 (TeX Live 2025)",
