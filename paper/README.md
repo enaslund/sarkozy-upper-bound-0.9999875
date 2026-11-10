@@ -1,11 +1,12 @@
 # Reading the paper
 
-For the next Hexagon preview, use the complete
-[hexagon-submit.tex](hexagon-submit.tex)
-and inspect its matching [hexagon-submit.pdf](hexagon-submit.pdf). It preserves
-the complete manuscript and reference values; hosted acceptance remains
-unconfirmed. See [the publication guide](PUBLICATION.md) for the rejection
-code, local checks and upload instructions.
+For Hexagon, use the revised [hexagon-submit.tex](hexagon-submit.tex) and
+its matching [hexagon-submit.pdf](hexagon-submit.pdf), both directly in `paper/`.
+This fixes invalid characters in extracted mathematical text without changing
+the printed pages. The preceding version passed preview but failed final
+identifier stamping; the repaired version needs a hosted retry. See the
+[publication guide](PUBLICATION.md) for the diagnosis, checks and replacement
+instructions.
 
 [main.pdf](main.pdf) is the complete manuscript. The TeX entry point is
 [main.tex](main.tex). The canonical [hexagon-standalone.tex](hexagon-standalone.tex) export

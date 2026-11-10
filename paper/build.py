@@ -14,6 +14,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import xml.etree.ElementTree as ET
 
 PAPER = Path(__file__).resolve().parent
 ROOT = PAPER.parent
@@ -39,6 +40,38 @@ def warning_summary(log):
                 underfull_hboxes=log.count('Underfull \\hbox'),
                 underfull_vboxes=log.count('Underfull \\vbox'),
                 overfull_boxes=log.count('Overfull'))
+
+
+def check_pdf_text(pdf, expected_pages):
+    """Require usable structured text, not just pdftotext's successful exit.
+
+    Partial font Unicode maps can make Poppler write XML-invalid control
+    characters while returning zero. Stream its bounding-box XHTML through an
+    XML parser so a long manuscript does not require buffering the full output.
+    """
+    with tempfile.TemporaryFile() as extracted:
+        result = subprocess.run(['pdftotext', '-bbox-layout', str(pdf), '-'],
+                                stdout=extracted, stderr=subprocess.PIPE)
+        if result.returncode:
+            raise ValueError('PDF text extraction failed: ' +
+                             result.stderr.decode(errors='replace')[-2000:])
+        size = extracted.tell()
+        extracted.seek(0)
+        pages = words = 0
+        try:
+            for _, element in ET.iterparse(extracted, events=('end',)):
+                if element.tag == '{http://www.w3.org/1999/xhtml}page':
+                    pages += 1
+                elif element.tag == '{http://www.w3.org/1999/xhtml}word':
+                    words += 1
+                element.clear()
+        except ET.ParseError as error:
+            raise ValueError(f'PDF structured text is invalid XML: {error}') from error
+    if pages != expected_pages or not words:
+        raise ValueError(f'PDF structured text has {pages} pages and {words} words; '
+                         f'expected text on {expected_pages} pages')
+    return dict(command='pdftotext -bbox-layout', valid_xml=True,
+                pages=pages, words=words, bytes=size)
 
 
 def closure():
@@ -109,11 +142,13 @@ def build(output_dir=None, keep=False):
         pdf, fig = work/'main.pdf', work/'figures'/'dependency_graph.pdf'
         info = subprocess.run(['pdfinfo', str(pdf)], capture_output=True, text=True).stdout
         pages = int(re.search(r'Pages:\s+(\d+)', info).group(1))
+        text_extraction = check_pdf_text(pdf, pages)
         out = Path(output_dir).resolve() if output_dir else PAPER
         (out/'figures').mkdir(parents=True, exist_ok=True)
         shutil.copy2(pdf, out/'main.pdf')
         shutil.copy2(fig, out/'figures'/'dependency_graph.pdf')
         record = dict(status='PASS', pages=pages, pdf_sha256=sha(out/'main.pdf'),
+                      structured_text=text_extraction,
                       inputs_unchanged=True,
                       pdf_version=re.search(r'PDF version:\s+(\S+)', info).group(1),
                       warnings=warning_summary(log),

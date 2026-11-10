@@ -1,7 +1,8 @@
 {
   "format": 1,
   "status": "PASS_LOCAL_CHECKS_HOSTED_ACCEPTANCE_UNKNOWN",
-  "generator_sha256": "8c02829a8af2684551e5e8e08fa3cb93a9c8d5a902133501b1f8f5519430a0fe",
+  "generator_sha256": "3d016f756ffac326e6bd00aed5d863c7eccf2f39e4cb100c5c6ea5db557aef7c",
+  "build_checker_sha256": "a9b4c7f68810a7ca7282e590c75136531d701d4ea8752ac8f56322b2409951f2",
   "original_source": "hexagon-standalone.tex",
   "toolchain": {
     "engine": "pdfTeX 3.141592653-2.6-1.40.28 (TeX Live 2025)",
@@ -29,14 +30,21 @@
     "linked": {
       "pages": 603,
       "pdf_version": "1.4",
-      "pdf_bytes": 7323843,
-      "pdf_sha256": "5b40ae0c61b4df34eff01e27ff0bb43462f866bc0426191aeb1a463f6f26e55b",
+      "pdf_bytes": 7324037,
+      "pdf_sha256": "e22607044006004a3b52a758e4db003a0b476847b87c4a0ba09990dded0b1fe0",
       "pdf_objects": 15402,
       "annotations": 8314,
       "outlines_present": true,
       "qpdf_syntax_issues": [],
-      "source_sha256": "09cce02c44c9bbaab994c3f86dc14bd9006dd1ba91aba7c261c0ed8d02f41d60",
-      "source_bytes": 3158800,
+      "source_sha256": "540b3b548cf82833ffbd00801e44f5e0e6e69241d11bcf4e1a625aeb022b70bb",
+      "source_bytes": 3162309,
+      "structured_text": {
+        "command": "pdftotext -bbox-layout",
+        "valid_xml": true,
+        "pages": 603,
+        "words": 515521,
+        "bytes": 57786814
+      },
       "pdflatex_passes": 2,
       "warnings": {
         "package_warnings": {},
@@ -50,14 +58,21 @@
     "static": {
       "pages": 603,
       "pdf_version": "1.4",
-      "pdf_bytes": 5149913,
-      "pdf_sha256": "da42926c05d3f7e24a7a15fc58e0e478fa1d411da0934fb76333e4a2dc86d1a0",
+      "pdf_bytes": 5150107,
+      "pdf_sha256": "c669316d221a664f0731da7708a4f97fa27559e9f94399e1646780008573aa6c",
       "pdf_objects": 2149,
       "annotations": 0,
       "outlines_present": false,
       "qpdf_syntax_issues": [],
-      "source_sha256": "5c6063739f181c58aac6c1f06a542eae4b7b84c99363fe58c6585179024d2b2d",
-      "source_bytes": 3159023,
+      "source_sha256": "d9f0e0f83f54949d33b01d7f4f28996a885e44147ad1402055d5d24dfe625a5b",
+      "source_bytes": 3162540,
+      "structured_text": {
+        "command": "pdftotext -bbox-layout",
+        "valid_xml": true,
+        "pages": 603,
+        "words": 515528,
+        "bytes": 57787713
+      },
       "pdflatex_passes": 2,
       "warnings": {
         "package_warnings": {},
@@ -79,6 +94,13 @@
       "qpdf_syntax_issues": [],
       "source_sha256": "823d6c63037f4371bfc6a949d178ad4708bd9f4b4437ed330fde7826d97a674f",
       "source_bytes": 473,
+      "structured_text": {
+        "command": "pdftotext -bbox-layout",
+        "valid_xml": true,
+        "pages": 1,
+        "words": 17,
+        "bytes": 2970
+      },
       "pdflatex_passes": 2,
       "warnings": {
         "package_warnings": {},
@@ -100,6 +122,13 @@
       "qpdf_syntax_issues": [],
       "source_sha256": "56e839f7867693cc22979c29432ff4345218d0636467717f6bcc4c265fe7f6e6",
       "source_bytes": 475,
+      "structured_text": {
+        "command": "pdftotext -bbox-layout",
+        "valid_xml": true,
+        "pages": 603,
+        "words": 10251,
+        "bytes": 1533644
+      },
       "pdflatex_passes": 2,
       "warnings": {
         "package_warnings": {},

@@ -1,14 +1,13 @@
 # Publication files
 
-For the next Hexagon preview, use the complete
-[hexagon-submit.tex](hexagon-submit.tex).
-Its matching [hexagon-submit.pdf](hexagon-submit.pdf) is provided
-for inspection. The content and reference values have been checked against
-the canonical manuscript. Hosted acceptance is still unconfirmed; this candidate
-addresses the PDF processing failure described below.
-These two files are directly in `paper/` and are byte-for-byte copies of the
-verified static files. Before replacing the existing staged source on Hexagon,
-rename the downloaded `hexagon-submit.tex` to `hexagon-standalone.tex`.
+For Hexagon, use the revised [hexagon-submit.tex](hexagon-submit.tex) and
+inspect its matching [hexagon-submit.pdf](hexagon-submit.pdf). Both are directly
+in `paper/`. This revision repairs invalid characters in the PDF's extracted
+mathematical text while preserving the printed pages. The preceding static
+version passed Hexagon's preview but failed the final identifier-stamping step
+with `text_extraction_failed`. The repaired version still needs a hosted retry.
+If replacing the staged source, rename `hexagon-submit.tex` to
+`hexagon-standalone.tex` so it replaces the existing file.
 
 The canonical upload is [hexagon-standalone.tex](hexagon-standalone.tex).
 This single file includes every section, appendix, macro, numerical table,
@@ -77,106 +76,89 @@ distributed in the repository. The paper and code are licensed under Apache
 
 These commands prepare files locally. They do not create a Hexagon submission.
 
-The latest hosted retry of this PDF 1.4 export completed both PDFLaTeX passes,
-produced a 603-page, 7,323,843-byte PDF, and ended with
-`Latexmk: All targets ... are up-to-date`. Its final pass had no TeX errors
-or package warnings, but Hexagon still reported “could not prepare a safe
-preview PDF.” The PDF profile changes have not resolved the hosted failure.
-The preview-status JSON now identifies `invalid_generated_pdf`, with
-`status: failed`, `current: true` and `hasPdf: false`. This confirms that the
-error concerns the current staged source. The `ready: true` input status and
-soft submission gate do not mean that PDF validation passed. The code gives
-no specific PDF defect or limit; the remaining failure is in preview processing
-after PDF generation. The reported PDF size matches the canonical export,
-not the smaller static candidate.
-[Hexagon's compatibility page](https://hexagonmath.org/compilation) identifies
-the toolchain and recommends reporting failures that do not reproduce locally.
-It does not document an additional PDF restriction.
+The preceding static submission passed Hexagon's private preview and rendered
+correctly. Final submission then failed with `text_extraction_failed` while
+applying the repository-controlled identifier stamp. This is a later processing
+stage than the earlier `invalid_generated_pdf` preview rejection. Neither
+message exposes Hexagon's internal parser or its detailed failure.
 
-The manuscript emits PDF 1.4 with ordinary objects and cross-reference tables,
-without object streams or an automatic opening action. Internal links,
-bookmarks and the vector diagram are retained. These are conservative
-compatibility changes, not a confirmed explanation of Hexagon's rejection.
-The PDF version is checked when packaging the single-file export. Hexagon's
-custom format and preview processor are unavailable locally; acceptance still
-requires a successful hosted preview.
+A local audit reproduced a concrete extraction defect in the accepted static
+PDF: 1,194 XML-invalid C0 control characters across 324 pages. For example,
+`pdftotext -f 12 -l 12 -bbox-layout paper/hexagon-submit.pdf -` on the preceding
+version exited successfully but wrote malformed XHTML. The first failure was
+an unmapped large delimiter. All fonts reported a Unicode map, but the Latin
+Modern math-extension font's map omitted these glyphs. Successful compilation,
+PDF syntax validation and a zero exit status from `pdftotext` did not detect it.
 
-The local warning audit uses final TeX Live 2025: pdfTeX 1.40.28,
-LaTeX 2025-11-01, L3 2026-01-19 and longtable v4.24, matching the hosted log.
-The main manuscript's 318 package warnings have been resolved: headings have
-explicit text alternatives for PDF bookmarks, two old `\over` expressions use
-`\frac`, and the unused automatic EPS converter is disabled. The final main
-log has zero package warnings, undefined references, duplicate labels or
-overfull boxes. It retains 20 underfull horizontal boxes and 43 underfull
-vertical boxes: spacing diagnostics for the existing justified paragraphs
-and page layout. These messages have not been suppressed. Compiling the
-separate dependency figure also reports that shell escape is disabled; no
-external conversion is requested. That warning is absent from the single-file
-upload, which includes the drawing directly. Build receipts and the
-publication manifest record the remaining warning counts.
+[math_unicode.tex](math_unicode.tex) now supplies font-specific Unicode mappings
+for all four sizes of parentheses, brackets, floors, ceilings, braces, angle
+brackets and slashes, plus the two vertical delimiter pieces. These mappings
+only affect the extracted text layer. They do not change glyph shapes, metrics,
+page contents or mathematical source. The mapping is shared by the manuscript
+and diagram and is inlined into both single-file exports. It follows pdfTeX's
+[documented `tfm:` glyph-mapping mechanism](https://ctan.math.washington.edu/tex-archive/systems/doc/pdftex/manual/pdftex-a.pdf).
 
-The earlier longtable repair remains in place. It backports the upstream
-v4.25 finite-shrink fix to older versions, as documented in
-[LaTeX issue 1907](https://github.com/latex3/latex2e/issues/1907). Newer package
-versions are left alone. The export initializes AMS contents indentation
-without redefining labels, and packaging rejects a recurrence of the glue,
-bookmark, fraction-command or unused-EPS warnings.
+The repaired static PDF has zero invalid control characters, and its complete
+bounding-box XHTML parses successfully for all 603 pages. Comparison with the
+preceding static PDF found identical page content streams and page dimensions;
+the only changed PDF stream is the math font's Unicode map. All 2,345 label and
+citation records remain unchanged. The new build check rejects the preceding
+PDF and accepts the repaired one. This fixes a demonstrated defect relevant to
+text extraction; it does not establish that Hexagon uses the same parser or
+that its final stamping stage will now succeed.
 
-The revised PDF preserves all 603 pages' extracted text, and all 2,345 label
-and citation records agree after removing the PDF-only title alternatives.
-The generated single-file export is checked against the revised canonical
-build with exact text and reference comparisons. Independent qpdf syntax
-checks and MuPDF rendering also pass. These checks validate the local PDF;
-they do not reproduce Hexagon's private preview processor.
+Every manuscript, extracted-ZIP, standalone and static build now parses the
+full `pdftotext -bbox-layout` output with an XML parser, checks the page count
+and requires extracted words. The output is written to a temporary file and
+parsed incrementally. The checks do not discard invalid characters or suppress
+extraction errors. Results are recorded in the build and publication receipts
+and [verification.json](preview-diagnostics/verification.json).
 
-The [static diagnostic source](preview-diagnostics/static/hexagon-standalone.tex)
-contains the complete manuscript with PDF links, bookmarks and page anchors
-disabled using hyperref's supported `NoHyper` environment and package options.
-The matching [paper.pdf](preview-diagnostics/static/paper.pdf) is the direct
-PDFLaTeX output of that source, without a separate PDF conversion step.
-It is a complete submission candidate, with hosted acceptance still unconfirmed.
-The canonical paper and upload remain unchanged by this experiment.
+The static submission still omits PDF navigation using hyperref's `NoHyper`
+environment and package options. The canonical [main.pdf](main.pdf) and
+[hexagon-standalone.tex](hexagon-standalone.tex) retain links and bookmarks and
+also include the text-layer repair. The revised canonical and static exports
+have identical text after whitespace removal, 603 pages, and all 2,345 label
+and citation records identical. Disabling links changes a few paragraph wraps;
+the Unicode repair itself does not. Both use PDF 1.4 without object streams
+or an automatic opening action. Exact sizes and hashes are in the receipts.
 
-Local tests with the matching final TeX Live 2025 engine gave:
+Validation uses final TeX Live 2025: pdfTeX 1.40.28, LaTeX 2025-11-01,
+L3 2026-01-19 and longtable v4.24, matching the hosted log. The final manuscript
+and submission logs have no package warnings, undefined references, duplicate
+labels or overfull boxes. The 20 underfull horizontal and 43 underfull vertical
+boxes are unchanged spacing diagnostics and have not been suppressed. The
+separate diagram compilation reports that shell escape is disabled; it needs
+no external conversion, and the warning is absent from the single-file upload.
 
-| Source | Pages | PDF bytes | PDF objects | Link annotations |
-| --- | ---: | ---: | ---: | ---: |
-| Canonical single-file export | 603 | 7,323,843 | 15,402 | 8,314 |
-| Complete static diagnostic | 603 | 5,149,913 | 2,149 | 0 |
-| Simple 603-page control | 603 | 397,456 | 1,943 | 0 |
-| Simple one-page control | 1 | 31,872 | 16 | 0 |
+The earlier repairs remain: text alternatives for PDF bookmarks, `\frac` in
+place of two old `\over` expressions, disabled automatic EPS conversion and the
+[longtable finite-shrink backport](https://github.com/latex3/latex2e/issues/1907).
+The export seeds contents and references only on the first pass. The Unicode
+repair preserves the mathematical content and the existing proof-review scope.
 
-Both complete versions have identical text after removing whitespace from
-`pdftotext -raw` output, identical page counts and all 2,345 label and citation
-records identical. A few paragraphs wrap differently when links are disabled.
-All four PDFs pass qpdf syntax checks and have no final package warnings or
-overfull boxes. The complete versions retain the same 63 underfull spacing
-messages. [verification.json](preview-diagnostics/verification.json) records
-source and PDF hashes, counts, toolchain and comparison results. This reproduces
-the hosted PDF byte count, but not Hexagon's custom format or preview processor.
-There is no confirmed page, file-size or object-count limit.
+If the submission page still permits source replacement, upload the revised
+complete source under the existing filename, apply **Process changes**, then
+retry the preview and final processing offered by that page. If the record is
+locked, use **Report a problem** on that record and ask Hexagon to enable source
+replacement or rerun processing with the repaired file. A concise report is:
 
-Replace the staged source with the static candidate, preserving the filename
-`hexagon-standalone.tex`, apply the file replacement through **Process changes**,
-and request one preview. Its first two lines identify the file as the diagnostic
-export without PDF navigation. The local final PDF is 5,149,913 bytes, compared
-with 7,323,843 bytes for the rejected canonical export. Success would narrow the
-failure to PDF features or processing resources affected by this change; it
-would not identify a specific limit.
+> The private preview succeeded, but final processing failed while applying
+> the identifier stamp with `text_extraction_failed`. We reproduced malformed
+> `pdftotext -bbox-layout` XHTML caused by missing Latin Modern delimiter
+> mappings. The attached revised TeX fixes those mappings; all 603 pages now
+> extract valid XHTML with unchanged printed content. Please allow the source
+> replacement and rerun final processing, or provide the underlying extraction
+> diagnostic if it still fails.
 
-If this preview also fails, retrieve its new status response: open Developer
-Tools (F12 in Chrome or Edge, Command-Option-I on macOS), select **Network**,
-filter by `preview`, and refresh the failed preview page. Select the GET request
-ending in `/preview`, without `/log`, `/check` or `/pdf`, and open **Response**.
-Read this response rather than copying request headers, cookies or tokens.
-Refreshing and reading status do not request another compilation. If needed, the [603-page control](preview-diagnostics/pages-603/hexagon-standalone.tex)
-and [one-page control](preview-diagnostics/pages-1/hexagon-standalone.tex) can
-separately test simple documents. These two controls contain no manuscript
-and must never be used for final submission. Restore the complete manuscript
-after testing a control.
+Include the actual revised source and its hash from the verification receipt.
+These tools do not send a report, stamp a PDF or submit a deposit. The local
+checks cannot reproduce Hexagon's private stamping implementation.
+[Hexagon's compatibility page](https://hexagonmath.org/compilation) recommends
+reporting processing failures that cannot be resolved locally.
 
-To regenerate and verify these diagnostics with `pdflatex`, `pdftotext` and
-the Python package `pikepdf` available:
+After regenerating the canonical publication files, regenerate the static
+submission with `pdflatex`, `pdftotext` and Python `pikepdf` available:
 
 ```sh
 python3 -B paper/preview_diagnostics.py --verify
@@ -185,13 +167,10 @@ cp paper/preview-diagnostics/static/paper.pdf paper/hexagon-submit.pdf
 python3 -B paper/preview_diagnostics.py --check
 ```
 
-The first command compiles all four versions in separate temporary directories
-with shell escape disabled, then installs the diagnostic sources, complete
-static PDF and receipt only after the checks pass. The last command checks saved
-source, PDF and receipt hashes; it does not recompile. Regenerate the diagnostics after changing the canonical
-export. Neither command calls Hexagon or changes the canonical publication files.
-
-For Hexagon's **Report a problem** form, include the canonical source and its
-SHA-256 from the publication manifest, the status JSON, the compiler log and
-any controlled preview result. Ask for the PDF-processing diagnostic or resource
-limit behind the rejection. No automatic report or submission is sent by these tools.
+The verification compiles the canonical and static sources and two simple
+page-count controls in separate clean directories with shell escape disabled.
+It checks PDF syntax, full structured text, manuscript text and references
+before installing artifacts. The `--check` command checks saved hashes, not a
+new compilation. The two simple controls contain no manuscript and are never
+submission candidates. No hosted page, file-size or object-count limit has
+been established.

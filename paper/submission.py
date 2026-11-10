@@ -151,6 +151,7 @@ def verify(paper, compiled, work, command):
                 bibliography_inlined=True, diagram_inlined=True,
                 reference_seed="first build only; regenerated aux/toc take precedence",
                 verification=dict(clean_final_log=True, identical_rendered_text=True,
+                                  structured_text=build.check_pdf_text(pdf, pages),
                                   text_extraction="pdftotext -raw",
                                   identical_labels_and_citations=True,
                                   labels_and_citations=len(exported_refs), jobname="paper",

@@ -78,6 +78,7 @@ def package():
         assert text_built == text_upload, 'Uploaded sources produce different text'
         pages = int(re.search(r'Pages:\s+(\d+)', command(['pdfinfo', 'main.pdf'], upload)).group(1))
         assert pages == record['pages']
+        upload_text = build.check_pdf_text(upload/'main.pdf', pages)
         single = work/'standalone'
         standalone = submission.verify(PAPER, compiled, single, command)
         assert standalone['pages'] == pages
@@ -96,6 +97,7 @@ def package():
             archive_bytes=archive.stat().st_size, expanded_bytes=expanded,
             files_sha256={name: sha256(raw).hexdigest() for name, raw in sorted(files.items())},
             upload_verification=dict(clean_final_log=True, identical_rendered_text=True,
+                structured_text=upload_text,
                 pages=pages, build_commands=['pdflatex main.tex', 'bibtex main',
                                              'pdflatex main.tex', 'pdflatex main.tex']),
             standalone_upload=standalone,

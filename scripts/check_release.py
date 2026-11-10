@@ -195,6 +195,10 @@ def check_archive(closure):
     require(all(standalone["verification"][key] for key in
                 ("clean_final_log", "identical_rendered_text", "identical_labels_and_citations")),
             "Standalone compilation or manuscript equivalence check failed")
+    for audit in (record["structured_text"], publication["upload_verification"]["structured_text"],
+                  standalone["verification"]["structured_text"]):
+        require(audit["valid_xml"] and audit["pages"] == publication["pages"]
+                and audit["words"] > 0, "PDF structured-text validation failed")
     return publication
 
 
