@@ -1,8 +1,10 @@
 # Reading the paper
 
 [main.pdf](main.pdf) is the complete manuscript. The TeX entry point is
-[main.tex](main.tex); [hexagon-source.zip](hexagon-source.zip) is a standalone
-upload containing the sources and the dependency figure.
+[main.tex](main.tex). For submission, use [hexagon-standalone.tex](hexagon-standalone.tex),
+which contains the full paper, bibliography and vector diagram and initializes
+references from the verified build to reduce compilation passes.
+[hexagon-source.zip](hexagon-source.zip) retains the modular sources and figure.
 
 | Part | Content |
 | --- | --- |

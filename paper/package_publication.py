@@ -16,6 +16,7 @@ import tempfile
 import zipfile
 
 import build
+import submission
 
 PAPER = Path(__file__).resolve().parent
 RECORD = PAPER/'build_record.json'
@@ -77,12 +78,16 @@ def package():
         assert text_built == text_upload, 'Uploaded sources produce different text'
         pages = int(re.search(r'Pages:\s+(\d+)', command(['pdfinfo', 'main.pdf'], upload)).group(1))
         assert pages == record['pages']
+        single = work/'standalone'
+        standalone = submission.verify(PAPER, compiled, single, command)
+        assert standalone['pages'] == pages
         assert build.closure() == closure, 'Sources changed while packaging'
         for path, expected in closure.items():
             assert sha256(files[str(path.relative_to(PAPER))]).hexdigest() == expected
         shutil.copy2(compiled/'main.pdf', PAPER/'main.pdf')
         shutil.copy2(compiled/'figures/dependency_graph.pdf', PAPER/'figures/dependency_graph.pdf')
         shutil.copy2(archive, PAPER/'hexagon-source.zip')
+        shutil.copy2(single/'main.tex', PAPER/'hexagon-standalone.tex')
         RECORD.parent.mkdir(parents=True, exist_ok=True)
         RECORD.write_text(json.dumps(record, indent=2)+'\n')
         manifest = dict(status='PASS_CLEAN_BUILD_AND_EXTRACTED_UPLOAD',
@@ -93,6 +98,7 @@ def package():
             upload_verification=dict(clean_final_log=True, identical_rendered_text=True,
                 pages=pages, build_commands=['pdflatex main.tex', 'bibtex main',
                                              'pdflatex main.tex', 'pdflatex main.tex']),
+            standalone_upload=standalone,
             package_script_sha256=digest(Path(__file__)))
         (PAPER/'publication_manifest.json').write_text(json.dumps(manifest, indent=2)+'\n')
         print(json.dumps({k: v for k, v in manifest.items() if k != 'files_sha256'}, indent=2))

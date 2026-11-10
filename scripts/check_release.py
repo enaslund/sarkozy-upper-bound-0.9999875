@@ -29,9 +29,9 @@ LEAN_FILES = {
     "lean-toolchain", "lake-manifest.json", "verification.json",
 }
 PAPER_FILES = {
-    "README.md", "PUBLICATION.md", "build.py", "package_publication.py",
+    "README.md", "PUBLICATION.md", "build.py", "package_publication.py", "submission.py",
     "main.pdf", "figures/dependency_graph.pdf", "hexagon-source.zip",
-    "build_record.json", "publication_manifest.json",
+    "build_record.json", "publication_manifest.json", "hexagon-standalone.tex",
 }
 IGNORED_DIRS = {".git", "__pycache__", ".venv", "_build"}
 PRIVACY_PATTERNS = {
@@ -172,6 +172,17 @@ def check_archive(closure):
         require(digest((ROOT / name).read_bytes()) == expected_hash,
                 f"Source differs from build receipt: {name}")
     require(record["pdf_sha256"] == publication["pdf_sha256"], "Build PDF hash differs")
+    standalone = publication["standalone_upload"]
+    require(standalone["source"] == "hexagon-standalone.tex", "Unexpected standalone source")
+    raw = (ROOT / "paper/hexagon-standalone.tex").read_bytes()
+    require(digest(raw) == standalone["sha256"] and len(raw) == standalone["bytes"],
+            "Standalone source differs from the verified export")
+    require(digest((ROOT / "paper/submission.py").read_bytes())
+            == standalone["export_script_sha256"], "Submission exporter changed")
+    require(standalone["pages"] == publication["pages"], "Standalone page count differs")
+    require(all(standalone["verification"][key] for key in
+                ("clean_final_log", "identical_rendered_text", "identical_labels_and_citations")),
+            "Standalone compilation or manuscript equivalence check failed")
     return publication
 
 

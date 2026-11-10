@@ -81,5 +81,26 @@
       "pdflatex main.tex"
     ]
   },
-  "package_script_sha256": "c82407d3e9728507cb9a65e47721641179c65e33f49a749d1718b9949c6be2da"
+  "standalone_upload": {
+    "source": "hexagon-standalone.tex",
+    "sha256": "835b8f38932ce8943bf6667edfa681adde1dabc19dcbca332e5b045ea6a61159",
+    "bytes": 3151224,
+    "pages": 603,
+    "pdflatex_passes": 2,
+    "bibliography_inlined": true,
+    "diagram_inlined": true,
+    "reference_seed": "first build only; regenerated aux/toc take precedence",
+    "verification": {
+      "clean_final_log": true,
+      "identical_rendered_text": true,
+      "text_extraction": "pdftotext -raw",
+      "identical_labels_and_citations": true,
+      "labels_and_citations": 2345,
+      "jobname": "paper",
+      "separate_output_directory": true,
+      "shell_escape": false
+    },
+    "export_script_sha256": "6fae66e5f274c6b704521ca10377eca35cbe4c09e3195355a6df715748828245"
+  },
+  "package_script_sha256": "32ecfc8d7e8d74e43c92f2cf5b194b2423b03f0ce8c94a709ed3fd2e086bc791"
 }

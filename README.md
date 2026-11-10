@@ -17,7 +17,7 @@ exponent `0.9999875`; the manuscript states the stronger bound above.
 | --- | --- |
 | Complete manuscript | [603-page PDF](paper/main.pdf) |
 | Manuscript sources and reading guide | [paper/](paper/README.md) |
-| TeX upload for Hexagon | [Source ZIP](paper/hexagon-source.zip) and [build instructions](paper/PUBLICATION.md) |
+| TeX upload for Hexagon | [Single TeX file](paper/hexagon-standalone.tex) (recommended), [source ZIP](paper/hexagon-source.zip), and [build instructions](paper/PUBLICATION.md) |
 | Partial Lean formalization | [lean/](lean/README.md) |
 | What the formalization assumes | [Trust map](lean/TRUST_MAP.md) |
 
@@ -36,7 +36,7 @@ compiler and mathlib dependency.
 
 ```sh
 make check          # File inventory, hashes, local imports, archives and privacy checks
-make paper          # Build the PDF and independently compile the TeX upload ZIP
+make paper          # Build the PDF and independently compile both TeX upload formats
 make lean-check     # Build the partial formalization and audit its axiom dependencies
 ```
 

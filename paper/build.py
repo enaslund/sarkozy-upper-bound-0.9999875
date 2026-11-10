@@ -106,6 +106,8 @@ def build(output_dir=None, keep=False):
                       inputs_unchanged=True,
                       closure={str(p.relative_to(ROOT)): h for p, h in sorted(files.items())})
         if output_dir:
+            for suffix in ('aux', 'toc', 'bbl'):
+                shutil.copy2(work/('main.'+suffix), out/('main.'+suffix))
             (out/'build_record.json').write_text(json.dumps(record, indent=1)+'\n')
         print(json.dumps(dict(record, closure=len(files)), indent=1))
     finally:
