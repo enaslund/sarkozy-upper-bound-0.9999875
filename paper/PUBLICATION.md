@@ -120,8 +120,10 @@ matches the repaired local PDF, although size alone does not establish byte
 identity. The log contains underfull-box layout warnings, not a fatal TeX
 error. The captured preview-page code displays `Compilation failed` and the
 older-distribution compatibility hint for any failed preview job; those labels
-do not identify which stage failed. The short error banner for this retry was
-not included in the supplied excerpt.
+do not identify which stage failed. The author subsequently supplied the
+banner: **Hexagon could not prepare a safe preview PDF from this output.**
+This locates the reported failure in preview PDF preparation after compilation.
+It does not expose the failing validation check or exception.
 
 The failure is therefore not confined to final stamping: a preview job can
 also fail after PDF generation. The available compiler log does not reveal
@@ -130,8 +132,17 @@ qpdf 12.4.2 preserve all 603 page-content streams and page dimensions, and both
 rewritten PDFs pass full structured-text extraction. These are compatibility
 checks, not reproductions of Hexagon's private PDF processor. Their results
 are included in the diagnostic audit; the temporary outputs are not upload
-alternatives. The latest preview error message/code and the server's
-postprocessing diagnostics are still needed to identify the cause.
+alternatives. The server's postprocessing diagnostics are still needed to
+identify the cause.
+
+Further comparison of the hosted pre-repair preview and the repaired local
+PDF found that both pass pdfcpu 0.16.4 in strict mode and Ghostscript 10.05.1
+with `-dPDFSTOPONWARNING`. Ghostscript processes all 603 pages in each file;
+its extracted text from the repaired PDF has no XML-invalid control characters
+(excluding ordinary page-break form feeds). These results do not identify
+Hexagon's processor or its limits, and do not establish that the hosted
+pipeline accepts the PDF. They provide no reproduced reason to revert the
+Unicode repair or change the manuscript again.
 
 The receipt means the source was received; the displayed processing failure
 still needs attention. There is no evidence supporting another TeX change or

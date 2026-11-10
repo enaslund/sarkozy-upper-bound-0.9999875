@@ -2,7 +2,7 @@
   "format": 1,
   "audited_on": "2026-11-10",
   "scope": "Diagnostic comparison, extraction and parse/write checks of local PDFs and a downloaded hosted preview; not a successful hosted preview or stamping receipt.",
-  "conclusion": "The received 20:08 source is byte-identical to the repaired current upload. Local extraction succeeds with four parsers, and two PDF read/write paths preserve the page content and valid structured text. A later hosted preview also failed after its compiler log reported successful generation of a 603-page, 5150107-byte PDF. That size matches the local PDF but does not establish byte identity. The latest preview banner/errorCode and private postprocessing diagnostics are not supplied; the backend failure cause remains unknown.",
+  "conclusion": "The received 20:08 source is byte-identical to the repaired current upload. A later preview reports that Hexagon could not prepare a safe preview PDF, although its compiler log reports successful generation of 603 pages and 5150107 bytes. That size matches the local PDF but does not prove byte identity. The local PDF passes extraction, parse/write checks, pdfcpu strict validation and Ghostscript stop-on-warning processing. The specific failure in Hexagon's PDF-preparation or stamping processor remains unknown and requires its internal diagnostic.",
   "current_source": {
     "file": "paper/hexagon-standalone.tex",
     "sha256": "038d18837786be84048785c35eed37a3884e64c26d29b367959e50d7736d3d8e"
@@ -234,9 +234,10 @@
     "local_pdf_size_matches": true,
     "remote_pdf_sha256_available": false,
     "size_match_proves_byte_identity": false,
-    "preview_banner_or_error_code": null,
-    "stage_conclusion": "The compiler portion completed; the failed preview job has a subsequent failure not described in its compiler log.",
-    "captured_ui_behavior": "The captured preview-page JavaScript displays Compilation failed and the older-TeX compatibility hint whenever preview.status is failed, without checking for a TeX engine error."
+    "preview_banner_or_error_code": "Hexagon could not prepare a safe preview PDF from this output.",
+    "stage_conclusion": "The supplied banner identifies failure during safe preview PDF preparation after successful TeX compilation. It does not identify the failing check or exception.",
+    "captured_ui_behavior": "The captured preview-page JavaScript displays Compilation failed and the older-TeX compatibility hint whenever preview.status is failed, without checking for a TeX engine error.",
+    "current_attempt_api_error_code": null
   },
   "pdf_parse_write_compatibility": {
     "scope": "Local PDF parse/write compatibility checks; not a reproduction of Hexagon's private sanitization or stamping code.",
@@ -290,6 +291,70 @@
       "pdf_lib": "PDFDocument.load(input, {throwOnInvalidObject: true, updateMetadata: false, parseSpeed: ParseSpeeds.Fastest}); doc.save({useObjectStreams: false, addDefaultPage: false})",
       "qpdf": "pikepdf.open(input).save(output, force_version=\"1.4\", object_stream_mode=pikepdf.ObjectStreamMode.disable)",
       "validation": "qpdf syntax check; compare all decoded page-content streams and MediaBoxes; parse all pdftotext -bbox-layout XHTML."
+    }
+  },
+  "strict_parser_comparison": {
+    "scope": "Test the pre-repair hosted preview and repaired local PDF with additional independent strict processors. These are not Hexagon's private checks.",
+    "pdfcpu": {
+      "version": "0.16.4",
+      "release": "https://github.com/pdfcpu/pdfcpu/releases/tag/v0.16.4",
+      "release_archive_sha256": "3271fdd66f4ec32f5a6282f85630f83b92e98d4db7e407cc0f56d9b543f63ecd",
+      "command": "pdfcpu validate --conf disable --offline --mode strict INPUT.pdf",
+      "results": [
+        {
+          "engine": "pdfcpu",
+          "artifact": "hosted_preview_before_repair",
+          "pdf_sha256": "b8c4c4c01a41342b794b480e3e416c170e8a98f780e7d5b7cf70c4c1913d15be",
+          "returncode": 0,
+          "seconds": 0.039869911037385464,
+          "stdout_bytes": 0,
+          "stderr": "validating(mode=strict) INPUT.pdf ...\nvalidation ok\n"
+        },
+        {
+          "engine": "pdfcpu",
+          "artifact": "current_local",
+          "pdf_sha256": "c669316d221a664f0731da7708a4f97fa27559e9f94399e1646780008573aa6c",
+          "returncode": 0,
+          "seconds": 0.037361625116318464,
+          "stdout_bytes": 0,
+          "stderr": "validating(mode=strict) INPUT.pdf ...\nvalidation ok\n"
+        }
+      ]
+    },
+    "ghostscript": {
+      "version": "10.05.1",
+      "command": "gs -dSAFER -dBATCH -dNOPAUSE -dPDFSTOPONWARNING -sDEVICE=txtwrite -sOutputFile=OUTPUT.txt INPUT.pdf",
+      "documentation": "https://ghostscript.readthedocs.io/en/latest/Use.html",
+      "results": [
+        {
+          "engine": "ghostscript",
+          "artifact": "hosted_preview_before_repair",
+          "pdf_sha256": "b8c4c4c01a41342b794b480e3e416c170e8a98f780e7d5b7cf70c4c1913d15be",
+          "returncode": 0,
+          "seconds": 9.14372931420803,
+          "stdout_bytes": 5606,
+          "stderr": "",
+          "text_bytes": 4778848,
+          "text_utf8_valid": true,
+          "xml_invalid_controls_except_page_breaks": 1768,
+          "pages_processed": 603,
+          "all_pages_processed_in_order": true
+        },
+        {
+          "engine": "ghostscript",
+          "artifact": "current_local",
+          "pdf_sha256": "c669316d221a664f0731da7708a4f97fa27559e9f94399e1646780008573aa6c",
+          "returncode": 0,
+          "seconds": 9.50004055397585,
+          "stdout_bytes": 5606,
+          "stderr": "",
+          "text_bytes": 4779632,
+          "text_utf8_valid": true,
+          "xml_invalid_controls_except_page_breaks": 0,
+          "pages_processed": 603,
+          "all_pages_processed_in_order": true
+        }
+      ]
     }
   }
 }
