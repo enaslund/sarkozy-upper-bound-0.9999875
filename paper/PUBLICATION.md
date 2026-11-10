@@ -1,6 +1,6 @@
 # Publication files
 
-The recommended upload is [hexagon-standalone.tex](hexagon-standalone.tex).
+The canonical upload is [hexagon-standalone.tex](hexagon-standalone.tex).
 This single file includes every section, appendix, macro, numerical table,
 the typeset bibliography, and the dependency diagram as vector drawing code.
 It needs standard TeX packages but no other manuscript files or shell escape.
@@ -67,14 +67,16 @@ distributed in the repository. The paper and code are licensed under Apache
 
 These commands prepare files locally. They do not create a Hexagon submission.
 
-The latest hosted retry completed both PDFLaTeX passes, produced a 603-page
-PDF, and ended with `Latexmk: All targets ... are up-to-date`. It had no
-remaining glue errors or duplicate labels, but Hexagon still reported
-“could not prepare a safe preview PDF.” The remaining failure is in preview
-processing after PDF generation; its cause is not exposed in the compiler
-log. [Hexagon's compatibility page](https://hexagonmath.org/compilation)
-identifies the toolchain and recommends reporting failures that do not
-reproduce locally. It does not document an additional PDF restriction.
+The latest hosted retry of this PDF 1.4 export completed both PDFLaTeX passes,
+produced a 603-page, 7,323,843-byte PDF, and ended with
+`Latexmk: All targets ... are up-to-date`. Its final pass had no TeX errors
+or package warnings, but Hexagon still reported “could not prepare a safe
+preview PDF.” The PDF profile changes have not resolved the hosted failure.
+The remaining failure is in preview processing after PDF generation; its
+cause is not exposed in the compiler log.
+[Hexagon's compatibility page](https://hexagonmath.org/compilation) identifies
+the toolchain and recommends reporting failures that do not reproduce locally.
+It does not document an additional PDF restriction.
 
 The manuscript emits PDF 1.4 with ordinary objects and cross-reference tables,
 without object streams or an automatic opening action. Internal links,
@@ -112,8 +114,64 @@ build with exact text and reference comparisons. Independent qpdf syntax
 checks and MuPDF rendering also pass. These checks validate the local PDF;
 they do not reproduce Hexagon's private preview processor.
 
-If a fresh preview of this export still fails after both passes finish, use
-Hexagon's **Report a problem** link and include the source file, its SHA-256
-from the manifest, the compiler log and the exact preview message. Ask for
-the PDF-processing error or resource limit: the displayed TeX log contains
-no such diagnostic. No automatic report or submission is sent by these tools.
+The [static diagnostic source](preview-diagnostics/static/hexagon-standalone.tex)
+contains the complete manuscript with PDF links, bookmarks and page anchors
+disabled using hyperref's supported `NoHyper` environment and package options.
+It is a controlled diagnostic, with hosted acceptance still unconfirmed.
+The canonical paper and upload remain unchanged by this experiment.
+
+Local tests with the matching final TeX Live 2025 engine gave:
+
+| Source | Pages | PDF bytes | PDF objects | Link annotations |
+| --- | ---: | ---: | ---: | ---: |
+| Canonical single-file export | 603 | 7,323,843 | 15,402 | 8,314 |
+| Complete static diagnostic | 603 | 5,149,913 | 2,149 | 0 |
+| Simple 603-page control | 603 | 397,456 | 1,943 | 0 |
+| Simple one-page control | 1 | 31,872 | 16 | 0 |
+
+Both complete versions have identical text after removing whitespace from
+`pdftotext -raw` output, identical page counts and all 2,345 label and citation
+records identical. A few paragraphs wrap differently when links are disabled.
+All four PDFs pass qpdf syntax checks and have no final package warnings or
+overfull boxes. The complete versions retain the same 63 underfull spacing
+messages. [verification.json](preview-diagnostics/verification.json) records
+source and PDF hashes, counts, toolchain and comparison results. This reproduces
+the hosted PDF byte count, but not Hexagon's custom format or preview processor.
+There is no confirmed page, file-size or object-count limit.
+
+Before spending another preview, inspect the existing status response in your
+browser: open Developer Tools (F12 in Chrome or Edge, Command-Option-I on macOS),
+select **Network**, filter by `preview`, and refresh the failed preview page.
+Select the GET request ending in `/preview`, without `/log`, `/check` or `/pdf`,
+and open **Response**. Its JSON may contain an `errorCode` or a more specific
+message. Read this response rather than copying request headers, cookies or
+tokens. Refreshing and reading status do not request another compilation.
+
+If the status response does not identify the cause, replace the staged source
+with the static diagnostic, preserving the filename `hexagon-standalone.tex`,
+and request one preview. Success would narrow the failure to PDF features or
+processing resources affected by this change; it would not identify a specific
+limit. If needed, the [603-page control](preview-diagnostics/pages-603/hexagon-standalone.tex)
+and [one-page control](preview-diagnostics/pages-1/hexagon-standalone.tex) can
+separately test simple documents. These two controls contain no manuscript
+and must never be used for final submission. Restore the complete manuscript
+after testing a control.
+
+To regenerate and verify these diagnostics with `pdflatex`, `pdftotext` and
+the Python package `pikepdf` available:
+
+```sh
+python3 -B paper/preview_diagnostics.py --verify
+python3 -B paper/preview_diagnostics.py --check
+```
+
+The first command compiles all four versions in separate temporary directories
+with shell escape disabled, then installs the diagnostic sources and receipt
+only after the checks pass. The second checks saved source and receipt hashes;
+it does not recompile. Regenerate the diagnostics after changing the canonical
+export. Neither command calls Hexagon or changes the canonical publication files.
+
+For Hexagon's **Report a problem** form, include the canonical source and its
+SHA-256 from the publication manifest, the status JSON, the compiler log and
+any controlled preview result. Ask for the PDF-processing diagnostic or resource
+limit behind the rejection. No automatic report or submission is sent by these tools.

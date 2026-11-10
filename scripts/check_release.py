@@ -32,6 +32,10 @@ PAPER_FILES = {
     "README.md", "PUBLICATION.md", "build.py", "package_publication.py", "submission.py",
     "main.pdf", "figures/dependency_graph.pdf", "hexagon-source.zip",
     "build_record.json", "publication_manifest.json", "hexagon-standalone.tex",
+    "preview_diagnostics.py", "preview-diagnostics/verification.json",
+    "preview-diagnostics/static/hexagon-standalone.tex",
+    "preview-diagnostics/pages-1/hexagon-standalone.tex",
+    "preview-diagnostics/pages-603/hexagon-standalone.tex",
 }
 IGNORED_DIRS = {".git", "__pycache__", ".venv", "_build"}
 PRIVACY_PATTERNS = {
@@ -208,6 +212,7 @@ def main():
         if path.suffix not in {".pdf", ".zip"}:
             privacy_check(name, path.read_text())
     publication = check_archive(closure)
+    run(sys.executable, "-B", str(ROOT / "paper/preview_diagnostics.py"), "--check")
     pages = check_pdf(ROOT / "paper/main.pdf")
     check_pdf(ROOT / "paper/figures/dependency_graph.pdf")
     require(pages == publication["pages"], "PDF page count differs from manifest")
