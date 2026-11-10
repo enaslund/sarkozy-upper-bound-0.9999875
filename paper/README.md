@@ -7,6 +7,9 @@ renaming is required. It includes the text-extraction repair and the preview's
 working PDF configuration. See [PUBLICATION.md](PUBLICATION.md) for checks and
 build instructions.
 
+The downloaded `hexagon-preview-026c6d05e1a9.pdf` is historical diagnostic
+evidence: it lacks the Unicode repair and does not match the current local PDF.
+
 [main.pdf](main.pdf) is the complete manuscript. The TeX entry point is
 [main.tex](main.tex). The single-file export
 contains the full paper, bibliography and vector diagram and initializes

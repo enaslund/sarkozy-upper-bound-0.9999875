@@ -33,6 +33,8 @@ PAPER_FILES = {
     "main.pdf", "figures/dependency_graph.pdf", "hexagon-source.zip",
     "build_record.json", "publication_manifest.json", "hexagon-standalone.tex",
     "hexagon-standalone.pdf",
+    # Downloaded hosted output and its extraction audit, retained as evidence.
+    "hexagon-preview-026c6d05e1a9.pdf", "text-extraction-audit.json",
 }
 IGNORED_DIRS = {".git", "__pycache__", ".venv", "_build"}
 PRIVACY_PATTERNS = {
@@ -223,6 +225,9 @@ def main():
     check_pdf(ROOT / "paper/figures/dependency_graph.pdf")
     require(check_pdf(ROOT / "paper/hexagon-standalone.pdf") == pages,
             "Submission candidate page count differs from the manuscript")
+    # This historical preview intentionally fails structured-text validation.
+    # Apply the ordinary privacy/attachment checks without treating it as an upload.
+    check_pdf(ROOT / "paper/hexagon-preview-026c6d05e1a9.pdf")
     require(pages == publication["pages"], "PDF page count differs from manifest")
     modules = check_lean_imports(files)
     check_links(files)

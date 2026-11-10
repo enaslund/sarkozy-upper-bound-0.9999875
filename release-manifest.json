@@ -14589,12 +14589,12 @@
       "bytes": 1967
     },
     "paper/PUBLICATION.md": {
-      "sha256": "f6ff562301a91fe1535ee8d7630fe6dc17d997f1e67a768ad112991de7e983d0",
-      "bytes": 5356
+      "sha256": "83a8d5e084fe51e2768916713acd4e4a6ab37b5f87b8b3c5ce98709151f9a92e",
+      "bytes": 7986
     },
     "paper/README.md": {
-      "sha256": "74d06322b1b0c380df78da30e090985218d45a0b15ce10ba3a68ef1490e5d3a1",
-      "bytes": 2025
+      "sha256": "92bb4fd4756f960ccce179c295e8e7309295a86ebd094174335f85958137a7b3",
+      "bytes": 2181
     },
     "paper/advance_values.tex": {
       "sha256": "6a1fea94c613a4a1191d0974dcdb7711cd9180bf575bdb4cfb6eaec22096de02",
@@ -14639,6 +14639,10 @@
     "paper/further_values.tex": {
       "sha256": "5dc73e6c39c64128b2a4dc1d099a9fdaa2f2d6f99d7e3126ddfdd46a8623aff8",
       "bytes": 406
+    },
+    "paper/hexagon-preview-026c6d05e1a9.pdf": {
+      "sha256": "b8c4c4c01a41342b794b480e3e416c170e8a98f780e7d5b7cf70c4c1913d15be",
+      "bytes": 5149913
     },
     "paper/hexagon-source.zip": {
       "sha256": "088f0658ad208d8e26b03c412d19bc58afdd1485f5d279350c5e6217a2bff875",
@@ -14876,9 +14880,13 @@
       "sha256": "db4ea46def377ae5ba9889d42cc1478e38f6d5e42607a0c0e1f4325d1fe14db3",
       "bytes": 10391
     },
+    "paper/text-extraction-audit.json": {
+      "sha256": "889c7f20d3d63f0404e6748cb9414448b519b2a0ef55bc701eef3f7698e5ec60",
+      "bytes": 7690
+    },
     "scripts/check_release.py": {
-      "sha256": "3bb8bb27fd3e3a7c1c54b6857cb156aecf402860a016bb363c570a13f7df3594",
-      "bytes": 12147
+      "sha256": "248ceb77c093342d58f4a236d66dab99e7777cd9e274fb1080de3883e990dd1a",
+      "bytes": 12522
     }
   }
 }

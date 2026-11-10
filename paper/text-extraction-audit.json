@@ -1,0 +1,224 @@
+{
+  "format": 1,
+  "audited_on": "2026-11-10",
+  "scope": "Diagnostic comparison of a downloaded hosted preview with local PDFs; not a successful hosted stamping receipt.",
+  "conclusion": "The source downloaded from the received 20:08 package is byte-identical to the repaired current upload, ruling out an outdated upload. Local extraction succeeds with four parsers. The downloaded preview retains the pre-repair Unicode map and an earlier creation time; its relation to the latest processing attempt is not established. Hexagon's stamping command and diagnostic details are needed to identify the remaining failure.",
+  "current_source": {
+    "file": "paper/hexagon-standalone.tex",
+    "sha256": "038d18837786be84048785c35eed37a3884e64c26d29b367959e50d7736d3d8e"
+  },
+  "artifacts": {
+    "hosted_preview": "paper/hexagon-preview-026c6d05e1a9.pdf (public companion repository)",
+    "before_repair": "public companion git f069133:paper/hexagon-submit.pdf",
+    "current_upload": "paper/hexagon-standalone.pdf"
+  },
+  "structured_text_command": "pdftotext -bbox-layout PDF -; validate the entire output with xml.etree.ElementTree.iterparse",
+  "object_comparison": "Compare resolved object dictionaries and decoded stream bytes; report the trailer ID separately.",
+  "tool": "pdftotext version 25.03.0",
+  "pdfs": {
+    "hosted_preview": {
+      "sha256": "b8c4c4c01a41342b794b480e3e416c170e8a98f780e7d5b7cf70c4c1913d15be",
+      "bytes": 5149913,
+      "pages": 603,
+      "syntax_warnings": [],
+      "creation_date": "D:20261110184858Z",
+      "math_extension_cmap": {
+        "object": 2096,
+        "bytes": 868,
+        "sha256": "abd6f11288c0a1367e5b8c8ba375cec7671b3154dde29c12046f0fc254998d3f"
+      },
+      "bbox": {
+        "returncode": 0,
+        "stderr": "",
+        "bytes": 57573607,
+        "illegal_xml_controls": 1194,
+        "affected_pages": 324,
+        "first_bad": {
+          "page": 12,
+          "line": 7355,
+          "codepoints": [
+            "U+0001"
+          ]
+        },
+        "valid_xml": false,
+        "error": "not well-formed (invalid token): line 7355, column 88"
+      }
+    },
+    "before_repair": {
+      "sha256": "da42926c05d3f7e24a7a15fc58e0e478fa1d411da0934fb76333e4a2dc86d1a0",
+      "bytes": 5149913,
+      "pages": 603,
+      "syntax_warnings": [],
+      "creation_date": "D:20261110000000Z",
+      "math_extension_cmap": {
+        "object": 2096,
+        "bytes": 868,
+        "sha256": "abd6f11288c0a1367e5b8c8ba375cec7671b3154dde29c12046f0fc254998d3f"
+      },
+      "bbox": {
+        "returncode": 0,
+        "stderr": "",
+        "bytes": 57573607,
+        "illegal_xml_controls": 1194,
+        "affected_pages": 324,
+        "first_bad": {
+          "page": 12,
+          "line": 7355,
+          "codepoints": [
+            "U+0001"
+          ]
+        },
+        "valid_xml": false,
+        "error": "not well-formed (invalid token): line 7355, column 88"
+      }
+    },
+    "current_upload": {
+      "sha256": "c669316d221a664f0731da7708a4f97fa27559e9f94399e1646780008573aa6c",
+      "bytes": 5150107,
+      "pages": 603,
+      "syntax_warnings": [],
+      "creation_date": "D:20261110000000Z",
+      "math_extension_cmap": {
+        "object": 2096,
+        "bytes": 1453,
+        "sha256": "de6c74994f08f73c91c3d9c3274eb4866d7fe82ae2f0d382a2fcc674aaccacd9"
+      },
+      "bbox": {
+        "returncode": 0,
+        "stderr": "",
+        "bytes": 57787713,
+        "illegal_xml_controls": 0,
+        "affected_pages": 0,
+        "first_bad": null,
+        "valid_xml": true,
+        "pages": 603,
+        "words": 515528
+      }
+    }
+  },
+  "hosted_vs_before_repair": {
+    "object_counts": [
+      2149,
+      2149
+    ],
+    "different_objects": [
+      2149
+    ],
+    "info_object": 2149,
+    "page_content_streams_identical": true,
+    "media_boxes_identical": true,
+    "trailer_ids_differ": true
+  },
+  "hosted_vs_current_upload": {
+    "object_counts": [
+      2149,
+      2149
+    ],
+    "different_objects": [
+      2096,
+      2149
+    ],
+    "info_object": 2149,
+    "page_content_streams_identical": true,
+    "media_boxes_identical": true,
+    "trailer_ids_differ": true
+  },
+  "independent_extractors": [
+    {
+      "tool": "pdfjs-dist",
+      "version": "6.5.438",
+      "strict": true,
+      "pdf_sha256": "c669316d221a664f0731da7708a4f97fa27559e9f94399e1646780008573aa6c",
+      "pages": 603,
+      "nonempty_pages": 603,
+      "text_bytes": 2784814,
+      "illegal_xml_controls": 0,
+      "expected_pages": 603,
+      "passed": true,
+      "seconds": 7.765662776999999,
+      "artifact": "current_upload",
+      "method": "getDocument({stopAtErrors: true}); page.getTextContent() for every page"
+    },
+    {
+      "tool": "pdfjs-dist",
+      "version": "6.5.438",
+      "strict": true,
+      "pdf_sha256": "b8c4c4c01a41342b794b480e3e416c170e8a98f780e7d5b7cf70c4c1913d15be",
+      "pages": 603,
+      "nonempty_pages": 603,
+      "text_bytes": 2785556,
+      "illegal_xml_controls": 0,
+      "expected_pages": 603,
+      "passed": true,
+      "seconds": 7.845574246999999,
+      "artifact": "hosted_preview",
+      "method": "getDocument({stopAtErrors: true}); page.getTextContent() for every page"
+    },
+    {
+      "tool": "pypdf",
+      "pdf_sha256": "c669316d221a664f0731da7708a4f97fa27559e9f94399e1646780008573aa6c",
+      "version": "7.0.1",
+      "strict": true,
+      "passed": true,
+      "pages": 603,
+      "nonempty_pages": 603,
+      "text_bytes": 2241195,
+      "illegal_xml_controls": 0,
+      "seconds": 21.360842453315854,
+      "artifact": "current_upload",
+      "method": "PdfReader(strict=True); page.extract_text() for every page"
+    },
+    {
+      "tool": "pdfminer.six",
+      "pdf_sha256": "c669316d221a664f0731da7708a4f97fa27559e9f94399e1646780008573aa6c",
+      "version": "20260107",
+      "passed": true,
+      "pages": 603,
+      "nonempty_pages": 603,
+      "text_bytes": 2339144,
+      "illegal_xml_controls": 0,
+      "seconds": 35.05378316203132,
+      "artifact": "current_upload",
+      "method": "pdfminer.high_level.extract_text() for the entire document"
+    }
+  ],
+  "received_source": {
+    "original_download": "hexagon-standalone-from-hexagon-downloaded.tex",
+    "preserved_in_public_companion_commit": "dc43a8a",
+    "sha256": "038d18837786be84048785c35eed37a3884e64c26d29b367959e50d7736d3d8e",
+    "bytes": 3162472,
+    "byte_identical_to_current_source": true,
+    "working_tree_duplicate_removed": true
+  },
+  "hosted_preview_correlation": "The PDF metadata reports 18:48:58 UTC, and its font map matches the pre-repair build. Metadata alone does not establish which package or processing attempt produced or reused it.",
+  "process_buffer_experiment": {
+    "note": "Local wrapper experiment; Hexagon implementation unknown.",
+    "results": [
+      {
+        "name": "default stdout buffer",
+        "passed": false,
+        "code": "ERR_CHILD_PROCESS_STDIO_MAXBUFFER",
+        "message": "stdout maxBuffer length exceeded",
+        "bytes": 1048576,
+        "seconds": 1.8813020710000001
+      },
+      {
+        "name": "8 MiB stdout buffer",
+        "passed": true,
+        "bytes": 2353114,
+        "stderr": "",
+        "seconds": 3.950203262
+      },
+      {
+        "name": "first page, default buffer",
+        "passed": true,
+        "bytes": 3672,
+        "stderr": "",
+        "seconds": 0.020050545000000055
+      }
+    ],
+    "node_version": "v24.21.0",
+    "command": "child_process.execFile(\"pdftotext\", [PDF, \"-\"]); default options versus {maxBuffer: 8 * 1024 * 1024}; also [-f, 1, -l, 1, PDF, -] with default options",
+    "node_documentation": "https://nodejs.org/download/release/v24.22.1/docs/api/child_process.html"
+  }
+}

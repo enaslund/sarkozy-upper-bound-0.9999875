@@ -70,12 +70,54 @@ PDF has no invalid control characters and extracts valid XHTML across all
 content and reference values; a 72-dpi comparison of all rendered pages also
 matched. It is included directly in the single-file export.
 
-This fixes a reproduced extraction defect. Hexagon's private stamping
-implementation is unavailable locally, so final hosted processing still needs
-a retry. If source replacement is offered on the existing submission page,
-replace `hexagon-standalone.tex` directly and retry processing. If the record is
-locked, use **Report a problem** and request source replacement and reprocessing
-with the repaired file. These tools do not submit a deposit or contact Hexagon.
+The 10 November retry also reported `text_extraction_failed`. The two receipt
+emails confirm that two source packages were received under the same identifier;
+receipt and preview success do not establish successful final processing or
+publication. The submission page now offers **Fix and resubmit** under that
+identifier.
+
+An audit of the downloaded hosted preview found that it still has the old
+Unicode map. Its PDF creation time is 18:48:58 UTC, before the repair was
+committed at 19:35 UTC. All 2,149 PDF objects match the earlier local PDF except
+the metadata object; the trailer identifier also differs. Its bounding-box
+XHTML contains the same 1,194 invalid control characters, first appearing on
+page 12. Metadata alone cannot establish whether this preview came from an
+earlier attempt or was reused during the latest one; the final-stage compiled
+PDF has not been made available for comparison.
+
+The current upload PDF passes full-document extraction with Poppler 25.03.0,
+PDF.js 6.5.438, pypdf 7.0.1 and pdfminer.six 20260107. Poppler's bounding-box
+XHTML parses across all 603 pages with zero invalid control characters.
+[text-extraction-audit.json](text-extraction-audit.json) records the artifact
+hashes and comparisons. The [downloaded hosted preview](hexagon-preview-026c6d05e1a9.pdf)
+is retained as diagnostic evidence; it does not match the current local PDF.
+
+Hexagon's stored source for the 20:08 package was then downloaded and compared:
+it is **byte-for-byte identical** to the current `hexagon-standalone.tex`.
+Both individual files have SHA-256
+`038d18837786be84048785c35eed37a3884e64c26d29b367959e50d7736d3d8e`.
+The received copy is preserved in commit
+[dc43a8a](https://github.com/enaslund/sarkozy-upper-bound-0.9999875/commit/dc43a8a).
+Its duplicate working-tree copy was removed after the comparison, retaining
+one upload file. The receipt's **source-package** hash identifies a package
+and must not be compared directly with this individual file hash.
+
+An outdated upload is therefore ruled out for the latest failure. The current
+source already contains the repair, and no further extraction defect has been
+reproduced locally. The exact failure in Hexagon's stamping processor remains
+unknown. Use **Report a problem** on the existing submission, include its
+receipt and this audit, and request the extractor's command, version, exit
+status, stderr, output size and applicable resource limits. Ask which compiled
+PDF was processed and request reprocessing of the received package. A local
+Node.js experiment failed with a 1 MiB stdout buffer and succeeded with 8 MiB;
+the extracted plain text is 2,353,114 bytes. This is only a resource-limit
+example, not evidence that Hexagon uses that implementation or limit.
+
+The receipt means the source was received; the displayed processing failure
+still needs attention. There is no evidence supporting another TeX change or
+a new submission identifier. If Hexagon identifies a necessary source change,
+**Fix and resubmit** can apply it to the existing identifier. These tools do
+not submit a deposit or contact Hexagon.
 
 Validation uses final TeX Live 2025: pdfTeX 1.40.28, LaTeX 2025-11-01,
 L3 2026-01-19 and longtable v4.24, matching the hosted log. Final manuscript and
