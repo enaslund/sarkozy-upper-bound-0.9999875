@@ -140,9 +140,14 @@ def verify(paper, compiled, work, command):
     exported_refs = REFERENCE.findall((work / "output/paper.aux").read_text())
     if original_refs != exported_refs:
         raise ValueError("Standalone export changed a label, page reference or citation")
-    pages = int(re.search(r"Pages:\s+(\d+)", command(["pdfinfo", str(pdf)], work)).group(1))
+    info = command(["pdfinfo", str(pdf)], work)
+    pages = int(re.search(r"Pages:\s+(\d+)", info).group(1))
+    pdf_version = re.search(r"PDF version:\s+(\S+)", info).group(1)
+    if pdf_version != "1.4":
+        raise ValueError("Submission PDF must retain the PDF 1.4 compatibility setting")
     return dict(source="hexagon-standalone.tex", sha256=sha256(exported.encode()).hexdigest(),
                 bytes=len(exported.encode()), pages=pages, pdflatex_passes=passes,
+                pdf_version=pdf_version, warnings=build.warning_summary(log),
                 bibliography_inlined=True, diagram_inlined=True,
                 reference_seed="first build only; regenerated aux/toc take precedence",
                 verification=dict(clean_final_log=True, identical_rendered_text=True,

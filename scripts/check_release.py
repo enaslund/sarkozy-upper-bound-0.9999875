@@ -20,7 +20,7 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / "release-manifest.json"
 ROOT_FILES = {
-    ".gitignore", "README.md", "LICENSE", "NOTICE", "CITATION.cff", "Makefile",
+    ".gitattributes", ".gitignore", "README.md", "LICENSE", "NOTICE", "CITATION.cff", "Makefile",
     "scripts/check_release.py",
 }
 LEAN_FILES = {
@@ -172,6 +172,10 @@ def check_archive(closure):
         require(digest((ROOT / name).read_bytes()) == expected_hash,
                 f"Source differs from build receipt: {name}")
     require(record["pdf_sha256"] == publication["pdf_sha256"], "Build PDF hash differs")
+    require(record["pdf_version"] == "1.4", "Manuscript PDF compatibility setting changed")
+    require(not record["warnings"]["package_warnings"]
+            and record["warnings"]["overfull_boxes"] == 0,
+            "Manuscript has unresolved package warnings or overfull boxes")
     standalone = publication["standalone_upload"]
     require(standalone["source"] == "hexagon-standalone.tex", "Unexpected standalone source")
     raw = (ROOT / "paper/hexagon-standalone.tex").read_bytes()
@@ -180,6 +184,8 @@ def check_archive(closure):
     require(digest((ROOT / "paper/submission.py").read_bytes())
             == standalone["export_script_sha256"], "Submission exporter changed")
     require(standalone["pages"] == publication["pages"], "Standalone page count differs")
+    require(standalone["pdf_version"] == record["pdf_version"], "Standalone PDF version differs")
+    require(standalone["warnings"] == record["warnings"], "Standalone warning audit differs")
     require(all(standalone["verification"][key] for key in
                 ("clean_final_log", "identical_rendered_text", "identical_labels_and_citations")),
             "Standalone compilation or manuscript equivalence check failed")

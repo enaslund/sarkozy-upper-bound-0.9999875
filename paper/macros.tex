@@ -22,6 +22,8 @@
 \usepackage[margin=1.05in]{geometry}
 \PassOptionsToPackage{hyphens}{url}
 \usepackage[hypertexnames=false,colorlinks=true,linkcolor=blue!50!black,citecolor=green!35!black,urlcolor=blue!60!black]{hyperref}
+% Numeric parameter macros may contain fractions in PDF bookmark alternatives.
+\pdfstringdefDisableCommands{\def\frac#1#2{#1/#2}}
 \usepackage[capitalise,noabbrev]{cleveref}
 \renewcommand{\theHtable}{lt.\arabic{table}} % longtable anchors use \theHtable; keep them apart from float anchors
 \Urlmuskip=0mu plus 1mu\relax % let long URLs stretch at their break points

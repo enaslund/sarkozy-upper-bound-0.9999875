@@ -1,3 +1,8 @@
+% Use ordinary PDF 1.4 objects for conservative repository PDF processors.
+\pdfminorversion=4
+\pdfobjcompresslevel=0
+% The manuscript uses PDF figures and TikZ, so no EPS conversion is needed.
+\newcommand{\DoNotLoadEpstopdf}{}
 \documentclass[11pt]{amsart}
 \input{macros}
 \input{improvement_values}
@@ -14,7 +19,8 @@
 \author[]{Eric Naslund\textsuperscript{$*$}}
 \email{naslund.math@gmail.com}
 \date{November 10, 2026}
-\hypersetup{pdftitle={An Upper Bound Exponent of 0.9999873 for Square-Difference-Free Sets},
+\hypersetup{pdfstartview={},
+  pdftitle={An Upper Bound Exponent of 0.9999873 for Square-Difference-Free Sets},
   pdfsubject={An explicit power saving for square-difference-free sets},
   pdfkeywords={square differences, additive combinatorics, explicit bounds}}
 

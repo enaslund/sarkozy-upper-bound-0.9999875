@@ -19,7 +19,9 @@ PAPER = Path(__file__).resolve().parent
 ROOT = PAPER.parent
 REJECT = ('Overfull', 'undefined references', 'undefined citations', 'There were undefined',
           'multiply defined', 'Label(s) may have changed', 'Rerun to get',
-          'destination with the same identifier', 'Infinite glue shrinkage', 'ignored error:')
+          'destination with the same identifier', 'Infinite glue shrinkage', 'ignored error:',
+          'Token not allowed in a PDF string', 'Foreign command \\over',
+          'Package epstopdf Warning:')
 
 
 def sha(path):
@@ -28,6 +30,15 @@ def sha(path):
 
 def strip(text):
     return '\n'.join(re.sub(r'(?<!\\)%.*$', '', line) for line in text.splitlines())
+
+
+def warning_summary(log):
+    """Record remaining diagnostics without suppressing layout messages."""
+    packages = re.findall(r'Package (\S+) Warning:', log)
+    return dict(package_warnings={name: packages.count(name) for name in sorted(set(packages))},
+                underfull_hboxes=log.count('Underfull \\hbox'),
+                underfull_vboxes=log.count('Underfull \\vbox'),
+                overfull_boxes=log.count('Overfull'))
 
 
 def closure():
@@ -104,6 +115,9 @@ def build(output_dir=None, keep=False):
         shutil.copy2(fig, out/'figures'/'dependency_graph.pdf')
         record = dict(status='PASS', pages=pages, pdf_sha256=sha(out/'main.pdf'),
                       inputs_unchanged=True,
+                      pdf_version=re.search(r'PDF version:\s+(\S+)', info).group(1),
+                      warnings=warning_summary(log),
+                      figure_warnings=warning_summary((work/'figures/dependency_graph.log').read_text(errors='replace')),
                       closure={str(p.relative_to(ROOT)): h for p, h in sorted(files.items())})
         if output_dir:
             for suffix in ('aux', 'toc', 'bbl'):

@@ -67,24 +67,53 @@ distributed in the repository. The paper and code are licensed under Apache
 
 These commands prepare files locally. They do not create a Hexagon submission.
 
-The original ZIP attempt was terminated during pass three. The subsequent
-single-file attempt completed both passes and produced all 603 pages, but
-Hexagon rejected the preview and highlighted `ignored error: Infinite glue
-shrinkage`. This is a known interaction between longtable and LaTeX's page-mark
-handling, documented in [LaTeX issue 1907](https://github.com/latex3/latex2e/issues/1907).
-It does not make PDFLaTeX fail; the log alone does not establish why Hexagon's
-subsequent preview processing rejected the PDF.
+The latest hosted retry completed both PDFLaTeX passes, produced a 603-page
+PDF, and ended with `Latexmk: All targets ... are up-to-date`. It had no
+remaining glue errors or duplicate labels, but Hexagon still reported
+“could not prepare a safe preview PDF.” The remaining failure is in preview
+processing after PDF generation; its cause is not exposed in the compiler
+log. [Hexagon's compatibility page](https://hexagonmath.org/compilation)
+identifies the toolchain and recommends reporting failures that do not
+reproduce locally. It does not document an additional PDF restriction.
 
-The manuscript now backports the upstream longtable v4.25 fix to older package
-versions: page-break glue retains infinite stretch but uses finite shrink.
-Newer longtable versions are left alone. The export also initializes AMS
-contents indentation without producing duplicate-label warnings. In an
-isolated installation of final TeX Live 2025, matching the reported pdfTeX
-1.40.28, LaTeX 2025-11-01, L3 2026-01-19 and longtable v4.24, the original
-file reproduced 21 glue diagnostics per pass and five initial duplicate
-labels; the corrected file produced none. Both builds took two PDFLaTeX
-passes and agreed on all 603 pages' extracted text and all 2,345 label and
-citation records. All pages also rendered successfully with MuPDF.
-The packaging checks reject these diagnostics, and the manifest records the
-tested TeX versions. Hexagon's custom format and preview processor are not
-available locally; hosted acceptance still requires a fresh preview.
+The manuscript emits PDF 1.4 with ordinary objects and cross-reference tables,
+without object streams or an automatic opening action. Internal links,
+bookmarks and the vector diagram are retained. These are conservative
+compatibility changes, not a confirmed explanation of Hexagon's rejection.
+The PDF version is checked when packaging the single-file export. Hexagon's
+custom format and preview processor are unavailable locally; acceptance still
+requires a successful hosted preview.
+
+The local warning audit uses final TeX Live 2025: pdfTeX 1.40.28,
+LaTeX 2025-11-01, L3 2026-01-19 and longtable v4.24, matching the hosted log.
+The main manuscript's 318 package warnings have been resolved: headings have
+explicit text alternatives for PDF bookmarks, two old `\over` expressions use
+`\frac`, and the unused automatic EPS converter is disabled. The final main
+log has zero package warnings, undefined references, duplicate labels or
+overfull boxes. It retains 20 underfull horizontal boxes and 43 underfull
+vertical boxes: spacing diagnostics for the existing justified paragraphs
+and page layout. These messages have not been suppressed. Compiling the
+separate dependency figure also reports that shell escape is disabled; no
+external conversion is requested. That warning is absent from the single-file
+upload, which includes the drawing directly. Build receipts and the
+publication manifest record the remaining warning counts.
+
+The earlier longtable repair remains in place. It backports the upstream
+v4.25 finite-shrink fix to older versions, as documented in
+[LaTeX issue 1907](https://github.com/latex3/latex2e/issues/1907). Newer package
+versions are left alone. The export initializes AMS contents indentation
+without redefining labels, and packaging rejects a recurrence of the glue,
+bookmark, fraction-command or unused-EPS warnings.
+
+The revised PDF preserves all 603 pages' extracted text, and all 2,345 label
+and citation records agree after removing the PDF-only title alternatives.
+The generated single-file export is checked against the revised canonical
+build with exact text and reference comparisons. Independent qpdf syntax
+checks and MuPDF rendering also pass. These checks validate the local PDF;
+they do not reproduce Hexagon's private preview processor.
+
+If a fresh preview of this export still fails after both passes finish, use
+Hexagon's **Report a problem** link and include the source file, its SHA-256
+from the manifest, the compiler log and the exact preview message. Ask for
+the PDF-processing error or resource limit: the displayed TeX log contains
+no such diagnostic. No automatic report or submission is sent by these tools.

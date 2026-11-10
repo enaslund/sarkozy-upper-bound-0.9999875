@@ -1,0 +1,2 @@
+# PDF objects may precede the first binary stream; always treat PDFs as binary.
+*.pdf binary
