@@ -19,7 +19,7 @@ PAPER = Path(__file__).resolve().parent
 ROOT = PAPER.parent
 REJECT = ('Overfull', 'undefined references', 'undefined citations', 'There were undefined',
           'multiply defined', 'Label(s) may have changed', 'Rerun to get',
-          'destination with the same identifier')
+          'destination with the same identifier', 'Infinite glue shrinkage', 'ignored error:')
 
 
 def sha(path):

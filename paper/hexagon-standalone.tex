@@ -12,6 +12,18 @@
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{longtable}
+\usepackage{etoolbox}
+% Backport longtable v4.25's finite shrink at page breaks (LaTeX issue 1907).
+% TeX Live 2025's mark extraction otherwise reports ignored primitive errors.
+% Keep infinite stretch; change only the two shrink components in LT@output.
+\makeatletter
+\@ifpackagelater{longtable}{2025/12/22}{}{%
+  \patchcmd{\LT@output}{\vss}{\vskip\z@\@plus1fil\@minus\normalbaselineskip}{}%
+    {\PackageError{manuscript}{Cannot patch longtable page-break glue}{Update the longtable compatibility patch.}}%
+  \patchcmd{\LT@output}{\vss}{\vskip\z@\@plus1fil\@minus\normalbaselineskip}{}%
+    {\PackageError{manuscript}{Cannot patch longtable page-break glue}{Update the longtable compatibility patch.}}%
+}
+\makeatother
 \usepackage[margin=1.05in]{geometry}
 \PassOptionsToPackage{hyphens}{url}
 \usepackage[hypertexnames=false,colorlinks=true,linkcolor=blue!50!black,citecolor=green!35!black,urlcolor=blue!60!black]{hyperref}
@@ -3318,11 +3330,11 @@
 \bibcite{Vaughan97}{72}
 \bibcite{Weil48}{73}
 \bibcite{Weil49}{74}
-\newlabel{tocindent-1}{0pt}
-\newlabel{tocindent0}{64.17908pt}
-\newlabel{tocindent1}{72.54378pt}
-\newlabel{tocindent2}{44.77336pt}
-\newlabel{tocindent3}{0pt}
+\expandafter\gdef\csname r@tocindent-1\endcsname{0pt}
+\expandafter\gdef\csname r@tocindent0\endcsname{64.17908pt}
+\expandafter\gdef\csname r@tocindent1\endcsname{72.54378pt}
+\expandafter\gdef\csname r@tocindent2\endcsname{44.77336pt}
+\expandafter\gdef\csname r@tocindent3\endcsname{0pt}
     }{}%
   }{}%
   \immediate\write\@auxout{\string\gdef\string\HexagonAuxReady{}}%

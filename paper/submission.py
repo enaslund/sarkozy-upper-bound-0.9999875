@@ -40,6 +40,11 @@ def reference_seed(compiled):
     entries = "".join(re.findall(
         r"(?m)^(?:\\newlabel|\\bibcite|\\gdef \\LT@).*?(?=^\\|\Z)", aux, re.S))
     entries = "\n".join(line.rstrip() for line in entries.splitlines()) + "\n"
+    # amsart initializes these dimensions before our begin-document hook.
+    # Set their cached values directly instead of redefining existing labels.
+    entries = re.sub(r"(?m)^\\newlabel\{(tocindent-?\d+)\}\{([^{}]+)\}$",
+                     lambda m: rf"\expandafter\gdef\csname r@{m[1]}\endcsname{{{m[2]}}}",
+                     entries)
     toc = (compiled / "main.toc").read_text()
     return r"""% Initial reference data from the independently compiled manuscript.
 % The normal aux/toc files are regenerated; these values are not frozen.
@@ -110,6 +115,12 @@ def verify(paper, compiled, work, command):
     for passes in range(1, 6):
         command(latex, work)
         log = (work / "output/paper.log").read_text(errors="replace")
+        # These nonfatal primitive diagnostics can still trip hosted preview
+        # log parsers. Reject them on every pass, including the seeded first run.
+        normalized_log = " ".join(log.split())
+        if any(term in normalized_log for term in
+               ("ignored error:", "Infinite glue shrinkage", "multiply defined")):
+            raise ValueError(f"Standalone pass {passes} contains a primitive diagnostic or duplicate label")
         # Always test a pass that reads the newly generated auxiliary files.
         if passes >= 2 and not any(term in log for term in
                                   ("Label(s) may have changed", "Rerun to get",
@@ -138,5 +149,11 @@ def verify(paper, compiled, work, command):
                                   text_extraction="pdftotext -raw",
                                   identical_labels_and_citations=True,
                                   labels_and_citations=len(exported_refs), jobname="paper",
-                                  separate_output_directory=True, shell_escape=False),
+                                  separate_output_directory=True, shell_escape=False,
+                                  primitive_diagnostics_all_passes=0,
+                                  multiply_defined_labels_all_passes=0),
+                toolchain=dict(engine=command(["pdflatex", "--version"], work).splitlines()[0],
+                               latex=re.search(r"LaTeX2e <([^>]+)>", log).group(1),
+                               l3=re.search(r"L3 programming layer <([^>]+)>", log).group(1),
+                               longtable=re.search(r"Package: longtable ([^\n]+)", log).group(1)),
                 export_script_sha256=sha256(Path(__file__).read_bytes()).hexdigest())

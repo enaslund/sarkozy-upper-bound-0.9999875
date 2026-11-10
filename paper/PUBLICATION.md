@@ -67,10 +67,24 @@ distributed in the repository. The paper and code are licensed under Apache
 
 These commands prepare files locally. They do not create a Hexagon submission.
 
-The reported Hexagon failure ended with `Caught a SIGTERM` during pass three,
-after pass two had produced a 603-page PDF. This indicates external termination,
-consistent with a time limit, rather than a missing source file. The log's
-`ignored error: Infinite glue shrinkage` diagnostic is explicitly nonfatal in
-[LaTeX's November 2025 release notes](https://www.latex-project.org/news/latex2e-news/ltnews42.pdf).
-Flattening alone does not remove the work of typesetting the paper; the export
-reduces the passes needed to establish references and the bibliography.
+The original ZIP attempt was terminated during pass three. The subsequent
+single-file attempt completed both passes and produced all 603 pages, but
+Hexagon rejected the preview and highlighted `ignored error: Infinite glue
+shrinkage`. This is a known interaction between longtable and LaTeX's page-mark
+handling, documented in [LaTeX issue 1907](https://github.com/latex3/latex2e/issues/1907).
+It does not make PDFLaTeX fail; the log alone does not establish why Hexagon's
+subsequent preview processing rejected the PDF.
+
+The manuscript now backports the upstream longtable v4.25 fix to older package
+versions: page-break glue retains infinite stretch but uses finite shrink.
+Newer longtable versions are left alone. The export also initializes AMS
+contents indentation without producing duplicate-label warnings. In an
+isolated installation of final TeX Live 2025, matching the reported pdfTeX
+1.40.28, LaTeX 2025-11-01, L3 2026-01-19 and longtable v4.24, the original
+file reproduced 21 glue diagnostics per pass and five initial duplicate
+labels; the corrected file produced none. Both builds took two PDFLaTeX
+passes and agreed on all 603 pages' extracted text and all 2,345 label and
+citation records. All pages also rendered successfully with MuPDF.
+The packaging checks reject these diagnostics, and the manifest records the
+tested TeX versions. Hexagon's custom format and preview processor are not
+available locally; hosted acceptance still requires a fresh preview.
