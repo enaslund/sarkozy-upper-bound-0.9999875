@@ -1,8 +1,8 @@
 {
   "format": 1,
   "audited_on": "2026-11-10",
-  "scope": "Diagnostic comparison, extraction and parse/write checks of local PDFs and a downloaded hosted preview; not a successful hosted preview or stamping receipt.",
-  "conclusion": "The received 20:08 source is byte-identical to the repaired current upload. A later preview reports that Hexagon could not prepare a safe preview PDF, although its compiler log reports successful generation of 603 pages and 5150107 bytes. That size matches the local PDF but does not prove byte identity. The local PDF passes extraction, parse/write checks, pdfcpu strict validation and Ghostscript stop-on-warning processing. The specific failure in Hexagon's PDF-preparation or stamping processor remains unknown and requires its internal diagnostic.",
+  "scope": "Local PDF comparison, extraction and parse/write checks, with author-reported hosted workflow results. Not a verification of successful final stamping or publication.",
+  "conclusion": "The received 20:08 source is byte-identical to the repaired current upload. The author subsequently reported a successful preview and a 22:48 package with the same package hash as the 20:08 package. Final processing again failed at 22:50 with text_extraction_failed during identifier stamping, and Hexagon now requires staff review. Preview outcomes have varied for the unchanged source. Local full-document extraction and parser checks pass. The specific backend failure and any role of document length remain unconfirmed; no further TeX change is supported by the available evidence.",
   "current_source": {
     "file": "paper/hexagon-standalone.tex",
     "sha256": "038d18837786be84048785c35eed37a3884e64c26d29b367959e50d7736d3d8e"
@@ -356,5 +356,31 @@
         }
       ]
     }
+  },
+  "successful_preview_then_staff_review": {
+    "source_of_evidence": "Preview compiler log and final status text pasted by the submitter; the newly successful hosted PDF and failed final-stage PDF have not been inspected.",
+    "reported_date_utc": "2026-11-10",
+    "preview_status": "Compiled successfully",
+    "pdflatex_passes": 2,
+    "reported_pdf_pages": 603,
+    "reported_pdf_bytes": 5150107,
+    "fatal_tex_errors_in_supplied_log": false,
+    "underfull_box_warnings_present": true,
+    "local_pdf_size_matches": true,
+    "size_match_proves_byte_identity": false,
+    "source_file_hash_prefix_matches_current_export": true,
+    "reported_package_received_time_utc": "22:48",
+    "reported_package_hash_equals_20_08_package": true,
+    "reported_final_status_update_time_utc": "22:50",
+    "final_error_code": "text_extraction_failed",
+    "final_error_stage": "Applying the repository-controlled identifier stamp to the generated reading copy",
+    "final_status_requires_hexagon_staff_review": true,
+    "fix_and_resubmit_shown_in_latest_status": false,
+    "site_instruction_not_to_create_duplicate_submission": true,
+    "next_step": "Use Report a problem on the existing submission and request the failed extraction diagnostic and reprocessing of the received package.",
+    "page_limit_exceeded_established": false,
+    "resource_limit_hypothesis_confirmed": false,
+    "source_or_pdf_changed_for_this_report": false,
+    "privacy_note": "Private submission URLs, receipt identifier and source-package hashes are omitted."
   }
 }

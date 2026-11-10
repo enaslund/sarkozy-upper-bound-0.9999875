@@ -4,6 +4,11 @@ Upload **[hexagon-standalone.tex](hexagon-standalone.tex)** to Hexagon under
 that exact filename. Its matching **[hexagon-standalone.pdf](hexagon-standalone.pdf)**
 is provided for inspection. No copying or renaming is required.
 
+**Latest hosted status (10 November, 22:50 UTC):** preview succeeded, but final
+identifier stamping failed with `text_extraction_failed`. Hexagon now requires
+staff review. Use **Report a problem** on the existing submission; there is no
+new TeX version to upload or evidence supporting a duplicate submission.
+
 This is the only single-file Hexagon export. It includes the complete paper,
 bibliography and vector diagram, disables PDF navigation using the configuration
 that passed the hosted preview, and includes the Unicode text-extraction repair.
@@ -70,11 +75,11 @@ PDF has no invalid control characters and extracts valid XHTML across all
 content and reference values; a 72-dpi comparison of all rendered pages also
 matched. It is included directly in the single-file export.
 
-The 10 November retry also reported `text_extraction_failed`. The two receipt
-emails confirm that two source packages were received under the same identifier;
+An earlier 10 November retry also reported `text_extraction_failed`. The receipt
+emails confirmed that the source packages were received under the same identifier;
 receipt and preview success do not establish successful final processing or
-publication. The submission page now offers **Fix and resubmit** under that
-identifier.
+publication. At that point the submission page offered **Fix and resubmit**.
+The latest status below supersedes that earlier recovery instruction.
 
 An audit of the downloaded hosted preview found that it still has the old
 Unicode map. Its PDF creation time is 18:48:58 UTC, before the repair was
@@ -144,11 +149,31 @@ Hexagon's processor or its limits, and do not establish that the hosted
 pipeline accepts the PDF. They provide no reproduced reason to revert the
 Unicode repair or change the manuscript again.
 
-The receipt means the source was received; the displayed processing failure
-still needs attention. There is no evidence supporting another TeX change or
-a new submission identifier. If Hexagon identifies a necessary source change,
-**Fix and resubmit** can apply it to the existing identifier. These tools do
-not submit a deposit or contact Hexagon.
+The latest author-supplied report, for the package received at 22:48 UTC on
+10 November, shows **Compiled successfully** at preview. Both compiler passes
+again produced 603 pages and 5,150,107 bytes. The package hash displayed by
+Hexagon is identical to the 20:08 package hash, and its displayed individual
+source-file hash prefix matches the current export. Preview outcomes have
+therefore varied for the unchanged source; the failing backend condition
+has not been identified. The newly successful hosted PDF has not been
+compared byte-for-byte with the local PDF.
+
+At 22:50 UTC, final processing again reported `text_extraction_failed` while
+applying the repository-controlled identifier stamp. The latest page says
+**Hexagon needs to review processing**, asks the author not to create a duplicate
+submission, and no longer shows **Fix and resubmit**. Leave the existing
+submission intact and use its **Report a problem** link to request staff review
+and reprocessing of that received package. Retain the successful preview PDF
+and compiler log for the report. No further source change is justified by the
+available diagnostic, and the current upload file remains unchanged.
+
+The 603-page length could expose a time, memory or output-size limit during
+text extraction, but no such limit has been confirmed. The successful preview
+and local full-document checks do not establish that final stamping has the
+same resource limits. The diagnostic does not identify an exceeded page limit;
+shortening or splitting the paper is not a demonstrated remedy. Ask Hexagon
+which extraction operation failed and whether a resource limit was reached.
+These tools do not submit a deposit or contact Hexagon.
 
 Validation uses final TeX Live 2025: pdfTeX 1.40.28, LaTeX 2025-11-01,
 L3 2026-01-19 and longtable v4.24, matching the hosted log. Final manuscript and
