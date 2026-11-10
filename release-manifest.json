@@ -14601,7 +14601,7 @@
       "bytes": 5605
     },
     "paper/build_record.json": {
-      "sha256": "201a27fbf791d0dcba741cc47fcc119e8a94d1316dd02afa28b070476728931d",
+      "sha256": "f24e8e7ab2a0ddff8737f0d624dea35765bb365ecb4e1a8a653d7d0dea35efc6",
       "bytes": 6570
     },
     "paper/codex_values.tex": {
@@ -14637,8 +14637,8 @@
       "bytes": 406
     },
     "paper/hexagon-source.zip": {
-      "sha256": "91a8f781f7432a2922a95ef914fe0482bfd46ac1047b97bedbbf487bd9bdfbb3",
-      "bytes": 1112261
+      "sha256": "1d3da4dafb48c9391c0b4bdb093ef48ccf92a44f88d37597c8c437e43befdd68",
+      "bytes": 1112361
     },
     "paper/improvement_values.tex": {
       "sha256": "b7aeba6c84241d4944a9caedd3c554d7e67a40dbcc14ee9bd159af39d03a0e5e",
@@ -14649,19 +14649,19 @@
       "bytes": 8296
     },
     "paper/main.pdf": {
-      "sha256": "2af9dc96435865dd8f9c65e974d598f7c8590453941008a818b4cd584d62eb6a",
-      "bytes": 5504978
+      "sha256": "38f5c77ae369055f6400c3547003c18d79191588d38d3dacbea0d42f77bb27a4",
+      "bytes": 5508374
     },
     "paper/main.tex": {
-      "sha256": "3e326ae3886dcb2f8cef366be1f453f9d6b7cc08b1edacf9e49fdb9699928d98",
-      "bytes": 6165
+      "sha256": "0d4eadf6cd59c03ff0267d357ecc13836439ff23e118a9de2b858e7376230581",
+      "bytes": 6261
     },
     "paper/package_publication.py": {
       "sha256": "c82407d3e9728507cb9a65e47721641179c65e33f49a749d1718b9949c6be2da",
       "bytes": 5077
     },
     "paper/publication_manifest.json": {
-      "sha256": "8374e196ad6a50224d71db78d2e5172d4dea22a5a240017ce966cc66c39f7dc2",
+      "sha256": "a7ee540141b1bd65870fc8d2eb92d6c287ee138854b4b83a6d22af0c1496e688",
       "bytes": 6895
     },
     "paper/push_values.tex": {
@@ -14669,8 +14669,8 @@
       "bytes": 288
     },
     "paper/references.bib": {
-      "sha256": "3017a4305ee871cc3246ebe99cad6fc99171bae65052e3e0d90a20841383c099",
-      "bytes": 19505
+      "sha256": "55781688cb2b7b57a1870ac020e2fc09543f759c483b377d373f351fc3f6a3d6",
+      "bytes": 19774
     },
     "paper/sections/01_introduction.tex": {
       "sha256": "f0bc0a5969a500068b43d5f2752dd83427a27bb45b48e4b87f266d778d463376",
