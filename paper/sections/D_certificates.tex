@@ -1,0 +1,1449 @@
+\providecommand{\PurePairExponent}{\frac{243319543}{22187500000000}}
+\providecommand{\ContinuationExponent}{\frac{4066280877}{355000000000000}}
+\providecommand{\AdvanceExponent}{\frac{8855891201}{710000000000000}}
+\providecommand{\PushA}{\frac{5422587}{6103515625}}
+\providecommand{\PushExponent}{\frac{5422587}{433349609375}}
+\providecommand{\PushK}{890666}
+\providecommand{\PushTheta}{0.99999999997327}
+
+\section{Certificates: model, scope, and the evaluation of \texorpdfstring{$\Theta$}{Theta}}
+\label{app:certificates}
+
+\paragraph{What this appendix proves and how to read it.}
+The proof uses finitely many numerical inequalities, each checked
+by exact rational or outward-interval arithmetic. \emph{Scope
+warning:} the baseline verifier chain described in detail below
+(``the selected certificate'') evaluates the \emph{baseline} closing
+$\Theta<\PushTheta$; the improved closing
+$\Theta<\FourRoutesTheta$ is evaluated separately by
+\cref{cert:four-routes-closing} in \cref{sec:four-routes-closing},
+which reuses the middle portfolio and adds the complete upper and
+joint-mean checks in \path{research/epsilon_2026_10_29/}. A
+successful run verifies finite assertions and input identity only;
+it does not verify analytic reductions or external theorems. This appendix says once what such a check
+proves (\cref{subsec:cert:model}); describes the final certificate and lists,
+in the order of the construction, every finite inequality that Parts~II--V use, with
+its checker and its stored record (\cref{subsec:cert:final},
+\cref{tab:cert:finite}); explains how the certificate evaluates $\Theta$
+from the regenerated native source and the upper chain
+(\cref{subsec:cert:evaluation}); lists what the earlier verifiers of the
+chain contribute (\cref{subsec:cert:inherited}); and describes the archive
+that keeps every earlier checkpoint reproducible (\cref{subsec:cert:archive}).
+The certificates whose content is a list of numbers are collected in
+\cref{subsec:cert:final}; the main text cites them only by their
+labels there. No proof in the paper
+uses this appendix except through these certificates and the checks that
+\cref{tab:cert:finite} and \cref{subsec:cert:evaluation} describe.
+
+\subsection{The certificate model and its scope}\label{subsec:cert:model}
+
+Before listing any computation, we fix what a computer check means
+in this paper: a named finite computation, with its inputs
+identified exactly, whose successful run proves the finite
+assertions stated for it and nothing else. In particular no check
+verifies an analytic implication between two stated inequalities.
+
+\begin{definition}[A certificate record]\label{def:cert:record}
+A \emph{check} is a named computation with explicit assertions and a
+success or failure status. A \emph{run record} contains those statuses,
+the quantities computed, the program version information and cryptographic
+SHA-256 hashes of its inputs. An \emph{inherited check} is a check whose
+successful execution is reused only after the verifier has checked
+that the SHA-256 of every recorded input and result file equals the
+hash recorded for it in the check's run record. A \emph{fresh check} is executed
+in the stated run.
+\end{definition}
+
+\paragraph{Arithmetic.}
+Rational inputs are exact fractions; integer identities and positive
+semidefiniteness tests are exact. Logarithms, exponentials and square roots
+are enclosed by intervals with outward-rounded endpoints, at the
+precisions fixed in each script and listed next. The closing is evaluated in outward decimal intervals with
+$80$ significant digits: the elementary functions are correctly rounded and
+widened by one unit in the last place, and every other operation is rounded in
+the safe direction (the interval class of
+\path{research/handoff_2026_10_23/tools/conditional_scalars.py},
+\texttt{PREC = 80}, which every closing module imports through
+\path{research/push_2026_10_24/tools/prime_envelope.py}). The local constants
+of the middle range are enclosed by fractions on the grid $10^{-45}\Z$ (the
+interval class of \path{research/push_2026_10_24/local_law_audit/check_pure_local.py},
+used by \path{low_domain.py} and \path{signed_law.py} of
+\path{research/advance_2026_10_24/local/}). The prices of the middle pieces are
+rounded up on $10^{-30}\Z$, and the native source records its enclosures by
+exact rational or terminating decimal ends. This is the standard outward-rounded interval model
+\cite{MooreKearfottCloud09,Neumaier90}. A strict inequality $x<y$ passes only
+when the upper endpoint for $x$ is smaller than the lower endpoint for $y$. A
+decimal displayed in the paper is never an input; a decimal that is an input (a
+witness weight, or one of the matching orientation weights
+$(.5803723,.2409463,.1786814,0)$) is an exact terminating rational.
+
+\paragraph{Evaluation at endpoints.}
+Every coefficient that a program evaluates at the start of a piece or a band,
+or at a grid threshold, is an admissible majorant (\cref{lem:majorant}), so its
+value there bounds its value at every prime and block of the piece. This
+monotonicity is proved in the text; the programs only evaluate, with an upper
+bound $1/\lfloor\sqrt X\rfloor$ for $r$ and a lower bound for
+$\log X$ in block counts, where $X$ is the piece start, band start
+or grid threshold in question. The lower bounds for $\log X$ are rational: write
+$X=2^ku$ with $1\le u<2$ and truncate the series
+$\log v=2\sum_{j\ge0}((v-1)/(v+1))^{2j+1}/(2j+1)$ for $v=2$ and $v=u$, after $60$
+terms in \path{research/continuation_2026_10_24/local/raw_prices.py}
+(\texttt{log\_lower\_integer}, line~39) and after $40$ terms, rounded down, in
+\path{research/roadmap_2026_10_18/item03/independent_closing.py} (line~74, for
+the restoration counts). All terms are positive, so $\log^-X\le\log X$, and the
+counts $\lfloor L/\log^-X\rfloor$ are upper bounds for the numbers of primes of
+a block.
+
+\paragraph{Scope.}
+A successful run verifies the finite assertions and the authenticity of
+their inputs, by hashes recorded before and after the run. It does not verify
+the analytic reductions of the paper, the external theorems (among them
+\cref{thm:weil,thm:bmor,thm:ahlgren-ono}, Deligne's theorem, the Katz--Sarnak
+local monodromy, Kassabov's inequality and Peyre's tensorization), or the
+correspondence between a statement and the program that checks it; these are
+proved, or argued, in the text. It is not a proof-assistant formalization.
+The October~18 record, whose verifier still supplies the inputs listed in
+\cref{subsec:cert:inherited}, was reviewed by the record-gate review of its
+checkpoint (\path{research/record_gate_2026_10_18/}; a review
+process, not a gate in the sense of \cref{subsec:intro:glossary}). The constructions of
+\path{research/continuation_2026_10_24/}, \path{research/advance_2026_10_24/}
+and \path{research/further_2026_10_25/} have had no record gate; their
+reviews are the independent replays named in \cref{tab:cert:finite} and the
+review notes (in \path{research/advance_2026_10_24/}:
+\path{envelopes/BETA_CROSS_REVIEW.md}, \path{local/GRAM_BACKGROUND_REVIEW.md},
+\path{local/GROUPED_FIRST_STAGE_REVIEW.md} and
+\path{local/GENERAL_STAR_FRAME_REVIEW.md}; in
+\path{research/continuation_2026_10_24/}:
+\path{upper_arithmetic/LOCAL_PROOF_REVIEW.md},
+\path{upper_arithmetic/GLOBAL_PROOF_REVIEW.md} and
+\path{global_review/CROSS_REVIEW.md}; in \path{research/further_2026_10_25/}:
+\path{REVIEW.md} and \path{local/LOCAL_PROOF_REVIEW.md}). All of these are
+internal AI reviews, not human referee reports; \cref{subsec:obs:reviews}
+describes them and how the constructions were developed.
+
+\subsection{The baseline verifier chain}\label{subsec:cert:final}
+
+The selected certificate is \path{research/push_2026_10_25/verify.py}, with
+record \path{research/push_2026_10_25/verification/selected.json} (\texttt{PASS},
+default and full tiers). It retains all $1599$ pins of its predecessor
+\path{research/improvements_2026_10_25/verification/selected.json}
+and has $1662$ source pins. A \emph{source pin} (here and
+below: \emph{pins}, \emph{pinned}, \emph{repinned}) is a
+recorded cryptographic hash of one input file, checked before
+the file is used; it is not a pinned label in the mathematical
+sense. The best selected values are
+$a=\PushA$, $\eps=\PushExponent$, $K=\PushK$ and
+$\Theta<\PushTheta$. The source anchor is $4442183/5000000000$.
+
+\begingroup\sloppy
+\paragraph{How it is run.}
+From the repository root, with an interpreter PYTHON importing NumPy and
+SymPy, the command \texttt{PYTHON -B paper/verify.py} runs the selected chain;
+\texttt{-{}-full} additionally regenerates its exact arithmetic sources.
+The launcher reconstructs two authenticated temporary trees: the original
+five-stage checkpoint \texttt{further\_2026\_10\_25} at \texttt{8dc0a3fe},
+and the Codex checkpoint \texttt{push\_2026\_10\_25} at \texttt{1b9239f0}.
+It authenticates each archive and manifest, the one input file not
+tracked by git, and the logical inventory (the file listing every
+file of the chain with its hash; \cref{subsec:cert:archive}). The newer files are
+\path{archive/paper-push-2026-10-25.tar.gz},
+\path{archive/scripts-push-2026-10-25.tar.gz} and
+\path{archive/push-2026-10-25.inventory.json}.
+It first runs the frozen verifiers in
+\path{research/record_2026_10_18/}, \path{research/push_2026_10_24/},
+\path{research/continuation_2026_10_24/}, \path{research/advance_2026_10_24/}
+and \path{research/further_2026_10_25/} in the older tree, then
+\path{research/improvements_2026_10_25/} and
+\path{research/push_2026_10_25/} in the Codex tree. The separation is needed
+because the run records of the two checkpoints record different
+bytes (hence different SHA-256 values) for the launcher script
+\path{scripts/manuscript_layout.py}, so no single tree satisfies
+both sets of pins. Each restored tree
+is checked for mutation afterwards; logs and the JSON run records
+are written outside both restored trees (to the directory given by
+\texttt{-{}-output-dir} when one is given).
+Together these seven verifiers authenticate the archived proof
+sources of the earlier $819$-page manuscript. This paper proves
+the same construction in the form of \cref{sec:design}; every
+certificate below is stated for the laws and numbers as defined
+in this paper, and applies to the archived manuscript only
+through that identification. The present text supplies a
+reorganized proof of the same selected
+construction and a fresh table extraction; its build receipt is
+\path{research/merge_2026_10_26/manuscript_build.json}.
+
+\paragraph{The selected refinements.}
+The improvement verifier checks the finite collision bound on
+the protected subspaces (\cref{imp:local:collision-gap}), the
+interpolation between the pair bounds for the actual kernel,
+the layer remainder summed in closed form for the layer cut L21
+(\cref{imp:env:layer-resummation}), the coherent $39$-trace
+chamber and layer estimates, and the refinement by one pinned
+(fixed) coordinate. Its
+\texttt{native} and \texttt{native\_author\_rows} checks regenerate the
+$33$ local records, all completion and protection gates, and the seven
+positive-root restoration inputs. The finite prime-power interface and
+moment checks certify the depth-$64$ external law and its sufficient moment
+majorant. The selected root laws and caps are in
+\cref{tab:data:cut-caps,tab:data:positive-roots,tab:data:positive-roots-late}.
+All inherited upper-band and envelope checks still run on their unchanged
+inputs; a claim about a new local law is verified by these additional checks,
+not by a predecessor's native check alone.
+
+\paragraph{What the final verifier re-evaluates.}
+The final verifier first checks exact identity of all native laws with the
+improvement checkpoint, the five input files named in the design
+(the native source, its prime evidence, the native parent, the
+upper-band source and the envelope bundle of
+\cref{tab:cert:evaluation-files}) and their recorded SHA-256
+hashes, all fixed interface parameters, and that the native parent
+\path{global/refined_parent.json} is exactly what
+\path{global/reanchor.py} produces from its predecessor at the
+design's source anchor (the same laws, with fresh charges requested
+at the new anchor). It then independently recomputes the $33$ middle
+prices, checks the selected finite prime-power moment, and runs the separately
+scoped checks recorded under the names \path{index_coefficient},
+\path{quartic_reduction}, \path{marked_channels},
+\path{fractional_extraction}, \path{auxiliary_symmetry},
+\path{joint_reference}, \path{three_support_synthesis},
+\path{xor_schur_multiplier} and \path{rooted_rank_star}; each
+certifies only the interim statement of its own script, and none
+is named in \cref{tab:cert:finite}.
+In full mode \texttt{fresh\_parent} and \texttt{fresh\_prices} reproduce the
+native parent, exact arithmetic source and charge evidence exactly.
+The author assembly and the separately written independent
+assembly are run by
+\path{research/improvements_2026_10_25/global/selected.py}, supplied with the
+push design; both read the same authenticated native inputs and
+envelope bundle, and the independent assembly recomputes every
+total it reports from those inputs. Both outputs equal their
+selected records; their compared
+components overlap, and both upper ends of $\Theta$ are below
+$\PushTheta<1$. The author record's \texttt{result.finite\_padic\_index}
+equals the selected moment artifact, and its restoration primitives agree
+exactly with the preceding checkpoint. Finally the generated
+$819$-page manuscript together with the transitive list of
+files it inputs (its \emph{paper closure}: the manuscript and
+every file reachable from it by inputs) and every source pin
+are authenticated.
+There are $14$ default checks and $16$ full checks; the improvement
+predecessor contributes $42$ full checks. The following crosswalk retains
+inherited checks where their formulas are still used; current local,
+restoration, price and index assertions additionally use the checks above.
+
+\paragraph{What it authenticates.}
+The source-pin table of \path{research/push_2026_10_25/} (the
+file-to-SHA-256 table its verifier checks) contains every entry
+of the preceding checkpoint's table, including every earlier proof
+source, and adds its new arithmetic inputs, artifacts, checker
+sources and manuscript closure. Hashes of historical paper and script sources are
+resolved to their byte-identical archives, so their frozen certificates are
+not silently repinned to this synthesis. The archive inventory and
+\path{archive/README-push-2026-10-25.md} document this reconstruction.
+
+\paragraph{What it checks that the proof does not use.}
+The checks marked \emph{not used} at the end of \cref{tab:cert:finite} are
+performed but enter no statement of this paper; they are listed so that the
+scope of the certificate is exact.
+
+\paragraph{Abbreviations.}
+In \cref{tab:cert:finite,tab:cert:evaluation-files} the prefixes C, A, F, P
+and R abbreviate \path{research/continuation_2026_10_24/},
+\path{research/advance_2026_10_24/}, \path{research/further_2026_10_25/},
+\path{research/push_2026_10_24/} and \path{research/roadmap_2026_10_18/}.
+The two newer prefixes I and S denote
+\path{research/improvements_2026_10_25/} and the selected
+\path{research/push_2026_10_25/}.
+``O:\,name'' is the check \texttt{record:name} of the record verifier
+\path{research/record_2026_10_18/verify.py}, whose results are in
+\path{research/record_2026_10_18/verification/selected.json}; ``C:\,name'',
+``A:\,name'', ``F:\,name'', ``I:\,name'' and ``S:\,name'' are the checks
+\texttt{name} of the corresponding verifier, whose statuses are in the field
+\texttt{result.checks} of its \path{verification/selected.json}.
+``(full)'' marks a check of the full tier, and numbers after a script are its
+lines. Every record named in a row is authenticated by the record of its
+verifier or by the logical inventory.
+
+\paragraph{Inherited formulas and selected evaluations.}
+The older checks certify the unchanged analytic, local, upper-band and
+matrix-envelope inputs. Where a row names an inherited scalar module, it
+identifies the formula used; its evaluation on the present design is performed
+by S:\,\path{author} and S:\,\path{independent}, in the order described in
+\cref{subsec:cert:evaluation}. The assertions about the current
+local laws are checked by (``bound by'' in the table) the checks
+I:\,\path{native}, I:\,\path{native_author_rows} and
+S:\,\path{unchanged_native}; the current arithmetic charges by
+S:\,\path{prime_prices} and, in the full tier,
+S:\,\path{fresh_prices}. Thus an earlier successful closing is never used as a
+certificate for the selected exponent.\par
+\endgroup
+
+{\footnotesize\sloppy
+\setlength{\LTcapwidth}{\textwidth}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.21\textwidth}>{\raggedright\arraybackslash}p{0.35\textwidth}>{\raggedright\arraybackslash}p{0.39\textwidth}@{}}
+\caption{The finite inequalities used in Parts~II--V, in the order of the
+construction, with their checkers.}\label{tab:cert:finite}\\
+\toprule
+Used in & Finite assertion & Checker\\
+\midrule
+\endfirsthead
+\toprule
+Used in & Finite assertion & Checker\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\cref{def:record:analytic-stage} & (S0)--(S7): the stage, kernel and tail
+ slacks, and the gates that involve $a$ on the domain $0<a\le9/10000$
+ (\cref{cert:record:analytic-stage}) & O:\,analytic:slacks (1231--1280),
+ O:\,analytic:arc-exponents, O:\,independent:u05, O:\,analytic:tail-gates
+ (1568--1621); A:\,\path{analytic} (A/\path{global/analytic_domain.py}, record
+ \path{analytic_domain.json}), which runs C/\path{upper_arithmetic/domain_audit.py};
+ C:\,\path{analytic}\\
+\cref{thm:record:lineardensity} & $\sigma-a\ge103/330000$ on the domain;
+ $\sigma-a=65195254/201416015625$ and $\eps=a/71$ at the selected $a$
+ (\cref{cert:record:frame-data}(a)) & A/\path{global/analytic_domain.py}
+ (\texttt{transfer\_slacks.induction}); F/\path{verify.py}:83--84,
+ F/\path{global/selected.py}:46\\
+\cref{lem:frontier:iidenergy} & the deleted prefix exception and a second copy
+ of the tail prices below $1.2332\cdot10^{-39}$ on the domain; the exponent
+ $-1380939795479/6103515625$ at the selected $a$ (\cref{cert:record:frame-data}(f))
+ & A/\path{global/analytic_domain.json} (\texttt{prefix\_plus\_tail});
+ C/\path{upper_arithmetic/domain_audit.py}\\
+\cref{lem:record:block-charge,lem:record:lower-start-sums,lem:piece-caps} & the
+ $33$ pieces, bins, exact blocks and cells, the degree charges, the lower start
+ sums and the piece log caps $L_i$ (\cref{cert:record:middle-price}) &
+ S:\,\path{fresh_prices} (full; C/\path{global/price_partitions.py});
+ S:\,\path{prime_prices} (C/\path{global/review_prices.py});
+ S:\,\path{unchanged_native} and I:\,\path{native};
+ A/\path{envelopes/piece_product_caps.py} inside F:\,\path{author}; the
+ histogram A/\path{global/final_budget_partitions/exact_block_histogram.csv}
+ (\texttt{2b85805d\ldots9302a667}), re-sieved by A:\,\path{fresh_partitions}
+ (full)\\
+\cref{lem:record:local-domain} & local laws at $(X,L_{\rm loc})$ in every
+ piece, $X\ge Q_3>2^{24}$; the counts $n_X$ & A:\,\path{native} and
+ F:\,\path{native} (every spectrum bound to its grid entry at $(X,585)$);
+ A:\,\path{local_low_domain} (A/\path{local/check_low_domain.py}),
+ A:\,\path{local_raw} (A/\path{local/low_domain.py})\\
+\cref{cert:layer12-grid} & route-A caps of L21, F21, E21, L10 at the piece
+ starts: $180$ exact PSD tests at $9$ thresholds, $520$ at $26$ thresholds &
+ C:\,\path{middle_grid}, C:\,\path{fresh_grid} (full) and
+ A:\,\path{fresh_middle_grid} (full) on C/\path{global/middle_grid_new.json};
+ \path{research/frontier_2026_10_17/root/middle12_grid.json} with its replay
+ \path{middle12_grid_replay.json}, authenticated by hash; A:\,\path{native}
+ binds the stored spectra to the grid entries\\
+\cref{cert:l20-grid} & the L20 caps of the uniform root at $45$ endpoints &
+ A/\path{local/l20_refined_Q_grid.json}; A:\,\path{local_l20_rank4},
+ A:\,\path{local_l20_rectangular}, A:\,\path{local_l20_rectangular_gap},
+ A:\,\path{local_l20_collision_zero}, A:\,\path{local_l20_balanced};
+ A:\,\path{fresh_l20} (full)\\
+\cref{cert:positive-root-caps} & chamber and layer caps of the seven selected positive
+ roots, block caps and marginal data & F:\,\path{chamber},
+ F:\,\path{mixed_chamber}, F:\,\path{layer}, F:\,\path{general_individual_layer},
+ F:\,\path{mixed_layer}, F:\,\path{restoration_interface}, F:\,\path{native};
+ F:\,\path{square_remainder} (inherited estimates); selected
+ improvement checks \texttt{physical\_interpolation}, \texttt{layer\_resummation},
+ \texttt{general\_coherent\_layer}, \texttt{coherent\_pin\_refinement},
+ \texttt{native} and \texttt{native\_author\_rows}\\
+\cref{lem:front12:reference} (iii), (iv) & $33\cdot13=429$ completion
+ inequalities and $33$ protection gates \eqref{eq:protection}; the weights; the
+ cap $k_{\rm D}$ (\cref{cert:record:frame-data}(c),
+ \cref{cert:record:old-f-cap}) & F:\,\path{native},
+ F:\,\path{native_author_rows} (F/\path{envelopes/check_selected_native.py}:
+ the predecessor's three tilted pieces); the improvement verifier's
+ \texttt{native} and \texttt{native\_author\_rows} bind all current laws;
+ A:\,\path{native} (A/\path{global/check_low_reference_native.py}: all pieces,
+ with an independent replay of $k_{\rm D}$); F:\,\path{fresh_parent} (full)\\
+\cref{lem:record:one-stage-folded-e} & $k_{\rm new}(X)$, $s_{\rm fold}(X)$, the
+ gates of (d), exact marginals, no coincidence reset
+ (\cref{cert:record:one-stage}) & A:\,\path{native}; A/\path{local/folded_sector.py}
+ (record \path{folded_sector.json}); A/\path{global/grouped_first_stage.py}
+ (\texttt{check\_source}) and A/\path{envelopes/invariant_error_mass.py}
+ inside F:\,\path{author}\\
+\cref{cor:first-stage-repricing,cor:two-cut-series} & the totals $U_0'$, $P'$,
+ $D'$, $V'$ at $a_0$; $D'\le V'$, $d<6$, $dv<36$, the series below the
+ one-sharp value (\cref{cert:record:frame-data}(e)) &
+ A/\path{global/grouped_first_stage.py}:25--38 inside F:\,\path{author}; its
+ independent counterpart in A/\path{envelopes/check_beta_scalar.py} inside
+ F:\,\path{independent}\\
+\cref{def:record:mixture,lem:signed-components,prop:signed-bounds} & the
+ signed-law identities, the positive repair, the leading matrix, the matching
+ Gram and the block gates; the sharp factors and the five-feature collision
+ frame; the endpoint coefficients at $\tlaw=127/500$ (\cref{cert:signed-local})
+ & A:\,\path{local_signed_law}, A:\,\path{local_signed_sharp}
+ (A/\path{local/check_signed_law.py}, \path{check_signed_sharp.py});
+ A/\path{local/low_domain.py} (\texttt{sharp\_bounds}) inside F:\,\path{author}
+ and A:\,\path{local_raw}\\
+\cref{lem:actual-features,lem:oct24:feature-block} & the actual feature frame,
+ $\Gamma_E$ and $\rho_{\rm pair}$ at $Q_3$ (\cref{cert:envelopes}(a))
+ & C/\path{local/actual_features.py} (record \path{actual_features.json}, case
+ $Q=19951586$), evaluated at $Q_3$ through A/\path{envelopes/envelope_domain.py}
+ inside F:\,\path{author}\\
+\cref{lem:oct24:matching-star,lem:record:exact-marginal-e} & $s_E(X)$, $a_E(X)$,
+ $\kappa_E(X)$, $r_E(X)$ and their gates (\cref{cert:record:e-coefficients}) &
+ A/\path{local/low_domain.py} (\texttt{e\_bounds}) inside F:\,\path{author} and
+ A:\,\path{local_raw}; A:\,\path{local_low_domain}\\
+\cref{cert:record:middle-geometry} & the query images of the middle records &
+ O:\,middle:geometry (1640--1669), O:\,independent:u01\\
+\cref{lem:merge-repair} & the merge coefficients and the dependent
+ coefficients $A_3$, $S_3$ in the final source (\cref{cert:merge-coefficients})
+ & A:\,\path{native} (independent recomputation of the merge coefficients);
+ F:\,\path{native}; A:\,\path{fresh_native_prices} (full)\\
+\cref{lem:middle-comparison-prices} & the per-piece prices of
+ \cref{def:closing-quantities}(3) & A/\path{local/low_domain.py}
+ (\texttt{raw\_ledgers}) inside F:\,\path{author} and F:\,\path{independent};
+ F:\,\path{prime_prices}\\
+\cref{lem:record:weighted-moment} & the $400$-term identity; the modular bound
+ (\cref{cert:record:weighted-identity}) & O:\,variance:weighted-identity
+ (1622--1639); C/\path{upper_arithmetic/modular_variance_check.py} (record
+ \path{modular_variance_check.json})\\
+\cref{lem:l20-star-mean} & the $1200$-term identity (\cref{cert:l20-star-mean})
+ & C/\path{upper_arithmetic/l20_star_mean.json}, whose status and term count
+ C:\,\path{l20_mean} and C:\,\path{fresh_l20_mean} (full) assert\\
+\cref{eq:variance:pieces,lem:record:root-marginal} & the root data, $h_i$,
+ $M_i$, $\chi_i$, $H_i$, $k_{F,i}$, $k_{E,i}<1$; $M_i$, $\chi_i$ of the seven
+ pieces with positive roots (\cref{cert:record:variance-linear}) &
+ A/\path{global/piece_data_beta.py} inside F:\,\path{author} and
+ F:\,\path{independent}; the current seven inputs are supplied by
+ \path{research/improvements_2026_10_25/global/scalar_adapters.py} and checked
+ against the author rows by its native reviewer\\
+\cref{cert:variance:fresh,cor:variance:final,prop:background-variance,lem:pool-coupons}
+ & restorations at the piece caps, $0\le\ell\le C_m/2$, gains in $[0,1)$,
+ $D_{\rm var}$ & C/\path{envelopes/restoration.py}, \path{background_variance.py},
+ \path{coarse_tail_coupons.py}; A/\path{envelopes/beta_restoration.py},
+ \path{piece_cap_restoration.py}, \path{beta_higher_variance.py}, inside
+ F:\,\path{author}; A/\path{envelopes/check_beta_scalar.py} inside
+ F:\,\path{independent}; F:\,\path{restoration_interface}\\
+\cref{thm:envelopes,lem:class-credit,lem:orbit-coupon,cor:envelope-costs} & the
+ portfolio orders, physical averages, coupling and orbit masses, the class costs
+ and savings; the FE witness (\cref{cert:envelopes}) & F:\,\path{envelopes}
+ (A/\path{envelopes/verify_selected_envelopes.py}) with the family checkers of
+ A/\path{envelopes/}; F/\path{envelopes/check_exact_background_pairs.json};
+ A/\path{envelopes/invariant_error_mass.py}, \path{invariant_orbit_mass.py}
+ inside F:\,\path{author}\\
+\cref{lem:oct24:invariant-background} & $\Uinv$ and the generic price
+ (\cref{cert:envelopes}(c)) & F:\,\path{chosen_background}
+ (F/\path{envelopes/chosen_background.py});
+ F/\path{global/scalar_adapters.py}:63--91 inside F:\,\path{independent}\\
+\cref{prop:signed-sides,prop:record:matching} & the auxiliary sides at
+ $L_{\rm loc}=585$, the chosen sides, the increments, $k^{\rm aux}_{s,i}\ge0$,
+ $T_K$ (\cref{cert:record:matching}) & A/\path{local/signed_law.py}
+ (\texttt{matching}), R/\path{item03/direct_matching_asymmetric.py} and
+ A/\path{global/piece_data_beta.py} inside F:\,\path{author} and
+ F:\,\path{independent}; the side gates in A/\path{global/closing_beta.py}:33--47
+ and, independently, in A/\path{envelopes/check_beta_scalar.py}\\
+\cref{prop:record:mean-credit} & $m_F$, $m_Q$, the error, the gate
+ $2q_i\bar I_{2,i}\le A_{E,i}+S_{E,i}$ (\cref{cert:record:means}) &
+ A/\path{envelopes/beta_restoration.py}, \path{piece_cap_restoration.py},
+ C/\path{envelopes/coarse_tail_coupons.py} and A/\path{global/closing_beta.py}:112
+ inside F:\,\path{author}; A/\path{envelopes/check_beta_scalar.py} inside
+ F:\,\path{independent}\\
+\cref{thm:record:direct-star,lem:oct24-collision,cert:record:direct-star,cert:upper-root-caps}
+ & frame and Schur witnesses at the anchors $2^{47},\dots,2^{52}$; the graded
+ and special-value coefficients at $19$ anchors ($30\,645\,955$ histogram rows);
+ the root caps from $P_3$ to $2^{52}$ & O:\,upper:direct-star (1467--1525),
+ O:\,independent:u07 ($32$ Schur matrices at $2^{49},\dots,2^{52}$);
+ R/\path{item12/direct_star_lower_endpoints.json} ($2^{47}$, $2^{48}$; $16$ tests),
+ authenticated by hash, with the class-three tests at $2^{47}$ replayed in
+ A/\path{upper/lower_p47/native_review.json}; F/\path{upper/special_coefficients_review.json},
+ F/\path{upper/special_upper_review.json} (inside F:\,\path{upper}; the rows
+ re-summed in the full tier); A/\path{upper/even_extraction_review.json},
+ \path{even_roots_review.json}\\
+\cref{lem:upper-completed-root} & the completed-root caps from $2^{52}$
+ (\cref{cert:upper-completed-root}) & the grids of
+ \path{research/advance_2026_10_17/sparse/} and the output of the replay
+ R/\path{item15/replay_upper_psd.py}, authenticated by hash; no tier of the
+ chain repeats these tests\\
+\cref{prop:observed-caps} & the merge and constant caps of the observed
+ marginals & A/\path{upper/observed_caps.json}, \path{observed_caps_review.json};
+ A/\path{upper/lower_p47/observed_caps.json}, \path{observed_review.json}\\
+\cref{cert:upper-band-inputs} & the class-three nonroot caps; the row
+ quantities of \ref{it:record:upper-F3}, \ref{it:record:upper-F4} &
+ A/\path{upper/class3_nonroot_caps.json}, \path{class3_nonroot_review.json};
+ A/\path{upper/lower_p47/class3_caps.json}, \path{class3_review.json}\\
+\cref{prop:conditional-star,lem:joint-rows,lem:joint-pins},
+ \ref{it:record:upper-F5} & the conditional rows: full star matrices, decay
+ weights, joint rows, pins, potentials, the bucket $\mathfrak q=0$ &
+ A:\,\path{joint_witness_0}, \dots, \path{joint_witness_7}
+ (A/\path{local/check_conditional_joint_potential.py} on the witness files);
+ A/\path{local/check_conditional_star_*.py}; A/\path{upper/conditional_fine_parts.json}
+ and its review; F/\path{upper/joint_endpoints/index.json} ($11$ tables, each
+ rechecked inside F:\,\path{upper}), F/\path{upper/endpoints_review.json},
+ \path{allowances.json}, \path{allowances_review.json}\\
+\cref{lem:upper-reference-rp,cert:upper-completion} & $310\cdot105=32550$
+ completion and domination gates ($24800$ axis inequalities, $7750$ reserved
+ floors) & F:\,\path{upper} (F/\path{upper/verify.py});
+ F/\path{upper/endpoint_allowances_review.json},
+ \path{dense_refined_upper_review.json}; A:\,\path{upper}
+ (A/\path{upper/regenerate_upper_chain.py}, $14$ stages, $51$ reviews)\\
+\cref{lem:six-query-retention} & the acceptance tests of the six queries &
+ A/\path{upper/six_query_geometry.json}, \path{six_query_upper_review.json}\\
+\cref{prop:dense-comparison} & the dense EL coefficients &
+ A/\path{upper/dense_p48/completed_invariant.json}, \path{certificate.json};
+ A/\path{upper/dense_review_full.json}; A/\path{upper/lower_p47/dense_*.json}\\
+\cref{prop:le-mixture} & the LE mixture: the refined one in the $301$ bands
+ below $2^{52}$, the first one in the nine bands from $2^{52}$ &
+ F/\path{upper/dense_six.json}, \path{dense_six_refined.json},
+ \path{dense_six_refined_review.json}, \path{dense_refined_upper_review.json}\\
+\cref{prop:forest-records}, \ref{it:record:upper-F7} & the skew-only identities,
+ forest matrices and differences & C/\path{upper_arithmetic/skew_only.json},
+ \path{forest_matrix.json}, \path{extended_forest.json},
+ \path{forest_difference.json}, with their reviews\\
+\cref{cert:upper-lower-bands} & the $45$ bands from $P_3$ at the data of
+ $2^{47}$ & A/\path{upper/lower_p47/*.json}; A/\path{upper/LOWER47_AUDIT.md}\\
+\cref{prop:record:upper} & $S_{\rm u}$, $A_{\rm u}$ at $a_{\rm u}$; their
+ repricing to $a$ & F/\path{upper/upper_dense_refined.json} (\texttt{S},
+ \texttt{A}); C/\path{global/closing.py}:130--150 (\texttt{upper\_price})
+ inside F:\,\path{author} and F:\,\path{independent}\\
+\cref{lem:trace-mixing} & $e,w<1/2$ and the pair and slot bounds at
+ $p=2^{512}$ (\cref{cert:trace-mixing-72}) &
+ \path{research/push_2026_10_17/structural/layer72_analytic.py}
+ (\texttt{leading\_trace}), run whenever the record or pure-pair chain generates
+ a source (their full tiers); its result is the field \texttt{analytic.leading}
+ of those sources, which the final native source carries unchanged,
+ authenticated by hash\\
+\cref{lem:record:tail-mixing} & (S7), with both forms of the gate at $\Pfive$
+ & O:\,analytic:tail-gates (1568--1621)\\
+\cref{cert:tail-caps} & the $94$ tail repair caps at $2^{54}$ with their gates,
+ the joint-star rows of the ten $LR$, $RL$ records; the coefficients
+ $c^{\rm rep}_3$, $c^{\rm rep}_4$, $c^{\rm del}_d$ &
+ \path{high72_oneway_repairs.json}, \path{high72_oneway_repairs_degree3.json} and
+ \path{high72_oneway_jointstar.json} of \path{research/frontier_2026_10_17/sparse/},
+ authenticated by hash and, when a source is generated (full tiers), by
+ \path{high72_oneway_adapter.py} and \path{high72_oneway_jointstar_adapter.py};
+ the coefficients are the field \texttt{tail\_comparison} of
+ R/\path{item12/upper_v2_local.json}, compared and re-summed by
+ P/\path{tools/check_upper.py}:55--57 (full); no tier recomputes the caps\\
+\cref{lem:tail-prices} & the tail prices at $a$; a second copy inside $10^{-12}$
+ & C/\path{global/closing.py}:141--149 inside F:\,\path{author};
+ A/\path{global/analytic_domain.json}\\
+\cref{prop:oct24-index-cost,lem:index-moments,cert:index-moment} & the sufficient
+ finite-depth majorant for $R_I$ at $Q_3$ and $\Kint=\PushK$ &
+ I:\,\path{padic_interface}; S:\,\path{padic_moment}, S:\,\path{author} and
+ S:\,\path{independent} on S/\path{artifacts/padic_moment.json}; the inherited
+ prime tables C/\path{global/prime_moments.json} are authenticated by
+ C:\,\path{fresh_moments} and A:\,\path{fresh_prime_moments} (full)\\
+\cref{cert:closing} & $\Theta<\PushTheta$ & S:\,\path{author},
+ S:\,\path{independent} (I/\path{global/selected.py} on S/\path{design.json})\\
+\midrule
+not used & the isolated squared-trace kernels; the exact row identity of the
+ pair-square remainder; the audited individual-squares construction &
+ F:\,\path{one_edge}, F:\,\path{two_edge}; F:\,\path{square_remainder}
+ (\path{PASS_PARTIAL_FINITE_PAIR_SQUARE_REMAINDER});
+ F/\path{verification/individual_only_audit.json}\\
+not used & the interim local, envelope and upper results of the signed-block
+ record; the sign-model frontier (\cref{rem:obs:sign-frontier}); the twelve-label
+ grid and the local gates below $2^{24}$ & A:\,\path{interim_*} ($18$ checks),
+ A:\,\path{interim_support_density_0}, \dots, \path{interim_support_density_7}
+ (full); A:\,\path{local_signed_frontier}; A:\,\path{fresh_low_grid} (full) on
+ A/\path{global/low_domain/middle_grid.json}\\
+not used & the route-A L20 gates of the continuation's root; its closing, its
+ upper ledger and its native middle & C:\,\path{l20_variance} and the spectral
+ gates of C:\,\path{l20_mean}, with their fresh replays; C:\,\path{author},
+ C:\,\path{independent}, C:\,\path{upper_ledger}, C:\,\path{upper_prices},
+ C:\,\path{native}\\
+not used & the pure law, its envelopes, its matching increments and its
+ closing; the October~18 closing, the orientation mixture and its band ledger &
+ the checks of P/\path{verify.py} other than the tail re-check; O:\,closing:ledger,
+ O:\,mixture:uniform, O:\,upper:bands, O:\,variance:higher\\
+not used & the influence conditions \eqref{eq:spec:S2} of the half graph
+ $G^+$, at every threshold of the grids of \cref{thm:spectral-criterion}
+ (\cref{rem:spectral-criterion:influence}) &
+ \path{paper/certificate/certlib/checks_spectral2.py}:310--323
+ (\texttt{components2}), in the runs that produced the grids and their
+ replays; no record stores the values, and no tier of \path{paper/verify.py}
+ repeats them\\
+not used & the consistency tests of \cref{thm:dl:K,thm:dl:H2}
+ (\cref{rem:cert:deligne-tests}) & \path{paper/certificate/certlib/}\\
+\end{longtable}
+}
+
+\paragraph{The certificates of the text.}
+The certificates below are cited in the text and checked as listed in
+\cref{tab:cert:finite}. Upper bounds are rounded up and lower
+bounds rounded down (toward $-\infty$), as in
+\cref{app:data}; ``truncated'' in data descriptions means this
+rounding down, including for negative numbers.
+
+\begin{certificate}[The analytic stage]\label{cert:record:analytic-stage}
+In exact rational arithmetic, with the parameters of
+\cref{def:record:analytic-stage}:
+\begin{enumerate}[label=(S\arabic*),start=0]
+\item for every $0<a\le9/10000$ and every fixed integer $\Kint\ge2$: the
+ induction slack is $\sigma-a\ge103/330000$; the fixed-scale slacks
+ $1-6\beta=7/10$, $1-2\tau=199/201$, $1-t_{\rm an}=59/60$ and
+ $1/4-2a\ge1241/5000$ are positive; the H\"older exponents of the density
+ moments of orders $2,4,72,140,142$ add up to one in each of the splits
+ $1/2+71/142$, $2/4+70/140$ and $72/72$; the exponent $513-\mcl+1024\mcl a$ of the
+ price of the deleted prefix exception, $\mcl=8192$, is at most $-80783/625$;
+ and that price together with a second copy of the tail prices
+ of the tail law, repriced at $a$ with $s=d/2-2a>1$ for every
+ formal degree $d\ge3$ occurring in the tail polynomials, is
+ below $1.2332\cdot10^{-39}$.
+ None of these inequalities involves $Q_3$, $P_3$ or a local law;
+\item $\gamma\beta/2-\tau-72\delta-\sigma=2260122363/58960000000000>0$;
+\item $\gamma t_{\rm an}-72\delta-\sigma=3878506121/1320000000000>0$;
+\item $\beta/6-t_{\rm an}(1/2-\gamma)-72\delta-\sigma=3878506121/1320000000000>0$;
+\item $\tau/4-\ell_0-\sigma=6997789/221100000000>0$;
+\item $1-2\tau-6\beta=1387/2010$, $\beta/2-\tau=161/8040$,
+ $\beta/2-t_{\rm an}=1/120$ and $\beta(1-2\tau)-\beta/2=197/8040$, all
+ positive;
+\item the seven kernel slacks of \cref{lem:record:arcs}, computed in
+ \cref{cor:kernel20}, are
+ $1/600$, $37/600$, $97/150$, $1/600$, $49/100$, $19/200$ and $117/200$;
+\item the tail coefficients of \cref{lem:record:tail-mixing} are
+ $C_1<1197.601$, $C_2<609305.05$ and $C_3<1.4176\cdot10^8$, and
+ \[
+  2^{16}S_{72}(2^{512})<6.7782\cdot10^{-70},\qquad
+  2^{32640}S_{72}(2^{65536})<3.5195\cdot10^{-36};
+ \]
+ only the second gate, at $\Pfive$, is used.
+\end{enumerate}
+\end{certificate}
+
+The roles of (S1)--(S7) are listed after \cref{def:record:analytic-stage}, and
+(S0) is the form of the gates that involve $a$ which
+\cref{rem:fixed-parameters,rem:prefix-digits} use. The domain audit
+evaluates the prefix and tail prices at $a=9/10000$; both increase with $a$.
+The checker of (S7) recomputes $C_1,C_2,C_3$ exactly from the normalizing
+polynomial of the tail datum (the last band of its source, which ends at
+$\Pfour$; \cref{def:tail-law}), checks that they equal the tail coefficients of
+the six-query checkpoint, and evaluates the gate at $\Pfive$ in two forms: as
+stated, with last term $2^{32640}C_3p^{-3/2}$, and in the form of the frozen
+code that produced the stored values, with last term $2^{32640}C_3p^{-2}$. The
+two differ by $C_3(2^{-65664}-2^{-98432})<2^{-65600}$, and both are below one.
+
+\begin{certificate}[Data of the six-query frame]\label{cert:record:frame-data}
+The following hold for the data of \cref{def:record:parameters}.
+\begin{enumerate}[label=(\alph*)]
+\item $a=\PushA<\sigma=1/825$, with
+ $\sigma-a=65195254/201416015625$; $\theta=1$, the finite moment orders
+ are $2,4,72,140,142$, $\eps=a/71=\PushExponent$, and $\Kint=\PushK$.
+ Every slack of \cref{cert:record:analytic-stage} is a positive rational, and
+ the analytic stage holds on the whole domain $0<a\le9/10000$ by its item (S0).
+\item The middle prices are tabulated at the anchor $a_0=4442183/5000000000<a$ of the
+ native source, with $2a_0L=253204431/250000000$, and the upper ledger at its anchor
+ $a_{\rm u}=883/10^6<a$. The restorations are evaluated at $a$ with the piece
+ caps $C_i=e^{2aL_i}\le C=e^{2aL}<2.753348440327$, where $L=570$ and
+ $2aL=6181749180/6103515625$.
+\item The $33$ middle pieces tile $[Q_3,P_3)$, $Q_3=19951586$,
+ $P_3=167\cdot2^{40}$. In each, the local laws are evaluated at
+ $(X,L_{\rm loc})=(X,585)$, within the domain $Q\ge2^{24}$ and length at most
+ $10000$ of the twelve-label grid. All thirteen completion inequalities of
+ \cref{lem:front12:reference}(iii) and the protection gate
+ \eqref{eq:protection} hold in every piece, $33\cdot14=462$ inequalities in all,
+ and so do the one-stage gates of \cref{lem:record:one-stage-folded-e}(d)
+ (\cref{cert:record:one-stage}).
+\item The $310$ upper bands of \cref{def:record:upper-bands} run from $P_3$ to
+ $\Pfour=2^{512}$.
+\item The native source stores upper ends at $a_0$ for the totals of
+ \cref{lem:record:middle-prices} over the $33$ pieces, which are at most
+ \begin{gather*}
+  U_0'\le0.846908193539142986,\qquad P'\le1.6936504653996419205,\\
+  D'\le4.7417041225622828\cdot10^{-5},\qquad V'\le3.3872533701481774716
+ \end{gather*}
+ (field \texttt{middle} of the source, equal to \texttt{portfolios[0].sums} of
+ the prime evidence).
+\item With $\mcl=8192$ digit pairs, on the whole domain the exponent
+ $513-\mcl+1024\mcl a$ is at most $-80783/625$, and the price
+ $2^{513-\mcl+1024\mcl a}$ of the deleted prefix exception together with a second
+ copy of the tail prices is below $1.2332\cdot10^{-39}$ (S0). At the selected $a$
+ the exponent is $-1380939795479/6103515625$ and the price is below
+ $8\cdot10^{-69}$, as proved in \cref{rem:prefix-digits}; the combined
+ prefix and tail price lies inside the allowance $10^{-12}$.
+\end{enumerate}
+\end{certificate}
+
+\begin{certificate}[Middle prices]\label{cert:record:middle-price}
+The following hold for the partition of \cref{def:record:exact-blocks}, at
+the anchor $a_0=4442183/5000000000$.
+\begin{enumerate}[label=(\alph*)]
+\item The $33$ pieces tile $[Q_3,P_3)$, the $35$ parts of
+ \cref{def:record:exact-blocks}(b) are each used exactly once, and in every piece the local law was computed at
+ $(Q,\text{length})=(X,585)$, while the blocks have actual budget $L=570$. The
+ grid domain is $Q\ge2^{24}$, length at most $10000$.
+\item Every bin integer $\mathfrak u$ is the least integer
+ with $\mathfrak u\ge2^{40}\,\overline{\log B}$, where
+ $\overline{\log B}$ is the upper end of the certified enclosure
+ of the logarithm of the bin's upper endpoint $B$ (the notation
+ $\log{\rm hi}$ in the data), certified with outward rational
+ logarithms. The run record
+ \path{research/advance_2026_10_24/global/final_budget_partitions/exact_block_run.json}
+ (status \texttt{PASS\_EXACT\_PRIME\_BLOCK\_STARTS}) counts, in the $6362$
+ bins from $2^{23}$ to $X_{\rm Ch}$, $112\,714\,305$ primes $p\equiv1$ and
+ $112\,720\,569$ primes $p\equiv3\pmod4$; the $5668$ bins from $2^{24}$ hold
+ all of them except $256\,852$ and $256\,856$, and no middle piece uses the
+ others. The largest integer log-sum of an actual block is
+ $626\,720\,431\,062\,769\le\mathfrak u_*=626\,721\,627\,832\,320$. The
+ histogram \path{exact_block_histogram.csv} of the same directory has SHA-256
+ \texttt{2b85805d\ldots9302a667}; the full tier of the signed-block verifier
+ sieves all primes again and reproduces it, the counts and the run record byte
+ for byte.
+\item The cells above $X_{\rm Ch}$ have the following integers $n_j$,
+ constant on the displayed ranges of $j$, with $\mathsf n$ the
+ number of cells in the interval
+ (\cref{def:record:exact-blocks}(d)) and
+ $\mathsf e_x=2411/(5000000\log x)$ the relative error of
+ \cref{thm:bmor} at the interval start $x$:
+ \begin{center}
+ \small
+ \begin{tabular}{@{}llll@{}}
+ \toprule
+ Interval & $\mathsf n$ & $n_j$ (cells $j$) & $\mathsf e_x$\\
+ \midrule
+ $[X_{\rm Ch},2^{34})$ & $236$ & $25\,(0\text{--}93)$, $24\,(94\text{--}235)$ & $2.1632\cdot10^{-5}$\\
+ $[2^{34},2^{36})$ & $256$ & $24\,(0\text{--}32)$, $23\,(33\text{--}223)$, $22\,(224\text{--}255)$ & $2.0461\cdot10^{-5}$\\
+ $[2^{36},2^{40})$ & $512$ & $22\,(0\text{--}175)$, $21\,(176\text{--}403)$, $20\,(404\text{--}511)$ & $1.9325\cdot10^{-5}$\\
+ $[2^{40},2^{45})$ & $640$ & $20\,(0\text{--}141)$, $19\,(142\text{--}418)$, $18\,(419\text{--}639)$ & $1.7392\cdot10^{-5}$\\
+ $[2^{45},P_3)$ & $306$ & $18\,(0\text{--}86)$, $17\,(87\text{--}305)$ & $1.5460\cdot10^{-5}$\\
+ \bottomrule
+ \end{tabular}
+ \end{center}
+ Each $n_j$ equals $\lfloor L/\log x_{j+1}\rfloor$, computed as the floor of a
+ certified lower bound of the quotient; in all $1950$ cells $n_j\log x_{j+1}\le569.9947476$, so
+ $L-n_j\log x_{j+1}>0.00525$, and every cell price is at most
+ $\Pi_j\le e^{2a_0L}$.
+\item With $b_d(X,Y)$ bounded by \cref{lem:record:block-charge}, the sums of
+ \cref{lem:record:middle-prices} over the $33$ pieces are at most the numbers
+ $U_0'$, $P'$, $D'$, $V'$ of \cref{cert:record:frame-data}(e). The rounded rows
+ of \cref{def:closing-quantities}(3), summed over the pieces and multiplied by
+ $t$, give the selected middle totals of \cref{tab:data:prices} and
+ \cref{subsec:data:prices}; their exact values are stored in
+ \path{research/push_2026_10_25/artifacts/author.json}, field
+ \texttt{result.raw\_totals}.
+\item The cap at the anchor satisfies
+ $e^{2a_0L}=e^{253204431/250000000}<2.754$ (the enclosure
+ \path{selected_cap} of the prime evidence). The piece log caps $L_i$ of
+ \cref{lem:piece-caps} (\path{restoration_product_caps.rows} of
+ \path{author.json}, with the finite and the analytic part of each) lie
+ between $556.797$ (the piece from $759\,250\,126$) and $570$.
+\item The analytic lower sums of \cref{lem:record:lower-start-sums}(i) over
+ the five intervals of (c), in the order of the table, are at least
+ $0.00113992045177$, $0.00124248816885$, $0.00249322444258$,
+ $0.00312057806694$ and $0.00149358482940$. The exact lower sums (ii) are
+ evaluated from the same histogram.
+\end{enumerate}
+The degree charges are evaluated with rational outward arithmetic: the
+logarithms by atanh series with explicit remainders, the exponentials by
+Taylor series with explicit remainders, the integrals $I_j(1)$ exactly and
+$I_j(s)$, $s>1$, from above by the secant of $1/v$ in $v=\log t$. The degree
+charges of each piece are listed in
+\cref{tab:record:middle-pieces}, and its four sums
+$U_0,P,D,V$ in \cref{tab:record:middle-charges}. The histogram is an
+authenticated input, produced by a segmented sieve and checked in full by the
+fresh sieve of the full tier; the prices are recomputed independently from it
+and from the cells by F:\,\path{prime_prices}.
+\end{certificate}
+
+\begin{certificate}[The one-stage coefficients]\label{cert:record:one-stage}
+At the $33$ piece starts the coefficient $k_{\rm new}(X)$ of
+\cref{lem:record:one-stage-folded-e} decreases from at most $1.0000003509$ at
+$X=Q_3$ to at most $1+2.0\cdot10^{-13}$ at $X=2^{45}$, and $s_{\rm fold}(X)$
+from at most $1.000448358$ to at most $1.000000338$. The gate of
+\cref{lem:record:one-stage-folded-e}(d),
+$\alpha_X^2r_X+\beta_X^2q_Xr_X<k_{\rm new}(X)$, and the inequality
+$4q+2r(1-2q)/(1+q)<1$ of its proof hold at every start. In
+\cref{lem:record:middle-prices} the coefficient of the
+degree-three charge in the stored (rounded-up) sharp price is
+exactly the stored value, which is at least
+$2(v_{\rm S}+v_{\rm D})k_{\rm new}(X)$; that of the degree-two
+charge in the stored variation price is at least
+$4(v_{\rm S}+v_{\rm D})$; and
+there is no coincidence term. The native source records each coefficient with
+the flags of the sector refinement, of exact actual marginals and of zero
+coincidence resets; the native review checks, with $r=X^{-1/2}$ enclosed, that
+each stored coefficient lies above the exact $k_{\rm new}(X)$.
+\end{certificate}
+
+\begin{certificate}[The negative caps of the reference fold record]\label{cert:record:old-f-cap}
+At the $33$ piece starts the cap $k_{\rm D}(X,585)=\bar H_X[1+(e_o(X)-1)r_X]$ of
+\cref{lem:old-f-law}(e), with $n_X=\lfloor585/\log^-X\rfloor$, decreases from
+at most $1.001486585$ at $X=Q_3$ ($n_X=34$, $\bar H_X\le1.00000341$,
+$1+(e_o-1)r_X\le1.00148318$, $e_o\le7.62384415$) to at most $1.000001115$ at
+$X=2^{45}$ ($n_X=18$). The hypotheses $n_Xe_X<1$ and
+$[1+(e_o(X)-1)r_X]r_X<1$ hold at every start. The F21 entry of the twelve-label
+grid ($g=1.01223725$ at $Q_3$) is not used. The protection gate
+$v_{\rm D}\ge2w_{\rm D}k_{\rm D}$ is binding in every piece up to the rounding
+of $v_{\rm D}$: $0<v_{\rm D}-2w_{\rm D}k_{\rm D}<10^{-9}$. The evaluation uses the
+outward upper bound $1/\lfloor X^{1/2}\rfloor$ for $r_X$ and the lower bound
+$\log^-X$ in $n_X$; both can only increase $k_{\rm D}$.
+\end{certificate}
+
+\begin{certificate}[The matching coefficients]\label{cert:record:e-coefficients}
+At each of the $33$ piece starts, with $q_X=1/X$ and $r_X=1/\lfloor\sqrt X\rfloor$,
+the coefficients $s_E(X)$, $a_E(X)$, $\kappa_E(X)$ and
+$r_E(X)=2c^{\rm s}_E(X)a_E(X)$, and the two- and
+three-support coefficients $s^E_{(2)}$, $s^E_{(3)}$, of
+\cref{lem:record:exact-marginal-e}(ii) satisfy
+the gates of (ii): $3q/(1-3q)<1$, $\kappa_Er<1$, $r_Er^2<1$,
+$4/((1-q)(1-2q))<r_E$, $\kappa_E^3<r_E$, $s^E_{(2)}\le1.0000016$ and
+$s^E_{(3)}\le0.0002248$. All four coefficients decrease along the pieces:
+\begin{center}
+\small
+\begin{tabular}{@{}lllll@{}}
+\toprule
+$X$ & $s_E(X)\le$ & $a_E(X)\le$ & $\kappa_E(X)\le$ & $r_E(X)\le$\\
+\midrule
+$Q_3$ & $5.4071859\cdot10^{-4}$ & $1+2.51\cdot10^{-7}$ & $1.0012128$ & $10.829703$\\
+$2^{45}$ & $4.0700610\cdot10^{-7}$ & $1+1.5\cdot10^{-13}$ & $1.0000010$ & $10.828429$\\
+\bottomrule
+\end{tabular}
+\end{center}
+These are the formulas that the prices of the matching records use
+(\cref{lem:oct24:matching-star}); the field \path{E_symmetric_over_r} of
+\path{e_bounds} is the coefficient $s_E(X)$ itself.
+\end{certificate}
+
+\begin{certificate}[The weighted second-moment identity]
+\label{cert:record:weighted-identity}
+The rules (G1)--(G4) of the proof of \cref{lem:record:weighted-moment},
+applied to the $400$ terms of $\E[P_{\rm adm}\mathcal W^2]/p^2$, with the
+vertices $(x_1,x_2,x_3,x_4)$ mapped to $(0,3,1,4)$ and $(z,z')$ to $(2,5)$,
+leave $102$ nonzero terms, and their sum is the right side of
+\eqref{eq:record:weighted-identity}. The reduction is implemented with integer
+coefficients and without floating point in
+\path{research/roadmap_2026_10_18/item03/independent_weighted_identity.py};
+its output is compared with the frozen
+\path{research/roadmap_2026_10_18/item03/independent_weighted_identity.json}.
+For the modular bound $\E[P_{\rm adm}\mathcal W^2]/p^2\le5q+34qr+11q^3$ of
+\cref{lem:record:weighted-moment}(b), the script
+\path{research/continuation_2026_10_24/upper_arithmetic/modular_variance_check.py}
+checks in exact polynomial arithmetic that, with $M_{G_5}$ replaced by its upper
+bound $(1-q)(2qr-q^2)$ from \eqref{eq:record:modular-moment} and $M_{G_{10}}$ by
+$qr$, the difference between $5q+34qr+11q^3$ and
+$(5+3q)M_{G_5}+24M_{G_{10}}+5q-3q^2+11q^3-13q^4$ is
+$8q^2-2q^3+10q^4+4q^2r+6q^3r=6q^2+2q^2(1-q)+10q^4+4q^2r+6q^3r\ge0$, and it
+checks the inversion $M_{G_{12}}=(1-5q)M_{G_5}+q^2(1-q)(1-2q)$ exactly at the
+primes $3$, $7$, $11$, $19$, $23$, $31$, $43$, $47$. Its record \path{modular_variance_check.json}
+(status \texttt{PASS\_EXACT\_MODULAR\_NUMERATOR\_ALGEBRA}) is authenticated by
+the continuation record; no verifier reruns it. The bound for $M_{G_5}$ itself
+is \cref{thm:ahlgren-ono}.
+\end{certificate}
+
+\begin{certificate}[The piece data of the root]\label{cert:record:variance-linear}
+In each of the $33$ middle pieces, with $q=1/X$, $r=1/\lfloor\sqrt X\rfloor$
+and the restoration count $n=\lfloor L/\log^-X\rfloor$, $L=570$: the lower factors
+of \cref{lem:record:root-marginal} are positive, $k_{F,i}<1$ and $k_{E,i}<1$, and
+the piece values $h_i$, $M_i$, $\chi_i$ of \eqref{eq:variance:pieces} are
+evaluated; on the seven pieces with positive roots
+$M_i=\operatorname{up}(R^n)$ and $\chi_i=\operatorname{up}((1+d^2)^n-1)$ with the
+single-prime range ratio $R$ and variance $d^2$ of
+\cref{cert:positive-root-caps}. The complete selected values are in \cref{tab:data:piece-values}; the
+seven changed root inputs are in \cref{tab:data:positive-roots,tab:data:positive-roots-late}.
+At the first piece $k_{F,1}\le2.25870\cdot10^{-4}$ and
+$k_{E,1}\le1.50365\cdot10^{-7}$, with $r=1/4466\ge Q_3^{-1/2}$; both decrease
+along the pieces. Every branch of \cref{lem:record:restoration} is retained in the selected
+evaluation; the coherent root uses its actual finite marginal. The piece values do not depend on
+the exponent.
+\end{certificate}
+
+\begin{certificate}[The sides of the matching envelopes]\label{cert:record:matching}
+At the auxiliary parameters
+\[
+ (b_0,d_0,f_0)=\Bigl(\frac{1606593}{2500000},\frac{2590537}{5000000},
+ \frac{803723}{5000000}\Bigr)=(.6426372,\,.5181074,\,.1607446),
+\]
+which the orientation weights $(.5803723,.2409463,.1786814,0)$ give, and
+$\tside=31/32$ of \cref{def:side-function}, the arm norm is
+$2.0809619\ldots$ at $\tside=1$ and $s(31/32)=2.0778741\ldots$, with
+$s\tside=2.0129405\ldots$ and $s/\tside=2.1449023\ldots$, whose mean
+$2.0789214\ldots$ is below $2.0809619\ldots$. In each of the $33$ middle pieces,
+with $n_X=\lfloor585/\log^-X\rfloor$, the gates of
+\cref{def:side-function} for the auxiliary sides below, and the
+hypothesis of \cref{prop:signed-sides}, hold: $q\le2^{-20}$, $\eta_1<1$, $\rho_1<1$,
+$2\phi_\infty<1$, $\bar kr_X<1$ and $n_Xe_0(X)<1$. At $Q_3$ ($n_X=34$),
+$C_{\rm old}<19.0000162$, $C_{\rm new}<153.735107$ and $C_{\rm rep}<0.0381683$, and
+the auxiliary sides are $d^{\rm aux}_{\rm L}(Q_3)<2.0524514$ and
+$d^{\rm aux}_{\rm R}(Q_3)<2.1844137$; at $2^{45}$ ($n_X=18$) they are below
+$2.0129704$ and $2.1449321$. The coefficients
+$k^{\rm aux}_{s,i}=w_{{\rm D},i}d^{\rm aux}_s(X_i)-v_{{\rm D},i}$ are positive in every
+piece, with $k^{\rm aux}_{{\rm L},i}\le k^{\rm aux}_{{\rm R},i}$,
+with the exact selected values and a positive lower bound printed in
+\cref{tab:data:sides}. The chosen coefficient
+$\bar H_Xd_\tlaw(X)$ is at most $2.3903402$ at $Q_3$ ($\bar H_X\le1.0000034083$)
+and $2.3842319$ at $2^{45}$; it exceeds both auxiliary sides in every piece, so
+both increments are positive, $\delta^+_{\rm L}<0.33788882$ and
+$\delta^+_{\rm R}<0.20592650$ at $Q_3$. The prices of
+\cref{prop:signed-sides}(iii) are $T^{\rm aux\prime}_K<3.549907570156\cdot10^{-2}$ at
+$a_0$, the sum of the rounded rows of the auxiliary sides, and
+$tT^{\rm inc\prime}_K<0.12733201276083$ at $a$; in every piece the cap
+$\operatorname{up}((k^{\rm aux}_{{\rm L},i}+k^{\rm aux}_{{\rm R},i})\bar I_{2,i})$ plus the
+increment price of the piece is at least
+$(k_{{\rm L},i}+k_{{\rm R},i})\bar I_{2,i}$, the price of the two
+chosen sides of the piece in \cref{prop:signed-sides}(iii).
+\end{certificate}
+
+\begin{certificate}[Positive mean savings]\label{cert:record:means}
+The coupons of \cref{prop:record:mean-credit} are evaluated at the piece caps
+of the selected exponent, for the selections of degree at most four and, on the
+pieces from $2^{31}$, for the selections of degrees five and six pooled there. The
+matching coefficient of the piece $i$ is
+$q_i=w_{{\rm S},i}(s_{E,i}+a_{E,i})$, with the symmetric and skew coefficients
+$s_{E,i}$, $a_{E,i}$ of the matching records stored in the native source (at
+$Q_3$ about $5.40631\cdot10^{-4}$ and $1+2.51\cdot10^{-7}$), and the gate
+$2q_i\bar I_{2,i}\le A_{E,i}+S_{E,i}$ holds in every piece. The certificate
+gives
+\begin{gather*}
+ m_F>0.400172842378,\qquad m_Q>0.190134971388,\\
+ R_{\rm err}e^{T_K+T_{QE}}<3.67071778633\cdot10^{-4},\qquad
+ m>1.589940741988 ;
+\end{gather*}
+the pooled selections contribute about $1.1951\cdot10^{-7}$ to $m_F$ and
+$6.5884\cdot10^{-7}$ to $m_Q$, all of it at degree five.
+\end{certificate}
+
+\subsection{Checks for the local refinements of 29 October}
+\label{subsec:cert:astra}
+
+\begin{certificate}[Local identities and the joint-row witness]
+\label{cert:astra-local}
+The reproducible entry point is
+\path{research/astra_2026_10_29/verify.py}; its run record is
+\path{research/astra_2026_10_29/verification/selected.json}.
+It authenticates and extracts the $43$ program and data files
+embedded in the first final October~29 handoff and the $42$ such
+files embedded in the second, and replays
+their exact checks in temporary directories. An independently
+written finite checker additionally verifies the following.
+\begin{enumerate}[label=(\roman*)]
+\item The full-cube rectangle Gram identity, including repeated
+private labels, agrees with direct enumeration for all $237$
+unordered Gram entries at $p=3,7$. Exact endpoint inequalities
+give the constants $121.588$ and $121.328$ in
+\cref{thm:rectangle-gram}, and the elementary constant $128$.
+\item The $64$ cyclic-triangle masks have the six nonstar classes
+and multiplicities displayed in the proof of
+\cref{prop:root-layer}; the rational majorant for
+$\mathfrak b$ is below $140.004$ at $2^{30}$ and below $140.002$
+at $2^{32}$, and gives the coefficient below $2897$ in
+\cref{lem:native-pair-linear}.
+\item The signed $720$-edge upper graph gives the compatible-pin
+counts and weighted sums in \eqref{eq:upper-signed-collision-counts}
+using \cref{lem:signed-collisions}. The tests are on the full graph,
+before any witness edges are removed.
+\item The cubic resultant identity \eqref{eq:cubic-gram} holds
+for all $5{,}221$ unordered Gram entries at $p=3,5$, including
+nonsplit squarefree cubics. These small-field tests corroborate
+the algebra; the proof for all odd primes is
+\cref{thm:cubic-resultant}.
+\end{enumerate}
+The imported nine-class skew witness, stored as
+\path{research/upper2_joint_row_dual_witness.json} in the second extracted
+handoff, has positive exact $LDL^*$ pivots for its contraction
+test. Its separate rational checker verifies the trace norm
+separation and the negative gate at $172.9$ in
+\cref{prop:joint-row-floor}. The certificate concerns that
+particular joint-row formula, not a lower bound for a physical
+operator.
+\end{certificate}
+
+The two imported global replays return larger \emph{conditional}
+exponents. Their supplied data do not include the required common
+middle-cell construction, rational frame witnesses and compatible
+positive assignments. We therefore use them only as conditional
+arithmetic records, not as the closing certificate of this paper.
+In contrast, \cref{cert:four-routes-closing} reconstructs the
+positive allocation on the existing complete middle portfolio and
+verifies the new upper comparisons directly. Its entry point is
+\path{research/epsilon_2026_10_29/verify.py}. Running
+\path{research/astra_2026_10_29/verify.py} with
+\texttt{-{}-full} also replays
+both complete assemblies of the preceding October~27 theorem. It restores
+the original four-route manuscript from its authenticated archive
+instead of changing the historical hashes to match the present
+exposition. The analytic scope of every check remains that of
+\cref{subsec:cert:model}.
+
+\subsection{How the certificate evaluates \texorpdfstring{$\Theta$}{Theta}}
+\label{subsec:cert:evaluation}
+\begingroup\sloppy
+
+Every quantity of \cref{def:closing-quantities} is defined directly, as a sum
+over the atoms of upper prices of records of the final laws, or as an explicit
+function of these sums with the lemma that justifies it. The certificate
+evaluates each of them, in the order of the author assembly
+\path{research/advance_2026_10_24/global/closing_beta.py} (\texttt{basic},
+lines 120--127; \texttt{restoration}, lines 129--165; \texttt{evaluate},
+lines 167--300), from three stored sources
+(\cref{tab:cert:evaluation-files}; regenerated from first
+principles only in the \texttt{-{}-full} tier,
+\cref{subsec:cert:final}): the native source of the middle range, with
+its prime evidence and its native parent; the source of the $310$ upper bands;
+and the envelope bundle. The chain of evaluators is
+\path{research/improvements_2026_10_25/global/selected.py}, with
+\path{research/push_2026_10_25/design.json}; its adapters call the inherited
+signed-block assemblies. For the seven pieces with positive roots
+the adapters substitute $M_i=\operatorname{up}(R^n)$ and
+$\chi_i=\operatorname{up}((1+d^2)^n-1)$, with $R$, $d^2$ and $n$
+of \cref{cert:positive-root-caps}, for the uniform-root values;
+they use the invariant background factor $e^{t\Uinv}$ and replace
+the external index moment by the depth-$64$ finite prime-power
+upper majorant. All previous
+local and class formulas remain available; the adapters assert the exact
+source patterns they replace.
+
+\begin{table}[ht]
+\centering
+\footnotesize
+\caption{The inputs of the selected evaluation (S denotes
+\texttt{research/push\_2026\_10\_25/}; the other prefixes are as in
+\cref{tab:cert:finite}). SHA-256 hashes are abbreviated to their first and last
+eight hexadecimal digits; the full hashes are pinned by the design and final record.}
+\label{tab:cert:evaluation-files}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.44\textwidth}>{\raggedright\arraybackslash}p{0.29\textwidth}l@{}}
+\toprule
+File & Content & SHA-256\\
+\midrule
+S/\path{design.json} & the selected design & \texttt{8ea866f5\ldots73ffcdff}\\
+S/\path{global/refined_L570_source.json} & native source: pieces, local data,
+ spectra, weights, charges & \texttt{0ad70bfc\ldots{}c5492ba9}\\
+S/\path{global/refined_L570_charges.json} & prime evidence: parts, cells,
+ degree charges, sums & \texttt{1e4c7e76\ldots9123b984}\\
+S/\path{global/refined_parent.json} & native parent: root changes, new
+ weights & \texttt{f89868ba\ldots{}b9e7fed1}\\
+F/\path{upper/upper_dense_refined.json} & the $310$ upper bands &
+ \texttt{c301f76e\ldots8091f337}\\
+F/\path{envelopes/exact_background_pairs.json} & envelope bundle &
+ \texttt{6eb2ce2a\ldots c0591caf}\\
+S/\path{artifacts/author.json} & the author scalar &
+ \texttt{ff9c5825\ldots{}c7fb4748}\\
+R/\path{item12/upper_v2_local.json} & the tail datum (\texttt{tail\_comparison})
+ & \texttt{7ce4d475\ldots efbb2589}\\
+C/\path{global/prime_moments.json} & the prime-moment tables &
+ \texttt{134b49af\ldots7755e0d3}\\
+A/\path{verification/selected.json} & the signed-block record (baseline) &
+ \texttt{d90b1e06\ldots3dbd0384}\\
+S/\path{verification/selected.json} & the final record &
+ \texttt{b9bde039\ldots0c5f50d6}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{enumerate}[label=(V\arabic*),leftmargin=*]
+\item \emph{Repricing and caps} (lines 120--127). $t=e^{2(a-a_0)L}$ and
+ $C=e^{2aL}$ with the actual budget $L=570$; the piece caps
+ $C_i=e^{2aL_i}$ of \cref{lem:piece-caps} (\path{research/advance_2026_10_24/envelopes/piece_product_caps.py},
+ \texttt{caps\_at}), from the authenticated histogram and the cells.
+\item \emph{First stage} (lines 124--126). $U_0=tU_0'$ and the tag totals
+ $d=tD'/2$, $v=tV'/2$ from the totals of the source at $a_0$; $R_{\rm err}$ and
+ $L_0$ by the majorant $\tagser_4^+$ of \cref{cor:two-cut-series}
+ (\path{research/advance_2026_10_24/global/grouped_first_stage.py}, lines
+ 25--38, which asserts $D'\le V'$, $d<6$, $dv<36$ and that the series does not
+ exceed the one-sharp bound), and $B=e^{U_0}+R_{\rm err}$; the dependent
+ coefficients of the source are checked by \texttt{check\_source} (lines
+ 12--23) when the assembly is built.
+\item \emph{Middle prices.} \texttt{raw\_ledgers} of
+ \path{research/advance_2026_10_24/local/low_domain.py}, selected by the
+ low-domain flag of the source
+ (\path{research/advance_2026_10_24/global/evaluate_signed.py}, lines 19--21),
+ forms for every piece the rows of \cref{def:closing-quantities}(3), rounded up
+ on $10^{-30}\Z$; the totals are multiplied by $t$ (line 171).
+\item \emph{Upper ledger} (\texttt{upper\_price} of
+ \path{research/continuation_2026_10_24/global/closing.py}, lines 130--150). In
+ each of the $310$ bands every term is its unit charge at $a_{\rm u}$ times
+ $e^{2(a-a_{\rm u})\ell}$ with its recorded logarithmic product bound $\ell$
+ (between $549.40$ and $885.44$); $S_{\rm u}(a)$ sums the repair and deletion
+ polynomials of the bands and $A_{\rm u}(a)$ their skew polynomials. The tail
+ polynomials of the tail datum enter with $s=\deg/2-2a>1$ at $\Pfour$: the
+ repair and the deletion prices in $S_{\rm u}(a)$, the repair prices also in
+ $A_{\rm u}(a)$ (\cref{lem:tail-prices}).
+\item \emph{Totals and the matching exponent} (lines 173--176). $S$, $A$ and $T$
+ of \cref{def:closing-quantities}(4), (5), with
+ $T_K=t(T^{\rm aux\prime}_K+T^{\rm inc\prime}_K)$: $T^{\rm aux\prime}_K$ from
+ \path{research/advance_2026_10_24/global/piece_data_beta.py} (lines 126--131),
+ $T^{\rm inc\prime}_K$ from the increments of \texttt{raw\_ledgers}; the
+ chosen sides are checked by \texttt{chosen\_sides} (lines 33--47) and the
+ matching gate at line 112.
+\item \emph{Invariant price.} $\Uinv$ is the exact rational of
+ \path{research/further_2026_10_25/envelopes/chosen_background.py}
+ (\texttt{price}). The adapter
+ \path{research/further_2026_10_25/global/scalar_adapters.py} (lines 48--60)
+ makes the one substitution in \texttt{evaluate}: where the
+ inherited assembly used the background factor $e^{U_0-S/4}$ (the
+ factor $\exp((U_0-S/4)/\beta)$ at the source's bracket parameter
+ $\beta=1$), the selected evaluation uses $e^{t\Uinv}$, as
+ justified by \cref{lem:oct24:invariant-background}; the
+ independent assembly uses the independent
+ price of lines 63--91.
+\item \emph{Class costs and savings} (lines 184--241): the remainder
+ polynomials, the leading costs $C_{n,m}$ with the orbit coupons and the gate
+ at line 205, and the sixteen savings of \cref{def:closing-quantities}(8). The
+ general classes are the rows with $n\ge1$ of the bundle and its pair rows FF,
+ FE; the matching pairs and the classes $(0,4)$, $(0,6)$ come from its E-type
+ rows, and its two general rows without a fold record are not used. No saving
+ is discarded.
+\item \emph{Restorations, gains and coupons} (lines 129--165 and 242--258): the
+ restorations with the piece caps
+ (\path{research/advance_2026_10_24/envelopes/piece_cap_restoration.py}), the
+ gain tables with backgrounds of degrees one and two
+ (\path{research/continuation_2026_10_24/envelopes/background_variance.py}),
+ the coupons $m_F$, $m_Q$
+ (\path{research/advance_2026_10_24/envelopes/beta_restoration.py}), the
+ late-pool terms on the pieces from $2^{31}$, the selected-only gains of the
+ aligned matching pairs and the credits of degrees three and four
+ (\path{research/advance_2026_10_24/envelopes/beta_higher_variance.py}); then
+ the price tables and $D_{\rm var}$ of \cref{cor:variance:final}.
+\item \emph{Index.} The adapter
+ \path{research/improvements_2026_10_25/global/reclose.py} replaces the old
+ field moment by the finite prime-power majorant of
+ \path{global/padic_moment.py} in that package, using the selected $a,K$.
+ It adds the finite-depth correction to the logarithm of the old
+ field-prime moment's upper endpoint, verifies that the resulting
+ majorant is below that endpoint, and only the upper endpoint of
+ the new enclosure is used.
+\item \emph{Closing.} The final author and independent programs evaluate
+ $D$, $\mathcal E$, $m$, $J$, $W$ and $\Theta$ from the selected inputs. They
+ share primitive local prices and envelope proofs, but assemble
+ separately each of these totals and every ledger and discount
+ entry; the comparison passes only if every pair of corresponding
+ enclosures, and the two enclosures of $\Theta$, overlap. Both $\Theta$ upper endpoints are below
+ $\PushTheta<1$; the complete current numerical ledger is in
+ \cref{cert:closing}.
+\end{enumerate}
+
+No total of an earlier checkpoint's closing enters the evaluation: its inputs
+are the three authenticated sources, the tail datum
+(\cref{def:record:upper-bands}(e)) and the prime-moment tables. The source
+also carries historical closing fields of its producer (in its field
+\texttt{middle}: \texttt{S}, \texttt{A}, \texttt{R}, \texttt{EY}, \texttt{J},
+\path{first_stage_loss} and \path{closing_without_upper}); the design records
+\path{historical_native_global_fields_used = false}, and the evaluation reads
+none of them. The modules of the earlier checkpoints that the
+evaluation calls supply formulas only: the interval arithmetic, the
+restoration formula
+(\path{research/continuation_2026_10_24/envelopes/restoration.py}), the gain
+and price tables
+(\path{research/continuation_2026_10_24/envelopes/background_variance.py}),
+and the class skeleton with the upper repricing
+(\path{research/continuation_2026_10_24/global/closing.py}, reached through
+\path{research/advance_2026_10_24/global/closing.py}).\par
+\endgroup
+
+\subsection{What the earlier verifiers contribute}\label{subsec:cert:inherited}
+
+The first four verifiers supply the foundational checks listed in
+\cref{tab:cert:inherited}. The fifth, F, adds the positive-root estimates,
+invariant background price, envelope bundle and refined upper ledger named in
+\cref{tab:cert:finite}. The selected middle laws and their restoration data
+are bound by I, and the reanchored charges and closing by S.
+The older modules remain useful because their formulas are evaluated anew on
+the selected inputs, as explained above.
+
+\emph{The record verifier} \path{research/record_2026_10_18/verify.py}, its
+record re-frozen at \texttt{8dc0a3fe} for the $770$-page manuscript, has $62$
+checks ($53$ in the default tier, $9$ more with \texttt{-{}-full}), which all
+pass. The final proof uses its analytic checks, its weighted identity, its
+query images, its direct-star tests and its authentication of the inherited
+upper and tail inputs; its closing chains, middle data and band ledger belong
+to the October~18 construction and are not used.
+
+\emph{The pure-pair verifier} \path{research/push_2026_10_24/verify.py} (no
+named check registry) re-evaluates both closing chains of its checkpoint,
+reruns four checks of the record verifier on its stored source, replays its
+local audits, envelopes and restorations, and with \texttt{-{}-full} regenerates
+its source and both closing chains, with the independent upper review
+\path{tools/check_upper.py}. The final proof uses only that re-check of the
+tail datum; none of its finite assertions about the pure law is used.
+
+\emph{The continuation verifier} \path{research/continuation_2026_10_24/verify.py}
+has $21$ checks ($11$, and $10$ more with \texttt{-{}-full}). The final proof
+uses its analytic domain audit, its review of the nine-threshold twelve-label
+grid, its prime-moment tables, the status of the four-root identity record,
+and, as formulas, its restoration, gain and price-table code; the skew-only
+and forest records of its folder enter the upper chain. Its closing, its
+$245$-band upper ledger, its native middle and the route-A L20 gates of its
+root are not used.
+
+\emph{The signed-block verifier} \path{research/advance_2026_10_24/verify.py}
+has $58$ checks ($43$, and $15$ more with \texttt{-{}-full}). It supplies, among
+others, the analytic domain, the local laws and the L20 caps of the uniform
+root, the native review of all pieces, the signed law, the envelope replay and
+the regenerated upper chain of $310$ bands, which the final upper replay takes
+as its baseline. Its $18$ interim checks and the eight interim density checks
+of its full tier are not used.
+
+\begin{table}[ht]
+\centering
+\footnotesize
+\caption{The earlier verifiers of the chain and what the final proof takes from
+them (prefixes of the check names omitted).}
+\label{tab:cert:inherited}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.16\textwidth}>{\raggedright\arraybackslash}p{0.43\textwidth}>{\raggedright\arraybackslash}p{0.35\textwidth}@{}}
+\toprule
+Verifier & Checks & Used by the final proof\\
+\midrule
+record & analytic:slacks, analytic:arc-exponents, independent:u05,
+ analytic:tail-gates & (S1)--(S7)\\
+ & variance:weighted-identity & the $400$-term identity\\
+ & middle:geometry, independent:u01 & \cref{cert:record:middle-geometry}\\
+ & upper:direct-star, independent:u07 & the direct-star tests at
+ $2^{49},2^{50},2^{51}$\\
+ & authenticate, bindings, source:manifests, audit:closure & authentication of
+ the inherited grids, direct-star records and tail files\\
+ & the other checks (closing chains, middle prices and local laws,
+ orientation mixture, variance and means, band ledger, regenerations) & not
+ used\\
+pure pair & \path{tools/check_upper.py} (full) & the $105$ gates and the
+ coefficients of the tail datum, the tail prices\\
+ & the other checks & not used\\
+continuation & \path{analytic} & (S0), through the signed-block analytic check\\
+ & \path{middle_grid}, \path{fresh_grid} & the grid of nine thresholds\\
+ & \path{l20_mean}, \path{fresh_l20_mean} & the status of the identity record
+ of \cref{cert:l20-star-mean}\\
+ & \path{fresh_moments} & the prime-moment tables\\
+ & \path{local}, \path{author}, \path{independent}, \path{native},
+ \path{prices}, \path{upper_ledger}, \path{upper_prices}, \path{l20_variance},
+ the other \path{fresh_*} & not used (the final verifier reruns the script of
+ \path{prices} on the final source)\\
+signed block & \path{analytic}, \path{local_*} except
+ \path{local_signed_frontier}, \path{native}, \path{envelopes},
+ \path{joint_witness_*}, \path{upper}, \path{fresh_partitions},
+ \path{fresh_l20}, \path{fresh_middle_grid}, \path{fresh_native_prices},
+ \path{fresh_prime_moments} & the rows of \cref{tab:cert:finite} that name
+ them; \path{upper} gives the baseline of the final upper replay\\
+ & \path{author}, \path{independent}, \path{prices}, \path{interim_*},
+ \path{local_signed_frontier}, \path{fresh_low_grid}, \path{fresh_native} &
+ not used (the final verifier reruns the scalar and price scripts on the final
+ inputs)\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Two points need a word. First, in the baseline upper source the root entries of
+LL20 and LL22 in the $301$ bands below $2^{52}$ are those of the field
+\texttt{even\_root\_evidence} of each band, the caps of
+\cref{cert:upper-root-caps} (at $P_3$, $d=12847.187931$ for LL20); the field
+\texttt{roots} of the $45$ bands below $2^{48}$ records an earlier stage of the
+chain, with larger caps, and is not used; from $2^{52}$ on the root entries are
+the completed-root caps of \cref{cert:upper-completed-root}. Second, the earlier
+suite \path{paper/certificate/} contains finite consistency tests of the
+second-order bounds of \cref{sec:dl}; they are not inputs of any proof.
+
+\begin{remark}[Consistency tests of the second-order bounds]
+\label{rem:cert:deligne-tests}
+The numerical sharpness of \cref{thm:dl:K,thm:dl:H2} is recorded in
+\cref{rem:dl:K-sharp,rem:dl:H2-sharp}. Two checks of the suite
+\path{paper/certificate/} test the theorems on finite cases. Neither is an
+input of any proof, and the launcher \path{paper/verify.py} does not run
+them. The check
+\texttt{check\_deligne\_theorem\_K} (\path{certlib/checks_deligne.py}) verifies
+$2pI\mp M\succeq0$ by exact $LDL^{\mathsf T}$ decompositions of the full matrix
+for $p\in\{3,5,7,11\}$; the same on the $\mathsf T$-invariant subspace for
+every prime $3\le p\le61$, which is a complete verification for these $p$,
+since every constituent of \cref{lem:dl:decomp} has a $\mathsf T$-fixed vector
+and $M$ acts on each isotypic component as the identity on $\pi$ tensored with
+a matrix of size $m_\pi$; and, for $p\le31$ and every row $x$, the row sum
+$\sum_zM(x,z)=-(p-1)$ and the identity $\sum_zM(x,z)f(z_1)=f(x_1)+f(x_2)$ for
+$f=\delta_0-\frac1{p+1}$ on $\mathbb P^1(\Fp)$. The check
+\texttt{check\_deligne\_h2\_bruteforce} (\path{certlib/checks_deligne_h2.py})
+compares \cref{thm:dl:H2} with exact double sums for $3360$
+instances drawn by that check's sampler with fixed seed $20261011$
+(squarefree $f,g$, split or not, $2\le\deg f\le7$, $0\le\deg g\le7$, random
+leading coefficients and shared roots; the family also contains cases outside
+the hypotheses of the theorem: non-split $f,g$, and $\deg g=0$, where
+$\Sigma=0$) over the $42$ primes $11\le p\le199$, and requires the bound of
+each fibration separately; the largest ratio $|\Sigma|/(p\gamma(m)(m+n-s-1))$
+found is $0.98\ldots$. Both run, in \path{paper/certificate/}, with
+\texttt{python3 -I -B verify\_all.py -{}-only} followed by their names.
+\end{remark}
+
+\subsection{The archive and the earlier checkpoints}\label{subsec:cert:archive}
+
+The baseline checkpoint is \texttt{push\_2026\_10\_25} at commit
+\texttt{1b9239f0}. Its paper archive has $162$ files and SHA-256
+\texttt{6bacf686\ldots{}b01d73b}; its script archive has SHA-256
+\texttt{8f642802\ldots98f4e08}. The complete inventory and the archive
+README give every constituent hash. The following commands run the full
+selected chain, rebuild its archived paper, or build this synthesis:
+\begin{verbatim}
+PYTHON -B paper/verify.py --checkpoint push_2026_10_25 --full \
+  --output-dir DIR
+python3 -B paper/build.py --checkpoint push_2026_10_25 \
+  --output-dir DIR
+python3 -B paper/build.py
+\end{verbatim}
+The rest of this subsection records the earlier archive checkpoints and their
+reproducible commands. Their old exponents and source pins are preserved.
+
+Two earlier manuscripts are archived. The manuscript as it stood before the synthesis
+rewriting (commit \texttt{a6e4c29}, $644$ pages) is preserved in
+\path{archive/paper-purepair-2026-10-24.tar.gz}, with the launchers of that
+commit in \path{archive/scripts-purepair-2026-10-24.tar.gz}; their manifests
+\path{archive/paper-purepair-2026-10-24.manifest.json} (SHA-256
+\texttt{87789fa9\ldots ef5b0770}) and
+\path{archive/scripts-purepair-2026-10-24.manifest.json}
+(\texttt{b68f164b\ldots d716a8b6}) record every member's size and hash, and the
+logical inventory \path{archive/purepair-2026-10-24.inventory.json}
+(\texttt{102cc539\ldots ab754fa3}) lists the $5113$ files on which the record and
+pure-pair verifiers depend. The $770$-page manuscript on the master branch (commit
+\texttt{8dc0a3fe}), which the inherited five-stage chain authenticates,
+is preserved in \path{archive/paper-further-2026-10-25.tar.gz} ($144$ files,
+every committed file under \path{paper/} except \path{paper/certificate/};
+manifest \texttt{896c67af\ldots 376a82b2}); the scripts archive above serves it
+too, as \path{scripts/} is byte-identical at both commits. Two further archives
+complete that tree: \path{archive/untracked-further-2026-10-25.tar.gz}, the one
+git-ignored input that the chain reads, whose bytes five committed records pin
+(manifest \texttt{39f0a1ab\ldots b966f7b7}), and
+\path{archive/research-purepair-2026-10-24.tar.gz}, the \texttt{a6e4c29} bytes
+of the five research files that \texttt{8dc0a3fe} re-froze, which the older
+restored checkpoints need (manifest \texttt{efd1a7c9\ldots 0255cffa}). The
+logical inventory \path{archive/further-2026-10-25.inventory.json}
+(\texttt{e66068b1\ldots 5f5d553b}) lists the $6761$ files of the chain, the
+hashes of the two generated archives and those of the $1640$ files of the
+prepared frontier layout. \path{scripts/manuscript_layout.py} pins every
+manifest by its SHA-256; \path{archive/README-purepair-2026-10-24.md} and
+\path{archive/README-further-2026-10-25.md} document the archives, the
+reconstruction and its test runs. The commit of the October~18 record is
+\texttt{8709495}; \path{paper/certificate/} stays in place, untouched. From the
+repository root, with PYTHON as in \cref{subsec:cert:final} and DIR an empty
+directory outside the checkout:
+\begin{verbatim}
+PYTHON -B paper/verify.py --checkpoint further_2026_10_25 \
+  [--full] [--output-dir DIR]
+python3 -B paper/build.py --checkpoint further_2026_10_25 \
+  [--output-dir DIR]
+python3 -B scripts/manuscript_layout.py \
+  --checkpoint further_2026_10_25 archive --output-dir DIR \
+  [--untracked-from WORKING_COPY]
+python3 -B paper/verify.py --checkpoint purepair_2026_10_24 \
+  [--output-dir DIR]
+/usr/bin/python3 -B paper/verify.py --checkpoint purepair_2026_10_24 \
+  --full [--output-dir DIR]
+python3 -B paper/verify.py --checkpoint record_2026_10_18 [--full]
+python3 -B scripts/manuscript_layout.py \
+  --checkpoint purepair_2026_10_24 archive --output-dir DIR
+python3 -B paper/verify.py --checkpoint frontier_2026_10_17
+\end{verbatim}
+The first runs the previous five-stage certificate; the second
+rebuilds the $770$-page manuscript; the third rebuilds the
+archives of that manuscript, the manifests of those archives and
+its logical inventory from commit \texttt{8dc0a3fe} (the untracked
+input from its own archive, or from a working copy) and compares
+all of them byte for byte with the committed files; the fourth and fifth run the pure-pair checkpoint
+on the $644$-page manuscript (its full tier compares an interpreter path and
+needs \path{/usr/bin/python3}); the sixth runs the October~18 record alone; the
+seventh rebuilds the archives of commit \texttt{a6e4c29}; and the last runs the
+six-query checkpoint from its own archive. \Cref{tab:cert:checkpoints} lists the
+checkpoints, which \cref{subsec:history:checkpoints} describes; their verifiers
+read their own frozen inputs, and the first row needs separate checkouts of the
+two commits named there.
+
+\begin{table}[ht]
+\centering
+\footnotesize
+\caption{The checkpoints of \cref{tab:history:checkpoints} and their entry
+points (from the repository root; the exponents are $\eps$ of the
+corresponding theorem). The last eight rows are the checkpoints
+whose verifiers (seven in all, the
+\texttt{research/push\_2026\_10\_24/} verifier serving two of
+the rows) are run by \texttt{paper/verify.py}
+(\cref{subsec:cert:final}); the first five of the seven formed
+the chain at commit \texttt{8dc0a3fe}.}
+\label{tab:cert:checkpoints}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.27\textwidth}>{\raggedright\arraybackslash}p{0.24\textwidth}>{\raggedright\arraybackslash}p{0.43\textwidth}@{}}
+\toprule
+Design & $\eps$ & Entry point\\
+\midrule
+$216$ slots, singleton recurrence & $3347/10^{12}$ &
+ \path{paper2/certificate/verify_current.py} at \texttt{ef1a0e7}, then two
+ snapshot verifiers at \texttt{90d5b46}\\
+$216$ slots, synthesized transfer & $83/2000000000$ &
+ \path{research/synthesis_2026_10_16/verify.py}\\
+$216$ slots, fixed family & $269973/5376500000000$ &
+ \path{research/further_2026_10_16/verify.py}\\
+one amplified edge & $1/8000000$ &
+ \path{research/single_edge_2026_10_17/verify_single.py}\\
+simultaneous cuts & $513/2242156250$ &
+ \path{research/improvements_2026_10_17/verify_sixteen.py}\\
+$72$ slots, two layers & $2214/1111328125$ &
+ \path{research/push_2026_10_17/verify.py}\\
+$72$ slots, local refinements & $1971/635562500$ &
+ \path{research/advance_2026_10_17/verify.py}\\
+six queries & $63/8927500$ & \texttt{paper/verify.py -{}-checkpoint
+ frontier\_2026\_10\_17} (commit \texttt{be0cc8d})\\
+paired repairs & $441/44375000$ & \texttt{paper/verify.py
+ -{}-checkpoint record\_2026\_10\_18} (commit \texttt{8709495})\\
+intermediate (exact index) & $276327/27734375000$ &
+ \path{research/push_2026_10_24/verify.py} (its first record)\\
+pure paired law & $\PurePairExponent$ & \texttt{paper/verify.py -{}-checkpoint
+ purepair\_2026\_10\_24}\\
+exact actual laws & $\ContinuationExponent$ &
+ \path{research/continuation_2026_10_24/verify.py}\\
+signed blocks & $\AdvanceExponent$ &
+ \path{research/advance_2026_10_24/verify.py}\\
+positive roots (previous checkpoint) & $\frac{887239883}{71000000000000}$ &
+ \texttt{paper/verify.py -{}-checkpoint further\_2026\_10\_25}\\
+collision and coherent roots & $\frac{1110464567}{88750000000000}$ &
+ \path{research/improvements_2026_10_25/verify.py}\\
+exact reanchoring (baseline) & $\PushExponent$ &
+ \texttt{paper/verify.py}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{remark}[Provenance]\label{rem:cert:provenance}
+\sloppy
+The arguments of Parts~III--V were first written as research notes, which
+remain in the repository, and as the layered text of the $770$-page manuscript on the master branch
+(its \S\S42--44); those of the October~18 record come with the
+referee reports of its record gate (\path{research/record_gate_2026_10_18/},
+units \texttt{U01}--\texttt{U15} and \texttt{I1}--\texttt{I3}). They are
+provenance only, and every step used is proved in the text. The kernel, the
+prime-power interface and the moments are in
+\path{research/roadmap_2026_10_18/item05/} and \texttt{item06/}, and
+\cref{app:kernel20} follows the independently written proof
+\path{research/roadmap_2026_10_18_claude/item05/beta-global/K_general_kernel.tex};
+the repairs and collisions in \texttt{item01/} and \texttt{item03/}, with the
+first negative cap of the reference fold record
+(\path{item03/OLD_F_NEGATIVE_CAP.md}); the weighted identity and the auxiliary
+sides in \texttt{item03/}; the charge theorem of the blocks in
+\texttt{item06/}; the tail datum and the direct-star tests in
+\texttt{item12/}, with the one-way repairs of the tail in
+\path{research/frontier_2026_10_17/}. The exact actual laws, the restorations,
+the backgrounds, the prime moments and the forest records are in
+\path{research/continuation_2026_10_24/}; the signed whole-block law, the
+refined negative cap (\path{local/OLD_F_NEGATIVE_REFINEMENT.md}), the L20 cap of
+the uniform root, the tagged first stage, the matrix envelopes, the piece caps
+and the upper chain from $P_3$ in \path{research/advance_2026_10_24/}; and the
+positive roots, the assigned invariant price and the $310$-band refinement in
+\path{research/further_2026_10_25/}. One charging rule of those notes is worth
+recording: a one-way repair of a symmetric record is charged its symmetric norm
+in full but only the skew part of the new law in the skew ledger
+(\cref{rem:cp:charging}(iii)).
+
+Several generated inputs carry status labels written by their producers when
+they were generated, before the reviews and the verifiers ran. The
+signed-block record lists its check \texttt{upper} with the stage label
+\path{EVEN_COUNT_ROOT_UPPER_PENDING_INDEPENDENT_REVIEW} of the regenerated
+upper file (written by \path{upper/apply_even_roots.py}, line 111; the check
+also records $310$ bands, $14$ stages and $51$ independent reviews), its check
+\texttt{author} with \path{PASS_EXECUTION}, and its check
+\path{fresh_native} with \path{INFEASIBLE}, the status field of the
+historical closing of the regenerated native source (the operative check is
+\path{fresh_native_prices}, \path{PASS_COMPLETE_NATIVE_REGENERATION}).
+The final inputs carry \path{NEW_EXACT_LOG_BUDGET_CONSTRUCTION_NOT_YET_RECLOSED}
+(the native source), \path{POSITIVE_SIX_QUERY_LE_UPPER_PENDING_INDEPENDENT_REVIEW}
+(the upper source), \path{EXACT_WITNESSES_REQUIRING_FRESH_SELECTED_REPLAY}
+(the envelope bundle), while the selected author's inner result carries
+\path{COMPLETE_PADIC_SCALAR_PENDING_CONSTRUCTION_REVIEW}. Its enclosing record
+has status \path{PASS_SELECTED_AUTHOR_SCALAR}; the independent record has
+\path{PASS_SELECTED_INDEPENDENT_SCALAR}. The twelve-label grid records carry
+\path{EXACT_PSD_WITNESSES_REPLAY_PENDING}. The older stage labels describe
+when those fields were produced; the operative results are the named checks
+of the authenticated verifier chain and the reviews in \cref{tab:cert:finite}. The historical
+closing fields of the native source and the price fields \texttt{S},
+\texttt{A} of its evidence (\cref{subsec:cert:evaluation}), which include
+prices of a fold law that the construction does not use, are not inputs of
+any statement.
+\end{remark}
+
+\paragraph{Consequences and what to read next.}
+Read \cref{lem:majorant} for evaluation at endpoints;
+\cref{lem:record:repricing,cor:first-stage-repricing,cor:two-cut-series} and
+\cref{lem:piece-caps} for the repricing used in
+\cref{subsec:cert:evaluation};
+\cref{def:closing-quantities,prop:closing-data} for the meaning of the
+evaluated quantities;
+\cref{prop:record:upper,prop:record:matching,prop:signed-sides,lem:middle-comparison-prices}
+for the prices and the matching exponent; and the certificates of
+the other sections for the scope of the table.

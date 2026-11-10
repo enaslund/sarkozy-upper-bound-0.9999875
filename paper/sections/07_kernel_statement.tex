@@ -1,0 +1,220 @@
+\section{Cancellation from square-difference-freeness: statement of the kernel estimate}\label{sec:kernel}
+
+\paragraph{What this section proves and how to read it.}
+Square-difference-freeness of $A$ produces cancellation in exactly one place
+of the analytic stage: a bound for a truncated Fourier pairing of two functions
+that live on single residue classes of a modulus $D$, on ordered intervals,
+with no difference a positive square. This section states that bound;
+elsewhere, in the rescaling of \cref{sec:scale-comparison}, only the fact that
+the property passes to progressions with square step is used. The bound is
+applied in
+the accepted-pair cancellation (\cref{lem:record:density-can}), and through it
+in the wrap of the signed index form (\cref{lem:record:wrap-expansion}). The
+proof, a quadratic circle-method argument, is in \cref{app:kernel20}. The
+statement carries symbolic exponents because the cutoff of the functional and
+the range of the kernel have to match: the cancellation applies the kernel at
+the cutoff $H=N^{1/40}$ with moduli up to $N^{1/20}$, and a kernel bound proved
+for a smaller cutoff does not apply to it. The proof is the same for every
+admissible choice of exponents, so it is given once.
+
+\begin{definition}[Kernel notation]\label{def:kernel-notation}
+For $\xi\in\Q/\Z$ let $q(\xi)$ be its reduced denominator, and let
+\[
+ g(\xi)=\frac1{\varphi(q(\xi))}\sum_{m\in(\Z/q(\xi)\Z)^\times}e\big(\xi m^2\big),
+ \qquad g(0)=1,
+\]
+be the \emph{unit quadratic average} at $\xi$; thus $|g(\xi)|\le1$, and for
+squarefree odd $q(\xi)$ this is the product formula of
+\cref{lem:square-shift}(d). For $H\ge1$ and any positive integer $D$ put
+\[
+ \Xi_{H,D}=\{\xi\in\Q/\Z:\ q(\xi)\le H,\ q(\xi)\ \text{squarefree},\ (q(\xi),D)=1\}.
+\]
+When $D=8d$ with $d$ odd, strict square classes modulo $D$ are those of
+\cref{def:strict-square-class};
+by the paragraph after that definition they are exactly the squares of units
+modulo $D$, so a strict square class is the square of a unit modulo every odd
+prime power dividing $D$. For an integer $N\ge1$
+and a finitely supported $F\colon\Z\to\C$ write
+$\widehat F(\xi)=N^{-1}\sum_nF(n)e(-n\xi)$ and
+$\|F\|_{\ell^2}=(\sum_n|F(n)|^2)^{1/2}$.
+\end{definition}
+
+Three exponents enter the proof: the modulus satisfies $D\lesssim N^\kappa$,
+the cutoff is $H\asymp N^{\beta/2}$, and the major arcs of the circle method
+are the neighbourhoods (of the radius fixed in \cref{app:kernel20}) of the
+fractions with denominator at most $N^\eta$; the
+saving is $H^{-1/3}\asymp N^{-\beta/6}$.
+
+\begin{definition}[Kernel exponents]\label{def:kernel-conditions}
+A triple $(\beta,\kappa,\eta)$ of positive numbers is \emph{admissible for the
+kernel} if the following seven strict inequalities hold:
+\begin{align*}
+ &\text{(E1)}\quad \kappa+\tfrac\beta2-\tfrac\eta2<-\tfrac\beta6, &
+ &\text{(E2)}\quad \kappa+\beta-\eta<-\tfrac\beta6, &
+ &\text{(E3)}\quad \eta+2\kappa+\tfrac{3\beta}2-1<-\tfrac\beta6,\\
+ &\text{(E4)}\quad 2\eta+2\kappa+\beta-\tfrac12<-\tfrac\beta6, &
+ &\text{(K0)}\quad 3\eta<1, &
+ &\text{(K1)}\quad \kappa+\tfrac\beta2<\eta,\\
+ &\text{(K2)}\quad 2\eta+\kappa+\tfrac\beta2<1 .
+\end{align*}
+\end{definition}
+
+Here (K0) makes the major arcs disjoint, (K1) puts every centre of the model
+kernel (\cref{lem:record:K20-centres}) on a major arc, and (K2) separates
+distinct centres; (E1)--(E4) say that the
+four error terms of the circle method (the actual kernel on the minor arcs, the
+model kernel on the minor arcs, and the model and the actual kernel on the
+major arcs) are smaller than the saving $N^{-\beta/6}$.
+
+\begin{proposition}[The actual-square kernel]\label{prop:record:kernel20}
+Let $(\beta,\kappa,\eta)$ be admissible for the kernel, and fix
+$C_D,C_H\ge1$. There are $C$ and $N_0$, depending only on $\beta$, $\kappa$,
+$\eta$, $C_D$ and $C_H$, with the following property. Let $N\ge N_0$, let
+$D=8d\le C_DN^\kappa$ with $d$ odd (not necessarily squarefree), and let
+$C_H^{-1}N^{\beta/2}\le H\le C_HN^{\beta/2}$. Let $F,J\colon\Z\to\C$ be supported
+in $[1,N]$, in residue classes $a$ and $b$ modulo $D$. Suppose that $x<y$ for
+all $x\in\supp F$ and $y\in\supp J$, and that no such difference $y-x$ is the
+square of a positive integer.
+\begin{enumerate}[label=(\roman*)]
+\item If $b-a$ is a strict square class modulo $D$, then
+ \begin{equation}\label{eq:record:K20}
+  \Big|D\sum_{\xi\in\Xi_{H,D}}g(\xi)\widehat F(-\xi)\widehat J(\xi)\Big|
+  \le C\,N^{-\beta/6}\,\frac{\|F\|_{\ell^2}\|J\|_{\ell^2}}N .
+ \end{equation}
+\item Let $\mathcal P_0$ be a finite set of odd primes and $m_p\ge1$
+ $(p\in\mathcal P_0)$ integers such that the exponent of $p$ in $D$ is
+ exactly $2m_p$. Suppose that
+ $b-a\equiv1\pmod8$, that $b-a$ is a nonzero square modulo every prime of $d$
+ outside $\mathcal P_0$, and that at each $p\in\mathcal P_0$ either $b-a$ is a
+ unit square modulo $p$, or $v_p(b-a)=2j_p$ with $1\le j_p<m_p$ and
+ the unit part of the representative a nonzero square modulo $p$ (where $v_p(b-a)$ is
+ the valuation of any integer representative of the class $b-a$
+ modulo $p^{2m_p}$, independent of the choice when it is
+ $<2m_p$). Then \eqref{eq:record:K20} holds
+ with the same $C$ and $N_0$ as in (i), as a special case of (iii).
+ The corresponding rescaling identity is as follows. With $R=\prod_pp^{2j_p}$
+ over the primes of $\mathcal P_0$ at which $v_p(b-a)\ge2$, $D_R=D/R$ and
+ $N'=\lceil N/R\rceil$, the expression inside the absolute value
+ in \eqref{eq:record:K20} (the \emph{pairing}) equals
+ $R(N'/N)^2$ times the corresponding expression with $D$ replaced
+ by $D_R$, at length $N'$, for the functions $F',J'$ on $[1,N']$
+ constructed in \cref{lem:record:nonunit-rescale}, to which (i)
+ applies with the constants $C_DR^\kappa$ and $C_HR^{\beta/2}$.
+\item With the condition $D=8d$, $d$ odd, replaced by
+ $D=2^{h_2}\prod_{p\text{ odd}}p^{h_p}\le C_DN^\kappa$, $h_2\ge3$,
+ \eqref{eq:record:K20} holds whenever $b-a$ is a nonvanishing square class
+ (\cref{def:nonvanishing-square-class}). The constants $C$ and
+ $N_0$ may be taken depending only on $\beta,\kappa,\eta,C_D,C_H$,
+ as in (i). The root-class construction of
+ \cref{lem:kernel-depth-classes} supplies for these classes the same
+ arithmetic coefficient and the same period and Fourier-coefficient bounds
+ as for the strict classes of (i), for the proof in \cref{app:kernel20}.
+\end{enumerate}
+In particular, if $|F|,|J|\le1$ and $F,J$ are supported in intervals
+$I_1,I_2$, the right-hand side of \eqref{eq:record:K20} is at most
+$CN^{-\beta/6}N^{-1}((|I_1|/D+1)(|I_2|/D+1))^{1/2}$.
+\end{proposition}
+
+The paper applies the proposition at one triple.
+
+\begin{corollary}[The kernel at $\beta=1/20$]\label{cor:kernel20}
+The triple $(\beta,\kappa,\eta)=(1/20,1/20,17/100)$ is admissible for the
+kernel. The slacks of (E1), (E2), (E3), (E4), (K0), (K1), (K2), that is, the
+differences between the right-hand and the left-hand sides, are
+\[
+ \frac1{600},\qquad\frac{37}{600},\qquad\frac{97}{150},\qquad\frac1{600},
+ \qquad\frac{49}{100},\qquad\frac{19}{200},\qquad\frac{117}{200}.
+\]
+Hence \cref{prop:record:kernel20} holds with $D\le C_DN^{1/20}$,
+$C_H^{-1}N^{1/40}\le H\le C_HN^{1/40}$ and the saving $N^{-\beta/6}=N^{-1/120}$.
+These seven numbers are (S6) of \cref{cert:record:analytic-stage}, checked
+there in exact rational arithmetic; this is the form of the kernel that
+\cref{lem:record:density-can} uses.
+\end{corollary}
+
+\begin{proof}
+With $\beta=\kappa=1/20$ and $\eta=17/100$, so that $\beta/2=1/40$ and
+$\beta/6=1/120$, the seven slacks are, over the common denominator $600$,
+\begin{gather*}
+ \tfrac{51-30-15-5}{600}=\tfrac1{600},\qquad
+ \tfrac{102-30-30-5}{600}=\tfrac{37}{600},\qquad
+ \tfrac{600-102-60-45-5}{600}=\tfrac{388}{600}=\tfrac{97}{150},\\
+ \tfrac{300-204-60-30-5}{600}=\tfrac1{600},\qquad
+ 1-\tfrac{51}{100}=\tfrac{49}{100},\qquad
+ \tfrac{17}{100}-\tfrac3{40}=\tfrac{19}{200},\qquad
+ 1-\tfrac{34}{100}-\tfrac3{40}=\tfrac{117}{200}.
+\end{gather*}
+All are positive, and $\beta/6=1/120$.
+\end{proof}
+
+\paragraph{How square-difference-freeness enters.}
+The multiplier $g(\xi)$ is the average of $e(\xi m^2)$ over the units modulo
+$q(\xi)$. Three hypotheses of the proposition are the form in which
+square-difference-freeness is used: $F$ and $J$ are supported in single
+residue classes $a$ and $b$ modulo $D$ whose difference is a nonvanishing
+square class (strict in (i), of controlled valuation in (ii)); every $x\in\supp F$ is
+smaller than every $y\in\supp J$; and no difference $y-x$ is the square of a
+positive integer. In the applications $F$ and $J$ are built from a
+square-difference-free set $A$, restricted to two adjacent intervals and to
+two residue classes that differ by a square, and this makes the third
+hypothesis true. The proof compares two kernels on the positive integers: a
+model kernel $k_0$, the multiplier $\sum_{\xi\in\Xi_{H,D}}g(\xi)e(-\xi n)$
+restricted to $1\le n\le N$ and to the class $n\equiv b-a\pmod D$, and an
+actual-square kernel $k$, supported on the squares $m^2$, $1\le m\le\sqrt N$,
+weighted by the root-class weights of period dividing $D$ and by the
+truncated indicator, expanded in additive characters in
+\cref{def:record:K20-kernels}, that the root is a unit at every prime
+outside $D$ up to the cutoff $H$. The root classes of \cref{lem:kernel-depth-classes}
+give one construction for all three parts of the proposition. Put
+$B_h(F,J)=N^{-1}\sum_{x,n}h(n)F(x)J(x+n)$. The ordering and the class condition
+give $B_{k_0}(F,J)=D\sum_{\xi\in\Xi_{H,D}}g(\xi)\widehat F(-\xi)\widehat J(\xi)$,
+the pairing of the proposition, while $B_k(F,J)=0$ because no difference of
+the supports is a positive square. Plancherel bounds $|B_{k_0-k}(F,J)|$ by
+$N^{-1}\sup_\alpha|S_0(\alpha)-S(\alpha)|\,\|F\|_{\ell^2}\|J\|_{\ell^2}$, where
+$S_0(\alpha)=\sum_nk_0(n)e(\alpha n)$ and
+$S(\alpha)=\sum_nk(n)e(\alpha n)$ are the Fourier series of the
+two kernels, and the circle method shows that this supremum is
+$O(H^{-1/3})$ with a constant depending only on
+$\beta,\kappa,\eta,C_D,C_H$. This is the only place in the
+analytic stage where the defining property of $A$ yields a gain. The argument is a
+quadratic circle-method input in the tradition of Davenport and Vaughan
+\cite{Davenport00,Vaughan97}; for the large-sieve and Fourier background see
+also \cite{MontgomeryVaughan,IwaniecKowalski}. It follows
+\cite[Prop.~6.1]{OpenAI}, with prime-power moduli, a modulus and a cutoff that
+are only comparable to powers of $N$, the division of (ii) and symbolic
+exponents.
+
+\paragraph{The $\ell^2$ form and the division.}
+No bound on $|F|$ or $|J|$ is needed for \eqref{eq:record:K20}. The $\ell^2$
+norms make the estimate homogeneous of degree one in each input, which is what
+lets the pair cancellation of \cref{lem:record:density-can} retain the
+counts of $A$ in the two residue classes in the two intervals, and so gives
+a remainder bounded by a constant multiple of the density. A zero
+difference is not covered by (ii), and it does not occur under
+\ref{it:record:R5}: the exceptional clique records, on which a query difference
+vanishes, are removed from the comparison law, and \cref{lem:frontier:iidenergy}
+bounds the price of this removal, which is counted in the symmetric part only. Every divided prime keeps an exponent
+$2m_p-2j_p\ge2$ in $D_R$, so $D_R$ has the same prime divisors as $D$ and the
+frequency set is unchanged, $\Xi_{H,D_R}=\Xi_{H,D}$. The factor $R(N'/N)^2$ in
+(ii) is essential: without it the two pairings differ by the factor
+$R(N'/N)^2$ of (ii) itself, and equality of the ratios $D/|I|$ and
+$(D/R)/(|I|/R)$ for an interval $I$ and its rescaling alone is not the
+normalized Fourier identity of (ii).
+
+\paragraph{The range of the exponents.}
+With $-\beta/6$ moved to the left, each of the seven conditions says that an
+affine function of $(\beta,\kappa)$ with nonnegative coefficients is smaller
+than a number depending only on $\eta$. So with $\kappa=\beta$ and
+$\eta=17/100$ they hold for every $\beta\in(0,1/20]$, since they hold at
+$\beta=1/20$: the proposition contains the kernel at every smaller cutoff
+exponent, in particular at $\beta\le1/36$ with squarefree $d$. For
+$\kappa=\beta$ the admissible $\eta$ form the window
+$(10\beta/3,\,1/4-19\beta/12)$, nonempty only for $\beta<3/59$
+(\cref{rem:record:K20-range}); so $\beta=1/20$ is close to the largest cutoff
+exponent that this method allows when the modulus is as large as the cutoff.
+
+\paragraph{Consequences and what to read next.}
+This section has used the strict square classes of
+\cref{def:strict-square-class} and the product formula of
+\cref{lem:square-shift}(d) only in its definitions. The proof of
+the proposition is \cref{app:kernel20}.

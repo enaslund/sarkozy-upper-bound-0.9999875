@@ -1,0 +1,503 @@
+
+\section{External inputs}\label{app:external}
+
+\paragraph{What this appendix proves and how to read it.}
+The proof relies on a small number of published results that it does not
+prove. Three standard ones are stated in \cref{sec:notation}: Weil's bound
+for complete character sums (\cref{thm:weil}), used throughout, and the
+explicit Chebyshev estimate for primes in the residue classes modulo four
+(\cref{thm:bmor}) and Kassabov's inequality for angles between intersections
+of subspaces (\cref{thm:kassabov}), whose uses are named there;
+\cref{subsec:external:sources} matches them with their sources. The
+second-order inputs are stated here, and each is used only where named. The
+character table of $\mathrm{GL}_2$ over a finite field (\cref{thm:prelim:gl2})
+enters only \cref{lem:dl:group}, hence the four-cycle kernel bound
+\cref{thm:dl:K}. The $\ell$-adic inputs
+(\cref{subsec:external:sheaves}) enter \cref{lem:dl:sheaf,lem:tame-trace-bound} and, through them, the
+proofs of the two-variable character sum bound \cref{thm:dl:H2} and of the
+moving-root moments \cref{lem:moving-root-moments}; parts (v) and (vi) of
+\cref{thm:prelim:ks} are used only in the last, through
+\cref{lem:dl:sheaf}(v),(vi). Through \cref{thm:dl:K,thm:dl:H2} and the
+moving-root moments the second-order inputs reach the spectral caps of the
+middle and upper ranges (among them, through \cref{cor:raw-pair-maps}, the caps
+of the positive roots), the direct-star root
+(\cref{lem:record:direct-star-inputs}), the dense comparisons and the six-query
+mixture of the upper range (through \cref{lem:wt:stars}) and the conditional
+rows of the upper range (\cref{subsec:advance:product-rows}). The modular input
+(\cref{thm:ahlgren-ono}) enters only the second moment of the neighbourhood
+count (\cref{lem:record:weighted-moment}), and through it the root-half
+variances $\chi_p$ of the middle roots (in the restorations and in the
+completion of the root cut L20), the star mean of that cut
+(\cref{lem:l20-star-mean}), and the linear prices and the normalization of the
+positive roots (\cref{lem:root-linear,lem:root-normalization});
+\cref{tab:second-order-uses} lists every use. The character table is a finite
+statement, and the modular input is an identity at each prime together with
+Deligne's bound for the coefficients of one modular form; the $\ell$-adic inputs
+concern families of algebraic curves. The proofs using them are separate from
+the finite arithmetic certificates.
+
+Peyre's tensorization theorem is not an external input: \cref{app:peyre}
+proves the finite case of \cite[Theorem~3.3.1]{Peyre} that the paper uses
+(\cref{thm:peyre-finite}). Together with the three theorems named above, the
+results of this appendix are the external theorems on which the proof
+depends; everything else is proved in the paper or is standard textbook
+material, such as Khintchine's inequality, the Chinese remainder theorem and
+Fourier analysis on finite abelian groups.
+
+\emph{Notation.} The results below are quoted in the notation of their
+sources, which is local to this appendix and to the proofs that apply them.
+In particular $q$ is the number of elements of a finite field (the
+applications take $q=p$) or, in \cite{BMOR18}, a modulus, or, in
+\cref{thm:ahlgren-ono}, $e^{2\pi iz}$; $N\zeta$ is a norm
+and $N(x)$ the size of a residue field; $E$ is a finite field and $t$ is the
+parameter of a family of curves.
+Deligne's field isomorphism $\overline{\mathbb Q}_\ell\to\C$, written
+$\iota$ in the sources, is written $\jmath$, since $\iota$ is the reserved cut
+of the paper; the proofs that apply these results do not name it.
+
+\subsection{The characters of \texorpdfstring{$\mathrm{GL}_2(\F_q)$}{GL2(Fq)}}
+\label{subsec:external:gl2}
+
+For a field $\F_q$ we write $\F_{q^2}$ for its quadratic extension and, for
+$\zeta\in\F_{q^2}$, $\bar\zeta=\zeta^q$ and $N\zeta=\zeta\bar\zeta$.
+The group $\mathrm{GL}_2(\F_q)$ consists of the invertible $2\times2$
+matrices over $\F_q$. A complex representation assigns a linear operator to
+each group element, respecting products; its \emph{character} is the trace
+of that operator. It is \emph{irreducible} if it has no proper nonzero
+invariant subspace. The \emph{degree} of a character is the dimension of its
+representation. The projective line $\mathbb P^1(\F_q)$ is the set of
+one-dimensional subspaces of $\F_q^2$. For general finite-group
+representation theory see \cite{Serre77,Isaacs76}; the finite-field
+$\mathrm{GL}_2$ table is also treated in \cite{PiatetskiShapiro83}. We cite
+the precise table as in \cite[\S5.2]{FultonHarris}.
+
+\begin{theorem}[The characters of $\mathrm{GL}_2(\F_q)$; {\cite[\S5.2]{FultonHarris}}]\label{thm:prelim:gl2}
+Let $q$ be a power of an odd prime and $\F=\F_q$. Every element of
+$\mathrm{GL}_2(\F)$ is of exactly one of the following types:
+\textup{(a)} a scalar matrix $xI$, $x\in\F^\times$; \textup{(b)} a
+non-scalar matrix with characteristic polynomial $(T-x)^2$, $x\in\F^\times$;
+\textup{(c)} a matrix with two eigenvalues $x\ne y$ in $\F^\times$;
+\textup{(d)} a matrix with eigenvalues $\zeta,\bar\zeta$,
+$\zeta\in\F_{q^2}\setminus\F$. Two elements of the same type with the same
+eigenvalues are conjugate. For characters $\alpha,\beta$ of $\F^\times$ and
+$\varphi$ of $\F_{q^2}^\times$ there are complex representations $U_\alpha$
+(of dimension $1$, $g\mapsto\alpha(\det g)$), $V_\alpha$ (dimension $q$),
+$W_{\alpha,\beta}$ for $\alpha\ne\beta$ (dimension $q+1$) and $X_\varphi$ for
+$\varphi\ne\varphi^q$ (dimension $q-1$) such that:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item $V_1$ is the complement of the trivial representation in the
+  permutation representation of $\mathrm{GL}_2(\F)$ on $\mathbb P^1(\F)$, and
+  $V_\alpha=V_1\otimes U_\alpha$;
+\item these representations are irreducible, $W_{\alpha,\beta}\cong
+  W_{\beta,\alpha}$ and $X_\varphi\cong X_{\varphi^q}$, there are no other
+  isomorphisms among them, and every irreducible complex representation of
+  $\mathrm{GL}_2(\F)$ is isomorphic to one of them;
+\item their characters take the following values at the elements of the four
+  types:
+\begin{center}\small
+\begin{tabular}{@{}lllll@{}}
+\toprule
+ & (a) $xI$ & (b) & (c) $x\ne y$ & (d) $\zeta,\bar\zeta$\\
+\midrule
+$U_\alpha$ & $\alpha(x)^2$ & $\alpha(x)^2$ & $\alpha(x)\alpha(y)$ & $\alpha(N\zeta)$\\
+$V_\alpha$ & $q\,\alpha(x)^2$ & $0$ & $\alpha(x)\alpha(y)$ & $-\alpha(N\zeta)$\\
+$W_{\alpha,\beta}$ & $(q+1)\alpha(x)\beta(x)$ & $\alpha(x)\beta(x)$ & $\alpha(x)\beta(y)+\alpha(y)\beta(x)$ & $0$\\
+$X_\varphi$ & $(q-1)\varphi(x)$ & $-\varphi(x)$ & $0$ & $-(\varphi(\zeta)+\varphi(\bar\zeta))$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\item the conjugacy class of an element of type \textup{(a)}, \textup{(b)},
+  \textup{(c)}, \textup{(d)} has $1$, $q^2-1$, $q(q+1)$, $q(q-1)$ elements,
+  and there are $q-1$, $q-1$, $(q-1)(q-2)/2$, $q(q-1)/2$ classes of the
+  respective types. The centralizer of a non-scalar element $g$ is the
+  group of units of the algebra $\F[g]$, of order $q(q-1)$, $(q-1)^2$,
+  $q^2-1$ for $g$ of type \textup{(b)}, \textup{(c)}, \textup{(d)}; the
+  group $\mathrm{GL}_2(\F)$ has order $(q^2-1)(q^2-q)$.
+\end{enumerate}
+\end{theorem}
+
+\noindent Part (iv) is the class table at the beginning of
+\cite[\S5.2]{FultonHarris}. The centralizers named there (upper triangular
+matrices with equal diagonal entries, the diagonal torus, and
+$\F_{q^2}^\times$ acting on $\F_{q^2}\cong\F^2$) are the unit groups of
+$\F[g]$ for the listed representatives, and the class sizes are their
+indices.
+
+\subsection{\texorpdfstring{$\ell$}{l}-adic sheaves on curves}
+\label{subsec:external:sheaves}
+
+We use constructible $\overline{\mathbb Q}_\ell$-sheaves and \'etale
+cohomology with compact supports on schemes of finite type over a finite
+field $\F_q$ of odd characteristic $p$, as in \cite{SGA4half} and
+\cite[\S1]{DeligneWeilII}. The exponential-sum and monodromy background is
+developed in Katz's books \cite{KatzGKM,KatzESDE90,KatzTLM02,KatzMMP05}. Here $\ell\ne p$ is a
+fixed prime, and we fix a field isomorphism
+$\jmath:\overline{\mathbb Q}_\ell\to\C$, through which traces are regarded as
+complex numbers. In the applications (\cref{thm:dl:H2} and the moving-root
+moments) these facts are applied to dense open subschemes of the affine
+line; the remark after \cref{thm:prelim:ks} also applies them to the fibres
+of the Katz--Sarnak family.
+A \emph{lisse} sheaf is locally constant in the \'etale topology and has
+finite rank; its stalk is the vector space attached to a geometric point,
+and its rank is the dimension of that space. A \emph{constructible} sheaf
+admits a finite stratification on whose strata it is lisse. The cohomology
+group $H^i_c$ denotes \'etale cohomology with compact supports. For a group
+$G$ acting on a vector space $W$, its space of \emph{coinvariants} is
+$W_G=W/\langle gw-w:g\in G,w\in W\rangle$. The Tate twist $(-1)$ is the
+one-dimensional factor on which geometric Frobenius over $\F_q$ acts by $q$.
+We use the following standard facts.
+\begin{enumerate}[label=\textup{(E\arabic*)},leftmargin=*]
+\item\label{it:prelim:E1} \emph{Lisse sheaves and monodromy.} Let $X$ be a
+  smooth geometrically connected curve over $\F_q$ with a geometric generic
+  point $\bar\eta$. A lisse sheaf $\mathcal F$ on $X$ is the same as a
+  continuous representation $\rho_{\mathcal F}$ of $\pi_1(X,\bar\eta)$ on the
+  finite-dimensional space $\mathcal F_{\bar\eta}$
+  \cite[(1.1.6)]{DeligneWeilII}. For $x\in X(\F_q)$ the geometric Frobenius
+  $\mathrm{Frob}_x\in\pi_1(X,\bar\eta)$ is defined up to conjugation
+  \cite[(1.1.7), (1.1.8)]{DeligneWeilII}, and
+  $\mathrm{Tr}(\mathrm{Frob}_x\mid\mathcal F)$ denotes the trace of
+  $\rho_{\mathcal F}(\mathrm{Frob}_x)$, i.e.\ the trace of $\mathrm{Frob}_x$
+  on the stalk at a geometric point over $x$. The geometric fundamental group
+  $\pi_1^{\rm geom}(X)=\pi_1(X\otimes\bar\F_q,\bar\eta)$ is a closed normal
+  subgroup of $\pi_1(X,\bar\eta)$ \cite[(1.1.13), (1.1.15)]{DeligneWeilII};
+  $\mathcal F$ is \emph{geometrically irreducible} if
+  $\rho_{\mathcal F}|_{\pi_1^{\rm geom}(X)}$ is irreducible. If
+  $X'\subseteq X$ is a dense open subscheme, the map
+  $\pi_1^{\rm geom}(X')\to\pi_1^{\rm geom}(X)$ is surjective:
+  $X\otimes\bar\F_q$ is connected and normal, so by
+  \cite[Exp.~V, Prop.~8.2]{SGA1} already the fundamental group of its generic
+  point maps onto $\pi_1^{\rm geom}(X)$, and this map factors through
+  $\pi_1^{\rm geom}(X')$. Hence $\mathcal F|_{X'}$ is geometrically
+  irreducible if $\mathcal F$ is. If $\mathcal L$ is lisse of rank one, a
+  subspace of $\mathcal F_{\bar\eta}\otimes\mathcal L_{\bar\eta}$ of the form
+  $W\otimes\mathcal L_{\bar\eta}$ is stable under
+  $\rho_{\mathcal F}\otimes\rho_{\mathcal L}$ iff $W$ is stable under
+  $\rho_{\mathcal F}$, so $\mathcal F\otimes\mathcal L$ is geometrically
+  irreducible iff $\mathcal F$ is; and
+  $\mathrm{Tr}(\mathrm{Frob}_x\mid\mathcal F\otimes\mathcal L)=
+  \mathrm{Tr}(\mathrm{Frob}_x\mid\mathcal F)\,
+  \mathrm{Tr}(\mathrm{Frob}_x\mid\mathcal L)$. If $\mu:X'\to X$ is an
+  isomorphism of $\F_q$-schemes, $\mu^*\mathcal F$ is lisse, geometrically
+  irreducible iff $\mathcal F$ is, and
+  $\mathrm{Tr}(\mathrm{Frob}_x\mid\mu^*\mathcal F)=
+  \mathrm{Tr}(\mathrm{Frob}_{\mu(x)}\mid\mathcal F)$.
+\item\label{it:prelim:E2} \emph{Weights}
+  \cite[(1.2.1), (1.2.2), (1.2.5), (1.2.6)]{DeligneWeilII}. A lisse
+  $\mathcal F$ on $X$ is \emph{$\jmath$-pure of weight $w$} if for every
+  closed point $x$ of $X$, with residue field of $N(x)$ elements, every
+  eigenvalue $\alpha$ of $\mathrm{Frob}_x$ on $\mathcal F_{\bar x}$
+  satisfies $|\jmath(\alpha)|=N(x)^{w/2}$, and \emph{pure of weight $w$} if it
+  is $\jmath$-pure of weight $w$ for every choice of $\jmath$. A sheaf is
+  \emph{$\jmath$-mixed of weights $\le w$} if it has a finite filtration
+  whose successive quotients are $\jmath$-pure of weights $\le w$; a pure
+  sheaf of weight $w$ is $\jmath$-mixed of weights $\le w$. The tensor
+  product of lisse sheaves pure of weights $w$, $w'$ is pure of weight
+  $w+w'$, and $\mu^*$ ($\mu$ an isomorphism) preserves purity.
+\item\label{it:prelim:E3} \emph{Tame ramification} \cite[Ch.~1]{KatzGKM}.
+  Let $X\subseteq\mathbb P^1$ be a dense open subscheme over $\F_q$. For a
+  point $x\in\mathbb P^1(\bar\F_q)\setminus X(\bar\F_q)$ there is an
+  \emph{inertia group} $I_x\subseteq\pi_1^{\rm geom}(X)$ at $x$, a closed
+  subgroup well defined up to conjugation, with a unique pro-$p$ Sylow
+  subgroup $P_x$ (the \emph{wild inertia group}), which is normal in $I_x$.
+  The restriction of $\rho_{\mathcal F}$ to $I_x$ is the \emph{local
+  monodromy} of a lisse $\mathcal F$ at $x$. A lisse $\mathcal F$ on $X$ is
+  \emph{tame at $x$} if $\rho_{\mathcal F}(P_x)=1$, and then its Swan
+  conductor $\mathrm{Swan}_x(\mathcal F)$ is $0$; its local monodromy then
+  factors through the tame quotient $I_x/P_x$, which is pro-cyclic, and is
+  described by the action of a topological generator of $I_x/P_x$. The
+  group $I_x$ is the image of the Galois group of the field of fractions of
+  the strict henselization of $\mathbb P^1_{\bar\F_q}$ at $x$; for a dense
+  open $X'\subseteq X$ this map factors through $\pi_1^{\rm geom}(X')$, so the
+  surjection of \ref{it:prelim:E1} maps the inertia and wild inertia groups of
+  $X'$ at $x$ onto those of $X$, and $\mathcal F|_{X'}$ has at $x$ the local
+  monodromy of $\mathcal F$; in particular it is tame at $x$ if $\mathcal F$
+  is. If
+  $\mathcal F$ is the restriction of a lisse sheaf on a dense open
+  $X_0\supseteq X$ with $x\in X_0(\bar\F_q)$, then
+  $\rho_{\mathcal F}(I_x)=1$; in particular $\mathcal F$ is tame at $x$. A
+  tensor product of sheaves tame at $x$ is tame at $x$. An isomorphism
+  $\mu:X'\to X$ that extends to an automorphism $\bar\mu$ of $\mathbb P^1$
+  maps the inertia groups of $X'$ at $x$ onto those of $X$ at $\bar\mu(x)$,
+  so $\mu^*\mathcal F$ is tame at $x$ iff $\mathcal F$ is tame at
+  $\bar\mu(x)$, and the local monodromy of $\mu^*\mathcal F$ at $x$ is that
+  of $\mathcal F$ at $\bar\mu(x)$.
+\item\label{it:prelim:E4} \emph{Kummer sheaves}
+  \cite[Sommes trig., 1.2--1.8, in particular (1.7.6)]{SGA4half}. Let $p$ be
+  odd, $\chi=\chi_p$, and $g\in\F_p[X]$ nonconstant. There is a lisse sheaf
+  $\mathcal L_{\chi(g)}$ of rank one on $\mathbb A^1\setminus Z(g)$
+  ($Z(g)$ the set of roots of $g$) with
+  $\mathrm{Tr}(\mathrm{Frob}_z\mid\mathcal L_{\chi(g)})=\chi(g(z))$ for
+  every $z\in\F_p$ with $g(z)\ne0$. Its monodromy representation is the
+  character of order dividing $2$ through which $\pi_1$ acts on the finite
+  \'etale covering $\{w^2=g(z)\}$ (the geometric Frobenius at $z$ acts on the
+  fibre $\{\pm w_0\}$, $w_0^2=g(z)$, by the inverse of $w_0\mapsto w_0^p$, fixing $w_0$ if $g(z)$ is a square in $\F_p$ and swapping $\pm w_0$ otherwise, i.e.\ by the
+  sign $\chi(g(z))=g(z)^{(p-1)/2}$). Hence every Frobenius eigenvalue is
+  $\pm1$, so $\mathcal L_{\chi(g)}$ is pure of weight $0$, and $P_x$, a
+  pro-$p$ group with $p$ odd, acts trivially, so $\mathcal L_{\chi(g)}$ is
+  tame at every point of $\mathbb P^1\setminus(\mathbb A^1\setminus Z(g))$.
+  More precisely, let $x$ be such a point and $m_x$ the multiplicity of $x$
+  as a root of $g$, with $m_\infty=\deg g$. The local monodromy of
+  $\mathcal L_{\chi(g)}$ at $x$ is trivial if $m_x$ is even and is the
+  unique character of order $2$ of $I_x$ (a topological generator of
+  $I_x/P_x$ acts by $-1$) if $m_x$ is odd. Indeed, near a root $x$ write
+  $g=(z-x)^{m_x}u$ with $u(x)\ne0$; $u$ has a square root over the strict
+  henselization at $x$, because $p$ is odd, so the covering is locally
+  $w'^2=(z-x)^{m_x}$: split if $m_x$ is even, the tame Kummer covering of
+  degree $2$ if $m_x$ is odd. At $\infty$ the same holds in the coordinate
+  $1/z$, in which $g$ is $(1/z)^{-\deg g}$ times a unit. In particular
+  $\mathcal L_{\chi(g)}$ is geometrically nontrivial unless $g$ is a constant
+  times a square in $\bar\F_p[X]$.
+\end{enumerate}
+
+\begin{theorem}[Grothendieck--Lefschetz trace formula; {\cite[Rapport, Thm.~3.2; Sommes trig., (1.1.1)]{SGA4half}}]\label{thm:prelim:lefschetz}
+Let $X$ be a separated scheme of finite type over $\F_q$ and $\mathcal F$ a
+constructible $\overline{\mathbb Q}_\ell$-sheaf on $X$. Then
+\[
+  \sum_{x\in X(\F_q)}\mathrm{Tr}(\mathrm{Frob}_x\mid\mathcal F_{\bar x})
+  =\sum_i(-1)^i\,\mathrm{Tr}\big(\mathrm{Frob}_q\mid
+  H^i_c(X\otimes\bar\F_q,\mathcal F)\big).
+\]
+\end{theorem}
+
+\noindent (The Rapport states this for $\mathbb Q_\ell$-sheaves, and Sommes
+trig.\ (1.1.1) for $E_\lambda$-sheaves, $E_\lambda$ a finite extension of
+$\mathbb Q_\ell$; a constructible $\overline{\mathbb Q}_\ell$-sheaf comes from
+an $E_\lambda$-sheaf for some such $E_\lambda$
+\cite[(1.1.1), (1.1.6)]{DeligneWeilII}. The sheaves to which we apply it, in
+the proofs of \cref{thm:dl:H2} and of the moving-root moments, are in fact
+$\mathbb Q_\ell$-sheaves.)
+
+\begin{theorem}[Cohomology of open curves; {\cite[(1.4.1)(a), (1.4.1.3), (1.4.2.3)]{DeligneWeilII}}, {\cite[Arcata, IV, Thm.~6.1]{SGA4half}}]\label{thm:prelim:curves}
+Let $X$ be a smooth connected curve over an algebraically closed field that
+is not complete, and $\mathcal F$ a lisse $\overline{\mathbb Q}_\ell$-sheaf on
+$X$ with generic stalk $V$, a representation of $\pi_1(X)$. Then
+$H^0_c(X,\mathcal F)=0$ and $H^2_c(X,\mathcal F)\cong V_{\pi_1(X)}(-1)$,
+where $V_{\pi_1(X)}$ is the space of coinvariants. Moreover
+$H^i_c(X,\mathcal F)=0$ for $i\ge3$ (by the vanishing theorem
+\cite[Arcata, IV, Thm.~6.1]{SGA4half}, $R^if_!$ vanishes for $i$ larger than
+twice the dimension of the fibres of $f$; take $f:X\to\mathrm{Spec}\,k$).
+If $X=X_0\otimes\bar\F_q$ for a smooth geometrically connected curve $X_0$
+over $\F_q$ and $\mathcal F$ comes from a lisse sheaf on $X_0$, this
+isomorphism is compatible with the actions of $\mathrm{Gal}(\bar\F_q/\F_q)$
+\cite[(1.4.2.3)]{DeligneWeilII}.
+\end{theorem}
+
+\begin{theorem}[Deligne: bounds on weights under $R^if_!$; {\cite[Thm.~3.3.1, Cor.~3.3.4 and (3.3.10)]{DeligneWeilII}}]\label{thm:prelim:weights}
+Let $f:X\to Y$ be a morphism of schemes of finite type over $\F_q$ and
+$\mathcal F$ a sheaf on $X$ that is $\jmath$-mixed of weights $\le w$. Then
+$R^if_!\mathcal F$ is $\jmath$-mixed of weights $\le w+i$ for every $i$. In
+particular ($Y=\mathrm{Spec}\,\F_q$) every eigenvalue $\alpha$ of
+$\mathrm{Frob}_q$ on $H^i_c(X\otimes\bar\F_q,\mathcal F)$ satisfies
+$|\jmath(\alpha)|\le q^{(w+i)/2}$.
+\end{theorem}
+
+\noindent (Theorem 3.3.1 and Corollary 3.3.4 are stated for sheaves that are
+mixed in the sense of \cite[(1.2.2)]{DeligneWeilII}, i.e.\ for every
+$\jmath$; (3.3.10) states that they hold, with the same proof, for
+$\jmath$-mixed sheaves. The theorem is applied to sheaves that are pure for
+every $\jmath$: of weight $1$ in the proof of \cref{thm:dl:H2} and of the
+first moments \eqref{eq:advance:rank-first}, of weight $2$ in the second
+moments \eqref{eq:advance:rank-second}; so either form suffices.)
+
+\begin{theorem}[Grothendieck--Ogg--\v Safarevi\v c formula; {\cite[Thm.~1]{Raynaud}}, {\cite[Exp.~X, \S7]{SGA5}}]\label{thm:prelim:gos}
+Let $k$ be an algebraically closed field of characteristic $p$,
+$X\subseteq\mathbb P^1_k$ a dense open subscheme and $\mathcal F$ a lisse
+$\overline{\mathbb Q}_\ell$-sheaf on $X$. Then
+\[
+  \sum_i(-1)^i\dim H^i_c(X,\mathcal F)
+  =\mathrm{rk}(\mathcal F)\cdot\big(2-\#(\mathbb P^1(k)\setminus X(k))\big)
+  -\sum_{x\in\mathbb P^1(k)\setminus X(k)}\mathrm{Swan}_x(\mathcal F).
+\]
+\end{theorem}
+
+\noindent (Raynaud states the formula for constructible $\ell$-torsion
+sheaves; the $\ell$-adic form above is the one quoted and used in
+\cite[proof of Lemma~10.1.12]{KatzSarnak}. Here
+$2-\#(\mathbb P^1(k)\setminus X(k))$ is the Euler characteristic of $X$ with
+$\overline{\mathbb Q}_\ell$ coefficients. We use it only for sheaves that are
+tame at every point of $\mathbb P^1(k)\setminus X(k)$, for which all Swan
+terms vanish, \ref{it:prelim:E3}.)
+
+\begin{theorem}[Katz--Sarnak: the family $y^2=h(x)(x-t)$ and its monodromy {\cite[\S10.1]{KatzSarnak}}]\label{thm:prelim:ks}
+Let $k$ be a finite field of odd characteristic, $g\ge1$, and $h\in k[X]$ a
+polynomial of degree $2g$ with $2g$ distinct roots in $\bar k$ (not
+necessarily monic and not necessarily split: these are exactly the
+hypotheses of \cite[10.1.1]{KatzSarnak}). Let
+$U_h=\mathbb A^1_k\setminus Z(h)=\mathrm{Spec}\,k[T][1/h(T)]$, let
+$\mathrm{pr}:\mathcal A_h\to U_h$ be the family of affine curves
+$y^2=h(x)(x-t)$, $t\in U_h$, and
+$\mathcal F_h=R^1\mathrm{pr}_!\overline{\mathbb Q}_\ell$ (Katz and Sarnak
+construct a proper smooth model $\pi:\mathcal C_h\to U_h$ of this family whose
+geometric fibres are connected curves of genus $g$, and show
+$R^1\mathrm{pr}_!\overline{\mathbb Q}_\ell\cong
+R^1\pi_*\overline{\mathbb Q}_\ell$, \cite[10.1.3--10.1.11]{KatzSarnak}).
+Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \cite[Lemma~10.1.9]{KatzSarnak} $\mathcal F_h$ is lisse of rank $2g$ on
+  $U_h$ and pure of weight $1$;
+\item \cite[Lemma~10.1.12]{KatzSarnak} $\mathcal F_h$ is tame at every point
+  of $\mathbb P^1\setminus U_h$, the point $\infty$ included;
+\item \cite[Lemma~10.1.15]{KatzSarnak} $\mathcal F_h$ is geometrically
+  irreducible (indeed its geometric monodromy group is $\mathrm{Sp}(2g)$, see
+  \textup{(v)});
+\item (the identity in the proof of \cite[Lemma~10.1.15]{KatzSarnak}) for
+  every finite extension $E$ of $k$ and every $t\in U_h(E)$,
+  \[
+    -\mathrm{Tr}(\mathrm{Frob}_{E,t}\mid\mathcal F_h)
+    =\sum_{x\in E}\chi_E\big((x-t)h(x)\big),
+  \]
+  $\chi_E$ the quadratic character of $E^\times$ (extended by
+  $\chi_E(0)=0$);
+\item \cite[Lemma~10.1.9 and Theorem~10.1.16]{KatzSarnak} the cup product
+  $\mathcal F_h\times\mathcal F_h\to R^2\mathrm{pr}_!\overline{\mathbb
+  Q}_\ell|_{U_h}=\overline{\mathbb Q}_\ell(-1)$ is a perfect alternating
+  pairing (a symplectic autoduality of $\mathcal F_h$ with values in
+  $\overline{\mathbb Q}_\ell(-1)$), and the geometric monodromy group of
+  $\mathcal F_h$, the Zariski closure of
+  $\rho_{\mathcal F_h}(\pi_1^{\rm geom}(U_h))$, is the full symplectic group
+  $\mathrm{Sp}(2g)$ of this pairing; in particular it is connected;
+\item \cite[Lemma~10.1.13 and Remark~10.1.17]{KatzSarnak} the local
+  monodromy \ref{it:prelim:E3} of $\mathcal F_h$ at each zero of $h$ is a
+  unipotent pseudoreflection: a topological generator of the tame inertia
+  acts by an element $u$ with $u-1$ of rank one and $(u-1)^2=0$; at
+  $\infty$ it acts by $-u$ for such an element $u$. In particular the local
+  monodromy of $\mathcal F_h$ at every point of $\mathbb P^1\setminus U_h$ is
+  not scalar.
+\end{enumerate}
+\end{theorem}
+
+\noindent The identity (iv) is also immediate from
+\cref{thm:prelim:lefschetz,thm:prelim:curves}: the stalk of $\mathcal F_h$ at
+a geometric point $\bar t$ over $t$ is
+$H^1_c(\mathcal A_{h,\bar t},\overline{\mathbb Q}_\ell)$ (base change for
+$R\mathrm{pr}_!$, \cite[Arcata, IV, Thm.~5.4]{SGA4half}); the fibre
+$\mathcal A_{h,t}$ is a smooth geometrically irreducible affine curve
+($(x-t)h(x)$ is squarefree of odd degree), so $H^0_c=0$ and
+$H^2_c=\overline{\mathbb Q}_\ell(-1)$; and
+$\#\mathcal A_{h,t}(E)=\sum_{x\in E}\big(1+\chi_E((x-t)h(x))\big)$. Katz and
+Sarnak do not assume $h$ monic: whatever its leading coefficient, the curve
+$y^2=h(x)(x-t)$ has a single point at infinity, at which their affine model $V^2=Uh^{\rm rev}(U)(1-TU)$, $h^{\rm rev}(U)=U^{2g}h(1/U)$, is smooth
+\cite[10.1.1]{KatzSarnak}.
+
+Items (v) and (vi) are what the moving-root second moments
+\eqref{eq:advance:rank-second} need beyond (i)--(iv), after
+\cref{lem:dl:sheaf}(v),(vi) has deduced the corresponding pairing and local-monodromy statements for polynomials with an odd number of roots by composing with inversion at a root: in the proof of \cref{lem:moving-root-moments} the
+pairing of (v) identifies each moving-root sheaf with its dual, and the local
+monodromy at a single root, from (vi) at a root of a moving-root sheaf and
+from \ref{it:prelim:E4} at a root of the twist, shows that two of them are
+isomorphic after a quadratic twist only if their root sets agree and the twist
+is trivial (compare the invariant of $\mathcal F_h\otimes\mathcal F_h$
+computed in the proof of \cite[Lemma~10.1.15]{KatzSarnak}). Only the pairing
+in (v) and the monodromy at the zeros of $h$ in (vi) are used, and the
+diagonal main term is computed elementarily. Katz and Sarnak deduce (vi), and
+again (iii), from the description of $\mathcal F_h$ as a middle convolution (Katz,
+\emph{Rigid local systems}, 3.3.6); their Lemma 10.1.13 proves directly that
+the local monodromy at each zero of $h$ is trivial or a unipotent
+pseudoreflection, and Remark 10.1.17 (printed p.~300) adds that it is
+nontrivial and describes the monodromy at $\infty$. For $g=1$ and
+$h(x)=x(x-1)$, $\mathcal F_h$ is the first cohomology of the Legendre family,
+whose local monodromies at $t=0,1$ are transvections and at $t=\infty$ minus
+a transvection.
+
+\subsection{A modular coefficient}\label{subsec:external:modular}
+
+The second moment of the neighbourhood count in the variance credits
+(\cref{lem:record:weighted-moment}) contains the moment of one graph on five
+labels, which a translation and a dilation reduce to the twisted second moment
+$\sum_\lambda\chi(\lambda)T_\lambda^2$ of the traces $T_\lambda$ of the Legendre
+family of elliptic curves. Weil's bound $|T_\lambda|\le2\sqrt p$ alone gives
+$O(p^2)$ for this sum. Ahlgren and Ono evaluate it exactly, through a Gaussian
+hypergeometric series and a cusp form of weight four, and the evaluation is
+$O(p^{3/2})$.
+
+\begin{theorem}[Ahlgren--Ono: a character-sum identity via the cusp form $\eta(2z)^4\eta(4z)^4$; Theorems~2 and~6, Lemma~2.2 {\cite{AhlgrenOno2000}}]\label{thm:ahlgren-ono}
+Let $p$ be an odd prime, $\chi$ the quadratic character of $\Fp$ with
+$\chi(0)=0$, $T_\lambda=\sum_{y\in\Fp}\chi\big(y(y-1)(y-\lambda)\big)$ for
+$\lambda\in\Fp$, and let the integers $a(n)$ be the coefficients of
+\[
+ \sum_{n\ge1}a(n)q^n=q\prod_{n\ge1}(1-q^{2n})^4(1-q^{4n})^4=\eta(2z)^4\eta(4z)^4,
+ \qquad q=e^{2\pi iz},
+\]
+where $\eta(z)=q^{1/24}\prod_{n\ge1}(1-q^n)$ is Dedekind's eta function. Then
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item $\sum_{\lambda\in\Fp}\chi(\lambda)T_\lambda^2=-p-a(p)$;
+\item $|a(p)|\le2p^{3/2}$.
+\end{enumerate}
+\end{theorem}
+
+\noindent\emph{Source and normalization.} Ahlgren and Ono extend every
+multiplicative character of $\Fp$, the trivial character $\varepsilon$ included,
+by the value $0$ at $0$; they write $\phi$ for the quadratic character and
+${}_{n+1}F_n(x)$ for Greene's Gaussian hypergeometric series whose upper
+characters are all quadratic and whose lower characters are all trivial. Their
+formula (2.1), from Greene, is
+$p\,{}_2F_1(\lambda)=\varepsilon(\lambda)\phi(-1)\sum_x\phi\big(x(1-x)(1-\lambda x)\big)$.
+For $\lambda\ne0$ the term $x=0$ vanishes, and the substitution $x=1/y$ turns
+$x(1-x)(1-\lambda x)$ into $y^{-4}\,y(y-1)(y-\lambda)$; so
+$p\,{}_2F_1(\lambda)=\chi(-1)T_\lambda$. The term $\lambda=0$ of (a) vanishes
+because $\chi(0)=0$, so no identity is needed there. Their Lemma~2.2,
+$p^3\,{}_4F_3(1)=p^2\sum_\lambda\phi(\lambda)\,{}_2F_1(\lambda)^2$, therefore reads
+$p^3\,{}_4F_3(1)=\sum_\lambda\chi(\lambda)T_\lambda^2$, and their Theorem~6,
+$p^3\,{}_4F_3(1)=-a(p)-p$ with the coefficients $a(n)$ of their (1.5), is (a). In
+the proof of their Theorem~2 they observe that $\eta(2z)^4\eta(4z)^4$ is a cusp
+form of weight four on $\Gamma_0(8)$ spanning a space of dimension one, hence a
+normalized Hecke eigenform, and Deligne's theorem \cite{DeligneWeilI} gives (b);
+their Theorem~2 is the consequence $|{}_4F_3(1)+p^{-2}|\le2p^{-3/2}$. Both
+statements hold for every odd prime, with no congruence condition and no lower
+bound on $p$; the applications take $p\equiv3\pmod4$. The theorem, lemma and
+equation numbers here refer specifically to the authenticated
+\href{https://uva.theopenscholar.com/files/ken-ono/files/049.pdf}{author manuscript},
+not to an independently checked numbering of the published typesetting. In that manuscript (1.5) is on
+printed page~3, (2.1) and Lemma~2.2 are on page~5, Theorem~6 is on page~7 and
+the proof of Theorem~2 is on page~11; the
+copy consulted (SHA-256 \texttt{e8bcbe78\ldots74b96a}) and the reduction of the
+graph moment to (a) are recorded in
+\path{research/roadmap_2026_10_18/item17/AHLGREN_ONO_SOURCE_REVIEW.md}. Finite
+evaluations of both sides at small primes are normalization checks only; they
+are not inputs of the proof.
+
+\subsection{Sources of the standard inputs}\label{subsec:external:sources}
+
+\emph{Weil's bound.} Part (a) of \cref{thm:weil} is the case of the prime
+field and the quadratic character of \cite[Theorem~11.23]{IwaniecKowalski}
+(with $n=1$ there): if $\chi$ is a multiplicative character of order $d>1$
+of a finite field $F$ with $q$ elements and $f\in F[X]$ has $m$ distinct
+roots and is not a constant times a $d$-th power over $\bar F$, then
+$\big|\sum_{x\in F}\chi(f(x))\big|\le(m-1)\sqrt q$. Iwaniec and Kowalski
+take it from \cite[Theorem~2C$'$]{Schmidt76}; the bound goes back to Weil
+\cite{Weil48,Weil49}. A product of $t\ge1$ distinct linear factors has $t$
+simple roots, so it is not a square. Part (b) of \cref{thm:weil} is deduced
+from part (a) where it is stated and needs no further input.
+
+\emph{Primes in the residue classes modulo four.} \Cref{thm:bmor} is
+\cite[Theorem~1.2]{BMOR18} for the modulus $q=4$: for $q\ge3$ and $a$ coprime
+to $q$, $|\theta(x;q,a)-x/\varphi(q)|<c_\theta(q)\,x/\log x$ for all
+$x\ge x_\theta(q)$, and Table~1 (p.~432 of the published version) gives
+$c_\theta(4)=0.0004822$ and $x_\theta(4)=4\,800\,162\,889$. The preprint
+\texttt{arXiv:\allowbreak1802.00085v2} lists different values for $q=4$; only
+the published ones are used.
+
+\emph{Kassabov's inequality.} \Cref{thm:kassabov} is
+\cite[Lemma~4.2(b)]{Kassabov} (printed p.~15 of
+\texttt{arXiv:\allowbreak0911.1983}); the companion bound for
+$\cos^2\angle(V_1\cap V_2,V_3)$, Lemma 4.1(b) there, is not used. Kassabov's
+angle between two closed subspaces is the Friedrichs angle of
+\cref{def:prelim:angle} \cite[Definition~3.2]{Kassabov}, defined when neither
+subspace contains the other. He states the lemma for numbers
+$\eps_{ij}=\cos\alpha_{ij}$ with $0<\alpha_{ij}\le\angle(V_i,V_j)$; in finite
+dimension such angles are positive \cite[Corollary~3.7]{Kassabov}, and
+$\alpha_{ij}=\angle(V_i,V_j)$ gives the form of \cref{thm:kassabov}. If one of
+the three subspaces contains another, \cref{def:prelim:angle} gives that
+pair the cosine $0$, and the inequality holds directly. If $V_1\subseteq V_3$,
+the left side is $\cos\angle(V_1,V_2\cap V_3)$, and the vectors admitted in its
+supremum are admitted for $\cos\angle(V_1,V_2)$, both being orthogonal to
+$V_1\cap V_2\cap V_3=V_1\cap V_2$; so it is at most $\eps_{12}$, which is at
+most the right side since $\eps_{13}=0$. The case $V_2\subseteq V_3$ is
+symmetric, and in the remaining cases one of $V_1\cap V_3$, $V_2\cap V_3$
+contains the other, so the left side is $0$.
+
+\paragraph{Consequences and what to read next.}
+This appendix assumes nothing from the rest of the paper, except \cref{def:prelim:angle} for the
+matching of Kassabov's statement. The remarks after \cref{thm:prelim:gl2}
+and \cref{thm:prelim:ks} use only the cited sources and
+\cref{thm:prelim:lefschetz,thm:prelim:curves}.

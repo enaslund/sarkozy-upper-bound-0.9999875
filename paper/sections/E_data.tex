@@ -1,0 +1,1228 @@
+\providecommand{\PushA}{\frac{5422587}{6103515625}}
+\providecommand{\PushExponent}{\frac{5422587}{433349609375}}
+\providecommand{\PushDecimal}{1.25131923109859\ldots\cdot10^{-5}}
+\providecommand{\PushK}{890666}
+\providecommand{\FurtherT}{\frac{127}{500}}
+\providecommand{\PushTheta}{0.99999999997327}
+\providecommand{\FurtherPthree}{167\cdot2^{40}}
+
+\section{Design data, prices and witness tables}\label{app:data}
+
+\paragraph{What this appendix is for (baseline tables only).}
+Every table in this appendix belongs to the baseline
+($\theta=1$) unless its caption states the improved closing; do
+not use these numbers for \cref{thm:main} without the conversion in
+\cref{sec:four-routes-closing}. ``Charge'' in captions means a
+degree sum $\sum q_{\Blk}^{2a}b_{\Blk}^{-d/2}$; ``witness'' means a
+matrix $D$ with $-D\preceq T\preceq D$; ``slack'' means the margin
+in a checked strict inequality. These are the source data before
+the normalizer factors of \eqref{eq:four-routes-normalizer}, and
+the prices assigned to them in the baseline closing of
+\cref{sec:closing}.
+The final construction retains the same middle pieces, weights and spectral
+witnesses, replaces the upper weights by those of
+\cref{subsec:upper-cross-weighted}, replaces the two generic rows for the constant and
+merge records (\cref{def:closing-quantities}(3)) by
+\eqref{eq:middle-piece-prices} and applies the explicit normalizer factors
+of \eqref{eq:four-routes-normalizer}. Its final parameters and full
+ledger appear in \cref{sec:four-routes-closing}; the baseline prices
+below are not asserted to equal those new totals.
+
+It lists the finite data that the construction of Part~V uses as numbers: the
+parameters (\cref{subsec:data:parameters}); the $33$ middle pieces with their
+blocks, degree charges, first-stage sums, completion weights, piece values and
+the block caps of their reference (\cref{subsec:data:pieces}), used by
+\cref{lem:record:middle-prices,lem:front12:reference,cor:variance:final,prop:record:mean-credit};
+the prices of the middle records, piece by piece, with the endpoint
+coefficients from which they are formed (\cref{subsec:data:prices}), used by
+\cref{lem:middle-comparison-prices} and \cref{def:closing-quantities}(3); the
+sides of the matching envelopes of \cref{prop:signed-sides}
+(\cref{subsec:data:aux}); the upper bands of \cref{def:record:upper-bands}
+(\cref{subsec:data:upper}); the envelopes of \cref{thm:envelopes}
+(\cref{subsec:data:envelopes}); and the spectral grids of
+\cref{lem:layer12-caps,cert:l20-grid,cert:positive-root-caps} and the analytic
+slacks of \cref{def:record:analytic-stage} (\cref{subsec:data:grids}). Every
+number is an exact rational fixed by the design, an end of a certified
+enclosure, or the value of a formula given in the text; the statement that
+uses it says which property it needs. \Cref{tab:cert:finite} says which script
+checks each inequality, and \cref{subsec:cert:evaluation} how the certificate
+combines the numbers into $\Theta$.
+
+\paragraph{Conventions.}
+A decimal entry is rounded in the safe direction in its last digit (upward for
+an upper bound, downward for a lower bound; the captions name the lower
+bounds); integers, fractions and entries marked exact are exact. The tables show
+enough digits to identify a number: the certificate uses the exact rationals
+of the stored records listed at the end of this appendix, and every inequality
+of the text is checked on them. As in \cref{def:closing-quantities},
+$\operatorname{up}(x)=10^{-30}\lceil10^{30}x\rceil$, and $\operatorname{hi}(v)$
+is $\operatorname{up}$ of the upper end of a certified enclosure $v$. The middle
+tables are evaluated at the anchor $a_0=4442183/5000000000<a$: every middle block has
+$\log q_{\Blk}\le L=570$ (\cref{lem:record:local-domain}), so by
+\cref{lem:record:repricing} a middle price, charge or sum at the exponent $a$ of
+\cref{thm:baseline} is at most $t=e^{2(a-a_0)L}\in(1,1.00001)$
+times its tabulated value (for the first-stage constants,
+\cref{cor:first-stage-repricing}). The upper ledger is evaluated at its anchor
+$a_{\rm u}=883/10^6<a$ and repriced term by term (\cref{subsec:data:upper}).
+Both anchors are evaluation points, not exponents of a theorem.
+
+\subsection{The parameters}\label{subsec:data:parameters}
+
+\Cref{tab:data:parameters} restates the parameters of
+\cref{def:record:parameters} for reference.
+
+{\scriptsize\setlength{\tabcolsep}{4pt}
+\begin{longtable}{@{}p{0.12\textwidth}p{0.85\textwidth}@{}}
+\caption{The parameters of the construction.}\label{tab:data:parameters}\\
+\toprule
+exponents & $a=\PushA$; $\eps=a/71=\PushExponent=\PushDecimal$; $\theta=1$\\
+slots, queries & $V=(\Z/6\Z)^2\times\{0,1\}$ with the family of cuts of \cref{def:slot-array}: the six chamber cuts of each coordinate and the reserved cut $\iota(u_0,u_1,\ell)=(u_0,u_1,1-\ell)$; $\mathcal E_6=\{((0,v,0),(\rot(0),\rot(v),1)):v\in\Z/6\Z\}$\\
+index & $\Kint=\PushK$; finite nonzero-square laws at depth $64$, on $2^{129}$ and $p^{128}$ for $p<Q_3$, $p\equiv3\pmod4$; with the coarse interval factor of \cref{rem:wrap-coarse} included; $R_I\le 1.247139907407$ (\cref{lem:index-moments}); the enclosure behind the displayed number encloses the sufficient majorant of \cref{cert:index-moment}, and its lower endpoint is not a lower bound for the moment under the depth-$64$ law itself\\
+prefix & $p\equiv1\pmod4$, $p<\Pfour=2^{512}$; one atom, $e_p=2\mcl$, $\mcl=8192$\\
+middle & $p\equiv3\pmod4$ in $[Q_3,\Pthree)$, $Q_3=19\,951\,586$, $\Pthree=\FurtherPthree=183\,618\,441\,838\,592$; $33$ pieces; block budget $L=570$, local cap $L_{\rm loc}=585$; $C=e^{2aL}<2.753348440327$; piece caps $C_i=e^{2aL_i}$ (\cref{lem:piece-caps})\\
+fold records & the signed whole-block law with $\tlaw=\FurtherT$ (\cref{def:record:mixture})\\
+roots & uniform on pieces $1$--$26$; pair-square tilts on pieces $27$--$32$, coherent $39$-term square on piece $33$, with the seven exact parameters in \cref{tab:data:positive-roots,tab:data:positive-roots-late}\\
+bracket & one copy of the one-layer folded copies of the fold records; protection $v_{\rm D}\ge2w_{\rm D}k_{\rm D}$ (\eqref{eq:protection})\\
+upper & $p\equiv3\pmod4$ in $[\Pthree,\Pfour)$; $310$ bands; band budgets $550$--$886$; $L_{\rm u}=50000/27$; anchor $a_{\rm u}=883/10^6$\\
+tail & every prime $p\ge\Pfour$, one atom each, with the tail datum of \cref{def:record:upper-bands}(e); mixing for $p\ge\Pfive=2^{65536}$\\
+analytic & $\beta=1/20$; major-arc exponent $17/100$; $\gamma=255/1024$; $\tau=1/201$; $t_{\rm an}=1/60$; $\sigma=1/825$; $\delta=10^{-10}$; $\ell_0=10^{-8}$; gates on the domain $0<a\le9/10000$\\
+comparison & coefficient $63/64$; auxiliary point $(b_0,d_0,f_0)=(.6426372,.5181074,.1607446)$, that is, orientation weights $\mathbf w^{\rm aux}=(.5803723,.2409463,.1786814,0)$, and $\tside=31/32$ (\cref{def:side-function})\\
+closing & $\Theta<\PushTheta$ (\cref{cert:closing})\\
+\bottomrule
+\end{longtable}
+}
+
+\subsection{The middle pieces}\label{subsec:data:pieces}
+
+The $33$ pieces $[X_i,Y_i)=[X_i,X_{i+1})$ of \cref{def:record:exact-blocks}
+tile $[Q_3,\Pthree)$. \Cref{tab:record:middle-pieces} gives their numbers of
+exact blocks (below $X_{\rm Ch}=4\,800\,162\,890$), of cells (above it) with the
+range of the cell integers $n_j$, and the charges
+$\bar I_{d,i}\ge\sum_{\Blk}b_{\Blk}^{-d/2}q_{\Blk}^{2a_0}$, $d=2,3,4$, over the
+blocks of the piece (\cref{lem:record:block-charge}): $\bar I_{d,i}=
+\operatorname{hi}(I_{d,i})$, where $I_{d,i}$ is the certified enclosure of the
+bound of that lemma for the piece, so that $\bar I_{2,i}$ is the charge of
+\cref{def:closing-quantities}(3). \Cref{tab:record:middle-charges} gives, at
+$a_0$, the four sums $U_0,P,D,V$ of \cref{lem:record:middle-prices} for each
+piece; their certified totals (\cref{cert:record:middle-price}) are
+$U_0'\le0.846908193539142986$, $P'\le1.6936504653996419205$, $D'\le4.7417041225622828\cdot10^{-5}$ and
+$V'\le3.3872533701481774716$, the totals of \cref{def:closing-quantities}(2). The
+prices of the comparison records are those of \cref{subsec:data:prices}.
+
+{\scriptsize\setlength{\tabcolsep}{4pt}\renewcommand{\arraystretch}{0.92}
+\begin{longtable}{@{}rrrrrrrrr@{}}
+\caption{Middle pieces: exact blocks, cells, the range of the cell integers $n_j$, and the degree-$d$ charges $\bar I_{d,i}$ at $a_0$ (upper endpoints, rounded up). Source: \texttt{refined\_L570\_source.json} (\texttt{middle.pieces[i].degree\_charges}) and \texttt{refined\_L570\_charges.json} (\texttt{bands[i]}: \texttt{finite\_parts}, \texttt{analytic}).}\label{tab:record:middle-pieces}\\
+\toprule
+$i$ & $X_i$ & $Y_i$ & blocks & cells & $n_j$ & degree $2$ & degree $3$ & degree $4$\\
+\midrule
+\endfirsthead
+\toprule
+$i$ & $X_i$ & $Y_i$ & blocks & cells & $n_j$ & degree $2$ & degree $3$ & degree $4$\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+$1$ & $19951586$ & $21757358$ & $1623$ & -- & -- & $2.093\cdot10^{-4}$ & $4.584\cdot10^{-8}$ & $1.005\cdot10^{-11}$\\
+$2$ & $21757358$ & $23726568$ & $1763$ & -- & -- & $2.094\cdot10^{-4}$ & $4.394\cdot10^{-8}$ & $9.219\cdot10^{-12}$\\
+$3$ & $23726568$ & $25429506$ & $1516$ & -- & -- & $1.674\cdot10^{-4}$ & $3.377\cdot10^{-8}$ & $6.814\cdot10^{-12}$\\
+$4$ & $25429506$ & $25874006$ & $397$ & -- & -- & $4.204\cdot10^{-5}$ & $8.300\cdot10^{-9}$ & $1.639\cdot10^{-12}$\\
+$5$ & $25874006$ & $28215802$ & $2073$ & -- & -- & $2.092\cdot10^{-4}$ & $4.025\cdot10^{-8}$ & $7.744\cdot10^{-12}$\\
+$6$ & $28215802$ & $2^{25}$ & $4743$ & -- & -- & $4.188\cdot10^{-4}$ & $7.551\cdot10^{-8}$ & $1.363\cdot10^{-11}$\\
+$7$ & $2^{25}$ & $39903170$ & $5693$ & -- & -- & $4.184\cdot10^{-4}$ & $6.918\cdot10^{-8}$ & $1.145\cdot10^{-11}$\\
+$8$ & $39903170$ & $47453134$ & $6708$ & -- & -- & $4.187\cdot10^{-4}$ & $6.348\cdot10^{-8}$ & $9.632\cdot10^{-12}$\\
+$9$ & $47453134$ & $56431604$ & $7952$ & -- & -- & $4.185\cdot10^{-4}$ & $5.819\cdot10^{-8}$ & $8.096\cdot10^{-12}$\\
+$10$ & $56431604$ & $2^{26}$ & $9608$ & -- & -- & $4.189\cdot10^{-4}$ & $5.342\cdot10^{-8}$ & $6.816\cdot10^{-12}$\\
+$11$ & $2^{26}$ & $79806340$ & $11303$ & -- & -- & $4.184\cdot10^{-4}$ & $4.892\cdot10^{-8}$ & $5.724\cdot10^{-12}$\\
+$12$ & $79806340$ & $94906266$ & $13317$ & -- & -- & $4.185\cdot10^{-4}$ & $4.487\cdot10^{-8}$ & $4.814\cdot10^{-12}$\\
+$13$ & $94906266$ & $112863208$ & $16166$ & -- & -- & $4.187\cdot10^{-4}$ & $4.117\cdot10^{-8}$ & $4.051\cdot10^{-12}$\\
+$14$ & $112863208$ & $2^{27}$ & $19097$ & -- & -- & $4.184\cdot10^{-4}$ & $3.773\cdot10^{-8}$ & $3.404\cdot10^{-12}$\\
+$15$ & $2^{27}$ & $159612678$ & $22517$ & -- & -- & $4.187\cdot10^{-4}$ & $3.462\cdot10^{-8}$ & $2.864\cdot10^{-12}$\\
+$16$ & $159612678$ & $189812532$ & $26870$ & -- & -- & $4.187\cdot10^{-4}$ & $3.175\cdot10^{-8}$ & $2.409\cdot10^{-12}$\\
+$17$ & $189812532$ & $225726414$ & $32323$ & -- & -- & $4.185\cdot10^{-4}$ & $2.910\cdot10^{-8}$ & $2.024\cdot10^{-12}$\\
+$18$ & $225726414$ & $2^{28}$ & $38106$ & -- & -- & $4.186\cdot10^{-4}$ & $2.669\cdot10^{-8}$ & $1.703\cdot10^{-12}$\\
+$19$ & $2^{28}$ & $319225356$ & $44916$ & -- & -- & $4.186\cdot10^{-4}$ & $2.447\cdot10^{-8}$ & $1.432\cdot10^{-12}$\\
+$20$ & $319225356$ & $379625064$ & $54085$ & -- & -- & $4.187\cdot10^{-4}$ & $2.245\cdot10^{-8}$ & $1.205\cdot10^{-12}$\\
+$21$ & $379625064$ & $451452826$ & $64634$ & -- & -- & $4.186\cdot10^{-4}$ & $2.058\cdot10^{-8}$ & $1.013\cdot10^{-12}$\\
+$22$ & $451452826$ & $2^{29}$ & $76200$ & -- & -- & $4.186\cdot10^{-4}$ & $1.887\cdot10^{-8}$ & $8.512\cdot10^{-13}$\\
+$23$ & $2^{29}$ & $638450710$ & $89850$ & -- & -- & $4.186\cdot10^{-4}$ & $1.731\cdot10^{-8}$ & $7.158\cdot10^{-13}$\\
+$24$ & $638450710$ & $759250126$ & $108058$ & -- & -- & $4.186\cdot10^{-4}$ & $1.587\cdot10^{-8}$ & $6.019\cdot10^{-13}$\\
+$25$ & $759250126$ & $902905652$ & $129512$ & -- & -- & $4.185\cdot10^{-4}$ & $1.455\cdot10^{-8}$ & $5.061\cdot10^{-13}$\\
+$26$ & $902905652$ & $2^{30}$ & $152792$ & -- & -- & $4.187\cdot10^{-4}$ & $1.335\cdot10^{-8}$ & $4.257\cdot10^{-13}$\\
+$27$ & $2^{30}$ & $2^{31}$ & $961376$ & -- & -- & $1.675\cdot10^{-3}$ & $4.318\cdot10^{-8}$ & $1.125\cdot10^{-12}$\\
+$28$ & $2^{31}$ & $2^{32}$ & $1922275$ & -- & -- & $1.675\cdot10^{-3}$ & $3.054\cdot10^{-8}$ & $5.624\cdot10^{-13}$\\
+$29$ & $2^{32}$ & $2^{34}$ & $454440$ & $236$ & $24$--$25$ & $3.350\cdot10^{-3}$ & $3.687\cdot10^{-8}$ & $4.219\cdot10^{-13}$\\
+$30$ & $2^{34}$ & $2^{36}$ & -- & $256$ & $22$--$24$ & $3.350\cdot10^{-3}$ & $1.844\cdot10^{-8}$ & $1.055\cdot10^{-13}$\\
+$31$ & $2^{36}$ & $2^{40}$ & -- & $512$ & $20$--$22$ & $6.699\cdot10^{-3}$ & $1.383\cdot10^{-8}$ & $3.296\cdot10^{-14}$\\
+$32$ & $2^{40}$ & $2^{45}$ & -- & $640$ & $18$--$20$ & $8.373\cdot10^{-3}$ & $3.794\cdot10^{-9}$ & $2.129\cdot10^{-15}$\\
+$33$ & $2^{45}$ & $167\cdot2^{40}$ & -- & $306$ & $17$--$18$ & $3.992\cdot10^{-3}$ & $4.581\cdot10^{-10}$ & $5.552\cdot10^{-17}$\\
+\end{longtable}
+}
+
+{\scriptsize\setlength{\tabcolsep}{4pt}\renewcommand{\arraystretch}{0.92}
+\begin{longtable}{@{}rrrrr@{}}
+\caption{The four first-stage sums of each piece at $a_0$ (upper endpoints, rounded up); the totals are the enclosures of the sums, not the sums of the displayed values. Source: \texttt{refined\_L570\_charges.json} (\texttt{bands[i].charges}, \texttt{sums}).}\label{tab:record:middle-charges}\\
+\toprule
+$i$ & $U_0$ & $P$ & $D$ & $V$\\
+\midrule
+\endfirsthead
+\toprule
+$i$ & $U_0$ & $P$ & $D$ & $V$\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+$1$ & $4.599\cdot10^{-3}$ & $9.190\cdot10^{-3}$ & $2.014\cdot10^{-6}$ & $1.838\cdot10^{-2}$\\
+$2$ & $4.602\cdot10^{-3}$ & $9.196\cdot10^{-3}$ & $1.930\cdot10^{-6}$ & $1.839\cdot10^{-2}$\\
+$3$ & $3.677\cdot10^{-3}$ & $7.348\cdot10^{-3}$ & $1.483\cdot10^{-6}$ & $1.470\cdot10^{-2}$\\
+$4$ & $9.236\cdot10^{-4}$ & $1.846\cdot10^{-3}$ & $3.645\cdot10^{-7}$ & $3.692\cdot10^{-3}$\\
+$5$ & $4.595\cdot10^{-3}$ & $9.184\cdot10^{-3}$ & $1.767\cdot10^{-6}$ & $1.837\cdot10^{-2}$\\
+$6$ & $9.198\cdot10^{-3}$ & $1.839\cdot10^{-2}$ & $3.315\cdot10^{-6}$ & $3.677\cdot10^{-2}$\\
+$7$ & $9.187\cdot10^{-3}$ & $1.837\cdot10^{-2}$ & $3.037\cdot10^{-6}$ & $3.672\cdot10^{-2}$\\
+$8$ & $9.191\cdot10^{-3}$ & $1.838\cdot10^{-2}$ & $2.786\cdot10^{-6}$ & $3.674\cdot10^{-2}$\\
+$9$ & $9.185\cdot10^{-3}$ & $1.836\cdot10^{-2}$ & $2.553\cdot10^{-6}$ & $3.672\cdot10^{-2}$\\
+$10$ & $9.193\cdot10^{-3}$ & $1.838\cdot10^{-2}$ & $2.344\cdot10^{-6}$ & $3.676\cdot10^{-2}$\\
+$11$ & $9.179\cdot10^{-3}$ & $1.836\cdot10^{-2}$ & $2.146\cdot10^{-6}$ & $3.670\cdot10^{-2}$\\
+$12$ & $9.180\cdot10^{-3}$ & $1.836\cdot10^{-2}$ & $1.968\cdot10^{-6}$ & $3.671\cdot10^{-2}$\\
+$13$ & $9.184\cdot10^{-3}$ & $1.837\cdot10^{-2}$ & $1.806\cdot10^{-6}$ & $3.673\cdot10^{-2}$\\
+$14$ & $9.178\cdot10^{-3}$ & $1.835\cdot10^{-2}$ & $1.655\cdot10^{-6}$ & $3.670\cdot10^{-2}$\\
+$15$ & $9.183\cdot10^{-3}$ & $1.836\cdot10^{-2}$ & $1.518\cdot10^{-6}$ & $3.672\cdot10^{-2}$\\
+$16$ & $9.181\cdot10^{-3}$ & $1.836\cdot10^{-2}$ & $1.392\cdot10^{-6}$ & $3.671\cdot10^{-2}$\\
+$17$ & $9.176\cdot10^{-3}$ & $1.835\cdot10^{-2}$ & $1.276\cdot10^{-6}$ & $3.669\cdot10^{-2}$\\
+$18$ & $9.177\cdot10^{-3}$ & $1.835\cdot10^{-2}$ & $1.170\cdot10^{-6}$ & $3.670\cdot10^{-2}$\\
+$19$ & $9.177\cdot10^{-3}$ & $1.835\cdot10^{-2}$ & $1.073\cdot10^{-6}$ & $3.670\cdot10^{-2}$\\
+$20$ & $9.179\cdot10^{-3}$ & $1.836\cdot10^{-2}$ & $9.840\cdot10^{-7}$ & $3.671\cdot10^{-2}$\\
+$21$ & $9.175\cdot10^{-3}$ & $1.835\cdot10^{-2}$ & $9.020\cdot10^{-7}$ & $3.670\cdot10^{-2}$\\
+$22$ & $9.175\cdot10^{-3}$ & $1.835\cdot10^{-2}$ & $8.271\cdot10^{-7}$ & $3.669\cdot10^{-2}$\\
+$23$ & $9.175\cdot10^{-3}$ & $1.835\cdot10^{-2}$ & $7.585\cdot10^{-7}$ & $3.670\cdot10^{-2}$\\
+$24$ & $9.174\cdot10^{-3}$ & $1.835\cdot10^{-2}$ & $6.955\cdot10^{-7}$ & $3.670\cdot10^{-2}$\\
+$25$ & $9.173\cdot10^{-3}$ & $1.835\cdot10^{-2}$ & $6.377\cdot10^{-7}$ & $3.669\cdot10^{-2}$\\
+$26$ & $9.175\cdot10^{-3}$ & $1.835\cdot10^{-2}$ & $5.849\cdot10^{-7}$ & $3.670\cdot10^{-2}$\\
+$27$ & $3.669\cdot10^{-2}$ & $7.337\cdot10^{-2}$ & $1.893\cdot10^{-6}$ & $1.468\cdot10^{-1}$\\
+$28$ & $3.667\cdot10^{-2}$ & $7.334\cdot10^{-2}$ & $1.338\cdot10^{-6}$ & $1.467\cdot10^{-1}$\\
+$29$ & $7.331\cdot10^{-2}$ & $1.467\cdot10^{-1}$ & $1.614\cdot10^{-6}$ & $2.933\cdot10^{-1}$\\
+$30$ & $7.321\cdot10^{-2}$ & $1.465\cdot10^{-1}$ & $8.058\cdot10^{-7}$ & $2.929\cdot10^{-1}$\\
+$31$ & $1.464\cdot10^{-1}$ & $2.927\cdot10^{-1}$ & $6.040\cdot10^{-7}$ & $5.853\cdot10^{-1}$\\
+$32$ & $1.828\cdot10^{-1}$ & $3.656\cdot10^{-1}$ & $1.657\cdot10^{-7}$ & $7.312\cdot10^{-1}$\\
+$33$ & $8.678\cdot10^{-2}$ & $1.736\cdot10^{-1}$ & $1.992\cdot10^{-8}$ & $3.472\cdot10^{-1}$\\
+\midrule
+$\sum$ & $0.8469081935392$ & $1.6936504654$ & $4.741704122563\cdot10^{-5}$ & $3.387253370149$\\
+\end{longtable}
+}
+
+\paragraph{The histogram of the exact blocks.}
+The charges of \cref{lem:record:block-charge}(ii) and the start sums of
+\cref{lem:record:lower-start-sums}(ii) need, for every part of
+\cref{def:record:exact-blocks}(c), first-prime bin and price bucket
+$k=k_{\Blk}$, only the number of blocks and the sums of the start weights
+$w_d(\Blk)$, $d=2,3,4$. These are the rows of the histogram
+\path{research/advance_2026_10_24/global/final_budget_partitions/exact_block_histogram.csv}:
+$35\,145$ rows for the three budgets $568$, $570$ and $572$, of which the
+$11\,708$ rows of the budget $570$ (that is, $\mathfrak u_*=570\cdot2^{40}$) are
+those of the construction, the $10\,099$ rows of its parts in $[Q_3,X_{\rm Ch})$
+counting the $4\,279\,913$ exact blocks of the pieces; SHA-256
+\texttt{2b85805d1fd33962e018766248ec0bfb}\allowbreak\texttt{d9c209524689ccf7b04c3a6b9302a667}.
+It was produced by the integer sieve
+\path{research/roadmap_2026_10_18/item06/exact_block_starts.cpp} from the
+inputs in the same folder as the histogram: the $37$ parts of
+\path{exact_block_parts.csv}, from $2^{23}$ to $X_{\rm Ch}$ (the
+$35$ parts of \cref{def:record:exact-blocks}(b) in $[Q_3,X_{\rm Ch})$,
+plus two parts below $Q_3$ used only for the local-domain audit); the $6362$ count bins
+of \path{exact_block_bins.csv}, from $2^{23}$, of which the $5668$ bins of
+\cref{def:record:exact-blocks}(c) cover $[2^{24},X_{\rm Ch})$; and the budgets of
+\path{exact_block_budgets.txt} (inputs and run records
+\path{exact_block_inputs.json}, \path{exact_block_run.json}). The proof note is
+\path{research/roadmap_2026_10_18/item06/EXACT_FINITE_BLOCK_STARTS.md}, and the
+full tier of the final verification re-sieves the histogram in exact integer
+arithmetic. Its prime counts, its largest block log-sum and the regeneration are
+stated in \cref{cert:record:middle-price}, as are the cells of the pieces above
+$X_{\rm Ch}$. The rows, parts and bins below $Q_3$ belong to the audit of the
+local domain and are not used.
+
+\paragraph{Completion weights and piece values.}
+\Cref{tab:data:middle-weights} lists the weights of the twelve-label reference
+of each piece (\cref{lem:front12:reference}(iii), \cref{rem:middle-weights}),
+fixed rationals with $w_{\rm L}=1$, $w_{\rm S}=w_{\rm D}$ and $v_{\rm S}=v_{\rm D}$.
+Three of them are fixed by caps of the piece: $w_{\rm D}$ is the block cap $d$ of
+L20 and $v_{\rm L}$ the block cap $k_{\rm L}$ of L21, both rounded up
+(\cref{tab:data:cut-caps}; on the pieces $27$--$33$ the caps of the positive
+root), and $v_{\rm D}$ is $2w_{\rm D}k_{\rm D}$ rounded up, so that the protection
+\eqref{eq:protection} is binding up to the rounding of $v_{\rm D}$:
+$0\le v_{\rm D}-2w_{\rm D}k_{\rm D}<10^{-9}$ in every piece.
+\Cref{tab:data:piece-values} lists the piece values $n_i$, $h_i$, $M_i$,
+$\chi_i$, $k_{F,i}$, $\varepsilon_i$ of \eqref{eq:variance:pieces} (with
+$k_{E,i}=3/(X_i-3)$, not tabulated), evaluated as there at $q=1/X_i$ and
+$r=1/\lfloor X_i^{1/2}\rfloor$; here $n_i=\lfloor570/\log_-X_i\rfloor$ is the
+count of the restorations, while the local laws count
+$n_X=\lfloor585/\log_-X\rfloor$ primes (\cref{tab:data:sides}). On the pieces
+$27$--$33$, $M_i$ and $\chi_i$ are $\operatorname{up}(R_\ulaw^{n_i})$ and
+$\operatorname{up}((1+d_\ulaw^2)^{n_i}-1)$ with the per-prime data of
+\cref{tab:data:positive-roots,tab:data:positive-roots-late}. The table also lists the density caps
+$H_i=(1+2/(X_i-4))^{n_i}$ and the lower start sums $\Sigma_i$ of the mean savings
+(\cref{prop:record:mean-credit}, \cref{lem:record:lower-start-sums}), and the
+piece log caps $L_i$ of \cref{lem:piece-caps}, which lie between $556.79$
+and $570$. None of these numbers depends on the exponent.
+
+{\scriptsize\setlength{\tabcolsep}{3pt}\renewcommand{\arraystretch}{0.92}
+\begin{longtable}{@{}rrrrrrrr@{}}
+\caption{Completion weights of the middle pieces; exact decimals, except $w_{\rm C}$ (a rational with a long denominator, rounded up). Source: \texttt{refined\_L570\_source.json} (\texttt{middle.pieces[i].local.weights}).}\label{tab:data:middle-weights}\\
+\toprule
+$i$ & $w_{\rm D}=w_{\rm S}$ & $w_{\rm R}$ & $w_{\rm C}$ & $v_{\rm L}$ & $v_{\rm D}=v_{\rm S}$ & $v_{\rm R}$ & $v_{\rm C}$\\
+\midrule
+\endfirsthead
+\toprule
+$i$ & $w_{\rm D}=w_{\rm S}$ & $w_{\rm R}$ & $w_{\rm C}$ & $v_{\rm L}$ & $v_{\rm D}=v_{\rm S}$ & $v_{\rm R}$ & $v_{\rm C}$\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+$1$ & $5.481831709798$ & $22.206414052118$ & $89.95621376$ & $2.574071293695$ & $10.979961835741$ & $11.04539340244$ & $11.11121488761$\\
+$2$ & $5.481472801115$ & $22.192524849205$ & $89.84960376$ & $2.557961162481$ & $10.978548368981$ & $11.04105298356$ & $11.103913458196$\\
+$3$ & $5.481143697784$ & $22.179316362306$ & $89.74807111$ & $2.542519916612$ & $10.977226782024$ & $11.036936696987$ & $11.09697140017$\\
+$4$ & $5.480900122235$ & $22.169215324239$ & $89.67032735$ & $2.530630919138$ & $10.976227506991$ & $11.033792771889$ & $11.091659940125$\\
+$5$ & $5.480841803566$ & $22.166752443534$ & $89.65135859$ & $2.527721155163$ & $10.975985456109$ & $11.033026821675$ & $11.0903646269$\\
+$6$ & $5.480564757436$ & $22.154799099904$ & $89.55922335$ & $2.513538297374$ & $10.974822683144$ & $11.029315884666$ & $11.084079660857$\\
+$7$ & $5.480076810923$ & $22.132598055616$ & $89.38777934$ & $2.486917800366$ & $10.972704266793$ & $11.022440453034$ & $11.072402079437$\\
+$8$ & $5.479664889628$ & $22.112479162453$ & $89.23205061$ & $2.462466811752$ & $10.970835336489$ & $11.01623314424$ & $11.061818810152$\\
+$9$ & $5.479316580401$ & $22.094234540645$ & $89.09052667$ & $2.440008538906$ & $10.969180093609$ & $11.010620836991$ & $11.052218140408$\\
+$10$ & $5.479021573962$ & $22.077679142513$ & $88.96185382$ & $2.419381870032$ & $10.967710968386$ & $11.005542053918$ & $11.043503630766$\\
+$11$ & $5.478771296094$ & $22.062647904359$ & $88.84481689$ & $2.400439513894$ & $10.966405767136$ & $11.000943773652$ & $11.035590555452$\\
+$12$ & $5.478558605644$ & $22.048993306099$ & $88.7383235$ & $2.383044089645$ & $10.965243403161$ & $10.996776859737$ & $11.028400999105$\\
+$13$ & $5.478377547006$ & $22.036583283517$ & $88.64139039$ & $2.367070396701$ & $10.964205527049$ & $10.99299744147$ & $11.021864963224$\\
+$14$ & $5.478223146401$ & $22.025299401704$ & $88.55313133$ & $2.352402724659$ & $10.963276929216$ & $10.989567080135$ & $11.015920275347$\\
+$15$ & $5.478091244751$ & $22.01503530555$ & $88.47274678$ & $2.338936263241$ & $10.962444917385$ & $10.986451937309$ & $11.010511530999$\\
+$16$ & $5.477978359548$ & $22.005695345118$ & $88.39951454$ & $2.326572512256$ & $10.961698660094$ & $10.983621923336$ & $11.005589032837$\\
+$17$ & $5.477881571158$ & $21.997193399482$ & $88.33278179$ & $2.315221851572$ & $10.961027604835$ & $10.981048942776$ & $11.001106851556$\\
+$18$ & $5.477798428647$ & $21.989451832411$ & $88.27195783$ & $2.304803061096$ & $10.960423795411$ & $10.978709059431$ & $10.997024828739$\\
+$19$ & $5.477726871954$ & $21.982400585247$ & $88.21650783$ & $2.295239920764$ & $10.959879531968$ & $10.976580011327$ & $10.993305938595$\\
+$20$ & $5.477665167321$ & $21.975976373754$ & $88.16594714$ & $2.286461870533$ & $10.959388533362$ & $10.974642246858$ & $10.989917191081$\\
+$21$ & $5.477611853772$ & $21.970121984547$ & $88.11983633$ & $2.278404660372$ & $10.958944767316$ & $10.972877637652$ & $10.986828221818$\\
+$22$ & $5.477565698576$ & $21.964785648017$ & $88.07777672$ & $2.27101108026$ & $10.958543248341$ & $10.971270171829$ & $10.984011875985$\\
+$23$ & $5.477525660249$ & $21.959920486041$ & $88.03940642$ & $2.264226650182$ & $10.958179775798$ & $10.969805596134$ & $10.981443750608$\\
+$24$ & $5.477490857716$ & $21.955484020139$ & $88.00439674$ & $2.257999450127$ & $10.957850303471$ & $10.968470697833$ & $10.979101385526$\\
+$25$ & $5.477460544596$ & $21.951437734165$ & $87.97244904$ & $2.252286820089$ & $10.957551425265$ & $10.96725371204$ & $10.976964589637$\\
+$26$ & $5.477434087745$ & $21.947746683622$ & $87.94329184$ & $2.247044200062$ & $10.957280060607$ & $10.966143934794$ & $10.975014979398$\\
+$27$ & $5.476623331076$ & $21.941223679958$ & $87.90403639$ & $6.313079545011$ & $10.955457913698$ & $10.96355495264$ & $10.971657976001$\\
+$28$ & $5.474337162024$ & $21.921567785316$ & $87.78325484$ & $6.31525703074$ & $10.950237053383$ & $10.955878101141$ & $10.961522054902$\\
+$29$ & $5.471258447645$ & $21.901928862155$ & $87.67534791$ & $6.312562774077$ & $10.943621149423$ & $10.947552590414$ & $10.951485443756$\\
+$30$ & $5.464134125055$ & $21.864767738033$ & $87.49200831$ & $6.307298906003$ & $10.928819588741$ & $10.930731460914$ & $10.932643667548$\\
+$31$ & $5.460775755114$ & $21.847122359644$ & $87.40456976$ & $5.426082232316$ & $10.921826993705$ & $10.922758912721$ & $10.923690911255$\\
+$32$ & $5.457521109684$ & $21.831047260641$ & $87.32804051$ & $4.646587567244$ & $10.915111046195$ & $10.915333534894$ & $10.915556028129$\\
+$33$ & $5.434450254811$ & $21.737962800992$ & $86.95249834$ & $2.869197519096$ & $10.86891262503$ & $10.86894986383$ & $10.868987102758$\\
+\end{longtable}
+}
+
+{\scriptsize\setlength{\tabcolsep}{3pt}\renewcommand{\arraystretch}{0.92}
+\begin{longtable}{@{}rrrrrrrrrr@{}}
+\caption{Piece values: upper bounds, rounded up, except the lower bounds $\Sigma_i$, rounded down. Sources: the read-only evaluation of \texttt{piece\_data\_beta.compute} (modular root variant) on the native source (\texttt{count}, \texttt{h}, \texttt{M}, \texttt{chi}, \texttt{kf}, \texttt{eps}, \texttt{H}, \texttt{starts}); on the pieces $27$--$33$ the root plan \texttt{further\_root\_construction.changes} for $M_i$, $\chi_i$; \texttt{author.json} (\texttt{restoration\_product\_caps.rows[i].log\_cap}) for $L_i$.}\label{tab:data:piece-values}\\
+\toprule
+$i$ & $n_i$ & $h_i$ & $M_i$ & $\chi_i$ & $k_{F,i}$ & $\varepsilon_i$ & $H_i-1$ & $\Sigma_i$ & $L_i$\\
+\midrule
+\endfirsthead
+\toprule
+$i$ & $n_i$ & $h_i$ & $M_i$ & $\chi_i$ & $k_{F,i}$ & $\varepsilon_i$ & $H_i-1$ & $\Sigma_i$ & $L_i$\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+$1$ & $33$ & $6.7232\cdot10^{-3}$ & $1.384957$ & $3.413\cdot10^{-5}$ & $2.2587\cdot10^{-4}$ & $9.071\cdot10^{-4}$ & $3.309\cdot10^{-6}$ & $7.78804\cdot10^{-5}$ & $557.563$\\
+$2$ & $33$ & $6.4335\cdot10^{-3}$ & $1.365911$ & $3.126\cdot10^{-5}$ & $2.1621\cdot10^{-4}$ & $8.681\cdot10^{-4}$ & $3.034\cdot10^{-6}$ & $7.75743\cdot10^{-5}$ & $560.433$\\
+$3$ & $33$ & $6.1575\cdot10^{-3}$ & $1.347985$ & $2.863\cdot10^{-5}$ & $2.0699\cdot10^{-4}$ & $8.309\cdot10^{-4}$ & $2.782\cdot10^{-6}$ & $6.17114\cdot10^{-5}$ & $562.712$\\
+$4$ & $33$ & $5.9446\cdot10^{-3}$ & $1.334303$ & $2.668\cdot10^{-5}$ & $1.9987\cdot10^{-4}$ & $8.023\cdot10^{-4}$ & $2.596\cdot10^{-6}$ & $1.54769\cdot10^{-5}$ & $563.303$\\
+$5$ & $33$ & $5.8925\cdot10^{-3}$ & $1.330973$ & $2.622\cdot10^{-5}$ & $1.9813\cdot10^{-4}$ & $7.953\cdot10^{-4}$ & $2.551\cdot10^{-6}$ & $7.67005\cdot10^{-5}$ & $566.139$\\
+$6$ & $33$ & $5.6396\cdot10^{-3}$ & $1.314926$ & $2.402\cdot10^{-5}$ & $1.8968\cdot10^{-4}$ & $7.612\cdot10^{-4}$ & $2.340\cdot10^{-6}$ & $1.53882\cdot10^{-4}$ & $570.000$\\
+$7$ & $32$ & $5.1657\cdot10^{-3}$ & $1.275590$ & $1.954\cdot10^{-5}$ & $1.7382\cdot10^{-4}$ & $6.973\cdot10^{-4}$ & $1.908\cdot10^{-6}$ & $1.55400\cdot10^{-4}$ & $560.085$\\
+$8$ & $32$ & $4.7326\cdot10^{-3}$ & $1.250059$ & $1.640\cdot10^{-5}$ & $1.5931\cdot10^{-4}$ & $6.390\cdot10^{-4}$ & $1.604\cdot10^{-6}$ & $1.53982\cdot10^{-4}$ & $565.617$\\
+$9$ & $32$ & $4.3357\cdot10^{-3}$ & $1.227078$ & $1.377\cdot10^{-5}$ & $1.4601\cdot10^{-4}$ & $5.855\cdot10^{-4}$ & $1.349\cdot10^{-6}$ & $1.53422\cdot10^{-4}$ & $570.000$\\
+$10$ & $31$ & $3.9723\cdot10^{-3}$ & $1.199323$ & $1.120\cdot10^{-5}$ & $1.3382\cdot10^{-4}$ & $5.365\cdot10^{-4}$ & $1.099\cdot10^{-6}$ & $1.55960\cdot10^{-4}$ & $558.685$\\
+$11$ & $31$ & $3.6398\cdot10^{-3}$ & $1.181348$ & $9.397\cdot10^{-6}$ & $1.2266\cdot10^{-4}$ & $4.916\cdot10^{-4}$ & $9.239\cdot10^{-7}$ & $1.54278\cdot10^{-4}$ & $564.051$\\
+$12$ & $31$ & $3.3356\cdot10^{-3}$ & $1.165116$ & $7.891\cdot10^{-6}$ & $1.1244\cdot10^{-4}$ & $4.506\cdot10^{-4}$ & $7.769\cdot10^{-7}$ & $1.52845\cdot10^{-4}$ & $569.444$\\
+$13$ & $31$ & $3.0570\cdot10^{-3}$ & $1.150429$ & $6.627\cdot10^{-6}$ & $1.0307\cdot10^{-4}$ & $4.130\cdot10^{-4}$ & $6.533\cdot10^{-7}$ & $1.55988\cdot10^{-4}$ & $570.000$\\
+$14$ & $30$ & $2.8016\cdot10^{-3}$ & $1.132408$ & $5.387\cdot10^{-6}$ & $9.4481\cdot10^{-5}$ & $3.785\cdot10^{-4}$ & $5.317\cdot10^{-7}$ & $1.54994\cdot10^{-4}$ & $561.451$\\
+$15$ & $30$ & $2.5676\cdot10^{-3}$ & $1.120768$ & $4.525\cdot10^{-6}$ & $8.6610\cdot10^{-5}$ & $3.469\cdot10^{-4}$ & $4.471\cdot10^{-7}$ & $1.53669\cdot10^{-4}$ & $566.669$\\
+$16$ & $30$ & $2.3535\cdot10^{-3}$ & $1.110211$ & $3.801\cdot10^{-6}$ & $7.9403\cdot10^{-5}$ & $3.180\cdot10^{-4}$ & $3.760\cdot10^{-7}$ & $1.54100\cdot10^{-4}$ & $570.000$\\
+$17$ & $29$ & $2.1571\cdot10^{-3}$ & $1.097098$ & $3.087\cdot10^{-6}$ & $7.2791\cdot10^{-5}$ & $2.915\cdot10^{-4}$ & $3.056\cdot10^{-7}$ & $1.55984\cdot10^{-4}$ & $557.841$\\
+$18$ & $29$ & $1.9773\cdot10^{-3}$ & $1.088688$ & $2.594\cdot10^{-6}$ & $6.6733\cdot10^{-5}$ & $2.672\cdot10^{-4}$ & $2.570\cdot10^{-7}$ & $1.54637\cdot10^{-4}$ & $562.842$\\
+$19$ & $29$ & $1.8125\cdot10^{-3}$ & $1.081033$ & $2.180\cdot10^{-6}$ & $6.1181\cdot10^{-5}$ & $2.450\cdot10^{-4}$ & $2.161\cdot10^{-7}$ & $1.53266\cdot10^{-4}$ & $567.870$\\
+$20$ & $29$ & $1.6616\cdot10^{-3}$ & $1.074065$ & $1.832\cdot10^{-6}$ & $5.6095\cdot10^{-5}$ & $2.246\cdot10^{-4}$ & $1.817\cdot10^{-7}$ & $1.55073\cdot10^{-4}$ & $570.000$\\
+$21$ & $28$ & $1.5232\cdot10^{-3}$ & $1.065303$ & $1.486\cdot10^{-6}$ & $5.1430\cdot10^{-5}$ & $2.059\cdot10^{-4}$ & $1.476\cdot10^{-7}$ & $1.55950\cdot10^{-4}$ & $557.998$\\
+$22$ & $28$ & $1.3964\cdot10^{-3}$ & $1.059721$ & $1.249\cdot10^{-6}$ & $4.7152\cdot10^{-5}$ & $1.888\cdot10^{-4}$ & $1.241\cdot10^{-7}$ & $1.54608\cdot10^{-4}$ & $562.842$\\
+$23$ & $28$ & $1.2801\cdot10^{-3}$ & $1.054630$ & $1.050\cdot10^{-6}$ & $4.3232\cdot10^{-5}$ & $1.731\cdot10^{-4}$ & $1.044\cdot10^{-7}$ & $1.53293\cdot10^{-4}$ & $567.704$\\
+$24$ & $28$ & $1.1736\cdot10^{-3}$ & $1.049983$ & $8.820\cdot10^{-7}$ & $3.9639\cdot10^{-5}$ & $1.587\cdot10^{-4}$ & $8.772\cdot10^{-8}$ & $1.54907\cdot10^{-4}$ & $570.000$\\
+$25$ & $27$ & $1.0760\cdot10^{-3}$ & $1.044071$ & $7.149\cdot10^{-7}$ & $3.6344\cdot10^{-5}$ & $1.455\cdot10^{-4}$ & $7.113\cdot10^{-8}$ & $1.56246\cdot10^{-4}$ & $556.798$\\
+$26$ & $27$ & $9.8644\cdot10^{-4}$ & $1.040339$ & $6.009\cdot10^{-7}$ & $3.3324\cdot10^{-5}$ & $1.334\cdot10^{-4}$ & $5.981\cdot10^{-8}$ & $1.55000\cdot10^{-4}$ & $561.451$\\
+$27$ & $27$ & $1.0285\cdot10^{-3}$ & $1.101160\cdot10^{7}$ & $6.401\cdot10^{-7}$ & $3.0554\cdot10^{-5}$ & $1.223\cdot10^{-4}$ & $5.030\cdot10^{-8}$ & $6.19808\cdot10^{-4}$ & $569.992$\\
+$28$ & $26$ & $7.2704\cdot10^{-4}$ & $1.520074\cdot10^{9}$ & $3.345\cdot10^{-7}$ & $2.1598\cdot10^{-5}$ & $8.642\cdot10^{-5}$ & $2.422\cdot10^{-8}$ & $6.19573\cdot10^{-4}$ & $569.983$\\
+$29$ & $25$ & $5.1379\cdot10^{-4}$ & $4.989969\cdot10^{11}$ & $1.770\cdot10^{-7}$ & $1.5268\cdot10^{-5}$ & $6.109\cdot10^{-5}$ & $1.165\cdot10^{-8}$ & $1.23995\cdot10^{-3}$ & $569.995$\\
+$30$ & $24$ & $2.5658\cdot10^{-4}$ & $1.499557\cdot10^{20}$ & $5.146\cdot10^{-8}$ & $7.6317\cdot10^{-6}$ & $3.053\cdot10^{-5}$ & $2.794\cdot10^{-9}$ & $1.24248\cdot10^{-3}$ & $569.941$\\
+$31$ & $22$ & $1.2486\cdot10^{-4}$ & $1.729204\cdot10^{20}$ & $1.188\cdot10^{-8}$ & $3.8153\cdot10^{-6}$ & $1.527\cdot10^{-5}$ & $6.403\cdot10^{-10}$ & $2.49322\cdot10^{-3}$ & $569.962$\\
+$32$ & $20$ & $3.0455\cdot10^{-5}$ & $9.051323\cdot10^{18}$ & $6.734\cdot10^{-10}$ & $9.5371\cdot10^{-7}$ & $3.815\cdot10^{-6}$ & $3.638\cdot10^{-11}$ & $3.12057\cdot10^{-3}$ & $569.903$\\
+$33$ & $18$ & $5.0647\cdot10^{-6}$ & $9.511041\cdot10^{85}$ & $5.031\cdot10^{-10}$ & $1.6859\cdot10^{-7}$ & $6.744\cdot10^{-7}$ & $1.024\cdot10^{-12}$ & $1.49358\cdot10^{-3}$ & $569.905$\\
+\end{longtable}
+}
+
+\paragraph{The caps of the reference.}
+\Cref{tab:data:cut-caps} lists, for each piece, the block caps of the five cuts
+that \cref{lem:front12:reference} uses, all evaluated at the piece start $X_i$
+for blocks of logarithmic length at most $L_{\rm loc}=585$: the caps $d$ of L20
+and $k_{\rm L}$ of L21, whose roundings up are the weights $w_{\rm D}$ and
+$v_{\rm L}$ of \cref{tab:data:middle-weights}; the refined negative cap
+$k_{\rm D}(X_i,585)$ of \cref{lem:old-f-law}(e) (\cref{cert:record:old-f-cap}),
+which the reference uses for its fold type in place of the route-A cap of F21;
+and the route-A block caps of E21 and $d_1$ of L10 (\cref{lem:layer12-caps}).
+Except for $k_{\rm D}$, each is $g\exp(c^+L_{\rm loc}/(X_i\log X_i))$ for the
+class-three negative constant $g$ and the positive constant $c^+$ of a prime of
+its cut, $-gp^{-1/2}I\preceq\mathsf A_p\preceq(1+c^+/p)I$, where
+$\mathsf A_p$ is the cut operator of
+\cref{thm:spectral-criterion}. The cuts E21 and L10 are route-A
+cuts on every piece, with the constants of \cref{tab:data:layer12-grid} at $X_i$.
+On the pieces $1$--$26$ the cut L20 uses the finite collision-gap refinement
+of the uniform root (\cref{subsec:middle-l20,imp:local:collision-gap}), as
+printed in \cref{tab:data:cut-caps}; \cref{tab:data:l20-grid} retains the earlier
+caps for comparison. L21 is a route-A cut, with the constants of
+\cref{tab:data:layer12-grid}; on the pieces $27$--$33$, marked $\ast$, L20 and L21
+use the positive-root refinements of \cref{cert:positive-root-caps}, with
+the constants of \cref{tab:data:positive-roots,tab:data:positive-roots-late}. The final source stores every entry with the
+threshold $X_i$, the length $585$, $g$, $c^+$ and the block cap, and the native
+checks bind it to the record of its cut and recompute the block caps
+(\cref{cert:layer12-grid,cert:l20-grid,cert:positive-root-caps}).
+
+{\scriptsize\setlength{\tabcolsep}{6pt}\renewcommand{\arraystretch}{0.92}
+\begin{longtable}{@{}rrrrrr@{}}
+\caption{The block caps of the reference at the piece starts, $L_{\rm loc}=585$ (upper bounds, rounded up). Source: \texttt{refined\_L570\_source.json} (\texttt{middle.pieces[i].local.spectra}: \texttt{L20}, \texttt{L21}, \texttt{F21}, \texttt{E21}, \texttt{L10}, field \texttt{block\_d}; the flags \texttt{further\_positive\_pair\_square} of L20 on every piece, \texttt{further\_positive\_pair\_square} of L20 and L21 on the pieces $27$--$33$, \texttt{advance\_old\_negative} of F21).}\label{tab:data:cut-caps}\\
+\toprule
+$i$ & L20: $d$ & L21: $k_{\rm L}$ & F21: $k_{\rm D}$ & E21 & L10: $d_1$\\
+\midrule
+\endfirsthead
+\toprule
+$i$ & L20: $d$ & L21: $k_{\rm L}$ & F21: $k_{\rm D}$ & E21 & L10: $d_1$\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+$1$ & $5.481831709798$ & $2.574071293695$ & $1.001486584869$ & $0.004540920001$ & $1.751290440133$\\
+$2$ & $5.481472801115$ & $2.557961162481$ & $1.001423227600$ & $0.004350500001$ & $1.750476100111$\\
+$3$ & $5.481143697784$ & $2.542519916612$ & $1.001362798285$ & $0.004166690001$ & $1.749695360093$\\
+$4$ & $5.480900122235$ & $2.530630919138$ & $1.001316139886$ & $0.004025750001$ & $1.749095070081$\\
+$5$ & $5.480841803566$ & $2.527721155163$ & $1.001304712806$ & $0.003991360001$ & $1.748948670078$\\
+$6$ & $5.480564757436$ & $2.513538297374$ & $1.001249247923$ & $0.003823340001$ & $1.748232530065$\\
+$7$ & $5.480076810923$ & $2.486917800366$ & $1.001145115788$ & $0.003508720001$ & $1.746890930046$\\
+$8$ & $5.479664889628$ & $2.462466811752$ & $1.001049841320$ & $0.003220770001$ & $1.745660860032$\\
+$9$ & $5.479316580401$ & $2.440008538906$ & $1.000962431414$ & $0.002955520001$ & $1.744532970023$\\
+$10$ & $5.479021573962$ & $2.419381870032$ & $1.000882257930$ & $0.002713080001$ & $1.743498150016$\\
+$11$ & $5.478771296094$ & $2.400439513894$ & $1.000808865207$ & $0.002490650001$ & $1.742548560011$\\
+$12$ & $5.478558605644$ & $2.383044089645$ & $1.000741635936$ & $0.002286470001$ & $1.741678600008$\\
+$13$ & $5.478377547006$ & $2.367070396701$ & $1.000679985359$ & $0.002098850001$ & $1.740880900006$\\
+$14$ & $5.478223146401$ & $2.352402724659$ & $1.000623435395$ & $0.001927180001$ & $1.740149270004$\\
+$15$ & $5.478091244751$ & $2.338936263241$ & $1.000571588498$ & $0.001769870001$ & $1.739477710003$\\
+$16$ & $5.477978359548$ & $2.326572512256$ & $1.000524093071$ & $0.001625390001$ & $1.738862380002$\\
+$17$ & $5.477881571158$ & $2.315221851572$ & $1.000480519929$ & $0.001493270001$ & $1.738298600002$\\
+$18$ & $5.477798428647$ & $2.304803061096$ & $1.000440591068$ & $0.001372050001$ & $1.737780830001$\\
+$19$ & $5.477726871954$ & $2.295239920764$ & $1.000403980353$ & $0.001260330001$ & $1.737305660001$\\
+$20$ & $5.477665167321$ & $2.286461870533$ & $1.000370431434$ & $0.001158740001$ & $1.736870780001$\\
+$21$ & $5.477611853772$ & $2.278404660372$ & $1.000339660775$ & $0.001064930001$ & $1.736472020001$\\
+$22$ & $5.477565698576$ & $2.271011080260$ & $1.000311438637$ & $0.000979600001$ & $1.736105270001$\\
+$23$ & $5.477525660249$ & $2.264226650182$ & $1.000285571944$ & $0.000900440001$ & $1.735770550001$\\
+$24$ & $5.477490857716$ & $2.257999450127$ & $1.000261852381$ & $0.000828200001$ & $1.735461940001$\\
+$25$ & $5.477460544596$ & $2.252286820089$ & $1.000240105434$ & $0.000762640001$ & $1.735179590001$\\
+$26$ & $5.477434087745$ & $2.247044200062$ & $1.000220165600$ & $0.000701530001$ & $1.734921740001$\\
+$27$$^\ast$ & $5.476623331076$ & $6.313079545011$ & $1.000201880923$ & $0.000645670001$ & $1.734683680001$\\
+$28$$^\ast$ & $5.474337162024$ & $6.315257030740$ & $1.000142732288$ & $0.000465230001$ & $1.733916200001$\\
+$29$$^\ast$ & $5.471258447645$ & $6.312562774077$ & $1.000100914090$ & $0.000338340001$ & $1.733372310001$\\
+$30$$^\ast$ & $5.464134125055$ & $6.307298906003$ & $1.000050450687$ & $0.000183680001$ & $1.732716650001$\\
+$31$$^\ast$ & $5.460775755114$ & $5.426082232316$ & $1.000025223841$ & $0.000105350001$ & $1.732388830001$\\
+$32$$^\ast$ & $5.457521109684$ & $4.646587567244$ & $1.000006305686$ & $0.000044600001$ & $1.732143720001$\\
+$33$$^\ast$ & $5.434450254811$ & $2.869197519096$ & $1.000001114686$ & $0.000025530001$ & $1.732076270001$\\
+\end{longtable}
+}
+
+\subsection{Middle prices}\label{subsec:data:prices}
+
+The middle records are priced piece by piece by
+\eqref{eq:middle-piece-prices} of \cref{lem:middle-comparison-prices}, the rows
+of \cref{def:closing-quantities}(3): with the weight $w_{{\rm D},i}=w_{{\rm S},i}$,
+the charges $\bar I_{d,i}$ and the endpoint coefficients at
+$(q_{X_i},r_{X_i})=(1/X_i,1/\lfloor\sqrt{X_i}\rfloor)$, namely $\ell_\tlaw$, $a_F$,
+$s_F$ of \eqref{eq:signed-constants} at $\tlaw=127/500$
+(\cref{prop:signed-bounds}) and $s_E$, $a_E$, $r_E$ of the matching records
+(\cref{lem:record:exact-marginal-e,lem:oct24:matching-star}), each price is
+rounded up on $10^{-30}\Z$. \Cref{tab:data:prices} and the table that follows
+it list the coefficients and the prices at $a_0$, in two parts: the signed fold
+records, then the matching and the other records. Always $A^{\rm arm}_{E,i}=A^{\rm arm}_{F,i}$, and
+$A^{\rm lead}_{E,i}$ and $A_{E,i}$ exceed it only by the factors $1/(1-q_{X_i})$
+and $a_E(X_i)=(1+2q_{X_i})/((1-q_{X_i})(1-2q_{X_i}))$, both below
+$1+2.6\cdot10^{-7}$ (up to the rounding on $10^{-30}\Z$); these three columns are shown with eight digits, so that the
+factors are visible. No stored record holds the per-piece coefficients: they are
+the values, in outward rational arithmetic, of the functions of
+\path{research/advance_2026_10_24/local/low_domain.py} (\texttt{raw\_ledgers},
+with \texttt{sharp\_bounds} and \texttt{e\_bounds}) on the native source
+\path{research/push_2026_10_25/global/refined_L570_source.json}, which the
+final scalar evaluates in the same way (\cref{cert:signed-local}); the values at
+$Q_3$ are those of \cref{cert:signed-local}.
+
+The sums over the $33$ pieces at $a_0$ are
+\begin{gather*}
+ \textstyle\sum_iA^{\rm arm}_{F,i}<0.4233218123,\quad
+ \sum_iA^{\rm lead}_{F,i}<0.53897230072,\quad
+ \sum_iA^{\rm rem}_{F,i}<5.6589506101\cdot10^{-5},\\
+ \textstyle\sum_iS_{F,i}<1.3191008051\cdot10^{-4},\quad
+ \sum_iA^{\rm lead}_{E,i}<0.42332181373,\quad
+ \sum_iA_{E,i}<0.42332181948,\\
+ \textstyle\sum_iA^{\rm rem}_{E,i}<1.4367776013\cdot10^{-8},\quad
+ \sum_iS_{E,i}<3.0926618874\cdot10^{-5},\\
+ \textstyle\sum_iS_{{\rm oth},i}<5.2581571154\cdot10^{-4},\quad
+ \sum_iA_{{\rm oth},i}<2.3870591726\cdot10^{-4},
+\end{gather*}
+and $t$ times these sums are the totals at $a$ of
+\cref{def:closing-quantities}(3), stored in
+\path{research/push_2026_10_25/artifacts/author.json} (key
+\texttt{raw\_totals}), with the following outward bounds:
+$A^{\rm arm}_F=A^{\rm arm}_E<0.42332183839047$, $A^{\rm lead}_F<0.53897233394172$,
+$A^{\rm rem}_F<5.6589509590\cdot10^{-5}$, $A_F<0.53902892345131$, $S_F<1.3191008864\cdot10^{-4}$,
+$A^{\rm lead}_E<0.42332183982722$, $A^{\rm rem}_E<1.4367776899\cdot10^{-8}$, $A_E<0.42332184557419$,
+$S_E<3.0926620780\cdot10^{-5}$, $S_{\rm oth}<5.2581574396\cdot10^{-4}$, $A_{\rm oth}<2.3870593198\cdot10^{-4}$,
+$S_{\rm mid}<6.8865245337\cdot10^{-4}$ and $A_{\rm mid}<0.96258947495747$.
+
+{\scriptsize\setlength{\tabcolsep}{5pt}\renewcommand{\arraystretch}{0.92}
+\begin{longtable}{@{}rrrrrrrr@{}}
+\caption{Middle prices at $a_0$, part~I: the coefficients of the signed fold records at $X_i$ and their prices (upper bounds, rounded up); $A^{\rm arm}_{F,i}=A^{\rm arm}_{E,i}$; part~II is the next table. Source: the read-only evaluation of \texttt{low\_domain.raw\_ledgers} at $\tlaw=127/500$ on the native source (\texttt{rows[i].prices}: \texttt{BF}, \texttt{LF}, \texttt{RF}, \texttt{SF}; \texttt{rows[i].bounds}).}\label{tab:data:prices}\\
+\toprule
+$i$ & $\ell_\tlaw(X_i)$ & $a_F(X_i)$ & $s_F(X_i)$ & $A^{\rm arm}_{F,i}$ & $A^{\rm lead}_{F,i}$ & $A^{\rm rem}_{F,i}$ & $S_{F,i}$\\
+\midrule
+\endfirsthead
+\toprule
+$i$ & $\ell_\tlaw(X_i)$ & $a_F(X_i)$ & $s_F(X_i)$ & $A^{\rm arm}_{F,i}$ & $A^{\rm lead}_{F,i}$ & $A^{\rm rem}_{F,i}$ & $S_{F,i}$\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+$1$ & $1.2731978$ & $4.797399$ & $11.16607$ & $2.2937680\cdot10^{-3}$ & $2.9205\cdot10^{-3}$ & $2.4111\cdot10^{-6}$ & $5.6118\cdot10^{-6}$\\
+$2$ & $1.2731978$ & $4.795180$ & $11.16343$ & $2.2954700\cdot10^{-3}$ & $2.9226\cdot10^{-3}$ & $2.3095\cdot10^{-6}$ & $5.3765\cdot10^{-6}$\\
+$3$ & $1.2731978$ & $4.793064$ & $11.16091$ & $1.8342660\cdot10^{-3}$ & $2.3354\cdot10^{-3}$ & $1.7741\cdot10^{-6}$ & $4.1311\cdot10^{-6}$\\
+$4$ & $1.2731978$ & $4.791429$ & $11.15896$ & $4.6078701\cdot10^{-4}$ & $5.8668\cdot10^{-4}$ & $4.3594\cdot10^{-7}$ & $1.0153\cdot10^{-6}$\\
+$5$ & $1.2731978$ & $4.791029$ & $11.15849$ & $2.2927261\cdot10^{-3}$ & $2.9191\cdot10^{-3}$ & $2.1134\cdot10^{-6}$ & $4.9222\cdot10^{-6}$\\
+$6$ & $1.2731978$ & $4.789085$ & $11.15617$ & $4.5895339\cdot10^{-3}$ & $5.8434\cdot10^{-3}$ & $3.9637\cdot10^{-6}$ & $9.2333\cdot10^{-6}$\\
+$7$ & $1.2731977$ & $4.785437$ & $11.15183$ & $4.5847170\cdot10^{-3}$ & $5.8373\cdot10^{-3}$ & $3.6280\cdot10^{-6}$ & $8.4546\cdot10^{-6}$\\
+$8$ & $1.2731977$ & $4.782096$ & $11.14786$ & $4.5875961\cdot10^{-3}$ & $5.8410\cdot10^{-3}$ & $3.3268\cdot10^{-6}$ & $7.7552\cdot10^{-6}$\\
+$9$ & $1.2731977$ & $4.779030$ & $11.14421$ & $4.5851545\cdot10^{-3}$ & $5.8379\cdot10^{-3}$ & $3.0471\cdot10^{-6}$ & $7.1054\cdot10^{-6}$\\
+$10$ & $1.2731977$ & $4.777468$ & $11.14086$ & $4.5897858\cdot10^{-3}$ & $5.8438\cdot10^{-3}$ & $2.7962\cdot10^{-6}$ & $6.5205\cdot10^{-6}$\\
+$11$ & $1.2731977$ & $4.776182$ & $11.13780$ & $4.5836149\cdot10^{-3}$ & $5.8359\cdot10^{-3}$ & $2.5599\cdot10^{-6}$ & $5.9696\cdot10^{-6}$\\
+$12$ & $1.2731977$ & $4.775004$ & $11.13499$ & $4.5845276\cdot10^{-3}$ & $5.8371\cdot10^{-3}$ & $2.3474\cdot10^{-6}$ & $5.4738\cdot10^{-6}$\\
+$13$ & $1.2731976$ & $4.773924$ & $11.13241$ & $4.5870480\cdot10^{-3}$ & $5.8403\cdot10^{-3}$ & $2.1533\cdot10^{-6}$ & $5.0212\cdot10^{-6}$\\
+$14$ & $1.2731976$ & $4.772932$ & $11.13005$ & $4.5840422\cdot10^{-3}$ & $5.8364\cdot10^{-3}$ & $1.9729\cdot10^{-6}$ & $4.6005\cdot10^{-6}$\\
+$15$ & $1.2731976$ & $4.772023$ & $11.12788$ & $4.5869491\cdot10^{-3}$ & $5.8401\cdot10^{-3}$ & $1.8099\cdot10^{-6}$ & $4.2205\cdot10^{-6}$\\
+$16$ & $1.2731976$ & $4.771191$ & $11.12590$ & $4.5863374\cdot10^{-3}$ & $5.8394\cdot10^{-3}$ & $1.6592\cdot10^{-6}$ & $3.8690\cdot10^{-6}$\\
+$17$ & $1.2731976$ & $4.770427$ & $11.12408$ & $4.5840268\cdot10^{-3}$ & $5.8364\cdot10^{-3}$ & $1.5205\cdot10^{-6}$ & $3.5455\cdot10^{-6}$\\
+$18$ & $1.2731976$ & $4.769727$ & $11.12241$ & $4.5851080\cdot10^{-3}$ & $5.8378\cdot10^{-3}$ & $1.3944\cdot10^{-6}$ & $3.2516\cdot10^{-6}$\\
+$19$ & $1.2731976$ & $4.769085$ & $11.12088$ & $4.5851830\cdot10^{-3}$ & $5.8379\cdot10^{-3}$ & $1.2785\cdot10^{-6}$ & $2.9813\cdot10^{-6}$\\
+$20$ & $1.2731976$ & $4.768497$ & $11.11947$ & $4.5864511\cdot10^{-3}$ & $5.8395\cdot10^{-3}$ & $1.1726\cdot10^{-6}$ & $2.7343\cdot10^{-6}$\\
+$21$ & $1.2731976$ & $4.767957$ & $11.11818$ & $4.5849742\cdot10^{-3}$ & $5.8376\cdot10^{-3}$ & $1.0748\cdot10^{-6}$ & $2.5062\cdot10^{-6}$\\
+$22$ & $1.2731976$ & $4.767462$ & $11.11700$ & $4.5847914\cdot10^{-3}$ & $5.8374\cdot10^{-3}$ & $9.8544\cdot10^{-7}$ & $2.2979\cdot10^{-6}$\\
+$23$ & $1.2731976$ & $4.767009$ & $11.11592$ & $4.5851767\cdot10^{-3}$ & $5.8379\cdot10^{-3}$ & $9.0363\cdot10^{-7}$ & $2.1072\cdot10^{-6}$\\
+$24$ & $1.2731976$ & $4.766593$ & $11.11493$ & $4.5850579\cdot10^{-3}$ & $5.8377\cdot10^{-3}$ & $8.2854\cdot10^{-7}$ & $1.9321\cdot10^{-6}$\\
+$25$ & $1.2731976$ & $4.766212$ & $11.11402$ & $4.5843372\cdot10^{-3}$ & $5.8368\cdot10^{-3}$ & $7.5960\cdot10^{-7}$ & $1.7713\cdot10^{-6}$\\
+$26$ & $1.2731976$ & $4.765862$ & $11.11319$ & $4.5857589\cdot10^{-3}$ & $5.8386\cdot10^{-3}$ & $6.9671\cdot10^{-7}$ & $1.6247\cdot10^{-6}$\\
+$27$ & $1.2731976$ & $4.765541$ & $11.11242$ & $1.8337157\cdot10^{-2}$ & $2.3347\cdot10^{-2}$ & $2.2538\cdot10^{-6}$ & $5.2554\cdot10^{-6}$\\
+$28$ & $1.2731976$ & $4.764504$ & $11.10994$ & $1.8330169\cdot10^{-2}$ & $2.3338\cdot10^{-2}$ & $1.5927\cdot10^{-6}$ & $3.7139\cdot10^{-6}$\\
+$29$ & $1.2731976$ & $4.763770$ & $11.10819$ & $3.6646733\cdot10^{-2}$ & $4.6659\cdot10^{-2}$ & $1.9216\cdot10^{-6}$ & $4.4808\cdot10^{-6}$\\
+$30$ & $1.2731976$ & $4.762885$ & $11.10608$ & $3.6600211\cdot10^{-2}$ & $4.6600\cdot10^{-2}$ & $9.5940\cdot10^{-7}$ & $2.2372\cdot10^{-6}$\\
+$31$ & $1.2731976$ & $4.762443$ & $11.10503$ & $7.3153592\cdot10^{-2}$ & $9.3139\cdot10^{-2}$ & $7.1902\cdot10^{-7}$ & $1.6766\cdot10^{-6}$\\
+$32$ & $1.2731976$ & $4.762111$ & $11.10423$ & $9.1388133\cdot10^{-2}$ & $1.1636\cdot10^{-1}$ & $1.9718\cdot10^{-7}$ & $4.5977\cdot10^{-7}$\\
+$33$ & $1.2731976$ & $4.762020$ & $11.10402$ & $4.3388632\cdot10^{-2}$ & $5.5243\cdot10^{-2}$ & $2.3708\cdot10^{-8}$ & $5.5282\cdot10^{-8}$\\
+\midrule
+$\sum$ &  &  &  & $4.2332182\cdot10^{-1}$ & $5.3898\cdot10^{-1}$ & $5.6590\cdot10^{-5}$ & $1.3192\cdot10^{-4}$\\
+\end{longtable}
+}
+
+{\scriptsize\setlength{\tabcolsep}{3.4pt}\renewcommand{\arraystretch}{0.92}
+\begin{longtable}{@{}rrrrrrrrr@{}}
+\caption{Middle prices at $a_0$, part~II, continuing the previous table: the coefficients of the matching records at $X_i$ and the prices of the matching and of the other records (upper bounds, rounded up). Source: as part~I (\texttt{rows[i].prices}: \texttt{LE}, \texttt{GE}, \texttt{RE}, \texttt{SE}, \texttt{other\_s}, \texttt{other\_a}; \texttt{rows[i].E\_bounds}).}\\
+\toprule
+$i$ & $s_E(X_i)$ & $r_E(X_i)$ & $A^{\rm lead}_{E,i}$ & $A_{E,i}$ & $A^{\rm rem}_{E,i}$ & $S_{E,i}$ & $S_{{\rm oth},i}$ & $A_{{\rm oth},i}$\\
+\midrule
+\endfirsthead
+\toprule
+$i$ & $s_E(X_i)$ & $r_E(X_i)$ & $A^{\rm lead}_{E,i}$ & $A_{E,i}$ & $A^{\rm rem}_{E,i}$ & $S_{E,i}$ & $S_{{\rm oth},i}$ & $A_{{\rm oth},i}$\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+$1$ & $5.4072\cdot10^{-4}$ & $10.8298$ & $2.2937681\cdot10^{-3}$ & $2.2937686\cdot10^{-3}$ & $1.1928\cdot10^{-9}$ & $1.2403\cdot10^{-6}$ & $2.2500\cdot10^{-5}$ & $1.0202\cdot10^{-5}$\\
+$2$ & $5.1776\cdot10^{-4}$ & $10.8297$ & $2.2954701\cdot10^{-3}$ & $2.2954705\cdot10^{-3}$ & $1.0945\cdot10^{-9}$ & $1.1885\cdot10^{-6}$ & $2.1545\cdot10^{-5}$ & $9.7699\cdot10^{-6}$\\
+$3$ & $4.9586\cdot10^{-4}$ & $10.8296$ & $1.8342661\cdot10^{-3}$ & $1.8342664\cdot10^{-3}$ & $8.0893\cdot10^{-10}$ & $9.0953\cdot10^{-7}$ & $1.6546\cdot10^{-5}$ & $7.5037\cdot10^{-6}$\\
+$4$ & $4.7894\cdot10^{-4}$ & $10.8296$ & $4.6078703\cdot10^{-4}$ & $4.6078710\cdot10^{-4}$ & $1.9455\cdot10^{-10}$ & $2.2069\cdot10^{-7}$ & $4.0648\cdot10^{-6}$ & $1.8436\cdot10^{-6}$\\
+$5$ & $4.7479\cdot10^{-4}$ & $10.8296$ & $2.2927262\cdot10^{-3}$ & $2.2927266\cdot10^{-3}$ & $9.1923\cdot10^{-10}$ & $1.0886\cdot10^{-6}$ & $1.9705\cdot10^{-5}$ & $8.9373\cdot10^{-6}$\\
+$6$ & $4.5467\cdot10^{-4}$ & $10.8295$ & $4.5895340\cdot10^{-3}$ & $4.5895347\cdot10^{-3}$ & $1.6174\cdot10^{-9}$ & $2.0868\cdot10^{-6}$ & $3.6947\cdot10^{-5}$ & $1.6759\cdot10^{-5}$\\
+$7$ & $4.1691\cdot10^{-4}$ & $10.8295$ & $4.5847171\cdot10^{-3}$ & $4.5847177\cdot10^{-3}$ & $1.3585\cdot10^{-9}$ & $1.9114\cdot10^{-6}$ & $3.3802\cdot10^{-5}$ & $1.5336\cdot10^{-5}$\\
+$8$ & $3.8231\cdot10^{-4}$ & $10.8294$ & $4.5875962\cdot10^{-3}$ & $4.5875967\cdot10^{-3}$ & $1.1432\cdot10^{-9}$ & $1.7539\cdot10^{-6}$ & $3.0981\cdot10^{-5}$ & $1.4058\cdot10^{-5}$\\
+$9$ & $3.5056\cdot10^{-4}$ & $10.8293$ & $4.5851546\cdot10^{-3}$ & $4.5851550\cdot10^{-3}$ & $9.6071\cdot10^{-10}$ & $1.6074\cdot10^{-6}$ & $2.8365\cdot10^{-5}$ & $1.2873\cdot10^{-5}$\\
+$10$ & $3.2144\cdot10^{-4}$ & $10.8292$ & $4.5897859\cdot10^{-3}$ & $4.5897862\cdot10^{-3}$ & $8.0873\cdot10^{-10}$ & $1.4754\cdot10^{-6}$ & $2.6013\cdot10^{-5}$ & $1.1808\cdot10^{-5}$\\
+$11$ & $2.9475\cdot10^{-4}$ & $10.8292$ & $4.5836150\cdot10^{-3}$ & $4.5836152\cdot10^{-3}$ & $6.7912\cdot10^{-10}$ & $1.3511\cdot10^{-6}$ & $2.3801\cdot10^{-5}$ & $1.0805\cdot10^{-5}$\\
+$12$ & $2.7030\cdot10^{-4}$ & $10.8291$ & $4.5845277\cdot10^{-3}$ & $4.5845279\cdot10^{-3}$ & $5.7117\cdot10^{-10}$ & $1.2392\cdot10^{-6}$ & $2.1813\cdot10^{-5}$ & $9.9029\cdot10^{-6}$\\
+$13$ & $2.4788\cdot10^{-4}$ & $10.8291$ & $4.5870481\cdot10^{-3}$ & $4.5870483\cdot10^{-3}$ & $4.8057\cdot10^{-10}$ & $1.1370\cdot10^{-6}$ & $1.9999\cdot10^{-5}$ & $9.0805\cdot10^{-6}$\\
+$14$ & $2.2729\cdot10^{-4}$ & $10.8290$ & $4.5840423\cdot10^{-3}$ & $4.5840424\cdot10^{-3}$ & $4.0385\cdot10^{-10}$ & $1.0419\cdot10^{-6}$ & $1.8315\cdot10^{-5}$ & $8.3168\cdot10^{-6}$\\
+$15$ & $2.0842\cdot10^{-4}$ & $10.8290$ & $4.5869491\cdot10^{-3}$ & $4.5869492\cdot10^{-3}$ & $3.3980\cdot10^{-10}$ & $9.5598\cdot10^{-7}$ & $1.6795\cdot10^{-5}$ & $7.6273\cdot10^{-6}$\\
+$16$ & $1.9113\cdot10^{-4}$ & $10.8289$ & $4.5863374\cdot10^{-3}$ & $4.5863375\cdot10^{-3}$ & $2.8570\cdot10^{-10}$ & $8.7655\cdot10^{-7}$ & $1.5391\cdot10^{-5}$ & $6.9901\cdot10^{-6}$\\
+$17$ & $1.7525\cdot10^{-4}$ & $10.8289$ & $4.5840268\cdot10^{-3}$ & $4.5840269\cdot10^{-3}$ & $2.4013\cdot10^{-10}$ & $8.0336\cdot10^{-7}$ & $1.4100\cdot10^{-5}$ & $6.4039\cdot10^{-6}$\\
+$18$ & $1.6071\cdot10^{-4}$ & $10.8289$ & $4.5851080\cdot10^{-3}$ & $4.5851081\cdot10^{-3}$ & $2.0197\cdot10^{-10}$ & $7.3685\cdot10^{-7}$ & $1.2927\cdot10^{-5}$ & $5.8715\cdot10^{-6}$\\
+$19$ & $1.4737\cdot10^{-4}$ & $10.8288$ & $4.5851830\cdot10^{-3}$ & $4.5851831\cdot10^{-3}$ & $1.6983\cdot10^{-10}$ & $6.7569\cdot10^{-7}$ & $1.1849\cdot10^{-5}$ & $5.3823\cdot10^{-6}$\\
+$20$ & $1.3514\cdot10^{-4}$ & $10.8288$ & $4.5864511\cdot10^{-3}$ & $4.5864511\cdot10^{-3}$ & $1.4285\cdot10^{-10}$ & $6.1981\cdot10^{-7}$ & $1.0864\cdot10^{-5}$ & $4.9353\cdot10^{-6}$\\
+$21$ & $1.2393\cdot10^{-4}$ & $10.8288$ & $4.5849742\cdot10^{-3}$ & $4.5849742\cdot10^{-3}$ & $1.2009\cdot10^{-10}$ & $5.6818\cdot10^{-7}$ & $9.9554\cdot10^{-6}$ & $4.5229\cdot10^{-6}$\\
+$22$ & $1.1364\cdot10^{-4}$ & $10.8287$ & $4.5847914\cdot10^{-3}$ & $4.5847914\cdot10^{-3}$ & $1.0098\cdot10^{-10}$ & $5.2099\cdot10^{-7}$ & $9.1259\cdot10^{-6}$ & $4.1462\cdot10^{-6}$\\
+$23$ & $1.0421\cdot10^{-4}$ & $10.8287$ & $4.5851767\cdot10^{-3}$ & $4.5851767\cdot10^{-3}$ & $8.4913\cdot10^{-11}$ & $4.7778\cdot10^{-7}$ & $8.3666\cdot10^{-6}$ & $3.8014\cdot10^{-6}$\\
+$24$ & $9.5553\cdot10^{-5}$ & $10.8287$ & $4.5850579\cdot10^{-3}$ & $4.5850580\cdot10^{-3}$ & $7.1402\cdot10^{-11}$ & $4.3812\cdot10^{-7}$ & $7.6700\cdot10^{-6}$ & $3.4850\cdot10^{-6}$\\
+$25$ & $8.7622\cdot10^{-5}$ & $10.8287$ & $4.5843372\cdot10^{-3}$ & $4.5843373\cdot10^{-3}$ & $6.0033\cdot10^{-11}$ & $4.0169\cdot10^{-7}$ & $7.0307\cdot10^{-6}$ & $3.1946\cdot10^{-6}$\\
+$26$ & $8.0349\cdot10^{-5}$ & $10.8287$ & $4.5857589\cdot10^{-3}$ & $4.5857589\cdot10^{-3}$ & $5.0496\cdot10^{-11}$ & $3.6846\cdot10^{-7}$ & $6.4476\cdot10^{-6}$ & $2.9298\cdot10^{-6}$\\
+$27$ & $7.3679\cdot10^{-5}$ & $10.8286$ & $1.8337157\cdot10^{-2}$ & $1.8337157\cdot10^{-2}$ & $1.3340\cdot10^{-10}$ & $1.3511\cdot10^{-6}$ & $2.0855\cdot10^{-5}$ & $9.4764\cdot10^{-6}$\\
+$28$ & $5.2100\cdot10^{-5}$ & $10.8286$ & $1.8330169\cdot10^{-2}$ & $1.8330170\cdot10^{-2}$ & $6.6673\cdot10^{-11}$ & $9.5499\cdot10^{-7}$ & $1.4731\cdot10^{-5}$ & $6.6945\cdot10^{-6}$\\
+$29$ & $3.6839\cdot10^{-5}$ & $10.8286$ & $3.6646733\cdot10^{-2}$ & $3.6646733\cdot10^{-2}$ & $4.9989\cdot10^{-11}$ & $1.3501\cdot10^{-6}$ & $1.7768\cdot10^{-5}$ & $8.0750\cdot10^{-6}$\\
+$30$ & $1.8420\cdot10^{-5}$ & $10.8285$ & $3.6600211\cdot10^{-2}$ & $3.6600211\cdot10^{-2}$ & $1.2482\cdot10^{-11}$ & $6.7415\cdot10^{-7}$ & $8.8677\cdot10^{-6}$ & $4.0305\cdot10^{-6}$\\
+$31$ & $9.2096\cdot10^{-6}$ & $10.8285$ & $7.3153592\cdot10^{-2}$ & $7.3153592\cdot10^{-2}$ & $3.8979\cdot10^{-12}$ & $6.7372\cdot10^{-7}$ & $6.6447\cdot10^{-6}$ & $3.0202\cdot10^{-6}$\\
+$32$ & $2.3024\cdot10^{-6}$ & $10.8285$ & $9.1388133\cdot10^{-2}$ & $9.1388133\cdot10^{-2}$ & $2.5159\cdot10^{-13}$ & $2.1041\cdot10^{-7}$ & $1.8219\cdot10^{-6}$ & $8.2813\cdot10^{-7}$\\
+$33$ & $4.0701\cdot10^{-7}$ & $10.8285$ & $4.3388632\cdot10^{-2}$ & $4.3388632\cdot10^{-2}$ & $6.5335\cdot10^{-15}$ & $1.7660\cdot10^{-8}$ & $2.1906\cdot10^{-7}$ & $9.9571\cdot10^{-8}$\\
+\midrule
+$\sum$ &  &  & $4.2332182\cdot10^{-1}$ & $4.2332182\cdot10^{-1}$ & $1.4368\cdot10^{-8}$ & $3.0927\cdot10^{-5}$ & $5.2582\cdot10^{-4}$ & $2.3871\cdot10^{-4}$\\
+\end{longtable}
+}
+
+\subsection{The sides of the matching envelopes}\label{subsec:data:aux}
+
+The matching envelopes of \cref{prop:record:matching} use in each middle piece
+the chosen sides $d_s(X_i)=d^{\rm aux}_s(X_i)+\delta^+_{s,i}$,
+$s\in\{{\rm L},{\rm R}\}$, of \cref{prop:signed-sides}.
+\Cref{tab:data:sides} lists, for each piece, the block count
+$n_{X_i}=\lfloor585/\log_-X_i\rfloor$ and the density factor
+$\bar H_{X_i}=(1-n_{X_i}e_0(X_i))^{-1}$, the certified upper bound for the signed
+coefficient $\bar H_{X_i}d_\tlaw(X_i)$ of the block Gram, the auxiliary sides
+$d^{\rm aux}_s(X_i)$ of \cref{def:side-function} (at the auxiliary point, with
+$\tside=31/32$ and $L_{\rm loc}=585$), the increments
+$\delta^+_{s,i}=\operatorname{up}([\bar H_{X_i}d_\tlaw(X_i)-d^{\rm aux}_s(X_i)]_+)$ of
+\eqref{eq:signed-increment}, and the excess coefficients
+$k^{\rm aux}_{s,i}=w_{{\rm D},i}d^{\rm aux}_s(X_i)-v_{{\rm D},i}$ of the auxiliary
+sides. In every piece $\bar H_{X_i}d_\tlaw(X_i)$ exceeds both auxiliary sides, so
+both increments are positive and both chosen sides lie within $10^{-30}$ above the
+certified value of $\bar H_{X_i}d_\tlaw(X_i)$; the coefficients $k^{\rm aux}_{s,i}$
+are positive, the smallest being above $0.0704$
+(\cref{cert:record:matching}). The auxiliary sides are values of the function
+\texttt{bound} of
+\path{research/roadmap_2026_10_18/item03/direct_matching_asymmetric.py}, and the
+other columns of \texttt{matching} of
+\path{research/advance_2026_10_24/local/signed_law.py}, evaluated read-only on
+the native source as the final scalar evaluates them; no stored record holds
+them piece by piece.
+
+The two sums of \cref{prop:signed-sides}(iii) at $a_0$ are
+\[
+ T^{\rm aux\prime}_K=\sum_i\operatorname{up}\bigl((k^{\rm aux}_{{\rm L},i}
+ +k^{\rm aux}_{{\rm R},i})\bar I_{2,i}\bigr)<3.549907570156\cdot10^{-2},\qquad
+ T^{\rm inc\prime}_K<0.1273320049107,
+\]
+the first being the price of the excess diagonals of the auxiliary sides, the
+second that of the increments; $tT^{\rm inc\prime}_K<0.12733201276083$
+(\path{author.json}, \texttt{raw\_totals}, key \texttt{matching\_increment}), and
+$T_K=t(T^{\rm aux\prime}_K+T^{\rm inc\prime}_K)<0.16283110$
+(the certified upper end; the value is $0.16283109\ldots$)
+(\cref{def:closing-quantities}(5)).
+
+{\scriptsize\setlength{\tabcolsep}{3pt}\renewcommand{\arraystretch}{0.92}
+\begin{longtable}{@{}rrrrrrrrrr@{}}
+\caption{The sides of the matching envelopes at the piece starts (upper bounds, rounded up). Sources: the read-only evaluation of \texttt{low\_domain.raw\_ledgers} (\texttt{rows[i].matching}: \texttt{count}, \texttt{density}, \texttt{absolute\_new\_coefficient}, \texttt{old\_left}, \texttt{old\_right}, \texttt{left}, \texttt{right}) and the weights of \cref{tab:data:middle-weights}.}\label{tab:data:sides}\\
+\toprule
+$i$ & $n_{X_i}$ & $\bar H_{X_i}-1$ & $\bar H_{X_i}d_\tlaw(X_i)$ & $d^{\rm aux}_{\rm L}(X_i)$ & $d^{\rm aux}_{\rm R}(X_i)$ & $\delta^+_{{\rm L},i}$ & $\delta^+_{{\rm R},i}$ & $k^{\rm aux}_{{\rm L},i}$ & $k^{\rm aux}_{{\rm R},i}$\\
+\midrule
+\endfirsthead
+\toprule
+$i$ & $n_{X_i}$ & $\bar H_{X_i}-1$ & $\bar H_{X_i}d_\tlaw(X_i)$ & $d^{\rm aux}_{\rm L}(X_i)$ & $d^{\rm aux}_{\rm R}(X_i)$ & $\delta^+_{{\rm L},i}$ & $\delta^+_{{\rm R},i}$ & $k^{\rm aux}_{{\rm L},i}$ & $k^{\rm aux}_{{\rm R},i}$\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+$1$ & $34$ & $3.4083\cdot10^{-6}$ & $2.3903402$ & $2.0524514$ & $2.1844137$ & $0.3378889$ & $0.2059265$ & $0.271232$ & $0.994627$\\
+$2$ & $34$ & $3.1254\cdot10^{-6}$ & $2.3900798$ & $2.0507733$ & $2.1827356$ & $0.3393065$ & $0.2073442$ & $0.262710$ & $0.986058$\\
+$3$ & $34$ & $2.8660\cdot10^{-6}$ & $2.3898314$ & $2.0491723$ & $2.1811346$ & $0.3406591$ & $0.2086969$ & $0.254581$ & $0.977885$\\
+$4$ & $34$ & $2.6741\cdot10^{-6}$ & $2.3896396$ & $2.0479358$ & $2.1798980$ & $0.3417038$ & $0.2097416$ & $0.248304$ & $0.971576$\\
+$5$ & $34$ & $2.6282\cdot10^{-6}$ & $2.3895926$ & $2.0476330$ & $2.1795951$ & $0.3419597$ & $0.2099975$ & $0.246767$ & $0.970031$\\
+$6$ & $34$ & $2.4101\cdot10^{-6}$ & $2.3893646$ & $2.0461626$ & $2.1781248$ & $0.3432020$ & $0.2112398$ & $0.239304$ & $0.962532$\\
+$7$ & $33$ & $1.9670\cdot10^{-6}$ & $2.3889366$ & $2.0434026$ & $2.1753647$ & $0.3455340$ & $0.2135719$ & $0.225299$ & $0.948462$\\
+$8$ & $33$ & $1.6541\cdot10^{-6}$ & $2.3885448$ & $2.0408745$ & $2.1728366$ & $0.3476704$ & $0.2157083$ & $0.212473$ & $0.935581$\\
+$9$ & $33$ & $1.3909\cdot10^{-6}$ & $2.3881854$ & $2.0385542$ & $2.1705161$ & $0.3496313$ & $0.2176694$ & $0.200704$ & $0.923765$\\
+$10$ & $32$ & $1.1342\cdot10^{-6}$ & $2.3878558$ & $2.0364259$ & $2.1683878$ & $0.3514300$ & $0.2194681$ & $0.189911$ & $0.912933$\\
+$11$ & $32$ & $9.5368\cdot10^{-7}$ & $2.3875541$ & $2.0344759$ & $2.1664379$ & $0.3530782$ & $0.2211162$ & $0.180023$ & $0.903012$\\
+$12$ & $32$ & $8.0195\cdot10^{-7}$ & $2.3872776$ & $2.0326892$ & $2.1646511$ & $0.3545885$ & $0.2226266$ & $0.170964$ & $0.893925$\\
+$13$ & $31$ & $6.5328\cdot10^{-7}$ & $2.3870241$ & $2.0310507$ & $2.1630126$ & $0.3559735$ & $0.2240116$ & $0.162657$ & $0.885594$\\
+$14$ & $31$ & $5.4934\cdot10^{-7}$ & $2.3867915$ & $2.0295468$ & $2.1615086$ & $0.3572448$ & $0.2252830$ & $0.155033$ & $0.877950$\\
+$15$ & $31$ & $4.6194\cdot10^{-7}$ & $2.3865783$ & $2.0281676$ & $2.1601294$ & $0.3584108$ & $0.2264489$ & $0.148042$ & $0.870941$\\
+$16$ & $30$ & $3.7592\cdot10^{-7}$ & $2.3863830$ & $2.0269042$ & $2.1588660$ & $0.3594789$ & $0.2275170$ & $0.141639$ & $0.864523$\\
+$17$ & $30$ & $3.1611\cdot10^{-7}$ & $2.3862038$ & $2.0257445$ & $2.1577063$ & $0.3604593$ & $0.2284975$ & $0.135761$ & $0.858632$\\
+$18$ & $30$ & $2.6581\cdot10^{-7}$ & $2.3860396$ & $2.0246817$ & $2.1566435$ & $0.3613580$ & $0.2293961$ & $0.130374$ & $0.853235$\\
+$19$ & $30$ & $2.2352\cdot10^{-7}$ & $2.3858890$ & $2.0237070$ & $2.1556688$ & $0.3621821$ & $0.2302203$ & $0.125435$ & $0.848285$\\
+$20$ & $29$ & $1.8169\cdot10^{-7}$ & $2.3857510$ & $2.0228138$ & $2.1547756$ & $0.3629373$ & $0.2309755$ & $0.120908$ & $0.843751$\\
+$21$ & $29$ & $1.5279\cdot10^{-7}$ & $2.3856245$ & $2.0219943$ & $2.1539561$ & $0.3636302$ & $0.2316684$ & $0.116755$ & $0.839591$\\
+$22$ & $29$ & $1.2848\cdot10^{-7}$ & $2.3855084$ & $2.0212425$ & $2.1532043$ & $0.3642659$ & $0.2323041$ & $0.112946$ & $0.835775$\\
+$23$ & $29$ & $1.0804\cdot10^{-7}$ & $2.3854020$ & $2.0205535$ & $2.1525152$ & $0.3648486$ & $0.2328868$ & $0.109454$ & $0.832278$\\
+$24$ & $28$ & $8.7713\cdot10^{-8}$ & $2.3853044$ & $2.0199216$ & $2.1518834$ & $0.3653829$ & $0.2334211$ & $0.106252$ & $0.829071$\\
+$25$ & $28$ & $7.3757\cdot10^{-8}$ & $2.3852150$ & $2.0193421$ & $2.1513039$ & $0.3658729$ & $0.2339111$ & $0.103316$ & $0.826131$\\
+$26$ & $28$ & $6.2022\cdot10^{-8}$ & $2.3851330$ & $2.0188108$ & $2.1507725$ & $0.3663222$ & $0.2343605$ & $0.100623$ & $0.823435$\\
+$27$ & $28$ & $5.2155\cdot10^{-8}$ & $2.3850577$ & $2.0183235$ & $2.1502852$ & $0.3667343$ & $0.2347725$ & $0.098140$ & $0.820845$\\
+$28$ & $27$ & $2.5146\cdot10^{-8}$ & $2.3848144$ & $2.0167469$ & $2.1487087$ & $0.3680676$ & $0.2361058$ & $0.090116$ & $0.812519$\\
+$29$ & $26$ & $1.2108\cdot10^{-8}$ & $2.3846424$ & $2.0156320$ & $2.1475937$ & $0.3690105$ & $0.2370487$ & $0.084423$ & $0.806419$\\
+$30$ & $24$ & $2.7940\cdot10^{-9}$ & $2.3844349$ & $2.0142863$ & $2.1462481$ & $0.3701486$ & $0.2381868$ & $0.077511$ & $0.798568$\\
+$31$ & $23$ & $6.6939\cdot10^{-10}$ & $2.3843311$ & $2.0136135$ & $2.1455752$ & $0.3707177$ & $0.2387559$ & $0.074065$ & $0.794678$\\
+$32$ & $21$ & $3.8199\cdot10^{-11}$ & $2.3842533$ & $2.0131088$ & $2.1450706$ & $0.3711445$ & $0.2391827$ & $0.071473$ & $0.791657$\\
+$33$ & $18$ & $1.0232\cdot10^{-12}$ & $2.3842319$ & $2.0129704$ & $2.1449321$ & $0.3712616$ & $0.2392998$ & $0.070475$ & $0.787615$\\
+\end{longtable}
+}
+
+\subsection{The upper bands}\label{subsec:data:upper}
+
+The upper range consists of the $310$ bands $[X,Y)$ of
+\cref{def:record:upper-bands}: below $2^{52}$ each band has two cells, from
+$2^{52}$ on each band is dyadic ($Y/X$ a power of two) and has
+$J=128\log_2(Y/X)$ cells (an integer), with recorded block
+cardinalities $n_j$ and
+a recorded budget $L_{\rm band}$ (part~(b) there); its inputs and reserved caps
+are ceilings of block caps and row coefficients valid for every block of
+class-three primes at least $X$ and of logarithmic length at most $L_{\rm band}$
+(part~(c)); and its $25$ weights $w_{\mathfrak t}$ and $25$ reserved weights
+$v_{\mathfrak t}$ satisfy its $105$ completion and domination inequalities
+exactly (part~(d); $310\times105=32550$ in all, \cref{cert:upper-completion}).
+All of these are recorded band by band in
+\path{research/further_2026_10_25/upper/upper_dense_refined.json} (field
+\texttt{rows}), with the polynomials and charges of \cref{prop:record:upper}. The
+root entries $d_{\rm L}$, $k_{\rm LL}$ are, below $2^{52}$, those of the field
+\texttt{even\_root\_evidence} of the band (\cref{cert:upper-root-caps}) and, from
+$2^{52}$ on, the completed-root caps (\cref{lem:upper-completed-root}); the
+class-three nonroot caps and the observed caps are those of
+\cref{cert:upper-band-inputs} and \cref{prop:observed-caps}. Each band evaluates
+its inputs at points not above its start; on the $45$ bands of $[\Pthree,2^{48})$
+the nonroot caps, the observed caps, the one-way repairs and the dense EL law are
+evaluated at $2^{47}$, the rows and the LE mixture at $\Pthree$
+(\cref{cert:upper-lower-bands}). \Cref{tab:data:upper-bands} lists the bands: the
+$301$ bands below $2^{52}$ in five groups (the $45$ bands of $[\Pthree,2^{48})$ and
+the $64$ bands of each octave $[2^b,2^{b+1})$, $48\le b\le51$) and the nine bands
+from $2^{52}$ singly, with the number of bands, their budgets, the six-query LE
+mixture of \cref{prop:le-mixture} (I: the first mixture, II: the refined one), the
+root entries at the first band of the group, and the parts of the symmetric and
+skew ledgers at $a_{\rm u}$ that the group carries. The last row is the tail datum
+of \cref{def:record:upper-bands}(e), the band $[2^{64},2^{512})$ of
+\path{research/roadmap_2026_10_18/item12/upper_v2_local.json} (field
+\texttt{pieces}, with the tail polynomial \texttt{tail\_comparison}), whose inputs,
+caps and local length $L_{\rm u}$ are listed there; the last row of the table gives instead the prices at
+$a_{\rm u}$, computed from that datum by \cref{lem:tail-prices},
+over the primes $p\ge\Pfour$ beyond the bands.
+
+{\scriptsize\setlength{\tabcolsep}{4pt}\renewcommand{\arraystretch}{0.92}
+\begin{longtable}{@{}lrrcrrrr@{}}
+\caption{The upper bands: root entries at the first band of each group (upper bounds, rounded up; integers exact) and the group's part of $S$ and $A$ at $a_{\rm u}$ (upper bounds of the exact sums, rounded up). Source: \texttt{upper\_dense\_refined.json} (\texttt{rows[*]}: \texttt{local\_budget}, \texttt{inputs.L.d}, \texttt{reserved\_caps.LL}, \texttt{six\_query\_LE\_mixture}, \texttt{S}, \texttt{A}; \texttt{tail\_S}, \texttt{tail\_A}); tail datum: \texttt{upper\_v2\_local.json}.}\label{tab:data:upper-bands}\\
+\toprule
+range & bands & $L_{\rm band}$ & LE & $d_{\rm L}$ & $k_{\rm LL}$ & $S$ part & $A$ part\\
+\midrule
+\endfirsthead
+\toprule
+range & bands & $L_{\rm band}$ & LE & $d_{\rm L}$ & $k_{\rm LL}$ & $S$ part & $A$ part\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+$[\Pthree,2^{48})$ & $45$ & $559$--$566$ & II & $12847.188$ & $9381.13748$ & $8.3005854\cdot10^{-3}$ & $4.3074516\cdot10^{-3}$\\
+$[2^{48},2^{49})$ & $64$ & $566$--$578$ & II & $6568.9338$ & $5072.01307$ & $3.7134746\cdot10^{-3}$ & $1.5852814\cdot10^{-3}$\\
+$[2^{49},2^{50})$ & $64$ & $550$--$584$ & II & $2556.55962$ & $2070.82868$ & $1.0835186\cdot10^{-3}$ & $4.5997941\cdot10^{-4}$\\
+$[2^{50},2^{51})$ & $64$ & $555$--$566$ & II & $1165.55611$ & $942.505851$ & $3.6696252\cdot10^{-4}$ & $1.5517657\cdot10^{-4}$\\
+$[2^{51},2^{52})$ & $64$ & $566$--$577$ & II & $612.947237$ & $472.875143$ & $1.4359461\cdot10^{-4}$ & $6.0703815\cdot10^{-5}$\\
+$[2^{52},2^{53})$ & $1$ & $735$ & I & $367$ & $261$ & $7.9016190\cdot10^{-5}$ & $3.3283448\cdot10^{-5}$\\
+$[2^{53},2^{54})$ & $1$ & $747$ & I & $250$ & $158$ & $3.8194556\cdot10^{-5}$ & $1.6084978\cdot10^{-5}$\\
+$[2^{54},2^{55})$ & $1$ & $725$ & I & $187$ & $102$ & $2.0000122\cdot10^{-5}$ & $8.4210334\cdot10^{-6}$\\
+$[2^{55},2^{56})$ & $1$ & $738$ & I & $158$ & $77$ & $1.1999218\cdot10^{-5}$ & $5.0515173\cdot10^{-6}$\\
+$[2^{56},2^{57})$ & $1$ & $748$ & I & $141$ & $64$ & $7.5816313\cdot10^{-6}$ & $3.1818432\cdot10^{-6}$\\
+$[2^{57},2^{58})$ & $1$ & $724$ & I & $131$ & $57$ & $4.9301622\cdot10^{-6}$ & $2.0688368\cdot10^{-6}$\\
+$[2^{58},2^{60})$ & $1$ & $749$ & I & $124$ & $52$ & $5.6855583\cdot10^{-6}$ & $2.3856289\cdot10^{-6}$\\
+$[2^{60},2^{64})$ & $1$ & $751$ & I & $118$ & $48$ & $4.0448400\cdot10^{-6}$ & $1.6955898\cdot10^{-6}$\\
+$[2^{64},\Pfour)$ & $1$ & $886$ & I & $113$ & $45$ & $1.3603023\cdot10^{-6}$ & $5.7015018\cdot10^{-7}$\\
+\midrule
+tail datum & -- & $L_{\rm u}$ & -- & $113$ & $45$ & $2.9549\cdot10^{-70}$ & $1.8960\cdot10^{-70}$\\
+\end{longtable}
+}
+
+The other inputs vary from band to band. At the first band of each group and at
+the last band they are, rounded up (ordinary input $(d,f,h,M,t)$ of each field
+type $\varphi$, then the reserved input; $t$ is the Young allowance $t_{\rm Y}$ of
+the row, \cref{def:record:upper-bands}(c)):
+\begin{center}\scriptsize\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{@{}llrrrrrrrrrr@{}}
+\toprule
+ & & \multicolumn{5}{c}{ordinary} & \multicolumn{5}{c}{reserved}\\
+\cmidrule(lr){3-7}\cmidrule(l){8-12}
+band start & $\varphi$ & $d$ & $f$ & $h$ & $M$ & $t$ & $d$ & $f$ & $h$ & $M$ & $t$\\
+\midrule
+$167\cdot2^{40}$ & L & $12847.19$ & $93.72509$ & $87.14728$ & $1.012768$ & $0.01275857$ & $10.17352$ & $6.952026$ & $8.755992$ & $1.021794$ & $0.021793$\\
+ & F & $23.24983$ & $16.71542$ & $10.92843$ & $1.023485$ & $0.023484$ & $4.104159$ & $100.8788$ & $2.000002$ & $1.000002$ & $0.000001$\\
+ & E & $24.95023$ & $17.36472$ & $1$ & $1.000059$ & $0.000057323$ & $4.583091$ & $35.32721$ & $1$ & $1.000002$ & $0.000001$\\
+\addlinespace[2pt]
+$2^{48}$ & L & $6568.934$ & $92.27496$ & $87.07506$ & $1.013781$ & $0.01377415$ & $10.05781$ & $6.929649$ & $8.755917$ & $1.019582$ & $0.019581$\\
+ & F & $23.07317$ & $16.68427$ & $10.92838$ & $1.021101$ & $0.0211$ & $4.103961$ & $82.01316$ & $2.000002$ & $1.000002$ & $0.000001$\\
+ & E & $24.63578$ & $17.42361$ & $1$ & $1.000048$ & $0.000046025$ & $4.582943$ & $28.79189$ & $1$ & $1.000002$ & $0.000001$\\
+\addlinespace[2pt]
+$2^{49}$ & L & $2556.56$ & $91.03808$ & $86.98627$ & $1.011528$ & $0.01152402$ & $10.0578$ & $6.89872$ & $8.755826$ & $1.016469$ & $0.016468$\\
+ & F & $23.07316$ & $16.64135$ & $10.92833$ & $1.017748$ & $0.017747$ & $4.103961$ & $58.8855$ & $2.000001$ & $1.000002$ & $0.000001$\\
+ & E & $24.63577$ & $15.22386$ & $1$ & $1.000042$ & $0.000040743$ & $4.582943$ & $20.78013$ & $1$ & $1.000002$ & $0.000001$\\
+\addlinespace[2pt]
+$2^{50}$ & L & $1165.557$ & $90.06929$ & $86.92351$ & $1.009367$ & $0.009364782$ & $10.0578$ & $6.869087$ & $8.755761$ & $1.013434$ & $0.013433$\\
+ & F & $23.07316$ & $16.60042$ & $10.9283$ & $1.014477$ & $0.014476$ & $4.103961$ & $40.17952$ & $2.000001$ & $1.000002$ & $0.000001$\\
+ & E & $24.63576$ & $17.10956$ & $1$ & $1.000024$ & $0.0000223$ & $4.582943$ & $14.30009$ & $1$ & $1.000002$ & $0.000001$\\
+\addlinespace[2pt]
+$2^{51}$ & L & $612.9473$ & $89.3998$ & $86.87915$ & $1.007853$ & $0.007851555$ & $10.0578$ & $6.848651$ & $8.755715$ & $1.011296$ & $0.011295$\\
+ & F & $23.07316$ & $16.57233$ & $10.92827$ & $1.012173$ & $0.012172$ & $4.103961$ & $29.27988$ & $2.000001$ & $1.000002$ & $0.000001$\\
+ & E & $24.63575$ & $17.10566$ & $1$ & $1.000017$ & $0.000015771$ & $4.582943$ & $10.5243$ & $1$ & $1.000002$ & $0.000001$\\
+\addlinespace[2pt]
+$2^{52}$ & L & $367$ & $89.05109$ & $86.84779$ & $1.007437$ & $0.007435899$ & $10.0578$ & $6.843426$ & $8.755683$ & $1.01072$ & $0.010719$\\
+ & F & $23.07316$ & $16.56525$ & $10.92825$ & $1.011552$ & $0.011551$ & $4.103961$ & $26.66535$ & $2.000001$ & $1.000002$ & $0.000001$\\
+ & E & $24.63575$ & $19.22671$ & $1$ & $1.000013$ & $0.00001184$ & $4.582943$ & $9.618578$ & $1$ & $1.000002$ & $0.000001$\\
+\addlinespace[2pt]
+$2^{64}$ & L & $113$ & $87.34425$ & $86.77684$ & $1.000917$ & $0.000915423$ & $10.0578$ & $6.757312$ & $8.75561$ & $1.001327$ & $0.001326$\\
+ & F & $23.07316$ & $16.44806$ & $10.92821$ & $1.00143$ & $0.001429$ & $4.103961$ & $3.344169$ & $2.000001$ & $1.000002$ & $0.000001$\\
+ & E & $24.63575$ & $8.787223$ & $1$ & $1.000002$ & $0.000001$ & $4.582943$ & $1.539769$ & $1$ & $1.000002$ & $0.000001$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The reserved caps of the other five field pairs and the observed merge and
+constant caps of EL22 ($k_{\rm LR}=k_{\rm RL}=k_{\rm G}$,
+$k_{\rm LC}=k_{\rm CL}=k_{\rm C}$), from which with $k_{\rm LL}$ the $25$ reserved
+state caps are formed, are the same in all bands of each of the following two
+ranges (upper bounds, rounded up):
+\begin{center}\scriptsize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lrrrrrrrr@{}}
+\toprule
+range & bands & $k_{\rm LF}$ & $k_{\rm LE}$ & $k_{\rm FF}$ & $k_{\rm FE}$ & $k_{\rm EE}$ & $k_{\rm G}$ & $k_{\rm C}$\\
+\midrule
+$[\Pthree,2^{48})$ & $45$ & $7.00915$ & $5.65087$ & $3.123771$ & $2.414408$ & $0.000029$ & $2.26882$ & $0.079762$\\
+$[2^{48},\Pfour)$ & $265$ & $6.958743$ & $5.637399$ & $3.12365$ & $2.414355$ & $0.000028$ & $2.245406$ & $0.056394$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The LE records of every band use the positive mixture of \cref{prop:le-mixture}
+with the coefficients $s_{\rm LE}$, $a_{\rm LE}$ of the endpoint recorded in the
+band's field \texttt{six\_query\_LE\_mixture}: the refined mixture of
+\path{research/further_2026_10_25/upper/dense_six_refined.json} in the $301$
+bands below $2^{52}$ and the first mixture of \path{dense_six.json} in the nine
+bands from $2^{52}$ (top-level field
+\texttt{six\_query\_LE\_mixture}; ``$301$ changed bands'' in
+the data means the $301$ bands whose mixture differs from the
+first mixture of \path{dense_six.json}). The coefficients at the eight endpoints of the two records are (exact; the
+last column of each mixture counts the bands that use the row; the endpoint
+$2^{47}$, where the extraction coefficients are certified, is used by no band):
+\begin{center}\scriptsize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+ & \multicolumn{3}{c}{first mixture (I)} & \multicolumn{3}{c}{refined mixture (II)}\\
+\cmidrule(lr){2-4}\cmidrule(l){5-7}
+endpoint & $s_{\rm LE}$ & $a_{\rm LE}$ & bands & $s_{\rm LE}$ & $a_{\rm LE}$ & bands\\
+\midrule
+$2^{47}$ & $1.904233441086$ & $1.894308281063$ & -- & $1.900638747160$ & $1.888824414626$ & --\\
+$167\cdot2^{40}$ & $1.875430334707$ & $1.865505941926$ & -- & $1.872914263008$ & $1.861100843756$ & $45$\\
+$2^{48}$ & $1.840321288372$ & $1.830397932963$ & -- & $1.838921462687$ & $1.827109278261$ & $64$\\
+$2^{49}$ & $1.802017714597$ & $1.792095635050$ & -- & $1.801556462666$ & $1.789745796952$ & $64$\\
+$2^{50}$ & $1.777366637471$ & $1.767445459998$ & -- & $1.777352768400$ & $1.765543176463$ & $128$\\
+$2^{52}$ & $1.749386716250$ & $1.739466627572$ & $4$ & $1.749755568866$ & $1.737947272967$ & --\\
+$2^{56}$ & $1.729118677881$ & $1.719199405722$ & $3$ & $1.729711616465$ & $1.717904292503$ & --\\
+$2^{60}$ & $1.724091674882$ & $1.714172606843$ & $2$ & $1.724737215461$ & $1.712930134472$ & --\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+At $a_{\rm u}$ the ledgers of the bands and of the tail datum sum to
+$S<0.013780948065193294$ and $A<0.006641335659555205$ (\path{upper_dense_refined.json}, fields
+\texttt{S}, \texttt{A}, which include the tail sums $2.9549\cdot10^{-70}$ and
+$1.8960\cdot10^{-70}$ of the fields \texttt{tail\_S}, \texttt{tail\_A}). The certificate
+reprices the ledger term by term: a term with coefficient $c$ and stored unit
+charge $\pi$ at $a_{\rm u}$, whose blocks have recorded logarithmic product at most
+$\ell\le L_{\rm band}$ (field \texttt{product\_log\_upper}, at most $885.436$),
+contributes $c\,\pi\,e^{2(a-a_{\rm u})\ell}$ (\cref{lem:record:repricing}), and the
+tail beyond $\Pfour$ is recomputed at $a$ from the tail polynomial of the tail
+datum (\cref{lem:tail-prices}). This gives $S_{\rm u}(a)<0.0138661535118$ and
+$A_{\rm u}(a)<0.00668235137593$ (\path{author.json}, keys \texttt{components.upper\_S},
+\texttt{upper\_A}; \texttt{upper\_price} of
+\path{research/continuation_2026_10_24/global/closing.py}).
+
+\subsection{Envelope witnesses}\label{subsec:data:envelopes}
+
+\Cref{thm:envelopes} prices a class of selections with $n$ fold-skew and $m$
+matching-skew factors on distinct blocks by a positive envelope that passes the
+exact tests of \cref{lem:oct24:mask-schur}; \cref{cor:envelope-costs} lists the
+sixteen classes. The envelopes used are the following.
+
+\paragraph{Constants.}
+The envelopes are certified at $Q_3$ with the actual feature frame of
+\cref{lem:oct24:feature-block} (\eqref{eq:oct24:feature-constants};
+\path{research/continuation_2026_10_24/local/actual_features.json}, case
+$Q=19951586$):
+\[
+ \Gamma_F=\frac{500111979555137707696357560603}{5\cdot10^{29}}<1.000223959111,\qquad
+ \Gamma_E=\frac{19951586}{19951585},
+\]
+and the pair correlation
+$\rho_{\rm pair}=50121336236829934606443\cdot10^{-30}<5.0121336237\cdot10^{-8}$,
+with $\eta_{\rm pair}=2\rho_{\rm pair}/(1-\rho_{\rm pair}^2)$. The leading skew changes are the signed stars
+\eqref{eq:signed-star} with the arm coefficients $\Phat$, $\tlaw\Phat$, $1-\tlaw$ in
+raw-arm normalization; a matrix envelope is lifted in the coupling basis of
+\cref{lem:oct24:mask-schur}(a): the normalized nonnegative couplings $M_{ab}$
+with $M_{ab}-\Jproj=V_aV_b^*$ of two singleton labels, $P_{12}$,
+$P_{01}$ and $\Jproj$ at a fold factor, and $M_{ab}$, $\Jproj$ at a matching
+factor. The coefficients of the collected expansion, cancellations included,
+give the coupling mass $M$, and its reflection orbits the invariant orbit mass
+$M^{\rm inv}$ of \cref{lem:orbit-coupon}.
+
+\paragraph{The portfolio.}
+\Cref{tab:data:envelopes} lists the sixteen envelopes of
+\cref{cor:envelope-costs}, with the caps $\kappa_H\ge\kappa_b$ (a dash: $\kappa_b=\kappa_H$),
+the masses $M_{n,m}$ and $M^{\rm inv}_{n,m}$ that enter the cost $C_{n,m}$ of
+\cref{def:closing-quantities}(7), the leading coupon
+$M^{\rm inv}_{n,m}e^{t\Uinv}t\delta_{\rm s}$ subtracted there, and the saving $D_{n,m}$
+of \cref{def:closing-quantities}(8), all at the exponent $a$. The witnesses are
+the exact rationals of the bundle
+\path{research/further_2026_10_25/envelopes/exact_background_pairs.json} (keys
+\texttt{pairs.FF}, \texttt{pairs.FE}; \texttt{general.F1E3}, \dots,
+\texttt{general.F6E0}; \texttt{E\_only.aligned}, \texttt{E\_only.cross},
+\texttt{E\_only.E4}, \texttt{E\_only.E6}); its rows \texttt{general.F0E4} and
+\texttt{general.F0E6} are not used. The masses $M^{\rm inv}_{n,m}$, coupons and
+savings are those of \path{author.json} (keys
+\texttt{invariant\_error.orbit\_masses}, field
+\texttt{one\_delta\_invariant\_mass}; \texttt{invariant\_error.leading\_coupons};
+\texttt{discounts}); no class is discarded, and the savings
+$D_{n,m}$ sum to $0.4568954196753\ldots$ (called the uniform
+discount in the data, being the saving before the variance
+credit), so that with $D_{\rm var}>9.9585603157\cdot10^{-3}$
+the total discount, including $D_{\rm var}$, is
+$D>0.4668539799911$. The families are: pair PSD, the singleton-block
+matrix envelopes of FF and FE; one-, two-, three-, four-fold, the
+singleton-block matrix envelopes with one to four fold factors; aligned F, the
+diagonal mask envelopes with the extra averages of
+\cref{lem:reflection-averaging}(f) on the invariant background; diagonal, the
+diagonal mask envelope F6E0 (a row of label weights with its mask slacks); and
+E-type, E-averaged, the E-type envelopes of the matching pairs and of four and
+six matching factors (\cref{lem:reflection-averaging}(g)). The variance credits
+of \cref{cor:variance:final} use the caps $\kappa_{FF}=\kappa_H(2,0)<1.029497272$,
+$\kappa^{\rm al}_b<0.666678945$ (the invariant cap of the
+aligned EE class, computed with the variance credit applied
+only to selected blocks and no background blocks --- the
+selected-only policy of \cref{sec:variance}),
+$\kappa_{4,F}=\kappa_H(4,0)<1.460124417$ and the
+aligned variance cap $\kappa_{4,E}<0.666678940$ of E4.
+
+{\scriptsize\setlength{\tabcolsep}{3pt}\renewcommand{\arraystretch}{0.92}
+\begin{longtable}{@{}llrrrrrrr@{}}
+\caption{The envelopes of the sixteen classes: caps and masses (upper bounds, rounded up, except $M^{\rm inv}$, a lower bound rounded down), the leading coupon (upper bound) and the saving $D_{n,m}$ at the exponent $a$ (lower bound, rounded down). Sources: \texttt{exact\_background\_pairs.json} ($\kappa_H$, $\kappa_b$, $M$); \texttt{author.json} (\texttt{invariant\_error.orbit\_masses}, \texttt{invariant\_error.leading\_coupons}, \texttt{discounts}).}\label{tab:data:envelopes}\\
+\toprule
+class & envelope & family & $\kappa_H$ & $\kappa_b$ & $M_{n,m}$ & $M^{\rm inv}_{n,m}$ & coupon & $D_{n,m}$\\
+\midrule
+\endfirsthead
+\toprule
+class & envelope & family & $\kappa_H$ & $\kappa_b$ & $M_{n,m}$ & $M^{\rm inv}_{n,m}$ & coupon & $D_{n,m}$\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+$(2,0)$ & FF & pair PSD & $1.029497272$ & -- & $39.0063263$ & $19.503163$ & $1.0784\cdot10^{-3}$ & $1.2303539\cdot10^{-1}$\\
+$(1,1)$ & FE & pair PSD & $0.916504741$ & $0.775464445$ & $25.0503754$ & $19.38672$ & $1.0720\cdot10^{-3}$ & $2.0735970\cdot10^{-1}$\\
+$(1,3)$ & F1E3 & one-fold & $1.228074745$ & $0.671097495$ & $368.776608$ & $208.23445$ & $1.1514\cdot10^{-2}$ & $7.1760575\cdot10^{-3}$\\
+$(2,2)$ & F2E2 & two-fold & $0.979934896$ & $0.949157677$ & $461.959634$ & $155.95801$ & $8.6231\cdot10^{-3}$ & $1.1895431\cdot10^{-2}$\\
+$(3,1)$ & F3E1 & three-fold & $1.183096446$ & $1.183096445$ & $549.424581$ & $99.739668$ & $5.5147\cdot10^{-3}$ & $1.0426635\cdot10^{-2}$\\
+$(4,0)$ & F4E0 & four-fold & $1.460124417$ & -- & $771.452195$ & $96.431524$ & $5.3318\cdot10^{-3}$ & $3.4410311\cdot10^{-3}$\\
+$(1,5)$ & F1E5 & one-fold & $1.247703219$ & $0.647924328$ & $5154.83733$ & $2466.2139$ & $1.3636\cdot10^{-1}$ & $2.5996086\cdot10^{-5}$\\
+$(2,4)$ & F2E4 & aligned F & $0.989164787$ & $0.962616046$ & $5600.05289$ & $1560.2674$ & $8.6269\cdot10^{-2}$ & $5.7362503\cdot10^{-5}$\\
+$(3,3)$ & F3E3 & aligned F & $1.204082117$ & $1.204082110$ & $6579.35946$ & $1009.2375$ & $5.5802\cdot10^{-2}$ & $1.1474209\cdot10^{-4}$\\
+$(4,2)$ & F4E2 & aligned F & $1.504918634$ & $1.504918634$ & $7825.40227$ & $682.24187$ & $3.7722\cdot10^{-2}$ & $1.2693722\cdot10^{-4}$\\
+$(5,1)$ & F5E1 & aligned F & $1.912219914$ & -- & $9354.29766$ & $449.67834$ & $2.4864\cdot10^{-2}$ & $6.9930190\cdot10^{-5}$\\
+$(6,0)$ & F6E0 & diagonal & $2.454754391$ & -- & $11096.4447$ & $346.76389$ & $1.9173\cdot10^{-2}$ & $1.5692248\cdot10^{-5}$\\
+$(EE,{\rm al})$ & EE aligned & E-type & $0.993965989$ & $0.666678945$ & $16.0001466$ & $24.98208$ & $1.3813\cdot10^{-3}$ & $3.4753658\cdot10^{-2}$\\
+$(EE,{\rm cr})$ & EE crossed & E-type & $1.366025541$ & $0.455341847$ & $16.3923049$ & $21.51666$ & $1.1897\cdot10^{-3}$ & $5.6823372\cdot10^{-2}$\\
+$(0,4)$ & E4 & E-averaged & $1.319520417$ & $0.481759024$ & $257.37314$ & $287.89272$ & $1.5918\cdot10^{-2}$ & $1.5685438\cdot10^{-3}$\\
+$(0,6)$ & E6 & E-averaged & $1.354401663$ & $0.461946213$ & $4102.0808$ & $3616.3376$ & $1.9996\cdot10^{-1}$ & $4.9330756\cdot10^{-6}$\\
+\end{longtable}
+}
+
+\paragraph{The pair witnesses.}
+The two largest savings are those of the pairs. The FE envelope has $57$
+variables, a matrix of dimension $15$, $4$ exact phase
+gates and $2$ norm gates, and $120$ nonzero collected
+couplings; its exact caps and mass are
+\begin{gather*}
+ \kappa_H=\frac{4571430558511261988592788272046003764026930099}{4987896250000000000000000000000000000000000000}<0.916504741,\\
+ \kappa_b=\frac{966984048431592279225125418647675813134981047}{1246974062500000000000000000000000000000000000}<0.775464445,\\
+ M=\frac{62625941471135539621157902644331144996707}{2500000125303340592074836516107500000000}<25.0503754.
+\end{gather*}
+The FF envelope has $73$ variables, a matrix of dimension
+$25$, $4$ phase and $2$ norm gates and
+$144$ couplings, $\kappa_H=\kappa_b<1.029497272$ and $M<39.0063263$.
+Both are rechecked exactly by
+\path{research/further_2026_10_25/envelopes/check_exact_background_pairs.json}
+(status \texttt{PASS}); the proof is this finite test, not the numerical
+optimization that proposed the matrices (\cref{cert:envelopes}).
+
+\subsection{Spectral grids and analytic slacks}\label{subsec:data:grids}
+
+\paragraph{The twelve-label grids.}
+\Cref{tab:data:layer12-grid} lists, for each threshold $P$ of the two records of
+\cref{cert:layer12-grid} and each of the five cuts, the class-three negative
+constant $g_P$ and the positive constant $c^+_P$ of route~A
+(\cref{thm:spectral-criterion}). Rows marked $\dagger$ are the nine thresholds of
+\path{research/continuation_2026_10_24/global/middle_grid_new.json}, the others
+the $26$ of \path{research/frontier_2026_10_17/root/middle12_grid.json}; every
+piece start is a threshold, and the two rows marked $\circ$ ($2^{24}$, $2^{50}$)
+are not. As in the proof of \cref{lem:layer12-caps}, $c^+_P$ is the constant
+$B^+$ of \cref{thm:spectral-criterion}(d), computed with the largest $g$ of the
+four tests of the record (both classes and both signs), while $g_P$ is the
+class-three value. A piece reads its row: the block caps of L21 on the pieces
+$1$--$26$ and of E21 and L10 on every piece (\cref{tab:data:cut-caps}). The
+columns L20 and F21, and L21 on pieces $27$--$33$, are route-A values
+that the reference does not use: the root cuts of L20, and of L21 on the last
+seven pieces, are those of \cref{subsec:middle-l20,sec:positive-roots}, and the
+fold cap is $k_{\rm D}$. The low-domain grid
+\path{research/advance_2026_10_24/global/low_domain/middle_grid.json}, with five
+thresholds below $Q_3$, belongs to the audit of the local domain and is not read
+by any piece.
+
+{\scriptsize\setlength{\tabcolsep}{3pt}\renewcommand{\arraystretch}{0.92}
+\begin{longtable}{@{}lrrrrrrrrrr@{}}
+\caption{The twelve-label grids: $g_P$ and $c^+_P$ for the five cuts (upper bounds, rounded up). Sources: \texttt{middle12\_grid.json} and \texttt{middle\_grid\_new.json} (\texttt{points[*].cuts}: the class-three \texttt{tests[*].g}, \texttt{positive\_B}).}\label{tab:data:layer12-grid}\\
+\toprule
+ & \multicolumn{2}{c}{L20} & \multicolumn{2}{c}{L21} & \multicolumn{2}{c}{F21} & \multicolumn{2}{c}{E21} & \multicolumn{2}{c@{}}{L10}\\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}\cmidrule(l){10-11}
+$P$ & $g_P$ & $c^+_P$ & $g_P$ & $c^+_P$ & $g_P$ & $c^+_P$ & $g_P$ & $c^+_P$ & $g_P$ & $c^+_P$\\
+\midrule
+\endfirsthead
+\toprule
+ & \multicolumn{2}{c}{L20} & \multicolumn{2}{c}{L21} & \multicolumn{2}{c}{F21} & \multicolumn{2}{c}{E21} & \multicolumn{2}{c@{}}{L10}\\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}\cmidrule(l){10-11}
+$P$ & $g_P$ & $c^+_P$ & $g_P$ & $c^+_P$ & $g_P$ & $c^+_P$ & $g_P$ & $c^+_P$ & $g_P$ & $c^+_P$\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+$2^{24}$$^\circ$ & $6.3034$ & $515$ & $2.6085$ & $4.89\cdot10^{-2}$ & $1.0134$ & $2.16\cdot10^{-5}$ & $0.004950$ & $4.83\cdot10^{-6}$ & $1.7531$ & $5.17\cdot10^{-5}$\\
+$19951586$$^\dagger$ & $6.2332$ & $513$ & $2.5741$ & $4.10\cdot10^{-2}$ & $1.0123$ & $1.82\cdot10^{-5}$ & $0.004541$ & $4.06\cdot10^{-6}$ & $1.7513$ & $4.35\cdot10^{-5}$\\
+$21757358$$^\dagger$ & $6.2004$ & $511$ & $2.5580$ & $3.75\cdot10^{-2}$ & $1.0118$ & $1.67\cdot10^{-5}$ & $0.004351$ & $3.73\cdot10^{-6}$ & $1.7505$ & $3.99\cdot10^{-5}$\\
+$23726568$$^\dagger$ & $6.1691$ & $510$ & $2.5426$ & $3.43\cdot10^{-2}$ & $1.0113$ & $1.53\cdot10^{-5}$ & $0.004167$ & $3.42\cdot10^{-6}$ & $1.7497$ & $3.66\cdot10^{-5}$\\
+$25429506$$^\dagger$ & $6.1450$ & $509$ & $2.5307$ & $3.20\cdot10^{-2}$ & $1.0109$ & $1.43\cdot10^{-5}$ & $0.004026$ & $3.19\cdot10^{-6}$ & $1.7491$ & $3.41\cdot10^{-5}$\\
+$25874006$$^\dagger$ & $6.1392$ & $509$ & $2.5278$ & $3.15\cdot10^{-2}$ & $1.0108$ & $1.40\cdot10^{-5}$ & $0.003992$ & $3.14\cdot10^{-6}$ & $1.7490$ & $3.35\cdot10^{-5}$\\
+$28215802$$^\dagger$ & $6.1105$ & $508$ & $2.5136$ & $2.88\cdot10^{-2}$ & $1.0103$ & $1.29\cdot10^{-5}$ & $0.003824$ & $2.88\cdot10^{-6}$ & $1.7483$ & $3.08\cdot10^{-5}$\\
+$2^{25}$ & $6.0570$ & $506$ & $2.4870$ & $2.42\cdot10^{-2}$ & $1.0095$ & $1.08\cdot10^{-5}$ & $0.003509$ & $2.42\cdot10^{-6}$ & $1.7469$ & $2.59\cdot10^{-5}$\\
+$39903170$$^\dagger$ & $6.0081$ & $504$ & $2.4625$ & $2.03\cdot10^{-2}$ & $1.0087$ & $9.06\cdot10^{-6}$ & $0.003221$ & $2.03\cdot10^{-6}$ & $1.7457$ & $2.18\cdot10^{-5}$\\
+$47453134$$^\dagger$ & $5.9634$ & $502$ & $2.4401$ & $1.70\cdot10^{-2}$ & $1.0080$ & $7.62\cdot10^{-6}$ & $0.002956$ & $1.71\cdot10^{-6}$ & $1.7446$ & $1.83\cdot10^{-5}$\\
+$56431604$$^\dagger$ & $5.9225$ & $501$ & $2.4194$ & $1.43\cdot10^{-2}$ & $1.0073$ & $6.41\cdot10^{-6}$ & $0.002714$ & $1.44\cdot10^{-6}$ & $1.7435$ & $1.54\cdot10^{-5}$\\
+$2^{26}$ & $5.8851$ & $500$ & $2.4005$ & $1.20\cdot10^{-2}$ & $1.0067$ & $5.39\cdot10^{-6}$ & $0.002491$ & $1.21\cdot10^{-6}$ & $1.7426$ & $1.30\cdot10^{-5}$\\
+$79806340$ & $5.8508$ & $498$ & $2.3831$ & $1.01\cdot10^{-2}$ & $1.0062$ & $4.53\cdot10^{-6}$ & $0.002287$ & $1.02\cdot10^{-6}$ & $1.7417$ & $1.09\cdot10^{-5}$\\
+$94906266$ & $5.8195$ & $497$ & $2.3671$ & $8.44\cdot10^{-3}$ & $1.0057$ & $3.81\cdot10^{-6}$ & $0.002099$ & $8.54\cdot10^{-7}$ & $1.7409$ & $9.13\cdot10^{-6}$\\
+$112863208$ & $5.7908$ & $496$ & $2.3525$ & $7.09\cdot10^{-3}$ & $1.0052$ & $3.21\cdot10^{-6}$ & $0.001928$ & $7.18\cdot10^{-7}$ & $1.7402$ & $7.68\cdot10^{-6}$\\
+$2^{27}$ & $5.7646$ & $495$ & $2.3390$ & $5.95\cdot10^{-3}$ & $1.0048$ & $2.70\cdot10^{-6}$ & $0.001770$ & $6.04\cdot10^{-7}$ & $1.7395$ & $6.46\cdot10^{-6}$\\
+$159612678$ & $5.7405$ & $494$ & $2.3266$ & $5.00\cdot10^{-3}$ & $1.0044$ & $2.27\cdot10^{-6}$ & $0.001626$ & $5.08\cdot10^{-7}$ & $1.7389$ & $5.43\cdot10^{-6}$\\
+$189812532$ & $5.7185$ & $493$ & $2.3153$ & $4.20\cdot10^{-3}$ & $1.0040$ & $1.91\cdot10^{-6}$ & $0.001494$ & $4.27\cdot10^{-7}$ & $1.7383$ & $4.57\cdot10^{-6}$\\
+$225726414$ & $5.6984$ & $493$ & $2.3049$ & $3.53\cdot10^{-3}$ & $1.0037$ & $1.60\cdot10^{-6}$ & $0.001373$ & $3.59\cdot10^{-7}$ & $1.7378$ & $3.84\cdot10^{-6}$\\
+$2^{28}$ & $5.6799$ & $492$ & $2.2953$ & $2.97\cdot10^{-3}$ & $1.0034$ & $1.35\cdot10^{-6}$ & $0.001261$ & $3.02\cdot10^{-7}$ & $1.7374$ & $3.23\cdot10^{-6}$\\
+$319225356$ & $5.6630$ & $491$ & $2.2865$ & $2.49\cdot10^{-3}$ & $1.0031$ & $1.14\cdot10^{-6}$ & $0.001159$ & $2.54\cdot10^{-7}$ & $1.7369$ & $2.72\cdot10^{-6}$\\
+$379625064$ & $5.6475$ & $491$ & $2.2785$ & $2.10\cdot10^{-3}$ & $1.0029$ & $9.52\cdot10^{-7}$ & $0.001065$ & $2.14\cdot10^{-7}$ & $1.7365$ & $2.28\cdot10^{-6}$\\
+$451452826$ & $5.6333$ & $490$ & $2.2711$ & $1.76\cdot10^{-3}$ & $1.0026$ & $8.00\cdot10^{-7}$ & $0.000980$ & $1.80\cdot10^{-7}$ & $1.7362$ & $1.92\cdot10^{-6}$\\
+$2^{29}$ & $5.6203$ & $490$ & $2.2643$ & $1.48\cdot10^{-3}$ & $1.0024$ & $6.73\cdot10^{-7}$ & $0.000901$ & $1.51\cdot10^{-7}$ & $1.7358$ & $1.62\cdot10^{-6}$\\
+$638450710$ & $5.6084$ & $489$ & $2.2580$ & $1.25\cdot10^{-3}$ & $1.0022$ & $5.66\cdot10^{-7}$ & $0.000829$ & $1.27\cdot10^{-7}$ & $1.7355$ & $1.36\cdot10^{-6}$\\
+$759250126$ & $5.5975$ & $489$ & $2.2523$ & $1.05\cdot10^{-3}$ & $1.0020$ & $4.76\cdot10^{-7}$ & $0.000763$ & $1.07\cdot10^{-7}$ & $1.7352$ & $1.14\cdot10^{-6}$\\
+$902905652$ & $5.5875$ & $489$ & $2.2471$ & $8.77\cdot10^{-4}$ & $1.0019$ & $4.00\cdot10^{-7}$ & $0.000702$ & $8.98\cdot10^{-8}$ & $1.7350$ & $9.59\cdot10^{-7}$\\
+$2^{30}$ & $5.5783$ & $488$ & $2.2423$ & $7.38\cdot10^{-4}$ & $1.0017$ & $3.37\cdot10^{-7}$ & $0.000646$ & $7.55\cdot10^{-8}$ & $1.7347$ & $8.06\cdot10^{-7}$\\
+$2^{31}$ & $5.5486$ & $487$ & $2.2267$ & $3.69\cdot10^{-4}$ & $1.0012$ & $1.69\cdot10^{-7}$ & $0.000466$ & $3.78\cdot10^{-8}$ & $1.7340$ & $4.03\cdot10^{-7}$\\
+$2^{32}$ & $5.5277$ & $486$ & $2.2157$ & $1.84\cdot10^{-4}$ & $1.0009$ & $8.41\cdot10^{-8}$ & $0.000339$ & $1.89\cdot10^{-8}$ & $1.7334$ & $2.02\cdot10^{-7}$\\
+$2^{34}$ & $5.5025$ & $485$ & $2.2023$ & $4.60\cdot10^{-5}$ & $1.0005$ & $2.11\cdot10^{-8}$ & $0.000184$ & $4.72\cdot10^{-9}$ & $1.7328$ & $5.04\cdot10^{-8}$\\
+$2^{36}$ & $5.4899$ & $485$ & $2.1956$ & $1.15\cdot10^{-5}$ & $1.0003$ & $5.26\cdot10^{-9}$ & $0.000106$ & $1.18\cdot10^{-9}$ & $1.7324$ & $1.26\cdot10^{-8}$\\
+$2^{40}$ & $5.4804$ & $485$ & $2.1906$ & $7.17\cdot10^{-7}$ & $1.0001$ & $3.29\cdot10^{-10}$ & $0.000045$ & $7.37\cdot10^{-11}$ & $1.7322$ & $7.87\cdot10^{-10}$\\
+$2^{45}$ & $5.4778$ & $485$ & $2.1893$ & $2.24\cdot10^{-8}$ & $1.0001$ & $1.03\cdot10^{-11}$ & $0.000026$ & $2.31\cdot10^{-12}$ & $1.7321$ & $2.46\cdot10^{-11}$\\
+$2^{50}$$^\circ$ & $5.4774$ & $485$ & $2.1890$ & $7.00\cdot10^{-10}$ & $1.0001$ & $3.21\cdot10^{-13}$ & $0.000021$ & $7.20\cdot10^{-14}$ & $1.7321$ & $7.69\cdot10^{-13}$\\
+\end{longtable}
+}
+
+\paragraph{The grid of the cut L20.}
+\Cref{tab:data:l20-grid} lists the $45$ endpoints of the record
+\path{research/advance_2026_10_24/local/l20_refined_Q_grid.json} of
+\cref{cert:l20-grid} (variant with balanced pinned collisions and the pair-domain
+gap), with the class-three constant $g_{20}(P)$, recorded rounded up to
+$10^{-12}$, and the positive constant $c^+_{20}(P)$; among them are the $33$
+piece starts, and the endpoints marked $\circ$ are not piece starts. The L20
+grid is retained as an inherited comparison table. The selected L20 caps
+use the collision-gap and physical pair refinements and are printed in
+\cref{tab:data:cut-caps}; they are not entries of this older grid. The
+constant $g_{20}(P)$ of the older grid decreases to
+$\sqrt{30}=5.4772255\ldots$ as $P\to\infty$.
+
+{\scriptsize\setlength{\tabcolsep}{3pt}\renewcommand{\arraystretch}{0.92}
+\begin{longtable}{@{}lrr@{\hspace{8pt}}lrr@{\hspace{8pt}}lrr@{}}
+\caption{The L20 grid of the uniform root: $g_{20}(P)$ (exact recorded value) and $c^+_{20}(P)$ (upper bound, rounded up). Source: \texttt{l20\_refined\_Q\_grid.json} (\texttt{rows[*]}: \texttt{p0}, \texttt{clean\_g}, \texttt{positive\_B}).}\label{tab:data:l20-grid}\\
+\toprule
+$P$ & $g_{20}$ & $c^+_{20}$ & $P$ & $g_{20}$ & $c^+_{20}$ & $P$ & $g_{20}$ & $c^+_{20}$\\
+\midrule
+\endfirsthead
+\toprule
+$P$ & $g_{20}$ & $c^+_{20}$ & $P$ & $g_{20}$ & $c^+_{20}$ & $P$ & $g_{20}$ & $c^+_{20}$\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+$2^{20}$$^\circ$ & $5.597878403332$ & $22.968989$ & $2^{25}$ & $5.494591943030$ & $20.486551$ & $451452826$ & $5.481802261912$ & $20.131136$\\
+$2^{21}$$^\circ$ & $5.556683087553$ & $22.042549$ & $39903170$ & $5.493089568286$ & $20.445584$ & $2^{29}$ & $5.481417951164$ & $20.120210$\\
+$2^{22}$$^\circ$ & $5.530588618665$ & $21.417010$ & $47453134$ & $5.491721690831$ & $20.408112$ & $638450710$ & $5.481066248774$ & $20.110197$\\
+$2^{23}$$^\circ$ & $5.513582957074$ & $20.988713$ & $56431604$ & $5.490475565667$ & $20.373828$ & $759250126$ & $5.480744334669$ & $20.101021$\\
+$11863284$$^\circ$ & $5.507360103926$ & $20.827188$ & $2^{26}$ & $5.489339762357$ & $20.342456$ & $902905652$ & $5.480449640996$ & $20.092611$\\
+$2^{24}$$^\circ$ & $5.502257863941$ & $20.692622$ & $79806340$ & $5.488304013851$ & $20.313743$ & $2^{30}$ & $5.480179828315$ & $20.084904$\\
+$19000000$$^\circ$ & $5.500656295909$ & $20.649967$ & $94906266$ & $5.487359085531$ & $20.287460$ & $2^{31}$ & $5.479309452639$ & $20.059987$\\
+$19951586$ & $5.500057067029$ & $20.633954$ & $112863208$ & $5.486496658956$ & $20.263397$ & $2^{32}$ & $5.478696554108$ & $20.042393$\\
+$20500000$$^\circ$ & $5.499731546104$ & $20.625244$ & $2^{27}$ & $5.485709232570$ & $20.241364$ & $2^{34}$ & $5.477959529989$ & $20.021182$\\
+$21000000$$^\circ$ & $5.499446356287$ & $20.617605$ & $159612678$ & $5.484990032466$ & $20.221188$ & $2^{36}$ & $5.477592169160$ & $20.010588$\\
+$21757358$ & $5.499033927799$ & $20.606547$ & $189812532$ & $5.484332935655$ & $20.202709$ & $2^{40}$ & $5.477317151730$ & $20.002647$\\
+$23726568$ & $5.498058807639$ & $20.580347$ & $225726414$ & $5.483732401259$ & $20.185783$ & $2^{45}$ & $5.477241760190$ & $20.000468$\\
+$25429506$ & $5.497311649100$ & $20.560218$ & $2^{28}$ & $5.483183410461$ & $20.170278$ & $2^{48}$$^\circ$ & $5.477231297192$ & $20.000166$\\
+$25874006$ & $5.497129278599$ & $20.555298$ & $319225356$ & $5.482681412979$ & $20.156074$ & $2^{49}$$^\circ$ & $5.477229621196$ & $20.000117$\\
+$28215802$ & $5.496243048410$ & $20.531349$ & $379625064$ & $5.482222279985$ & $20.143060$ & $2^{50}$$^\circ$ & $5.477228436098$ & $20.000083$\\
+\end{longtable}
+}
+
+\paragraph{The positive roots.}
+\Cref{tab:data:positive-roots} lists the data of the first four selected positive roots of
+\cref{def:positive-root}, with the remaining three in \cref{tab:data:positive-roots-late} (\cref{cert:positive-root-caps}): the family and the
+parameter $\ulaw$; the selected constants $g$, $c^+$ of the chamber cut L20
+and layer cut L21 (\cref{cert:positive-root-caps}) at the piece start; their block caps at $L_{\rm loc}=585$, which rounded up are the
+weights $w_{\rm D}$ and $v_{\rm L}$ of the piece; the per-prime marginal data
+$d_\ulaw^2$ and the range ratio $R_\ulaw$ of \cref{lem:record:root-marginal}(iv);
+and the restoration count $n$ with $M=\operatorname{up}(R_\ulaw^n)$ and
+$\chi=\operatorname{up}((1+d_\ulaw^2)^n-1)$ (\cref{tab:data:piece-values}).
+
+{\scriptsize\setlength{\tabcolsep}{4pt}\renewcommand{\arraystretch}{0.95}
+\begin{longtable}{@{}lrrrr@{}}
+\caption{The seven selected positive roots (exact recorded rationals, or upper bounds rounded up). Sources: \texttt{refined\_L570\_source.json}, field \texttt{further\_root\_construction.changes}, and its native spectra. Pair-square parameters use physical pair interpolation and the resummed L21 cap; the coherent law uses the finite $39$-term chamber and layer bounds with single-pin refinement.}\label{tab:data:positive-roots}\\
+\toprule
+piece start & $2^{30}$ & $2^{31}$ & $2^{32}$ & $2^{34}$\\
+\midrule\endfirsthead
+\toprule
+piece start & $2^{30}$ & $2^{31}$ & $2^{32}$ & $2^{34}$\\
+\midrule\endhead
+\bottomrule\endfoot
+law & pair squares & pair squares & pair squares & pair squares\\
+$\ulaw$ & $711/4096$ & $1021/4096$ & $1455/4096$ & $833/1024$\\
+L20: $g$ & $5.476619678296$ & $5.474335244881$ & $5.471257426364$ & $5.464133834236$\\
+L20: $c^+$ & $25.456659470084$ & $27.62384303$ & $30.397461416086$ & $36.835698528597$\\
+L20: block cap $d$ & $5.476623331076$ & $5.474337162024$ & $5.471258447645$ & $5.464134125055$\\
+L21: $g$ & $6.313078885225$ & $6.315256713466$ & $6.312562621834$ & $6.307298870667$\\
+L21: $c^+$ & $3.98888909231$ & $3.962812801799$ & $3.927444212402$ & $3.87735454966$\\
+L21: block cap $k_{\rm L}$ & $6.313079545011$ & $6.31525703074$ & $6.312562774077$ & $6.307298906003$\\
+$d_\ulaw^2$ & $2.37042794010\cdot10^{-8}$ & $1.28617784042\cdot10^{-8}$ & $7.07684232492\cdot10^{-9}$ & $2.14402447541\cdot10^{-9}$\\
+$R_\ulaw$ & $1.823094863666$ & $2.255010861646$ & $2.937135030633$ & $6.928913249252$\\
+$n$ & $27$ & $26$ & $25$ & $24$\\
+$M=\operatorname{up}(R_\ulaw^n)$ & $1.101160\cdot10^{7}$ & $1.520074\cdot10^{9}$ & $4.989969\cdot10^{11}$ & $1.499557\cdot10^{20}$\\
+$\chi=\operatorname{up}((1+d_\ulaw^2)^n-1)$ & $6.400158\cdot10^{-7}$ & $3.344063\cdot10^{-7}$ & $1.769211\cdot10^{-7}$ & $5.145659\cdot10^{-8}$\\
+\end{longtable}
+}
+
+{\scriptsize\setlength{\tabcolsep}{4pt}\renewcommand{\arraystretch}{0.95}
+\begin{longtable}{@{}lrrr@{}}
+\caption{The remaining selected root laws; notation and sources as in \cref{tab:data:positive-roots}.}\label{tab:data:positive-roots-late}\\
+\toprule
+piece start & $2^{36}$ & $2^{40}$ & $2^{45}$\\
+\midrule\endfirsthead
+\toprule
+piece start & $2^{36}$ & $2^{40}$ & $2^{45}$\\
+\midrule\endhead
+\bottomrule\endfoot
+law & pair squares & pair squares & coherent 39\\
+$\ulaw$ & $3851/4096$ & $4049/4096$ & $67/40$\\
+L20: $g$ & $5.460775686025$ & $5.457521105807$ & $5.434450251962$\\
+L20: $c^+$ & $37.085210712622$ & $37.019255725148$ & $983.32475360966$\\
+L20: block cap $d$ & $5.460775755114$ & $5.457521109684$ & $5.434450254811$\\
+L21: $g$ & $5.426082230198$ & $4.646587567237$ & $2.869197519095$\\
+L21: $c^+$ & $1.143781717023$ & $0.075183415124$ & $0.460807795864$\\
+L21: block cap $k_{\rm L}$ & $5.426082232316$ & $4.646587567244$ & $2.869197519096$\\
+$d_\ulaw^2$ & $5.39648853329\cdot10^{-10}$ & $3.36686302618\cdot10^{-11}$ & $2.79476882614\cdot10^{-11}$\\
+$R_\ulaw$ & $8.315762775019$ & $8.868202502427$ & $59781.69483119$\\
+$n$ & $22$ & $20$ & $18$\\
+$M=\operatorname{up}(R_\ulaw^n)$ & $1.729204\cdot10^{20}$ & $9.051323\cdot10^{18}$ & $9.511041\cdot10^{85}$\\
+$\chi=\operatorname{up}((1+d_\ulaw^2)^n-1)$ & $1.187228\cdot10^{-8}$ & $6.733727\cdot10^{-10}$ & $5.030584\cdot10^{-10}$\\
+\end{longtable}
+}
+
+\paragraph{The completion-variance grid.}
+The $47$-threshold grid stored with the estimate of \cref{lem:push:localvariance}
+(\path{research/push_2026_10_17/sparse/local_variance_grid.json}) belongs to a
+middle law that the construction does not use, and none of its numbers enters
+the proof: the construction uses the estimate itself, inside the root caps of the
+upper bands from $2^{52}$ on, which are evaluated directly at the band starts
+(\cref{cert:upper-completed-root}).
+
+\paragraph{Analytic slacks.}
+\Cref{tab:data:slacks} gives the exact values of the strict inequalities
+(S1)--(S7) of \cref{def:record:analytic-stage} at the parameters of
+\cref{tab:data:parameters}; none of them depends on $a$. The gates of the
+analytic transfer that depend on $a$ hold on the whole domain $0<a\le9/10000$
+(\path{research/advance_2026_10_24/global/analytic_domain.py}, record
+\path{analytic_domain.json}, with the checker of \cref{cert:record:analytic-stage}):
+the induction slack is $\sigma-a\ge\sigma-9/10000=103/330000$, and at the
+selected exponent $\sigma-a=65195254/201416015625$
+(\cref{cert:record:frame-data}). The same record checks the prefix gate of
+\cref{cert:record:frame-data}: on the domain the exponent
+$513-\mcl+1024\mcl a$ is at most $-80783/625$ and the price of the
+prefix together with the price of the large-prime tail is less
+than $1.2332\cdot10^{-39}$; at the selected exponent
+$2^{513-\mcl+1024\mcl a}=2^{-1380939795479/6103515625}<8\cdot10^{-69}$
+(\cref{lem:frontier:iidenergy,rem:prefix-digits}).
+
+{\scriptsize\setlength{\tabcolsep}{4pt}\renewcommand{\arraystretch}{0.92}
+\begin{longtable}{@{}lll@{}}
+\caption{Analytic slacks: exact rationals (decimals rounded down); the tail coefficients and gates are upper bounds, independent of $a$. Sources: \texttt{refined\_L570\_source.json} (\texttt{analytic}: \texttt{inherited\_transfer\_slacks}, \texttt{inherited\_kernel\_slacks}, \texttt{tail\_gate\_values}; \texttt{upper.tail\_mixing}) and \texttt{analytic\_domain.json}.}\label{tab:data:slacks}\\
+\toprule
+condition & quantity & value\\
+\midrule
+\endfirsthead
+\toprule
+condition & quantity & value\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+(S1) & $\gamma\beta/2-\tau-72\delta-\sigma$ & $2260122363/58960000000000>3.833\cdot10^{-5}$\\
+(S2), (S3) & $\gamma t_{\rm an}-72\delta-\sigma$ and $\beta/6-t_{\rm an}(1/2-\gamma)-72\delta-\sigma$ & both $3878506121/1320000000000>2.938\cdot10^{-3}$\\
+(S4) & $\tau/4-\ell_0-\sigma$ & $6997789/221100000000>3.164\cdot10^{-5}$\\
+(S5) & $1-2\tau-6\beta$; $\beta/2-\tau$; $\beta/2-t_{\rm an}$; $\beta(1-2\tau)-\beta/2$ & $1387/2010$; $161/8040$; $1/120$; $197/8040$\\
+gate & $\sigma-a$ & $65195254/201416015625>3.236\cdot10^{-4}$\\
+ & $\sigma-9/10000$ (domain $0<a\le9/10000$) & $103/330000>3.121\cdot10^{-4}$\\
+(S6) & minor arcs (actual, model); major arcs (model, actual) & $1/600$, $37/600$; $97/150$, $1/600$\\
+ & arc disjointness; centres inside; centre separation & $49/100$; $19/200$; $117/200$\\
+(S7) & $C_1$, $C_2$, $C_3$ of \cref{lem:record:tail-mixing} & $1.197601\cdot10^{3}$, $6.093051\cdot10^{5}$, $1.417600\cdot10^{8}$\\
+ & $2^{16}S_{72}(2^{512})$; $2^{32640}S_{72}(2^{65536})$ & $6.778176\cdot10^{-70}$; $3.519431\cdot10^{-36}$\\
+\end{longtable}
+}
+
+\paragraph{Consequences and what to read next.}
+Read next: the statements that use these data as hypotheses are
+\cref{def:record:exact-blocks,lem:front12:reference,eq:variance:pieces,lem:middle-comparison-prices,prop:signed-sides,def:record:upper-bands,thm:envelopes,lem:layer12-caps,def:record:analytic-stage};
+the stored records authenticated by the baseline certificate
+(\cref{subsec:cert:final,subsec:cert:evaluation}) are the
+following. In
+\path{research/push_2026_10_25/}: \path{global/refined_L570_source.json}
+(pieces, weights, spectra, charges, the root plan),
+\path{global/refined_L570_charges.json} (parts, cells, charges and sums),
+\path{global/refined_parent.json} (the positive roots), and
+\path{artifacts/author.json}, field \texttt{result} (raw totals, piece log caps,
+orbit masses, coupons, savings, the upper prices at $a$).
+The unchanged upper and envelope inputs remain in
+\path{research/further_2026_10_25/}: \path{upper/upper_dense_refined.json},
+\path{upper/dense_six.json}, \path{upper/dense_six_refined.json},
+\path{envelopes/exact_background_pairs.json} and
+\path{envelopes/check_exact_background_pairs.json}.
+In \path{research/advance_2026_10_24/}:
+\path{local/l20_refined_Q_grid.json} (the L20 grid),
+\path{global/final_budget_partitions/} (the histogram and its inputs) and
+\path{global/analytic_domain.json} (analytic gates and the prefix). In
+\path{research/continuation_2026_10_24/}: \path{local/actual_features.json}
+(frame) and \path{global/middle_grid_new.json} (nine thresholds of the
+twelve-label grid). And \path{research/frontier_2026_10_17/root/middle12_grid.json}
+(the other $26$ thresholds) and
+\path{research/roadmap_2026_10_18/item12/upper_v2_local.json} (the tail datum,
+fields \texttt{pieces} and \texttt{tail\_comparison}). The columns of
+\cref{tab:data:prices}, of the table that follows it and of \cref{tab:data:sides},
+and the piece values of
+\cref{tab:data:piece-values} are the read-only evaluations, in their own outward
+rational arithmetic, of \path{research/advance_2026_10_24/local/low_domain.py}
+(\texttt{raw\_ledgers}) and \path{research/advance_2026_10_24/global/piece_data_beta.py}
+(\texttt{compute}, modular root variant) on the native source; their sums times
+$t$ reproduce \path{author.json} (\texttt{raw\_totals}) exactly.

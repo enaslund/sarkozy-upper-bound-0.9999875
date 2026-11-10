@@ -1,0 +1,702 @@
+\providecommand{\PushA}{\frac{5422587}{6103515625}}
+\providecommand{\PushK}{890666}
+\section{Large primes $p\ge2^{512}$ and the external index}\label{sec:tail-index}
+
+\paragraph{What this section proves and how to read it.}
+Large primes (called the \emph{tail} below) are one atom per prime,
+of both residue classes; this is the only family whose size grows
+with $N$. The section proves (CP1) and summability with prices
+$O(p^{-3/2+2a})$, and evaluates the conductor factor $R_I$ and the
+terms $J,W$ at the baseline choice $\Kint=\PushK$. ``Tail'' here always means large
+primes; depth tails $\delta_{p,j}$ are a different notion
+(\cref{sec:comparison-theorem}).
+Two parts of the construction are not blocks of field primes of bounded
+size. The \emph{tail} consists of all primes $p\ge\Pfour=2^{512}$, of both
+residue classes modulo $4$, one atom $\{p\}$ per prime with $e_p=1$; it is
+the only family of atoms whose number grows with $N$. The tail law is the
+reference of the tail datum (\cref{def:record:upper-bands}(e)) at a single
+prime; it is not the law of the last band, whose data are class-three data.
+The \emph{small modulus} $\Mzero$ (formula in
+\cref{subsec:index-law}) is not a coordinate of $G_N$; it enters
+only through the external index of the six queries. We show that the tail law satisfies
+(CP1) at every tail prime (\cref{subsec:tail-law}) and \ref{it:record:R4} at
+the primes $p\ge\Pfive=2^{65536}$, as \cref{lem:record:prefix-conductor}
+requires (\cref{subsec:tail-mixing}), and that the tail comparison prices are
+$O(p^{-3/2+2a})$ per prime, so that they enter $S$ and $A$ as a convergent
+series, satisfy the summability (CP8)(c), and make the product $\Pi_{\rm H}$
+of \cref{lem:record:density-lp} finite (\cref{subsec:tail-prices}). For the
+index we evaluate the conductor moment $R_I$ and the terms $J$ and $W$ of
+\cref{thm:comparison} at the baseline choice $\Kint=\PushK$, with the finite prime-moment bound
+of \cref{lem:index-moments} (\cref{subsec:index-law}). These enter the closing
+(\cref{sec:closing}).
+
+\subsection{The reference law at one large prime}\label{subsec:tail-law}
+
+The upper reference is defined band by band with class-three data
+(\cref{def:record:upper-bands}). Beyond $\Pfour$ every prime is an atom of
+its own and carries, at the single prime, the reference of the \emph{tail
+datum} (\cref{def:record:upper-bands}(e)): the inputs and weights recorded for
+the range $[2^{64},2^{512})$ in
+\path{research/roadmap_2026_10_18/item12/upper_v2_local.json}, whose inputs take
+the larger value over the two classes. The square-clique prefix ends at $\Pfour$
+(\cref{lem:frontier:iidlocal}),
+so the tail also contains the primes $p\equiv1\pmod4$. This is the only place
+where a two-layer law is used at class-one primes, and the only place where
+the class-one cases of the spectral criterion are needed
+(\cref{subsec:advance:parity}).
+
+\begin{definition}[The tail law]\label{def:tail-law}
+Let $p\ge\Pfour$ be prime and $r=p^{-1/2}$. The \emph{tail law} at $p$ is the
+reference $\mu_p=\widetilde\mu_p/P_\mu(r)$ of \cref{def:upper-reference} for
+the single prime $\Blk=\{p\}$, with the weights $w_{\mathfrak t},v_{\mathfrak t}$
+of the tail datum (\cref{def:record:upper-bands}(e)):
+\[
+ \widetilde\mu_p=\sum_{\mathfrak t}w_{\mathfrak t}r^{\deg\mathfrak t}\pi_{\mathfrak t,2}
+ +r\sum_{\mathfrak t}v_{\mathfrak t}r^{\deg\mathfrak t}
+ \operatorname{Diag}_\iota(\pi_{\mathfrak t,1}),\qquad
+ P_\mu(r)=\sum_{d=0}^7c_dr^d,
+\]
+with the components $\pi_{\mathfrak t,j}$ of \cref{subsec:layer72:upper} at
+$p$. Here $c_0=w_{\rm LL}=1$ is the weight of the \emph{root} $\pi_{\rm LL,2}$,
+the uniform law on the injective strict-square labellings of the two-layer root
+graph, and $c_d$ is the total weight of the records of overall degree $d$
+(\eqref{eq:independent-fold-polynomial}):
+\begin{gather*}
+ c_0=1,\quad c_1=\tfrac{5988}{5},\quad c_2=\tfrac{15232626}{25},\quad
+ c_3=\tfrac{24807984744}{175},\\
+ c_4=\tfrac{50638290432}{5},\quad c_5=\tfrac{621170191872}{5},\quad
+ c_6=\tfrac{1877429977088}{7},\quad c_7=\tfrac{970455252992}{7}.
+\end{gather*}
+The \emph{tail coefficients} are
+\begin{equation}\label{eq:tail-coefficients}
+ C_j=\sum_{d\ge j}c_d\Pfour^{-(d-j)/2}\quad(j=1,2,3),\qquad
+ S_{72}(p)=\frac{2^{92}}p+\frac{C_1}{p^{1/2}}+\frac{C_2}p
+ +\frac{C_3}{p^{3/2}};
+\end{equation}
+$C_1<1197.601$, $C_2<609305.05$ and $C_3<1.4176\cdot10^8$ (item (S7), the $C_j$ bounds, of
+\cref{cert:record:analytic-stage}, whose checker recomputes them exactly from
+the $c_d$).
+\end{definition}
+
+\begin{lemma}[The tail reference]\label{lem:tail-law}
+Let $p\ge\Pfour$ be a prime of either class modulo $4$, and $r=p^{-1/2}$.
+\begin{enumerate}[label=(\roman*)]
+\item The inputs of the tail datum (\cref{def:record:upper-bands}(e)) are
+ valid on $\{p\}$ in the sense of \cref{subsec:upper-reference-rp}.
+\item $\mu_p$ is a probability measure on $\F_p^V$, reflection positive at
+ every cut of the family (the chamber cuts of both coordinates and
+ $\iota$), invariant under the square-affine maps $z_v\mapsto sz_v+u$
+ ($s\in\Qsq$, $u\in\F_p$), with uniform one-slot marginals, and admissible
+ (\cref{def:admissible}); so the tail atoms satisfy
+ \ref{it:record:R1}--\ref{it:record:R3}.
+\item $\widetilde\mu_p=\pi_{\rm LL,2}+\widetilde\rho_p$ with $\widetilde\rho_p\ge0$
+ of mass $h_p=P_\mu(r)-1\le C_1p^{-1/2}$. The root accepts the twelve
+ queries \eqref{eq:upper-twelve}, hence $\mathcal E_6$, and each query pair
+ is a cross-layer edge of the root graph.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) The inputs of the tail datum are integer ceilings of constants evaluated
+at $p_0=2^{64}$ with the block length $L_{\rm u}=50000/27$, that is, for blocks
+of at most $L_{\rm u}/\log2^{64}<42$ primes, and they cover both prime
+classes. The nonroot caps are the largest of four exact tests, two classes
+and two Fourier signs (\cref{subsec:upper-nonroot},
+\cref{cert:upper-band-inputs}(d)). The root caps $113$ (LL20) and $45$ (LL22)
+come from the tests of both classes, the class-one ones with the class-one
+Paley terms and the parity transfer (\cref{lem:upper-completed-root} with
+$\mathfrak c\in\{1,3\}$, \cref{cert:upper-completed-root},
+\cref{lem:spec2:paley-one,lem:spec2:parity-transfer}); at $2^{64}$ the
+class-one tests give the recorded value in every cut except FE22 and EE22,
+where the class-one and class-three test values are equal. The row inputs are the larger of the values of the
+two classes (\cref{subsec:advance:product-rows}). By
+\cref{lem:record:domain}(iii) for \ref{it:record:upper-F1}--\ref{it:record:upper-F6},
+with \ref{it:record:upper-F5} in its Schur form, and by
+\cref{lem:upper-completed-root} for the two root cuts (its threshold
+hypotheses at $p_0$ are asserted by \cref{cert:upper-completed-root}), every
+per-prime constant at a prime $p\ge2^{64}$ of either class is at most its
+value at $2^{64}$; the rows are those of \ref{it:record:upper-F5}(b), with
+$t_Y=1/50$ and $M=21/20$. The set $\{p\}$ is a block of one prime, so no tensor-product factor occurs and its block bounds are the per-prime bounds at $p$:
+the normalized cut operators at $p$ are at least $-g\,r$ with the recorded
+per-prime cap $g$, which is at most the inflated cap
+$g\,e^{B_{\rm top}L_{\rm u}/(X\log X)}$ at $X=2^{64}$ (notation of \ref{it:record:upper-F6}) recorded as the input of the tail
+datum, and the row data at $p$ satisfy \ref{it:upper-valid-rows} with
+coefficients at most the row inputs. These are the conditions
+\ref{it:upper-valid-root}--\ref{it:upper-valid-layer}.
+
+(ii) By (i), \cref{lem:upper-reference-rp}(i), which uses nothing about the
+set of primes beyond the validity of the inputs, applies to $\Blk=\{p\}$ with
+the weights of the tail datum. These satisfy its $105$ inequalities exactly
+(\cref{cert:upper-completion}, last paragraph), which do not involve $p$.
+This gives (ii); the law of the atom $\{p\}$ does not depend on $N$.
+
+(iii) $\pi_{\mathfrak t,j}$ has mass $m_{\mathfrak t}$ and $m_{\rm LL}=1$, so
+$\widetilde\mu_p$ has mass $P_\mu(r)$; and $p^{-d/2}\le\Pfour^{-(d-1)/2}p^{-1/2}$
+for $d\ge1$, which gives $h_p=\sum_{d\ge1}c_dp^{-d/2}\le C_1p^{-1/2}$. By
+\cref{lem:upper-geometry}(a) every query
+$(u_0,u_1,0)\to(\rot u_0,\rot u_1,1)$ of \eqref{eq:upper-twelve} is an edge of
+the root graph joining its two layers, so the root, the uniform law on the
+injective strict-square labellings of that graph, accepts the twelve queries;
+the six queries of $\mathcal E_6$ are among them.
+\end{proof}
+
+\subsection{Mixing at the tail primes}\label{subsec:tail-mixing}
+
+Hypothesis \ref{it:record:R4} is needed only at $p\ge\Pfive$: the atoms
+below $\Pfive$, among them the tail primes in $[\Pfour,\Pfive)$, are finitely
+many, their full orders divide the integer $Q_{\rm pre}$ of
+\cref{def:record:functional}, and in \cref{lem:record:prefix-conductor} they
+form the spectator prefix, which only has to be a contraction. The decay
+comes from the root, whose conditional operators have norm $O(p^{-1/2})$;
+the other records are an admixture of mass $O(p^{-1/2})$.
+
+\begin{lemma}[Tail mixing]\label{lem:record:tail-mixing}
+Let $p\ge\Pfour$ be prime, let $\mu_p$ be the tail law, and let
+$\bar\nu_p=\nu_p/\nu_p(1)$ be its normalized accepted part, where $\nu_p$ is
+the factor at $p$ of the comparison law (\cref{lem:tail-prices},
+\cref{def:record:comparison-law}).
+\begin{enumerate}[label=(\alph*)]
+\item For every slot $v$, the conditional operators of $\mu_p$ and of
+ $\bar\nu_p$ from slot $v$ to the other $71$ slots (\cref{def:mixing}) have
+ squared norm at most $S_{72}(p)$ on mean-zero functions.
+\item For each query $(u,v)\in\mathcal E_6$, the $(u,v)$-marginal of
+ $\bar\nu_p$ is $\Unif(\Om)$, and its conditional operator from the pair
+ $(u,v)$ to the other $70$ slots fixes constants, maps mean-zero functions
+ to mean-zero functions and has squared norm at most $S_{72}(p)$ on them.
+\item With $\gamma=255/1024$, $p^{2\gamma}S_{72}(p)$ is decreasing in $p$.
+ Hence $S_{72}(p)<p^{-2\gamma}$ for every $p\ge\Pfive$, and
+ \ref{it:record:R4} holds.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\emph{The tail laws as mixtures.} By \cref{lem:tail-law}(iii),
+$\mu_p=\varpi\pi_{\rm LL,2}+(1-\varpi)\widetilde\rho_p/h_p$ with
+$\varpi=1/(1+h_p)$, and $0<h_p\le C_1p^{-1/2}\le S_{72}(p)-2^{92}/p$. The
+comparison law keeps the root,
+which accepts $\mathcal E_6$, keeps the other accepting records, replaces
+each repaired record by a law of the same mass and deletes the others
+(\cref{lem:tail-prices}); so $P_\mu(r)\nu_p=\pi_{\rm LL,2}+\rho_p$ with
+$\rho_p\ge0$ of mass $0<h'_p\le h_p$ (the records of degree one are kept), and
+$\bar\nu_p=\varpi'\pi_{\rm LL,2}+(1-\varpi')\rho_p/h'_p$ with
+$\varpi'=1/(1+h'_p)$.
+
+(a), (b). Apply \cref{lem:mixture} to these two-component mixtures, with $Z$
+the labels of the slot $v$ or of the pair $(u,v)$. The components have the
+same marginal on $Z$: one-slot marginals are uniform
+(\cref{lem:tail-law}(ii), \cref{lem:tail-prices}(i)); the queried pair of
+$\bar\nu_p$ is uniform on $\Om$ (\cref{lem:tail-prices}(i)), and so is that
+of the root, which is square-affine invariant and accepts the query, the
+square-affine maps acting transitively on $\Om$; hence so is that of
+$\rho_p/h'_p$. The root graph has $72$ vertices and maximum degree $20$
+(ten out- and ten in-neighbours at every vertex, \cref{lem:upper-geometry}(a)),
+and the query pair is one of its edges, oriented from $u$ to $v$
+(\cref{lem:tail-law}(iii)); by \cref{lem:trace-mixing}\ref{it:trace:72}
+(\cref{cert:trace-mixing-72}), for $p\ge2^{512}$ the root has one-slot
+conditional norm squared at most $2^{22}/p$ and pair conditional norm squared
+at most $2^{92}/p$ on the mean-zero functions. The other component is a
+contraction there. By \cref{lem:mixture} the conditional operators fix the
+constants, map mean-zero functions to mean-zero functions, and have squared
+norm at most $\varpi2^{92}/p+(1-\varpi)\le2^{92}/p+h_p\le S_{72}(p)$, and the
+same with $\varpi'$ and $h'_p\le h_p$ for $\bar\nu_p$.
+
+(c) $p^{2\gamma}S_{72}(p)=2^{92}p^{2\gamma-1}+C_1p^{2\gamma-1/2}
++C_2p^{2\gamma-1}+C_3p^{2\gamma-3/2}$ has nonnegative coefficients and
+negative exponents, since $2\gamma=255/512<1/2$. At $p=\Pfive$,
+$p^{2\gamma}=2^{32640}$, so (S7) gives $p^{2\gamma}S_{72}(p)<1$ for every
+$p\ge\Pfive$. With (a) and (b), $\mu_p$ and $\bar\nu_p$ are
+$(\gamma,v)$-mixing for every slot $v$, and $\bar\nu_p$ has the pair property
+of \ref{it:record:R4}.
+\end{proof}
+
+The other inequality of (S7), $2^{16}S_{72}(2^{512})<6.7782\cdot10^{-70}$, would give
+by the same monotonicity, since $\Pfour^{1/32}=2^{16}$, mixing with exponent
+$1/64$ at every tail prime; it is not used.
+
+\subsection{Comparison prices $O(p^{-3/2+2a})$ at large primes}\label{subsec:tail-prices}
+
+At a tail prime the comparison law is built as at an upper block
+(\cref{def:upper-comparison}), but for the twelve queries: a record is kept if
+it accepts \eqref{eq:upper-twelve}. Its repair caps are the \emph{all-prime}
+caps, since $p$ may be of class one. For each of the $94$ two-layer records
+of degree two and three that do not accept the twelve queries
+(\cref{sec:frontier:upper-oneway}) the cap $C_\varrho$ is the normalized
+coefficient of its one-way repair \ref{it:record:upper-F7}
+(\cref{lem:tr:repair}), with the joint-star estimate
+\eqref{eq:frontier:all-prime-star-cap}, valid at every odd prime
+(\cref{lem:upper-stars}(b), \ref{it:record:upper-F8}), on the ten $EL/LE$
+records of degree two. The caps are evaluated at $2^{54}$
+(\cref{cert:tail-caps}), where the spectral constants $g,B_{\rm top}$ of the
+nonroot cuts that \ref{it:record:upper-F7} reads come from the tests of both
+classes (\cref{cert:upper-band-inputs}(d)); by \cref{lem:record:domain}(iii)
+the caps bound the repair coefficients at every prime $p\ge2^{54}$ of either
+class. No class-three datum of the bands is used. With
+$\Lambda^{\rm tail}_k(\mathfrak t)$ the sum of the caps of the repaired
+records of state $\mathfrak t$ and degree $k$, put
+\begin{equation}\label{eq:tail-polynomials}
+ \Pi^{\rm rep}(r)=r^3\sum_{\mathfrak t}w_{\mathfrak t}\Lambda^{\rm tail}_2(\mathfrak t)
+ +r^4\sum_{\mathfrak t}w_{\mathfrak t}\Lambda^{\rm tail}_3(\mathfrak t)
+ =c^{\rm rep}_3r^3+c^{\rm rep}_4r^4,\qquad
+ \Pi^{\rm del}(r)=\sum_{d=3}^7c^{\rm del}_dr^d,
+\end{equation}
+with $c^{\rm del}_d$ the total weight of the deleted records of overall
+degree $d$, as in \cref{def:upper-comparison}. Every record of degree at
+least four is deleted, so $c^{\rm del}_d=c_d$ for $4\le d\le7$, and
+\[
+ c^{\rm rep}_3=\tfrac{73056854152246473}{12500000000},\qquad
+ c^{\rm rep}_4=\tfrac{149151332035400049}{68359375},\qquad
+ c^{\rm del}_3=\tfrac{81606792}{25}.
+\]
+
+\begin{certificate}[The tail repair caps]\label{cert:tail-caps}
+Each of the $94$ one-way repairs at a tail prime satisfies its
+repair inequalities \ref{it:record:upper-G1},
+\ref{it:record:upper-G2} and \ref{it:record:upper-G5} with the
+coefficients evaluated at $2^{54}$ (hence at every larger prime,
+by monotonicity), with the constants $g,B_{\rm top}$ of the
+nonroot layer cuts at $2^{54}$
+(\cref{cert:upper-band-inputs}(d)). The coefficients are stored in
+\path{research/frontier_2026_10_17/sparse/high72_oneway_repairs.json}
+(degree two) and \path{high72_oneway_repairs_degree3.json}
+(degree three) in the same directory; the six $LR$ and four $RL$ records of degree
+two are replaced by their joint-star rows \ref{it:record:upper-F8} at $2^{54}$
+in \path{high72_oneway_jointstar.json}, whose hypotheses hold there. The
+adapters \path{high72_oneway_adapter.py}
+and \path{high72_oneway_jointstar_adapter.py} of that directory authenticate
+the records against \path{high72_oneway_checks.json} and
+\path{high72_oneway_star_checks.json}; no class-three datum of the bands is
+used. The record of the tail datum,
+\path{research/roadmap_2026_10_18/item12/upper_v2_local.json}, carries the
+resulting ledgers $\Lambda^{\rm tail}_2,\Lambda^{\rm tail}_3$ and the
+coefficients $c^{\rm rep}_3,c^{\rm rep}_4,c^{\rm del}_d$ above as its field
+\texttt{tail\_comparison}; the independent review
+\path{research/push_2026_10_24/tools/check_upper.py} compares them with the
+tail data of the source it reviews and re-sums the tail prices.
+\end{certificate}
+
+\begin{lemma}[The tail comparison law and its prices]\label{lem:tail-prices}
+Let $p\ge\Pfour$ be prime and $r=p^{-1/2}$. Let $\nu_p$ be obtained from
+$\widetilde\mu_p$ by keeping every record that accepts the twelve queries,
+replacing each of the $94$ nonaccepting two-layer records of degree two
+and three by its one-way repair with the all-prime cap, deleting every other
+nonaccepting record, and dividing by $P_\mu(r)$.
+\begin{enumerate}[label=(\roman*)]
+\item $\nu_p$ is a nonnegative square-affine invariant measure with the
+ normalizer of $\mu_p$; every retained record accepts $\mathcal E_6$; the
+ normalized accepted part has uniform one-slot marginals and query-pair
+ marginals $\Unif(\Om)$; under every accepted part each query pair is a
+ strict-square pair at $p$, which is \ref{it:record:R5} at the tail; and
+ $\nu_p$ is admissible (\cref{def:admissible}).
+\item $\nu_p-\mu_p$ satisfies the bracket of \cref{def:record:comparison-law}
+ at $\iota$ with prices $s_p\le(\Pi^{\rm rep}+\Pi^{\rm del})(r)\,p^{2a}$ and
+ $a_p\le\Pi^{\rm rep}(r)\,p^{2a}$.
+\item $\eta_p:=s_p+a_p\le C_{\rm tail}\,p^{-3/2+2a}$, with
+ $C_{\rm tail}=\sum_d(2c^{\rm rep}_d+c^{\rm del}_d)\Pfour^{-(d-3)/2}
+ =1.4953\ldots\cdot10^7$ ($c^{\rm rep}_d=0$ for $d\ge5$).
+\item With $w_d=d/2-2a$ and $\Phi_d(a)=\Pfour^{-w_d}+\Pfour^{1-w_d}/(w_d-1)$,
+ for every $N$
+ \[
+  S_{\rm tail}:=\sum_{\Pfour\le p\le N^{1/20}}s_p\le
+  \sum_{d=3}^7\bigl(c^{\rm rep}_d+c^{\rm del}_d\bigr)\Phi_d(a),\qquad
+  A_{\rm tail}:=\sum_{\Pfour\le p\le N^{1/20}}a_p\le
+  \sum_{d=3}^4c^{\rm rep}_d\Phi_d(a),
+ \]
+ and $\sum_{p\ge\Pfour}\eta_pp^{1/4}<\infty$. The tail atoms carry no
+ first-stage and no bracket records, and their matching-envelope diagonals
+ have price $T_{{\rm L},p}=T_{{\rm R},p}\le\eta_p$; so their part of the sum
+ in (CP8)(c) is at most $3\sum_{p\ge\Pfour}\eta_pp^{1/4}<\infty$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i), (ii). By \cref{lem:tr:repair}(a)--(c) a repaired record becomes a
+probability law with exactly the actual half marginals at $\iota$ of the
+record it replaces, supported in the support of the uniform law of the
+repaired graph (half graphs kept, cross constraints removed, projected
+queries imposed), so it accepts the twelve queries; its data are
+square-affine invariant, so it is invariant. Its difference from the
+replaced record has zero marginals and norm at most $C_\varrho r$ relative to
+these marginals (\cref{lem:tr:repair}(f) with \ref{it:record:upper-F7}, the
+cap bounding the coefficient at $p$ by \cref{lem:record:domain}(iii)). From
+here the proof of \cref{prop:record:upper}(i), its admissibility paragraph
+included, applies to the atom $\{p\}$ with $C^{\rm s}=C^{\rm a}=C_\varrho$.
+Each repair bound is included in full in both the symmetric
+total $s_p$ and the skew total $a_p$ (an overestimate in each),
+which is allowed:
+\cref{rem:cp:charging}(iii) would allow the skew part of the new law alone,
+and the recorded tail polynomials do not use this. A repaired record of
+state $\mathfrak t$ is charged at most $w_{\mathfrak t}C_\varrho
+r^{\deg\mathfrak t+1}$ in each part, and summing gives $\Pi^{\rm rep}(r)$; a
+deleted record is positive and self-adjoint at $\iota$, charged its mass in
+$s_p$ only, and summing gives $\Pi^{\rm del}(r)$; the repaired records are
+exactly those missing from $\Pi^{\rm del}$; repairs keep mass and deletions
+decrease it, and dividing by $P_\mu(r)\ge1$ only decreases the prices, which
+carry the factor $p^{2a}$ of an atom $\{p\}$ (\cref{def:price}). Every record
+of $\nu_p$ is invariant, so the accepted part has uniform one-slot marginals
+and invariant query-pair marginals supported on $\Om$, which are therefore
+$\Unif(\Om)$. Every retained or repaired record imposes the strict-square
+relation on each query pair.
+
+(iii) Both polynomials start in degree three and $p^{-(d-3)/2}\le
+\Pfour^{-(d-3)/2}$, so $\eta_p\le(2\Pi^{\rm rep}+\Pi^{\rm del})(r)p^{2a}\le
+C_{\rm tail}p^{-3/2+2a}$.
+
+(iv) For $w>1$ and an integer $P\ge2$, $\sum_{n\ge P}n^{-w}\le
+P^{-w}+\int_P^\infty x^{-w}dx=P^{-w}+P^{1-w}/(w-1)$. Every $w_d\ge3/2-2a>1$,
+the tail primes are integers $n\ge\Pfour$, and by (ii) the prices are sums
+of $(c^{\rm rep}_d+c^{\rm del}_d)p^{-w_d}$, respectively $c^{\rm rep}_dp^{-w_d}$.
+Next $\eta_pp^{1/4}\le C_{\rm tail}p^{-5/4+2a}$ and $-5/4+2a<-1$. Finally the
+records of the first stage and of the bracket vanish outside the middle blocks
+(\cref{def:record:frame}), so $p_p=v_p=d_p=u_p=0$ at the tail, and outside the
+middle the
+matching-envelope diagonals are the norm envelopes of the changes
+(\cref{prop:record:matching}(i)), whose price is at most $s_p+a_p$.
+\end{proof}
+
+The upper prices $S_{\rm u}(a),A_{\rm u}(a)$ of the closing contain the two
+sums of (iv) (\cref{prop:record:upper}(ii)). The final assembly adds them to
+the termwise repriced band ledger in
+\path{research/continuation_2026_10_24/global/closing.py} (\texttt{upper\_price},
+lines 141--149). At the final exponent the tail contributes about
+$2.97\cdot10^{-70}$ to $S$ and $1.90\cdot10^{-70}$ to $A$. The allowance
+$10^{-12}$ of the closing covers the prefix exception and also a second,
+repriced copy of the tail prices (\cref{cert:record:frame-data}(f)); the tail
+is thus charged twice, which only increases $\Theta$.
+
+\subsection{The external index by exact conductor}\label{subsec:index-law}
+
+Each query has an interval coordinate modulo $K$ and independent external
+prime-power coordinates. At $m=64$ the modulus used in the
+square-class kernel (called \emph{physical} below, to
+ distinguish it from the comparison-depth modulus) is
+\[
+ \Mzero=2^{129}\prod_{\substack{p<Q_3\\p\equiv3\ (4)}}p^{128}.
+\]
+The odd product includes $3$. At each prime choose, for each query, a uniform residue $t$ modulo the corresponding prime power, conditioned on $v_p(t)<m$, and use $t^2$ as the increment $r_{e,p}$ at $p$ (\cref{def:hyb:coupled}).
+These increments are nonzero squares; their possible nonunit valuations
+lie in the classes treated in \cref{lem:kernel-depth-classes}, applied in the proof of \cref{lem:imp:padic-envelope} below.
+The random depth $J$ of \cref{lem:imp:padic-envelope} below
+(the comparison depth) does not change this physical modulus. It
+only determines the conditional expectation used in the positive
+index envelope. Thus the cancellation in the actual kernel and
+the comparison moment use different, explicitly specified moduli.
+
+\begin{lemma}[Finite conductor-depth index envelope]
+\label{lem:imp:padic-envelope}
+Fix $m\ge3$ and $Q>2$. At every odd external prime
+$p\equiv3\pmod4$ with $p<Q$, let $t$ be uniform modulo $p^{2m}$
+conditioned on $p^m\nmid t$, and use $t^2$ as the increment (a
+uniform conditioned root, squared).  At $2$ use the same
+construction modulo $2^{2m+1}$.  These finite probability laws
+have uniform endpoint marginals and preserve accepted-square cancellation, in that every increment lies in a class of \cref{lem:kernel-depth-classes}.  They admit the following decreasing conductor
+tails, where $e_p=p^{-m}$:
+\[
+ \begin{array}{ll}
+ p\text{ odd}:&\delta_0=1,\quad
+ \delta_k=\dfrac{p^{-k/2}+e_p}{1-e_p}\ (1\le k<2m),
+ \quad\delta_{2m}=0;\\[4pt]
+ p=2:&\delta_0=1,\quad
+ \delta_1=\delta_2=\dfrac{2^{-1/2}+e_2}{1-e_2},\\[4pt]
+ &\delta_k=\dfrac{2^{-(k-1)/2}+e_2}{1-e_2}\ (3\le k<2m+1),
+ \quad\delta_{2m+1}=\dfrac{e_2}{1-e_2},\quad
+ \delta_{2m+2}=0.
+ \end{array}
+\]
+Independent depths $J$ with $\Pr(J\ge k)=\delta_k$ therefore supply
+the finite-filtration index envelope of \cref{lem:record:common-mean},
+and its conclusion (a) retains the common mean.
+\end{lemma}
+\begin{proof}
+For odd $p$, the primitive quadratic Gauss multiplier at conductor
+$p^k$ satisfies $G_k=p^{-1}G_{k-2}$, $G_0=1$ and
+$|G_1|=p^{-1/2}$.  Summing first over the last base-$p$ digit
+proves the recurrence.  Excluded roots have square $0$ modulo
+$p^{2m}$, so the retained multiplier is
+$(G_k-e_p)/(1-e_p)$.  At the even top conductor $G_{2m}=e_p$
+and the multiplier is exactly zero.  At $2$, $G_1=0$ and
+$|G_k|=2^{-(k-1)/2}$ for $k\ge2$, by \cref{thm:gauss} applied to the quadratic Gauss sum
+modulo $2^k$.  The excluded roots
+have square $0$ below the top conductor, while their top phases
+cancel in equal numbers.  This proves all the displayed bounds.
+For $m\ge3$ the $\delta_k$ are nonincreasing in $k$ and $\delta_1<1$, so they define probability depth laws.
+
+\emph{The comparison envelope.} Take $E_j$ to be conditional expectation
+on the residue modulo $p^j$. Its exact-depth space $E_j-E_{j-1}$
+consists of the characters of conductor $p^j$. The Gauss-sum bounds
+just proved therefore give the operator-norm bounds on these
+spaces required by \cref{lem:record:common-mean}. Independence of the
+prime coordinates gives the product envelope. The field Gram commutes
+with the residue projections, and the constant multiplier is one, so
+that lemma gives both signed-index bounds and retains the common mean;
+self-adjointness of the transition is not required.
+
+\emph{Physical cancellation.} Every retained root has valuation $j<m$.
+Its square modulo $p^{2m}$ has valuation $2j<2m$ for odd $p$; at $2$
+its square modulo $2^{2m+1}$ has $2j+3\le2m+1$. These are exactly the
+nonvanishing square classes of \cref{lem:kernel-depth-classes}.
+That lemma supplies the normalized periodic root weights, their uniform
+higher-digit distribution and their Fourier bounds. Thus the
+actual-square kernel applies to every increment, with the full physical
+modulus fixed; no increment is $0$ modulo $p^{2m}$ (resp.\ $2^{2m+1}$ at $2$).
+
+The full physical modulus remains pinned in this cancellation,
+independently of the random comparison depth.  In the comparison,
+conditioning the normalized input gives exactly
+\[
+ \mathbb E[p^H\mathbf1_{n=s\ (p^H)}\mid s\ (p^j)]
+        =p^j\mathbf1_{n=s\ (p^j)}.
+\]
+The exact-fibre and square-step arguments of \cref{lem:record:fibre-scale}(a), (b) hence apply without change.  All moduli are fixed before $N$ varies, so
+only constants independent of $N$ and the eventual starting scale increase.
+Uniform averaging of the input over residues and intervals is
+still the original lift.  This retains the density-linear mass
+and all common means.
+\end{proof}
+
+\begin{proposition}[Finite p-adic matching and wrap prices]
+\label{prop:imp:padic-price}\label{prop:oct24-index-cost}
+With $a$ the price exponent and $m,Q$ as in
+\cref{lem:imp:padic-envelope}, and $B,S,A,T$ as in
+\cref{thm:comparison}, put $z_p=p^{a/18}$. The exact one-query
+conductor moment is
+\[
+ M_{\rm pad}(K)=K^{a/36}L_{2,m}
+       \prod_{\substack{p<Q\\p\equiv3\ (4)}}L_{p,m},
+\]
+where, with $e=p^{-m}$,
+\begin{align*}
+ L_{p,m}&=1+\frac{(z_p-1)p^{-1/2}
+                    [1-(z_p/p)^m]/(1-z_p/p)
+                       +e(z_p^m-1)}{1-e}\quad(p\text{ odd}),\\
+ L_{2,m}&=1+\frac{(z_2-1)
+           [2^{-1/2}+z_2(1-(z_2/2)^{m-1})/(2-z_2)]
+                  +2^{-m}(z_2^{m+1}-1)}{1-2^{-m}}.
+\end{align*}
+For every fixed integer $K\ge2$, the matching and wrap prices are
+\begin{equation}\label{eq:oct24-index-cost}
+ J=Be^T\bigl(M_{\rm pad}(K)/2\bigr)^6,\qquad
+ W=Be^{S+A}\left[\left(1+\frac{M_{\rm pad}(K)}
+                                  {2K^{35/36}}\right)^6-1\right].
+\end{equation}
+The coefficient $63/64=1-2^{-6}$ in \cref{thm:comparison} and all field restoration terms in the closing criterion there remain unchanged.
+\end{proposition}
+\begin{proof}
+For each depth $J$, the least square multiple of $p^J$ (the
+smallest square divisible by $p^J$) is $p^{2\lceil J/2\rceil}$.  Its two occurrences among the
+$72$ slots give exponent $a/36$.  Summation by parts therefore
+gives
+\[
+ L_{p,m}=1+(z_p-1)\sum_{l\ge1}z_p^{l-1}\delta_{2l-1}.
+\]
+Substituting the tails in \cref{lem:imp:padic-envelope} gives
+the displayed formulas.  In particular the top 2-adic depth
+has $\lceil(2m+1)/2\rceil=m+1$ and is included.  The entire $2$-part and prime $3$ are represented by their depth
+factors; no additional fixed conductor factor is inserted.
+
+Fix the depths, apply the folds $\phi_\pm$ of \cref{def:sorting}, then average over the depths.
+There are exactly two occurrences per query, and six independent
+queries.  \Cref{lem:record:direct-gram} gives $J$.  For a nonempty
+subset of $j$ active queries in the signed expansion, any
+nonwrapping interval permits accepted-square cancellation.  All
+$j$ wrap with probability $K^{-j}$.  The density normalization multiplies their bound by $K^{j/36}$ and their depth average is $M_{\rm pad}(K)^j$.
+The unchanged positive field envelope is $Be^{S+A}$.  Summing
+the coefficients $\binom6j2^{6-j}/64$ gives $W$.  The common
+mean is unchanged by uniform index averaging, as proved above.
+\end{proof}
+
+\begin{corollary}[A compact upper majorant]
+\label{cor:imp:padic-majorant}
+Take $m=64$, $0<a\le3/2500$, $2^{16}\le Q\le2^{40}$, and
+put $Z=Q^{a/18}$.  Define
+\[
+ L_{p,\infty}=1+\frac{\sqrt p(z_p-1)}{p-z_p},\qquad
+ L_{2,\infty}=1+(z_2-1)\left(2^{-1/2}+\frac{z_2}{2-z_2}\right),
+\]
+\[
+ E_o=\frac{Q3^{-m}Z^m}{1-3^{-m}},\qquad
+ E_2=\frac{2^{-m}z_2^{m+1}}{1-2^{-m}}.
+\]
+Let $M_{\rm old}^{+}$ be any proved upper bound for $M_a(K)$ of \eqref{eq:oct24-moment} below, and set
+$F_p=1+\sqrt{p+1}(z_p-1)/(p-1)$.  For any exact prime cutoff
+$7\le U\le Q$, a valid upper bound for $\log M_{\rm pad}(K)$ is
+\begin{align*}
+ \log M_{\rm old}^{+}-\frac a{36}\log144
+  +\log L_{2,\infty}+\log L_{3,\infty}
+  -\sum_{\substack{7\le p<U\\p\equiv3\ (4)}}
+       \log\frac{F_p}{L_{p,\infty}}+E_o+E_2.
+\end{align*}
+The error term satisfies $E_o+E_2<2^{-60}$ on this domain.
+\end{corollary}
+\begin{proof}
+Discarding the negative geometric tails in the exact finite
+formulas gives
+\[
+ L_{p,m}\le L_{p,\infty}
+       \left(1+\frac{p^{-m}z_p^m}{1-p^{-m}}\right),\qquad
+ L_{2,m}\le L_{2,\infty}
+       \left(1+\frac{2^{-m}z_2^{m+1}}{1-2^{-m}}\right).
+\]
+There are fewer than $Q$ odd primes, so $\log(1+x)\le x$
+gives the two surcharges.  Also
+$Z\le2^{1/375}<501/500<5/4$.  For $p\ge3$, $1\le z\le5/4$,
+\[
+ (p+1)(p-z)^2-p(p-1)^2
+ \ge\frac{8p^2-31p+25}{16}\ge\frac14.
+\]
+Thus $L_{p,\infty}\le F_p$.  Replace only the explicitly
+enumerated factors by their smaller values and keep the remaining
+old upper bound.  Replacing its factor $144$ by the two new factors
+proves the claimed logarithmic majorant.  Finally the rational
+inequality $(501/500)^{375}>2$ and direct substitution at
+$Q=2^{40}$ give
+\[
+ \frac{2^{40}3^{-64}(501/500)^{64}}{1-3^{-64}}
+ +\frac{2^{-64}(501/500)^{65}}{1-2^{-64}}<2^{-60}.
+\]
+$L_{p,\infty}$ and $L_{2,\infty}$ are used here only as majorants, with the displayed surcharges, for the finite-depth factors $L_{p,m}$ and $L_{2,m}$.  An interval
+enclosing this upper majorant supplies no lower bound for the
+physical moment.
+\end{proof}
+
+
+\subsection{Evaluating $R_I$, $J$ and $W$}
+
+The remaining quantities in $\Theta$ coming from the external
+index are its conductor moment $R_I$, and through it $J$ and $W$.
+The moment of the index law used in the construction is
+$M_{\rm pad}(K)$ of \cref{prop:imp:padic-price}; its evaluation
+uses a simpler auxiliary moment, a product of elementary factors
+over the $634017$ primes $p\equiv3\pmod4$ below $Q_3$:
+
+\begin{equation}\label{eq:oct24-moment}
+ M_a(K)=(144K)^{a/36}
+ \prod_{\substack{7\le p<Q_3\\p\equiv3\ (4)}}
+ \left[1+\frac{\sqrt{p+1}}{p-1}(p^{a/18}-1)\right].
+\end{equation}
+The following lemma encloses this product using only $22$
+explicit prime sums, so that it can be certified without
+multiplying out $634017$ factors in interval arithmetic; this
+supplies the upper bound used in \cref{cor:imp:padic-majorant}.
+
+\begin{lemma}[Finite prime moments]\label{lem:index-moments}
+Let $Q>7$ be an integer and $a\ge0$; sums and products over $p$ run over the
+primes $p\equiv3\pmod4$ with $7\le p<Q$, and $\delta_p=\sqrt{p+1}/(p-1)$.
+For $1\le j\le4$ and $j\le k\le7$ put
+\[
+ M_{jk}(Q)=\sum_p\delta_p^j\Bigl(\frac{\log p}{18}\Bigr)^k,\qquad
+ P_j(a)=\sum_p\bigl[\delta_p\bigl(p^{a/18}-1\bigr)\bigr]^j,
+\]
+and
+\[
+ T_j(a)=\sum_{k=j}^6\frac{j!}{k!}\genfrac{\{}{\}}{0pt}{}{k}{j}a^kM_{jk}(Q),
+ \qquad
+ \varrho_j(a)=e^{ja\log Q/18}\,\frac{j^7a^7}{7!}\,M_{j7}(Q),
+\]
+with the Stirling numbers $\genfrac{\{}{\}}{0pt}{1}{k}{j}$ of the second kind.
+Then $T_j(a)\le P_j(a)\le T_j(a)+\varrho_j(a)$, and
+$G_Q(a)=\prod_p\bigl(1+\delta_p(p^{a/18}-1)\bigr)$ satisfies, with every term
+evaluated at $a$,
+\[
+ T_1-\tfrac12(T_2+\varrho_2)+\tfrac13T_3-\tfrac14(T_4+\varrho_4)\;\le\;\log G_Q(a)
+ \;\le\;T_1+\varrho_1-\tfrac12T_2+\tfrac13(T_3+\varrho_3).
+\]
+In particular, for every integer $\Kint\ge2$, the moment
+$M_a(\Kint)=(144\Kint)^{a/36}G_{Q_3}(a)$ of \eqref{eq:oct24-moment} is enclosed by the explicit bounds above, as a function of $a$, $\Kint$, $Q_3$ and the $22$ positive sums
+$M_{jk}(Q_3)$.
+\end{lemma}
+
+\begin{proof}
+\emph{Taylor bounds.} For $y\ge0$ the exponential generating function of
+surjections gives
+$(e^y-1)^j=j!\sum_{k\ge j}\genfrac{\{}{\}}{0pt}{1}{k}{j}y^k/k!$, a series with
+nonnegative coefficients; its terms of degree at most six are a lower bound.
+Since $j!\genfrac{\{}{\}}{0pt}{1}{k}{j}$ counts the surjections of a $k$-set
+onto a $j$-set, it is at most $j^k$, the number of all maps; so the terms of
+degree at least seven are at most
+$\sum_{k\ge7}(jy)^k/k!\le(jy)^7e^{jy}/7!$. Take $y=a(\log p)/18$, which is at
+most $a\log Q/18$ for $p<Q$, multiply by $\delta_p^j$ and sum over $p$: as
+$p^{a/18}-1=e^y-1$, this gives $T_j(a)\le P_j(a)\le T_j(a)+\varrho_j(a)$.
+
+\emph{Logarithm.} For $x\ge0$ and $0\le s\le x$,
+$1-s+s^2-s^3\le1/(1+s)\le1-s+s^2$, since $1/(1+s)=1-s+s^2-s^3/(1+s)$;
+integrating over $[0,x]$ gives
+$x-\frac{x^2}2+\frac{x^3}3-\frac{x^4}4\le\log(1+x)\le x-\frac{x^2}2+\frac{x^3}3$.
+Apply this at $x=\delta_p(p^{a/18}-1)\ge0$ and sum over $p$:
+$P_1-\frac12P_2+\frac13P_3-\frac14P_4\le\log G_Q(a)\le P_1-\frac12P_2+\frac13P_3$.
+Inserting the bounds of the first step, each with the sign of its
+coefficient, gives the two displayed bounds.
+
+\emph{The moment.} By \eqref{eq:oct24-moment}, $M_a(\Kint)=(144\Kint)^{a/36}G_{Q_3}(a)$,
+and the bounds above involve, besides $a$, $\Kint$ and $Q_3$, only the sums
+$M_{jk}(Q_3)$, $1\le j\le4$, $j\le k\le7$. These are finite sums of positive
+terms, so their enclosures need only outward square roots and logarithms of
+the primes. This auxiliary product is the Bernoulli moment from
+\cref{lem:hyb:moment,lem:square-shift}; it prices the remaining large-prime
+factors in \cref{cor:imp:padic-majorant}, rather than defining the
+selected physical index law.
+\end{proof}
+
+\begin{remark}[The choice of $K$]\label{rem:index-convexity}
+For a product majorant $M_{\rm pad}(K)\le\bar c K^{a/36}$ with $M_{\rm pad}$ as in \cref{prop:imp:padic-price}, and $0<a<35$, the bound there for
+$J+W$ is a positive sum of $e^{ax/6}$ and
+$e^{-j(35-a)x/36}$, $1\le j\le6$, where $x=\log K$.
+It is convex. The baseline integer is $K=\PushK$; its validity
+requires only evaluation of the two prices, not a proof of optimality.
+\end{remark}
+
+\begin{certificate}[The index moment]\label{cert:index-moment}
+The auxiliary sums $M_{jk}(Q_3)$ run over the $634017$ primes
+$p\equiv3\pmod4$ with $7\le p<19951586$. The largest is $19951579$
+and their sum is $6108518317099$. Their outward 48-digit enclosures
+and the prime-list digest are retained in
+\path{research/continuation_2026_10_24/global/prime_moments.json}.
+The checker of \cref{app:certificates} regenerates these finite prime data.
+
+For the baseline finite law, use $m=64$, $Q_3=19951586$,
+$a=\PushA$, $K=\PushK$ and small-prime replacement cutoff
+$U=65536$ in \cref{cor:imp:padic-majorant}. The outward evaluation
+and its independent reconstruction are
+\path{research/improvements_2026_10_25/global/padic_moment.py} and
+\path{research/improvements_2026_10_25/global/check_padic_moment.py}.
+The selected record is
+\path{research/push_2026_10_25/artifacts/padic_moment.json}.
+They certify
+\[
+ R_I=M_{\rm pad}(K)\le
+ 1.247139907406884705556794769493.
+\]
+This rational is the upper bound used for $R_I$ in \cref{def:closing-quantities}(12). The narrow recorded interval encloses an upper majorant;
+its lower endpoint is not a lower bound for $M_{\rm pad}(K)$.
+Both scalar assemblies, author and independent, use the same upper rational,
+and \path{research/push_2026_10_25/verify.py} reruns its independent
+check (\cref{cert:closing}).
+\end{certificate}
+
+\paragraph{Consequences and what to read next.}
+The tail datum (\cref{def:record:upper-bands}(e)),
+\cref{def:upper-reference,def:upper-comparison},
+\cref{subsec:layer72:upper,subsec:upper-reference-rp}, \cref{lem:upper-geometry},
+\cref{lem:upper-reference-rp,cert:upper-completion},
+\ref{it:record:upper-F1}--\ref{it:record:upper-F8}, with
+\ref{it:record:upper-F5}(b), and \cref{lem:record:domain}, the class-one
+inputs (\cref{subsec:upper-nonroot,subsec:advance:product-rows},
+\cref{cert:upper-band-inputs}(d),
+\cref{lem:upper-completed-root,lem:spec2:paley-one,lem:spec2:parity-transfer}),
+\cref{sec:frontier:upper-oneway}, \cref{lem:tr:repair,lem:upper-stars} with
+the caps of \cref{cert:tail-caps}, \cref{rem:cp:charging},
+\cref{prop:record:upper,prop:record:matching},
+\cref{lem:trace-mixing,lem:mixture}, (S7) of \cref{cert:record:analytic-stage},
+\cref{lem:square-shift}, \cref{def:hyb:coupled,lem:hyb:moment},
+\cref{lem:imp:padic-envelope,prop:imp:padic-price,cor:imp:padic-majorant,lem:index-moments}
+and \cref{thm:comparison}.
+
+\paragraph{Hypotheses verified in this section.}
+(CP1) for the tail atoms of both classes (\cref{lem:tail-law});
+\ref{it:record:R4} (\cref{lem:record:tail-mixing}); \ref{it:record:R5}, the
+tail part of (CP4) and the admissibility (CP8)(a) of the tail laws
+(\cref{lem:tail-law}(ii), \cref{lem:tail-prices}(i),(ii)); the summability (CP8)(c)
+at the tail (\cref{lem:tail-prices}(iii),(iv)); and (CP0)(d) at
+$\Kint=\PushK$ (\cref{prop:oct24-index-cost,lem:index-moments,cert:index-moment}).
+These are the rows ``(CP1) tail'', ``(R4)'', ``(R5), (CP4)(a)'' (at the tail),
+``(CP4) tail'', ``(CP8)(c)'' and ``(CP0)(d) index law'' of
+\cref{tab:hypotheses}.

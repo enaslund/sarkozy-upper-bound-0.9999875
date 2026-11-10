@@ -1,0 +1,298 @@
+\subsubsection{Bounding the centred remainder through its Gram}
+
+The $221$ nonstar terms of the rectangle share their four core
+variables. Estimating the Gram of their sum retains cancellations
+that are lost when the $221$ terms are bounded separately and their
+norms are then added. The following estimate
+is for precisely $\mathsf R_\circ$ in \eqref{eq:l20-rectangle}.
+
+\begin{lemma}[Two-sided bounds for the squared cubic trace $H_u$]\label{lem:rectangle-mellin}
+For $u\in\Fp$, on counting measure on $\Fp\setminus\{u\}$, put
+\[
+ T_u(v,w)=\E_y\chi(u-y)\chi(v-y)\chi(w-y),\qquad H_u=T_u\circ T_u.
+\]
+Then $\|T_u\|\le1$, $\|H_u\|\le1-2q-2q^2$, and
+\[
+ H_u\succeq-(3r+q-q^2)I.
+\]
+\end{lemma}
+\begin{proof}
+The full character matrix $C$ satisfies $CC^*=pI-J$.
+The matrix $T_u$ is a compression of
+$qC\diag(\chi(u-y))C^*$, so has norm at most $1$.
+Character orthogonality gives each row sum of the nonnegative matrix
+$H_u$ as $1-2q-2q^2$, proving its absolute norm bound.
+For the lower bound translate $u$ to zero. Dilation gives
+$T_0(v,w)=\chi(v)T_0(1,w/v)$, so $H_0$ is multiplicative convolution.
+Its trivial-character eigenvalue is its positive row sum. For a
+nontrivial multiplicative character $\rho$, the eigenvalue is
+\[
+ -q+q^2+p^{-2}\sum_{\lambda\ne0,1}\rho(\lambda)
+  \tr(\operatorname{Frob}_\lambda\mid\operatorname{Sym}^2\mathcal F),
+\]
+where $\mathcal F$ is the Legendre sheaf of
+\cref{thm:prelim:ks} with $h(X)=X(X-1)$. Indeed its determinant is
+$\overline{\Q}_\ell(-1)$, so the symmetric-square trace is the square
+of the cubic character sum minus $p$; the missing value at $1$ is $q^2$.
+The Kummer sheaf for $\rho$ is the corresponding eigensheaf of
+$z\mapsto z^{p-1}$ on $\mathbb G_m$. It has weight zero and is tame.
+The twist of $\operatorname{Sym}^2\mathcal F$ has rank $3$, weight $2$,
+and is tame at $0,1,\infty$. Its geometric irreducibility follows from
+the $\mathrm{SL}_2$ monodromy of $\mathcal F$ and irreducibility of
+the symmetric square. Thus its invariants and coinvariants vanish.
+By \cref{thm:prelim:curves,thm:prelim:gos}, $H_c^0=H_c^2=0$ and
+$\dim H_c^1=3$. The trace formula and Deligne's bound
+(\cref{thm:prelim:lefschetz,thm:prelim:weights}) bound the sum by
+$3p^{3/2}$. All eigenvalues are real because $H_0$ is symmetric.
+This proves the stated lower bound.
+\end{proof}
+
+\begin{theorem}[The centred accepting rectangle]\label{thm:rectangle-gram}
+For $p\equiv3\pmod4$, $p\ge2^{20}$, let
+$Z_4=(1-q)(1-3q)(1-7q)$. Then
+\begin{equation}\label{eq:rectangle-gram-cap}
+ \|\mathsf R_\circ\|\le
+ 4q\sqrt{\frac{920+4012r+48641q+3008q^2+320q^3}{(1-q)Z_4}}
+ \le121.588q.
+\end{equation}
+For $p\ge2^{36}$ the last bound improves to $121.328q$.
+Without \cref{lem:rectangle-mellin}, the same argument gives $128q$.
+These are centred bounds; they do not replace a raw nonstar or
+collision bound elsewhere in the proof.
+\end{theorem}
+
+\begin{proof}
+Put $h=1-q$ for this proof. Initially give the four core coordinates
+independent uniform laws and retain the uniform distinct private pair.
+With $s=(-1,-1,1,1)$, set
+\[
+ k_x(t)=\prod_{i=1}^4(1+s_i\chi(t-x_i)),\qquad
+ N(x;b_0,b_1)=(k_x(b_0)-1)(k_x(b_1)-1)
+       -\sum_i\chi(b_0-x_i)\chi(b_1-x_i).
+\]
+This is exactly the sum of the nonstar terms. The accepting-core
+event has probability $Z_4/16$: each distinct ordered $c$-pair has
+$(p-3)/4$ common predecessors, from which the ordered $a$-pair is
+chosen distinctly. Restriction therefore costs $4/\sqrt{Z_4}$;
+output centring is a contraction. We bound $NP_0$ on the full core cube.
+
+\emph{The Gram away from private overlaps.}
+For four distinct private labels $z_1,z_2,z_3,z_4$, write
+\[
+ v=\E_y\prod_i\chi(z_i-y),\qquad
+ t_i=\E_y\prod_{j\ne i}\chi(z_j-y),\qquad T=\sum_i t_i.
+\]
+Independent integration in the four core variables gives
+\begin{align}
+ G={}&[(1-6q+v)^2-T^2]^2
+       -\sum_i[(1-3q)^2-t_i^2]^2+6h^4-3\notag\\
+    &-8[h^3(v-q)+q]+4v+12q^2.\label{eq:rectangle-gram-polynomial}
+\end{align}
+Denote the same polynomial on all private pair pairs by $\widetilde G$.
+With $a=1-6q$, $b=1-3q$, its nonconstant part is
+\begin{align*}
+ \alpha v+6a^2v^2+(12q-54q^2)\sum_i t_i^2
+ -4a^2\sum_{i<j}t_it_j+4a(v^3-vT^2)+Q_4,\\
+ \alpha=-48q+408q^2-856q^3<0,\qquad
+ Q_4=v^4-2v^2T^2+T^4-\sum_i t_i^4.
+\end{align*}
+Powers denote pointwise products. The full kernel $v$ is a positive
+Gram, so the term with negative coefficient is $\preceq0$ in Loewner order.
+The constant kernel vanishes after compression by $P_0$.
+
+\emph{Quadratic terms.}
+Put $g=(1-2q)/(1-q)$. Applying the four-cycle estimate to the
+off-diagonal output of the pair-to-field-square map, and the singleton
+incidence map to its diagonal, gives
+\[
+ \|P_0v^2P_0\|\le q^2\left(\frac4h+2gq\right).
+\]
+For $t_it_j$ with both omissions on the same private half, two outer
+Paley transforms give
+$q^2\sqrt{4/h^2+2gq/h}$; there are two such pairs.
+For each of the four opposite-half pairs, the middle kernel is a
+two-edge matching, giving $q^2/h$. These bounds follow from
+\cref{cor:dl:normalized,cor:raw-pair-maps,lem:matching:kernel}
+by keeping the common auxiliary labels. Together they bound the
+quadratic cross terms by $(56/h+16q)q^2$.
+For $t_i^2$, split its two auxiliary labels into distinct and equal
+ones. The distinct part factors through the raw pair-to-singleton
+map and the four-cycle map and has norm at most $2q^{3/2}$.
+The equal part is
+$q(1-3q)J+q^2(\one[c=d]+\one[c=e])$ on the singleton/pair chart.
+After centring its norm is at most $\sqrt{2g}q^3$. Thus the four
+square terms cost at most $(96r+96q^2)q^2$.
+
+\emph{Cubic auxiliary collisions.}
+For four distinct private labels put
+$A(y)=\prod_i\chi(z_i-y)$ and
+$B(y)=\sum_i\prod_{j\ne i}\chi(z_j-y)$.
+Let $D_3$ be the unrenormalized average of
+$A(u)A(v')A(w)-A(u)B(v')B(w)$ over three distinct auxiliary labels.
+The equality-partition formula for three summation labels gives
+\[
+ v^3-vT^2=D_3-qv+q^2(6+L)v-2q^3L,
+ \qquad L=\sum_i\left(\sum_{j\ne i}\chi(z_j-z_i)\right)^2\le20.
+\]
+For verification, the merged moments are
+$\E A^2=1-4q$, $\E A^3=v$, $\E AB=0$,
+$\E B^2=4(1-3q)-qL$, and $\E AB^2=4v-qL$.
+The bound on $L$ is the score bound for a four-vertex tournament.
+Since $|v|\le2r+q$, the error away from overlaps is at most
+$52q^2r+66q^3$.
+On the private diagonal the error after $-qv$ is
+$-4q+40q^2-80q^3$, on a row fraction $2q^2/h$.
+On exactly one overlap it is at most $73q^2$, on a row fraction
+at most $4q/h$. These follow by the same three-label partition:
+there $|v|\le2q$, $|T|\le4r+2q$, $|\E AB|\le2q$,
+$\E A^2\le1$, $|\E B^2|,|\E AB^2|\le16$.
+The absolute row and column bounds therefore give
+\[
+ v^3-vT^2=D_3-qv+E_3,\qquad
+ \|E_3\|\le52q^2r+400q^3/h.
+\]
+The term $D_3$ has two-label witness mass $28$: $4$ for $v^3$,
+$8\cdot2$ for the ordered same-half omissions, and $8$ for the
+opposite-half omissions. Matching, path and four-cycle bounds give
+$\|D_3\|\le28q^2/h$. Auxiliary distinctness is an output
+projection and is not renormalized; each private-half restriction
+costs $h^{-1/2}$. Dropping the negative semidefinite term $-qv$, the cubic
+contribution is at most $(112/h+208r+1600q/h)q^2$.
+
+\emph{Quartic auxiliary collisions.}
+For four support characters $\psi_i$, write $\tau_i=\E\psi_i$ and
+$m_I=\E\prod_{i\in I}\psi_i$. The exact partition identity is
+\begin{align*}
+ \tau_1\tau_2\tau_3\tau_4={}&D_4
+ +q\sum_{ij}m_{ij}\tau_k\tau_l
+ -q^2\sum_{ij|kl}m_{ij}m_{kl}\\
+ &-2q^2\sum_{ijk}m_{ijk}\tau_l+6q^3m_{1234},
+\end{align*}
+where the multiplicities are $6,3,4,1$ and $D_4$ retains four
+distinct auxiliary labels. This identity includes every root-hit hole.
+For any of the five traces $v,t_1,\ldots,t_4$, and any nonempty
+XOR of at most three of their supports, the row and column second
+moments are at most $q$, by Paley orthogonality and the raw pair
+Gram. Hence a product of two such traces has absolute Schur norm
+at most $q$. Also
+\[
+ \|P_0(\tau\tau')P_0\|\le2q^{3/2}/h+16q^2/h.
+\]
+The square-cubic case was proved above; different cubics use the
+quadratic cross bounds. For $v$ times a cubic the distinct term
+has a path and a rectangle witness, and the equal term has a
+singleton trace with at most three holes, giving $5q^2/h$.
+Each $m_I$ differs from its XOR trace by at most $4q$.
+These observations give the following bounds after centring:
+\[
+\begin{array}{c|c}
+ \text{one partition term}&\text{upper bound}\\ \hline
+ qm_{ij}\tau_k\tau_l&2q^{5/2}/h+20q^3/h\\
+ q^2m_{ij}m_{kl}&9q^3\\
+ 2q^2m_{ijk}\tau_l&3q^3\\
+ 6q^3m_{1234}&6q^3
+\end{array}
+\]
+For the first row, identical supports use the preceding centred
+bound, with $4q^3$ for holes. Nonidentical supports have singleton
+or two-root XOR. The latter is $-q$ plus a possible cross-half
+equality; on that equality the product of traces is at most $4q$,
+apart from a diagonal of row mass $q^2/h$. This gives at most
+$10q^3/h$ including holes. For the second row two identical
+blocks give $q^2((1-qu_i)(1-qu_j)-1)$, $0\le u_i,u_j\le4$;
+one or no identical blocks give respectively $6q^3$ or $2q^3$.
+The third row has nonempty XOR and costs $2(1+4r)q^3$ by
+row and column Cauchy--Schwarz. The last row uses $|m_I|\le1$.
+
+The absolute word mass in $Q_4$ is $1+32+252=285$.
+Its distinct-label witness mass is $332$: $4$ from $v^4$,
+$2(8\cdot2+8)=48$ from $-2v^2T^2$, and
+$28\cdot2+224=280$ from $T^4-\sum t_i^4$.
+The same two-label witnesses as above therefore give
+\[
+ \|P_0Q_4P_0\|\le(332+3420r+47025q)q^2/h.
+\]
+Here $3420=285\cdot6\cdot2$ and
+$47025=285(6\cdot20+3\cdot9+4\cdot3+6)$.
+
+\emph{Private overlaps.}
+It remains to bound $\Delta=N^*N-\widetilde G$. Use unordered
+private pairs, of cardinality $n=\binom p2$; symmetry makes this
+equivalent to the ordered-pair operator. A universal expression,
+valid also at repeated roots, is obtained by setting
+\[
+ m_{\epsilon,J}=\E_y\prod_{j\in J}(1+\epsilon\chi(z_j-y)),\qquad
+ F(z)=\sum_{J\subseteq[4]}(-1)^{4-|J|}m_{-,J}^2m_{+,J}^2.
+\]
+The true Gram is $F(z)-8[h^3(v-q)+q]+4v+12q^2$.
+Subtracting \eqref{eq:rectangle-gram-polynomial} gives
+\[
+ \Delta_{A,A}=210-1512q+4020q^2-3720q^3.
+\]
+For $A=\{u,v_0\}$, $B=\{u,w\}$ put
+$e=\chi(u-v_0)$, $f=\chi(u-w)$, $s=e+f$, $\eta=ef$, and
+$t=T_u(v_0,w)$. The other nonzero entries are
+\begin{align*}
+ \Delta_{A,B}={}&-28(2+\eta)q-24t^2+(594+240\eta)q^2
+ -(1204+528\eta)q^3\\
+ &+(112+16\eta)qt^2+s(-24q+128q^2)t.
+\end{align*}
+These formulas follow by expanding the displayed $m_{\epsilon,J}$;
+no distinct-root formula has been applied on an overlap.
+
+For clarity, the one-sided operator bound can be checked with
+incidence matrices. On counting measure let
+$U(A,u)=\one[u\in A]$ and
+$W(\{u,v_0\},u)=\chi(u-v_0)$, zero otherwise.
+Their Grams have diagonal $2$ and off-diagonal entries $1$ and
+$\eta$ on a shared endpoint. Their coefficients in $\Delta$ are
+$-56q+594q^2-1204q^3$ and $-28q+240q^2-528q^3$, both negative.
+After their diagonal terms are removed, their sum is at most
+$(168q-1668q^2+3464q^3)I$.
+Let $R_u$ restrict to pairs containing $u$, and let
+$E_u=\diag_{v_0\ne u}\chi(u-v_0)$. Since $\sum_uR_u^*R_u=2I$,
+the remaining trace-square and trace-linear terms are
+\begin{align*}
+ &(-24+112q)(H^{(0)}-2q^2I)+16q(H^{(1)}-2q^2I)\notag\\
+ &\hspace{25mm}+(-24q+128q^2)(K+4qI),\\
+ H^{(0)}&=\sum_uR_u^*H_uR_u,\quad
+ H^{(1)}=\sum_uR_u^*E_uH_uE_uR_u,\quad
+ K=\sum_uR_u^*(E_uT_u+T_uE_u)R_u.
+\end{align*}
+By \cref{lem:rectangle-mellin},
+$H^{(0)}\succeq-2(3r+q-q^2)I$,
+$\|H^{(1)}\|\le2(1-2q-2q^2)$, and $\|K\|\le4$.
+Adding the diagonal and incidence contributions, and dividing by
+$n$, gives the probability-normalized bound
+\[
+ \Delta\preceq\frac{q^2}{h}
+ [420+(288-1344q)r-2336q+2912q^2+320q^3]I.
+\]
+Using only $\|H_u\|\le1-2q-2q^2$ instead gives
+$\Delta\preceq516q^2I$ for $q\le1/16$.
+
+\emph{Assembly.}
+Add the quadratic, cubic, quartic and overlap estimates, discarding
+only negative terms. On mean-zero private inputs this yields
+\[
+ \|NP_0\|^2\le
+ q^2\frac{920+4012r+48641q+3008q^2+320q^3}{h}.
+\]
+The accepting-core restriction gives \eqref{eq:rectangle-gram-cap}.
+The factor multiplying $q$ in the first bound is increasing in
+$q$ and $r$ while $Z_4>0$.
+Exact evaluation at $(q,r)=(2^{-20},2^{-10})$ and
+$(2^{-36},2^{-18})$ gives respectively coefficients less than
+$121.588$ and $121.328$. The elementary overlap bound gives instead
+\[
+ \|NP_0\|^2\le q^2\left(516+
+            \frac{500+3724r+48641q+96q^2}{h}\right),
+\]
+which proves the stated $128q$ alternative on the same domain.
+\end{proof}
+
+The coefficient in \eqref{eq:rectangle-gram-cap} may be used as
+$N_A/q$ in the gap estimate below. The selected completion weights
+and their certificates retain the larger, previously certified
+rectangle prices. They remain valid upper assignments; no global
+saving is claimed merely by reducing this local norm bound.

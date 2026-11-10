@@ -1,0 +1,2157 @@
+
+\section{Upper primes I: the reference law $\mu$ and its spectral bounds}
+\label{sec:upper-reference}
+
+\paragraph{What this section proves and how to read it.}
+The upper range is $p\equiv3\pmod4$ in
+$[167\cdot2^{40},2^{512})$, partitioned into $310$ consecutive
+\emph{bands} (intervals sharing constants; no law lives on a band).
+This section constructs $\mu_\Blk$ as a five-type completion of a
+$72$-vertex graph law and proves (CP1): reflection positivity at
+every cut with uniform marginals. The two \emph{principal cuts}
+(called \emph{root cuts} below; the other ten are \emph{nonroot cuts})
+determine the completion weights. Displays (PR1)--(PR13)
+in \cref{subsec:upper-rows} and formulas (F1)--(F6), (F10) in
+\cref{subsec:upper-formulas} are \emph{definitions} of band
+input formulas, not lemmas; cite the display number, not a lemma
+name.
+``Gate'' below means a checked inequality; $L_{\rm band}$ is a
+block-size bound $\sum\log p$, not $\Theta$. Inputs: Part~IV
+spectral criteria. Outputs: $\mu_\Blk$ and caps for
+\cref{sec:upper-comparison}. A first reading should follow the band
+definition and (CP1) statement; per-band tables are reference
+material (see Appendix~E).
+The upper range consists of the blocks of class-three primes in
+$[\Pthree,\Pfour)=[167\cdot2^{40},2^{512})$; the primes $p\equiv1\pmod4$ below
+$\Pfour$ are atoms of the square-clique prefix (\cref{lem:frontier:iidlocal}).
+This section builds, for every block $\Blk$ of an upper band, the reference
+$\mu_\Blk$: a nonnegative combination of two-layer field laws and their folded
+one-layer companions, with weights chosen so that the five-type completion of
+every chamber coordinate and the reserved domination hold. We prove that it is a
+probability measure, reflection positive at every cut of the family $\mathfrak F$,
+square-affine invariant and with uniform one-slot marginals
+(\cref{lem:upper-reference-rp}). This is (CP1) of \cref{thm:comparison} for the
+upper atoms (\cref{def:cp1}).
+
+There are $310$ bands (\cref{def:record:upper-bands}): $45$ below $2^{48}$, $64$
+in each binary order of $[2^{48},2^{52})$, and nine from $2^{52}$ on. Their inputs
+are the following.
+\begin{itemize}
+\item The two root cuts: the Route~B criterion with graded count
+ errors and log-convex nonstar coefficients below $2^{52}$
+ (\cref{subsec:record:upper_root}), and the completed root from $2^{52}$.
+\item The ten nonroot cuts: class-three tests at $2^{47}$ and $2^{48}$
+ (\cref{subsec:upper-nonroot}), with observed merge and constant caps for four
+ reserved states (\cref{subsec:upper-observed}).
+\item The rows: pinned conditional stars and joint $\rm F/\rm E$ rows with a free
+ Young allowance (\cref{subsec:upper-rows,subsec:upper-formulas}).
+\end{itemize}
+A separate \emph{tail datum} (\cref{def:record:upper-bands}(e)) carries the tail
+law (\cref{sec:tail-index}): a fixed set of inputs and weights, evaluated at
+$2^{64}$ and valid at both prime classes, used only at the tail primes
+$p\ge\Pfour$.
+
+The law $\mu_\Blk$ is the $25$-state five-type completion of \cref{lem:five-type}
+applied to the uniform strict-square labelling law of a $72$-vertex two-layer
+graph: in each of the two chamber coordinates, folds, matchings, merges and
+constants are added with weights in powers of $r=b^{-1/2}$, and one-layer copies
+placed on the reserved diagonal restore positivity at the layer flip $\iota$. The
+weights must dominate the negative spectra of twelve cut operators, and of the
+merge and constant marginals of one of them, and the row errors of six conditional
+row laws. These enter as rational \emph{band inputs}, evaluated once per band, at
+its start or at a point below it. The two root cuts dominate the construction:
+their caps fix the size of all the weights. \Cref{subsec:upper-formulas} lists
+the formulas for the inputs with the gates under which they hold;
+\cref{lem:record:domain} shows that gates checked at one point hold at every
+larger class-three prime and for every block of the band.
+
+The next section builds the comparison law on $\mu_\Blk$ and prices it
+(\cref{prop:record:upper}); the section on the tail uses the reference with the
+tail datum at every prime $p\ge\Pfour$ of either class (\cref{lem:tail-law}); the
+closing reads the upper range only through the prices $S_{\rm u}(a)$,
+$A_{\rm u}(a)$.
+
+\emph{Conventions.} $p$ is a prime, $r=p^{-1/2}$ and $q=1/p$; on a block $\Blk$
+with least prime $b=b_\Blk$, $r=b^{-1/2}$. Every band records a budget
+$L_{\rm band}$ (\cref{def:record:upper-bands}(b)), the block length with which
+its data are evaluated and its caps inflated; $L_{\rm u}=50000/27$ is the block
+length of the local data of the tail datum and of the completed-root caps from
+$2^{52}$ (\cref{def:record:parameters}). The slot array, its chamber cuts
+$\vartheta_{c,a}$ and the reserved cut $\iota$ are those of \cref{def:slot-array}.
+The five types $\rm L,D,S,R,C$ have the field types ${\rm L,F,E,E,E}$, the formal
+degrees $0,1,1,2,3$ and the multiplicities $1,3,2,6,2$
+(\cref{def:two-coordinate-five-type}); a \emph{state} is a pair
+$\mathfrak t=(\mathfrak t_0,\mathfrak t_1)$ of types, of degree
+$\deg\mathfrak t=\deg\mathfrak t_0+\deg\mathfrak t_1$ and multiplicity
+$m_{\mathfrak t}=m_{\mathfrak t_0}m_{\mathfrak t_1}$, and its \emph{field pair}
+$\mathfrak f(\mathfrak t)$ is the unordered pair of the field types of
+$\mathfrak t_0,\mathfrak t_1$. For a cut with a positive envelope we write
+$B_{\rm top}$ for its coefficient, $\Op\preceq(1+B_{\rm top}/p)I$: for the
+Route~A criterion it is the $B^+$ of \cref{thm:spectral-criterion}(d), for
+the Route~B criterion the $B_{\rm top}$ of
+\cref{thm:record:direct-star}(e); the letter $B$ is the energy factor of the
+bracket. A prime class is $\mathfrak c\in\{1,3\}$, meaning $p\equiv\mathfrak c\pmod4$,
+as in \cref{thm:spectral-criterion}. $t_{\rm Y}$ is the Young (mean) allowance of a
+row (\cref{lem:five-type}(c),(f)); a band input records it as $t_\varphi$.
+
+\subsection{The $310$ bands and their input data}\label{subsec:upper-bands}
+
+\paragraph{Where the upper range starts.}
+On a middle block the comparison already changes records of formal degree one,
+and its leading prices are of order $q_\Blk^{2a}b^{-1}$. The upper comparison changes only records
+of formal degree at least two, so an upper block $\Blk$ with
+least prime $b$ has total comparison price
+$s_\Blk+a_\Blk=O(q_\Blk^{2a}b^{-3/2})$ with a band-dependent
+constant (\cref{prop:record:upper}(iii)). The upper reference is
+the more expensive law to define.
+Its weights grow with the root caps, and the root caps grow fast as the primes
+decrease: $d_{\rm L}$ is about $12847$ at $\Pthree$, $2557$ at $2^{49}$ and $113$
+from $2^{64}$ on (\cref{cert:upper-root-caps,tab:data:upper-bands}). The bands of
+$[\Pthree,2^{48})$ carry about $60\%$ of the upper symmetric price
+(\cref{prop:record:upper}).
+
+The threshold hypothesis (S1) of the root cuts holds above about $2^{46.34}$
+(\cref{subsec:record:upper_root}). All local gates are checked from $2^{47}$ on
+(\cref{lem:record:domain}); the rows need no gate on the middle density beyond
+$t_{\rm Y}H<1$, since the Young allowance is free (\cref{lem:five-type}(f)). At the
+root cuts the completed conditional law of the root has a completion-variance
+denominator that is positive only above about $2^{49.96}$ for LL20 and $2^{49.30}$
+for LL22. The Route~B criterion expands the root kernel around the
+product of the half laws instead; it needs only (S1), so it supplies the root caps
+on all bands below $2^{52}$ (\cref{cert:upper-root-caps}). The start
+$\Pthree=167\cdot2^{40}$ is a design choice (\cref{def:record:parameters}).
+
+\paragraph{Class three.} Every prime of an upper band is $3$ modulo $4$. At these
+primes $-1$ is a nonsquare, the strict-square relation is a tournament, the two
+Fourier signs of a spectral test give complex-conjugate matrices
+(\cref{thm:spectral-criterion}), and the normalized Paley operator satisfies
+$\Phat^*=-\Phat$ and $\Phat^2=-I$ on $L^2_0$ (\cref{subsec:spec:actual-stars}).
+The data of the bands are needed, and certified, for class three only: the direct
+root caps by Route~B, the nonroot and observed caps, the pinned conditional stars
+and joint rows, and the comparisons of \cref{sec:upper-comparison}. The laws of
+this section are also used at the tail primes $p\ge\Pfour$ of both classes, but
+only with the tail datum (\cref{def:record:upper-bands}(e), \cref{lem:tail-law}),
+whose Route~A caps and rows are stated for both classes.
+
+\begin{definition}[Upper bands]\label{def:record:upper-bands}
+\leavevmode
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Bands.} The $310$ bands $[X,Y)$ partition $[\Pthree,\Pfour)$:
+ \begin{itemize}
+ \item $[167\cdot2^{40},168\cdot2^{40})$;
+ \item $[j2^{41},(j+1)2^{41})$ for $84\le j<128$;
+ \item $[2^b(1+\frac j{64}),2^b(1+\frac{j+1}{64}))$ for $48\le b\le51$ and
+  $0\le j<64$;
+ \item $[2^b,2^{b'})$ for consecutive $b<b'$ in $\{52,53,\dots,58,60,64,512\}$.
+ \end{itemize}
+\item \emph{Blocks.} Below $2^{52}$ a band $[X,Y)$ has two cells $[x_j,x_{j+1})$,
+ $x_j=X^{1-j/2}Y^{j/2}$; from $2^{52}$ on it has $J=128\log_2(Y/X)$ cells,
+ $x_j=X^{1-j/J}Y^{j/J}$. Each cell carries a recorded integer $n_j\ge1$, and the
+ primes $p\equiv3\pmod4$ of the cell are grouped into consecutive blocks of $n_j$
+ primes (\cref{lem:record:block-charge}(i)). The integers satisfy
+ $n_j\log x_{j+1}\le L_{\rm band}$, where the \emph{band budget} $L_{\rm band}$ is a
+ recorded integer between $550$ and $886$. Thus every block has
+ $\log q_\Blk\le L_{\rm band}<L_{\rm u}$.
+\item \emph{Band inputs.} For each field type $\varphi\in\{\rm L,F,E\}$ the band
+ has two inputs, positive rationals with $h\ge1$:
+ \begin{itemize}
+ \item an \emph{ordinary input} $(d_\varphi,f_\varphi,h_\varphi,M_\varphi,t_\varphi)$;
+ \item a \emph{reserved input} $(d^{\rm res}_\varphi,f^{\rm res}_\varphi,
+  h^{\rm res}_\varphi,M^{\rm res}_\varphi,t^{\rm res}_\varphi)$.
+ \end{itemize}
+ For each of the $25$ states $\mathfrak t$ it has a \emph{reserved cap}
+ $k_{\mathfrak t}>0$. These are upper bounds, rounded upward in the record, for the
+ local quantities of \cref{subsec:upper-formulas}, evaluated for blocks of
+ class-three primes at least $X$ and logarithmic length at most $L_{\rm band}$:
+ \begin{itemize}
+ \item $d_\varphi$ bounds the block caps of the two-layer and of the one-layer
+  chamber cut that cut the $\rm L$ coordinate of the graph whose other coordinate
+  has field type $\varphi$ (LL20 and LL10, FL21 and FL11, EL21 and EL11).
+ \item $(f_\varphi,h_\varphi,M_\varphi,t_\varphi)$ are row coefficients of
+  \ref{it:record:upper-F5} valid for the two-layer and for the one-layer rows at
+  $\varphi$; in particular $M_\varphi\ge H+t_\varphi$ and $t_\varphi H<1$ for both.
+ \item The reserved input uses the one-layer quantities alone: LL10, FL11 or EL11
+  and the one-layer row.
+ \item $k_{\mathfrak t}$ is the block cap $k_{\mathfrak f(\mathfrak t)}$ of the
+  layer cut of the field pair $\mathfrak f(\mathfrak t)$ (LL22, FL22, EL22, FF22,
+  FE22, EE22). The exceptions are $k_{\rm LR}=k_{\rm RL}=k_{\rm G}$ and
+  $k_{\rm LC}=k_{\rm CL}=k_{\rm C}$, the observed merge and constant caps of EL22
+  (\cref{prop:observed-caps}).
+ \end{itemize}
+ The root entries $d_{\rm L}$ and $k_{\rm LL}$ are the caps of
+ \cref{subsec:record:upper_root}. The values are recorded with the band
+ (\cref{cert:upper-completion}) and summarized in \cref{tab:data:upper-bands}.
+\item \emph{Weights.} Rational weights $w_{\mathfrak t},v_{\mathfrak t}>0$, indexed
+ by the $25$ states, with $w_{\rm LL}=1$, such that for each chamber coordinate
+ $c\in\{0,1\}$ and each type $\mathfrak t'$ of the other coordinate the five
+ weights $a_{\mathfrak s}=w_{\mathfrak t}$ ($\mathfrak t_c=\mathfrak s$,
+ $\mathfrak t_{1-c}=\mathfrak t'$, $\mathfrak s\in\{\rm L,D,S,R,C\}$) satisfy
+ \begin{equation}\label{eq:upper-slice}
+  a_{\rm D}\ge d\,a_{\rm L},\qquad a_{\rm S}\ge M\,a_{\rm D},\qquad
+  a_{\rm R}\ge f\,a_{\rm D}+h\,a_{\rm S},\qquad a_{\rm C}a_{\rm S}\ge a_{\rm R}^2
+ \end{equation}
+ with the ordinary input $(d,f,h,M)$ of the field type of $\mathfrak t'$ (forty
+ inequalities); the weights $v$ satisfy the same forty inequalities with the
+ reserved inputs; and
+ \begin{equation}\label{eq:independent-fold-domination}
+  v_{\mathfrak t}\ge k_{\mathfrak t}\,w_{\mathfrak t}\qquad
+  \text{for all $25$ states $\mathfrak t$.}
+ \end{equation}
+\item \emph{Tail datum.} The \emph{tail datum} is a second set of inputs and
+ weights, evaluated at $2^{64}$ for blocks of primes of either class. It is not
+ the datum of the band $[2^{64},2^{512})$, whose inputs are class-three data.
+ \begin{itemize}
+ \item Its inputs $(d,f,h)$ and caps are integers, valid for blocks of primes at
+  least $2^{64}$ of either class and of length at most $L_{\rm u}$
+  (\cref{cert:upper-band-inputs}(d)).
+ \item Ordinary inputs: $(d,f,h)=(113,258,120)$ for $\rm L$, $(24,30,11)$ for $\rm F$,
+  $(28,8,1)$ for $\rm E$.
+ \item Reserved inputs: $(12,18,10)$, $(5,5,3)$, $(5,3,1)$.
+ \item $M_\varphi=21/20$ and $t_\varphi=1/50$ for every type and both inputs.
+ \item Caps $k_{\mathfrak t}=k_{\mathfrak f(\mathfrak t)}$ with $k_{\rm LL}=45$,
+  $k_{\rm LF}=9$, $k_{\rm LE}=7$, $k_{\rm FF}=4$, $k_{\rm FE}=3$, $k_{\rm EE}=1$.
+ \item Its $50$ weights satisfy (d).
+ \end{itemize}
+ It is used only by the tail law (\cref{def:tail-law}).
+\end{enumerate}
+\end{definition}
+
+\begin{remark}[What is a choice]\label{rem:upper-band-choices}
+The bands, the cells and the integers $n_j$ are choices, and any recorded choice
+with $n_j\log x_{j+1}\le L_{\rm band}$ is valid. Below $2^{52}$ the integers $n_j$
+were chosen with $1/(2a\log x_{j+1})$ as a guide; from $2^{52}$ on the
+recorded partitions carry the block
+charges $\mathcal U_d$ of \cref{prop:record:upper}, computed at
+the anchor exponent $85941/125000000$, which the prices then
+reprice (\cref{prop:record:upper}(ii)).
+The bands are short below $2^{52}$ because the root caps, which fix the size of all
+the weights, fall fast with $X$ ($d_{\rm L}$ is about $12847$ at $\Pthree$, $6569$
+at $2^{48}$ and $367$ at $2^{52}$), and each band pays the caps of its own start.
+
+Only the $105$ inequalities of (d) matter. The certificate fixes the weights by
+processing the states in increasing type order and taking for each weight the
+maximum of its lower bounds, and then checks every inequality exactly. Any
+positive rational solution, for instance one chosen jointly by optimization, gives
+the same conclusions.
+
+Each band evaluates its inputs at points not above $X$
+(\cref{subsec:upper-nonroot}, \cref{cert:upper-band-inputs}). Since positivity is
+proved block by block and tensorizes factor by factor, different valid input sets
+may be used on different blocks. The data of a band are valid at every
+class-three prime $p\ge X$, but a band uses them only on $[X,Y)$. Beyond $2^{512}$
+only the tail datum is used.
+\end{remark}
+
+\begin{remark}[Band endpoints]\label{rem:band-endpoints}
+Band endpoints need not form an equally spaced grid. Each band carries its own
+complete prime-count, product-budget, restart, endpoint and jump bounds of
+\cref{lem:record:block-charge}. The bands have disjoint prime supports that cover
+the range, so the positive band charges add. No boundary term is dropped.
+\end{remark}
+
+\subsection{The two-layer reference}\label{subsec:upper-two-layer}
+
+\subsubsection{The two-layer graphs}\label{subsec:push:layer72spectral}
+
+\paragraph{How to read the two-letter names.}
+In the upper range every graph, cut and record carries a short
+code with one letter for each of the two chamber coordinates. As
+\emph{field types}, $\rm L$ is the six-object root coordinate,
+$\rm F$ its three-object fold half, and $\rm E$ the three-object
+matching coordinate with no forward edges; thus $G_{{\rm FE},2}$ is
+the two-layer graph with a fold coordinate and a matching
+coordinate. A cut name adds the number of layers and the cut: the
+last digit is $0$ or $1$ for the chamber cut in coordinate $0$ or
+$1$, and $2$ for the layer cut $\iota$; so LL20 is the chamber cut
+in coordinate $0$ of the two-layer root, and EL22 is the layer cut
+of the two-layer $\rm EL$ graph. The $25$ \emph{states}
+$\mathfrak t$ use instead the five pattern types
+$\rm L,D,S,R,C$ of \cref{def:patterns} in each coordinate, so the
+state LR has the root pattern in the first coordinate and a merge
+pattern in the second. Records are usually named by their field
+types (FF, FE, LE), states by their pattern types (DD, DS); where
+both occur together the text gives both, as in
+\cref{prop:forest-records}.
+
+For the field types let $O_{\rm L}=\Zsix$ and $O_{\rm F}=O_{\rm E}=\{0,1,2\}$ be
+the object sets, with the following relations and forward relations. In
+$\rm L$, $x\to y$ is related if $y\in\{x+1,x-1,\rot x\}$ (the chamber relation
+$\Rel$ without equality), and forward if $y=\rot x$. In $\rm F$ the relation and
+the forward relation are their restrictions to $\{0,1,2\}$: the related pairs are
+$0\to1$, $1\to0$, $1\to2$, $2\to1$ and $0\to2$, and only $0\to2$ is forward. In
+$\rm E$ all ordered pairs of distinct objects are related and none is forward.
+For field types $\varphi_0,\varphi_1$ and $j\in\{1,2\}$ let
+$G_{\varphi_0\varphi_1,j}$ be the oriented graph on
+$O_{\varphi_0}\times O_{\varphi_1}\times\Lambda_j$, $\Lambda_2=\{0,1\}$,
+$\Lambda_1=\{0\}$, with an edge $(u_0,u_1,\ell)\to(v_0,v_1,\ell')$ whenever both
+coordinate relations $u_0\to v_0$, $u_1\to v_1$ hold and at least one of them is
+forward; there is no condition on the layers. The \emph{root} is $G_{\rm LL,2}$.
+
+\begin{lemma}[Two-layer geometry]\label{lem:upper-geometry}
+\leavevmode
+\begin{enumerate}[label=(\alph*)]
+\item Every $G_{\varphi_0\varphi_1,j}$ is an oriented graph. The root has $72$
+ vertices and $720$ edges, every vertex has $10$ out-neighbours and $10$
+ in-neighbours, and it contains every query
+ $(u_0,u_1,\ell)\to(\rot u_0,\rot u_1,1-\ell)$; in particular the twelve queries
+ \eqref{eq:upper-twelve} and $\mathcal E_6$ are edges of the root.
+\item The chamber reflections of a coordinate of type $\rm L$ and the layer swap
+ are automorphisms of the graphs; every permutation of $O_{\rm E}$ is an
+ automorphism of a graph with a coordinate of type $\rm E$ (exchangeability).
+\item The subgraph of $G_{{\rm L}\varphi,j}$ induced on the plus half
+ $\{0,1,2\}$ of its first coordinate is $G_{{\rm F}\varphi,j}$, and likewise in
+ the second coordinate. The subgraph of $G_{\varphi\varphi',2}$ induced on the
+ layer $\ell=0$ is $G_{\varphi\varphi',1}$.
+\item For every $\varphi$ and $j$ the graphs $G_{{\rm F}\varphi,j}$ and
+ $G_{{\rm E}\varphi,j}$ induce the same graph on the objects $\{0,1\}$ and on the
+ objects $\{1,2\}$ of their first coordinate, and neither has an edge inside one
+ object.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) If $u\to v$ is forward in $\rm L$, then $v\to u$ is not related:
+$u\notin\{\rot u\pm1,\rot^2u\}$, as $\rot u-u=\pm2$; in $\rm F$ the pair $2\to0$ is
+not related. An edge needs a forward coordinate, whose reverse is not related, so no
+pair carries edges in both directions; and no loop occurs, since related objects are
+distinct.
+At a vertex of the root there are $3\cdot3$ pairs of related successors, of which
+$2\cdot2$ have no forward coordinate; so there are $5$ out-neighbours in each
+layer, $10$ in all, and by the same count $10$ in-neighbours; so $72\cdot10=720$
+edges. Both coordinates of a query are forward. (b) A chamber reflection
+$\vartheta_a$ commutes with $\rot$ (\cref{lem:slot-array}(i)) and maps $x\pm1$ to
+$\vartheta_a(x)\mp1$; the relations do not involve the layer; and $\rm E$ has all
+distinct pairs and no forward pair.
+(c) Inside $\{0,1,2\}$ the only forward pair of $\rm L$ is $0\to2$, since
+$\rot1=5$ and $\rot2=4$; and edges carry no layer condition. (d) Between the
+objects $0,1$ and between $1,2$ the relations of $\rm F$ and $\rm E$ are the
+same (both directions, none forward); inside one object the relation fails.
+The script \path{research/push_2026_10_17/sparse/layer72.py} reconstructs these
+facts for all eighteen graphs.
+\end{proof}
+
+The spectral caps concern twelve cuts, and the merge and constant marginals of
+one of them (\cref{subsec:upper-observed}). The name of a cut lists the field types
+of its graph, its number of layers and the cut: $0$ and $1$ for the chamber cut
+$\vartheta_{c,0}$ of the coordinate $c$, and $2$ for the layer cut $\iota$. The
+two \emph{root cuts} are LL20 and LL22. The ten \emph{nonroot cuts} are the
+chamber cuts LL10, FL21, EL21, FL11, EL11 of the $\rm L$ coordinate and the layer
+cuts FL22, EL22, FF22, FE22, EE22; coordinate interchange and the chamber
+automorphisms give all other cuts. By \cref{lem:upper-geometry}(c) the half graph
+of a chamber cut of $G_{{\rm L}\varphi,j}$ is $G_{{\rm F}\varphi,j}$, which is the
+graph of the aligned fold, and the half graph of a layer cut is the one-layer
+graph. Each cut, with a deletion order fixed once, is spectral data in the sense
+of \cref{def:spec:data}; we write $\Op$ for its normalized cut operator on
+$L^2(\mu)$, where $\mu=\lambda_p(G^+)$ is the half law, the graph law of the half
+graph $G^+$ (\cref{lem:spec:cutkernel}); the actual half marginal is $\varrho\,\mu$,
+with $\varrho=\Op\one$. The root cuts have $n=36$ half
+vertices, maximal degree $\Delta=20$, internal degrees $d^0_k\le10$ and cross
+degrees $r_k\le12$ (LL20) and $r_k\le10$ (LL22).
+
+\subsubsection{The $25$ summand types}\label{subsec:layer72:upper}
+For a block $\Blk$ of odd primes and field types $\varphi_0,\varphi_1$ let
+$\lambda_{\varphi_0\varphi_1}=\lambda_\Blk(G_{\varphi_0\varphi_1,2})$ and
+$\lambda^{(1)}_{\varphi_0\varphi_1}=\lambda_\Blk(G_{\varphi_0\varphi_1,1})$ be the
+two-layer and the one-layer field laws (\cref{def:graphs:labeling}): at every
+prime of $\Blk$ independently, the uniform law on injective strict-square
+labellings. (In this section \emph{pattern summand} below is
+what is meant by a summand of $\pi_{\mathfrak t}$ or of
+$\mu_\Blk$; \emph{component} keeps its glossary meaning as a
+summand of $\nu_\Blk$.) These are the field laws of
+\cref{def:two-coordinate-five-type},
+with the layer set $\Lambda=\{0,1\}$, respectively $\{0\}$. For a state
+$\mathfrak t$ and patterns $\phi=(\phi_0,\phi_1)\in P_{\mathfrak t_0}\times
+P_{\mathfrak t_1}$, the \emph{pattern summand} $\Pi_{\mathfrak t,\phi}$ (respectively
+$\Pi^{(1)}_{\mathfrak t,\phi}$) is the image of the two-layer (one-layer) field
+law of the field types of $\mathfrak t$ under the emission $e_\phi$; objects
+outside the image of $\phi$ are forgotten (the \emph{hidden} objects of merges
+and constants). The two-layer and one-layer components are written into the
+slots $(u_0,u_1,\ell)$ and, for one-layer components, copied onto both layers by
+$\operatorname{Diag}_\iota$. Put
+\[
+ \pi_{\mathfrak t,2}=\sum_\phi\Pi_{\mathfrak t,\phi},\qquad
+ \pi_{\mathfrak t,1}=\sum_\phi\Pi^{(1)}_{\mathfrak t,\phi},
+\]
+of mass $m_{\mathfrak t}$. The \emph{rows} of the coordinate $c$ at the field
+type $\varphi$ are the objects of the coordinate $c$ of a field law whose other
+coordinate has type $\varphi$; their law is a five-type datum
+(\cref{def:five-type-datum}) whose conditional reference is the law of one outer
+row given the middle row under the $\rm E$ law (\cref{subsec:upper-rows}). At
+$\iota$ the half graph of a two-layer graph is its one-layer graph
+(\cref{lem:upper-geometry}(c)); this is why one-layer copies on the reserved
+diagonal can cancel the negative envelopes at $\iota$ (\cref{rem:fold-pairing}).
+
+\subsubsection{The reference law $\mu_\Blk$ and its weights}\label{subsec:independent-fold-weights}
+
+\begin{definition}[The upper reference]\label{def:upper-reference}
+Let $\Blk$ be a block of an upper band with least prime $b$ and $r=b^{-1/2}$, and
+let $w_{\mathfrak t},v_{\mathfrak t}$ be the weights of the band
+(\cref{def:record:upper-bands}(d)). The \emph{reference} of $\Blk$ is
+$\mu_\Blk=\widetilde\mu_\Blk/P_\mu(r)$, where
+\[
+ \widetilde\mu_\Blk=\sum_{\mathfrak t}w_{\mathfrak t}r^{\deg\mathfrak t}\,\pi_{\mathfrak t,2}
+ +r\sum_{\mathfrak t}v_{\mathfrak t}r^{\deg\mathfrak t}\operatorname{Diag}_\iota(\pi_{\mathfrak t,1}),
+\]
+\begin{equation}\label{eq:independent-fold-polynomial}
+ P_\mu(r)=\sum_{\mathfrak t}m_{\mathfrak t}\bigl(w_{\mathfrak t}r^{\deg\mathfrak t}
+ +v_{\mathfrak t}r^{\deg\mathfrak t+1}\bigr)\ge1 .
+\end{equation}
+\end{definition}
+
+The polynomial $P_\mu$ has constant coefficient $w_{\rm LL}=1$, the weight of the
+root $\pi_{\rm LL,2}$; its coefficient of degree $d$ is the total weight of the
+records of overall degree $d$. The one-layer weights $v_{\mathfrak t}$ form an
+array of their own: they satisfy the one-layer completion inequalities with the
+one-layer inputs and, separately, the domination
+\eqref{eq:independent-fold-domination} by the cap of their own state. Weights
+$v_{\mathfrak t}$ proportional to $w_{\mathfrak t}$, with one factor for all states,
+would have to dominate the largest cap $k_{\rm LL}$ ($9381.137478$ at $\Pthree$,
+$2070.828678$ at $2^{49}$) in every state, while the other caps are below $7.01$.
+
+\subsection{The two principal cuts}\label{subsec:record:upper_root}
+
+Two of the twelve cuts are the full degree-twenty root: the first-coordinate cut
+LL20, which gives the ordinary input $d_{\rm L}$, and the layer cut LL22, which
+gives the reserved cap $k_{\rm LL}$. Their half graphs have $36$ vertices, each of
+degree twenty in the root, and their caps are the largest of all: at $\Pthree$
+they are about $12847$ and $9381$ ($2557$ and $2071$ at $2^{49}$), against at most
+$25$ for the other cuts. Two routes bound them.
+
+\paragraph{The setting.}
+Let $(G,\vartheta,U^+,\mathfrak o)$ be the spectral data of LL20 or LL22, with
+$n=|U^+|=36$, cross signs $\varsigma$, cross degrees $r_k$, internal degrees
+$d^0_k$ and $\Delta=20$. The threshold hypothesis (S1) of \cref{def:spec:data}
+is $e_{20}(p,72)<1$ and $p>4n^2=5184$, with the coarse count error $e_t(p,n)$ of
+\eqref{eq:graphs:et}. Let $\mu=\lambda_p(G^+)$ be the half law and $\Op$ the
+normalized cut operator on $L^2(\mu)$, with the character expansion
+\eqref{eq:record:root-kernel} of the root kernel (\cref{lem:spec:expansion}), its
+nonstar part $T_{\rm ns}$, its collision part $T_{\rm coll}$ and the star function
+$h_\star$ of \eqref{eq:star-function}. At $p\equiv3\pmod4$ this is the setting of
+route~B (\cref{subsec:spec:routeB}): $\Hmat^+=\Hmat$, and the two signs of the Schur
+test \eqref{eq:record:schur} give complex-conjugate matrices.
+
+The hard root also permits the sign filter of
+\cref{lem:signed-collisions}. On its two cuts the exact pin counts are
+\begin{equation}\label{eq:upper-signed-collision-counts}
+\begin{array}{c|r|r|r|r}
+ &\text{all pins}&\text{compatible}&\sum a_{ij}&\sum\widetilde a_{ij}\\ \hline
+ \mathrm{LL20}&1296&168&54583296&2752512\\
+ \mathrm{LL22}&1296&324&55738368&39813120
+\end{array}
+\end{equation}
+These integers are obtained directly from the $72$-vertex root and
+its two reflections (\cref{cert:astra-local}). They sharpen the collision input while preserving
+the accepting graph. The certified band caps below retain their
+larger collision assignments, so the filter requires no alteration
+of the selected comparison laws or closing table.
+
+\paragraph{Route~B at the two root cuts.}
+\Cref{thm:record:direct-star} uses no completed conditional law of the root and no
+completion-variance denominator, only (S1). Its Route-B frame numbers
+(not those of the middle frame)
+\ref{it:record:star-H1} are those of \cref{lem:record:frame-inputs}; its inputs
+\ref{it:record:star-H3} are the following.
+
+\begin{lemma}[Root inputs]\label{lem:record:direct-star-inputs}
+Let the cut be LL20 or LL22, so that $n=36$, $d^0_k\le10$ and $r_k\le12$, and let
+$p\equiv3\pmod4$ satisfy (S1). Then hypothesis \ref{it:record:star-H3} of
+\cref{thm:record:direct-star} holds with the following choices.
+\begin{enumerate}[label=(\roman*)]
+\item $M_\star$ is the quantity of \cref{prop:advance:ordered-star} for a fixed
+ total order of $U^+$, with the relative count errors $e_i=e^-_{d^0_i}(n)$ of
+ \eqref{eq:graphs:graded}.
+\item $z_\star=r^2(\sum_iK_i+|B_{\rm even}|)$, with the $K_i$ of
+ \cref{prop:advance:ordered-star} and $B_{\rm even}$ of \cref{lem:star-mean}
+ for the signs $\chi(\varsigma_{jk})$ of the class $p\equiv3\pmod4$, and
+ $Z_\star=2z_\star$.
+\item $N_{\rm ns}=\sum_{k=2}^4C_k(Q)r^k$, where $Q\le p$ is a real number at which
+ (S1) holds and $C_k(Q)$ bounds the nonstar coefficients of
+ \cref{cor:extraction-leaf}(b) for a refinement of the compressed partition
+ (\cref{lem:advance:compressed-partition}) with witnesses of sizes $2$, $3$ and $4$.
+ \begin{itemize}
+ \item These coefficients are evaluated with the graded error pairs and the
+  special values $\mathsf S_{\rm m}(s)$, $\mathsf S_\varrho(s)$ of
+  \cref{def:extraction:records} and \eqref{eq:leaf-factors}, and summed exactly
+  over the complete nonstar histogram of the cut, under the monotone-signature gate
+  \eqref{eq:monotone-signature}.
+ \item At an interpolation point $Q$ (a prime size, not an exponent anchor) they are this sum.
+ \item Between consecutive interpolation points $P_0\le Q<P_1$ the bound is that of
+  \cref{lem:logconvex-coefficients}.
+ \end{itemize}
+\item $D_{\rm col}$ is the minimum, as in \cref{lem:oct24-collision}(e), of
+ $D_1+D_{\ge2}$ (with fixed orders and the tail bound of
+ \cref{lem:oct24-collision}(c)), the ordered single-coincidence bound
+ $D_{\rm ord}$ and the natural bound $D_{\rm nat}$; any one of them may be used
+ instead.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i), (ii) Given the other labels, the label $x_i$ is uniform on the values
+outside the other $n-1$ half labels that satisfy the $d^0_i$ signed constraints
+of its internal neighbours, a set with at least
+$p2^{-d^0_i}(1-e^-_{d^0_i}(n))$ elements by \cref{lem:extension}(c). So $\mu$ is a
+pinned half law (\cref{def:pinned-law}) with count errors $e_i=e^-_{d^0_i}(n)$,
+which are below one by (S1), \ref{it:et:compare} and \ref{it:et:poly}. \Cref{lem:star-mean}, with
+the signs $\chi(\varsigma_{jk})$ of the class $p\equiv3\pmod4$, gives
+$\norm{h_\star-\E_\mu h_\star}_\mu\le M_\star$ and $|\E_\mu h_\star|\le z_\star$, so
+$2|\E_\mu h_\star|\le Z_\star$. These bounds concern $\mu$ itself, not the
+completed root.
+(iii) is \cref{cor:extraction-leaf}(b), with \cref{lem:logconvex-coefficients}
+between anchors; the coefficients are nonincreasing in the prime
+(\cref{lem:logconvex-coefficients}), so their value at $Q\le p$ bounds them at $p$.
+(iv) is \cref{lem:oct24-collision}(e). Neither (iii) nor (iv) uses the class of $p$.
+\end{proof}
+
+The hypothesis (S1) holds only above about $2^{46.34}$: $e_{20}(2^b,72)$ is about
+$1.125$, $0.796$ and $0.398$ for $b=46,47,49$. The upper range starts at
+$\Pthree\approx2^{47.38}$; below about $2^{46.34}$ the Route~B criterion
+does not apply to these root cuts.
+
+\begin{lemma}[Monotone endpoint extension]\label{lem:record:monotone-endpoint}
+Fix a root cut, the pivot order, the nonstar partition with its records, the
+orders of \cref{lem:oct24-collision}, and rationals $s_\star,g_\star$ that satisfy
+\eqref{eq:record:schur} for both signs, for the class $p\equiv3\pmod4$, with the
+numbers of \cref{lem:record:frame-inputs} evaluated at $r_0=p_0^{-1/2}$, where
+$p_0>4n^2$ is a real number (in the applications a power of two) with
+$e_\Delta(p_0,2n)<1$. Suppose that $\mathbf R\succeq0$ and that the numbers of
+\cref{lem:record:direct-star-inputs}, with $Q=p_0$ in (iii), give $\eps_Z<1$ and
+$g_{\rm root}r_0<1$ at $r_0$. Let $p\ge p_0$ be a prime with $p\equiv3\pmod4$. Then
+the numbers of \cref{lem:record:frame-inputs,lem:record:direct-star-inputs} at $p$
+satisfy \ref{it:record:star-H1}--\ref{it:record:star-H3} with the same
+$s_\star,g_\star$, and
+\[
+ g_{\rm root}(p)\le g_{\rm root}(p_0),\qquad
+ B_{\rm top}(p)\le B_{\rm top}(p_0):=\frac{p_0\,\eps_\varrho(p_0)^2}{1-g_{\rm root}(p_0)p_0^{-1/2}} .
+\]
+Consequently, for every block $\Blk$ of primes $p\ge X\ge p_0$ with
+$p\equiv3\pmod4$ and $\log q_\Blk\le L_{\rm u}$, the normalized block root operator
+is at least $-d\,b_\Blk^{-1/2}$, with $d=g_{\rm root}(p_0)\exp\bigl(B_{\rm top}(p_0)
+L_{\rm u}/(X\log X)\bigr)$.
+
+More generally, let $s_\star,g_\star$ satisfy \eqref{eq:record:schur} at $p_0$ as
+above, with $\mathbf R\succeq0$, and let $X\ge p_0$ be real with (S1) at $X$.
+Suppose the numbers of \cref{lem:record:direct-star-inputs} at $r_X=X^{-1/2}$, with
+$Q=X$ in (iii), give $\eps_Z<1$ and $g_{\rm root}(X)r_X<1$. Let $\Blk$ be a block of
+primes $p\ge X$ with $p\equiv3\pmod4$ and $\log q_\Blk\le L'\le L_{\rm u}$. Then the
+normalized block root operator of $\Blk$ is at least $-d\,b_\Blk^{-1/2}$ with
+$d=g_{\rm root}(X)\exp\bigl(B_{\rm top}(X)L'/(X\log X)\bigr)$, where
+$B_{\rm top}(X)=X\eps_\varrho(X)^2/(1-g_{\rm root}(X)r_X)$.
+\end{lemma}
+
+\begin{proof}
+Write every quantity as a function of $r\in(0,r_0]$. By
+\cref{lem:spectral-monotone}(a) the frame quantities $\eps_V$, $\eps_\times$,
+$\eps'_H$, $\theta^\mu_j$, $\hat E^2$ and $\eps_{\ne}$ are admissible
+(\cref{lem:majorant}); for $\eps'_H$ this includes the entries $\beta_{kl}$ of
+\eqref{eq:spec:beta}, maxima of two branches that equal their first branches (the
+proof of \cref{lem:spectral-monotone}).
+Hence $\eps_{\rm rem}$, $\eps_{\mathbf B}$, $\eps_{\mathbf W}$, $\eps_{\mathbf{EW}}$,
+$\alpha_\star$ and $\beta_\star$ are at most their values at $p_0$. The matrices
+$\Delta^E$, $\Hmat$ and $\mathbf R$ depend on $p$ only through its class. So
+$\mathbf R+\beta_\star I\succ0$ at $p$, because $\mathbf R\succeq0$ and
+$\beta_\star\ge\eps_{\mathbf B}\ge\norm\Hmat_{\rm row}/(p-1)>0$; and
+\eqref{eq:record:schur} holds at $p$ by \cref{lem:majorant}(d), since
+$g_\star/\alpha_\star$ does not decrease and $\beta_\star$ does not increase.
+
+For the inputs: $M_\star/r$ and $z_\star/r^2$ are admissible
+(\cref{rem:pivot-order}), hence so are $(M_\star^2+z_\star^2)/r=r(M_\star/r)^2
++r^3(z_\star/r^2)^2$ and $Z_\star$; $N_{\rm ns}/r=\sum_kC_k(p_0)r^{k-1}$ is a
+polynomial in $r$ with nonnegative coefficients; and $D_{\rm col}/r$, for the fixed
+orders, is at most its value at $p_0$ (\cref{lem:oct24-collision}(e)). Thus
+$\eps_Z$, $\eps_{\rm soft}/r$, $g_{\rm root}$ and $\eps_\varrho/r$ are at most their
+values at $p_0$: $\eps_Z<1$, so \ref{it:record:star-H3} holds at $p$;
+$g_{\rm root}(p)p^{-1/2}\le g_{\rm root}(p_0)r_0<1$; and
+$B_{\rm top}(p)=(\eps_\varrho/r)^2/(1-g_{\rm root}r)\le B_{\rm top}(p_0)$. For the
+block, the operator is $\bigotimes_{p\in\Blk}\Op$ with
+$-g_{\rm root}(p_0)p^{-1/2}I\preceq\Op\preceq(1+B_{\rm top}(p_0)/p)I$ at every $p\in\Blk$
+(\cref{thm:record:direct-star}(c),(e)), and
+\cref{lem:spec:tensorcomp} gives the bound, since
+$\sum_{p\in\Blk}1/p\le L_{\rm u}/(X\log X)$ (\cref{lem:majorant}(c)).
+
+For the general form, the first part of the proof, at $r=r_X\le r_0$, gives
+\ref{it:record:star-H1} and \ref{it:record:star-H2} at $X$ with the same
+$s_\star,g_\star$, and \ref{it:record:star-H3} at $X$ is the hypothesis $\eps_Z<1$.
+The rest of the proof then runs with $X$ in place of $p_0$ for the inputs: for
+$p\ge X$ the numbers of \cref{lem:record:direct-star-inputs}, with the coefficients
+$C_k(X)$ held fixed, are at most their values at $X$, so $g_{\rm root}(p)\le
+g_{\rm root}(X)$ and $B_{\rm top}(p)\le B_{\rm top}(X)$, and
+$\sum_{p\in\Blk}1/p\le L'/(X\log X)$. This is the endpoint form of the
+construction: the exact Schur witness of an anchor stays valid at every larger
+point because every frame, star-Gram and cross error there is at most its anchor
+value; this holds by admissibility, and the certificate also checks it separately
+for each error (\cref{cert:upper-root-caps}).
+\end{proof}
+
+\begin{certificate}[Route~B star-synthesis bounds and Schur tests at the root cuts]\label{cert:record:direct-star}
+For LL20 and LL22 and $p_0=2^b$, $b\in\{47,48,49,50,51,52\}$:
+\begin{enumerate}[label=(\alph*)]
+\item (S1) holds, with $e_{20}(p_0,72)\le0.3978$ at $2^{49}$ and $e_{20}(2^{47},72)$
+ about $0.796$; all count errors of
+ \cref{lem:record:frame-inputs,lem:record:direct-star-inputs} are below one;
+ $\mathbf R\succeq0$ by exact elimination.
+\item The frame numbers of \cref{lem:record:frame-inputs}, evaluated in outward
+ rational arithmetic and rounded upward, and stored rationals $s_\star,g_\star$
+ satisfy \eqref{eq:record:schur}. The records contain $32$ such tests for
+ $b\ge49$ (two cuts, four endpoints, both prime classes, both signs; the class-one
+ tests are those of the variant described after \cref{lem:record:frame-inputs},
+ and class three runs through its real $72\times72$ embedding) and $16$ for
+ $b\in\{47,48\}$ (two cuts, two endpoints, both classes, both signs), each
+ certified positive semidefinite by exact rational elimination at the value of
+ $g_\star$ found for its sign; the left side of \eqref{eq:record:schur} is
+ nondecreasing in $g_\star$, so both signs hold at the larger value, which is the
+ $g_\star$ used. The class-three matrices are those of the construction; since
+ their two signs are complex conjugate, one sign per cut and endpoint would
+ suffice. At class three, $g_\star=3193/32$ (LL20) and $18199639/500000$ (LL22) at
+ $2^{47}$, and $98128393/10^6$ and $35898609/10^6$ at $2^{48}$.
+\end{enumerate}
+The records are \path{research/roadmap_2026_10_18/item12/direct_star_spectral.json}
+($2^{49}$ to $2^{52}$), with the model and geometry exports
+\path{direct_star_models_export.json} and \path{direct_star_geometry_export.json}
+of the same directory, produced by \path{direct_star_spectral.py}, and
+\path{direct_star_lower_endpoints.json} of the same directory ($2^{47}$, $2^{48}$;
+four tests per row, status \texttt{PASS\_EXACT\_DIRECT\_STAR\_ROOT}). The exact
+eliminations at $2^{49},\dots,2^{52}$ and the frame errors were repeated by an
+independent rational implementation, the four class-three tests at $2^{47}$
+by \path{research/advance_2026_10_24/upper/lower_p47/native_review.json}, and the
+class-three tests at $2^{48},\dots,2^{51}$ again by
+\path{research/continuation_2026_10_24/upper_arithmetic/fractional_roots_review.json}. The
+class-three anchor rows ($g_\star$, frame errors, $M_\star$, $z_\star$, collision
+bound) for $2^{47},\dots,2^{52}$ are \path{direct_star_collision_v2.json} (same
+directory); the reviews \path{research/advance_2026_10_24/upper/review_lower_native47.py}
+and \path{research/continuation_2026_10_24/upper_arithmetic/review_roots.py} read
+them. The records also derive root caps from these tests with the star constants
+of both prime classes; the derived class-one caps are not used, since the
+bands below $2^{52}$ have no
+class-one primes. Floating-point computations only proposed the rationals
+$s_\star,g_\star$; the proof uses the exact tests.
+\end{certificate}
+
+\begin{certificate}[Root caps below $2^{52}$]\label{cert:upper-root-caps}
+\sloppy
+For LL20 and LL22 and every band $[X,Y)$ below $2^{52}$, the inputs of
+\cref{lem:record:direct-star-inputs} are taken at the band's start $X$. The
+nonstar coefficients come from the complete histograms with the graded errors and
+special values, at the $19$ anchors $2^{47},\dots,2^{52}$, $167\cdot2^{40}$ and
+$j2^{42}$ for $j\in\{40,42,43,44,46,48,50,52,56,60,80,96\}$, and are interpolated
+log-convexly between them (\cref{lem:logconvex-coefficients}). The scalar stars
+$M_\star$, $z_\star$, $Z_\star$, the ordered coincidence bound $D_{\rm col}$ and the
+rank-one and soft terms are evaluated at $X$; the frame witness $(s_\star,g_\star)$
+is that of the band's anchor (\cref{cert:record:direct-star}): $2^{47}$ below
+$2^{48}$, and $2^b$ on $[2^b,2^{b+1})$ for $b=48,\dots,51$, every frame, star-Gram
+and cross error at $X$ being checked to be at most its anchor value. These give
+$\eps_Z<1$, and $g$ below is an upper bound for $g_{\rm root}$, rounded upward to
+$10^{-8}$, with $gX^{-1/2}<10^{-3}$. By \cref{lem:record:monotone-endpoint} with
+$L'=L_{\rm band}$, the block caps are $d=g\exp(B_{\rm top}L_{\rm band}/(X\log X))$,
+rounded upward to $10^{-6}$; they are the root entries $d_{\rm L}$ (LL20) and
+$k_{\rm LL}$ (LL22) of the band. Selected rows (the record holds all $301$):
+\begin{center}
+\footnotesize\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}llllllll@{}}
+\toprule
+& & \multicolumn{3}{c}{LL20} & \multicolumn{3}{c@{}}{LL22}\\
+\cmidrule(lr){3-5}\cmidrule(l){6-8}
+$X$ & $L_{\rm band}$ & $g$ & $B_{\rm top}<$ & $d_{\rm L}$
+ & $g$ & $B_{\rm top}<$ & $k_{\rm LL}$\\
+\midrule
+$\Pthree$ & $559$ & $12846.88753069$ & $2.52265\cdot10^{8}$ & $12847.187931$
+ & $9381.04100550$ & $1.10946\cdot10^{8}$ & $9381.137478$\\
+$2^{48}$ & $566$ & $6568.89967376$ & $8.59331\cdot10^{7}$ & $6568.933791$
+ & $5072.00168224$ & $3.71450\cdot10^{7}$ & $5072.013069$\\
+$2^{49}$ & $578$ & $2556.55783215$ & $2.30412\cdot10^{7}$ & $2556.559613$
+ & $2070.82814422$ & $8.51920\cdot10^{6}$ & $2070.828678$\\
+$2^{50}$ & $555$ & $1165.55594825$ & $9.20408\cdot10^{6}$ & $1165.556101$
+ & $942.50581374$ & $2.71889\cdot10^{6}$ & $942.505851$\\
+$2^{51}$ & $566$ & $612.94721642$ & $4.71877\cdot10^{6}$ & $612.947237$
+ & $472.87513870$ & $1.13250\cdot10^{6}$ & $472.875143$\\
+$\frac{127}{64}2^{51}$ & $577$ & $370.09363192$ & $2.81352\cdot10^{6}$ & $370.093636$
+ & $262.47992391$ & $5.79331\cdot10^{5}$ & $262.479925$\\
+\bottomrule
+\end{tabular}
+\end{center}
+At $2^{52}$ and above the Route~A caps $367,\dots,113$ and $261,\dots,45$
+of \cref{cert:upper-completed-root} are used. The records are:
+\begin{itemize}
+\item the coefficient tables
+ \path{research/further_2026_10_25/upper/special_coefficients/LL20_coefficients.json}
+ and \path{LL22_coefficients.json} ($19$ anchors);
+\item their review \path{research/further_2026_10_25/upper/special_coefficients_review.json}
+ (\texttt{PASS\_INDEPENDENT\_EVEN\_COUNT\_ROOT\_COEFFICIENTS}, refinement
+ \texttt{PASS\_INDEPENDENT\_FORCED\_COINCIDENCE\_ROOT\_COEFFICIENTS}): the
+ $30645955$ histogram rows summed exactly, $1596$ upward vertex factors, $114$
+ directed coefficients, the $80$ monotone-signature gates \eqref{eq:monotone-signature}
+ (every step $s\to s+1$ up to $s+1=\Delta=20$) and
+ $3024$ per-signature maxima;
+\item the root assembly \path{research/advance_2026_10_24/upper/apply_even_roots.py}
+ (the formulas of \cref{thm:record:direct-star} with the interpolation), applied by
+ \path{research/further_2026_10_25/upper/apply_special_roots.py} and written into
+ the field \texttt{even\_root\_evidence} of
+ \path{research/further_2026_10_25/upper/upper_dense_refined.json};
+\item its review \path{research/further_2026_10_25/upper/special_upper_review.json}
+ (\texttt{PASS\_INDEPENDENT\_EVEN\_COUNT\_ROOT\_UPPER}: $602$ fresh root and block
+ caps, $1806$ log-convex coefficients);
+\item the scalar root data at the band starts ($M_\star$, $z_\star$, $Z_\star$,
+ $D_{\rm col}$, the rank-one and soft terms, the frame errors): for the $45$ bands below
+ $2^{48}$ the field \texttt{roots} of the band record, computed with the anchor witness
+ at $2^{47}$ by \path{research/advance_2026_10_24/upper/lower_prefix.py} and replayed
+ by \path{review_lower_native47.py} of the same directory in the regenerated upper chain
+ of \path{regenerate_upper_chain.py}, whose $51$ independent reviews the record
+ \path{research/advance_2026_10_24/verification/selected.json} lists; for the bands of
+ $[2^{48},2^{52})$ \path{research/continuation_2026_10_24/upper_arithmetic/fractional_roots.json},
+ reviewed by \path{fractional_roots_review.json} of that directory
+ (\texttt{PASS\_INDEPENDENT\_FRACTIONAL\_ROOT\_ASSEMBLY}: $16$ exact anchor tests,
+ $1536$ frame dominations). The nonstar values stored with these scalar data come
+ from earlier coefficient tables and are not used: the caps take $N_{\rm ns}$ from the
+ coefficient tables of the first item.
+\end{itemize}
+\end{certificate}
+
+\paragraph{Where the root cost lies.} At $\Pthree$ the nonstar term
+$N_{\rm ns}/r\approx12715$ is about $99\%$ of $g(\mathrm{LL20})$, while the frame
+coefficient is $g_\star=3193/32$, about $99.8$, and the coincidence term
+$D_{\rm col}/r$ about $18.6$: the root is expensive because of its many
+two-matchings, not because of its frame.
+
+\paragraph{Route A from $2^{52}$: the completed root.}
+From $2^{52}$ on, the root caps come from the Route~A criterion
+\cref{thm:spectral-criterion}, whose coupling inputs integrate the internal
+neighbourhoods of the root through its completed conditional law
+(\cref{subsec:spec:completion-variance}). The criterion accepts any admissible values
+of its perpendicular and coupling inputs; the root caps use the following ones
+(\cref{rem:spectral-criterion:uses}(iii)).
+
+\begin{lemma}[Completed-root caps]\label{lem:upper-completed-root}
+Let the cut be LL20 or LL22, let $p_0$ be a real number with (S1) at $p_0$, and let
+$\mathfrak c\in\{1,3\}$. At every prime $p\ge p_0$ with $p\equiv\mathfrak c\pmod4$ the
+following are inputs of \cref{thm:spectral-criterion}, with the admissibility that
+it requires.
+\begin{enumerate}[label=(\roman*)]
+\item \emph{Perpendicular inputs.} $N_{\rm ns}=\sum_{k=2}^4C_k(Q)r^k$ with the
+ nonstar coefficients of \cref{cor:extraction-leaf}(b) at a fixed $Q\le p_0$ at which
+ (S1) holds;
+ $D_{\rm col}=\min(D_{\rm ord},D_{\rm nat})$, a minimum as in
+ \cref{lem:oct24-collision}(e); $M_\star$ the larger over the two classes of the bound of
+ \cref{prop:advance:ordered-star}; and $\eps_Z$ the smaller of
+ $2(P_{\rm st}+W_{\rm st})+N_{\rm ns}+D_{\rm nat}$ and $Z_\star+N_{\rm ns}+D_{\rm col}$,
+ with the standard star constants $P_{\rm st},W_{\rm st}$ of \cref{lem:spec:stars}
+ and $Z_\star$ twice the larger over the two classes of $z_\star$
+ (\cref{lem:star-mean}).
+\item \emph{Coupling inputs.} $R_+$ of \cref{prop:spec2:mucentre}\ref{it:centre:sup},
+ formed with this $\eps_Z$; $\eps_H=\min(\eps'_H+\eps_X,\eps^{\rm loc}_H)$
+ (\cref{lem:push:conditionalgram}); $\Gamma_E=\min(\hat E^2,\Gamma^{\rm loc}_E)$
+ (\cref{lem:projection-diagonal}), the relative completion variances being bounded
+ by \cref{lem:push:localvariance}, whose two-variable bounds use the coefficient
+ triples of \cref{thm:dl:H2} (\cref{rem:dl:H2-sharp}(ii)); and, for $\mathfrak c=1$,
+ $\bar\zeta$ the minimum of \cref{lem:spec2:parity-transfer}, with
+ $\eps_\varrho=R_Z(M_\star+N_{\rm ns}+D_{\rm col})$.
+\end{enumerate}
+Consequently, if at $r_0=p_0^{-1/2}$ these inputs give $\eps_Z<1$, $\bar\eps_V<1$
+and $\ell^{\rm loc}_k>0$ for every $k\in U^+$, and the tests
+\eqref{eq:spectral-test} of the class $\mathfrak c$ hold for both signs, then the
+conclusions of \cref{thm:spectral-criterion} hold at every prime $p\ge p_0$ with
+$p\equiv\mathfrak c\pmod4$; and if $g\ge g_{\mathfrak c}$ and $gr_0<1$, then for every
+block $\Blk$ of such primes, all at least $X\ge p_0$, with $\log q_\Blk\le L_{\rm u}$,
+the normalized block root operator is at least $-d\,b_\Blk^{-1/2}$, with
+$d=g\exp(B_{\rm top}L_{\rm u}/(X\log X))$ and $B_{\rm top}=p_0\eps_\varrho(r_0)^2/(1-gr_0)$.
+\end{lemma}
+
+\begin{proof}
+(i) $N_{\rm ns}$ bounds $\norm{T_{\rm ns}}$ by \cref{cor:extraction-leaf}(b), and
+$D_{\rm col}$, $D_{\rm nat}$ bound $\norm{T_{\rm coll}}$ by
+\cref{lem:oct24-collision}(e). By \cref{lem:star-mean} with
+\cref{prop:advance:ordered-star}, for the signs of the class of $p$ (the half law is
+a pinned half law, as in the proof of \cref{lem:record:direct-star-inputs}),
+$\norm{h_\star-\E_\mu h_\star}\le M_\star$ and $2|\E_\mu h_\star|\le Z_\star$; the
+maxima over the classes cover both. With the standard star inputs
+(\cref{prop:spec2:mucentre}\ref{it:centre:standard}) both forms of $\eps_Z$, and so
+their minimum, are admissible in \cref{prop:spec2:mucentre}\ref{it:centre:inputs}.
+(ii) These are admissible inputs of the coupling block \cref{cor:spec2:coupling}, by
+the lemmas cited. Finally $N_{\rm ns}/r=\sum_kC_k(Q)r^{k-1}$ is a polynomial with
+nonnegative coefficients, $D_{\rm col}/r$ and $D_{\rm nat}/r$ are admissible by
+\cref{lem:oct24-collision}(e), $M_\star/r$ and $z_\star/r^2$ by \cref{rem:pivot-order},
+and $P_{\rm st}/r^2$, $W_{\rm st}/r$ are constants (\cref{lem:spectral-monotone}(c)); so
+both forms of $\eps_Z$, and their minimum, are admissible (\cref{lem:majorant}(ii)).
+$\Gamma_E$, $\eps_H$ and $\bar\zeta$ are admissible by
+\cref{lem:spectral-monotone}(a),(c),(d): the count errors $\epsilon^\pm_t$ of
+\cref{subsec:spec:completion-variance} are polynomials in $r$ with nonnegative
+coefficients and at most the coarse errors $e_t$, so the denominators of
+\cref{lem:push:localvariance}(b) are positive by (S1), and $\ell^{\rm loc}_k>0$ at $r_0$.
+So \cref{thm:spectral-criterion} applies, and
+\cref{cor:spectral-criterion-blocks}, with $P=X$, gives the block bound.
+\end{proof}
+
+\begin{certificate}[Completed-root caps]\label{cert:upper-completed-root}
+For LL20 and LL22 at every band start $p_0=X$ from $2^{52}$ on, with the inputs of
+\cref{lem:upper-completed-root}, the evaluator asserts $\eps_Z<\frac12$,
+$\bar\eps_V<1$, $\ell^{\rm loc}_k>0$ for every $k$ and $gr_0<1$; the matrix tests
+\eqref{eq:spectral-test} hold for both prime classes and both signs (four exact
+rational tests per cut and threshold); and the recorded numbers give the block caps
+$d=g\exp(B_{\rm top}L_{\rm u}/(X\log X))<g+1.2\cdot10^{-5}$:
+\begin{center}
+\small
+\begin{tabular}{@{}lllll@{}}
+\toprule
+$X$ & $g(\mathrm{LL20})$ & $\lceil d\rceil$ & $g(\mathrm{LL22})$ & $\lceil d\rceil$\\
+\midrule
+$2^{52}$ & $366.42727119$ & $367$ & $260.84850454$ & $261$\\
+$2^{53}$ & $249.23718696$ & $250$ & $157.02296656$ & $158$\\
+$2^{54}$ & $186.71731661$ & $187$ & $101.54007395$ & $102$\\
+$2^{55}$ & $157.47650343$ & $158$ & $76.79680847$ & $77$\\
+$2^{56}$ & $140.27191683$ & $141$ & $63.35956145$ & $64$\\
+$2^{57}$ & $130.28930487$ & $131$ & $56.17027922$ & $57$\\
+$2^{58}$ & $123.91150306$ & $124$ & $51.86566728$ & $52$\\
+$2^{60}$ & $117.04430410$ & $118$ & $47.52728217$ & $48$\\
+$2^{64}$ & $112.38975257$ & $113$ & $44.77917248$ & $45$\\
+\bottomrule
+\end{tabular}
+\end{center}
+At $2^{64}$ the recorded $g$ is attained by the class-one tests. The
+Route~A caps of LL20 and LL22 are $3458$ and $1123$ at $2^{50}$ and $723$ and $543$ at
+$2^{51}$; they are larger than the class-three caps by Route~B and are not used. The records are the grids
+\path{upper_low_grid.json} ($2^{52}$), \path{upper_low_odd_grid.json} ($2^{53}$),
+\path{upper_odd_grid.json} ($2^{55}$, $2^{57}$) and \path{upper_augmented_grid.json}
+($2^{54}$, $2^{56}$, $2^{58}$, $2^{60}$, $2^{64}$) in
+\path{research/advance_2026_10_17/sparse/}, produced by \path{build_upper_low_grid.py},
+\path{build_upper_low_odd_grid.py}, \path{build_upper_odd_grid.py} and
+\path{build_augmented_grid.py} through \path{augmented_spectral_core.py} and
+\path{conditional_star_rank_spectral.py}; the band map
+\path{research/roadmap_2026_10_18/item15/UPPER_PROVIDER_COVERAGE.json} records which
+grid supplies each band and cut, and \path{replay_upper_psd.py} of the same
+directory recomputes the coefficients and repeats every positivity test by
+fraction-free elimination. The root entries of the nine bands from $2^{52}$ on, in
+\path{research/further_2026_10_25/upper/upper_dense_refined.json}, are these
+integers, and so are those of the tail datum ($113$ and $45$, in
+\path{research/roadmap_2026_10_18/item12/upper_v2_local.json}).
+\end{certificate}
+
+\subsubsection{Cross-weighted root refinement and the final reference}
+\label{subsec:upper-cross-weighted}
+
+The final construction reduces the root bounds in the preceding $301$
+bands. The resulting smaller completion weights lower the comparison
+prices throughout those bands. The improvement uses
+the conditional-density cancellation in
+\cref{lem:matching:extractionk}. It keeps their physical labelling
+laws, complete character partitions, frames and collision bounds.
+Put $\rho_t=(1+e_t^-(36))/(1-e_t^-(36))$.
+The LL20 half graph has $36$ vertices and $168$ edges; twelve
+vertices have internal degree $8$ and twenty-four have internal
+degree $10$. The LL22 half graph has $180$ edges, and all $36$
+vertices have internal degree $10$.
+Each integrated set has at most $34$ vertices and sum of insertion
+degrees at most the number of internal edges.
+
+\begin{lemma}[Uniform extraction divisors]\label{lem:upper-cross-divisors}
+The common factor $R_{\rm full}^2$ in the retained LL20 and LL22
+nonstar certificates can respectively be divided by
+\[
+ D_{20}=\rho_8^{23}\rho_{10}^{32}/\rho_0^{17},
+ \qquad D_{22}=\rho_{10}^{54}/\rho_0^{16}.
+\]
+This division is valid also for the interpolated coefficient at each
+band start.
+\end{lemma}
+
+\begin{proof}
+The graded error coefficients are nondecreasing and discretely convex
+in $t$. Since $x\mapsto2\operatorname{arctanh}x$ is increasing and
+convex, the same holds for $\log\rho_t$. Pad the insertion-degree list
+by zeros to length $34$. Moving a unit from a smaller positive degree
+to a larger degree below $10$ increases its product. Thus
+\[
+ \widetilde R_U\le H_{20}=\rho_{10}^{16}\rho_8\rho_0^{17},
+ \qquad
+ \widetilde R_U\le H_{22}=\rho_{10}^{18}\rho_0^{16},
+\]
+respectively. Divide the old $R_{\rm full}^2$ by these bounds.
+The factors $\rho_0$ are retained, since $e_0^-(36)=36/p$.
+For interpolation the common factor $M$ of
+\cref{lem:logconvex-coefficients} becomes $M/D$, with the same
+signature sum. Dividing both anchor coefficients by their respective
+$D$ leaves their coefficient-to-common-factor ratios unchanged.
+Hence the new interpolant is exactly the old one divided by $D$
+at the evaluation point. The new common factor is a product of
+nonnegative powers of $\rho_t$ and $(1-\hat e)^{-1}$, so the original
+monotonicity and log-convexity proof still applies.
+\end{proof}
+
+For each cut and band start $X$, replace its retained nonstar input
+$N$ by $N'=N/D(X)$ in the Route~B negative coefficient formula:
+\[
+ g'=\frac{g_\star+
+       (N'+D_{\rm col}+M_\star^2+z_\star^2+\eps_{\rm soft})X^{1/2}}
+       {1-Z_\star-N'-D_{\rm col}}.
+\]
+Here $Z_\star=2z_\star$ is the scalar-star contribution to $\eps_Z$,
+$M_\star^2+z_\star^2$ is the rank-one correction, and
+$\eps_{\rm soft}$ is the error from the two softened factors in
+\cref{thm:record:direct-star}. Their values, and the frame bound
+$g_\star$, are those specified in \cref{cert:upper-root-caps}.
+Keep the old positive envelope and its
+block inflation. If $g,d$ are the old rounded coefficients, a new
+block cap is
+$d'=10^{-6}\lceil10^6d\,g'/g\rceil$.
+This is valid because the old ratio $d/g$ is an upper bound for
+the unchanged inflation factor.
+
+Let $d_{\rm new}$ be the larger of the new LL20 cap and the
+reserved LL10 cap; let $k_{\rm new}$ be the new LL22 cap. For the
+old completed weights define
+\[
+ h=10^{-12}\left\lceil10^{12}
+       \max\left\{\frac{d_{\rm new}}{w_{\rm LD}},
+                   \frac{d_{\rm new}}{w_{\rm DL}},
+                   \frac{k_{\rm new}}{v_{\rm LL}}\right\}\right\rceil.
+\]
+If $h\ge1$ retain the old row. Otherwise keep $w'_{\rm LL}=1$,
+put $w'_{\mathfrak t}=h w_{\mathfrak t}$ for every other ordinary
+state, and put $v'_{\mathfrak t}=h v_{\mathfrak t}$ for all reserved
+states. Use $d_{\rm new},k_{\rm new}$ as the new root inputs.
+The two ordinary root inequalities and the LL reserved domination
+hold by the choice of $h$; each other inequality is homogeneous in
+the scaled variables. Thus all $105$ completion and domination
+inequalities remain valid. The nonroot inputs and component
+marginals are unchanged.
+
+All $301$ bands below $2^{52}$ have $h<1$; the first has
+$h=981224812287/10^{12}$. The nine later bands and the far tail are
+retained. Every comparison polynomial scales by $h$, since the
+ordinary LL record is already accepting. Its full reference
+normalizer changes from $P_\mu$ to $1+h(P_\mu-1)$.
+The final prices use this new polynomial in
+\cref{lem:four-routes-upper-normalized}, and the upper mean is
+recomputed at those same prices. The independent check
+\path{research/epsilon_2026_10_29/check_cross_weighted.py}
+rebuilds both half graphs, all $602$ root bounds, the rational
+scales, all $32\,550$ completion inequalities and all $310$
+normalizers.
+
+\subsection{The ten non-principal cuts}\label{subsec:upper-nonroot}
+
+The ten nonroot cuts give the other spectral inputs:
+\begin{itemize}
+\item $d_{\rm F}$, $d_{\rm E}$ from the two-layer chamber cuts FL21, EL21;
+\item the one-layer inputs from LL10, FL11, EL11;
+\item the reserved caps from the layer cuts FL22, EL22, FF22, FE22, EE22.
+\end{itemize}
+Their caps are those of route~A, \cref{thm:spectral-criterion}, with the standard
+inputs (\cref{rem:spectral-criterion:uses}(ii)): $N_{\rm ns}$ from
+\cref{cor:extraction-compressed} on a fresh compressed partition of the cut,
+$D_{\rm col}=D_{\rm nat}$, the natural coincidence bound of
+\eqref{eq:collision-natural}, the standard star inputs $M_\star=W_{\rm st}$ and
+$Z_\star=2(P_{\rm st}+W_{\rm st})$ (\cref{prop:spec2:mucentre}\ref{it:centre:standard}),
+and the coupling block \cref{cor:spec2:coupling} with $R_+$ of
+\cref{prop:spec2:mucentre}\ref{it:centre:sup}, $\eps_H=\eps'_H+\eps_X$,
+$\Gamma_E=\hat E^2$ and $\bar\zeta=\zeta$. This is formula \ref{it:record:upper-F6}
+below.
+
+For the bands the test \eqref{eq:spectral-test} is made for the class
+$p\equiv3\pmod4$ only, both Fourier signs, each with its own rational
+$\tau^{\rm sp}_{3,\pm}$. The recorded cap is
+$g=\max_\pm(\cperp+\tau^{\rm sp}_{3,\pm})/(1-\bar\eps_V)$, rounded upward to
+$10^{-8}$ and not to an integer:
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{\qquad}lll@{}}
+\toprule
+cut & $p_0=2^{47}$ & $p_0=2^{48}$ & cut & $p_0=2^{47}$ & $p_0=2^{48}$\\
+\midrule
+FL21 & $23.24980857$ & $23.07315227$ & EL21 & $24.95017938$ & $24.6357449$\\
+FL22 & $7.00914919$ & $6.95874256$ & EL22 & $5.65086987$ & $5.63739898$\\
+FF22 & $3.12377057$ & $3.12364965$ & FE22 & $2.41440785$ & $2.41435434$\\
+EE22 & $0.00002884$ & $0.00002784$ & LL10 & $10.17351517$ & $10.05779953$\\
+FL11 & $4.10415806$ & $4.10396046$ & EL11 & $4.58309033$ & $4.5829422$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\emph{Evaluation points.} The caps are evaluated at $2^{47}$ for the bands below
+$2^{48}$, and at $2^{48}$ for every band from $2^{48}$ on, those from $2^{52}$
+included. In each band they are inflated at its own start $X$ and budget,
+$d=g\exp(B_{\rm top}L_{\rm band}/(X\log X))$, rounded upward to $10^{-6}$
+(\cref{cert:upper-band-inputs}(a)): for instance $d=23.249822$ for FL21 at
+$\Pthree$ and $23.073161$ at $2^{48}$, and the caps of the field pairs LF and LE
+are $7.00915$ and $5.65087$ at $\Pthree$.
+
+\emph{Tail datum.} The tail datum and the tail comparison use the caps of the four
+tests (two classes, two signs), at $2^{54}$ and $2^{64}$, with integer block caps.
+At $2^{64}$ the class-one tests give the recorded $g$ in every cut except FE22 and
+EE22, where the two classes tie (\cref{cert:upper-band-inputs}(d)).
+
+\begin{certificate}[Band inputs]\label{cert:upper-band-inputs}
+\sloppy
+For every one of the $310$ bands, the numerical inputs required
+by \cref{def:record:upper-bands}---the caps of the ten
+non-principal cuts, the observed merge and constant caps, and the
+row quantities---have been evaluated at the band start and pass
+the exact tests named below. The items identify the data file
+and independent review for each kind of input.
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Class-three nonroot caps.} The records are
+ \path{research/advance_2026_10_24/upper/lower_p47/class3_caps.json} ($2^{47}$) and
+ \path{research/advance_2026_10_24/upper/class3_nonroot_caps.json} ($2^{48}$). Each
+ holds the ten cuts with $g$ and $B_{\rm top}$ and $20$ exact PSD tests (two signs
+ per cut). They are produced by \path{class3_nonroot.py} and
+ \path{extend_lower_caps47.py} of the same directory. The review
+ \path{review_class3_nonroot.py} (records \path{class3_nonroot_review.json} and
+ \path{lower_p47/class3_review.json}, both
+ \texttt{PASS\_INDEPENDENT\_CLASS3\_NONROOT\_UPPER}) rebuilds the matrices from their definitions, checks both signs in the positive-semidefiniteness tests exactly, and recomputes every completion weight of \cref{lem:five-type} for the ten non-principal cuts.
+\item \emph{Observed caps} (\cref{prop:observed-caps}). The records are
+ \path{observed_caps.json} and \path{lower_p47/observed_caps.json}; the reviews
+ \path{observed_caps_review.json} and \path{lower_p47/observed_review.json}, both
+ \texttt{PASS\_INDEPENDENT\_OBSERVED\_MARGINAL\_CAPS}, cover the actual
+ projections of the eighteen half labels to the twelve and the six observed
+ labels, $4$ PSD tests and $2622$ frame pairs. All these files are in
+ \path{research/advance_2026_10_24/upper/}.
+\item \emph{Rows.} The product-row quantities of \ref{it:record:upper-F3} and
+ \ref{it:record:upper-F4} are evaluated at the band's start $X$ with
+ $\bar n=L_{\rm band}/\log X$ (field \texttt{field\_primitives} of the band
+ record), with the pinned extraction at the bucket $\mathfrak q=0$
+ (\path{research/advance_2026_10_24/upper/conditional_fine_parts.json}) and, in
+ the correlations, the full star matrices of \cref{prop:conditional-star} with the
+ decay weights of its part (c), certified at $j2^{42}$ for even $j$ from $32$ to
+ $62$ and at $2^{48}$ (\path{conditional_fine_decay_lower_grid/} and
+ \path{conditional_star_fine_p48.json} in \path{research/advance_2026_10_24/local/},
+ each reviewed, \texttt{PASS\_INDEPENDENT\_FINE\_PINNED\_CONDITIONAL\_STAR\_GATES}).
+ The joint coefficients of \ref{it:record:upper-F5}(a) come from one of $17$
+ joint-row endpoint tables, the largest not above $X$:
+ \begin{itemize}
+ \item eleven in \path{research/further_2026_10_25/upper/joint_endpoints/}: $\Pthree$,
+  $j2^{42}$ for $j\in\{56,60,80,96,112\}$, $2^{49}$, $2^{50}$, $2^{51}$, $2^{52}$,
+  $2^{60}$, each with its review, indexed by \path{index.json};
+ \item six in \path{research/advance_2026_10_24/local/}: the grid tables
+  \path{p42_42.json}, \path{p44_42.json}, \path{p46_42.json}, \path{p48_42.json},
+  \path{p50_42.json} of \path{conditional_joint_potential_grid/} ($j2^{42}$) and
+  \path{conditional_joint_potential_p48.json} ($2^{48}$).
+ \end{itemize}
+ Every table has the status \texttt{PASS\_CONDITIONAL\_JOINT\_ROW\_PRIME\_GATES} and
+ an independent review \texttt{PASS\_INDEPENDENT\_CONDITIONAL\_JOINT\_PIN\_POTENTIAL}.
+ The reviews of the band records in \path{research/advance_2026_10_24/upper/} are
+ \path{joint_rows_review.json}, \path{joint_pins_upper_review.json} and
+ \path{joint_potential_upper_review.json}
+ (\texttt{PASS\_INDEPENDENT\_JOINT\_CONDITIONAL\_UPPER\_ADAPTER}),
+ \path{conditional_fine_parts_review.json} (the bucket $\mathfrak q=0$),
+ \path{fine_conditional_fields_review.json} and \path{signed_row_upper_review.json}.
+ The allowances are reviewed by
+ \path{research/further_2026_10_25/upper/allowances_review.json} and
+ \path{endpoint_allowances_review.json}
+ (\texttt{PASS\_INDEPENDENT\_UPPER\_ALLOWANCE\_REOPTIMIZATION}), which recompute $f$
+ and $M$ from the stored $\ell_{\rm mid}$, $c_{\rm mar}$, $(k_{\rm J},c_{\rm F})$, $h$
+ and $t_\varphi$ by the formula of \ref{it:record:upper-F5}(a) and authenticate every
+ pair $(k_{\rm J},c_{\rm F})$ against its table. At $\Pthree$, for instance, the
+ ordinary inputs have $(M_\varphi,t_\varphi)=(1.012767561,\,0.012758561)$,
+ $(1.023485,\,0.023484)$ and $(1.000058323,\,0.000057323)$ for $\rm L$, $\rm F$, $\rm E$.
+\item \emph{Tail datum and tail caps (both classes).} The nonroot caps and the six
+ Schur rows of the tail datum are those of the band $[2^{64},2^{512})$ of
+ \path{research/frontier_2026_10_17/root/complete_c375_verification.json}, which
+ \path{research/roadmap_2026_10_18/item12/upper_v2_local.json} keeps. The nonroot
+ caps at $2^{54}$ and $2^{64}$ come from the grid \path{upper_augmented_grid.json} of
+ \path{research/advance_2026_10_17/sparse/}, built by \path{build_augmented_grid.py}
+ with four exact rational tests per cut and threshold (two classes, two signs),
+ each of the form \eqref{eq:spectral-test}, and the gates of
+ \ref{it:record:upper-F6}. The replays \path{replay_upper_psd.py} and
+ \path{replay_upper_local_inputs.py} of \path{research/roadmap_2026_10_18/item15/}
+ recompute every cap, the six rows and their Schur coefficients (with $H<103/100$
+ asserted for every row), and the integer inputs.
+\end{enumerate}
+The searches only chose finite partitions and rational parameters; the proof uses
+the exact tests and the stated formulas.
+\end{certificate}
+
+\subsection{Merge and constant bounds for four states}\label{subsec:upper-observed}
+
+A merge component of the upper reference depends only on the
+labels in rows $0$ and $1$ of its $\rm E$ coordinate, and a
+constant component only on row $0$
+(\cref{subsec:layer72:upper}). For the order at the reserved cut,
+only the compression of the layer-cut operator to functions of
+those labels (the \emph{observed} labels) therefore matters, and
+\cref{lem:five-type}(e) allows such a component a cap of its own.
+For the four states in question---denoted LR, RL (the merges) and
+LC, CL (the constants) in the band data, for the field pair
+$\rm LE$---this compressed operator has a much smaller negative
+part than the full cut operator (whose cap is $5.65$ at $2^{47}$).
+The proposition gives the compressed caps.
+
+\begin{proposition}[Observed merge and constant caps]\label{prop:observed-caps}
+Let $p_0\in\{2^{47},2^{48}\}$, let $p\ge p_0$ be a prime with $p\equiv3\pmod4$, let
+$\Op$ be the normalized cut operator of EL22 at $p$, and let $\Pi_O$ be the
+conditional expectation onto the functions of the labels of a set $O$ of half
+vertices. For the merge ($O$ the twelve labels of the rows $0,1$ of the $\rm E$
+coordinate) and the constant ($O$ the six labels of the row $0$), the compression
+$\Op^O=\Pi_O\Op\Pi_O$ on the functions of $x_O$ satisfies
+\[
+ -g_{\rm G}rI\preceq\Op^O\preceq(1+B_{\rm top}/p)I,\qquad\text{respectively}\qquad
+ {-g_{\rm C}rI}\preceq\Op^O\preceq(1+B_{\rm top}/p)I,
+\]
+where:
+\begin{itemize}
+\item $(g_{\rm G},g_{\rm C})=(2.268819655,\,0.079761731)$ and
+ $B_{\rm top}<39236.89926$ for $p_0=2^{47}$;
+\item $(g_{\rm G},g_{\rm C})=(2.245405779,\,0.056393528)$ and
+ $B_{\rm top}<39227.259341$ for $p_0=2^{48}$.
+\end{itemize}
+Here $B_{\rm top}$ is the positive constant of the full cut EL22. Hence for any $L'$ and a block
+of such primes, all at least $X\ge p_0$, with $\log q_\Blk\le L'$, the compressed
+block operators have negative coefficients at most
+$k_{\rm G}=g_{\rm G}e^{B_{\rm top}L'/(X\log X)}$ and
+$k_{\rm C}=g_{\rm C}e^{B_{\rm top}L'/(X\log X)}$. These may serve as the caps of the
+reserved states LR, RL and LC, CL in \eqref{eq:independent-fold-domination}
+(\cref{lem:five-type}(e)).
+\end{proposition}
+
+\begin{proof}
+\emph{Geometry.} The plus half of the layer cut of $G_{\rm EL,2}$ is the layer
+$\ell=0$, with the eighteen labels $(a,b)$, $a\in\{0,1,2\}$, $b\in\Zsix$. The
+edges of the graph are $(a,b,\ell)\to(a',\rot b,\ell')$ for $a\ne a'$ and all
+$\ell,\ell'$ (\cref{subsec:push:layer72spectral}: the $\rm E$ coordinate has no
+forward pair), so the signed cross-incidence matrix is
+\[
+ D_{(a,b),(a',b')}=\one_{a\ne a'}\bigl(\one_{b'=\rot b}-\one_{b=\rot b'}\bigr),
+\]
+an antisymmetric matrix, and the internal and cross degrees are four. Every
+permutation of the rows $a$ is an automorphism (\cref{lem:upper-geometry}(b)). The
+merge and the constant components are images of the field law under the emission
+(\cref{subsec:layer72:upper}); at $\iota$ their cut forms are those of the field
+law on the functions of $x_O$, that is, of $\Op^O$. Their observed half
+marginals are marginals of the
+original half law, not uniform laws of smaller graphs.
+
+\emph{Complete star operator.} There are $162$ distinct supports of size at least
+two in the cross neighbourhoods. With the actual features of
+\cref{subsec:spec:actual-stars} for the half law and the synthesis
+$\mathcal F=(V_j,(W_S/r)_S)$, \cref{cor:star-matrix} writes the doubly centred
+complete star part of the cut kernel as $r\mathcal FM(\Phat)\mathcal F^*$, with
+\[
+ M(\Phat)=\begin{pmatrix}D\otimes\Phat&B_\star\\B_\star^{\mathsf T}&0\end{pmatrix},
+ \qquad (B_\star)_{j,S}=(-1)^{|S|}\prod_{i\in S}D_{ji};
+\]
+since $D$ is antisymmetric, the right-star coefficients $\prod_{i\in S}D_{ij}$ are
+the entries of $B_\star^{\mathsf T}$. The higher-star constant couplings vanish only
+under the double centring; they stay in the constant-coupling bound below.
+
+\emph{Schur tests.} By \cref{rem:realified-gates}, $\norm{M(\pm i)}\le k$ follows
+from the rational tests $k^2I-B_\star B_\star^{\mathsf T}\pm ikD\succeq0$. They hold
+with $k=6$ for the full matrix, and with $k=2.188902$ for the principal matrix of
+the features of the merge's observed labels (twelve singletons and sixty supports;
+on the singleton rows $B_\star B_\star^{\mathsf T}=I$). The principal matrix of the
+features of the constant's observed labels is zero. All these are finite rational
+matrix inequalities, checked by exact $LDL^{\mathsf T}$ elimination.
+
+\emph{Visible and hidden features.} Call a feature \emph{visible} if it is a
+function of $x_O$ (a singleton of $O$, or a support contained in $O$, also when its
+principal coefficients vanish) and \emph{hidden} otherwise: the merge has $72$
+visible and $108$ hidden features, the constant $12$ and $168$. Let
+$\mathcal F_{\rm v}$, $\mathcal F_{\rm h}$ be the two parts of the synthesis, so that
+$\Pi_O\mathcal F_{\rm v}=\mathcal F_{\rm v}$. By \cref{lem:general-star}(f),
+$\norm{\mathcal F_{\rm v}}^2\le\Gamma$ for the actual frame bound $\Gamma$. By
+\cref{lem:hidden-feature}, with the best unobserved pivot of each hidden feature and
+$D_j\le2^4/(1-e_4(p,18))$ (\cref{lem:extension}), each hidden feature has a bound
+for $\norm{\Pi_O\mathcal F_\alpha}$; let $e_{\rm hid}^2$ be the sum of their squares,
+so that $\norm{\Pi_O\mathcal F_{\rm h}}\le e_{\rm hid}$ by Cauchy--Schwarz, no
+orthogonality of the hidden features being used. Splitting $M$ into its visible
+principal block and the three other blocks, each of norm at most $6$, the
+compression of the centred star operator has norm at most
+\[
+ r\bigl\{\Gamma k+6\bigl(2\sqrt\Gamma\,e_{\rm hid}+e_{\rm hid}^2\bigr)\bigr\}.
+\]
+
+\emph{Lower bound.} Let $N_{\rm ns}$, $D_{\rm col}$, $R_Z$ and $\eps_\varrho$ be the
+nonstar, coincidence, normalizer and constant-coupling bounds of the full cut EL22
+at $p$ (\ref{it:record:upper-F6}). The compression $\Pi_O$ contracts the nonstar and
+coincidence parts and the constant-coupling vector, and keeps the scalar corner
+$\ip\one{\Op\one}=1$. So $A=\Op^O$ has $\norm{P_0A\one}\le\eps_\varrho$ and
+$P_0AP_0\succeq-cP_0$ with
+\[
+ c=R_Z\Bigl[r\bigl\{\Gamma k+6\bigl(2\sqrt\Gamma\,e_{\rm hid}+e_{\rm hid}^2\bigr)\bigr\}
+ +N_{\rm ns}+D_{\rm col}\Bigr],
+\]
+and \cref{prop:matching:positive}(a$'$) gives
+$A\succeq-(c+\eps_\varrho^2/(1+c))I\succeq-(c+\eps_\varrho^2)I$. Outward evaluation
+of $(c+\eps_\varrho^2)/r$ at $p_0$, rounded upward, gives the stated $g_{\rm G}$ and
+$g_{\rm C}$. The upper bound is the compression of the positive envelope
+$\Op\preceq(1+B_{\rm top}/p)I$ of the full cut (\cref{thm:spectral-criterion}(d), with
+the class-three caps of \cref{cert:upper-band-inputs}(a)).
+
+\emph{All primes and blocks.} Every error bound above, after division by its
+indicated power of $r$, is admissible (\cref{lem:majorant}): the extension
+denominators increase with $p$, and $\Gamma$, $e_{\rm hid}$, $N_{\rm ns}/r$,
+$D_{\rm col}/r$ and $\eps_\varrho^2/r$ decrease, while the rational matrix caps $6$
+and $2.188902$ do not depend on $p$; so the bounds hold at every $p\ge p_0$ with the
+values at $p_0$. The block statement is \cref{lem:spec:tensorcomp}(b), applied to the
+compression to the functions of the labels of $O$, with
+ $\sum_{p\in\Blk}1/p\le L'/(X\log X)$ (\cref{lem:spec:tensorcomp}(c)).
+\end{proof}
+
+The four caps enter only the reserved dominations
+\eqref{eq:independent-fold-domination}, and through them the reserved weights and
+the deletion polynomial of the comparison (\cref{def:upper-comparison}). They depend
+on the state, not on the placement of the merge or the constant in the slots, and
+the weights of \cref{def:record:upper-bands}(d) are symmetric in the two type
+coordinates, so the reference $\mu_\Blk$ remains unchanged
+when its root (principal) law is replaced by the swapped one
+(interchanging the two type coordinates). The block caps
+are rounded upward to $10^{-6}$ with the band's own budget: $k_{\rm G}=2.26882$ and
+$k_{\rm C}=0.079762$ at $\Pthree$, and $2.245406$ and $0.056394$ from $2^{48}$ on
+(\cref{cert:upper-band-inputs}(b)).
+
+\subsection{Conditional laws given the middle label}\label{subsec:upper-rows}
+
+The five-type completion is applied one chamber coordinate at a
+time. Fix such a coordinate; its three objects are called the
+rows $0,1,2$. The completion needs, after conditioning on all
+labels of the middle row $1$, bounds for the conditional laws of
+the two outer rows under the fold pattern ($\rm F$) and under the
+matching pattern ($\rm E$), measured against one common product
+reference (\cref{lem:five-type}(b),(c),(f)); in the upper bands
+the two rows are moreover bounded jointly, by one Gram matrix
+(\cref{subsec:upper-joint-rows}). In detail: fix a chamber
+coordinate $c$, a field type $\varphi$ of the other coordinate and
+a layer count $j$. The rows are the objects $0,1,2$ of the
+coordinate $c$ in the field laws
+$\lambda_\Blk(G_{{\rm F}\varphi,j})$ and
+$\lambda_\Blk(G_{{\rm E}\varphi,j})$. Condition on the $z$ distinct
+labels of the middle row $1$. By \cref{lem:upper-geometry}(d), in
+both laws the two outer rows have $n$ labels, no internal edges,
+and exactly the same signed conditions (pins) towards the middle
+row; they differ only in the edges between the outer rows
+themselves. The six geometries are
+\[
+\begin{array}{c|cccccc}
+ (\varphi,j)&({\rm L},1)&({\rm L},2)&({\rm F},1)&({\rm F},2)&({\rm E},1)&({\rm E},2)\\
+ \hline
+ n=z&6&12&3&6&3&6\\
+ \varpi=\text{maximal pin degree}&2&4&1&2&0&0
+\end{array}
+\]
+These are the pinned rows of \cref{subsec:push:pinnedremainder}, with pin bound
+$\varpi$ and $z$ fixed labels, grouped with the bucket $\mathfrak q=0$, so that the
+integer free-degree costs $\mathrm{oc}(\mathcal C)$ enter exactly
+(\cref{rem:pinned-instances}). Throughout this subsection $r=p^{-1/2}$ for one odd
+prime $p$, and the symbols introduced here are local to it; block quantities are
+formed in \ref{it:record:upper-F5}.
+
+\subsubsection{The product reference and the star bounds}
+\label{subsec:push:layer72product}
+Let $e_t=e^-_t(z)$, the graded error of \eqref{eq:graphs:graded}, be the relative
+error of a strict $t$-pin count with $z$ excluded labels; assume $e_\varpi<\frac12$,
+and put
+\[
+ \kappa=\frac{2^\varpi}{1-e_\varpi},\qquad I_0=1-\binom n2\kappa r^2 .
+\]
+An outer label must avoid the middle labels and satisfy its signed pins; its
+\emph{allowed set} has at least $p2^{-\varpi}(1-e_\varpi)$ elements
+(\cref{lem:extension}(c)), so the uniform law on it has density at most $\kappa$
+relative to the uniform law of $\Fp$. Replacing a smaller actual pin degree by $\varpi$
+enlarges the density, insertion, denominator and collision bounds of the pinned
+extraction below and imposes no edge; the certificates keep the actual pin
+dictionaries and check their equality, both orientations, and the absence of
+outer-row edges. Let $\lambda$ be the product of the allowed-set laws of the $n$
+labels of a row and $\mu$ the law $\lambda$ conditioned on the row being injective
+(the \emph{actual row law}); by \cref{lem:restriction}(d) the injection probability
+is at least $I_0$. For $k\in\{\rm F,E\}$ let $K_k$ be the raw cross kernel between
+the outer rows, relative to $\mu\otimes\mu$: the indicator that the two rows are
+disjoint times the product over the cross pairs $(i,i')$ of
+$1+\chi(\varsigma_{ii'}(x'_{i'}-x_i))$. The conditional law of the outer rows under
+the $k$ law is $K_k\,\mu\otimes\mu$ normalized; put $Z_k=\ip\one{K_k\one}$ and
+$\varrho_k=K_k\one/Z_k$, the normalized marginal density.
+
+\emph{One-character means.} For a fixed output $x$ outside the middle labels and an
+outer label with allowed law $\mathcal A$, the mean $\E_{\mathcal A}\chi(x-y)$ has
+modulus at most
+\[
+ \beta_\chi:=\frac{\sum_{s=1}^\varpi\binom{\varpi}{s}(s-\one_{s\ \rm odd})r
+ +2^\varpi(z+1)r^2}{1-e_\varpi} .
+\]
+Indeed, expand $2^\varpi\one_{\mathcal A}$ into pin monomials: a monomial with $s\ge1$
+pins gives a character sum with the $s+1$ distinct roots $x$ and its pins, of
+modulus at most $s\sqrt p$ for even $s$ and $(s-1)\sqrt p+1$ for odd $s$
+(\cref{thm:weil}); the monomial without pins gives zero, the constants $1$ of the odd
+$s$ add up to $2^{\varpi-1}$, and deleting the $z$ excluded labels costs at most $z2^\varpi$;
+divide by $2^\varpi|\mathcal A|\ge p(1-e_\varpi)$. (For $\varpi=4$, $z=12$ this
+is $\beta_\chi=(24r+208r^2)/(1-e_4)$.)
+
+\emph{Stars.} Expand each character $\chi(\varsigma(x'-y))$ of the kernel into its
+mean and its centred part. Restricting the Paley operator to two allowed sets has
+norm at most $\kappa r$, centring an input is contractive, products on distinct input
+coordinates have Gram kernels given by Schur products whose extra centred factors
+have diagonal at most one, and exact input supports are orthogonal. Consequently,
+after its singleton edges are removed, a star of degree $d$ has input-constant part at
+most $\mathsf E_d$ and nonconstant part of norm at most $\kappa r\sqrt{\mathsf T_d}$,
+where
+\[
+ \mathsf E_d=(1+\beta_\chi)^d-1-d\beta_\chi,\qquad
+ \mathsf T_d=\sum_{s=1}^d\binom ds\bigl((1+\beta_\chi)^{d-s}-\one_{s=1}\bigr)^2
+\]
+(for a singleton support, removing the singleton edge subtracts one from its
+coefficient). Let $(d_i)$ and $(d'_{i'})$ be the two lists of cross degrees and
+$n^\times_k$ the number of cross edges of $K_k$. The full star part of $K_k$ has norm
+at most
+\[
+ \mathsf C_k=n^\times_k\kappa r+\sum_i\bigl(\kappa r\sqrt{\mathsf T_{d_i}}+\mathsf E_{d_i}\bigr)
+ +\sum_{i'}\bigl(\kappa r\sqrt{\mathsf T_{d'_{i'}}}+\mathsf E_{d'_{i'}}\bigr),
+\]
+and its centred constant image is at most the larger, over the two orientations, of
+\[
+ \mathsf M^{\rm st}_k=\kappa r\Bigl(\sum_id_i^2\Bigr)^{1/2}+\sum_i\mathsf E_{d_i}
+ +\sum_{i'}\kappa r\sqrt{\mathsf T_{d'_{i'}}} ;
+\]
+for the singleton part, the centred output coordinates are orthogonal. The single
+edges have means at most $\mathsf J_\varpi r^2$, by (PR2) below.
+
+\emph{Injection.} Let $N^{\rm ns}_k$ and $D^{\rm col}_k$ be the nonstar and
+cross-coincidence norms of $K_k$ on $L^2(\mu)$: $N^{\rm ns}_k$ is the bound
+$N^{\rm pin}$ of \cref{prop:pinned-extraction} for the compressed partition, and
+$D^{\rm col}_k$ the bound of \cref{prop:pinned-collision}, whose two orientations
+agree because in all twelve row geometries the row and column degree multisets
+coincide (\cref{rem:pinned-instances}). By \cref{lem:restriction}(c), applied with
+the full star bound $\mathsf C_k$ (a strict-centred test extends to a
+product-centred test),
+\begin{gather*}
+ |Z_k-1|\le\eps_k:=\frac{n^\times_k\mathsf J_\varpi r^2+\sum\mathsf E
+ +\mathsf C_k(2\sqrt{1-I_0}+1-I_0)}{I_0}+N^{\rm ns}_k+D^{\rm col}_k,\\
+ \norm{P_0K_k\one}\le\mathsf M_k:=\frac{\mathsf M^{\rm st}_k+\mathsf C_k\sqrt{1-I_0}}{I_0}
+ +N^{\rm ns}_k+D^{\rm col}_k,
+\end{gather*}
+where $\sum\mathsf E$ is the sum of $\mathsf E_d$ over both degree lists.
+\Cref{cert:upper-band-inputs}(c) asserts $\eps_k<\frac12$.
+
+\subsubsection{Differences of conditional laws given the middle label}\label{subsec:advance:product-rows}
+The completion needs the difference of the two conditional laws, not each law
+separately: the middle density is a ratio of the normalizers $Z_{\rm F}$, $Z_{\rm E}$,
+and the fold marginal densities are ratios $\varrho_{\rm F}/\varrho_{\rm E}$. The
+common product reference makes this difference small. The estimates below hold at
+every odd prime; the certificate evaluates them for both prime classes and takes the
+larger value.
+
+\paragraph{Complete conditional means.}
+For distinct-root sets $S,T$ of size at most four,
+\[
+ \Bigl|\sum_{x,y}\chi\Bigl((x-y)\prod_{s\in S}(x-s)\prod_{s'\in T}(y-s')\Bigr)\Bigr|
+ \le40p .\tag{PR1}
+\]
+Empty root sets give zero, and for $|S|=|T|=1$ the two-root identity
+\eqref{eq:two-root} gives modulus at most $p$. Otherwise this is \cref{thm:dl:H2}
+(in its symmetric form if $|S|=1$), since $\mathcal B(m,m',s)\le\mathcal B(4,4,0)=
+28+8r+4r^2<40$ for $2\le m\le4$, $1\le m'\le4$ (\cref{rem:dl:H2-sharp}(iii)). Expanding the
+two allowed-set densities and deleting their $z$ common excluded labels gives, for
+independent outer labels $X,Y$ with allowed laws (including $\varpi=0$),
+\[
+ |\E\chi(X-Y)|\le\mathsf J_\varpi r^2,\qquad
+ \mathsf J_\varpi=\frac{40(2^\varpi-1)^2+2z4^\varpi}{(1-e_\varpi)^2} .\tag{PR2}
+\]
+In the $({\rm L},2)$ geometry the signed $\rm F-E$ singleton matrix $\mathbf D$ has
+absolute entry sum $\norm{\mathbf D}_1=72$ in both prime classes, so its full singleton
+mean is at most $72\mathsf J_4r^2=1090368r^2/(1-e_4)^2$. All higher-star means, nonstar
+remainders and cross-injection corrections are retained. Thus \emph{the conditional
+normalizer difference has order $r^2$, not $r$}.
+
+\paragraph{Exact output supports.}
+Write $M_{\rm F},M_{\rm E}$ for the signed cross matrices, with zero for an absent edge.
+For a centre $j$ and a set of leaves $S$ put
+\[
+ c_j(S)=\prod_{i\in S}M_{\rm F}(i,j)-\prod_{i\in S}M_{\rm E}(i,j),\qquad
+ b_j(T)=\sum_{\substack{S\supseteq T\\|S|\ge2}}|c_j(S)|\,\beta_\chi^{|S|-|T|}.
+\]
+Expand each character into its allowed-law mean and centred part. Different nonempty
+exact leaf supports $T$ are orthogonal in the product reference; one must first sum the
+contributions of all centres on the same support, and only then square. For two
+distinct centre values $y,w$ outside the middle set, the one-variable character bound
+gives
+\[
+ |\E\phi_y(X)\phi_w(X)|\le\nu_\chi:=q_\varpi+\beta_\chi^2,\qquad
+ q_\varpi=\frac{\sum_{s=1}^\varpi\binom{\varpi}{s}(s+\one_{s\ \rm odd})r
+ +2^\varpi(z+1)r^2}{1-e_\varpi},
+ \tag{PR3}
+\]
+where $\phi_y(X)=\chi(X-y)-\E\chi(X-y)$; on the diagonal the variance is at most one.
+For $s$ independent leaf coordinates and a centre coefficient of modulus at most
+$\bar\alpha$, expanding the squared norm over two centre values bounds it by
+$\bar\alpha^2(\kappa r^2+\nu_\chi^s)$: the diagonal probability is at most $\kappa/p$,
+and off the diagonal the $s$ covariance bounds multiply. For
+$s\le2$ the Paley bound $\bar\alpha\kappa r$ is stronger. So
+the higher-star marginal, centred at the opposite (input) leaves
+rather than at the centre, is at most
+\[
+ \Bigl[\sum_{T\ne\emptyset}\Bigl(\sum_jb_j(T)\Bigr)^2\mathsf B_{|T|}^2\Bigr]^{1/2},\qquad
+ \mathsf B_s^2=\begin{cases}\kappa^2r^2,&s\le2,\\ \kappa r^2+\nu_\chi^s,&s\ge3,\end{cases}
+ \tag{PR4}
+\]
+and the output-centred orientation contributes its empty-input support,
+$\sum_j\sum_{|S|\ge2}|c_j(S)|\beta_\chi^{|S|}$. These are constant-image bounds; no
+improved full-operator bound is asserted. In the five geometries other than
+$({\rm L},2)$ the singleton part of the difference is bounded as the singleton part of
+$\mathsf M^{\rm st}_k$, with $\sum_{i'}|M_{\rm F}(i,i')-M_{\rm E}(i,i')|$ in place of
+$d_i$.
+
+\paragraph{The six-density Gram matrix.}
+For $({\rm L},2)$ the two layer copies of a centre have the same four-pin allowed law.
+Index the six distinct densities by $u\in\Zsix$, the object of the other coordinate,
+write $\rho_u$ for the density of the allowed set $\mathcal A_u$ relative to the
+uniform law and $\psi_u=\rho_u-\one$. For class one, two distinct allowed sets of the
+same parity have six compatible pins and opposite-parity sets eight disjoint pins; for
+class three, distinct same-parity sets are disjoint, since one common pin has opposed
+signs. The leading density Gram matrix $\mathcal H$ has the entries
+\[
+ \mathcal H_{uu}=16,\qquad \mathcal H_{uu'}=\begin{cases}
+ 4,&u\ne u',\ u\equiv u'\pmod2,\ p\equiv1\pmod4,\\
+ 0,&u\ne u',\ u\equiv u'\pmod2,\ p\equiv3\pmod4,\\
+ 1,&u\not\equiv u'\pmod2,\end{cases}
+\]
+with absolute entry errors at most
+\[
+ \eta_{\rm diag}=\frac{16e_4}{1-e_4},\quad
+ \eta_{\rm same}=\frac{4(e_6+2e_4+e_4^2)}{(1-e_4)^2},\quad
+ \eta_{\rm cross}=\frac{e_8+2e_4+e_4^2}{(1-e_4)^2};\tag{PR5}
+\]
+the same-parity class-three error is zero. The Gram matrix of the $\psi_u$ is
+$\mathcal G=\mathcal H-\one\one^{\mathsf T}$ with the same errors $\eta_{uu'}$. For the
+singleton marginal, collapse the twin layer coefficients in each output row to a vector
+$\mathbf c_i\in\R^6$. The Paley operator annihilates constants and has norm $r$;
+restricting its output to an allowed set costs $\sqrt\kappa$, and distinct centred
+output coordinates are orthogonal. Hence the squared singleton marginal is at most
+\[
+ \kappa r^2\sum_i\Bigl[\mathbf c_i^{\mathsf T}\mathcal G\mathbf c_i
+ +\sum_{u,u'}|c_{iu}c_{iu'}|\eta_{uu'}\Bigr].\tag{PR6}
+\]
+The exact leading quadratic sums are $2448$ and $2064$ in the two prime classes; the
+certificate checks both matrix orientations. One may also bound the singleton
+\emph{mean} by $r\operatorname{tr}(|\mathbf D|\mathcal G)$: in class one the collapsed
+symmetric matrix has first row $(0,4,-2,0,-2,4)$ and absolute-value first row
+$(16/3,-2/3,4/3,-8/3,4/3,-2/3)$; in class three its Hermitian absolute value is
+$2\sqrt3$ times the projection onto the parity-wise mean-zero vectors. These give the
+leading constants $528$ and $128\sqrt3$. The stronger complete mean (PR2) is the one
+used for the normalizer.
+
+\paragraph{Weighted moving-root moments.}
+For a set $S$ of two to five distinct field elements let $\tau_S$ be the moving-root
+trace \eqref{eq:moving-root-tau}, and let $\chi_A$ be a squarefree character weight
+with at most four roots. By \cref{cor:moving-root-uniform}, with arbitrary overlaps of
+the three root sets,
+\[
+ \Bigl|\E_x\chi_A(x)\tau_S(x)\tau_{S'}(x)-\frac{\one_{S=S',\ A=\emptyset}}p\Bigr|
+ \le512p^{-3/2} ,\tag{PR7}
+\]
+and, by \cref{cor:moving-root-conditional}, for an allowed law with at most four pins
+and density normalization $\gamma$, and distinct root sets $S$,
+\[
+ \Bigl\|\sum_S\alpha_S\tau_S\Bigr\|_{\rm allowed}\le\sqrt\gamma\,r
+ \Bigl[\sum_S\alpha_S^2+8192r\Bigl(\sum_S|\alpha_S|\Bigr)^2\Bigr]^{1/2}. \tag{PR8}
+\]
+The input is the local monodromy of the moving-root sheaves at their finite roots
+(Katz--Sarnak, Remark~10.1.17, \cref{lem:dl:sheaf}): distinct root sets give sheaves
+that are not isomorphic after any rank-one twist.
+
+\paragraph{Signed grouping of the principal supports.}
+For each exact support $T$ separate its coefficient with no complementary leaf means,
+$\alpha_j=\prod_{i\in T}M_{\rm F}(i,j)-\prod_{i\in T}M_{\rm E}(i,j)$; all terms containing
+complementary means keep their majorants from (PR4), and no cancellation of unknown
+means is assumed. For $|T|\ge3$ put $\Psi=\sum_j\alpha_j\rho_j$, with $\rho_j$ the
+density of the allowed law of the centre $j$. The squared norm of its
+principal term is exactly $\E_{y,w}\Psi(y)\Psi(w)\prod_{i\in T}\E\phi_y(X_i)\phi_w(X_i)$,
+and the diagonal/off-diagonal split with (PR3) bounds it by
+\[
+ r^2\norm\Psi_2^2+\nu_\chi^{|T|}\Bigl(\sum_j|\alpha_j|\Bigr)^2;\tag{PR9}
+\]
+after the twin centres are collapsed into a coefficient vector $\mathbf c\in\R^6$,
+(PR5) bounds $\norm\Psi_2^2$ by
+$\mathbf c^{\mathsf T}\mathcal H\mathbf c+\sum|c_uc_{u'}|\eta_{uu'}$. For a pair support
+first replace every centre normalization by one; since
+$|1-1/\gamma_j|\le e_4$ for the density normalization
+$\gamma_j$ of the allowed law of the centre $j$
+(\cref{cor:moving-root-conditional}), the error is at most
+$e_4\kappa r\sum_j|\alpha_j|$. Group identical nonempty pin subsets by
+$c_S=\sum_{j:S\subseteq{\rm pins}(j)}\alpha_j\prod_{s\in S}{\rm sign}(j,s)$. Fixing the
+first leaf makes the moving trace root set $S\cup\{x\}$, whose roots are distinct because
+leaves avoid every middle label; (PR8) bounds the nonconstant principal pair term by
+\[
+ \sqrt{\gamma_0}\,r\bigl[\mathfrak a_T+8192r\,\mathfrak b_T\bigr]^{1/2},\qquad
+ \mathfrak a_T=\sum_Sc_S^2,\quad\mathfrak b_T=\Bigl(\sum_S|c_S|\Bigr)^2,\quad
+ \gamma_0=(1-e_4)^{-1}.\tag{PR10}
+\]
+Centring both leaves contracts this bound. Deleted centre labels cost at most
+$12\cdot16r^2\sum_j|\alpha_j|$. The empty pin monomial is $\one_{x=y}-1/p$; after both
+leaf centrings and restriction to injective output tuples its remaining absolute value is
+at most $3\kappa r^2|\sum_j\alpha_j|$, a remainder charged by the triangle inequality
+\emph{after} restriction, not an unrestricted product-space norm estimate. For singleton
+supports group the pin subsets of size two to four in the same way, with the
+coefficients of $\mathbf D$; put $\mathfrak a=\sum_{i,S}c_{iS}^2$,
+$\mathfrak b=\sum_i(\sum_S|c_{iS}|)^2$ and $U=\sum_i(\sum_j|\mathbf D_{ij}|)^2=432$. The
+principal singleton norm is at most $\sqrt{\gamma_0}\,r\sqrt{\mathfrak a+8192r\mathfrak b}$,
+and the centre-normalization and deleted-label errors are at most
+\[
+ \frac{e_4}{1-e_4}\sqrt{U\gamma_0}\,r\sqrt{11+8192\cdot121r},\qquad
+ \gamma_0\,12\cdot16\sqrt U\,r^2.\tag{PR11}
+\]
+One-pin monomials are constant on the leaf allowed set and disappear under centring.
+The direct singleton terms and the size-one components of higher stars lie in the
+singleton subspace, which is orthogonal to all supports of size at least two: sum their
+squared bounds, take one square root, then add the pointwise pair-diagonal and scalar
+empty-support errors. The exact pair-support totals $(\sum_T\mathfrak a_T,\sum_T\mathfrak
+b_T)$ are $(6984,221400)$ and $(6792,213144)$ in the two prime classes, and the leading
+squared higher-support Gram totals are $18048$ and $18240$; both orientations are
+enumerated.
+
+\paragraph{Strict injection, normalization and the differences.}
+By \cref{lem:restriction}(c), with the full star bounds $\mathsf C_{\rm F},\mathsf
+C_{\rm E}$ and the nonstar and coincidence remainders, a product mean-difference bound
+$\Delta_0$ and a restricted-output centred marginal bound $\mathsf M_0$ (from
+(PR4)--(PR11)) give
+\begin{equation}\tag{PR12}
+\begin{aligned}
+ |Z_{\rm F}-Z_{\rm E}|\le\Delta&:=\frac{\Delta_0+(\mathsf C_{\rm F}+\mathsf C_{\rm E})
+ (2\sqrt{1-I_0}+1-I_0)}{I_0}+\mathsf R,\\
+ \norm{P_0(K_{\rm F}-K_{\rm E})\one}\le\mathsf M_\Delta&:=\frac{\mathsf M_0
+ +(\mathsf C_{\rm F}+\mathsf C_{\rm E})\sqrt{1-I_0}}{I_0}+\mathsf R,
+\end{aligned}
+\end{equation}
+with $\mathsf R=N^{\rm ns}_{\rm F}+D^{\rm col}_{\rm F}+N^{\rm ns}_{\rm E}+D^{\rm col}_{\rm E}$.
+Here $\Delta_0=\norm{\mathbf D}_1\mathsf J_\varpi r^2+\mathsf E_*$, with $\norm{\mathbf D}_1$ the
+absolute entry sum of the signed singleton difference ($72$ for $({\rm L},2)$) and
+$\mathsf E_*=\sum_j\sum_{|S|\ge2}|c_j(S)|\beta_\chi^{|S|}$ summed over both orientations:
+the cancellation in the difference is used before the triangle inequality. Restriction
+contracts the orthogonal principal sum, and the pair-diagonal remainder has already been
+bounded on the restriction. By \cref{lem:recentering}(c),
+\[
+ \norm{\varrho_{\rm F}-\varrho_{\rm E}}_2\le\frac{\mathsf M_\Delta
+ +\Delta\,\mathsf M_{\rm E}/(1-\eps_{\rm E})}{1-\eps_{\rm F}} .\tag{PR13}
+\]
+If $\varrho_{\rm E}\ge e^{-\ell_{\rm E}}$, where
+$\ell_{\rm E}=\ell_1+\ell_2+\ell_3$ with $\ell_1$ the
+conditional completion lower error (the logarithmic deficit in
+the lower bound for the conditional completion density),
+$\ell_2$ the half lower error (at most
+$-n\log(1-e_\varpi)-\log I_0$), and $\ell_3$ the
+full-given-middle upper error (the logarithmic excess in the
+upper bound for the full density given the middle row),
+multiplication by $e^{\ell_{\rm E}/2}$ turns (PR13) into
+the relative chi-square bound $\norm{\varrho_{\rm F}/\varrho_{\rm E}-\one}_{L^2(\varrho_{\rm
+E}\mu)}\le c_{\rm mar}r$; this defines the \emph{marginal coefficient} $c_{\rm mar}$. Both
+conditional normalizer ratios are at most $1+\Delta/(1-\max(\eps_{\rm F},\eps_{\rm E}))$,
+and the global normalizer is an average under the common middle reference; hence the
+\emph{middle log ratio}
+\[
+ \ell_{\rm mid}=\frac{2\Delta}{1-\max(\eps_{\rm F},\eps_{\rm E})}
+\]
+bounds both middle-density log ratios. This linear majorant, rather than a pointwise
+logarithmic formula, has the required monotonicity: every coefficient above, after its
+indicated power of $r$ is removed, is admissible (\cref{lem:majorant}). Indeed each is
+built by sums, products, maxima, minima, square roots, exponentials and the maps
+$y\mapsto1/(1-y)$ and $y\mapsto-\log(1-y)$ from fixed integers, $r$ and the admissible
+functions $e_t$, $\kappa$, $\beta_\chi/r$, $q_\varpi/r$, $\mathsf T_d$, $\mathsf E_d/r^2$,
+$\sqrt{1-I_0}/r$, $N^{\rm ns}_k/r^2$ and $D^{\rm col}_k/r^2$
+(\cref{prop:pinned-extraction,prop:pinned-collision}) and the count logarithms in
+$\ell_{\rm E}$; so $\eps_k/r$, $\mathsf M_k/r$, $\Delta/r^2$, $\mathsf M_\Delta/r$,
+$\ell_{\rm mid}/r^2$ and $c_{\rm mar}$ are admissible. For example
+$\mathsf B_s/r=(\kappa+(\nu_\chi/r)^sr^{s-2})^{1/2}$ for $s\ge3$.
+
+\subsubsection{Exact-support correlations}\label{subsec:row-anova-correlation}
+The fold row also needs the correlation $\rho_{\rm F}$ of the conditional outer rows in
+their own marginals, and the matching row the correlation $\rho_{\rm E}$. Decompose the
+mean-zero product space as $\mathcal V\oplus\mathcal W$, where $\mathcal V$ is the
+orthogonal sum of the single-coordinate spaces and $\mathcal W$ consists of the supports
+of size at least two. For a left centre $i$ write $N_i$ for its neighbours. Summing all
+higher stars with exact leaf support $T$ gives an operator of norm at most
+$\kappa r(1+\beta_\chi)^{|N_i|-|T|}$ for $|T|\ge2$, and for a singleton leaf the
+higher-star bound is $\kappa r((1+\beta_\chi)^{|N_i|-1}-1)$: retain one centred Paley
+factor and use the independent remaining leaves as positive Gram factors with diagonal at
+most one; complementary leaf means are bounded multipliers on the centre coordinate, and
+projecting the centre to mean zero contracts the norm. Let $\mathsf d$ be the sum of the
+scalar matrix bounds of the single-edge adjacency matrix and of the two singleton-support
+higher-star matrices, each bounded by the square root of its maximal row sum times its
+maximal column sum. For the higher-support block put
+\[
+ \mathsf G_{ii'}=\sum_{s=2}^{|N_i\cap N_{i'}|}\binom{|N_i\cap N_{i'}|}s
+ (1+\beta_\chi)^{|N_i|+|N_{i'}|-2s},\qquad
+ \mathsf a=\Bigl(\max_i\sum_{i'}\mathsf G_{ii'}\Bigr)^{1/2},
+\]
+and $\mathsf b$ likewise with the transposed neighbourhoods. Orthogonality of the centre
+coordinates and of the leaf supports bounds the two off-diagonal blocks by $\kappa r\mathsf a$
+and $\kappa r\mathsf b$, and empty supports vanish after global centring. So the full
+centred star operator has norm at most
+\begin{equation}\label{eq:row-anova-stars}
+ C_\star=\frac{\kappa r}2\Bigl(\mathsf d+\sqrt{\mathsf d^2+4\max(\mathsf a,\mathsf b)^2}\Bigr).
+\end{equation}
+No sign or symmetry assumption is needed for this scalar block majorant. For the largest
+$\rm E$ row, $\mathsf d\to4$ and $\mathsf a^2=\mathsf b^2\to26$, giving the leading
+coefficient $8(4+\sqrt{120})<119.636$; for the largest $\rm F$ row the values are $6$ and
+$162$, giving $8(6+\sqrt{684})<257.228$. A centred test on the strict reference, extended
+by zero with the normalizing square-root factor, remains centred on $\lambda$
+(\cref{lem:restriction}(a),(b)); hence the compressed raw kernel $K_k$ satisfies
+$\norm{P_0K_kP_0}\le c_{\rm st}:=C_\star/I_0+N^{\rm ns}_k+D^{\rm col}_k$. With
+$|Z_k-1|\le\eps_k$ and $\norm{P_0K_k\one},\norm{P_0K_k^*\one}\le\mathsf M_k$ from
+\cref{subsec:push:layer72product}, and actual marginal densities at least
+$e^{-\ell_{\rm low}}$, \cref{lem:recentering}(b) bounds the conditional correlation by
+\begin{equation}\label{eq:row-anova-actual}
+ e^{\ell_{\rm low}}\Bigl(\frac{c_{\rm st}}{1-\eps_k}+\frac{\mathsf M_k^2}{(1-\eps_k)^2}\Bigr),
+\end{equation}
+where $\ell_{\rm low}$ is the insertion-count lower-density bound of the row. The minimum
+with the pinned-influence bound \ref{it:record:upper-F2} is taken. These bounds apply to
+$\rm F$ and to $\rm E$, and conditional correlations tensorize by taking their maximum
+over the primes of a block (\cref{lem:row-comparison}(c)). The scalar majorant
+\eqref{eq:row-anova-stars} uses no property of the prime class; it is the star bound of
+the tail datum.
+
+\paragraph{Full star matrices (bands).} At $p\equiv3\pmod4$ the centred star part of a
+pinned row is bounded by the full star matrix under the pinned product law
+(\cref{prop:conditional-star}): the positive semidefinite gate
+$\begin{psmallmatrix}\mathsf k^2I-AA^*&\mathsf kD\\\mathsf kD^*&\mathsf k^2I-BB^*\end{psmallmatrix}
+\succeq0$ gives the norm bound $\kappa_0r(\mathsf k+\mathsf e_\star)$, where $\kappa_0\ge\kappa$
+is the assigned rational density bound and the decay weights $\omega_s$ of
+\cref{prop:conditional-star}(c) multiply the columns of the supports of size $s$. It is
+transported to the actual marginals by \eqref{eq:row-anova-actual}, with
+$\min\{C_\star,\kappa_0r(\mathsf k+\mathsf e_\star)\}$ in place of $C_\star$. The bands use
+this form in \ref{it:record:upper-F4}; the tail datum uses
+\eqref{eq:row-anova-stars} in \eqref{eq:row-anova-actual}, which hold at both classes.
+The gates are rational and do not depend on $p$, and the other normalized errors are
+admissible, so a table certified at an endpoint holds at every larger class-three prime
+(\cref{cert:upper-band-inputs}(c)).
+
+\subsubsection{Fold and matching conditional laws bounded jointly}\label{subsec:upper-joint-rows}
+For the bands, the fold and matching rows of a coordinate are bounded jointly, on one
+common pinned product reference transported to the actual $\rm E$ marginal
+(\cref{lem:joint-rows,cor:joint-row-split}): one Gram matrix bounds the fold kernel and
+the matching kernel together, and the completion of \cref{lem:five-type}(f) spends the
+reserve of the matchings on that matrix rather than on the sum of two separate norms.
+For the $\rm L$ rows the pin classes are mutually exclusive, and this lowers the
+pure-star coefficient.
+
+\begin{lemma}[Pin classes of the $\rm L$ rows]\label{lem:joint-pins}
+Let $p\equiv3\pmod4$ and consider the conditional $\rm L$ rows with $\ell\in\{1,2\}$
+layers (the geometries $({\rm L},\ell)$ of \cref{subsec:upper-rows}). Index the
+labels of a row by the six base coordinates $u\in\Zsix$ and, for $\ell=2$, their two
+\emph{twins} (one per layer). The one-layer signed singleton matrices of the fold and
+the matching law are
+\[
+ D_{\rm F}=\begin{pmatrix}
+ 0&1&1&0&0&1\\1&0&1&0&0&1\\0&1&0&1&1&0\\
+ 0&1&1&0&1&0\\1&0&0&1&0&1\\1&0&0&1&1&0\end{pmatrix},\qquad
+ D_{\rm E}=\begin{pmatrix}
+ 0&0&1&0&-1&0\\0&0&0&-1&0&1\\-1&0&0&0&1&0\\
+ 0&1&0&0&0&-1\\1&0&-1&0&0&0\\0&-1&0&1&0&0\end{pmatrix};
+\]
+for $\ell$ layers tensor each with the $\ell\times\ell$ all-ones matrix $J_\ell$, and
+form $\mathcal Z$, $\mathcal A$ and $\mathcal G=\mathcal A\mathcal A^*$ as in
+\cref{lem:joint-rows}, with $\mathcal Z_0$ the matrix $\mathcal Z$ for $\ell=1$. Let $\Pi$
+be the projection onto the vectors that are constant on each twin class, in both copies
+of the joint block.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item $|\mathcal Z|=(-\mathcal Z^2+3\ell^2\Pi)/(4\ell)$; in particular
+ $|\mathcal Z|\pm i\mathcal Z\succeq0$.
+\item Let $\mathcal S$ consist of the nine coordinate sets obtained by choosing one
+ even and one odd base coordinate, with all their twins in both copies. At every label
+ the coordinates whose allowed set contains it lie in one set of $\mathcal S$.
+\end{enumerate}
+Consequently, let $T$ be $|\mathcal Z|$, or a real symmetric matrix with
+$T\pm i\mathcal Z\succeq0$ (for $\ell=2$ it suffices that $T=T_0\otimes J_2$ with
+$T_0\pm i\mathcal Z_0\succeq0$). If $\mathsf k>0$ and the rational gates
+$\mathsf k^2I_S-\mathsf k\kappa_0T_S-\kappa_0^2\mathcal G_S\succeq0$ hold for all
+$S\in\mathcal S$, then $r\mathsf k$ is a joint pure-star coefficient: the lower bound of
+\cref{lem:joint-rows}(a) holds with $r\mathsf k/I_0$ in place of $\kappa_0r\mathsf k/I_0$
+in $\mathfrak k_p$, all other error and normalizer charges being kept.
+\end{lemma}
+
+\begin{proof}
+\emph{The matrices.} Between the outer objects $0$ and $2$ the fold law $\rm F$ has the
+forward pair $0\to2$ and no relation $2\to0$, so its cross edges are $(0,u)\to(2,v)$
+for $v\in\{u+1,u-1,\rot u\}$; the matching law $\rm E$ has both relations and no
+forward pair, so its cross edges are $(0,u)\to(2,\rot u)$ and $(2,v)\to(0,\rot v)$
+(\cref{subsec:push:layer72spectral}). With the sign $+1$ for an edge from the row $0$
+to the row $2$ and $-1$ for the reverse, these are the displayed $D_{\rm F}$ and
+$D_{\rm E}$; edges carry no layer condition, which gives the factor $J_\ell$.
+
+(b) An edge between an outer object ($0$ or $2$) and the middle object $1$ of the
+chamber coordinate needs a forward relation in the other coordinate, which has type
+$\rm L$, and $x\to y$ is forward there only for $y=\rot x$
+(\cref{subsec:push:layer72spectral}). So in both laws (\cref{lem:upper-geometry}(d))
+the outer label of base coordinate $u$ is joined to the middle labels $m_v$ exactly by
+the edges $u\to m_{\rot u}$ and $m_{\rot^{-1}u}\to u$. For the six base coordinates
+the out-pin and the in-pin are
+\[
+ (0)\ m_2,m_4;\quad(1)\ m_5,m_3;\quad(2)\ m_4,m_0;\quad
+ (3)\ m_1,m_5;\quad(4)\ m_0,m_2;\quad(5)\ m_3,m_1 .
+\]
+Two even base coordinates share a pin with opposite orientations ($0$ and $2$ at
+$m_4$, $0$ and $4$ at $m_2$, $2$ and $4$ at $m_0$), and so do two odd ones. Since
+$p\equiv3\pmod4$, the strict-square relation is a tournament, and no label $t$
+satisfies both $t\to m$ and $m\to t$; so at every label at most one even and one odd
+base coordinate is admissible. With two layers every edge between layers is present
+(there is no condition on the layers), so the two twins of a base coordinate have the
+same pins and the same allowed set. The two outer rows have the same pins
+(\cref{lem:upper-geometry}(d)), so both copies of the joint block have the same
+allowed sets. Excluding the middle labels and the other fixed labels only shrinks the
+allowed sets. This proves (b).
+
+(a) For $\ell=1$, $\mathcal Z$ is a real antisymmetric $12\times12$ matrix, and direct
+multiplication of the displayed matrices gives $(\mathcal Z^2+I)(\mathcal Z^2+9I)=0$.
+So the eigenvalues of $-\mathcal Z^2$ are $1$ and $9$, those of
+$|\mathcal Z|=(-\mathcal Z^2)^{1/2}$ are $1$ and $3$, and $|\mathcal Z|=(-\mathcal Z^2+3I)/4$.
+For $\ell=2$, $\mathcal Z=\mathcal Z_0\otimes J_2$ with $J_2^2=2J_2$ and $\Pi=I\otimes J_2/2$,
+so $|\mathcal Z|=|\mathcal Z_0|\otimes J_2=\frac14(-\mathcal Z_0^2+3I)\otimes J_2
+=(-\mathcal Z^2+12\Pi)/8$. As $\mathcal Z$ is normal and $i\mathcal Z$ is Hermitian,
+$|\mathcal Z|\pm i\mathcal Z\succeq0$ on every eigenvector of $\mathcal Z$. If
+$T_0\pm i\mathcal Z_0\succeq0$, then $(T_0\pm i\mathcal Z_0)\otimes J_2\succeq0$, that is,
+$T\pm i\mathcal Z\succeq0$ for $T=T_0\otimes J_2$.
+
+For the consequence, a coordinate $(c,i)$ of $\mathcal Z$ has $\rho_i(t)>0$ exactly when
+its allowed set contains $t$; so by (b), for every label $t$ these coordinates lie in
+one member of $\mathcal S$, which is the hypothesis on $\mathcal S$ in
+\cref{lem:joint-potential}, and by (a) the matrix $T$ satisfies its hypothesis
+$T\pm i\mathcal Z\succeq0$. So \cref{lem:joint-potential} applies, and its conclusion is
+the assertion. The Schur elimination of the higher features and the pointwise
+diagonal contraction on the active coordinates are made there.
+\end{proof}
+
+The tables of \cref{cert:upper-band-inputs}(c) record, for each of the six row
+geometries, the joint coefficient $k_{\rm J}$, the common fold coefficient $c_{\rm F}$
+and the matching coefficient of \cref{lem:joint-rows}, and, for the $\rm L$ rows, a
+rational base potential $T_0$ with the nine gates of \cref{lem:joint-pins}.
+
+\begin{proposition}[A necessary floor for the chosen joint-row formula]
+\label{prop:joint-row-floor}
+Every admissible two-layer $\rm L$ table above $2^{47}$, using the
+potential and decay gates of \cref{lem:joint-pins,prop:conditional-star},
+has chosen complete coefficient $k_{\rm J}>172.9$.
+Consequently the band completion inputs satisfy
+$f_{\rm L}+h_{\rm L}M_{\rm L}>172.9$, and the native maximum
+recursion for the reference gives
+$w_{\rm LR},w_{\rm RL}>172.9d_{\rm L}$.
+These are lower bounds for specified certificate formulas and their
+chosen weights, not for the underlying operator norms. The tail
+uses different row formulas and is excluded.
+\end{proposition}
+\begin{proof}
+A free coordinate is uniform on a four-pin allowed set of size $n$,
+excluding twelve fixed middle labels. The character expansion gives
+\[
+ \frac{p-11\sqrt p-6}{16}-12\le n\le
+ \frac{p+11\sqrt p+6}{16}.
+\]
+For $p\ge2^{47}$ this implies $p/17\le n\le c_0p$ with
+$c_0=(1+11\cdot2^{-23})/16$. The positive $6$ in the upper count
+is absorbed by
+$11\cdot10^{-7}+6\cdot2^{-47}<11\cdot2^{-23}$.
+For $X_t(x)=\chi(t-x)$, Paley orthogonality gives
+\[
+ \sum_t\E X_t^2=p-1,\qquad
+ \sum_t(\E X_t)^2=p/n-1.
+\]
+After deleting the twelve fixed labels, the covariance matrix has
+trace at least $p-29$, rank at most $n-1$, and diagonal at most $1$.
+Thus an off-diagonal covariance bound $\nu_\chi$ must satisfy
+\[
+ p\nu_\chi^2\ge(1-29/p)^2/c_0-1>14.9999.
+\]
+Put $c=15.9999$. The decay conditions of
+\cref{prop:conditional-star}(c) now force
+$\kappa_0>c$, $\kappa_0^2\omega_2^2\ge c^2$ and
+$\kappa_0^2\omega_s^2\ge c$ for $s\ge3$; a weight chosen as $1$
+already satisfies the corresponding inequality.
+
+Let $G_2,G_h$ be the unweighted column Grams in the joint higher-star
+matrix, for supports of size $2$ and at least $3$ respectively.
+For each of the nine pin classes choose a real vector $v_i$ supported
+on it, and let $R$ have these vectors as columns. Put
+$M=R^T\mathcal ZR$. If $K$ is a real skew contraction, then
+$R^TTR\pm iM\succeq0$ and $I\pm iK\succeq0$ imply
+\[
+ \tr(R^TTR)\ge\langle K,M\rangle_F.
+\]
+Indeed take traces of
+$(I+iK)(R^TTR-iM)/2$ and $(I-iK)(R^TTR+iM)/2$.
+Evaluating the nine potential gates on their vectors and adding
+therefore forces
+\[
+ k^2N-kcB-c^2Q_2-cQ_h\ge0,
+\]
+where $N=\sum_i\|v_i\|^2$, $Q_j=\sum_i v_i^TG_jv_i$,
+and $B=\langle K,M\rangle_F$. The exact rational witness of
+\cref{cert:astra-local}, reconstructed from the displayed
+$D_{\rm F},D_{\rm E}$, has
+\[
+ N=10000010408,\quad Q_2=558217933120,\quad Q_h=1038757368976,
+ \quad B=\frac{315100239978216987}{6250000}.
+\]
+At $k=172.9$ the polynomial equals
+$-29790250369036028509477/625000000000<0$.
+It is negative at zero and convex, hence negative throughout
+$[0,172.9]$. The complete coefficient adds nonnegative mean,
+remainder and normalization costs to $k$, so $k_{\rm J}>172.9$.
+Finally \ref{it:record:upper-F5}(a) gives
+$f_{\rm L}\ge H(k_{\rm J}-h_{\rm L})_+$ and
+$M_{\rm L}\ge H\ge1$, whence
+$f_{\rm L}+h_{\rm L}M_{\rm L}\ge k_{\rm J}$.
+Apply the ordinary completion inequalities on both axes.
+\end{proof}
+
+\subsection{Band input formulas (F1)--(F6) and (F10): definitions}\label{subsec:upper-formulas}
+
+The band inputs are computed by the following formulas, each stated for every odd
+prime at which its listed hypotheses (the \emph{gates}) hold; the formulas
+\ref{it:record:upper-F7}--\ref{it:record:upper-F9} of the comparison laws follow in
+\cref{sec:upper-comparison}, and \cref{lem:record:domain} extends gates checked at an
+evaluation point to every larger class-three prime and to every block of the band. For
+a block of primes at least $p_0$ and logarithmic length at most $L'\le10000$ put
+$\bar n=L'/\log p_0$.
+\begin{enumerate}[label=\textup{(F\arabic*)}]
+\item\label{it:record:upper-F1} \emph{Insertion counts} (\cref{lem:extension}). An
+ insertion with $t$ signed constraints at distinct labelled roots and $z$ excluded
+ labels has normalized count in $[1-e^-_t(z),1+e^+_t]$; Weil's bound is used in both
+ parities. An explicit order of the free vertices gives, with $t$ and $z$ the numbers of
+ labelled neighbours and of labelled vertices at each step, the logarithmic count
+ bounds $c^+=\sum e^+_t$, an upper bound for $\sum\log(1+e^+_t)$, and
+ $c^-=\sum-\log(1-e^-_t(z))$. \emph{Hypothesis:} $e^-_t(z)<1$ at every insertion.
+\item\label{it:record:upper-F2} \emph{Conditional influence}
+ (\cref{cor:influence-schur}, the certified form of \cref{prop:middle-negative}). For
+ disjoint free sets $X,Y$ the conditional maximal correlation is at most
+ $r(c_\times+\sqrt{|X||Y|}\,rq_{\rm inf}^2/(1-rq_{\rm inf}))$, with the count errors
+ $w=e^-_\Delta(n)$ and $w^{\rm conn}=e^-_{\Delta+1}(2n)$, where $n$ is the number of
+ vertices of the graph and $\Delta$ the largest degree of a free vertex. \emph{Hypotheses:}
+ $w<\frac12$, $w^{\rm conn}<1$, $rq_{\rm inf}<1$, and the resulting bound below one.
+\item\label{it:record:upper-F3} \emph{Product rows} (\cref{subsec:push:layer72product,subsec:advance:product-rows}),
+ with the pinned nonstar extraction: the normalizer errors $\eps_{\rm F},\eps_{\rm E}$,
+ the differences $\Delta$, $\mathsf M_\Delta$, the middle log ratio $\ell_{\rm mid}$ and
+ the marginal coefficient $c_{\rm mar}$. A constant that depends on the class of $p$
+ is taken as the larger of its values in the two classes
+ (\cref{subsec:advance:product-rows}). \emph{Hypotheses:} $e_\varpi<\frac12$ for the pin
+ count and $e^{\rm pin}_\varpi<\frac12$ for the pinned extraction
+ (\cref{prop:pinned-extraction});
+ $I_0=1-\binom n2\kappa r^2>\frac12$; $\eps_{\rm F},\eps_{\rm E}<\frac12$; every nonstar
+ denominator positive.
+\item\label{it:record:upper-F4} \emph{Exact-support correlation}
+ (\cref{subsec:row-anova-correlation}, \eqref{eq:row-anova-actual}), minimized with
+ \ref{it:record:upper-F2}: for the bands with the full star matrix of
+ \cref{prop:conditional-star}, that is, with $\min\{C_\star,\kappa_0r(\mathsf k+\mathsf e_\star)\}$
+ in \eqref{eq:row-anova-actual}, and for the tail datum with \eqref{eq:row-anova-stars};
+ class-dependent constants are taken as in \ref{it:record:upper-F3}.
+ \emph{Hypotheses:} $1-\eps>0$ for the normalizer error, the selected correlation below
+ one, and, for the bands, the gates of \cref{prop:conditional-star}.
+\item\label{it:record:upper-F5} \emph{Completion rows.} With $\ell_{\rm mid}$ and
+ $c_{\rm mar}$ from \ref{it:record:upper-F3}, all at $p_0$, put
+ \[
+  H=\exp(\bar n\ell_{\rm mid}),\qquad \upsilon^2=\exp(\bar nc_{\rm mar}^2/p_0)-1 .
+ \]
+ \emph{(a) Joint rows (bands).} Let $(k_{\rm J},c_{\rm F})$ be the joint and the common
+ fold coefficient of one complete joint-row table (\cref{lem:joint-rows},
+ \cref{lem:joint-pins}) whose endpoint is at most $p_0$, let $h$ be a proved
+ coefficient of the $\rm E$ row (the centred matching kernel has norm at most $hr_p$ at
+ every prime $p\ge p_0$, so that the matching block of a block with least prime $b$ is
+ at least $-hb^{-1/2}I$ by \cref{lem:row-comparison}(c); for instance
+ $h=\rho_{\rm E}/r_0$ of \ref{it:record:upper-F4}), and put
+ $E_{\rm T}=(2\upsilon+\upsilon^2)(\exp(\bar nc_{\rm F}r_0)-1)$. Then for every rational
+ $t_{\rm Y}>0$ with $t_{\rm Y}H<1$ the coefficient $h$, every $M\ge H+t_{\rm Y}$ and
+ every
+ \[
+  f\ge\frac{H\{(k_{\rm J}-h)_+r_0+E_{\rm T}\}+(H+H^2/t_{\rm Y})\upsilon^2}{r_0}
+ \]
+ are valid row coefficients (\cref{lem:five-type}(f),
+ \cref{cor:joint-completion-blocks}). An ordinary input takes $f$ to be the maximum of its one-layer and two-layer values, computed with one common value of $t_{\rm Y}$, and likewise takes $H+t_{\rm Y}$ to be the maximum of its one-layer and two-layer values; a reserved
+ input uses the one-layer row. A smaller proved $\rm E$ bound may be used for $h$,
+ since all of them concern the same actual law; the pair $(k_{\rm J},c_{\rm F})$ always
+ comes from one table.
+
+ \emph{(b) Schur rows (tail datum).} With moreover the pointwise marginal ratio
+ $\ell_{\rm mar}$ of the field records (from \ref{it:record:upper-F1} and
+ \cref{lem:four-count} with $M$ the middle row and $S$ an outer row; its hypothesis,
+ that the $\rm F$ and $\rm E$ graphs induce the same graph on $M\cup S$, is
+ \cref{lem:upper-geometry}(d)) and the correlations $\rho_{\rm F},\rho_{\rm E}$ of
+ \ref{it:record:upper-F4}, all at $p_0$, put $R_{\rm m}=\exp(\bar n\ell_{\rm mar})$. Then
+ \[
+  f_{\rm Schur}=\frac{HR_{\rm m}\rho_{\rm F}+(H+50H^2)\upsilon^2}{r_0},\qquad
+  h=\frac{\rho_{\rm E}}{r_0}
+ \]
+ are valid row coefficients (\cref{lem:five-type}(c) with
+ \cref{rem:five-type-fold-data} at $t_{\rm Y}=1/50$), and so is the full-norm
+ coefficient $f=[H(R_{\rm m}\rho_{\rm F}+2\upsilon+\upsilon^2)+H-1]/r_0$ of
+ \cref{lem:row-comparison}(b) with \cref{lem:five-type}(b); the smaller of the two is
+ used.
+
+ \emph{Hypotheses:} in (a), $M\ge H+t_{\rm Y}$ and
+ $t_{\rm Y}H<1$ for the matching ratio $M=w_{\rm S}/w_{\rm D}$,
+ $c_{\rm F}r_0<1$, and the prime gates of the table at its
+ endpoint; in (b) the weaker $t_{\rm Y}\le H^{-1}$ suffices, and
+ with $M=21/20$ and $t_{\rm Y}=1/50$ both hypotheses follow from
+ $H\le103/100$.
+\item\label{it:record:upper-F6} \emph{Nonroot spectral caps}
+ (\cref{thm:spectral-criterion}, \cref{subsec:upper-nonroot}). For each of the ten
+ nonroot cuts, $-grI\preceq\Op\preceq(1+B_{\rm top}/p)I$ with
+ $g\ge\max_\pm(\cperp+\tau^{\rm sp}_{\mathfrak c,\pm})/(1-\bar\eps_V)$, the maximum over
+ the signs and the classes tested, and $B_{\rm top}=p_0\eps_\varrho(r_0)^2/(1-gr_0)$;
+ moreover $\norm{P_0\Op P_0}\le gr$ and
+ $\norm{P_0\Op\one}\le\eps_\varrho(r)$ with $p\,\eps_\varrho(r)^2\le p_0\,\eps_\varrho(r_0)^2$,
+ so that $\norm{P_0\Op\one}\le B_{\rm top}^{1/2}r$ (\cref{thm:spectral-criterion}(b),(c));
+ a block of primes at least $X\ge p_0$
+ and length at most $L'$ has negative coefficient at most $d\,b^{-1/2}$ with
+ $d=g\exp(B_{\rm top}L'/(X\log X))$. The observed caps of \cref{prop:observed-caps}
+ are evaluated in the same way. \emph{Hypotheses:} (S1) of \cref{def:spec:data}
+ at $p_0$; $\bar\eps_V<1$; $\eps_Z<\frac12$ (which implies the hypothesis $\eps_Z<1$ of
+ \cref{thm:spectral-criterion}); the exact rational matrix inequality
+ \eqref{eq:spectral-test} with the recorded rational $\tau^{\rm sp}_{\mathfrak c,\pm}$,
+ for the class three and both Fourier signs (bands), or for both classes and both
+ signs (tail datum); $gr_0<1$; and $d/\sqrt{p_0}<1$.
+\end{enumerate}
+\begin{enumerate}[label=\textup{(F\arabic*)},start=10]
+\item\label{it:record:upper-F10} \emph{Completion} (\cref{def:record:upper-bands}(d),
+ \cref{lem:upper-reference-rp}). The forty two-layer and forty one-layer slice
+ inequalities \eqref{eq:upper-slice}, with the recorded $M$, and the twenty-five
+ reserved dominations \eqref{eq:independent-fold-domination}, with inputs evaluated
+ for block lengths at most $10000$.
+\end{enumerate}
+
+\begin{proof}[Proofs and forms]
+\ref{it:record:upper-F1} is \cref{lem:extension}(b),(c) at each step of the order, the
+graded errors being those of \eqref{eq:graphs:graded}; the evaluators sum $e^+_t$,
+which bounds $\log(1+e^+_t)$. \ref{it:record:upper-F2} is \cref{cor:influence-schur},
+with the graded count errors of \cref{rem:influence-uses}(1).
+\ref{it:record:upper-F3} and \ref{it:record:upper-F4} are
+\cref{subsec:upper-rows}. For \ref{it:record:upper-F5}: let the block have least prime
+$b$, and put $r_b=b^{-1/2}\le r_0=p_0^{-1/2}$. On a block the densities and chi-square
+defects multiply and the correlations are maximized over the primes
+(\cref{lem:row-comparison}(c)); the block has at most $\bar n$ primes, so
+$\sum_p1/p\le\bar nr_b^2$, and every per-prime quantity, after its indicated power of $r$
+is removed, is at most its value at $p_0$ (\cref{lem:record:domain}(i)). So the middle
+density lies in $[H^{-1},H]$, the fold marginals have pointwise ratio at most $R_{\rm m}$,
+the block correlations are at most $(\rho_{\rm F}/r_0)r_b$ and $(\rho_{\rm E}/r_0)r_b$,
+and the relative $L^2$ defect $\upsilon_b$ of the block fold marginals satisfies
+$\upsilon_b^2\le\prod_p(1+c_{\rm mar}^2r_p^2)-1\le\exp(c_{\rm mar}^2\bar nr_b^2)-1\le
+(\upsilon^2/r_0)\,r_b$, because $x\mapsto(e^{cx^2}-1)/x$ is nondecreasing and
+$\exp(c_{\rm mar}^2\bar nr_0^2)-1=\upsilon^2$; in particular $\upsilon_b\le\upsilon$.
+
+(a) is \cref{lem:five-type}(f) through \cref{cor:joint-completion-blocks}, with these
+block values: by the table, the prime bounds of \cref{cor:joint-completion-blocks} hold
+at every prime of the block with the coefficients $(k_{\rm J},c_{\rm F})$ and the
+matching coefficient of the table, the matching block is at least $-hr_bI$, and the
+tensor error is at most $(2\upsilon_b+\upsilon_b^2)(e^{\bar nc_{\rm F}r_b}-1)\le
+(E_{\rm T}/r_0)\,r_b$, since $x\mapsto(e^{\bar nc_{\rm F}x}-1)/x$ is nondecreasing; so
+the coefficient $f_{\rm J}$ of \cref{cor:joint-completion-blocks} at $r=r_b$ is at most
+$f$. The Young allowance $t_{\rm Y}$ enters only through $H+t_{\rm Y}$ and
+$H^2/t_{\rm Y}$, so it may be chosen freely, row by row, subject to $t_{\rm Y}H<1$.
+
+(b) \Cref{rem:five-type-fold-data}, with these block values and $r=r_b$, turns them
+into the fold data of \cref{lem:five-type}(c) at $t_{\rm Y}=1/50$ with
+$f_{\rm al}\le f_{\rm Schur}$, and the matching row has exact marginals with
+$\norm{T_{\rm E}-\Jproj}\le hr_b$; the full-norm coefficient scales in the same way.
+For the tail datum $M=\frac{21}{20}=\frac{103}{100}+\frac1{50}\ge H+t_{\rm Y}$ and
+$t_{\rm Y}=\frac1{50}\le\frac{100}{103}\le H^{-1}$ when $H\le103/100$; also $M\ge1$, so
+\cref{lem:five-type}(b) applies to the full-norm coefficient. In every row of the tail
+datum the Schur coefficient is the smaller one (\cref{rem:five-type-certificates}).
+
+\ref{it:record:upper-F6} is \cref{thm:spectral-criterion} with the standard inputs of
+\cref{subsec:upper-nonroot}, for each class tested, and its block form is
+\cref{cor:spectral-criterion-blocks} with $P=X$, with $g\ge g_3$ for the bands and
+$g\ge\max(g_1,g_3)$ for the tail datum. \ref{it:record:upper-F10} is used in
+\cref{lem:upper-reference-rp}.
+\end{proof}
+
+For the root cuts the domain of the caps is that of
+\cref{lem:record:monotone-endpoint} (route~B) and of \cref{lem:upper-completed-root}
+(route~A); the per-prime constants of the nonroot cuts are also read by the one-way
+repairs \ref{it:record:upper-F7}.
+
+\subsection{(CP1) for upper atoms}\label{subsec:upper-reference-rp}
+
+We say that the inputs of an upper band are \emph{valid} on a finite set $\Blk$ of
+primes, with least prime $b$ and $r=b^{-1/2}$, if for every field type $\varphi$:
+\begin{enumerate}[label=(V\arabic*)]
+\item\label{it:upper-valid-root} the normalized block cut operator of the chamber cut
+ of the $\rm L$ coordinate of $G_{{\rm L}\varphi,2}$ is at least $-d_\varphi r$, and
+ that of $G_{{\rm L}\varphi,1}$ at least $-d^{\rm res}_\varphi r$;
+\item\label{it:upper-valid-rows} at every value of the middle object, the two-layer
+ rows at $\varphi$ satisfy, with graded coefficients at most $(f_\varphi,h_\varphi)$,
+ one of three sets of hypotheses: those of \cref{lem:five-type}(f) with
+ $(M_\varphi,t_\varphi)$; those of \cref{lem:five-type}(c) with $t_{\rm Y}=t_\varphi$
+ and $M_\varphi\ge H+t_\varphi$, $t_\varphi H\le1$; or those of
+ \cref{lem:five-type}(b). The one-layer rows satisfy the same with the reserved input;
+\item\label{it:upper-valid-layer} for every field pair $\varphi\varphi'$, the normalized
+ block cut operator of the layer cut of $G_{\varphi\varphi',2}$ is at least
+ $-k_{\varphi\varphi'}r$. For each state $\mathfrak t$ with
+ $k_{\mathfrak t}<k_{\mathfrak f(\mathfrak t)}$, the compression of the normalized
+ block cut operator of EL22 to the functions of the labels that the components of
+ $\mathfrak t$ observe (the merge or the constant labels of \cref{prop:observed-caps})
+ is at least $-k_{\mathfrak t}r$.
+\end{enumerate}
+
+\begin{lemma}[The upper reference]\label{lem:upper-reference-rp}
+\leavevmode
+\begin{enumerate}[label=(\roman*)]
+\item Let $\Blk$ be a finite set of odd primes on which the inputs of an upper band are
+ valid, and let $\mu_\Blk$ be defined by the formula of \cref{def:upper-reference} with
+ the weights of the band. Then $\mu_\Blk$ is a probability measure on $X_\Blk^V$; it is reflection
+ positive at every cut of $\mathfrak F$; it is invariant under the square-affine maps of
+ \ref{it:record:R3}; its one-slot marginals are uniform; and it is admissible
+ (\cref{def:admissible}).
+\item The inputs of every upper band are valid on every block of the band. Hence every
+ upper block satisfies \ref{it:record:R1}--\ref{it:record:R3}, with \ref{it:record:R2} at
+ every cut of $\mathfrak F$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) \emph{Measure, invariance, marginals.} Each component is the image of a field law
+$\lambda_\Blk(G)$ under an emission, and $\operatorname{Diag}_\iota$ is an emission
+too; the field laws are square-affine invariant at every prime, and images, products
+over the primes of $\Blk$ and nonnegative combinations preserve invariance
+(\cref{lem:marginals}(1)). So $\widetilde\mu_\Blk$ is a nonnegative invariant measure,
+of mass $P_\mu(r)$ since $\pi_{\mathfrak t,j}$ has mass $m_{\mathfrak t}$, and $\mu_\Blk$
+is a probability measure with uniform one-slot marginals (\cref{lem:marginals}(2)).
+
+\emph{Chamber cuts.} Fix a chamber coordinate $c$ and a type $\mathfrak t'$ of the other
+coordinate. The two-layer row data of $c$ at $\mathfrak f(\mathfrak t')$ form a five-type datum
+(\cref{subsec:layer72:upper}), with $\pi_{\rm F}$, $\pi_{\rm E}$ the row laws of the
+$\rm F$ and $\rm E$ field laws, $\Gamma$ and $\nu$ the laws of the rows $0,1$ and of the
+row $0$ under the $\rm E$ law, and $\nu^b$ its conditional law of the row $0$; the merges
+and the constants use only these rows, which is the role of the hidden objects. The
+weights of the slice in $\widetilde\mu_\Blk$ are $w_{\mathfrak t}r^{\deg\mathfrak t}=
+r^{\deg\mathfrak t'}\,a_{\mathfrak s}r^{\deg\mathfrak s}$ ($\mathfrak t_c=\mathfrak s$, $\mathfrak t_{1-c}=\mathfrak t'$,
+$a_{\mathfrak s}=w_{\mathfrak t}$): $r^{\deg\mathfrak t'}$ times the graded weights of
+\cref{lem:five-type}(b),(c),(f) formed from the $a_{\mathfrak s}$. The conditions are homogeneous,
+so the factor $r^{\deg\mathfrak t'}$ does not matter. By
+\ref{it:upper-valid-root} the root envelope $\Pi_{\rm L}\succeq_{\vartheta_0}
+-d\,r\,\Pi_{F_0}$ holds with $d=d_{\mathfrak f(\mathfrak t')}$, the half law of the cut being
+the law of the aligned fold (\cref{lem:upper-geometry}(c)); by \ref{it:upper-valid-rows}
+the rows satisfy the hypotheses of \cref{lem:five-type}(f), (c) or (b) with the input
+$(f,h,M,t)$ of $\mathfrak f(\mathfrak t')$; and \eqref{eq:upper-slice} is the graded form of
+their conditions: $a_{\rm D}\ge d\,a_{\rm L}$; $a_{\rm S}\ge M\,a_{\rm D}$ with the recorded
+$M\ge H+t_{\rm Y}$ and $t_{\rm Y}\le H^{-1}$, so in particular $a_{\rm S}\ge a_{\rm D}$;
+$a_{\rm R}\ge fa_{\rm D}+ha_{\rm S}$; and $a_{\rm C}a_{\rm S}\ge a_{\rm R}^2$.
+By \cref{lem:five-type}(d), the two-layer sum $\sum_{\mathfrak t}w_{\mathfrak t}
+r^{\deg\mathfrak t}\pi_{\mathfrak t,2}$ is reflection positive at every chamber cut of
+both coordinates. The same argument with the one-layer row data, the reserved inputs
+and the weights $v_{\mathfrak t}r^{\deg\mathfrak t}$ shows that $\sum_{\mathfrak t}
+v_{\mathfrak t}r^{\deg\mathfrak t}\pi_{\mathfrak t,1}$ is reflection positive at the chamber
+cuts, and $\operatorname{Diag}_\iota$ preserves this (\cref{lem:five-type}(e)). Cut forms
+add, so $\widetilde\mu_\Blk$ is reflection positive at every chamber cut.
+
+\emph{The reserved cut.} By \ref{it:upper-valid-layer}, for the field law of each field
+pair $\lambda\succeq_\iota-k\,r\operatorname{Diag}_\iota(\lambda^{(1)})$, the half graph of
+the layer cut being the one-layer graph (\cref{lem:upper-geometry}(c)); by the last
+assertion of \cref{lem:five-type}(e) every two-layer component of $\mathfrak t$ inherits
+$\Pi\succeq_\iota-k_{\mathfrak f(\mathfrak t)}r\operatorname{Diag}_\iota(\Pi^{(1)})$, the
+merges and constants included. A merge or constant component reads only the observed
+rows of its $\rm E$ coordinate, so its cut form at $\iota$ is that of its field law on
+the functions of the observed labels; by the second assertion of
+\ref{it:upper-valid-layer} the components of the states with
+$k_{\mathfrak t}<k_{\mathfrak f(\mathfrak t)}$ satisfy the same order with $k_{\mathfrak t}$,
+a cap of their own, which \cref{lem:five-type}(e) allows. With
+\eqref{eq:independent-fold-domination}, $v_{\mathfrak t}\ge k_{\mathfrak t}w_{\mathfrak t}$
+with the cap of \ref{it:upper-valid-layer} for the component of $\mathfrak t$,
+\cref{lem:five-type}(e) gives $\widetilde\mu_\Blk\succeq_\iota0$. Normalization by
+$P_\mu(r)>0$ preserves reflection positivity, which is (R2) at every cut of $\mathfrak F$.
+
+\emph{Admissibility.} $\mu_\Blk$ is nonnegative and invariant, with uniform whole-slot
+marginals, and it is a law of the field labels alone, independent of the interval,
+residue and inclusion indices; this is (O1) of \cref{def:admissible}. The reference
+creates no sharp operator bound, index projection or fold, so (O2)--(O4) are those of
+the frame.
+
+(ii) Let $\Blk$ be a block of the band $[X,Y)$. Its primes are $3$ modulo $4$, at least
+$X$, and $\log q_\Blk\le L_{\rm band}<L_{\rm u}$ (\cref{def:record:upper-bands}(b)). The
+nonroot and observed caps were evaluated at $p_0=2^{47}$ or $2^{48}$, not above $X$, and
+inflated at $X$ with the length $L_{\rm band}$; the product-row quantities at $p_0=X$
+with the length $L_{\rm band}$, and the joint coefficients at an endpoint not above $X$;
+all under the gates of \ref{it:record:upper-F1}--\ref{it:record:upper-F6}
+(\cref{cert:upper-band-inputs}, \cref{cert:upper-lower-bands}). By
+\cref{lem:record:domain}(i) the gates hold at every prime of $\Blk$ and every per-prime
+constant is at most its value at $p_0$; the block forms of \ref{it:record:upper-F5},
+\ref{it:record:upper-F6} and \cref{prop:observed-caps} (\cref{lem:record:domain}(ii),
+with the inflation taken at $X$, since every prime of $\Blk$ is at least $X$) bound the
+negative coefficients of the nonroot cuts and of the observed marginals on $\Blk$ by
+$d\,b^{-1/2}$, and the row coefficients by $f\,b^{-1/2}$ and $h\,b^{-1/2}$ with the
+recorded $M$ and $t_\varphi$; the inputs are upper bounds for these values. Inputs
+computed for the length $L_{\rm band}$ remain valid for every block of the band,
+because every count inflation, tensor variance and row coefficient is nondecreasing in
+the length. The root inputs are valid on $\Blk$ by
+\cref{lem:record:monotone-endpoint} below $2^{52}$ (\cref{cert:upper-root-caps}) and by
+\cref{lem:upper-completed-root} from $2^{52}$ on (\cref{cert:upper-completed-root}). The
+weights satisfy \eqref{eq:upper-slice} and \eqref{eq:independent-fold-domination}
+(\cref{cert:upper-completion}). Apply (i).
+\end{proof}
+
+Part (i) uses nothing about $\Blk$ except the validity of the inputs. It therefore
+applies to a single prime $p\ge\Pfour$ of either class with the tail datum
+(\cref{def:record:upper-bands}(e)), whose inputs are valid there (\cref{lem:tail-law}).
+The data of the last band $[2^{64},2^{512})$ are class-three data and are not used
+beyond $2^{512}$.
+
+\begin{certificate}[Completion and domination gates]\label{cert:upper-completion}
+At the baseline checkpoint, in each of the $310$ bands the $105$ inequalities \eqref{eq:upper-slice} (forty for
+$w$, forty for $v$) and \eqref{eq:independent-fold-domination} (twenty-five) hold
+exactly with the recorded inputs, $32550$ in all, and the weights are positive with
+$w_{\rm LL}=1$. The record is
+\path{research/further_2026_10_25/upper/upper_dense_refined.json}, with the fields
+\texttt{inputs}, \texttt{reserved\_inputs}, \texttt{reserved\_state\_caps},
+\texttt{weights}, \texttt{reserved\_weights} and \texttt{gates} for each band. Its
+inputs, state caps and weights are those of two earlier records of that directory,
+\path{upper_special.json} for the $301$ bands below $2^{52}$ and
+\path{upper_endpoint_allowances.json} for the nine bands from $2^{52}$; the later
+stages within that checkpoint change only the comparison ledgers
+(\cref{sec:upper-comparison}). The final cross-weighted inputs and weights
+are instead those of \cref{subsec:upper-cross-weighted}, with the same
+completion and domination requirements. The
+independent reviews of that directory re-check the gates on these records:
+\path{special_upper_review.json} for the $301$ bands below $2^{52}$, whose root entries
+and weights are fixed with the root caps of \cref{cert:upper-root-caps} ($24080$ slice
+inequalities, $7525$ dominations and $903$ polynomials), and
+\path{endpoint_allowances_review.json} for all $310$ bands of the allowance stage
+($2790$ primitive prices, $24800$ slice inequalities, $7750$ dominations and $930$
+physical polynomials), whose data the nine bands from $2^{52}$ keep. The script
+\path{research/further_2026_10_25/upper/verify.py} replays the whole finite upper
+extension from the certified baseline
+\path{research/advance_2026_10_24/verification/selected.json}, without an optimizer,
+and requires every regenerated record to equal its archived file; the selected
+verification record \path{research/further_2026_10_25/verification/selected.json}
+reports \texttt{PASS\_COMPLETE\_FURTHER\_UPPER\_EXTENSION}.
+
+The $105$ gates of the tail datum are those of the band $[2^{64},2^{512})$ of
+\path{research/roadmap_2026_10_18/item12/upper_v2_local.json}
+(\texttt{PASS\_105\_EXACT\_COMPLETION\_AND\_DOMINATION\_GATES}), written by
+\path{assemble_upper_v2.py} with the completion routine of
+\path{assemble_upper_candidate.py} (same directory) and re-checked by
+\path{research/push_2026_10_24/tools/check_upper.py} into
+\path{research/push_2026_10_24/artifacts/coordinator/push_best_upper_review.json}
+(\texttt{PASS\_INDEPENDENT\_GENERATED\_DIRECT\_UPPER\_PRICES\_AND\_GATES}: $1260$
+gates, $105$ for each of the twelve bands of \path{upper_v2_local.json} from $2^{49}$
+on, the band $[2^{64},2^{512})$ among them).
+\end{certificate}
+
+\paragraph{Consequences and what to read next.}
+From Part~II: the slot array and its cuts (\cref{def:slot-array,lem:slot-array}),
+square-affine invariance (\cref{lem:marginals}), admissible majorants
+(\cref{lem:majorant}), admissibility (\cref{def:admissible}). From Part~IV: labellings
+and counts (\cref{def:graphs:labeling,lem:extension,lem:four-count}), the two-root
+identity and Weil's bound (\eqref{eq:two-root}, \cref{thm:weil}); spectral data and cut
+kernels (\cref{def:spec:data,lem:spec:cutkernel}), block lifting
+(\cref{lem:spec:tensorcomp}), the two-sided constant block
+(\cref{prop:matching:positive}(a$'$)), pinned influence
+(\cref{prop:middle-negative,cor:influence-schur}), recentering and restriction
+(\cref{lem:recentering,lem:restriction}), row comparison (\cref{lem:row-comparison}); the
+two spectral routes (\cref{thm:spectral-criterion,cor:spectral-criterion-blocks,thm:record:direct-star})
+with the character expansion, the stars and the centring
+(\cref{lem:spec:expansion,lem:spec:stars,prop:spec2:mucentre}), the frame inputs
+(\cref{lem:record:frame-inputs}), the coupling block and its refinements
+(\cref{cor:spec2:coupling,lem:push:localvariance,lem:projection-diagonal,lem:push:conditionalgram,lem:spec2:parity-transfer})
+and the monotone spectral quantities (\cref{lem:spectral-monotone}); the complete actual
+stars (\cref{lem:general-star,cor:star-matrix,lem:hidden-feature},
+\cref{rem:realified-gates}); the two-variable sums and the moving-root moments
+(\cref{thm:dl:H2,cor:moving-root-uniform,cor:moving-root-conditional}), the ordered star
+marginal and the star mean (\cref{prop:advance:ordered-star,lem:star-mean}); the
+compressed partition, the extraction bounds with the graded error pairs and the special
+values, and the coincidence bounds
+(\cref{lem:advance:compressed-partition,def:extraction:records,cor:extraction-leaf,cor:extraction-compressed,prop:pinned-extraction,lem:oct24-collision,prop:pinned-collision},
+\eqref{eq:leaf-factors}); the log-convex nonstar coefficients
+(\cref{lem:logconvex-coefficients}); the pinned conditional stars
+(\cref{prop:conditional-star,rem:pinned-instances}, with \eqref{eq:row-anova-actual});
+the joint rows (\cref{lem:joint-rows,cor:joint-row-split,lem:joint-potential}); and the
+five-type completion with its joint form, its free allowance and its state caps
+(\cref{lem:five-type}(b)--(f), \cref{cor:joint-completion-blocks,rem:five-type-fold-data}).
+
+\paragraph{Hypotheses verified in this section: (CP1) for upper atoms.}
+Every upper block carries the probability measure $\mu_\Blk$, reflection positive at
+every cut of $\mathfrak F$ (the chamber cuts of both coordinates and $\iota$, not only the
+seven sorting cuts), invariant under the square-affine maps, with uniform one-slot
+marginals, and admissible (\cref{lem:upper-reference-rp}); with the band inputs of
+\cref{def:record:upper-bands} its spectral caps and rows are valid on every block. The
+tail datum (\cref{def:record:upper-bands}(e)) carries the same conclusions to single
+primes $p\ge\Pfour$ of both classes (\cref{lem:tail-law}). This is the upper row of
+(CP1) in \cref{tab:hypotheses}; the comparison law and its prices (CP4) are
+\cref{prop:record:upper}.

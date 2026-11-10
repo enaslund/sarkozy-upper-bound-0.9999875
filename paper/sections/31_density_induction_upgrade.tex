@@ -1,0 +1,816 @@
+\section{Induction with density exponent $\vartheta>1$}\label{sec:density-upgrade}
+
+\paragraph{What this section proves and how to read it.}
+Theorem~C requires $0<\theta\le1$, so $\vartheta>1$ needs a separate
+induction. This section proves it conditionally: \emph{assuming}
+price bounds for the selected laws (verified numerically in
+\cref{sec:four-routes-closing}), the bound
+$Y\le C\Lsc^{-a}\alpha^{\vartheta}$ holds for
+$1<\vartheta\le\theta_*=\FourRoutesDensity$. Read
+\cref{thm:density:induction} as ``if the displayed price hypotheses
+hold then the induction closes'', not as an unconditional theorem.
+Terminology: a \emph{packet} is a set of atoms changed
+simultaneously; a packet is \emph{good} if its moment bound holds
+with the stated exponent and \emph{bad} (concentrated) otherwise,
+in which case labels are pinned and rescaling applies---both are
+defined at first use below and summarised here to allow the
+statements to be read in order. $\theta_*$ equals the macro
+$\FourRoutesDensity$; the equality is part of the hypothesis check
+in \cref{sec:four-routes-closing}. The baseline
+\cref{thm:baseline} does not depend on this section. Throughout,
+\begin{equation}\label{eq:density:parameter-range}
+ 0<a\le91/100000,\qquad
+ 1<\theta\le\theta_*:=1014587/1000000,\qquad d=72.
+\end{equation}
+Use the middle reference of the baseline construction, the clique-prefix
+replacement of \cref{thm:density:iid-prefix}, and the accepting merge and
+two-layer constant replacements of
+\cref{lem:merge-repair,lem:record:accepting-c2}. In the finite upper range
+use the reference weights of \cref{subsec:upper-cross-weighted} and
+the comparisons of \cref{subsec:upper-six-refinements}. These
+comparisons preserve the component marginals, so the moment bounds
+below continue to apply to them.
+The blocks, middle source weights, external index law and six disjoint
+queries are unchanged. At each atom
+combine all symmetric norm envelopes except the fold and matching class envelopes into one positive packet,
+and do the same separately for the generic skew envelopes. The
+specialized fold and matching classes are kept separate.
+
+The unrestricted structured-energy statement
+\cref{prop:record:density-structured} is not claimed for $\theta>1$.
+Its last Jensen inequality requires $\theta\le1$. Instead we prove the
+needed bounds for the actual selected laws and actual index distribution
+of this construction. Unit mixed moments refer to
+\cref{def:density:mixed-moment} and always use the actual marginals.
+
+\subsection{Multilinear bounds for the laws used in the induction}
+
+The induction with $\vartheta>1$ needs a moment bound (a unit mixed
+$L^R$ norm, \cref{def:density:mixed-moment}) for every law that can
+arise when several atoms are changed at once. This subsection
+proves those bounds, starting from one pair of distinct labels
+repeated across slots.
+
+\begin{lemma}[A repeated distinct pair]\label{lem:density:repeated-pair}
+Let a probability law on $d$ slots have uniform one-slot marginals.
+Suppose there are two distinct random labels $x,y$ and disjoint sets of $t$ specified slots each such that the slots in the first set have label $x$ almost surely and those in the second have label $y$ almost surely, and the joint law of $(x,y)$ has unit mixed $L^q$ norm, where $q<2$.
+Then the full law has unit mixed $L^R$, with
+\[
+ R=d-(2-q)t.
+\]
+In particular an actual square-affine-invariant distinct pair over
+$\mathbb F_p$, $p\ge64$, repeated twice gives unit mixed $L^{11}$
+on twelve slots, and a pair repeated four times gives unit mixed
+$L^{70}$ on $72$ slots.
+\end{lemma}
+
+\begin{proof}
+Take absolute values. Group $t$ of the factors at $x$ and $t$ at $y$.
+Apply H\"older to this group and each remaining slot, with exponents
+$R/(tq)$ and $R$, respectively; their reciprocal exponents sum to one.
+Apply the pair moment to the group, and then H\"older among its $t$
+functions at each label. Every original function has exponent $R$.
+The last assertions use \cref{lem:density:invariant-pair}, with $q=3/2$.
+No independence from the remaining labels is required.
+\end{proof}
+
+\begin{lemma}[The nonconstant middle catalog]\label{lem:density:middle-catalog}
+Every nonroot middle completion component other than the one-layer
+constant, and every nonconstant positive law used in the middle
+first-stage, reserved-envelope and chosen-side expansions, has unit mixed $L^{11}$ norm as a law on the twelve slots of one prime coordinate. The assertion includes
+the actual private folds used for a sharp estimate and the positive
+actual-half couplings in the fold and matching class bounds.
+It tensors over selected blocks. Both one-layer constant tags are
+excluded: they emit the same one-label law and both weights are retained in the bad parts $B_{\rm S},B_{\rm A}$ of \cref{lem:density:packets}.
+Every actual two-layer root, including a selected positive tilt, has
+unit mixed $L^{23/2}$, hence density $24/23>\theta_*$.
+\end{lemma}
+
+\begin{proof}
+The labels in the original field coordinates are distinct.
+The actual marginals of the labels that remain after unused
+labels are integrated out (the \emph{visible} labels; integrated
+labels are \emph{hidden}) are square-affine invariant. Thus any
+two specified distinct visible objects have
+a pair marginal to which \cref{lem:density:invariant-pair} applies.
+The physical multiplicities, in the notation of \cref{def:record:frame}, are as follows; a one-layer law is copied
+onto the reserved diagonal.
+\[
+\begin{array}{c|c|c}
+\text{component}&\text{number of visible labels}&
+ \text{two available multiplicities}\\ \hline
+\text{folded root}&6&2,2\\
+F_2,E_2&6&2,2\\
+\text{folded }F_1,E_1&3&4,4\\
+G_2&4&4,4\\
+\text{folded }G_1&2&8,4\\
+C_2&2&6,6
+\end{array}
+\]
+All rows therefore satisfy \cref{lem:density:repeated-pair} with $t=2$.
+The two-layer root is not asserted to have the $L^{11}$ bound and is
+not a member of the nonroot packet. For it choose two of its twelve
+distinct labels, each with multiplicity one. Its actual pair law is
+still square-affine invariant, including for each positive tilt.
+The same grouping lemma with $t=1$ gives $L^{23/2}$. This weaker root
+bound is enough for the present density range.
+
+The additional first-stage matching law uses three distinct labels
+$(a,b,c)$, with $c$ shared and the actual conditional transition on
+$a,b$; its physical multiplicities are $4,4,4$. Its own private sharp
+fold has the actual uniform ordered-distinct pair $(c,a)$, with
+multiplicities $8,4$. The polarization and merge destinations likewise
+have a distinct pair with at least two occurrences each. These are
+statements about their full actual laws, not about marginals after
+conditioning on a shared value.
+
+For the positive couplings $M_{ab},P_{12},P_{01},J$ and their physical
+transports in the reserved class bounds, choose two distinct object
+labels within one half. That half is the actual fold or matching half
+marginal, and each chosen label has two occurrences there. Their pair
+law is fixed by that marginal, regardless of the coupling between
+halves. Hence coincidences between a label in one half and a label in the other do not affect this pair law or the bound. The same
+argument covers the reserved diagonal, independent-half coupling and
+their positive mixtures, and the native one-layer companions used for
+the chosen sides. Signed coupling expansions retain their existing
+absolute coefficient mass; the assertion is applied to each positive
+coupling, not to an arbitrary positive operator.
+
+Each bound just proved has the form of \cref{def:density:mixed-moment}, with constant $1$ and arbitrary functions $f_v$. Iterating it over
+the prime coordinates gives the block statement, and then the statement
+for products of selected blocks. Hidden labels keep their native law
+throughout; functions at unused labels are one.
+\end{proof}
+
+We need stronger moments only for weighted restoration. We supply their
+short field-law proof to distinguish this use from the ordinary catalog.
+
+\begin{lemma}[A collision conditioning bound]\label{lem:density:conditioning}
+For $d_0\le6$ nonnegative functions $f_i$, each depending on
+one coordinate and normalized by $\|f_i\|_r=1$ under its own
+marginal $\mu_i$, put $M=\prod_i\E_{\mu_i} f_i$. Under any
+joint law (coupling) on the product space whose one-coordinate
+marginals are exactly the $\mu_i$,
+\[
+ \E\prod_i f_i\ge M-B_r(1-M),
+\]
+where one may take $B_r=1280$ for $2\le r\le6$, or $B_r=1024$ for
+$4/3\le r\le3/2$. Suppose a positive law $\pi_0$ has unit mixed $L^s$,
+and $\pi$ is $\pi_0$ conditioned on the complement of an event of $\pi_0$-mass $\eta$, and $\pi_0$ conditioned on the event has the same one-coordinate marginals as $\pi_0$. If $r>s$ lies
+in one of these ranges, then $\pi$ has unit mixed $L^r$ whenever
+\begin{equation}\label{eq:density:conditioning-gate}
+ (B_r+1)\eta\le\frac{r-s}{s(r-1)}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Write $\phi_r(x)=x^r-1-r(x-1)$, $w=(1-x)_+$ and $z=(x-1)_+$.
+For nonnegative $x_i$, with $W=\sum w_i$ and $Z=\sum z_i$,
+\[
+ \prod_i x_i\ge(1-W)(1+Z)
+ =\sum_i x_i-(d_0-1)-\sum_{i,j}w_i z_j.
+\]
+For $W\le1$ this follows by multiplying the deficit and surplus
+factors separately; for $W>1$ the right side is nonpositive.
+If $r\ge2$, convexity gives
+$\phi_r(x)\ge(r-1)(x-1)^2$, so each opposite-deviation product is at
+most $[\phi_r(x_i)+\phi_r(x_j)]/[2(r-1)]$.
+If $1<r\le2$, Taylor's formula gives
+$\phi_r(x)\ge(r-1)(x-1)^2/4$ on $[0,2]$.
+Also $\phi_r(2)\ge(r-1)/3$ (differentiate in $r$, using
+$2\log2-1>1/3$), and convexity implies
+$\phi_r(1+z)\ge(r-1)z/3$ for $z\ge1$.
+Thus an opposite-deviation product is at most
+$3[\phi_r(x_i)+\phi_r(x_j)]/(r-1)$ in this range.
+Each nonzero deviation is paired with at most $d_0-1$ others.
+
+If $M\ge1/2$, apply the resulting pointwise inequality to $f_i/m_i$,
+where $m_i=\E f_i\ge1/2$. Use
+$m_i^{-r}-1\le r2^{r+1}(1-m_i)$ and
+$\sum_i(1-m_i)\le2(1-M)$. The first range gives the constant
+$(d_0-1)r2^{r+1}/(r-1)\le1280$. In the second range use
+$r2^{r+1}<9$ and $r-1\ge1/3$ to obtain a constant at most $810$,
+which is below $1024$. If $M<1/2$, positivity alone proves the stated
+bound. Zero means follow directly.
+
+For the conditioning assertion normalize the inputs in $L^r$.
+Interpolation between $L^1$ and $L^r$ gives
+$\|f_i\|_s\le m_i^\alpha$, where
+$\alpha=(r-s)/(s(r-1))$. Hence $\E_{\pi_0}\prod_i f_i$ is at most $M^\alpha\le1-\alpha(1-M)$. Subtract the bad-event contribution,
+bounded below by $\eta[M-B_r(1-M)]$, and divide by $1-\eta$.
+The result is at most one under \eqref{eq:density:conditioning-gate}.
+Absolute values give the complex-input assertion.
+\end{proof}
+
+\begin{lemma}[Moments for weighted fold restoration]\label{lem:density:strong-F}
+At every middle prime the actual native two-layer fold has unit mixed
+field $L^{5/2}$, and the actual native one-layer fold has unit mixed
+field $L^{7/5}$. Their twelve-slot emissions have unit mixed $L^5$
+and $L^{28/5}$, respectively. In particular both have density endpoint at least $2\theta$ in \eqref{eq:density:parameter-range}.
+\end{lemma}
+
+\begin{proof}
+The uniform ordered-distinct pair has centered bilinear $L^1$ norm
+at most one and $L^2$ norm $1/(p-1)$. Interpolation gives centered $L^{9/8}$ norm $(p-1)^{-2/9}\le1/8$ for every middle prime $p\ge2^{18}$.
+The uniform-convexity inequality of
+\cref{lem:density:uniform-convexity}, and
+$\sqrt{(1-m^2)(1-n^2)}\le1-mn$, give unit mixed $L^{9/8}$.
+
+The strict four-label $K_{2,2}$ outer core has uniform
+ordered-distinct-pair marginals on its two objects: in the Paley graph on $\Fp$, two fixed distinct vertices have $(p-3)/4$ common out-neighbors distinct from both, hence exactly
+$[(p-3)/4][(p-7)/4]$ ordered distinct neighbor pairs, independently
+of its value. The incoming count is the same. Cauchy--Schwarz between
+the two objects and the preceding pair bound give unit field $L^{9/4}$.
+Adjoin an independent ordered-distinct middle pair, and condition it
+to avoid the four core labels. This is exactly the native two-layer
+fold, and the excluded mass is at most $8/p$. Translation invariance
+gives uniform individual marginals also on the excluded event.
+Apply \cref{lem:density:conditioning} with $s=9/4,r=5/2$;
+$\alpha=2/27$ and $1281\cdot8/p\le2/27$ for $p\ge2^{18}$.
+
+For a strict Paley edge in class three, centered interpolation at
+$4/3$ gives bilinear norm
+$(p+1)^{3/4}/(p-1)\le2p^{-1/4}$.
+Uniform convexity therefore gives unit mixed $L^{4/3}$ for $p\ge2^{24}$,
+since $6p^{-1/4}\le3/32<1$.
+Adjoin an independent middle label and remove its two possible
+endpoint coincidences. Apply the second range of
+\cref{lem:density:conditioning} with $s=4/3,r=7/5$:
+$\alpha=1/8$ and $1025\cdot2/p<1/8$ on the middle domain.
+This is the actual native three-label fold.
+Finally the two-layer and folded one-layer emissions repeat each
+field label twice and four times. H\"older within a repeated label
+gives the stated physical exponents. Their density endpoints are
+$12/5$ and $15/7$, both larger than $2\theta_*$.
+\end{proof}
+
+\subsection{Concentrated packets: pinning rare constant labels}
+
+Some packets fail the moment bound only through a small part
+concentrated on constant labels. Those labels can be pinned
+(fixed), after which the usual square-step rescaling applies. The
+next lemma gives the numerical condition under which the good
+part and the pinned bad part together still have the required
+moment; this condition is the ``gate'' checked numerically in
+\cref{sec:four-routes-closing}.
+
+\begin{lemma}[Joint block-size moment gate]\label{lem:density:joint-block-gate}
+Put $\kappa_*=98861/100000$, $R_*=12/\theta_*$ and
+$s_*=\kappa_*R_*=1694760/144941\ge11$. Suppose a positive packet
+on twelve effective slots has a good part with unit mixed $L^{11}$,
+and a bad part with uniform one-slot marginals and relative mass at most $t(\beta)$ whenever every prime of the block supporting the packet is at least $\beta$. If $Q$ is the size of the block-product alphabet and $\log Q\le L$, then the packet
+has unit mixed $L^{R_*}$ provided
+\begin{equation}\label{eq:density:joint-block-gate}
+ t(\beta)\left(1+
+ \frac{e^{L(\theta_*-1)}-1}
+      {\kappa_*-e^{-L(1-\kappa_*)}}\right)<1,
+ \qquad \kappa_*>e^{-L(1-\kappa_*)}.
+\end{equation}
+For blocks contained in a fixed piece $[X,Y)$, if the block
+has at most $n$ primes one may take $L=\min(570,n\log Y)$
+whenever $(n+1)\log X>570$ (so that the cardinality bound is the
+active one).
+Alternatively, a row of the block histogram checked in
+\cref{app:certificates}, with first-prime bin lower endpoint
+$\beta$ and product-price bucket $k$, permits
+$\beta$ to be replaced by $\max(X,\beta)$ and
+$L=570k/2^{16}$, without changing the block partition.
+\end{lemma}
+\begin{proof}
+The good part has unit mixed $L^{s_*}$ by norm monotonicity.
+The exact coefficient in the mixture estimate of
+\cref{lem:density:typed-mixture} (the ratio there called the
+Bregman coefficient in its proof) is increasing in $Q$. At $Q=e^L$, divide its numerator and
+denominator by $Q$. They are respectively at most
+$Q^{\theta_*-1}-1$ and at least
+$\kappa_*-Q^{\kappa_*-1}$, which proves the displayed sufficient gate.
+Every prime in the piece is at least $X$, so the strict cardinality
+inequality gives at most $n$ primes; each is below $Y$.
+For the alternative, the existing integer block construction has
+budget $B=570\,2^{40}$ and recorded bucket
+$k=\lceil2^{16}S/B\rceil$, where its authenticated upper log sum
+satisfies $\log Q\le S/2^{40}$. Hence
+$\log Q\le570k/2^{16}$. The first-bin lower endpoint simultaneously
+bounds the least prime. Keeping these two coordinates of the same record leaves the blocks themselves and the price assigned to each block unchanged; only the two bounds $\beta$ and $L$ used for it are read from its histogram row.
+\end{proof}
+
+\begin{lemma}[The selected packet gates]\label{lem:density:packets}
+For \eqref{eq:density:parameter-range}, the following positive packets, normalized to probability laws, have density endpoint at least $\theta$: each middle generic symmetric
+or skew envelope, their sum and the CP6 increment; the whole middle
+nonroot packet; and each upper or tail symmetric, skew or combined
+norm-envelope packet. Their scalar masses are those assigned in \cref{def:closing-quantities}.
+\end{lemma}
+
+\begin{proof}
+All nonconstant middle laws are good at exponent $11$ by
+\cref{lem:density:middle-catalog}. Write $b$ for the least prime of a middle block and $r=b^{-1/2}$. Before the common reference normalization,
+the generic packets after both accepting repairs have good and bad masses
+\begin{align*}
+ G_{\rm S}&=[6v_{\rm R}+2v_{\rm D}(f_1+h_1)]r^3
+                  +w_{\rm R}g_{\rm S}(X)r^4,&
+ B_{\rm S}&=2v_{\rm C}r^4+\frac{2w_{\rm C}r^5}{(1-r^2)^2},\\
+ G_{\rm A}&=w_{\rm R}g_{\rm A}(X)r^3,&
+ B_{\rm A}&=\frac{2w_{\rm C}r^4}{1-r^2}.
+\end{align*}
+Here ``bad'' denotes the uniform one-label reserved diagonal, including
+both constant tags. In $(1-r^2)^{-1}$ and $(1-r^2)^{-2}$ we may replace $r$ by its largest value on the piece, since both are increasing in $r$. The coefficients of the $33$ pieces give
+\begin{equation}\label{eq:density:middle-bad-fractions}
+ \frac{B_{\rm S}}{G_{\rm S}+B_{\rm S}}\le57\cdot10^{-6},
+ \qquad
+ \frac{B_{\rm A}}{G_{\rm A}+B_{\rm A}}\le303\cdot10^{-6}.
+\end{equation}
+These are ratios of assigned envelope masses, not lower bounds deduced
+from upper operator norms. The common reference normalizer cancels.
+The symmetric ratio, after division by $r^3$, has the form
+$(Ar+B(r)r^2)/(c+dr+Ar+B(r)r^2)$, where $B'(r)\ge0$.
+Its derivative numerator is
+$Ac+2Bcr+Bdr^2+B'r^2(c+dr)\ge0$.
+The skew ratio is also increasing. Thus a lower endpoint for the
+least prime gives an upper bound for either bad fraction.
+
+Apply \cref{lem:density:joint-block-gate}. In the first six pieces,
+retain the first-bin coordinate and the product-price coordinate of
+the authenticated histogram for block budget $570$. There are $979$ histogram rows,
+covering $12115$ actual blocks. Grouping equal piece/bin pairs and taking
+the largest product bucket gives $526$ sufficient gates. The other $27$ pieces use the cardinality bound in the same lemma. Upward bounds for
+the larger of the symmetric and skew gates are
+\[
+\begin{array}{c|r|c}
+X&\text{number of gates}&\text{gate upper bound}\\ \hline
+19951586&87&.999905396\\
+21757358&88&.997725686\\
+23726568&70&.995610104\\
+25429506&19&.993840613\\
+25874006&87&.993514967\\
+28215802&175&.991403303\\
+\text{each later piece}&1&.830800905
+\end{array}
+\]
+All are strictly below one. The exact worst gate is at most
+$7811760900169/7812500000000<1$.
+This proves the moment bound for the two middle packets. Taking
+convex mixtures then gives it for their sum, for the chosen
+diagonals (whose moments were verified in the proof of \cref{lem:density:middle-catalog}), and hence for the increment in (CP6). A smaller $\theta$
+follows by monotonicity of the norms.
+
+For the whole nonroot packet write
+$\widetilde\mu=\Gamma+\mathcal M$, $h=\mathcal M(1)$.
+Its only bad mass is $2v_{\rm C}r^4$, so its bad fraction is
+$2v_{\rm C}r^4/h$. Positivity of the coefficients of $h$, of degrees
+one through four, makes this ratio increasing in $r$. The $33$ endpoints
+give at most $8.305\cdot10^{-12}$. The mixture coefficient at
+$Q=e^{570}$ with $(\theta_*,\kappa_*)$ is below $4200$, so this
+packet also passes the gate.
+The unmodified two-layer root $\Gamma$ is not needed in this argument.
+
+For an upper selected diagonal, the one-coordinate multiplicities of
+types $\mathrm L,\mathrm D,\mathrm S,\mathrm R,\mathrm C$ are
+$1,2,2,(2,4),6$. Multiplicities multiply across the two coordinates and
+double on the reserved diagonal. Every changed type other than
+$\mathrm{CC}$ contains two distinct actual labels each occurring at
+least four times. This includes $\mathrm{EL}$ and $\mathrm{LE}$ of
+formal degree one; no degree-two assumption is used. Deleted folded
+types have the same property unless constant. The actual half law is
+injective and square-affine invariant, so
+\cref{lem:density:repeated-pair} gives unit mixed $L^{70}$.
+All skew envelopes are good. The symmetric bad mass is
+$4w_{\rm CC}r^6+4v_{\rm CC}r^7$, while the assigned good lower mass
+includes $S_3r^3$. Here $S_3$ is the degree-three coefficient of
+the complete symmetric comparison polynomial.
+Use the final weights of \cref{subsec:upper-cross-weighted} and
+the comparison caps of \cref{subsec:upper-six-refinements}.
+For a band beginning at $X$, among the $310$ bands, the exact rational test
+\[
+ \frac{4(w_{\rm CC}+v_{\rm CC}r_X)r_X^3}{S_3}<10^{-16},
+ \qquad r_X=\frac1{\lfloor\sqrt X\rfloor},
+\]
+bounds its bad fraction; the common normalizer cancels.
+These tests are included in \cref{cert:four-routes-closing}.
+The block product satisfies $\log Q\le886$.
+At density $51/50$, $R=1200/17$ and $\kappa=119/120$,
+the mixture coefficient is bounded by
+$(120/59)Q^{1/50}<3^{19}$, because
+$Q^{\kappa-1}<1/2$ at the upper endpoint.
+Thus $10^{-16}(1+3^{19})<1$.
+
+At a tail atom $p\ge2^{512}$, count all degree-six and degree-seven
+deletion mass as bad. The fixed tail coefficients obey
+$S_3\ge1$ and $c_6+c_7<2^{100}$, so its fraction is at most
+$2^{100}p^{-3/2}$. The same mixture bound is at most $3p^{1/50}$,
+and the gate is below $2^{102}p^{-37/25}<2^{-410}$.
+Every half marginal used is the actual half marginal of the law in question. Tensorization and convex mixing finish
+the proof.
+\end{proof}
+
+\begin{certificate}[Packet arithmetic]\label{cert:density:packets}
+All the numerical inequalities (``gates'') in the preceding proof
+hold: the coarse bad fractions of
+\eqref{eq:density:middle-bad-fractions} at the $33$ middle piece
+starts, the stronger joint block-size gate
+\eqref{eq:density:joint-block-gate} over the certified block
+histogram, the bad fraction of the nonroot packet, and the upper
+and tail gates. Each is a finite check in exact rational or
+outward-interval arithmetic, replayed as follows. The coarse
+fractions are replayed
+by \path{research/four_routes_2026_10_26/coordinator_review/check_middle_increment_packets.py}
+with \texttt{--merge-repair}. The stronger joint gates are replayed by
+\path{research/four_routes_2026_10_26/folded_states/check_middle_density_histogram.py},
+with an independent reconstruction in
+\path{research/four_routes_2026_10_26/dense_moments/check_middle_histogram_independently.py}.
+Their rational logarithm intervals use the positive atanh series after
+dyadic reduction, with its geometric remainder; exponential intervals
+use the positive Taylor series with a geometric tail. The histogram,
+bin, part, integer-budget and input/run hashes are authenticated against
+the unchanged source. The upper and tail gate is replayed by
+\path{research/four_routes_2026_10_26/folded_states/check_upper_tail_selected_moments.py}.
+The smaller-cap source is checked independently by
+\path{research/four_routes_2026_10_26/dense_moments/check_middle_cardinality_independently.py}.
+The bad fraction $2v_{\rm C}r^4/h$ of the nonroot packet is
+checked by
+\path{research/four_routes_2026_10_26/coordinator_review/check_rootless_completion.py}.
+These are finite arithmetic certificates for the displayed gates;
+the analytic implication is proved above. Their source hashes and
+independent receipts are retained with the final scalar certificate.
+\end{certificate}
+
+\subsection{Sharp estimates with coupled positive spectators}
+
+A changed packet seldom stands alone: unchanged positive factors
+(spectators) remain coupled to it through the outside reference.
+The next lemma bounds a signed change, in the sharp form
+\eqref{eq:record:sharp}, in the presence of such a spectator; the
+word \emph{sharp} refers to that displayed form throughout.
+
+\begin{lemma}[Coupled spectator estimate]\label{lem:density:coupled}
+Let $O$ be a positive tensor factor outside the selected atoms
+(an \emph{outside reference}) for which the signed reflection
+H\"older inequality in use in this section
+(the display in the statement below, in the following notation:
+$x$ ranges over the selected labels, $z$ over the spectator
+labels, $h_v(x,z,\cdot)$ are functions on the outside alphabet
+and $a_v(x,z)\ge0$ are numbers, for every $x,z$) holds, and
+which is reflection positive at a balanced cut $c$ (a cut with
+two halves of $36$ slots). Let $K$ be a
+selected sharp signed law with bracket constant $\delta$, and let
+$\lambda_+,\lambda_-$ be its two full actual folded laws, including
+integration of shared labels. Let $\kappa$ be a positive spectator
+probability law. Suppose these three laws have unit mixed $L^{d/\theta}$.
+If
+\[
+ Z_O(h_v(x,z,\cdot))^{1/d}
+       \le b_v a_v(x,z)^{\theta/d},\qquad a_v\ge0,
+\]
+with $b_v$ independent of the selected labels, then
+\[
+ \left|\int\Lambda_O((h_v)_v)\,d(K\otimes\kappa)\right|
+ \le\delta\prod_v b_v
+          \prod_v(\E_{x,z}a_v(x,z))^{\theta/d}.
+\]
+The expectations on the right are uniform in each slot alphabet.
+No moment hypothesis is required for a fold of $\kappa$.
+\end{lemma}
+
+\begin{proof}
+Condition first on the entire spectator tuple $z$. Apply the sharp
+bracket to $K\otimes O$ and retain the geometric mean of its two
+nonnegative folded energies at that value of $z$. For the plus energy,
+outside signed H\"older gives
+\[
+ \prod_v b_{f_+(v)}
+ \int\prod_v
+ a_{f_+(v)}(x_v,z_{f_+(v)})^{\theta/d}\,d\lambda_+(x),
+\]
+where $f_+$ is the fold $\phi^c_+$ of \cref{def:sorting} at the balanced cut $c$, copying the plus half. Apply the full actual
+moment of $\lambda_+$, and do the same with $f_-$. Shared sharp labels
+have already been integrated in the full folded laws; no conditional
+moment assertion is made. Taking the square root, every original slot
+occurs twice in one branch and zero times in the other. The result is
+exactly
+\[
+ \prod_v b_v\prod_v(\E_xa_v(x,z_v))^{\theta/d}.
+\]
+Only now integrate the original $\kappa$ and use its moment. Products of sharp atoms from one of the two tags of (CP2)(b) and arbitrary products or positive packets
+of spectators obey the same proof. Single-cut positivity is used for
+the bracket, but the full signed H\"older property is separately
+required and is supplied by the current outside reference.
+\end{proof}
+
+\begin{proposition}[Main terms at the improved parameters]\label{prop:density:production}
+At a least normalized counterexample with parameters
+\eqref{eq:density:parameter-range}, every main term used in the
+first-stage, bracket, class, matching-envelope and wrapping
+arguments of the construction as selected (the
+\emph{production} arguments, i.e. those of
+\cref{sec:comparison-proof} at the baseline parameters) has its
+existing conductor and norm price, with density exponent
+$\theta$. Its additive error is at most a constant (depending
+only on the construction data) times
+$\|\nu-\lambda\|_{\rm var}\,
+N^{-\gamma\beta/2+72\delta}\alpha$, and hence at most
+$C\|\nu-\lambda\|_{\rm var}\,\Lsc^{-\sigma}\alpha$, where
+$\|\nu-\lambda\|_{\rm var}$ is the variation in the baseline
+comparison before the main term is extracted.
+The total of these errors over all small selections is
+$O(\Lsc^{-\sigma}\alpha)$, with a constant independent of $N$.
+The clique-prefix errors have the extra prices of
+\cref{thm:density:iid-prefix}, each below its existing prefix allowance.
+\end{proposition}
+
+\begin{proof}
+The proof of \cref{lem:record:density-dc} uses uniform variation
+marginals, lift moments and tail mixing, not $\theta\le1$. Apply it
+once to the original selected signed measure, before any Gram step.
+All its normalized variation marginals are uniform by translation
+invariance. The square-step main term is then exact. The pointwise
+fibre argument of \cref{prop:record:density-structured} up to its final
+Jensen step remains valid: progression averaging only requires
+concavity of $x^{\theta/d}$.
+
+Use \cref{lem:density:coupled} for each sharp tag. The first-stage
+positive spectators are the original nonconstant laws of
+\cref{lem:density:middle-catalog}; their possible constant images at
+another tag's cut are never used. The own sharp folds are explicitly
+included in that lemma. The reserved class expansions use the actual
+positive half couplings listed there, with their existing absolute
+coefficient mass. Generic selected increments are the separate
+symmetric/skew packets of \cref{lem:density:packets}. Brackets add
+linearly when these packets are formed. The outside reference has
+the signed H\"older property at every required cut.
+
+The external conductor depth attached to a slot is the same before and after each fold. After the
+complementary geometric means, a production query index occurs in
+exactly two original slots. If their fibre-density means are $A,B$,
+and $u=\theta/d$, then
+\[
+ \E[A^uB^u]\le(\E A^{2u}\E B^{2u})^{1/2}
+       \le(\E A\E B)^u,
+\]
+since $2u\le1$. Distinct query indices are independent. Random intervals have the mean density of the baseline index law in \cref{def:hyb:coupled}; fixed wrapping intervals cost at most
+$\Kint^{\theta/d}$ per changed slot. This yields exactly the old
+$R_I$ and the wrapping exponent $2\theta/d$. It does not extend the
+claim to arbitrary dependent index vectors. Conductor copying likewise
+retains two occurrences, so every selected block still costs $q_\Blk^{2a}$.
+
+The reserved variance inequality is an exact centered operator
+inequality. Its upper terms use only the actual $\operatorname{Diag}_X$
+and $J_X$ couplings and the bracket expansion, all just covered.
+Spectators outside the aligned F/E classes, grouped into the
+packets of \cref{lem:density:packets}, are integrated last by
+\cref{lem:density:coupled} for these upper bounds. Every
+selection credited in the existing $D_{\rm var}$ consists
+entirely of eligible aligned F/E records, with its unchanged
+$\lambda$ or bracket outside. A mixed selection containing such
+a spectator receives the generic bound (no class saving); no
+variance restoration through that spectator is asserted.
+The specialized F/E classes retain their raw-arm prices $y^{\rm arm}$ and their savings; no credit is assigned to an individual constituent of such a grouped packet.
+Odd-skew cancellation persists because the grouped
+operator remains skew. The CP6 increment is a positive mixture of the
+same packets and chosen diagonals. The chosen-side and matching-mean
+expansions use the same actual F companions and E couplings.
+
+It remains to sum the comparison errors before dividing by $Y$.
+Retain the first, stronger estimate in
+\cref{lem:record:density-dc}: a signed measure $\rho$ costs at most
+$C\|\rho\|_{\rm var}N^{-\gamma\beta/2+72\delta}\alpha$.
+The raw variation coefficients need not be summable over tail primes;
+the summable prices in (CP8) apply after the operator reduction and do
+not bound these separate errors.
+
+We instead bound the total raw mass of the small selections.
+For each tail prime $p$, let $b_p$ be the sum of the absolute raw
+coefficients times the variations of the local changes, before any
+Gram reduction. Include all local record types and their finitely many
+roles in the expansions of \cref{sec:comparison-proof} in this sum.
+By \cref{subsec:tail-prices}, degree-zero and degree-one records are
+kept, and every changed record has degree at least two in
+$r=p^{-1/2}$. The catalogue and its weights are fixed, differences of
+probability laws have variation at most two, and the normalizing
+polynomial $P_\mu(r)$ is at least one. Thus $b_p\le C_1/p$, for a
+constant depending only on the construction. Unselected infinite-tail
+reference factors have mass one. Any nonunit masses of the finitely
+many prefix, middle or finite-upper spectators contribute only a fixed
+constant, which is absorbed below; for example the middle first-stage
+law has mass $1+G(1)$ in the notation of \cref{def:record:frame}.
+
+Absorb all prefix, middle and finite upper choices, and all tail primes
+below $\max(\Pfive,C_1)$, into a fixed constant. At every remaining
+prime $b_p\le1$. For a fixed remaining tail subset $T$, summing its
+local record choices therefore gives raw mass at most
+$\prod_{p\in T}b_p\le1$. A small selection has $q_E\le N^\tau$,
+so its remaining tail subset determines a squarefree integer
+$\prod_{p\in T}p\le N^\tau$. There are at most $\lfloor N^\tau\rfloor$
+such integers, including the empty subset. The finitely many types of
+expansion and the absorbed choices only change the constant. Hence
+the total raw variation mass of all small selections is $O(N^\tau)$.
+Apply this counting argument to the actual selections before replacing
+their finite sums by the completed positive price series.
+
+The summed comparison error is consequently
+\[
+ O\bigl(N^{-\gamma\beta/2+72\delta+\tau}\alpha\bigr)
+   =O(\Lsc^{-\sigma}\alpha),
+\]
+because $N=\Kint\Lsc$ and the parameters in (S1) satisfy
+\[
+ \frac{\gamma\beta}{2}-72\delta-\tau-\sigma
+ =\frac{2260122363}{58960000000000}>0.
+\]
+Selections with $q_E>N^\tau$ retain their original post-reduction
+large-product estimate from (CP8); no small-selection comparison
+error is assigned to them.
+At no point is a sharp norm
+$\|\zeta\|_{\rm sharp}$ with $\|\zeta\|_{\rm sharp}<1$
+factored out of a sum of the form (main term) + (variation
+error): every such sum is bounded term by term before any sharp
+factor is extracted (the error of \cref{subsec:history:lessons}). All primes remain either lift coordinates
+or explicitly pinned external coordinates as in the cancellation proof.
+\end{proof}
+
+\subsection{Restoration with an $L^2$ orbit bound}
+
+Restoration (\cref{sec:variance}) recovers product energy from a
+diagonal. Carrying an $L^2$ bound along the orbit of a block
+improves the recovered lower bound when $\vartheta>1$; the lemma
+gives the improved restoration function used in every variance and
+mean saving below.
+
+\begin{lemma}[Density-sensitive restoration]\label{lem:density:restoration}
+For the middle restoration data $C,h,M,\chi$ of
+\cref{lem:record:restoration}, put $\ell=\max(0,1-(C-1)h)$. At a least normalized counterexample as in \cref{prop:density:production}, a valid restoration
+lower bound is
+\begin{equation}\label{eq:density:restoration}
+ \mathcal F_2(C,h,M,\chi)=
+ \max\left(0,\frac\ell M,
+ \frac{\ell-\sqrt{\chi((1+\chi)C^2-\ell^2)}}{1+\chi}\right).
+\end{equation}
+It replaces the baseline restoration function of
+\cref{lem:record:restoration} in every saving of
+\cref{sec:variance,sec:envelopes,sec:matching-mean} where a
+restoration lower bound is invoked: the individual and pooled
+variance credits, the background and class credits, and the
+matching-mean credits.
+\end{lemma}
+
+\begin{proof}
+Keep each normalized nonroot packet $\mathcal M_\Blk/h_\Blk$ intact
+when expanding the reference. Its moment is supplied by
+\cref{lem:density:packets}; the remaining root factors in each mixed
+term have the $L^{23/2}$ moment of \cref{lem:density:middle-catalog}.
+Both moments are stronger than density $\theta_*$, so every mixed term
+is bounded. Thus the root-carrying step of
+\cref{lem:record:restoration} gives the same lower bound $\ell-o(1)$.
+Write $\nu=(1+u)\lambda$ for the actual root-half law relative
+to the actual fold-half law on the selected blocks (in this proof
+only, $\nu$ and $\lambda$ are these two half laws, not the
+comparison law or the first stage), and $\chi=\E_\lambda u^2$. Define the nonnegative translation-orbit energy
+$\eta(z)$ as in that lemma, and set
+$m=\E_\lambda\eta=Y[\Pi_X]/Y$.
+
+For every invariant weight $w$, Cauchy--Schwarz and
+\cref{lem:density:strong-F} give
+\[
+ \int |w|\prod_v a_v(z_v)^{\theta/d}\,d\lambda
+ \le\|w\|_2\prod_v(\E a_v)^{\theta/d}.
+\]
+Apply the averaged comparison with a density factor
+(\cref{lem:record:density-dc}) first to the invariant signed measure
+$w\lambda$, whose variation is at most $\|w\|_2$ and which has uniform
+normalized one-slot marginals. The fibre main term and the displayed inequality give $|\E_\lambda w\eta|\le(C_X+o(1))\|w\|_2$ (with $X$ and $C_X$ as in \cref{lem:record:restoration}, so $C_X\le C$),
+uniformly in invariant $w$. Taking $w$ proportional to $\eta$ proves
+$\|\eta\|_2\le C_X+o(1)$. This is an $L^2$ bound, not a bound on
+each translation orbit.
+
+The root contraction and density domination are unchanged, giving
+$m\ge\ell/M-o(1)$. Centring $\eta$ in the chi-square comparison gives
+\[
+ \ell\le m+\sqrt\chi\sqrt{C^2-m^2}+o(1).
+\]
+Solving this quadratic inequality, or using $m\ge\ell$ when that
+already holds, gives the third branch of
+\eqref{eq:density:restoration}. Positivity gives zero. The baseline
+branches based on $\eta^2\le C\eta$ are not retained. Every later
+saving uses only this restoration lower bound and its existing exact
+positive relations, so substituting \eqref{eq:density:restoration}
+throughout is valid. The function and all finite positive-part/max operations are
+continuous under a common inflation of the upper energy estimates.
+\end{proof}
+
+\subsection{Uniform errors at a least counterexample}
+
+The induction needs its error terms to be $o(1)$ uniformly at a
+least counterexample, without assuming the bound being proved.
+The first step is a crude moment bound for $Y$ valid for every
+$A$, square-difference-free or not.
+
+\begin{lemma}[An unconditional reference moment]\label{lem:density:global-moment}
+For each $\eta>0$ there is $C_\eta$ such that, uniformly in the scale
+and all subsets $A\subseteq[N]$,
+\[
+ 0\le Y(\Lsc,A)\le C_\eta N^\eta\alpha^2.
+\]
+No square-difference hypothesis is needed for this inequality.
+\end{lemma}
+
+\begin{proof}
+For any fixed native tail graph and any fixed $r>1$, its uniform
+injective labeling law has unit mixed field $L^r$ norm for all sufficiently large primes, with threshold depending only on the graph and $r$. By norm monotonicity it suffices to prove this for
+$1<r\le2$. Here is the needed unit-constant argument. Sequential
+extension counts give bounded joint density relative to independent
+uniform labels. The influence estimate for pinned labels
+(\cref{prop:middle-negative}) gives maximal correlation
+$O(p^{-1/2})$, with absolute implied constant, between a single
+label and the other labels, with their actual marginals. Thus each centered subset form of size at least two
+has $L^2$ norm $O(p^{-1/2})$: apply the correlation estimate to one
+active input, and use the bounded density of the remaining actual
+marginal to bound the $L^2$ norm of their product. Its centered $L^1$ kernel is bounded by
+a fixed constant, since centering is the alternating sum of subset
+marginal densities. Interpolation gives centered $L^r$ norm $o(1)$.
+For nonnegative normalized inputs write $f_i=m_i+h_i$ and
+$v_i=\sqrt{r-1}\|h_i\|_r$. Uniform convexity gives
+$m_i^2+v_i^2\le1$. Each nonconstant term in the product expansion is
+at most $2(1-\prod m_i)$, while its coefficient tends to zero.
+There are finitely many terms, so the energy is at most one for all
+sufficiently large primes. Singleton centered terms vanish exactly.
+Absolute values cover complex inputs.
+
+Use this fact with $r=11/10$ for every graph in the finite tail catalog.
+The physical maximum multiplicities for a coordinate type are
+$1,2,2,4,6$, with formal degrees $0,1,1,2,3$.
+Two-coordinate multiplicities multiply, and a folded component doubles
+its multiplicity and increases its degree by one. A component with
+maximum multiplicity $m$ therefore has unit mixed $L^{11m/10}$,
+unless this exceeds $72$, in which case ordinary H\"older gives $L^{72}$.
+Any component whose exponent exceeds $36$ has formal degree at least six:
+the only relevant largest multiplicities are $36,48,72$, from two-layer
+$\mathrm{CC}$ and folded $\mathrm{RC},\mathrm{CR},\mathrm{CC}$.
+Their masses are $O(p^{-3})$ or smaller. The native root has unit
+mixed exponent $11/10<36$ eventually. The typed-mixture bound of
+\cref{lem:density:typed-mixture}, targeting exponent $36$, charges a bad component of exponent $v\le72$ by $O(p^{2-72/v})$, at most $O(p)$.
+Its coefficient times its mass tends to zero. Hence the full tail
+reference has unit mixed $L^{36}$ eventually.
+
+All remaining coordinates take values in one finite set independent of the scale and of $A$. Ordinary
+H\"older and finite-space norm comparison give them a finite mixed
+$L^{36}$ constant, including the changed clique prefix. Tensorizing
+with the unit tail gives $Y\le C(\E|F_A|^{36})^2$.
+\Cref{lem:record:lift-moments} at order $36$ gives
+$\E|F_A|^{36}\le C_{\eta/2}N^{\eta/2}\alpha$.
+Reflection positivity gives the lower bound.
+\end{proof}
+
+\begin{theorem}[The upgraded induction]\label{thm:density:induction}
+Use the construction and parameter range
+\eqref{eq:density:parameter-range}, with every restoration saving
+recomputed by \eqref{eq:density:restoration}, with the packet
+grouping above, and with the same finite class gates as in the
+baseline. Suppose the resulting $\Theta$, computed by the formula below, is strictly below one. Then, with constants $C,C'$ depending only on the construction data and on $\Theta$,
+\[
+ Y(\Lsc,A)\le C\Lsc^{-a}\alpha^\theta,
+ \qquad s(N)\le C'N^{1-a/(72-\theta)}.
+\]
+The closing formula is the baseline comparison formula with the new
+record prices, the new restoration savings, and wrapping term
+\[
+ B e^{S+A}\left[
+ \left(1+\frac{R_I}{2\Kint^{1-2\theta/72}}\right)^6-1\right].
+\]
+Equivalently, $\Theta$ may be computed by the joint closing of
+\cref{cor:joint-closing},
+provided its residual coefficients and robustness conditions are verified.
+\end{theorem}
+
+\begin{proof}
+The comparison identities, cut orders, centered variance identities,
+odd-skew cancellation and class algebra are unchanged.
+\cref{prop:density:production,lem:density:restoration} supply every
+analytic upper and lower bound used in their robust recurrence.
+The finite class gates ensure the same continuous inflated closing
+$\Theta(z)$, with $\Theta(0)<1$.
+
+At a least counterexample $Y>C_0\Lsc^{-a}\alpha^\theta$, use
+\cref{lem:density:global-moment} with $\eta=1/10000$ to obtain
+\[
+ \alpha\ge c C_0^{1/(2-\theta)}
+       \Lsc^{-(a+\eta)/(2-\theta)}.
+\]
+An original density-linear error $O(\Lsc^{-\sigma}\alpha)$, divided
+by $Y$, is consequently $o(1)$ uniformly for $C_0\ge1$, since
+\[
+ a+(a+\eta)\frac{\theta-1}{2-\theta}
+ \le\frac{91}{100000}+\frac{101}{100000}\frac{14587}{985413}
+ <\frac1{825}=\sigma,
+ \qquad \text{with margin }\frac{943271}{3284710000}.
+\]
+This applies to the summed errors from
+\cref{lem:record:density-dc}, from cancellation and from the
+large-product remainders. Their constants are fixed independently of
+$C_0$. Choose a scale beyond which these relative errors and the
+square-step rounding error fit the strict scalar margin.
+At the finitely many earlier scales, $|F_A|\le n_\Lsc\alpha$ gives
+$Y\le n_\Lsc^{72}\alpha^{72}\le n_\Lsc^{72}\alpha^\theta$;
+enlarge $C_0$ to initialize the induction. The least failing scale
+would satisfy $Y\le\Theta(z)Y<Y$, a contradiction.
+Finally $\alpha^{72}\le Y$ gives
+$\alpha^{72-\theta}\le C\Lsc^{-a}$, and the usual interval embedding
+gives the claimed bound for every $N$.
+\end{proof}

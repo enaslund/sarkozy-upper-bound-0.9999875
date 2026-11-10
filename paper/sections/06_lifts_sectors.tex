@@ -1,0 +1,1032 @@
+\section{The functional $Y$: Fourier truncation and estimates preserving the density}
+\label{sec:lifts}
+
+\paragraph{What this section proves and how to read it.}
+This section defines $Y=\Yf(\Lsc,A)$, the $72$-fold average of a
+truncated Fourier series $F_A$ of $\one_A$ (the \emph{lift}: $F_A$
+retains characters of conductor at most $N^{1/20}$ so that fixing
+labels can be analysed prime by prime), and proves three properties
+used throughout: averaging interval-and-residue inputs returns $F_A$
+exactly; $L^{2r}$ norms of lifts are linear in the density $\alpha$
+(so remainders in \cref{sec:scale-comparison} are $O(\Lsc^{-\sigma}
+\alpha)$ with $\sigma=1/825$ (\cref{def:record:analytic-stage})); and Fourier terms of large conductor are damped at large
+primes. It also proves that tensor products preserve exact Fourier
+support (the resulting orthogonal components of a function,
+indexed by exact Fourier support, are called \emph{sectors}; they
+are not prime pieces; a \emph{spectator} is a factor left
+unchanged in such a tensor product). Inputs: \cref{sec:positivity} and the reference hypotheses
+(R1)--(R5) (\cref{subsec:lifts:reference}), verified in Part~V.
+Outputs: the definition \cref{def:record:functional} and the moment
+and decay estimates cited in Parts~III and~V. A first reading should
+follow the definition and the statements of the moment and decay
+results; the tensor-product linear algebra can be used as reference.
+(R4) uses \emph{mixing} (damping of nonconstant functions
+at large primes, \cref{def:mixing} below) and (R5) uses the forcing terminology
+of \cref{subsec:intro:glossary}.
+
+\subsection{Definition of the lift $F_A$ and the functional $Y(\Lsc,A)$}\label{subsec:lifts:functional}
+
+The slot array is $V=(\Z/6\Z)^2\times\{0,1\}$ of \cref{def:slot-array},
+$d=|V|=72$, with the family $\mathfrak F$ of its cuts: the chamber cuts
+$\vartheta_{c,a}$ of the two chamber coordinates and the reserved cut $\iota$.
+The family contains a sorting sequence (\cref{def:sorting},
+\cref{lem:slot-array}(iii)). The multilinear averages
+$\Lambda_\kappa((g_v)_v)$ and $\Lambda_\kappa(g)$ of a finite signed measure
+$\kappa$ on $X^V$ are those of \cref{sec:positivity}.
+
+\begin{definition}[The functional]\label{def:record:functional}
+Let $\beta=1/20$, let $\Kint\ge2$ be a fixed integer, and let $Q_3=19951586$,
+$\Pfour=2^{512}$ and $\Pfive=2^{65536}$. Put
+\[
+ \mathcal P_1=\{p<\Pfour:\ p\equiv1\ (\mathrm{mod}\ 4)\},\qquad
+ \mathcal P_3=\{Q_3\le p<\Pfour:\ p\equiv3\ (\mathrm{mod}\ 4)\},
+\]
+fix integers $m_p\ge1$ for $p\in\mathcal P_1$, and put $e_p=2m_p$ for
+$p\in\mathcal P_1$ and $e_p=1$ for every other prime. For a finite set
+$\mathcal S$ of primes let $X_{\mathcal S}=\prod_{p\in\mathcal S}\Z/p^{e_p}\Z$,
+with its uniform probability measure, and call
+$D_{\mathcal S}=|X_{\mathcal S}|=\prod_{p\in\mathcal S}p^{e_p}$ its \emph{full
+order}.
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Scales.} For an integer $\Lsc\ge1$ put $N=\Kint\Lsc$, $Q=N^\beta$,
+ $\mathcal T_N=\{p\ \text{prime}:\ \Pfour\le p\le N^\beta\}$,
+ $\mathcal P_N=\mathcal P_1\cup\mathcal P_3\cup\mathcal T_N$ and
+ $G_N=X_{\mathcal P_N}$.
+\item \emph{Characters.} A character of $X_{\mathcal S}$ is
+ $z\mapsto e(z\cdot\xi)$ with $\xi=\sum_{p\in\mathcal S}a_p/p^{e_p}\in\Q/\Z$,
+ $a_p\in\Z/p^{e_p}\Z$, and $z\cdot\xi=\sum_pa_pz_p/p^{e_p}$; we identify it
+ with $\xi$. Its \emph{exact support} is $\{p:a_p\ne0\}$, and its
+ \emph{conductor} $q(\xi)$ is the reduced denominator of $\xi$, that is,
+ $q(\xi)=\prod_pp^{e_p-\min(v_p(a_p),e_p)}$, the product over
+ $p\in\mathcal S$, with $a_p$ represented by an integer between $0$ and
+ $p^{e_p}-1$ and $v_p(0)$ taken as $+\infty$. For $n\in\Z$ the number
+ $e(n\xi)$ is well defined. The Fourier coefficient of
+ $G\colon X_{\mathcal S}\to\C$ is $\widehat G(\xi)=\E_zG(z)e(-z\cdot\xi)$.
+\item \emph{Lift.} For a nonempty interval $I$ of integers and
+ $f\colon I\to\C$ put
+ \[
+  \widehat f_I(\xi)=\frac1{|I|}\sum_{n\in I}f(n)e(-n\xi)\quad(\xi\in\Q/\Z),
+  \qquad
+  \mathcal L_{I,N}f(z)=\sum_{\xi\in\Xi_N}\widehat f_I(\xi)\,e(z\cdot\xi)\quad(z\in G_N),
+ \]
+ where $\Xi_N$, the set of \emph{retained characters}, consists of the
+ characters $\xi$ of $G_N$ with $q(\xi)\le Q$. It is defined by the
+ \emph{total} conductor and depends neither on $I$ nor on $f$. It contains
+ every character supported on the prefix coordinates ($p\in\mathcal P_1$) of conductor $p^j\le Q$, $1\le j\le e_p$, and it is
+ closed under negation, so the lift of a real function is real.
+\item \emph{Atoms and reference laws.} The set $\mathcal A_N$ of \emph{atoms}
+ at scale $N$ consists of the clique atoms $\{p\}$, $p\in\mathcal P_1$; the
+ blocks of a fixed partition of $\mathcal P_3$ into finite sets (the middle
+ blocks of \cref{def:record:exact-blocks} and the upper blocks of
+ \cref{def:record:upper-bands}); and the tail atoms $\{p\}$,
+ $p\in\mathcal T_N$. For an atom $\Blk$ we write $X_\Blk$ for $X_{\mathcal S}$
+ with $\mathcal S$ the set of primes of $\Blk$, and $\mu_\Blk$ for its
+ reference law, a probability measure on $X_\Blk^V$ (constructed in Part~V;
+ Parts~II and~III use only \cref{hyp:record:reference}). For a set
+ $\mathcal S$ of atoms put $\mu_{\mathcal S}=\bigotimes_{\Blk\in\mathcal S}\mu_\Blk$
+ and $Z_{\mathcal S}(g)=\Lambda_{\mu_{\mathcal S}}(g)$ for
+ $g\colon X_{\mathcal S}\to\R$; and $\mu_N=\mu_{\mathcal A_N}$,
+ $Z_N=Z_{\mathcal A_N}$.
+\item \emph{Functional.} For $A\subseteq[N]$ let $F_A=\mathcal L_{[N],N}\one_A$
+ and $\Yf(\Lsc,A)=Z_N(F_A)$, and let $\Ym(\Lsc)$ be the maximum of
+ $\Yf(\Lsc,A)$ over the square-difference-free sets $A\subseteq[N]$.
+\item \emph{Inputs.} For $b\in\Z/\Kint\Z$, identified with
+ $\{1,\dots,\Kint\}$ through the least positive residues, let
+ $I_b=((b-1)\Lsc,b\Lsc]\cap\Z$, and put $\mathcal I_\Lsc=\{[N],I_1,\dots,I_\Kint\}$.
+ The intervals $I_b$ have length $\Lsc$ and partition $[N]$; every element of
+ $I_b$ is smaller than every element of $I_{b+1}$ for $1\le b<\Kint$, and the
+ shift $b\mapsto b+1$ wraps $I_\Kint$ to $I_1$. The \emph{small modulus} is
+ $\Mzero=2^{2m_{\rm ext}+1}\prod_{3\le p<Q_3,\ p\equiv3\ (4)}p^{2m_{\rm ext}}$, with fixed $m_{\rm ext}=64$. For $I\in\mathcal I_\Lsc$, a
+ positive divisor $D_0$ of $\Mzero$ and $s\in\Z/D_0\Z$,
+ \[
+  g^{I,D_0,s}=\mathcal L_{I,N}\big((D_0\one_{n\equiv s\,(D_0)}\one_A)|_I\big).
+ \]
+\end{enumerate}
+\end{definition}
+
+Throughout, $Y$ and $\Yf$ denote this functional. The small modulus is coprime
+to $D_{\mathcal P_N}$: its primes are $2$ and the primes $p\equiv3\pmod4$ below
+$Q_3$, none of which lies in $\mathcal P_N$. So $\Mzero$ is not a coordinate of
+$G_N$; it enters only through the inputs and the external index of the
+queries (\cref{def:hyb:coupled}). The atoms of $\mathcal P_1\cup\mathcal P_3$
+are present at every scale, also when their primes exceed $N^\beta$; a clique
+prime $p>Q$ then carries no nonconstant retained character. Two fixed integers
+control them,
+\[
+ Q_{\rm cl}=\prod_{p\in\mathcal P_1}p^{e_p},\qquad
+ Q_{\rm pre}=Q_{\rm cl}\prod_{\substack{Q_3\le p<\Pfive\\ p\notin\mathcal P_1}}p ,
+\]
+the full order of the clique prefix and a common multiple of the full orders of
+all atoms below $\Pfive$. The data $\Kint$ and $(m_p)_{p\in\mathcal P_1}$ are
+fixed, and constants may depend on them and on $\Mzero$, $Q_{\rm cl}$,
+$Q_{\rm pre}$ (\cref{rem:fixed-parameters}). The baseline uses
+$\Kint=\PushK$, and the main theorem uses $\Kint=\FourRoutesK$;
+both use $m_p=\mcl=8192$ at every $p\in\mathcal P_1$
+(\cref{def:record:parameters}).
+
+\paragraph{Support components (``pieces'') of a lift.}
+Let $\mathcal P$ be a finite set of primes with $e_p=1$ for $p\in\mathcal P$, so
+that $X_{\mathcal P}=\prod_{p\in\mathcal P}\Fp$, and put $q_U=\prod_{p\in U}p$
+for $U\subseteq\mathcal P$; a character of $X_{\mathcal P}$ with exact support
+$U$ has conductor $q_U$. For $f\colon I\to\C$ and $U\subseteq\mathcal P$, the
+\emph{piece of exact support $U$} of the lift of $f$ on $X_{\mathcal P}$ is
+$f_U(z)=\sum_\xi\widehat f_I(\xi)e(z\cdot\xi)$, the sum over the characters $\xi$
+of $X_{\mathcal P}$ of exact support $U$. Each $f_U$
+depends only on $z_U$ and has mean zero in every coordinate of $U$; if $f$ is
+real, so is $f_U$. The mean of a lift is its coefficient at $\xi=0$,
+$\E_z\mathcal L_{I,N}f(z)=\widehat f_I(0)=\E_If$, since $q(0)=1\le Q$. A lift of
+a nonnegative function can take negative values: all positivity in this paper
+comes from the reflection positivity of the laws, not from the inputs.
+
+\subsection{Assumptions (R1)--(R5) on the per-atom laws (proved in Part~V)}\label{subsec:lifts:reference}
+
+The analytic stage uses the following properties of the reference laws and of
+the factors of the comparison law, and nothing else about the local laws.
+
+\begin{hypothesis}[Reference atom laws]\label{hyp:record:reference}
+For every interval scale $\Lsc\ge1$, with $N=\Kint\Lsc$:
+\begin{enumerate}[label=(R\arabic*)]
+\item\label{it:record:R1} every $\mu_\Blk$ is a probability measure on
+ $X_\Blk^V$, and the law of an atom does not depend on $N$;
+\item\label{it:record:R2} every $\mu_\Blk$ is reflection positive
+ (\cref{def:rp}) at every cut of the family $\mathfrak F$, that is, at the
+ chamber cuts of both chamber coordinates and at the reserved cut $\iota$; in
+ particular at the seven cuts of the sorting sequence of \cref{lem:slot-array};
+\item\label{it:record:R3} every $\mu_\Blk$ is square-affine invariant
+ (\cref{def:map:invariance}): it is invariant under the simultaneous maps
+ $z_{v,p}\mapsto r_pz_{v,p}+c_p$, where $r_p$ is a square unit and $c_p$
+ an element of $\Z/p^{e_p}\Z$, chosen independently for $p\in\Blk$; and every
+ signed measure $\rho_\Blk$ on $X_\Blk^V$ that occurs in Parts~III and~V at $\Blk$ as a component, a replacement, a one-layer folded copy, or a difference of such measures, has a variation $|\rho_\Blk|$ whose one-slot marginals are all
+ $|\rho_\Blk|(1)\Unif(X_\Blk)$. Both hold for every measure that is invariant
+ under these maps, since the variation of an invariant measure is invariant;
+ in particular every one-slot marginal of $\mu_\Blk$ is $\Unif(X_\Blk)$;
+\item\label{it:record:R4} for every tail prime $p\ge\Pfive$, with
+ $\gamma=255/1024$: the law $\mu_p$ and its accepted part
+ $\bar\nu_p=\nu_p/\nu_p(1)$, where $\nu_p$ is the factor at the one-prime atom $\{p\}$ of the comparison
+ law $\nu$ of \cref{def:record:comparison-law} (at a tail prime the
+ comparison law is nonnegative, \cref{lem:tail-prices}), are
+ $(\gamma,v)$-mixing
+ (\cref{def:mixing}) for every slot $v$; and for each query $(u,v)$ of the
+ query family $\mathcal E_k$ of \cref{def:cp0}(c) (in Part~V, $\mathcal E_6$)
+ the $(u,v)$-marginal of $\bar\nu_p$ is $\Unif(\Om)$ and
+ $\bar\nu_p$ is $(\gamma,(u,v))$-mixing: its conditional operator from the
+ pair $(u,v)$ to the other $70$ slots fixes constants, maps mean-zero functions
+ to mean-zero functions and has norm at most $p^{-\gamma}$ on them;
+\item\label{it:record:R5} under every accepted part, that is every normalized component $\bar\nu_{\Blk,i}=\nu_{\Blk,i}/\nu_{\Blk,i}(1)$ of positive mass of the comparison law (\cref{def:record:comparison-law}) (components of mass zero are omitted), almost surely each query pair is a
+ strict-square pair at every prime of $\Blk$ with $e_p=1$, and at a clique
+ prime $p\in\mathcal P_1$ its difference is nonzero, of even valuation
+ $2j<e_p$, with a square unit part.
+\end{enumerate}
+\end{hypothesis}
+
+Part~V verifies these properties: \ref{it:record:R1}--\ref{it:record:R3} for
+the clique atoms by \cref{lem:frontier:iidlocal}, for the middle blocks by
+\cref{lem:front12:reference}, for the upper blocks by
+\cref{lem:upper-reference-rp} and for the tail atoms by \cref{lem:tail-law};
+\ref{it:record:R4} is \cref{lem:record:tail-mixing}; \ref{it:record:R5} is the
+acceptance property (a) of \cref{def:record:comparison-law}, checked range by
+range and component by component; and the variation clause of \ref{it:record:R3} is part of the
+admissibility of every selected law (\cref{def:admissible}). Each of the four
+reference lemmas proves reflection positivity at every cut of $\mathfrak F$,
+not only at the sorting cuts. This is needed: the one-cut arguments of
+Parts~III and~V also use first-coordinate chamber cuts outside the sorting
+sequence, for instance $\vartheta_{0,2}$, with plus half $\{2,3,4\}$, which is
+neither a sorting cut nor a sorting cut with its halves exchanged.
+
+\subsection{Averaging a lift over intervals and residues is exact}\label{subsec:lifts:index}
+
+The external index replaces the lift by averages over subintervals
+and residue classes. The next lemma says these averages return the
+original lift exactly, with no error term; this is why conditioning
+on the index preserves the mean $\alpha$.
+
+\begin{lemma}[Index averages]\label{lem:twointerval}
+Let $I$ be a nonempty interval of integers and $I=J_1\sqcup\dots\sqcup J_k$ a
+partition of $I$ into nonempty intervals. For every $f\colon I\to\C$,
+\[
+ \mathcal L_{I,N}f=\sum_{j=1}^k\frac{|J_j|}{|I|}\,\mathcal L_{J_j,N}\big(f|_{J_j}\big).
+\]
+Consequently, for $\Lsc\ge1$, $N=\Kint\Lsc$, $A\subseteq[N]$ and a positive
+divisor $D_0$ of $\Mzero$:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item\label{it:ti:intervals}
+ $\Kint^{-1}\sum_{b\in\Z/\Kint\Z}g^{I_b,D_0,s}=g^{[N],D_0,s}$ for every
+ $s\in\Z/D_0\Z$;
+\item\label{it:ti:residues} if $s$ is uniform on $\Z/D_0\Z$ and $D'$ is a
+ positive divisor of $D_0$, then
+ $\E[g^{I,D_0,s}\mid s\bmod D']=g^{I,D',\,s\bmod D'}$ for every
+ $I\in\mathcal I_\Lsc$; in particular ($D'=1$)
+ $\E_sg^{I,D_0,s}=\mathcal L_{I,N}(\one_A|_I)$;
+\item\label{it:ti:mean} if $b$ and $s$ are independent and uniform on
+ $\Z/\Kint\Z$ and on $\Z/D_0\Z$, then $\E_{b,s}g^{I_b,D_0,s}=F_A$ and
+ $\E_sg^{[N],D_0,s}=F_A$, identically on $G_N$.
+\end{enumerate}
+These identities are exact and hold for every fixed $\Kint\ge2$.
+\end{lemma}
+
+\begin{proof}
+For every $\xi\in\Q/\Z$, $\widehat f_I(\xi)=\sum_j(|J_j|/|I|)
+\widehat{(f|_{J_j})}_{J_j}(\xi)$, because the $J_j$ partition $I$. The lift sums
+these coefficients over the set $\Xi_N$, which depends neither on the interval
+nor on the function, so it is linear in the coefficient vector and the identity
+follows. \ref{it:ti:intervals} Apply it to the partition of $[N]$ into the
+$I_b$, for which $|I_b|/N=1/\Kint$, and $f=D_0\one_{n\equiv s}\one_A$.
+\ref{it:ti:residues} Let $t\in\Z/D'\Z$ and $n\in\Z$. Given $s\equiv t\pmod{D'}$,
+$s$ is uniform among the $D_0/D'$ residues modulo $D_0$ above $t$, of which
+exactly one is $\equiv n\pmod{D_0}$ if $n\equiv t\pmod{D'}$, and none otherwise;
+hence the conditional expectation of $D_0\one_{n\equiv s\,(D_0)}$ is
+$D'\one_{n\equiv t\,(D')}$. Multiply by $\one_A(n)$, restrict to $I$ and apply
+the linear map $\mathcal L_{I,N}$. \ref{it:ti:mean} By \ref{it:ti:residues},
+$\E_sg^{I,D_0,s}=\mathcal L_{I,N}(\one_A|_I)$, which is $F_A$ for $I=[N]$; averaging
+over $b$ and using the partition identity gives
+$\E_{b,s}g^{I_b,D_0,s}=\Kint^{-1}\sum_b\mathcal L_{I_b,N}(\one_A|_{I_b})=F_A$.
+\end{proof}
+
+Only the linearity of the lift and the independence of $\Xi_N$ from the
+interval and the input are used; the prime-power coordinates of $G_N$ play no
+role. In the index law (\cref{def:hyb:coupled}) the residue $s\in\Z/\Mzero\Z$
+has prime-power coordinates by the Chinese remainder theorem. Revealing a
+residue to depth $J_p$ at each prime is conditioning on
+$s\bmod D_{\boldsymbol J}$, where $D_{\boldsymbol J}=\prod_p p^{J_p}$.
+When every revealed depth $J_p$ is either full (the whole
+$p$-coordinate of $\Mzero$) or zero, write $W$ for the set of fully
+revealed coordinates and $D_W$ for the corresponding modulus; in either case
+\ref{it:ti:residues} turns $g^{I,\Mzero,s}$ into $g^{I,D_{\boldsymbol J},s\bmod D_{\boldsymbol J}}$. For
+inputs with independent indices at distinct slots, such as the pairwise
+disjoint endpoints of the queries, the expectation and the conditional
+expectations of the product are the products of those of the factors.
+
+\subsection{$L^{2r}$ bounds for lifts, linear in the density}\label{subsec:lifts:moments}
+
+The moment bounds have three ingredients: a conditional Parseval bound for the
+pieces of a lift, a recursion for their square function, and decoupling over
+the prime coordinates (compare the general decoupling formalism for
+multilinear and U-statistic averages in \cite{dlPMS}; the coordinate-colour
+argument needed here is proved directly below). We state them separately, so
+that the dependence on the conductor cutoff and on the number of prime factors
+remains visible. The first ingredient is arithmetic. A generic hypercontractive
+bound would not do: on $\Fp$ the mean-zero function $\one_{x=0}-1/p$ has
+$\|f\|_{2r}/\|f\|_2$ of order $p^{1/2-1/(2r)}$. The pieces of a lift come from an
+interval, and the Gram (large-sieve) bound uses this.
+
+\begin{lemma}[Gram bound and conditional square sums]
+\label{lem:lift:conditional-squares}
+Let $I$ be an interval of integers and $Q\ge1$.
+\begin{enumerate}[label=(\alph*)]
+\item If $\Xi$ is a set of distinct elements of $\Q/\Z$ with reduced
+ denominators at most $Q$, then for every $f\colon I\to\C$
+ \[
+  \sum_{\xi\in\Xi}|\widehat f_I(\xi)|^2\le\Big(1+\frac{Q^4}{2|I|}\Big)\E_I|f|^2 .
+ \]
+\item Let $|I|\ge10Q^6$ and $\|f\|_\infty\le M$, let $\mathcal P$ be a finite
+ set of primes with $e_p=1$, and let $\mathcal F$ be a family of subsets
+ $U\subseteq\mathcal P$ with $q_U\le Q$. For every $W\subseteq\mathcal P$ with
+ $q_W\le Q$ and every $z_W\in X_W$, the pieces $f_U$ of the lift of $f$ on
+ $X_{\mathcal P}$ satisfy
+ \begin{equation}\label{eq:cond-square}
+  \sum_{U\in\mathcal F,\,U\supseteq W}\E\big[|f_U|^2\ \big|\ z_W\big]
+  \le4M^2\,4^{|W|}.
+ \end{equation}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) Distinct elements of $\Q/\Z$ with reduced denominators at most $Q$ are at
+distance at least $Q^{-2}$, and there are at most $\sum_{q\le Q}\varphi(q)\le Q^2$
+of them. Write $\|t\|$ for the distance from $t\in\Q/\Z$ to $0$.
+For $\xi\ne\xi'$ in $\Xi$,
+$|I|^{-1}|\sum_{n\in I}e(n(\xi-\xi'))|\le(2|I|\,\|\xi-\xi'\|)^{-1}
+\le Q^2/(2|I|)$. So the Gram matrix $G$ of the unit vectors
+$\phi_\xi=(|I|^{-1/2}e(n\xi))_{n\in I}$, $\xi\in\Xi$, has norm at most
+$1+Q^4/(2|I|)$ (Schur's test), and Bessel's inequality in Gram form,
+$\sum_\xi|\ip f{\phi_\xi}|^2\le\|G\|\,\|f\|^2$, is the claim, since
+$|\ip f{\phi_\xi}|^2=|I|\,|\widehat f_I(\xi)|^2$ and $\|f\|^2=|I|\E_I|f|^2$.
+
+(b) Write $U=W\sqcup U'$ and $\xi=\xi_W+\eta$ with exact supports $W$ and $U'$.
+After fixing $z_W$, the coefficient of $e(z_{U'}\cdot\eta)$ in $f_U$ is
+\[
+ c_W(\eta;z_W)=\frac1{|I|}\sum_{n\in I}f(n)e(-n\eta)\prod_{p\in W}
+ \big(p\one_{n\equiv z_p\,(p)}-1\big),
+\]
+since $\sum_{a=1}^{p-1}e(a(z_p-n)/p)=p\one_{n\equiv z_p}-1$. By conditional
+Parseval the left side of \eqref{eq:cond-square} is
+$\sum_{\eta\in\Omega_W}|c_W(\eta;z_W)|^2$, summed over the union $\Omega_W$ of the
+sets of characters of exact support $U\setminus W$, $U\in\mathcal F$,
+$U\supseteq W$ (different $U$ give disjoint sets); the elements of $\Omega_W$
+have reduced denominators at most $Q/q_W$, all coprime to $q_W$. Expanding the
+product over the subsets $J\subseteq W$ gives
+$c_W=\sum_J(-1)^{|W\setminus J|}c_J$ with
+$c_J(\eta)=(q_J/|I|)\sum_{n\in I,\,n\equiv z_J\,(q_J)}f(n)e(-n\eta)$. Write
+$n=n_J+q_Jn'$ with $n'$ in an interval $T_J$ of length $L_J$, where
+$|L_J-|I|/q_J|\le1$; since $|I|/q_J\ge10Q^5$, $L_J\ge0.9|I|/q_J$ and
+$q_JL_J\le1.1|I|$. The frequencies $q_J\eta$, $\eta\in\Omega_W$, are distinct,
+because $q_J$ is a unit modulo every denominator in $\Omega_W$, and have reduced
+denominators at most $Q$. With $F_J(n')=f(n_J+q_Jn')$,
+$|c_J(\eta)|=(q_JL_J/|I|)\,|\widehat{(F_J)}_{T_J}(q_J\eta)|$, and (a) on $T_J$, with
+$1+Q^4/(2L_J)\le1+Q^5/(1.8|I|)\le19/18$, gives
+$(\sum_\eta|c_J(\eta)|^2)^{1/2}\le1.1\sqrt{19/18}\,M\le2M$. The triangle inequality
+over the $2^{|W|}$ sets $J$ gives
+$(\sum_\eta|c_W(\eta;z_W)|^2)^{1/2}\le2^{|W|}\cdot2M$, which is
+\eqref{eq:cond-square}.
+\end{proof}
+
+\begin{lemma}[Square-function recursion]\label{lem:sqfun-rec}
+Let $X=\prod_{p\in\mathcal P}X_p$ be a finite product of finite probability
+spaces, $\mathcal F$ a finite family of subsets of $\mathcal P$ of size at most
+$k$, and $h_U\colon X\to\C$ $(U\in\mathcal F)$ functions such that $h_U$
+depends only on $z_U$. Suppose that for some $c\ge0$, every $W\subseteq\mathcal P$
+contained in a member of $\mathcal F$, and every $z_W$,
+\[
+ \sum_{U\in\mathcal F,\,U\supseteq W}\E\big[|h_U|^2\ \big|\ z_W\big]\le c\,4^{|W|}.
+\]
+Put $S=(\sum_{U\in\mathcal F}|h_U|^2)^{1/2}$ and $T_j=\E S^{2j}$, so $T_0=1$.
+Then $T_j\le c\,4^k2^{(j-1)k}\,T_{j-1}$ for every $j\ge1$; hence, for all
+integers $0\le j_0\le r$,
+\[
+ T_r\le(c\,4^k)^{r-j_0}\,2^{k(r(r-1)-j_0(j_0-1))/2}\,T_{j_0}.
+\]
+\end{lemma}
+
+\begin{proof}
+Let $j\ge1$. Expand $S^{2j}=\sum_{U_1,\dots,U_j}\prod_i|h_{U_i}|^2$ and fix
+$U_2,\dots,U_j$, with union $\mathcal U$, so $|\mathcal U|\le(j-1)k$. The
+product $\prod_{i\ge2}|h_{U_i}|^2$ depends only on $z_{\mathcal U}$, and since the
+coordinates are independent,
+$\E[|h_{U_1}|^2\mid z_{\mathcal U}]=\E[|h_{U_1}|^2\mid z_W]$ with
+$W=U_1\cap\mathcal U$. Grouping the supports $U_1$ by $W$, which takes at most
+$2^{|\mathcal U|}\le2^{(j-1)k}$ values, each contained in a member of
+$\mathcal F$ and of size at most $k$, gives pointwise
+$\sum_{U_1}\E[|h_{U_1}|^2\mid z_{\mathcal U}]\le2^{(j-1)k}c\,4^k$. Multiplying by
+$\prod_{i\ge2}|h_{U_i}|^2$, taking expectations and summing over
+$U_2,\dots,U_j$ gives $T_j\le c4^k2^{(j-1)k}T_{j-1}$. Iterate from $j_0+1$ to
+$r$, using $\sum_{j=j_0+1}^r(j-1)=(r(r-1)-j_0(j_0-1))/2$.
+\end{proof}
+
+For the pieces of a lift with $\|f\|_\infty\le M$, \eqref{eq:cond-square} gives
+the hypothesis with $c=4M^2$, and the case $j_0=0$ reads
+$\|S\|_{2r}\le2M\,2^{k(r+3)/4}$.
+
+\begin{lemma}[Decoupling by coordinate colours]\label{lem:lift:decoupling}
+Let $X=\prod_{p\in\mathcal P}X_p$ be a finite product of finite probability
+spaces, $\mathcal F$ a finite family of subsets of $\mathcal P$ of size at most
+$k$, and $f_U\colon X\to\C$ $(U\in\mathcal F)$ functions such that $f_U$
+depends only on the coordinates in $U$ and has mean zero in each of them. Put
+$S=(\sum_{U\in\mathcal F}|f_U|^2)^{1/2}$ and, for an integer $r\ge1$,
+$K_{2r}=((2r)!/(2^rr!))^{1/(2r)}$. Then
+\[
+ \Big\|\sum_{U\in\mathcal F}f_U\Big\|_{2r}\le(k+1)(2eK_{2r})^k\|S\|_{2r}.
+\]
+\end{lemma}
+
+\begin{proof}
+We use Khintchine's inequality $\|\sum a_i\epsilon_i\|_{2r}\le
+K_{2r}(\sum|a_i|^2)^{1/2}$ for independent uniform signs $\epsilon_i$. For real
+$a_i$ the even moment is at most that of $\sum a_i\mathrm g_i$ with independent
+standard Gaussians (expand: only even exponents survive, with nonnegative
+coefficients, and $\E\epsilon^{2m}=1\le\E\mathrm g^{2m}$), which is
+$(2r-1)!!(\sum a_i^2)^r=K_{2r}^{2r}(\sum a_i^2)^r$. For complex $a_i$ apply this
+to the real and imaginary parts and Minkowski in $L^r$ to
+$|X|^2=(\mathrm{Re}X)^2+(\mathrm{Im}X)^2$.
+
+The same constant applies to Hilbert-space vectors $v_i$. Work in their
+finite-dimensional real span (realifying a complex Hilbert space), and let
+$G$ be a standard Gaussian vector there. With $c_r=(2r-1)!!=K_{2r}^{2r}$,
+the scalar inequality and then Minkowski in $L^r$ give
+\[
+ \E_\epsilon\Big\|\sum_i\epsilon_i v_i\Big\|^{2r}
+ =c_r^{-1}\E_G\E_\epsilon
+       \Big\langle G,\sum_i\epsilon_i v_i\Big\rangle^{2r}
+ \le\E_G\Big(\sum_i\langle G,v_i\rangle^2\Big)^r
+ \le c_r\Big(\sum_i\|v_i\|^2\Big)^r.
+\]
+This also holds conditionally when the vectors depend on other variables.
+
+Fix $j\ge1$ and colour the coordinates independently and uniformly with $j$
+colours; a set of size $j$ is \emph{transversal} if its elements have distinct
+colours, which happens with probability $\pi_j=j!/j^j$. Fix a colouring and let
+$\mathcal T$ be the transversal members of $\mathcal F$ of size $j$. Take
+independent copies $X^0,X^1$ of the coordinates and put
+$D_U=\prod_{p\in U}(I-\mathrm{swap}_p)f_U(X^0)$, where $\mathrm{swap}_p$
+exchanges the $p$-coordinates of $X^0$ and $X^1$. Then
+$D_U=\sum_{U'\subseteq U}(-1)^{|U'|}f_U(X^{U'})$, where $X^{U'}$ takes the
+coordinates in $U'$ from $X^1$ and the others from $X^0$; integrating out $X^1$
+makes every term with $U'\ne\emptyset$ vanish, since $f_U$ has mean zero in
+each coordinate of $U$. So
+$\E_{X^1}D_U=f_U(X^0)$, and by Jensen
+$\|\sum_{\mathcal T}f_U\|_{2r}\le\|\sum_{\mathcal T}D_U\|_{2r}$. Each
+$\mathrm{swap}_p$ preserves the joint law of $(X^0,X^1)$ and changes the sign of
+$D_U$ exactly when $p\in U$; hence
+$\|\sum_{\mathcal T}D_U\|_{2r}=\|\sum_{\mathcal T}\epsilon_UD_U\|_{2r}$, where
+$\epsilon_U=\prod_{p\in U}\epsilon_p$ for independent uniform signs $\epsilon_p$.
+A transversal $U$ has exactly one coordinate $p_c(U)$ of each colour $c$, so
+$\epsilon_U=\prod_{c=1}^j\epsilon_{p_c(U)}$, and we integrate the signs one colour
+at a time. With the signs of colour $1$ free and the rest fixed,
+$\sum_{\mathcal T}\epsilon_UD_U=\sum_p\epsilon_pA_p$ over the coordinates of colour
+$1$, and Khintchine gives the bound $K_{2r}\|\sum_p|A_p|^2\|_r^{1/2}$. Each $A_p$
+is in turn $\sum_{p'}\epsilon_{p'}A_{p,p'}$ over the coordinates of colour $2$,
+and the Hilbert-space inequality applied to the vectors
+$(A_{p,p'})_p$, conditionally on all remaining variables, gives
+$\|\sum_p|A_p|^2\|_r\le K_{2r}^2\|\sum_{p,p'}|A_{p,p'}|^2\|_r$. After the $j$
+colours,
+\[
+ \Big\|\sum_{\mathcal T}\epsilon_UD_U\Big\|_{2r}
+ \le K_{2r}^j\Big\|\Big(\sum_{U\in\mathcal T}|D_U|^2\Big)^{1/2}\Big\|_{2r}.
+\]
+For transversal $U$ the sets $U'\subseteq U$ correspond to sets $C$ of colours,
+so $D_U=\sum_{C\subseteq[j]}(-1)^{|C|}f_U(X^{(C)})$, where $X^{(C)}$ takes the
+coordinates of the colours in $C$ from $X^1$ and the others from $X^0$ and does
+not depend on $U$. As every $X^{(C)}$ has the law of $X^0$, Minkowski in
+$\ell^2(\mathcal T)$ and in $L^{2r}$ gives
+$\|(\sum_{\mathcal T}|D_U|^2)^{1/2}\|_{2r}\le2^j\|S\|_{2r}$. So
+$\|\sum_{\mathcal T}f_U\|_{2r}\le(2K_{2r})^j\|S\|_{2r}$ for every colouring. Every
+$U$ of size $j$ is transversal with probability $\pi_j$, so
+$\sum_{|U|=j}f_U=\pi_j^{-1}\E_{\rm col}\sum_{\mathcal T}f_U$, and Minkowski over
+the colourings gives
+$\|\sum_{|U|=j}f_U\|_{2r}\le\pi_j^{-1}(2K_{2r})^j\|S\|_{2r}\le(2eK_{2r})^j\|S\|_{2r}$,
+as $j^j/j!\le e^j$. The term with $|U|=0$ is constant and bounded in modulus by
+$S$. Sum over $0\le j\le k$, using $2eK_{2r}\ge1$.
+\end{proof}
+
+The moment theorem combines the three lemmas. It keeps the $\ell^2$ mass
+$\E_I|f|^2$ of the integer input, and with it the density.
+
+\begin{lemma}[Moments that retain the $\ell^2$ mass]
+\label{lem:record:lift-moments}
+Let $\mathcal S'\subseteq\mathcal P_1$ and let $\mathcal P$ be a finite set of
+primes with $e_p=1$; put $X=X_{\mathcal S'}\times X_{\mathcal P}$. Let $Q\ge1$, let
+$I$ be an interval with $|I|\ge10Q^6$, and let $f\colon I\to\C$ with
+$\|f\|_\infty\le M$. For each character $\chi$ of $X_{\mathcal S'}$ with
+$q(\chi)\le Q$ let $\mathcal F_\chi$ be a family of sets $U\subseteq\mathcal P$
+with $q(\chi)q_U\le Q$, and put
+\[
+ G(z',z)=\sum_\chi e(z'\cdot\chi)\sum_{U\in\mathcal F_\chi}(f_\chi)_U(z),
+ \qquad f_\chi(n)=f(n)e(-n\chi),
+\]
+where $(f_\chi)_U$ is the piece of exact support $U$ of the lift of $f_\chi$ on
+$X_{\mathcal P}$. We call such a $G$ a \emph{whole-support piece} of the lift of
+$f$ on $X$ with cutoff $Q$. Let $k=\max\{|U|:U\subseteq\mathcal P,\ q_U\le Q\}$,
+and let $K_{2r}$ be as in \cref{lem:lift:decoupling}.
+\begin{enumerate}[label=(\alph*)]
+\item $\|G\|_2^2\le(1+Q^4/(2|I|))\,\E_I|f|^2\le\tfrac{21}{20}\E_I|f|^2$.
+\item For every integer $r\ge1$,
+ \[
+  \|G\|_{2r}\le D_{\mathcal S'}(k+1)(2eK_{2r})^k(2M)^{1-1/r}
+  2^{k(r^2+3r-4)/(4r)}\big(\tfrac{21}{20}\E_I|f|^2\big)^{1/(2r)}.
+ \]
+\item For fixed $r$ and $\epsilon>0$ (an auxiliary exponent, not the exponent
+ of the main theorem) there is $C_{r,\epsilon}$, depending only
+ on $r$, $\epsilon$ and $Q_{\rm cl}$, with
+ $\|G\|_{2r}^{2r}\le C_{r,\epsilon}Q^\epsilon M^{2r-2}\E_I|f|^2$. In particular,
+ for $f=D_0\one_{n\equiv s\,(D_0)}\one_A$ on $I$ with $D_0\mid\Mzero$, the
+ right-hand side is at most $C_{r,\epsilon}Q^\epsilon\Mzero^{2r}\alpha_I$, where
+ $\alpha_I=|A\cap I|/|I|$.
+\end{enumerate}
+No division by $\E_I|f|^2$, $M$ or a density occurs; if $\E_I|f|^2=0$ then
+$G=0$.
+\end{lemma}
+
+The lift itself is such a piece: a character of $G_N$ is $\chi+\xi$ with $\chi$
+a character of $X_{\mathcal P_1}$ and $\xi$ one of $X_{\mathcal P_3\cup\mathcal T_N}$,
+$q(\chi+\xi)=q(\chi)q(\xi)$ and $\widehat f_I(\chi+\xi)=\widehat{(f_\chi)}_I(\xi)$;
+so $\mathcal L_{I,N}f$ is the whole-support piece with $\mathcal S'=\mathcal P_1$,
+$\mathcal P=\mathcal P_3\cup\mathcal T_N$ and $\mathcal F_\chi=\{U:q(\chi)q_U\le Q\}$.
+
+\begin{proof}
+\emph{Step 1: the Gram bound.} The Fourier coefficient of $G$ at $\chi+\xi''$ is
+$0$ or $\widehat f_I(\chi+\xi'')$, and the characters with a nonzero coefficient
+are distinct elements of $\Q/\Z$ with reduced denominators at most $Q$; so
+Parseval and \cref{lem:lift:conditional-squares}(a) prove (a), as
+$1+Q^4/(2|I|)\le21/20$. Applied to $f_\chi$, whose modulus is that of $f$, with
+the cutoff $Q/q(\chi)$, the same argument gives for each $\chi$
+\begin{equation}\label{eq:record:Echi}
+ E_\chi:=\sum_{U\in\mathcal F_\chi}\|(f_\chi)_U\|_2^2\le\tfrac{21}{20}\E_I|f|^2 .
+\end{equation}
+
+\emph{Step 2: one prefix character.} Fix $\chi$ and write $h_U=(f_\chi)_U$,
+$S^2=\sum_{U\in\mathcal F_\chi}|h_U|^2$ and $T_j=\E S^{2j}$, so $T_1=E_\chi$. By
+\eqref{eq:cond-square} for $f_\chi$, with $\|f_\chi\|_\infty\le M$ and
+$|I|\ge10Q^6$, the hypothesis of \cref{lem:sqfun-rec} holds with $c=4M^2$; the
+case $j_0=1$ gives $T_r\le(2M)^{2r-2}2^{k(r^2+3r-4)/2}E_\chi$, because
+$(4M^24^k)^{r-1}2^{kr(r-1)/2}=(2M)^{2r-2}2^{k(r-1)(r+4)/2}$. The $h_U$ depend only
+on $z_U$ and have mean zero in each coordinate of $U$, so
+\cref{lem:lift:decoupling} gives
+\[
+ \Big\|\sum_Uh_U\Big\|_{2r}\le(k+1)(2eK_{2r})^k\,T_r^{1/(2r)}
+ \le(k+1)(2eK_{2r})^k(2M)^{1-1/r}2^{k(r^2+3r-4)/(4r)}E_\chi^{1/(2r)} .
+\]
+
+\emph{Step 3: the prefix.} $|e(z'\cdot\chi)|=1$, and there are at most
+$D_{\mathcal S'}$ characters $\chi$. Minkowski over $\chi$, Step~2 and
+\eqref{eq:record:Echi} prove (b).
+
+\emph{Step 4: asymptotics.} A product of $k$ distinct primes is at least
+$(k+1)!$, so $(k+1)!\le Q$ and $k=O(\log Q/\log\log Q)$. Hence every factor of
+(b) that is exponential in $k$ is $Q^{o(1)}$ for fixed $r$, and
+$D_{\mathcal S'}\le Q_{\rm cl}$. Raising (b) to the power $2r$ gives the first
+part of (c). For $f=D_0\one_{n\equiv s}\one_A$ we have $M=D_0\le\Mzero$ and
+$\E_I|f|^2=D_0^2\#\{n\in A\cap I:n\equiv s\}/|I|\le\Mzero^2\alpha_I$.
+\end{proof}
+
+In \cref{sec:scale-comparison} the lemma is applied to the inputs on $G_N$,
+whose specializations at fixed labels on an arbitrary set of atoms are integrated over the
+labels by Fubini, $\E_{z_{\mathcal W}}\|G(z_{\mathcal W},\cdot)\|_s^s=\|G\|_s^s$
+for every set $\mathcal W$ of coordinates and every $s\ge1$ (the fibres of a
+finite uniform product have equal mass); and to the lifts of rescaled sets on
+the complement of the selected atoms (\cref{lem:record:fibre-scale}(e)). A fixed
+label, without averaging, satisfies the explicit bound of the next
+corollary.
+
+\begin{corollary}[Conditional moments]\label{lem:record:conditional-moments}
+In the setting of \cref{lem:record:lift-moments}, let
+$\mathcal W\subseteq\mathcal P$, let $z_{\mathcal W}\in X_{\mathcal W}$, and fix arbitrary values on any subset of the coordinates of $X_{\mathcal S'}$; the bound below holds for every such choice. Then for every
+integer $r\ge1$, with $A_r=2eK_{2r}2^{(r+3)/4}$,
+\[
+ \|G(z_{\mathcal W},\cdot)\|_{2r}\le D_{\mathcal S'}\,2M\,3^{|\mathcal W|}(k+1)A_r^k,
+\]
+the norm being taken over the remaining coordinates with their uniform law. If
+$Q\le N^\beta$ and $q_{\mathcal W}\le N^{C_0}$ for a fixed $C_0$, the right-hand
+side is at most $C_{r,\epsilon}MN^\epsilon$ for every $\epsilon>0$, uniformly in
+the labels.
+\end{corollary}
+
+\begin{proof}
+Fixing prefix coordinates multiplies the term of $\chi$ by a unimodular
+constant or leaves it a function of the free prefix coordinates, so by
+Minkowski over $\chi$ it suffices to treat one $\chi$, with $h_U=(f_\chi)_U$.
+Group the supports by $U_0=U\cap\mathcal W$. For fixed $U_0$ the functions
+$h'_{U'}(y)=h_{U_0\cup U'}(z_{U_0},y)$, $U'\subseteq\mathcal P\setminus\mathcal W$,
+depend only on $y_{U'}$ and have mean zero in each coordinate of $U'$; for
+$W'\subseteq\mathcal P\setminus\mathcal W$ their conditional square sum over
+$U'\supseteq W'$ given $y_{W'}$ is part of the sum in \eqref{eq:cond-square} with
+pinned set $U_0\cup W'$, hence at most $4M^24^{|U_0|}4^{|W'|}$.
+\Cref{lem:sqfun-rec} with $c=4M^24^{|U_0|}$ and $j_0=0$, and
+\cref{lem:lift:decoupling}, give
+$\|\sum_{U'}h'_{U'}\|_{2r}\le2M2^{|U_0|}(k+1)A_r^k$. Summing over
+$U_0\subseteq\mathcal W$, with $\sum_{U_0}2^{|U_0|}=3^{|\mathcal W|}$, proves the
+bound. A product of $|\mathcal W|$ distinct primes is at least
+$(|\mathcal W|+1)!$, so $3^{|\mathcal W|}$ and the factors exponential in $k$ are
+$N^{o(1)}$.
+\end{proof}
+
+\begin{remark}[Averages and suprema over fibres]\label{rem:lift:fibres}
+The estimates of \cref{sec:scale-comparison} use only averaged moments.
+Averaging the fibre norms over $z_{\mathcal W}$ returns the full norm exactly.
+For a general function a single fixed fibre can be larger by the factor
+$q_{\mathcal W}^{1/s}$, the reciprocal of the $s$-th root of the fibre probability $q_{\mathcal W}^{-1}$:
+$\|G(z_{\mathcal W},\cdot)\|_s\le q_{\mathcal W}^{1/s}\|G\|_s$; for a lift a
+fixed label costs only $3^{|\mathcal W|}=N^{o(1)}$. This does not bound a pinned
+lift by a pinned density, and a pinned lift need not vanish on an empty fibre
+(\cref{rem:record:fibres}).
+\end{remark}
+
+\subsection{Tensor products preserve exact Fourier support}\label{subsec:lifts:sectors}
+
+A tensor product of operators that fix the constants on both sides preserves
+the orthogonal decomposition of a product space by exact nonconstant support,
+so its norm, the norm of a difference of two such products, and their symmetric
+and skew parts can be computed support by support.
+
+\paragraph{Setting.} Let $\mathcal K$ be a finite set. For
+$j\in\{0\}\cup\mathcal K$ let $(\Omega_j,\pi_j)$ and $(\Omega'_j,\pi'_j)$ be
+finite probability spaces, $L^2(\pi_j)$ the (real or complex) functions on the
+support of $\pi_j$, and $L^2_0(\pi_j)=\{f:\int f\,d\pi_j=0\}$; put
+$\Omega=\prod_j\Omega_j$, $\pi=\bigotimes_j\pi_j$ and
+$\pi'=\bigotimes_j\pi'_j$. The index $0$ is a
+\emph{spectator}, possibly a one-point space. For $S\subseteq\mathcal K$ the
+\emph{sector} of exact support $S$ is
+\[
+ H_S(\pi)=L^2(\pi_0)\otimes\bigotimes_{j\in S}L^2_0(\pi_j)\otimes
+ \bigotimes_{j\in\mathcal K\setminus S}\C\one ,
+\]
+and $X_S$ is the component of $X\in L^2(\pi)$ in $H_S(\pi)$, taken
+coordinatewise for maps into a finite-dimensional space. The sectors are
+mutually orthogonal and sum to $L^2(\pi)$, and for $W\subseteq\mathcal K$ the
+conditional expectation $\E_\pi[X\mid\omega_0,\omega_W]$ is the orthogonal
+projection onto $\bigoplus_{S\subseteq W}H_S(\pi)$, that is, it equals
+$\sum_{S\subseteq W}X_S$. A linear operator $T_j\colon L^2(\pi_j)\to L^2(\pi'_j)$
+is \emph{sector-preserving} if $T_j\one=\one$ and $T_j^*\one=\one$. Then $T_j$
+maps $L^2_0(\pi_j)$ into $L^2_0(\pi'_j)$, as
+$\ip{\one}{T_jf}=\ip{T_j^*\one}f=\ip{\one}f$; we write $T_j^\circ$ for this
+restriction and $\delta_j=\|T_j^\circ\|$ (this local $\delta_j$
+is a norm, not one of the depth tails $\delta_{p,j}$). The Markov
+operator
+$T_jf(x')=\E[f(x)\mid x']$ of a coupling of $\pi'_j$ and $\pi_j$ (a probability
+measure on $\Omega'_j\times\Omega_j$ with these marginals) is sector-preserving,
+with $\delta_j\le1$, its maximal correlation; so is a doubly stochastic matrix
+on a finite set with the uniform law. The spectator operator
+$T_0\colon L^2(\pi_0)\to L^2(\pi'_0)$ is any linear operator.
+
+\begin{lemma}[Sector lemma]\label{lem:sector}
+In this setting let $T_j$ $(j\in\mathcal K)$ be sector-preserving and
+$T=T_0\otimes\bigotimes_{j\in\mathcal K}T_j$; put $\delta_S=\prod_{j\in S}\delta_j$.
+\begin{enumerate}[label=(\alph*)]
+\item\emph{Sectors.} $T$ maps $H_S(\pi)$ into $H_S(\pi')$ and equals
+ $T_0\otimes\bigotimes_{j\in S}T_j^\circ\otimes\bigotimes_{j\notin S}1$ there,
+ of norm $\|T_0\|\,\delta_S$; the same holds for $T^*$. Consequently, if $R$ is
+ a linear combination of such tensor products and their adjoints, all acting
+ between the same two spaces, then $R$ maps every sector into the
+ corresponding sector and $\|R\|=\max_S\|R|_{H_S(\pi)}\|$; when $\pi'=\pi$ this
+ applies to the symmetric and skew parts $\frac12(R\pm R^*)$, and an
+ $n\times n$ operator matrix whose entries are such combinations maps every
+ $H_S(\pi)\otimes\C^n$ into itself; it is positive semidefinite if and only if
+ each of these restrictions is.
+\item\emph{Differences.} Let $T'_j$ $(j\in\mathcal K)$ be sector-preserving
+ as well, with $\delta'_j=\|T'^\circ_j\|$, $\delta'_S=\prod_{j\in S}\delta'_j$,
+ $\|T'^\circ_j-T^\circ_j\|\le d_j$ and $\max(\delta_j,\delta'_j)\le\kappa_j$, and
+ $T'=T_0\otimes\bigotimes_jT'_j$.
+ Then $T'-T$ vanishes on $H_\emptyset(\pi)$ and, on $H_S(\pi)$,
+ \[
+  \|(T'-T)|_{H_S}\|\le\|T_0\|\min\Big(\sum_{j\in S}d_j\!\!\prod_{k\in S\setminus\{j\}}\!\!\kappa_k,\
+  \delta'_S+\delta_S\Big).
+ \]
+ Let moreover $\pi'=\pi$ and $T_0=I$. On $H_{\{j\}}$ the difference and its
+ symmetric and skew parts are those of $T'^\circ_j-T^\circ_j$. If every $T_j$
+ is self-adjoint, the skew part of $T'-T$ on $H_S$ is that of $T'|_{H_S}$, of
+ norm at most $\delta'_S$. If $d_j\le d$ and $\kappa_j\le\kappa\le1/2$ for all
+ $j$, the first bound is at most $|S|d\kappa^{|S|-1}\le2d\kappa\le d$ for
+ $|S|\ge2$; so if also $\|\mathrm{Sym}(T'_j-T_j)\|\le d_{\rm s}$ and
+ $\|\mathrm{Skew}(T'_j-T_j)\|\le d_{\rm a}$ for all $j$, then
+ \[
+  \|\mathrm{Sym}(T'-T)\|\le\max(d_{\rm s},2d\kappa),\qquad
+  \|\mathrm{Skew}(T'-T)\|\le\max(d_{\rm a},2d\kappa),\qquad\|T'-T\|\le d .
+ \]
+ More generally, with $\pi'=\pi$ and $T_0=I$, the norms of $T'-T$ and of its
+ symmetric and skew parts are the maxima over $S\ne\emptyset$ of the norms of
+ their restrictions to $H_S$; on $H_{\{j\}}$ these restrictions are the
+ corresponding parts of $T'^\circ_j-T^\circ_j$, and on $H_S$ with $|S|\ge2$
+ their norms are at most $\delta_S+\delta'_S$, which is at most
+ $\delta_j\delta_k+\delta'_j\delta'_k$ for any $j\ne k$ in $S$ when all
+ $\delta_i,\delta'_i\le1$. Hence, in that case,
+ \[
+  \|\mathrm{Sym}(T'-T)\|\le\max\Bigl(\max_j\|\mathrm{Sym}(T'^\circ_j-T^\circ_j)\|,\
+  \max_{j\ne k}(\delta_j\delta_k+\delta'_j\delta'_k)\Bigr),
+ \]
+ the second maximum being $0$ if $|\mathcal K|=1$, and the same holds for
+ $\mathrm{Skew}(T'-T)$ and for $T'-T$.
+\item\emph{Markov tensor maximum.} Let the spectator be trivial,
+ $\mathcal K\ne\emptyset$, and $\delta_j\le1$ for all $j$ (for instance, Markov
+ operators of couplings with exact marginals). Then
+ $\|T-\Jproj\|=\max_j\delta_j$, where $\Jproj f=(\int f\,d\pi)\one$. If moreover
+ $\pi'=\pi$ and each $T_j$ is self-adjoint with spectrum in $[-c_j,1]$,
+ $0\le c_j\le1$, then $T\succeq-(\max_jc_j)I$.
+\item\emph{Random inclusion.} Let $\Jc\subseteq\mathcal K$ be a random set
+ containing each $j$ independently with probability $\delta_j\in[0,1]$, where
+ here the $\delta_j$ are any numbers (in the applications, bounds for the norms
+ of (a)), and $\delta_S=\prod_{j\in S}\delta_j$. Let $E$ be
+ a finite-dimensional space with a positive semidefinite Hermitian form $M$,
+ and $\|Y\|_M^2=\int M(Y(\omega),Y(\omega))\,d\pi(\omega)$ for $Y\colon\Omega\to E$.
+ Then components of different supports are orthogonal for this form, and for
+ every $X\colon\Omega\to E$
+ \[
+  \E_\Jc\big\|\E_\pi[X\mid\omega_0,\omega_\Jc]\big\|_M^2=\sum_{S\subseteq\mathcal K}\delta_S\|X_S\|_M^2 .
+ \]
+\item\emph{Exact-support decay.} For every $X\in L^2(\pi)$,
+ $\|TX\|^2=\sum_S\|TX_S\|^2\le\|T_0\|^2\sum_S\delta_S^2\|X_S\|^2$.
+\item\emph{Product densities.} If the spectator is trivial and
+ $\varphi_j\in L^2(\pi_j)$ with $\int\varphi_j\,d\pi_j=1$ $(j\in\mathcal K)$, then
+ $\|\bigotimes_j\varphi_j-\one\|^2=\prod_j(1+\|\varphi_j-\one\|^2)-1$.
+\item\emph{Tensor spectrum} (no sector hypothesis). If $A_1,\dots,A_r$ are
+ self-adjoint operators on finite-dimensional Hilbert spaces with spectra in
+ $[-c_i,1+b_i]$, where $b_i\ge0$ and $0\le c_i\le1+b_i$, then the spectrum of
+ $\bigotimes_iA_i$ lies in
+ \[
+  \Big[-\max_i\Big(c_i\prod_{k\ne i}(1+b_k)\Big),\ \prod_i(1+b_i)\Big];
+ \]
+ in particular
+ $\bigotimes_iA_i\succeq-(\max_ic_i)\prod_i(1+b_i)I\succeq-(\max_ic_i)e^{\sum_ib_i}I$.
+\item\emph{Two supports.} Let $\pi'=\pi$, $T_0=I$, let $T_j$ and $T'_j$ be as
+ in \textup{(b)} with every $T_j$ self-adjoint, and write $T'_j=T_j+S_j+A_j$
+ with $S_j=\mathrm{Sym}(T'_j-T_j)$ and $A_j=\mathrm{Skew}(T'_j-T_j)$, so that
+ $T_j+S_j=\mathrm{Sym}\,T'_j$ and $A_j=\mathrm{Skew}\,T'_j$. Then $S_j$ and
+ $A_j$ vanish on the constants and map $L^2_0(\pi_j)$ into itself, and on
+ $H_{\{j,k\}}$, $j\ne k$, with the identity on the spectator and on the
+ constants of the other coordinates,
+ \begin{align*}
+  \mathrm{Sym}(T'-T)&=T^\circ_j\otimes S^\circ_k+S^\circ_j\otimes T^\circ_k
+   +S^\circ_j\otimes S^\circ_k+A^\circ_j\otimes A^\circ_k,\\
+  \mathrm{Skew}(T'-T)&=(T_j+S_j)^\circ\otimes A^\circ_k
+   +A^\circ_j\otimes(T_k+S_k)^\circ;
+ \end{align*}
+ in particular the skew part of $T'-T$ on $H_{\{j,k\}}$ has norm at most
+ $\|(T_j+S_j)^\circ\|\,\|A^\circ_k\|+\|A^\circ_j\|\,\|(T_k+S_k)^\circ\|$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\emph{The setting.} For $S\ne S'$ pick $j$ in the symmetric difference; on pure
+tensors the factors at $j$ are $\one$ and a function of mean zero, so
+$H_S\perp H_{S'}$. Expanding $L^2(\pi_j)=\C\one\oplus L^2_0(\pi_j)$ for
+$j\in\mathcal K$ shows that the sectors sum to $L^2(\pi)$ and that the functions
+of $(\omega_0,\omega_W)$ form $\bigoplus_{S\subseteq W}H_S$.
+
+(a) On a pure tensor $f_0\otimes\bigotimes_{j\in S}f_j\otimes\bigotimes_{j\notin S}\one$
+with $f_j\in L^2_0(\pi_j)$, $T$ acts as $T_0f_0\otimes\bigotimes_{j\in S}T_j^\circ
+f_j\otimes\bigotimes_{j\notin S}\one\in H_S(\pi')$, and such tensors span $H_S(\pi)$;
+tensoring with $\C\one$ is isometric, and the norm of a tensor product of
+operators is the product of the norms. The adjoint
+$T^*=T_0^*\otimes\bigotimes_jT_j^*$ has the same form, each $T_j^*$ being
+sector-preserving with $(T_j^*)^\circ=(T_j^\circ)^*$. A combination $R$ is the
+orthogonal sum of its restrictions to the sectors, which are orthogonal on both
+sides; so is an operator matrix with such entries, on the spaces
+$H_S(\pi)\otimes\C^n$, and its quadratic form is the sum of theirs.
+
+(b) By (a), $T'-T$ is $T_0\otimes(\bigotimes_{j\in S}T'^\circ_j-\bigotimes_{j\in
+S}T^\circ_j)\otimes1$ on $H_S$, and $0$ on $H_\emptyset$, where both act as
+$T_0\otimes1$. Telescoping over an ordering $j_1,\dots,j_s$ of $S$,
+\[
+ \bigotimes_iT'^\circ_{j_i}-\bigotimes_iT^\circ_{j_i}=\sum_{i=1}^s
+ T'^\circ_{j_1}\otimes\dots\otimes T'^\circ_{j_{i-1}}\otimes
+ (T'^\circ_{j_i}-T^\circ_{j_i})\otimes T^\circ_{j_{i+1}}\otimes\dots\otimes T^\circ_{j_s},
+\]
+of norm at most $\sum_id_{j_i}\prod_{k\ne j_i}\kappa_k$; the triangle inequality
+gives the second bound. With $T_0=I$ and $\pi'=\pi$, $T'-T$ and its adjoint
+preserve every $H_S$, so its symmetric and skew parts restrict to those of the
+restrictions; on $H_{\{j\}}$ the restriction is $T'^\circ_j-T^\circ_j$. If every
+$T_j$ is self-adjoint, so is $T|_{H_S}$, and the skew part of $(T'-T)|_{H_S}$ is
+that of $\bigotimes_{j\in S}T'^\circ_j$, of norm at most $\delta'_S$. For
+$s=|S|\ge2$, $sd\kappa^{s-1}=\kappa d\,s\kappa^{s-2}\le\kappa d\,s2^{2-s}\le
+2d\kappa\le d$, and the three displayed bounds are the maxima over the sectors.
+For the final assertion of (b), (a) applies to the combinations $T'-T$,
+$\mathrm{Sym}(T'-T)$ and $\mathrm{Skew}(T'-T)$, whose restrictions to $H_S$ are
+$(T'-T)|_{H_S}$ and its two parts. On $H_S$ with $|S|\ge2$ the second bound of
+the display gives $\delta_S+\delta'_S$, and the symmetric and skew parts of an
+operator have norm at most its own; for $j\ne k$ in $S$ every factor of
+$\delta_S$ and of $\delta'_S$ other than those at $j$ and $k$ is at most one.
+
+(c) $\Jproj=\bigotimes_j\Jproj_j$, with $\Jproj_jf=(\int f\,d\pi_j)\one$, is a
+tensor product of sector-preserving operators with $\Jproj_j^\circ=0$; so it
+agrees with $T$ on $H_\emptyset$ and vanishes on the other sectors, and
+$T-\Jproj$ vanishes on $H_\emptyset$ and has norm
+$\delta_S\le\min_{j\in S}\delta_j$ on $H_S$, $S\ne\emptyset$, with equality at
+singletons; by (a) its norm is $\max_j\delta_j$. If each $T_j$ is self-adjoint
+with spectrum in $[-c_j,1]$, then on $H_S$ the operator
+$\bigotimes_{j\in S}T_j^\circ$ has eigenvalues $\prod_{j\in S}\lambda_j$,
+$\lambda_j\in[-c_j,1]$; a negative product has a negative factor
+$\lambda_i\ge-c_i$ and other factors of modulus at most one, so it is at least
+$-\max_jc_j$. On $H_\emptyset$ the operator is the identity.
+
+(d) For $X_S\in H_S\otimes E$, $X_{S'}\in H_{S'}\otimes E$ and $S\ne S'$,
+$\int M(X_S,X_{S'})\,d\pi=\sum_{a,b}M_{ab}\int\overline{X_{S,a}}X_{S',b}\,d\pi=0$
+in a basis of $E$. Hence
+$\|\E[X\mid\omega_0,\omega_W]\|_M^2=\sum_{S\subseteq W}\|X_S\|_M^2$ for fixed $W$;
+averaging over $\Jc$ gives $\sum_S\Pr(S\subseteq\Jc)\|X_S\|_M^2$, and
+$\Pr(S\subseteq\Jc)=\delta_S$.
+
+(e) The images $TX_S$ lie in the orthogonal sectors $H_S(\pi')$, and
+$\|TX_S\|\le\|T_0\|\delta_S\|X_S\|$ by (a).
+
+(f) With $\varphi_j=\one+c_j$, $c_j\in L^2_0(\pi_j)$,
+$\bigotimes_j\varphi_j-\one=\sum_{S\ne\emptyset}\bigotimes_{j\in S}c_j\otimes
+\bigotimes_{j\notin S}\one$, the term of $S$ lying in $H_S$; by orthogonality
+the squared norm is $\sum_{S\ne\emptyset}\prod_{j\in S}\|c_j\|^2=
+\prod_j(1+\|c_j\|^2)-1$.
+
+(g) $\bigotimes_iA_i$ is self-adjoint with an orthonormal eigenbasis of product
+vectors and eigenvalues $\prod_i\lambda_i$, $\lambda_i\in[-c_i,1+b_i]$, so
+$|\lambda_i|\le1+b_i$. A product is at most $\prod_i(1+b_i)$, and a negative one
+has a negative factor $\lambda_i\ge-c_i$, so it is at least
+$-c_i\prod_{k\ne i}(1+b_k)$. Finally $1+b\le e^b$.
+
+(h) As $T_j$ and $T'_j$ are sector-preserving, $T'_j-T_j$ and its adjoint
+vanish on the constants, hence so do $S_j$, $A_j$ and their adjoints; and
+$\ip\one{S_jf}=\ip{S_j^*\one}f=0$, likewise for $A_j$, so both map
+$L^2_0(\pi_j)$ into itself. Thus $T'^\circ_j=T^\circ_j+S^\circ_j+A^\circ_j$ on
+$L^2_0(\pi_j)$, with $T^\circ_j$, $S^\circ_j$ self-adjoint and $A^\circ_j$ skew. By
+(a), $T'-T$ acts on $H_{\{j,k\}}$ as $T'^\circ_j\otimes T'^\circ_k-T^\circ_j\otimes
+T^\circ_k$, with the identity on the other factors. Put
+$U_j=(T_j+S_j)^\circ$ and $U_k=(T_k+S_k)^\circ$, both self-adjoint. The adjoint
+of $(U_j+A^\circ_j)\otimes(U_k+A^\circ_k)$ is $(U_j-A^\circ_j)\otimes(U_k-A^\circ_k)$,
+so its symmetric part is $U_j\otimes U_k+A^\circ_j\otimes A^\circ_k$ and its skew
+part is $U_j\otimes A^\circ_k+A^\circ_j\otimes U_k$. The operator
+$T^\circ_j\otimes T^\circ_k$ is self-adjoint; subtracting it and expanding
+$U_j\otimes U_k-T^\circ_j\otimes T^\circ_k$ gives the two identities. The norm
+bound follows from the triangle inequality and $\|X\otimes Y\|=\|X\|\,\|Y\|$.
+\end{proof}
+
+\begin{remark}[How the sector lemma is used]\label{rem:sector-uses}
+Part (c) is why the comparison records of Part~V keep their actual marginals:
+Markov operators of couplings with exact marginals, taken in those marginals,
+have centred norm equal to the \emph{maximum} of the centred norms of their
+factors under tensor products, not the sum or product of those norms. The maximal correlation of a product of couplings is the
+largest factor correlation. For self-adjoint Markov operators the product
+is bounded below by the minimum of zero and the smallest eigenvalues of
+its factors; if at least one factor has a negative eigenvalue, the smallest
+product eigenvalue equals the smallest factor eigenvalue. Operators normalized in a
+reference space are not Markov; when their factor spectra lie in
+$[-c_i,1+b_i]$, part (g) bounds every product eigenvalue above by
+$\prod_i(1+b_i)$ and below by $-\max_i c_i\prod_{k\ne i}(1+b_k)$
+(\cref{lem:spec:tensorcomp}). Part (b) prices a block difference: on a support
+of at least two primes the difference of two products is of second order, and
+when the old operator is self-adjoint only the new one contributes to the skew
+part. Parts (a), (d) and (e) are the whole content of the index estimates
+(\cref{cor:index-support-frame}(i), \cref{lem:record:common-mean}) and of
+conductor decay; part
+(f) says that for a product density $\bigotimes_j(\one+c_j)$ the
+squared $L^2$ distance from $\one$ is
+$\prod_j(1+\|c_j\|^2)-1$. The closing
+clause of (b) prices a block whose prime differences have separate symmetric
+and skew coefficients (the upper comparisons of \cref{sec:upper-comparison};
+for the signed fold records of \cref{sec:middle-records}, which are
+combinations of products, \cref{rem:signed-mixture-sectors} gives the same
+decomposition), and (h) is the two-prime step of the matching records, whose
+reference factor is self-adjoint (\cref{lem:oct24:matching-star}).
+\end{remark}
+
+\begin{remark}[Signed mixtures of products]\label{rem:signed-mixture-sectors}
+Let the spectator be trivial, let $T_{i,j}$ ($i$ in a finite index set,
+$j\in\mathcal K$) be sector-preserving, and put
+$K=\sum_ic_i\bigotimes_{j\in\mathcal K}T_{i,j}$ with real $c_i$,
+$\sum_ic_i=1$. By (a), $K$ maps every sector into the corresponding sector: it
+is the identity on $H_\emptyset$, it acts on $H_{\{j\}}$ as the combination
+$\sum_ic_iT^\circ_{i,j}$ at the single coordinate $j$, and on $H_S$ its norm is
+at most $\sum_i|c_i|\prod_{j\in S}\|T^\circ_{i,j}\|$. The difference of two
+such combinations decomposes in the same way: it vanishes on $H_\emptyset$, it
+is the difference of the two coordinate combinations on $H_{\{j\}}$, and on
+$H_S$ its norm is at most the sum of the two bounds; when $\pi'=\pi$, its
+symmetric and skew parts restrict to the sectors in the same way, with the same
+bound on $H_S$, and all these norms are maxima over the sectors. If the
+$T_{i,j}$ are the operators of couplings $\pi_{i,j}$ of $\pi'_j$ and $\pi_j$,
+then $K$ is the operator of the signed measure
+$\sum_ic_i\bigotimes_j\pi_{i,j}$, which has the marginals $\pi'$ and $\pi$ and
+total variation at most $\sum_i|c_i|$, whatever $|\mathcal K|$. A combination
+taken at every coordinate, $\bigotimes_j(\sum_ic_iT_{i,j})$, has the same
+marginals, but its total variation is the product of those of the coordinate
+combinations, for which only the bound $(\sum_i|c_i|)^{|\mathcal K|}$ is
+available. The fold records of the middle range are combinations of the first
+kind, of three products with $\sum_i|c_i|=1+\tlaw$
+(\cref{def:record:mixture}).
+\end{remark}
+
+\subsection{Fourier terms of large conductor are damped at the mixing primes $p\ge\Pfive$}\label{subsec:lifts:decay}
+
+A Fourier term supported on many prime coordinates is small after conditioning
+on the other slots, provided each such prime supplies a mixing factor. The
+orthogonality of distinct Fourier supports lets these factors multiply without
+counting the supports. Reflection positivity is not an assumption in this
+step.
+
+\begin{definition}[Conditional mixing]\label{def:mixing}
+Let $X$ be a finite set, $\rho$ a probability measure on $X^V$, and $Z\subseteq V$
+a nonempty block of slots, with $\rho_Z$ the $\rho$-law of $z_Z$ and $\lambda$
+the $\rho$-law of $z_{V\setminus Z}$. The \emph{conditional operator} from $Z$
+to the other slots is
+$T^{\rho,Z}f(y)=\E_\rho[f(z_Z)\mid z_{V\setminus Z}=y]$, from $L^2(\rho_Z)$ to
+$L^2(\lambda)$; it fixes the constants, maps $\rho_Z$-mean-zero functions to
+$\lambda$-mean-zero functions and is a contraction. For a prime $p$ and
+$\gamma>0$, a probability measure $\rho$ on $\Fp^V$ is
+\emph{$(\gamma,Z)$-mixing} if $\|T^{\rho,Z}f\|_{L^2(\lambda)}\le p^{-\gamma}
+\|f\|_{L^2(\rho_Z)}$ for every $f$ with $\int f\,d\rho_Z=0$. For $Z=\{v\}$ we say
+\emph{$(\gamma,v)$-mixing} (when $\rho$ has uniform one-slot marginals,
+$\rho_{\{v\}}=\Unif(\Fp)$), and for a query pair $Z=\{u,v\}$, ordered as
+$(u,v)$, \emph{$(\gamma,(u,v))$-mixing}.
+\end{definition}
+
+\begin{lemma}[Mixtures]\label{lem:mixture}
+Let $Z$ and $Z'$ be finite sets and $\kappa=\sum_{i=1}^n\varpi_i\kappa_i$ with
+$\varpi_i>0$, $\sum_i\varpi_i=1$, where the $\kappa_i$ are probability measures on
+$Z\times Z'$ with the same $Z$-marginal $m$. Let $\kappa'$ and $\kappa'_i$ be the
+$Z'$-marginals, and $T^\kappa f(z')=\E_\kappa[f(z)\mid z']$, $T^{\kappa_i}$
+likewise, for $f\in L^2(m)$. Then $T^\kappa f=\sum_ih_iT^{\kappa_i}f$
+$\kappa'$-almost everywhere, with $h_i=\varpi_i\,d\kappa'_i/d\kappa'$ and
+$\sum_ih_i=1$, and
+\[
+ \|T^\kappa f\|^2_{L^2(\kappa')}\le\sum_i\varpi_i\|T^{\kappa_i}f\|^2_{L^2(\kappa'_i)} .
+\]
+Each $T^{\kappa_i}$, and $T^\kappa$, fixes the constants, is a contraction and
+maps $m$-mean-zero functions to mean-zero functions. Consequently, if
+$\|T^{\kappa_i}f\|\le c_i\|f\|$ for every $m$-mean-zero $f$, then
+$\|T^\kappa f\|^2\le\sum_i\varpi_ic_i^2\|f\|^2$: a mixture of $(\gamma,Z)$-mixing
+laws with a common $Z$-marginal is $(\gamma,Z)$-mixing, and a component of
+weight $\varpi$ costs at most $\varpi^{1/2}$ in the norm.
+\end{lemma}
+
+\begin{proof}
+For $z'$ with $\kappa'(z')>0$,
+$T^\kappa f(z')=\sum_zf(z)\kappa(z,z')/\kappa'(z')=\sum_i(\varpi_i\kappa'_i(z')/
+\kappa'(z'))\,T^{\kappa_i}f(z')$, the terms with $\kappa'_i(z')=0$ being absent.
+By convexity $|T^\kappa f|^2\le\sum_ih_i|T^{\kappa_i}f|^2$ pointwise, and
+$\int h_i|T^{\kappa_i}f|^2\,d\kappa'=\varpi_i\int|T^{\kappa_i}f|^2\,d\kappa'_i$.
+Conditional Jensen gives $\|T^{\kappa_i}f\|^2_{L^2(\kappa'_i)}\le\int|f|^2\,dm$,
+and $\int T^{\kappa_i}f\,d\kappa'_i=\int f\,dm$.
+\end{proof}
+
+The atoms below $\Pfive$, forming the finite low part of the functional,
+have no quantitative mixing bound in (R4); in the lemma below they contribute
+only the factor $C'^{\gamma}$. The conditional operator of the low part
+has norm at most one, and, in the notation of the lemma, a frequency of
+total conductor above $H$ has conductor above $H/C'$ at the tail primes
+$p\ge\Pfive$.
+
+\begin{lemma}[Conductor decay with a finite prefix]
+\label{lem:record:prefix-conductor}
+Let $X'$ be a finite product of cyclic groups of prime-power order, and let $C'$
+be a positive integer divisible by the reduced denominator of every character
+of $X'$. Let $\mathcal T$ be a finite set of primes not dividing $C'$. Let
+$\rho'$ be a probability measure on $X'^V$ with uniform one-slot marginals. Fix a slot $v\in V$ and $\gamma>0$, and for $p\in\mathcal T$ let $\rho_p$ be a probability measure on $\Fp^V$ with uniform one-slot marginals that is $(\gamma,v)$-mixing at this same slot $v$ (\cref{def:mixing}). Put
+$\rho=\rho'\otimes\bigotimes_{p\in\mathcal T}\rho_p$. Let
+$g_w\colon X'\times X_{\mathcal T}\to\C$ $(w\in V)$ and $H\ge1$, and suppose that
+$\widehat{g_v}(\xi)=0$ whenever $q(\xi)\le H$. Then
+\[
+ \Big|\int\prod_{w\in V}g_w(z_w)\,d\rho(z)\Big|
+ \le\Big(\frac{C'}{H}\Big)^{\gamma}\|g_v\|_2\prod_{w\ne v}\|g_w\|_{2(d-1)},
+\]
+with norms for the uniform probability measure. If instead $\rho'=m\bar\rho'$
+with $m\ge0$ and $\bar\rho'$ as above, the right-hand side is multiplied by $m$.
+\end{lemma}
+
+\begin{proof}
+\emph{The conditional operator.} Let $\lambda'$, $\lambda_p$ be the laws of
+$z'_{V\setminus\{v\}}$ under $\rho'$ and of $z_{p,V\setminus\{v\}}$ under $\rho_p$,
+and $T'$, $T_p$ the conditional operators of $\rho'$, $\rho_p$ from slot $v$
+(\cref{def:mixing}). By conditional Jensen and the uniform marginal of $z'_v$,
+\begin{equation}\label{eq:pre:contraction}
+ \|T'f\|_{L^2(\lambda')}^2=\E_{\rho'}\big|\E_{\rho'}[f(z'_v)\mid z'_{V\setminus\{v\}}]\big|^2
+ \le\E_{\rho'}|f(z'_v)|^2=\|f\|_{L^2(X')}^2 ,
+\end{equation}
+so $\|T'\|\le1$; no mixing of $\rho'$ is used. Each $T_p$ fixes the constants and
+$\int T_pf\,d\lambda_p=\E_{x\in\Fp}f(x)$, as $z_{p,v}$ is uniform; so $T_p$ is
+sector-preserving, with $\|T_p^\circ\|\le p^{-\gamma}$ by mixing. The factors of
+$\rho$ are independent, so the conditional law of $z_v$ given
+$z_{V\setminus\{v\}}$ is the product of theirs, and the conditional operator of
+$\rho$ from slot $v$ is $T=T'\otimes\bigotimes_{p\in\mathcal T}T_p$, from the
+uniform space $X'\times X_{\mathcal T}$ to $L^2(\lambda)$,
+$\lambda=\lambda'\otimes\bigotimes_p\lambda_p$.
+
+\emph{The support condition.} Apply \cref{lem:sector} with the spectator $X'$,
+$T_0=T'$, and the coordinates $p\in\mathcal T$. A character of
+$X'\times X_{\mathcal T}$ is $\xi'+\xi_{\mathcal T}$, with $\xi'$ a character of
+$X'$ and $\xi_{\mathcal T}$ of exact tail support $U\subseteq\mathcal T$; it lies in
+$H_U$, and since $q(\xi')$ divides $C'$ and is coprime to
+$q(\xi_{\mathcal T})=q_U$, its conductor is $q(\xi')q_U\le C'q_U$. The component
+$g_{v,U}$ of $g_v$ in $H_U$ collects the Fourier terms of $g_v$ of tail support
+$U$; if it is nonzero, then $H<q(\xi)\le C'q_U$ for some such term, so
+$q_U>H/C'$. By \cref{lem:sector}(e),
+\[
+ \|Tg_v\|^2_{L^2(\lambda)}\le\sum_{U:\,q_U>H/C'}q_U^{-2\gamma}\|g_{v,U}\|_2^2
+ \le\Big(\frac{C'}H\Big)^{2\gamma}\|g_v\|_2^2 .
+\]
+
+\emph{Conclusion.} Conditioning on $z_{V\setminus\{v\}}$, then applying
+Cauchy--Schwarz in $L^2(\lambda)$ and H\"older with $d-1$ factors,
+\[
+ \Big|\int\prod_wg_w(z_w)\,d\rho\Big|=\Big|\int(Tg_v)(y)\prod_{w\ne v}g_w(y_w)\,d\lambda(y)\Big|
+ \le\|Tg_v\|_{L^2(\lambda)}\prod_{w\ne v}\Big(\E_\lambda|g_w(y_w)|^{2(d-1)}\Big)^{\frac1{2(d-1)}} ,
+\]
+and the $\lambda$-law of $y_w$ is the $\rho$-law of $z_w$, uniform on
+$X'\times X_{\mathcal T}$. The factor $m$ follows by multilinearity.
+\end{proof}
+
+With $X'$ trivial and $C'=1$ this is the same estimate with no low part.
+The factor $C'^{\gamma}$ from the low part does not decay with $H$, and all
+decay comes from the tail primes; the lemma is useful only because $C'$ is
+bounded independently
+of the scale. \Cref{sec:scale-comparison} applies it with $X'$ the product of the
+groups of the atoms below $\Pfive$ that are present, $C'=Q_{\rm pre}$, and
+$\mathcal T$ the tail primes $p\ge\Pfive$; \ref{it:record:R3} and
+\ref{it:record:R4} supply its hypotheses, and no mixing is used below $\Pfive$.
+The cancellation needs the same decay with a pair of slots as the source, and
+a truncation of the pair supports.
+
+\begin{lemma}[Decay by exact pair support]\label{lem:tr:pairsupport}
+Let $\mathcal T$ be a finite set of primes, $(u,v)$ an ordered pair of distinct
+slots and $\gamma>0$. For $p\in\mathcal T$ let $\rho_p$ be a probability measure
+on $\Fp^V$ whose $(u,v)$-marginal is $\Unif(\Om)$ and which is
+$(\gamma,(u,v))$-mixing, and put $\rho=\bigotimes_p\rho_p$. For $U\subseteq\mathcal T$
+let $E_U$ be the conditional expectation, under $\bigotimes_p\Unif(\Om)$, onto
+the pair coordinates at the primes of $U$, and $q_U=\prod_{p\in U}p$. Then for
+$T_0\ge1$, every pair function $\varphi$ on $\prod_p\Om$ and every function $W$
+of the labels of the other slots,
+\[
+ \Big|\int\varphi(z_u,z_v)W(z_{V\setminus\{u,v\}})\,d\rho(z)\Big|^2
+ \le\|W\|_2^2\Big[T_0^{-2\gamma}\|\varphi\|_2^2
+ +\sum_{q_U\le T_0}q_U^{-2\gamma}\|E_U\varphi\|_2^2\Big],
+\]
+with $\|\varphi\|_2$ and $\|E_U\varphi\|_2$ in $L^2(\bigotimes_p\Unif(\Om))$ and
+$\|W\|_2$ in $L^2$ of the $\rho$-law $\lambda$ of the other slots.
+\end{lemma}
+
+\begin{proof}
+The factors of $\rho$ are independent, so the conditional operator of $\rho$
+from the pair $(u,v)$ to the other slots is $T=\bigotimes_pT_p$, with $T_p$
+that of $\rho_p$;
+each $T_p$ fixes the constants and integrates against $\lambda_p$ as against
+$\Unif(\Om)$, so it is sector-preserving, with $\|T_p^\circ\|\le p^{-\gamma}$.
+Conditioning on the other slots and Cauchy--Schwarz give
+$|\int\varphi W\,d\rho|\le\|T\varphi\|_{L^2(\lambda)}\|W\|_2$, and
+$\|T\varphi\|^2\le\sum_Uq_U^{-2\gamma}\|\varphi_U\|_2^2$ by \cref{lem:sector}(e),
+with a trivial spectator. The
+supports with $q_U>T_0$ contribute at most $T_0^{-2\gamma}\|\varphi\|^2$. For the
+others, $E_U$ is the orthogonal projection onto $\bigoplus_{S\subseteq U}H_S$, so
+$\varphi_U$ is the $U$-component of $E_U\varphi$ and
+$\|\varphi_U\|_2\le\|E_U\varphi\|_2$.
+\end{proof}
+
+\paragraph{Consequences and what to read next.}
+The slot array, its cuts and its six queries
+(\cref{def:slot-array,lem:slot-array}), reflection positivity (\cref{def:rp}),
+sorting sequences (\cref{def:sorting}) and the multilinear averages of
+\cref{sec:positivity}, in the definitions only; the large sieve in Gram form and
+Khintchine's inequality, both proved here. The reference laws, the comparison
+law and admissibility
+(\cref{hyp:record:reference,def:record:comparison-law,def:admissible}) are
+interfaces whose instances are proved in Part~V.

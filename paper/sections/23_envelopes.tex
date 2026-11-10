@@ -1,0 +1,1813 @@
+\section{Products of skew changes: dominating matrices and savings}\label{sec:envelopes}
+
+\paragraph{What this section proves and how to read it.}
+This section proves (CP5) for products of $2,4$ or $6$ skew changes
+on distinct middle blocks: instead of the trivial bound $B$ per
+product, a positive-semidefinite matrix $D$ with
+$-D\preceq T\preceq D$ (a \emph{dominating matrix}, called an
+\emph{envelope} in the text; ``positive'' here means positive
+semidefinite, while a \emph{positive coupling} is a nonnegative
+measure---the two are distinct) dominates the tensor of leading
+star operators with a smaller energy after averaging over
+reflections. The saving over $B$ is subtracted in the closing discount $D$ of \cref{def:closing-quantities}. A
+\emph{signed star} is the normalised leading skew change, with
+complex structure $\Phat$, $\Phat^2=-I$ on centred functions
+(defined in \cref{subsec:oct24:pure-features} below; uses before
+that subsection mean this normalised change). Reading-order note:
+aligned classes use variance savings from \cref{sec:variance}. The per-block variance statements of \cref{sec:variance} do not use the caps proved here; only its final assembly and the closing insert them. Inputs:
+\cref{sec:middle-records}. Output: (CP5) class bounds for the
+sixteen retained classes.
+This section verifies (CP5) (\cref{def:cp5}) for the skew selections of the
+middle range whose records are all two-layer fold records $F_1,F_2$ or matching
+records $E_0,E_1$; these are the envelope rows of (CP5) in \cref{tab:hypotheses}.
+On every middle block the comparison law replaces the fold records by the signed
+whole-block records of \cref{def:record:mixture} and the matching records by the
+exact-marginal law (\cref{subsec:oct24:pure-local,lem:record:exact-marginal-e}).
+The skew parts of these changes carry the fold and matching parts $A_F+A_E$ of the skew total $A$ of
+\cref{thm:comparison}, and a selection of $n$ fold and $m$ matching skew changes
+on $n+m$ distinct middle blocks, $n+m\in\{2,4,6\}$, would cost $B$ times its full
+skew prices (\cref{lem:record:record-expansion}(i)). We bound it instead by a
+class bound in the sense of (CP5). A positive envelope dominates the tensor of the
+leading signed stars; its energy against the outside law is priced by the outside factor in \eqref{eq:envelope-background}; the remainders of the stars are paid by a remainder
+polynomial. The class bound is a polynomial in three auxiliary prices of each
+record (raw-arm, leading and remainder), and it enters the closing through the
+degree classes of \cref{lem:record:record-expansion}(v). Inside the aligned
+classes a fraction of the variance credit of \cref{sec:variance} survives
+(\cref{lem:class-credit}). Sixteen classes are retained (\cref{cor:envelope-costs});
+all sixteen savings are positive, and at the baseline exponent their sum, the uniform discount, is
+$0.4568954196753\ldots$; the closing (\cref{sec:closing}) subtracts it in the
+discount $D$ of the reserved cost (\cref{def:closing-quantities}), and the
+witnesses are tabulated in \cref{subsec:data:envelopes}.
+
+\paragraph{The idea.}
+\begin{itemize}
+\item \emph{Signed stars.} After division by its raw-arm coefficient, the leading
+ skew change of $F_1$ at a block is a signed star: centre $\mathcal H_0$, arms
+ $\mathcal H_1,\mathcal H_2,\mathcal K_{12}$ with the coefficients $\Phat$,
+ $\tlaw\Phat$ and $1-\tlaw$, as in \eqref{eq:signed-star}, where $\Phat=P/r$ is skew with
+ $\Phat^2=-I$ on the centred functions and $\tlaw=127/500$. The leading change of
+ $E_s$ has the single arm $\mathcal H_1$ with the coefficient $\Phat$. The rest is a
+ remainder of relative size $O(b^{-1/2})$, paid by a remainder polynomial.
+\item \emph{Envelopes.} An envelope is a positive semidefinite real matrix in the
+ singleton block algebra $M_3(\R)\oplus\R\oplus\R$ of each fold factor (and in
+ $M_3(\R)$ or its diagonal of each matching factor) that dominates both signs of
+ the tensor of the coefficient matrices at the phases $\Phat=\pm i$. Lifted to the
+ actual half spaces, it dominates the tensor of the actual stars and expands into
+ normalized positive couplings with the actual marginals
+ (\cref{lem:oct24:mask-schur}). A diagonal envelope is a complementary-mask array.
+\item \emph{Averages.} The energy of an envelope against an invariant outside law
+ does not change when the envelope is averaged over the slot reflections $R_h$ of \cref{lem:reflection-averaging}. The
+ common fold reflection averages every class; on fully invariant outside laws the
+ extra reflection of the all-$F_1$ and all-$F_2$ words and the action of the
+ chamber group on matching words average more
+ (\cref{lem:reflection-averaging}). An envelope used alone bounds its tensor by at least the tensor's own norm, with no gain; the averages move its large weights onto small ones.
+\item \emph{Background split.} The outside law $\Nbrz$ splits into the invariant
+ tags $E_{\rm add}+H$, priced by the assigned price $\Uinv$, and the generic tag $G$
+ (\cref{lem:oct24:invariant-background}). An envelope with norm bound $\kappa_H$ on generic monomials and $\kappa_b\le\kappa_H$ on invariant ones (the \emph{caps} $\kappa_H,\kappa_b$ of \cref{thm:envelopes}; norm bounds for the lifted envelope, not spectral caps) costs
+ $\kappa_He^{U_0}-(\kappa_H-\kappa_b)e^{t\Uinv}$. Since $t\Uinv$, about
+ $0.8468844654$, falls short of $U_0$, about $0.8469082458$, by only about
+ $2.4\cdot10^{-5}$, the effective cap is $\kappa_b$; the caps $\kappa_b$ of the
+ construction lie between $0.455$ and $2.455$ per raw-arm monomial, while the
+ record expansion charges $B$, about $2.333$, per full skew monomial, which exceeds
+ the raw-arm monomial by the factor $\ell_\tlaw$, about $1.273$, per fold record.
+\item \emph{Coupling mass and coupon.} Comparing the bracket $\Nbr$ with $\Nbrz$
+ costs the coupling mass $M$ of the envelope times $R_{\rm err}$. On invariant
+ backgrounds the part of this error with exactly one folded record difference is
+ reduced by the orbit coupon (\cref{lem:orbit-coupon}).
+\item \emph{Convention.} A \emph{positive coupling} is a nonnegative measure with
+ the actual half marginals; a \emph{positive operator} is positive semidefinite.
+ The two properties are used separately: an envelope is a positive operator whose
+ expansion into positive couplings has signed coefficients. All selected tensor
+ factors are centred on both sides.
+\end{itemize}
+
+The signed fold record is chosen with its envelopes in view. Its skew part is
+large, $A_F$ about $0.539$ in total, but its leading part is a star with arms of
+relative sizes $1$, $\tlaw$ and $1-\tlaw$, of norm $\ell_\tlaw$ instead of the
+$\sqrt2$ of the mirror pairing $\tlaw=0$; and the envelopes of this section lower
+the reserved cost by about $0.457$, against about $0.010$ for all variance credits
+together (\cref{rem:variance:sizes}).
+
+All conditional expectations of this section use the actual half marginal of
+the record in question. In particular the three objects of a fold record are
+not independent: two of them are joined by a strict-square edge. The feature synthesis bound of \cref{lem:oct24:feature-block} transfers positive envelopes to the actual half spaces (the lifts of \cref{lem:oct24:mask-schur}) without assuming independence.
+
+\subsection{Star features in the true half laws}\label{subsec:oct24:pure-features}
+
+The \emph{correlation} of two closed subspaces of a Hilbert space is
+$\sup|\ip fh|$ over unit vectors $f,h$ in them; for functions of two random
+labels, centred in their actual laws, it is their maximal correlation.
+
+\paragraph{The fold spaces.}
+At a middle prime $p$ put $q=1/p$ and $r=p^{-1/2}$, and use the one-prime
+notation of \cref{subsec:middle-records:notation}: $\nu_F$ is the uniform law on
+the triples $x=(x_0,x_1,x_2)$ of distinct labels with $x_0\to x_2$, and the
+actual half marginal at $\iota$ of the two-layer fold records is
+$m_0=g_0\nu_F$, with
+\[
+ |g_0-1|\le e_0=\frac{2q}{(1-3q)(1-4q)}
+\]
+(\cref{lem:old-f-law}(a)). Its pair laws are exact (\cref{lem:actual-features}(a)):
+$(x_0,x_1)$ and $(x_1,x_2)$ have the density $1-\mu\chi(y'-y)$, $\mu=2/(p-4)$, with
+respect to the uniform law on distinct pairs $(y,y')$, and $(x_0,x_2)$ is uniform on
+the pairs $y\to y'$. All singleton marginals of $\nu_F$ and of $m_0$ are uniform.
+Let $L^2_0$ be the space of mean-zero functions of one label (uniform law) and
+$V_a\colon L^2_0\to L^2(m_0)$, $V_af(x)=f(x_a)$ ($a=0,1,2$), the isometries of the
+singleton coordinates; $V_a^*$ is the actual conditional expectation onto $x_a$,
+read as a function of one label. In $L^2(m_0)$ let $\Jproj$ project onto the
+constants, $P_a$ onto the functions of $x_a$ and $P_{ab}$ onto the functions of
+$(x_a,x_b)$, and put $C_a=P_a-\Jproj=V_aV_a^*$,
+\[
+ \mathcal H_a=\operatorname{ran}C_a=\operatorname{ran}V_a,\qquad
+ \mathcal K_{ab}=\operatorname{ran}(P_{ab}-\Jproj)\ominus(\mathcal H_a+\mathcal H_b).
+\]
+The \emph{fold features} are
+$\mathcal H_0,\mathcal H_1,\mathcal H_2,\mathcal K_{12},\mathcal K_{01}$,
+with the \emph{indices} $0,1,2,3,4$ (feature indices, not labels
+$z_v$; words in these indices are \emph{label words} below). For a block $\Blk$ the same notation means
+the whole objects, carrying all prime coordinates of the block, with the
+product $m_{0,\Blk}=\bigotimes_{p\in\Blk}m_{0,p}$ of the actual prime laws; then
+$L^2_0$ is the space of mean-zero functions of one whole label. A
+matching record has the actual half marginal $m_E$, uniform on the triples of
+labels distinct at every prime (\cref{lem:record:fold-identification}(d)); its
+\emph{matching features} are its singleton spaces $\mathcal H_0,\mathcal H_1,\mathcal H_2$
+in $L^2(m_{E,\Blk})$, with the labels $0,1,2$, and $V_0,V_1,V_2$ are defined in the
+same way.
+
+\begin{lemma}[The actual feature frame]\label{lem:oct24:feature-block}
+Let $\Blk$ be a middle block with least prime $b$, put $q=1/b$, $r=b^{-1/2}$, and
+\begin{gather*}
+ \varrho_{02}=\frac{r\sqrt{1+q}}{1-q},\qquad
+ \varrho_{01}=\frac q{1-q}\Bigl(1+\frac{4q}{(1-4q)^2}\Bigr)^{1/2},\\
+ \varrho_{03}=\frac q{1-3q}+\frac{2q^2}{(1-3q)(1-6q)}+\frac{2qr}{(1-6q)(1-2q)},
+ \qquad
+ \varrho_{34}=\frac{r+q+4q^2/(1-4q)}{1-6q}.
+\end{gather*}
+\begin{enumerate}[label=(\alph*)]
+\item In the actual product marginal $m_{0,\Blk}$ the correlations of distinct
+ fold features, with the labels $0,\dots,4$ of $\mathcal H_0,\mathcal H_1,\mathcal H_2,
+ \mathcal K_{12},\mathcal K_{01}$, are at most
+ \[
+  01:\varrho_{01},\qquad02:\varrho_{02},\qquad03:\varrho_{03},\qquad
+  12:\varrho_{01},\qquad24:\varrho_{03},\qquad34:\varrho_{34},
+ \]
+ and all other correlations of distinct fold features vanish.
+\item The \emph{synthesis map} $\Sigma_\Blk\colon\bigoplus_v\mathcal H_v\to L^2(m_{0,\Blk})$,
+ $(h_v)_v\mapsto\sum_vh_v$, from the orthogonal sum of the five spaces has squared
+ norm at most $\Gamma_F=1+\lambda$ for every $\lambda>\varrho_{34}$ with
+ \begin{equation}\label{eq:feature-perron}
+  \lambda-\varrho_{02}-\frac{\varrho_{03}^2}{\lambda-\varrho_{34}}
+  -\frac{2\varrho_{01}^2}\lambda\ge0 .
+ \end{equation}
+\item In $L^2(m_{E,\Blk})$ the three matching features have pairwise correlations
+ at most $1/(b-1)$, and their synthesis map has squared norm at most
+ $\Gamma_E=1+1/(b-1)$.
+\end{enumerate}
+The four fold constants are nondecreasing in $(q,r)$, so at every middle block
+they are at most their values at $q=1/Q_3$, $r=Q_3^{-1/2}$, $Q_3=19951586$:
+\[
+\begin{array}{c|l}
+ \varrho_{02}&2.23877949420725\cdot10^{-4}\\
+ \varrho_{01}&5.01213362368300\cdot10^{-8}\\
+ \varrho_{03}&5.01437833890212\cdot10^{-8}\\
+ \varrho_{34}&2.23928121269334\cdot10^{-4}
+\end{array}
+\]
+For every middle block one may therefore take
+\begin{equation}\label{eq:oct24:feature-constants}
+ \Gamma_F=\frac{500111979555137707696357560603}{5\cdot10^{29}}<1.000223959111,
+ \qquad
+ \Gamma_E=\frac{19951586}{19951585},
+\end{equation}
+and the bound $\rho_{\rm pair}=50121336236829934606443\cdot10^{-30}<5.0121336237\cdot10^{-8}$
+for $\varrho_{01}$, with $\eta_{\rm pair}=2\rho_{\rm pair}/(1-\rho_{\rm pair}^2)<1.0024267248\cdot10^{-7}$.
+\end{lemma}
+
+\begin{proof}
+\emph{Step 1: blocks and sectors.} The conditional expectation of a function
+of one whole object given another, or given a pair of others, is the tensor
+product of the prime conditional expectations, which are Markov operators of
+couplings with exact marginals. These preserve the exact supports of the
+nonconstant prime factors (\cref{lem:sector}(a)), and the sectors of distinct
+supports are orthogonal in the product law. By \cref{lem:sector}(a),(c), on every
+nonempty support the product is bounded by the largest one-prime bound. The
+prime formulas of the statement and of Step~3 are nonnegative and nondecreasing in
+$(q,r)$ (\cref{lem:majorant}); every prime of $\Blk$ is at least $b$, so every
+one-prime bound is at most its value at $b$.
+
+\emph{Step 2: the singleton edges $01$, $02$, $12$.} At a prime the pair law of
+$(x_0,x_2)$ is uniform on directed pairs, so the correlation of $\mathcal H_0$ and
+$\mathcal H_2$ is the norm of the square shift on mean-zero functions,
+$r\sqrt{1+q}/(1-q)$ (\cref{lem:square-shift}(b),
+\cref{lem:paley-triple}\ref{it:paley:triples}); the pair laws of $(x_0,x_1)$ and
+$(x_1,x_2)$ have the density $1-\mu\chi(y'-y)$, whose operator on mean-zero
+functions is a combination of $I$ and the Paley operator, with norm
+$\varrho_{01}$ (\cref{lem:actual-features}(b)). By Step~1 these are the block bounds.
+
+\emph{Step 3: the edges $03$ and $24$.} Let $f$ be a mean-zero function of one
+label, $y,z$ distinct labels and $s=\chi(z-y)$. Direct conditioning in the actual
+triple weight $\one[x_0\to x_2](d-1-\one[x_0\to x_1]-\one[x_1\to x_2])$,
+$d=(p-1)/2$ (\cref{lem:old-f-law}(a), \cref{lem:actual-features}(a)), gives
+\begin{gather*}
+ \E_{m_0}[f(x_0)\mid x_1=y,x_2=z]=\frac{N_f(y,z)}{(p-3)(p-4-2s)},\\
+ N_f(y,z)=-p(p-5-s)Pf(z)+pPf(y)+pWf(y,z)-(p-5)f(z)-(p-6)(1+s)f(y),
+\end{gather*}
+with the Paley operator $P$ and $Wf(y,z)=-\E_t[\chi(t-y)\chi(t-z)]f(t)$; for
+instance the common-predecessor sum is
+$4\sum_{a\to y,\,a\to z}f(a)=-p[Pf(y)+Pf(z)+Wf(y,z)]-(1-s)f(z)-(1+s)f(y)$, and
+the formula follows after expanding the two predecessor indicators. Since $s^2=1$,
+$1/(p-4-2s)=(p-4+2s)/((p-6)(p-2))$, so the conditional expectation is
+$N_f\,(p-4+2s)/((p-3)(p-6)(p-2))$. Expand it, using $s^2=1$, and project onto
+$\mathcal K_{12}$: every function of $y$ alone or of $z$ alone is annihilated.
+What remains is $-sf(y)/(p-3)$, $-2(p-5)sf(z)/((p-3)(p-6)(p-2))$ and terms in $sPf(z)$,
+$sPf(y)$, $Wf$ and $sWf$ whose coefficients have absolute values adding up to
+$2p/((p-6)(p-2))$. As $|s|=1$, the singleton marginals are uniform,
+$\|Pf\|\le r\|f\|$, and $W^*W\preceq qI$ (\cref{lem:actual-features}(c), where $W$ is
+the operator $A_3$), the projection has norm at most
+\[
+ \frac1{p-3}+\frac2{(p-3)(p-6)}+\frac{2p}{(p-6)(p-2)}\,r=\varrho_{03}(p).
+\]
+This is the one-prime correlation of $\mathcal H_0$ and $\mathcal K_{12}$, and by
+Step~1 the bound on the sectors of size one.
+
+On a support of size $k\ge2$ we use two coarser prime estimates. Put
+$\varrho=r\sqrt{1+q}/(1-q)$ and
+\[
+ \tilde\varrho_{03}=\frac{2(1+\varrho)/(p-3)+e_0}{\sqrt{1-e_0}},\qquad
+ \varrho_{0|12}=\frac{(\sqrt{p+1}+2)/(p-3)+e_0}{\sqrt{1-e_0}} .
+\]
+For a mean-zero $f$ let $Tf(z)=\E_{\nu_F}[f(x_0)\mid x_2=z]$, the average of $f$ over
+the $d$ predecessors of $z$. Given $x_1=y$ and $x_2=z$, the label $x_0$ is uniform
+under $\nu_F$ on these predecessors, with $y$ excluded if it is one of them; so,
+with $j=\one_{y\to z}$,
+\[
+ \E_{\nu_F}[f(x_0)\mid y,z]=\frac{d\,Tf(z)-jf(y)}{d-j}
+ =Tf(z)+\frac j{d-j}\bigl(Tf(z)-f(y)\bigr).
+\]
+Since $j/(d-j)\le2/(p-3)$, Minkowski's inequality and the uniform singleton
+marginals bound the norm of $f\mapsto\E_{\nu_F}[f(x_0)\mid x_1,x_2]$ by
+$\varrho+2(1+\varrho)/(p-3)=(\sqrt{p+1}+2)/(p-3)$. In $L^2(m_0)$ the density
+perturbation costs $e_0$, and the norm of a function of the pair changes by at
+most the factor $(1-e_0)^{-1/2}$ (\cref{lem:paley-triple}\ref{it:paley:perturb}). So the
+correlation of $\mathcal H_0$ and $\operatorname{ran}(P_{12}-\Jproj)$ is at most
+$\varrho_{0|12}$. Let $h$ be a function of $(x_1,x_2)$ orthogonal in $L^2(m_0)$ to all
+functions of $x_2$. Then $\E_{m_0}[Tf(x_2)h]=0$, so
+$\ip{f(x_0)}{h}_{m_0}=\E_{m_0}[(f(x_0)-Tf(x_2))h]$. Its uniform part is
+$\E_{\nu_F}[\frac j{d-j}(Tf(x_2)-f(x_1))h]$, at most $2(1+\varrho)/(p-3)$ times the
+uniform norms; its density-error part is at most
+$e_0\|f(x_0)-Tf(x_2)\|_{\nu_F}\|h\|_{\nu_F}\le e_0\|f\|\|h\|_{\nu_F}$, because $T$ is a
+conditional expectation under $\nu_F$. Converting only the pair norm, the
+correlation of $\mathcal H_0$ and $\operatorname{ran}(P_{12}-P_2)$, which contains
+$\mathcal K_{12}$, is at most $\tilde\varrho_{03}$. This comparison uses the actual
+orthogonality of $h$; it does not transport a uniform pair projection as an actual
+projection.
+
+Let $T_p$ map a function of $x_{0,p}$ to its actual conditional expectation
+given $(x_{1,p},x_{2,p})$, and put $T_{2,p}=P_{2,p}T_p$. Both fix the constants on
+both sides; on mean-zero functions both have norm at most $\varrho_{0|12}$, and
+$\|T_p-T_{2,p}\|\le\tilde\varrho_{03}$. On a support with $k\ge2$ active primes the
+telescoping bound of \cref{lem:sector}(b) gives
+$\|\bigotimes_pT_p-\bigotimes_pT_{2,p}\|\le k\tilde\varrho_{03}\varrho_{0|12}^{k-1}$. In
+terms of $(q,r)$, $\varrho_{0|12}=[(r\sqrt{1+q}+2q)/(1-3q)+e_0]/\sqrt{1-e_0}$ and
+$\tilde\varrho_{03}/q=[2(1+\varrho)/(1-3q)+e_0/q]/\sqrt{1-e_0}$ with
+$e_0/q=2/((1-3q)(1-4q))$ are nondecreasing in $(q,r)$ (\cref{lem:majorant}). At
+$p=2^{24}$, hence at every middle prime, $\varrho_{0|12}<\frac12$ and
+$2(\tilde\varrho_{03}/q)\varrho_{0|12}<1$ (\cref{cert:envelopes}(a)); so
+$k\tilde\varrho_{03}\varrho_{0|12}^{k-1}\le2\tilde\varrho_{03}\varrho_{0|12}<q\le\varrho_{03}$,
+with all constants at $b$. The tensor product of the $T_{2,p}$ maps into the
+functions of the whole object $x_2$, which project to zero in $\mathcal K_{12}$, and
+distinct input supports have orthogonal output supports. This proves the block
+bound $\varrho_{03}$ for $\mathcal H_0,\mathcal K_{12}$; the pair $\mathcal H_2,\mathcal K_{01}$ is
+the same with $0$ and $2$ interchanged (the involution $\varsigma$ of
+\cref{lem:reflection-averaging}(b)). This step also treats features that involve
+several primes; the prime bound alone does not give it.
+
+\emph{Step 4: the edge $34$.} Fix $x_1=0$ at one prime (the actual law is
+invariant under translations), and use the uniform law on the $p-1$ other labels
+as the base measure. The conditional law of $(x_0,x_2)=(u,w)$ has the density
+\[
+ \frac{p-1}{(p-3)(p-4)}\bigl[1-\one_{u=w}+\chi(w-u)\bigr]
+ \bigl[p-5+\chi(u)-\chi(w)\bigr],
+\]
+with the marginal densities $1+\mu\chi(u)$ and $1-\mu\chi(w)$. On base-centred
+functions its covariance form is $\ip f{\Phi g}+\mu^2\ip\chi f\ip\chi g$, where
+$\Phi$ is the operator of the density: after the functions of $u$ alone and of $w$
+alone are dropped, $\Phi$ is $(p-1)/((p-3)(p-4))$ times the sum of $-(p-5)/(p-1)$
+times the identity, $(p-5)$ times the compressed Paley operator
+$g\mapsto\E_w[\chi(w-u)g(w)]$, and the commutator of the latter with
+$\operatorname{diag}\chi$. The compressed Paley operator has norm at most
+$\sqrt p/(p-1)$ (\cref{lem:square-shift}(c)) and the commutator at most twice this.
+Dividing by the two lower bounds $1-\mu$ of the marginal densities, the
+conditional maximal correlation of $x_0$ and $x_2$ given $x_1$ is at most
+\[
+ \frac{\sqrt p/(p-4)+(p-5)/((p-3)(p-4))+4/(p-4)^2}{1-2/(p-4)}\le\varrho_{34}(p).
+\]
+Given the whole object $x_1$, the pairs $(x_{0,p},x_{2,p})$, $p\in\Blk$, are
+conditionally independent, so the conditional maximal correlation of the whole
+objects $x_0$ and $x_2$ given $x_1$ is at most $\varrho_{34}(b)$
+(\cref{cor:peyre-independent}). A function in $\mathcal K_{12}$ is orthogonal to the
+functions of the whole object $x_1$, so it has conditional mean zero given $x_1$;
+likewise every function in $\mathcal K_{01}$; and \cref{cor:cond-decorrelation} gives
+$|\ip fg|\le\varrho_{34}\|f\|\|g\|$ for $f\in\mathcal K_{12}$, $g\in\mathcal K_{01}$. The
+vanishing correlations are the definitions: $\mathcal K_{12}\perp\mathcal H_1+\mathcal H_2$
+and $\mathcal K_{01}\perp\mathcal H_0+\mathcal H_1$. This proves (a).
+
+\emph{Step 5: the frame.} The squared norm of $\Sigma_\Blk$ is
+$\|\sum_v\iota_v\iota_v^*\|$ for the inclusions $\iota_v$ of the five spaces. By
+\cref{lem:weighted-frame}(a) it is at most $\lambda_{\max}$ of the symmetric
+matrix $G^{\rm fr}_F$ with unit diagonal and the off-diagonal entries of (a), that is
+$1+\lambda_{\max}$ of its off-diagonal part. That part is preserved by the
+permutation $0\leftrightarrow2$, $3\leftrightarrow4$, with the orbits $\{0,2\}$,
+$\{3,4\}$, $\{1\}$; by \cref{lem:weighted-frame}(c) its largest eigenvalue is that of
+the Perron block
+\[
+ \begin{pmatrix}\varrho_{02}&\varrho_{03}&\sqrt2\,\varrho_{01}\\
+ \varrho_{03}&\varrho_{34}&0\\ \sqrt2\,\varrho_{01}&0&0\end{pmatrix}.
+\]
+For $\lambda>\varrho_{34}$ the lower right block of $\lambda I$ minus this matrix is
+positive definite, and its Schur complement is the left side of
+\eqref{eq:feature-perron}; so \eqref{eq:feature-perron} gives $\lambda I\succeq$ the
+Perron block, which proves (b).
+
+\emph{Step 6: the matching frame.} The matching half law is uniform on injective
+triples, so at a prime $V_i^*V_j=-I/(p-1)$ on $L^2_0$ for $i\ne j$ (condition one
+coordinate on another). On an exact support $S$ of the block every off-diagonal
+singleton Gram entry is $c_SI$ with $c_S=(-1)^{|S|}\prod_{p\in S}(p-1)^{-1}$, so the
+correlations are at most $1/(b-1)$, and the Gram matrix of the three features has
+the eigenvalues $1-c_S$, $1-c_S$, $1+2c_S$. Odd supports give at most $1+1/(b-1)$,
+and even nonempty supports at most $1+2/(b-1)^2$, which is smaller. This proves (c).
+
+\emph{The numbers.} Exact rational bounds for the square roots give the table, the
+gates of Step~3 and \eqref{eq:oct24:feature-constants}; $\Gamma_F$ is the rational
+end of a bisection for \eqref{eq:feature-perron} with the rounded entries, and
+$\Gamma_E=1+1/(Q_3-1)$, every middle prime exceeding $Q_3$
+(\cref{cert:envelopes}(a)).
+\end{proof}
+
+\subsection{Dominating matrices for tensors of star operators}
+\label{subsec:envelope-tools}
+
+\begin{lemma}[A positive substitute for a pure-pair projection]
+\label{lem:oct24:pure-pair-substitute}
+In $L^2$ of an actual half marginal of a prime or of a block suppose that the
+correlation of $\mathcal H_i$ and $\mathcal H_j$ is at most $\rho<1$, and let $\Pi_{ij}$ be
+the orthogonal projection onto $\mathcal K_{ij}$. Then
+\[
+ Q_{ij}=P_{ij}-\frac{P_i+P_j}{1+\rho}+\frac{1-\rho}{1+\rho}\Jproj
+\]
+satisfies
+\begin{equation}\label{eq:oct24:pure-pair-substitute}
+ 0\preceq Q_{ij}-\Pi_{ij}\preceq\eta\,(C_i+C_j),\qquad
+ \eta=\frac{2\rho}{1-\rho^2}.
+\end{equation}
+Let $\widetilde V_i\colon L^2\to L^2(m)$ be the extension of $V_i$ to
+all functions of one label, $\widetilde V_if(x)=f(x_i)$; thus
+$\widetilde V_i\one=\one$, whereas $V_i$ has domain $L^2_0$.
+Every $P_i$, $P_{ij}$ and $\Jproj$ is the Markov operator of a normalized
+nonnegative coupling of the actual marginal with itself, and so is, for singleton
+coordinates $i\ne j$, the operator $M_{ij}=\widetilde V_i\widetilde V_j^*$: choose a uniform label, then
+sample the two halves independently, conditioned on their coordinates $i$ and $j$,
+respectively, taking that label. Both half marginals of these couplings are the
+actual marginal, $M_{ii}=P_i$, and $V_iV_j^*=M_{ij}-\Jproj$. Placed by its
+record, each such coupling is an admissible positive law: it has uniform one-slot
+marginals and is invariant under independent simultaneous translations at the
+primes of the block, as \ref{it:record:E1} requires.
+\end{lemma}
+
+\begin{proof}
+On $\mathcal H_i+\mathcal H_j$ the spectrum of $C_i+C_j$ lies in $[1-\rho,1+\rho]$: it is
+that of the Gram operator of the two inclusions of $\mathcal H_i$ and $\mathcal H_j$,
+whose off-diagonal block has norm at most $\rho$. There
+$Q_{ij}=I-(C_i+C_j)/(1+\rho)$, whereas $\Pi_{ij}=0$; the lower bound follows from
+the upper spectral endpoint, and the upper bound from
+$I\preceq(C_i+C_j)/(1-\rho)$. On $\mathcal K_{ij}$ both operators equal the identity;
+on the constants and on the orthogonal complement of the functions of
+$(x_i,x_j)$ both vanish. These four subspaces reduce all the operators
+involved.
+
+To realize $P_i$ as a coupling, sample $x_i$ from its actual marginal and then
+the two triples independently from their actual conditional laws given that
+value; for $P_{ij}$ use the pair instead, and for $\Jproj$ sample two
+independent triples. For $M_{ij}$ the half with the coordinate $i$ equal to the
+chosen label has the actual marginal because the coordinate $i$ is uniform, and
+likewise for $j$; for $g$ on the second half,
+$\E[g(x')\mid x]=(\widetilde V_j^*g)(x_i)=(\widetilde V_i\widetilde V_j^*g)(x)$, so its Markov operator is $M_{ij}$,
+and $\widetilde V_i\Jproj_{\rm lab}\widetilde V_j^*=\Jproj$ for the projection $\Jproj_{\rm lab}$ onto the
+constant labels. One-slot marginals are uniform because they are those of the
+actual marginal. The constructions commute with the square-affine symmetries of
+that marginal, including independent simultaneous translations at its primes. The
+operator $Q_{ij}$ is positive semidefinite, but its signed expansion is not a
+nonnegative coupling; this is why the envelopes below are expanded into the
+couplings $M_{ij}$, $P_{ij}$, $\Jproj$ before any energy is bounded.
+\end{proof}
+
+For a fold record we write $Q_{12}$ and $Q_{01}$ for the substitutes with
+$\rho=\rho_{\rm pair}$ and $\eta=\eta_{\rm pair}$ of \cref{lem:oct24:feature-block},
+which bounds the correlations of $\mathcal H_1,\mathcal H_2$ and of $\mathcal H_0,\mathcal H_1$
+by $\varrho_{01}\le\rho_{\rm pair}$.
+
+\paragraph{Signed stars.}
+A \emph{star} on an orthogonal sum $\bigoplus_v\mathcal H_v$ is a skew-adjoint
+operator $\sum_a(\mathrm{in}_aA_a\mathrm{in}_c^*-\mathrm{in}_cA_a^*\mathrm{in}_a^*)$ with one
+\emph{centre} $c$, mutually orthogonal \emph{arms} $a\ne c$, the coordinate
+inclusions $\mathrm{in}_v$ and operators $A_a\colon\mathcal H_c\to\mathcal H_a$, whose norms
+are the \emph{arm norms}. On $(L^2_0)^5$ and $(L^2_0)^3$, with rows and columns
+indexed by the fold labels $0,\dots,4$ and the matching labels $0,1,2$, let
+\begin{equation}\label{eq:signed-star}
+ \mathsf F(\Phat)=\begin{pmatrix}0&\Phat&\tlaw\Phat&\tlaw-1&0\\
+ \Phat&0&0&0&0\\ \tlaw\Phat&0&0&0&0\\ 1-\tlaw&0&0&0&0\\ 0&0&0&0&0\end{pmatrix},
+ \qquad
+ \mathsf E(\Phat)=\begin{pmatrix}0&\Phat&0\\ \Phat&0&0\\ 0&0&0\end{pmatrix},
+\end{equation}
+with $\Phat=P/r$ the normalized Paley operator at a prime (\cref{lem:paley-triple}),
+skew-adjoint with $\Phat^2=-I$ on $L^2_0$. They are stars with centre $0$: $\mathsf F$
+has the arms $1,2,3$ with the arm operators $\Phat$, $\tlaw\Phat$, $(1-\tlaw)I$ and
+arm norms $1$, $\tlaw$, $1-\tlaw$; $\mathsf E$ has the arm $1$ with the arm operator
+$\Phat$. For a map $\Xi=(\Xi_v)_v$ from $(L^2_0)^5$ (or $(L^2_0)^3$) into a Hilbert space
+we call $\Xi\,\mathsf F\,\Xi^*=\sum_{a,b}\Xi_a\mathsf F_{ab}\Xi_b^*$ the \emph{lift} of
+$\mathsf F$ by $\Xi$. At a middle prime $p$ of a block let
+$\Xi_p=(V_0,V_1,V_2,A_3^\circ/r_p,0)$ for a fold record, with the pure-pair arm
+$A_3^\circ$ of \eqref{eq:signed-leading}, a map of norm at most $r_p$ into the
+sector $\{p\}$ of $\mathcal K_{12}$ (\cref{lem:actual-features}(c),(e)), and
+$\Xi_p=(V_0,V_1,V_2)$ for a matching record, all restricted to the singleton sector
+$\{p\}$ of the label space. The lift of $\mathsf F(\Phat_p)$ by $\Xi_p$ is $r_p^{-1}$
+times the leading signed star $L^\circ_{\tlaw,p}=A^\circ_\tlaw V_0^*-V_0(A^\circ_\tlaw)^*$
+of \eqref{eq:signed-leading}, $A^\circ_\tlaw=r_p(V_1\Phat_p+\tlaw V_2\Phat_p)
++(1-\tlaw)A_3^\circ$; the pure-pair arm is a contraction after the division by
+$r_p$, and it is not assumed to commute with $\Phat$. The lift of $\mathsf E(\Phat_p)$
+is $V_1\Phat_pV_0^*+V_0\Phat_pV_1^*$.
+
+For a middle block $\Blk$ with least prime $b$, $r_\Blk=b^{-1/2}$, and an eligible
+record $\phi$ (\cref{def:record:eligible}), let $\zeta^{\rm a}_{\Blk,\phi}$ be the skew
+part at $\iota$ of the change of $\phi$ in $\nu_\Blk-\lambda_\Blk$, and $m_{\phi,\Blk}$ its
+actual half marginal at $\iota$. The \emph{raw-arm coefficient} of $\phi$ is
+$w_{\rm D}r_\Blk^2$ for $F_1,F_2$ and $w_{\rm S}r_\Blk^2$ for $E_0,E_1$, with the record
+weights of the piece of $\Blk$. The \emph{normalized skew change}
+$\widehat\Delta_{\phi,\Blk}$ is the cut operator of $\zeta^{\rm a}_{\Blk,\phi}$ at $\iota$,
+relative to $m_{\phi,\Blk}$, divided by the raw-arm coefficient. Write
+$\ell_\tlaw(b)$, $a_F(b)$ for the constants of \cref{prop:signed-bounds} at $q=1/b$,
+$r=b^{-1/2}$, and $r_E(X)$ for the constant of \cref{lem:oct24:matching-star} at the
+start $X$ of the piece of $\Blk$. We use the
+following \emph{star form}.
+\begin{enumerate}[label=(N\arabic*)]
+\item\label{it:env:N1} $\widehat\Delta_{F_1,\Blk}=L+\Upsilon$, where $L$ is the
+ orthogonal sum over the singleton sectors $\{p\}$, $p\in\Blk$, of $c_p$ times the
+ lift of $\mathsf F(\Phat_p)$ by $\Xi_p$, with numbers $0<c_p\le1$, and vanishes on the
+ other sectors; $\|L\|\le\ell_\tlaw(b)$ and $\|\Upsilon\|\le a_F(b)\,r_\Blk$.
+\item\label{it:env:N2} $\widehat\Delta_{F_2,\Blk}=-\mathcal U\widehat\Delta_{F_1,\Blk}
+ \mathcal U^*$ for the involution $\mathcal U$ of
+ \cref{lem:reflection-averaging}(b), and its leading star and remainder are
+ $-\mathcal UL\mathcal U^*$ and $-\mathcal U\Upsilon\mathcal U^*$.
+\item\label{it:env:N3} For $s\in\{0,1\}$, $\widehat\Delta_{E_s,\Blk}=L+\Upsilon$,
+ where $L$ is the orthogonal sum over the singleton sectors of $c_p$ times the lift
+ of $\mathsf E(\Phat_p)$, $0<c_p\le1$; $\|L\|\le(1-1/b)^{-1}$ and
+ $\|\Upsilon\|\le r_E(X)\,r_\Blk^2$.
+\item\label{it:env:N4} At every block $F_1$ and $F_2$ have the same raw-arm
+ coefficient and the same auxiliary prices below, and so have $E_0$ and $E_1$.
+\end{enumerate}
+These hold in the construction. The change of $F_1$ in $\nu_\Blk-\lambda_\Blk$ is the
+record weight $w_{\rm D}r_\Blk/\widetilde\mu_\Blk(1)$ times the placed difference of the
+signed record and the reference record (\cref{def:record:mixture}), whose skew part
+is $L_{\tlaw,\Blk}+R_{\tlaw,\Blk}$ with $\|L_{\tlaw,\Blk}\|\le\ell_\tlaw(b)b^{-1/2}$,
+$\|R_{\tlaw,\Blk}\|\le a_F(b)/b$, and $L_{\tlaw,\Blk}$ equal to $L^\circ_{\tlaw,p}$ on the
+sector $\{p\}$ and zero on the larger sectors (\cref{prop:signed-bounds}(b)); dividing
+by $w_{\rm D}r_\Blk^2$ gives \ref{it:env:N1} with $c_p=(r_p/r_\Blk)/\widetilde\mu_\Blk(1)\le1$,
+the normalizer $\widetilde\mu_\Blk(1)\ge1$ only lowering the normalized change.
+\ref{it:env:N2} is \cref{prop:signed-bounds}(e) and \cref{lem:reflection-averaging}(b).
+For $E_s$, \cref{lem:oct24:matching-star} gives the skew part
+$L_{E,\Blk}+R_{E,\Blk}$, with $L_{E,\Blk}$ equal to $V_1PV_0^*-V_0(V_1P)^*$ on the singleton
+sectors, of arm norm at most $b^{-1/2}$ and norm at most $b^{-1/2}/(1-b^{-1})$, and
+$\|R_{E,\Blk}\|\le r_E(X)b^{-3/2}$; the object-level changes of $E_0$ and $E_1$ coincide
+(\cref{lem:record:exact-marginal-e}). \ref{it:env:N4}: the two records of one kind
+have the same weight and the same local constants.
+
+The \emph{auxiliary prices} of a skew record $\phi$ at $\Blk$ are
+\[
+ \pi^{\rm arm}_{\Blk,\phi}=w\,r_\Blk^2q_\Blk^{2a},\qquad
+ \pi^{\rm lead}_{\Blk,\phi}=\ell\,\pi^{\rm arm}_{\Blk,\phi},\qquad
+ \pi^{\rm rem}_{\Blk,\phi}=\rho\,\pi^{\rm arm}_{\Blk,\phi},
+\]
+with $w$ the weight of the raw-arm coefficient and $(\ell,\rho)=(\ell_\tlaw(b),a_F(b)r_\Blk)$
+for $F_1,F_2$ and $((1-1/b)^{-1},r_E(X)r_\Blk^2)$ for $E_0,E_1$; they are the auxiliary
+prices $y^{\rm arm},y^{\rm lead},y^{\rm rem}$ of \cref{lem:record:record-expansion}(v),
+and \cref{lem:middle-comparison-prices} bounds them with the coefficients evaluated
+at the piece start. The coefficients are nondecreasing in
+$(q,r)$, so over the blocks of the piece $i$ with start $X_i$ and degree charges
+$\bar I_{d,i}$ their sums are at most, at the exponent $a_0$ and before the repricing
+factor $t$,
+\[
+ A^{\rm arm}_{F,i}=2w_{{\rm D},i}\bar I_{2,i},\quad
+ A^{\rm lead}_{F,i}=2w_{{\rm D},i}\ell_\tlaw(X_i)\bar I_{2,i},\quad
+ A^{\rm rem}_{F,i}=2w_{{\rm D},i}a_F(X_i)\bar I_{3,i},
+\]
+\[
+ A^{\rm arm}_{E,i}=2w_{{\rm S},i}\bar I_{2,i},\quad
+ A^{\rm lead}_{E,i}=\frac{2w_{{\rm S},i}\bar I_{2,i}}{1-1/X_i},\quad
+ A^{\rm rem}_{E,i}=2w_{{\rm S},i}r_E(X_i)\bar I_{4,i},
+\]
+each summed over the two records of one kind and rounded up; their totals are the
+auxiliary totals of \cref{def:closing-quantities}. The full skew price of a fold
+record is its leading plus its remainder price; that of a matching record is the
+price of \cref{lem:record:exact-marginal-e}, which is at least the raw-arm and the
+leading price. For a selection $\omega$ on $X$ write $\pi^{\rm arm}_\omega=
+\prod_{\Blk\in X}\pi^{\rm arm}_{\Blk,\omega(\Blk)}$, likewise $\pi^{\rm lead}_\omega$, and
+$\pi^{\rm tot}_\omega=\prod_{\Blk\in X}(\pi^{\rm lead}_{\Blk,\omega(\Blk)}+\pi^{\rm rem}_{\Blk,\omega(\Blk)})$;
+$\pi_\omega$ is its full skew monomial.
+
+For a selection on $X$ with the stars $L_\Blk$ and the remainders $\Upsilon_\Blk$ of
+\ref{it:env:N1}--\ref{it:env:N3}, with norm bounds $\ell_\Blk$ and $\rho_\Blk$, the error
+after removing the tensor of the leading stars has norm
+\begin{equation}\label{eq:oct24:star-tensor-error}
+ \Bigl\|\bigotimes_{\Blk\in X}(L_\Blk+\Upsilon_\Blk)-\bigotimes_{\Blk\in X}L_\Blk\Bigr\|
+ \le\prod_{\Blk\in X}(\ell_\Blk+\rho_\Blk)-\prod_{\Blk\in X}\ell_\Blk :
+\end{equation}
+expand the tensor product by the set of remainder factors and bound every term by
+the product of its norm bounds. Multiplied by the raw-arm coefficients and by
+$q_X^{2a}$, the right side becomes $\pi^{\rm tot}_\omega-\pi^{\rm lead}_\omega$, the
+remainder part of the class bounds below. Summed over a degree class with $n$ fold
+and $m$ matching records it is the \emph{remainder polynomial}
+\[
+ \mathcal R_{n,m}=(A^{\rm lead}_F+A^{\rm rem}_F)^n(A^{\rm lead}_E+A^{\rm rem}_E)^m
+ -(A^{\rm lead}_F)^n(A^{\rm lead}_E)^m
+\]
+of the totals, in the form of \cref{lem:record:record-expansion}(v). Only the
+separately proved leading prices stand in it (\cref{rem:completion-subtraction}).
+
+\begin{lemma}[Matrix envelopes]\label{lem:oct24:mask-schur}
+Let $X=X_F\cup X_E$ be a set of middle blocks, $|X_F|=n$, $|X_E|=m$, $n+m$ even. Let
+$\mathcal A_F$ be the algebra of real $5\times5$ matrices that are block diagonal for
+the partition $\{0,1,2\},\{3\},\{4\}$ of the fold labels, that is
+$M_3(\R)\oplus\R\oplus\R$, let $\mathcal A_E$ be $M_3(\R)$ or its diagonal subalgebra,
+and $\mathcal A=\bigotimes_{X_F}\mathcal A_F\otimes\bigotimes_{X_E}\mathcal A_E$, real matrices
+on the label words $v=(v_\Blk)_{\Blk\in X}$. An \emph{envelope} for $(X_F,X_E)$ is a
+$D\in\mathcal A$ with
+\begin{equation}\label{eq:matrix-envelope}
+ D\pm\bigotimes_{\Blk\in X_F}\mathsf F(\xi_\Blk)\otimes\bigotimes_{\Blk\in X_E}
+ \mathsf E(\xi_\Blk)\succeq0\qquad\text{for every }\xi\in\{i,-i\}^X ,
+\end{equation}
+the complex matrices of \eqref{eq:signed-star} at $\Phat=\xi_\Blk$; adding the two
+signs gives $D\succeq0$.
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Lifting.} Let $\operatorname{Lift}(D)$ be the operator on
+ $L^2(\bigotimes_{X_F}m_{0,\Blk}\otimes\bigotimes_{X_E}m_{E,\Blk})$ obtained by replacing,
+ in every factor, a matrix unit $e_{ab}$ of two singleton labels by
+ $V_aV_b^*=M_{ab}-\Jproj$, and, at a fold factor, the scalar units $e_{33}$
+ and $e_{44}$ by $Q_{12}$ and $Q_{01}$. Let $L_\Blk$ be, at a fold block, an orthogonal
+ sum over the singleton sectors of $c_p$ times the lift of $\mathsf F(\Phat_p)$ by
+ $\Xi_p$, with $0\le c_p\le1$, and at a matching block the same with $\mathsf E$. Then
+ $\pm\bigotimes_{\Blk\in X}L_\Blk\preceq\operatorname{Lift}(D)$. Moreover
+ $\operatorname{Lift}(D)$ annihilates every vector with a constant factor at some
+ block, and it is a finite real combination $\sum_Cc(C)\,C$ of tensor products $C$ of
+ the normalized nonnegative couplings $M_{ab},P_{12},P_{01},\Jproj$ of a fold factor
+ and $M_{ab},\Jproj$ of a matching factor, all with the actual half marginals; after
+ equal products are collected, $M(D)=\sum_C|c(C)|$ is its \emph{coupling mass}.
+\item \emph{Norm.} $\|\operatorname{Lift}(D)\|\le\Gamma_F^n\Gamma_E^m\|D^\sharp\|$, where
+ $D^\sharp$ is the image of $D$ under the completely positive map that replaces, at
+ every fold factor, $e_{33}$ by $e_{33}+\eta_{\rm pair}(e_{11}+e_{22})$ and $e_{44}$ by
+ $e_{44}+\eta_{\rm pair}(e_{00}+e_{11})$. If $D$ is diagonal, then also
+ $\|\operatorname{Lift}(D)\|\le\max_v(G^{\rm fr}_X\,d^\sharp)_v$, where $d^\sharp$ is the
+ diagonal of $D^\sharp$ and $G^{\rm fr}_X$ the Kronecker product of the matrix
+ $G^{\rm fr}_F$ of the proof of \cref{lem:oct24:feature-block} at the fold factors and
+ of the $3\times3$ matrix $G^{\rm fr}_E$ with unit diagonal and off-diagonal entries
+ $1/(Q_3-1)$ at the matching factors.
+\item \emph{Diagonal case.} Consider an even number of stars on orthogonal sums,
+ each with one centre and any number of mutually orthogonal arms. A tensor
+ feature $v$ specifies a centre or an arm at each factor; let $A(v)$ be its set of
+ arm positions, its \emph{mask}, and $\alpha(v)$ the product of the arm norm bounds
+ at those positions. Let $d_v>0$ be weights on the tensor features such that for
+ every complementary pair of masks $A,A^c$
+ \begin{equation}\label{eq:oct24:mask-schur}
+  \Bigl(\sum_{A(v)=A}\frac{\alpha(v)^2}{d_v}\Bigr)
+  \Bigl(\sum_{A(w)=A^c}\frac{\alpha(w)^2}{d_w}\Bigr)\le1 .
+ \end{equation}
+ Then the tensor product of the stars lies between $\pm$ the diagonal operator with
+ the weights $d_v$, extended by any nonnegative weights to the features that are
+ neither centres nor arms. In particular a diagonal $D\in\mathcal A$ satisfying
+ \eqref{eq:oct24:mask-schur} for the stars \eqref{eq:signed-star}, with the arm
+ magnitudes $1,\tlaw,1-\tlaw$ at the fold arms $1,2,3$ and $1$ at the matching arm
+ $1$, is an envelope.
+\item \emph{Finite tests.} The conditions \eqref{eq:matrix-envelope} follow from the
+ following finite tests, in which $\mathsf F(i)=f_r+if_i$ with real $f_r,f_i$ and
+ $H=f_i-if_r$, and in the second, third and fourth cases $D$ is diagonal in the
+ matching labels, $D=\sum_eD_e\otimes e_{ee}$ over the matching words $e$:
+ \begin{itemize}
+ \item FF and FE: $D\pm\mathsf F(i)\otimes\mathsf F(\pm i)\succeq0$, respectively
+  $D\pm\mathsf F(i)\otimes\mathsf E(\pm i)\succeq0$;
+ \item one fold and an odd number $m$ of matching factors: $D_e\succeq0$ for every
+  matching word $e$, and
+  $\bigl(\begin{smallmatrix}D_e&H\\H&D_{\bar e}\end{smallmatrix}\bigr)\succeq0$ for the
+  complementary active words $e,\bar e\in\{0,1\}^m$;
+ \item two fold and two matching factors: the same blocks with the cross matrix
+  $\mathsf F(i)\otimes\mathsf F(\pm i)$;
+ \item three fold and one matching factor: $D_e\in\mathcal A_F^{\otimes3}$ invariant under
+  permutations of the fold coordinates, and the blocks with the cross matrix
+  $\mathsf S(\xi_1)\otimes\mathsf S(\xi_2)\otimes\mathsf S(\xi_3)$ for the phase counts $0$ and
+  $1$, where $\mathsf S(\xi)=i\,G^*\mathsf F(\xi)G$, $G=\operatorname{diag}(1,1,1,i,i)$, is real
+  symmetric (the \emph{pure-pair gauge});
+ \item four fold factors: $D$ invariant under permutations of the fold
+  coordinates, and $D\pm\bigotimes_{k=1}^4\mathsf S(\xi_k)\succeq0$ for the phase counts
+  $0$, $1$, $2$.
+ \end{itemize}
+\end{enumerate}
+Every test is a rational matrix inequality; a Hermitian test is certified by its
+real form of twice the size (\cref{rem:realified-gates}), and a real test
+$\mathbf M\succeq0$ by an integer matrix $\mathbf L$ and a scale $g$ such that
+$g^2\mathbf M-\mathbf L\mathbf L^{\sf T}$ is entrywise diagonally dominant with
+nonnegative diagonal.
+\end{lemma}
+
+\begin{proof}
+(a) The tensor $\bigotimes_\Blk L_\Blk$ is the orthogonal sum, over the choices
+$(p_\Blk)_{\Blk\in X}$ of one singleton sector at every block, of
+$(\prod_\Blk c_{p_\Blk})$ times the lift by $\Xi=\bigotimes_\Blk\Xi_{p_\Blk}$ of
+$T=\bigotimes_{X_F}\mathsf F(\Phat_{p_\Blk})\otimes\bigotimes_{X_E}\mathsf E(\Phat_{p_\Blk})$,
+and it vanishes on the other sectors. The operators $\Phat_{p_\Blk}$ act on distinct
+tensor factors, so they commute; they are normal with spectrum in $\{i,-i\}$, and
+$D\otimes I\pm T$ is a polynomial in them with matrix coefficients. By the joint
+spectral decomposition it is the orthogonal sum of the matrices
+\eqref{eq:matrix-envelope} over the joint eigenspaces, hence positive semidefinite.
+As $D\succeq0$ and $0\le\prod c\le1$, also $D\otimes I\pm(\prod c)T\succeq0$, and the
+congruence by $\Xi$ gives
+$\Xi(D\otimes I)\Xi^*\pm(\prod c)\,\Xi T\Xi^*\succeq0$. The ranges of the maps $\Xi$ of
+distinct choices lie in mutually orthogonal sectors, so
+$\pm\bigotimes_\Blk L_\Blk\preceq\sum_{(p_\Blk)}\Xi(D\otimes I)\Xi^*$. It remains to compare
+the right side with $\operatorname{Lift}(D)$ by positive enlargements. $D$ acts on the
+labels and the sector projections $\Pi_S$ on the label spaces, so they commute.
+Summing over all choices of one sector $S_\Blk$ at every block, instead of singleton
+sectors only, adds the congruences of the positive operators
+$D\otimes\bigotimes_\Blk\Pi_{S_\Blk}$, the maps at the labels $3$, $4$ being taken zero on the
+sectors of size at least two. The sum is the lift of $D$ by
+$\bigotimes_\Blk(V_0,V_1,V_2,Z_\Blk,0)$ at the fold blocks and $\bigotimes_\Blk(V_0,V_1,V_2)$ at
+the matching blocks, on the whole centred label spaces, where $Z_\Blk$ is the
+orthogonal sum of the maps $A_3^\circ/r_p$; as these have orthogonal ranges in the
+sectors of $\mathcal K_{12}$ and norm at most one, $Z_\Blk$ is a contraction into
+$\mathcal K_{12}$. In this lift a unit $e_{ab}$ of two singleton labels gives
+$V_aV_b^*$. The labels $3$ and $4$ are separate scalar blocks of $\mathcal A_F$,
+so every term with the label $3$ (or $4$) at a fold coordinate is a positive operator
+on the other coordinates tensored with $Z_\Blk Z_\Blk^*$ (or $0$) at that coordinate; and
+$Z_\Blk Z_\Blk^*\preceq\Pi_{\mathcal K_{12}}\preceq Q_{12}$, $0\preceq Q_{01}$ by
+\eqref{eq:oct24:pure-pair-substitute}. Replacing a factor of a tensor product of
+positive operators by a larger positive operator increases it, so these replacements,
+made one coordinate at a time, give
+$0\preceq\sum_{(p_\Blk)}\Xi(D\otimes I)\Xi^*\preceq\operatorname{Lift}(D)$ and hence
+$\pm\bigotimes_\Blk L_\Blk\preceq\operatorname{Lift}(D)$. Every unit
+$V_aV_b^*$ and $Q_{ij}$ annihilates the constants on both sides, which
+gives the second assertion, and the expansions
+$V_aV_b^*=M_{ab}-\Jproj$ and
+$Q_{ij}=P_{ij}-(P_i+P_j)/(1+\rho)+\frac{1-\rho}{1+\rho}\Jproj$ with $P_i=M_{ii}$ give the third
+(\cref{lem:oct24:pure-pair-substitute}).
+
+(b) Write $\Sigma_X=\bigotimes_\Blk\Sigma_\Blk$ for the tensor product of the synthesis maps
+of the fold and matching features, and let $D$ act on $\bigotimes_\Blk\bigoplus_v\mathcal H_v$
+through the identifications $V_a$ of the singleton spaces with $L^2_0$ and by scalars
+on $\mathcal K_{12}$, $\mathcal K_{01}$. By \eqref{eq:oct24:pure-pair-substitute},
+$Q_{12}\preceq\Pi_{\mathcal K_{12}}+\eta_{\rm pair}(C_1+C_2)$ and
+$Q_{01}\preceq\Pi_{\mathcal K_{01}}+\eta_{\rm pair}(C_0+C_1)$, and the replacements are positive
+enlargements of positive principal blocks as in (a); so
+$0\preceq\operatorname{Lift}(D)\preceq\Sigma_XD^\sharp\Sigma_X^*$, the lower bound by (a). The
+map $D\mapsto D^\sharp$ is the
+identity plus the map with the Kraus operators $\eta_{\rm pair}^{1/2}e_{13}$,
+$\eta_{\rm pair}^{1/2}e_{23}$, $\eta_{\rm pair}^{1/2}e_{04}$, $\eta_{\rm pair}^{1/2}e_{14}$, hence
+completely positive. So
+$\|\operatorname{Lift}(D)\|\le\|\Sigma_X\|^2\|D^\sharp\|\le\Gamma_F^n\Gamma_E^m\|D^\sharp\|$ by
+\cref{lem:oct24:feature-block}(b),(c). For diagonal $D$,
+$\Sigma_XD^\sharp\Sigma_X^*=\sum_vd^\sharp_v\iota_v\iota_v^*$ for the tensor products $\iota_v$ of the
+feature inclusions, and \cref{lem:weighted-frame}(a),(b) with the correlation bounds
+of \cref{lem:oct24:feature-block}(a),(c) gives the second bound.
+
+(c) A star maps its centre to its arms and its arms to its centre, so the tensor
+maps the sector of a mask only to the sector of the complementary mask, and
+annihilates the features outside the stars. After conjugation by $D^{-1/2}$, the
+block between two complementary sectors is bounded, on the vector of component
+norms, by the outer product of the vectors $(\alpha(v)/\sqrt{d_v})_v$ and
+$(\alpha(w)/\sqrt{d_w})_w$; its norm is at most the square root of the left side of
+\eqref{eq:oct24:mask-schur}. The even tensor is self-adjoint, so the norm bound
+proves both orders. The proof keeps the phases of the arm operators and uses no
+simultaneous diagonalization, and weights on inactive features are positive
+additions. The stars of \eqref{eq:signed-star} at $\Phat=\xi_\Blk$ have the stated arm
+magnitudes, which gives the last assertion.
+
+(d) $D$ is real and $\mathsf F(-i)$, $\mathsf E(-i)$ are the complex conjugates of
+$\mathsf F(i)$, $\mathsf E(i)$, so the condition at $\xi$ is the complex conjugate of the
+condition at $-\xi$; for FF and FE the four phase patterns reduce to the two
+listed. If $D$ is diagonal in the matching labels, the tensor maps an active
+matching word $e\in\{0,1\}^m$ to its complement $\bar e$ with the scalar factor
+$\pi_E=\prod_{X_E}\xi_\Blk$, in both directions, and annihilates the words containing
+the label $2$; so \eqref{eq:matrix-envelope} is the orthogonal sum of the conditions
+$D_e\succeq0$ on the inactive words and of the blocks
+$\bigl(\begin{smallmatrix}D_e&\pm\pi_ET_F\\ \pm\pi_ET_F&D_{\bar e}\end{smallmatrix}\bigr)\succeq0$,
+$T_F$ the tensor of the fold matrices. The congruence by $\operatorname{diag}(I,-I)$
+exchanges the two signs. For one fold factor and odd $m$, $\pi_E=\pm i$ and
+$\pm i\mathsf F(\pm i)\in\{\pm H,\pm\bar H\}$, the conjugate case being automatic; $H$ is
+Hermitian because $f_i$ is real symmetric and $f_r$ real antisymmetric. For two fold
+and two matching factors $\pi_E=\pm1$. For three fold factors conjugate by
+$G^{\otimes3}$, which commutes with $\mathcal A_F^{\otimes3}$: then
+$G^*\mathsf F(\xi)G=-i\,\mathsf S(\xi)$, where $\mathsf S(\xi)$ has the entries $i\xi$, $i\tlaw\xi$
+at the singleton arms and $1-\tlaw$ at the pure-pair arm, real for $\xi=\pm i$; the
+cross matrix becomes $\pi_E(-i)^3\mathsf S\otimes\mathsf S\otimes\mathsf S$, real up to the sign
+$\pm1$. By the permutation invariance the test depends only on the number of phases
+$-i$ among the fold phases, and complex conjugation identifies the counts $c$ and
+$3-c$. For four fold factors $(-i)^4=1$, so the gauged tensor is the real
+$\bigotimes_k\mathsf S(\xi_k)$; conjugation identifies the counts $c$ and $4-c$, and
+both signs are tested since no matching coordinate provides the congruence. The
+certificate of $\mathbf M\succeq0$ is
+$g^2\mathbf M=\mathbf L\mathbf L^{\sf T}+(g^2\mathbf M-\mathbf L\mathbf L^{\sf T})$, a sum of a
+Gram matrix and a diagonally dominant symmetric matrix with nonnegative diagonal.
+\end{proof}
+
+\begin{remark}[Where the gain comes from]\label{rem:envelope-gain}
+For one star $L$ with one arm of norm $\alpha$ and the diagonal $D$ with weights
+$d_c,d_a$, the operator $D^{-1/2}LD^{-1/2}$ is a contraction if and only if
+$d_cd_a\ge\alpha^2$, the one-factor case of \eqref{eq:oct24:mask-schur}.
+For an even tensor $T$ of skew stars, every $D$ with
+$-D\preceq T\preceq D$ has norm at least $\|T\|$, so
+an envelope by itself costs at least the norm of the tensor. The gain comes from
+the averaging of \cref{subsec:reflection-averaging}: the reflection fixes some
+feature vertices and moves the others in pairs, and the average replaces the weights at each moved vertex and at its reflected mate by their mean, while it keeps that of every fixed one. The
+envelopes are chosen with small weights on the fixed vertices and large weights
+on the moved ones. For two matching stars of arm norm one, the weights $x$ at
+the fixed vertex $(0,0)$ and $2x$ at the moved vertex $(1,1)$, with
+$2x^2\ge1$, give the averaged maximum $x\approx2^{-1/2}$ against the norm one of
+the tensor. On fully invariant backgrounds the whole action of the chamber group
+averages the matching names; for a crossed pair this gives the cap
+$(1+\sqrt3)/6$ (\cref{lem:reflection-averaging}(g)). Matrix envelopes in the
+singleton block algebra improve on diagonal ones because they may use the signed
+off-diagonal couplings $M_{ab}$, $a\ne b$; a coefficient joining a pure-pair label to
+another label is excluded, since it would not expand into couplings of bounded
+variation.
+\end{remark}
+
+\subsection{Averaging a dominating matrix over reflections}\label{subsec:reflection-averaging}
+
+The averaging is a change of variables in the energy, which permutes the slots
+and so leaves the product of the identical inputs unchanged; the work is to
+say exactly which measure is transported to which, and in which charts the
+transports are read.
+
+\paragraph{Record assignments and placed measures.}
+For a middle block $\Blk$ and an eligible record $\phi$ let $m_{\phi,\Blk}$ be
+its actual half marginal at $\iota$, read on object triples: $m_{0,\Blk}$ for
+$F_1,F_2$ and $m_{E,\Blk}$ for $E_0,E_1$. A \emph{record assignment} on a finite
+set $X$ of middle blocks is a map $\omega\colon X\to\{F_1,F_2,E_0,E_1\}$, and
+$m_\omega=\bigotimes_{\Blk\in X}m_{\omega(\Blk),\Blk}$; a selection of (CP4) all of
+whose types are skew and whose records are eligible is identified with its
+record assignment. For an operator $K$ on $L^2(m_\omega)$ let $[K]_\omega$ be the
+signed measure on the labels of $X$ obtained by placing, at every $\Blk\in X$ by
+the map $\omega(\Blk)\colon\Z/6\Z\to\{0,1,2\}$, the signed measure on two-layer
+object labellings whose cut operator at $\iota$ relative to $m_\omega$ is $K$: the
+slot $(u_0,u_1,\ell)$ receives the layer-$\ell$ label of the object
+$\omega(\Blk)(u_0)$. The placement is half-local, so the cut matrix of
+$[K]_\omega$ at $\iota$ is the pull-back of $K$ (\cref{lem:commoncut}(v)):
+$K\preceq K'$ implies $[K]_\omega\preceq_\iota[K']_\omega$, the map $K\mapsto[K]_\omega$
+is linear and multiplicative over the blocks, $[I]_\omega=\operatorname{Diag}_\iota
+(m_\omega)$ is the diagonal copy of the actual half marginal, written
+$\operatorname{Diag}_\omega$, and $[\Jproj]_\omega=J_\iota(m_\omega)$ is the product
+of the actual half marginals, written $J_\omega$. The skew change of
+\cref{subsec:envelope-tools} is
+$\zeta^{\rm a}_{\Blk,\phi}=w\,r_\Blk^2\,[\widehat\Delta_{\phi,\Blk}]_\phi$, $w\,r_\Blk^2$ the raw-arm
+coefficient. The couplings $M_{ab}$ of \cref{lem:oct24:pure-pair-substitute} are placed
+in the same way. For a permutation $\beta$ of $\{0,1,2\}$ let $\mathcal P_\beta f(x)=f(x\circ\beta)$,
+with $(x\circ\beta)_o=x_{\beta(o)}$, a unitary of $L^2(m_E)$ (the law $m_E$ is
+invariant under name permutations) that maps $\mathcal H_i$ onto $\mathcal H_{\beta(i)}$;
+$\mathcal P_\beta V_i=V_{\beta(i)}$, so $\mathcal P_\beta\operatorname{Lift}(D)\mathcal P_\beta^*$ is the lift of
+the matrix $D$ with both indices permuted by $\beta$.
+
+\begin{lemma}[Reflection averaging]\label{lem:reflection-averaging}
+For $h\in\{1,3,5\}$ let $R_h$ be the slot permutation
+$(u_0,u_1,\ell)\mapsto(h-u_0,u_1,\ell)$: $R_5$, $R_1$, $R_3$ are the reflections of
+the chamber cuts $\vartheta_{0,0}$, $\vartheta_{0,1}$, $\vartheta_{0,2}$ of the first
+coordinate. For a finite signed measure $\kappa$ on labellings write
+$R_{h*}\kappa$ for the law of $z\circ R_h$.
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Placements.} $R_h$ commutes with $\iota$ and with the rotation of the
+ first coordinate, and maps the edge set of the twelve-label root onto itself.
+ For a pattern $\phi\colon\Z/6\Z\to\{0,1,2\}$ and an object law $\kappa$, the
+ reflection maps the law placed by $\phi$ to the law placed by $\phi\circ R_h$,
+ and placing by $\beta\circ\phi$ is placing by $\phi$ the law relabelled by
+ $\beta$. Substitution in the tuples gives the three reflection rows of
+ \cref{tab:reflection}, written with $\psi_{h,s}=\psi_{s,R_h}$:
+ \[
+ \begin{array}{c|c|c|c}
+  h&(F_0,F_1,F_2)\circ R_h&\psi_{h,0}&\psi_{h,1}\\\hline
+  1&(F_1,F_0,F_2)&(0\,1)&(1\,2)\\
+  3&(F_2,F_1,F_0)&(0\,2)&(0\,1)\\
+  5&(F_0,F_2,F_1)&(1\,2)&(0\,2)
+ \end{array}
+ \qquad E_s\circ R_h=\psi_{h,s}\circ E_s,
+ \]
+ and $G_{sk}\circ R_h=G_{s,\psi_{h,s}(k)}$ for the merges. $F_0\circ R_5=F_0$,
+ $F_1\circ R_3=F_1$ and $F_2\circ R_1=F_2$ are the only cases $F_j\circ R_h=F_j$.
+ Consequently $R_{h*}$ maps a law placed by $F_j$ to the same object law placed
+ by $F_j\circ R_h$, and a law placed by $E_s$ to the law placed by $E_s$ whose
+ object names are permuted by $\psi_{h,s}$.
+\item \emph{Arithmetic transport.} Let $\varsigma(x)=(-x_2,-x_1,-x_0)$ and
+ $\mathcal Uf=f\circ\varsigma$, on a block $\mathcal U=\bigotimes_p\mathcal U_p$.
+ Then $\mathcal U$ is a self-adjoint unitary of $L^2(m_{0,\Blk})$ that maps
+ $\mathcal H_0,\mathcal H_1,\mathcal H_2,\mathcal K_{12},\mathcal K_{01}$ onto
+ $\mathcal H_2,\mathcal H_1,\mathcal H_0,\mathcal K_{01},\mathcal K_{12}$, that is, it permutes
+ the fold labels by $\varphi=(0\,2)(3\,4)$; it conjugates $P_0,P_2,P_{12}$ into
+ $P_2,P_0,P_{01}$, $M_{ab}$ into $M_{\varphi(a)\varphi(b)}$ and $Q_{12}$ into $Q_{01}$, so
+ $\mathcal U\operatorname{Lift}(D)\mathcal U^*$ is the lift of $D$ with both fold indices
+ permuted by $\varphi$. The record differences satisfy
+ $D_{F_2}=\mathcal UD_{F_1}^*\mathcal U^*$, hence
+ $D^{\rm a}_{F_2}=-\mathcal UD^{\rm a}_{F_1}\mathcal U^*$ and
+ $D^{\rm s}_{F_2}=\mathcal UD^{\rm s}_{F_1}\mathcal U^*$, and \ref{it:env:N2} holds.
+ $\mathcal U$ identifies operators only; it is never applied to the input $F_A$,
+ and no negation symmetry of the set $A$ is used.
+\item \emph{Energy invariance.} Let $\alpha\in\mathcal G_6$ act on the first
+ coordinate, let $X$ be a finite set of middle blocks and
+ $O=\bigotimes_{\Blk\notin X}O_\Blk$ a product of measures with
+ $O_\Blk\succeq_\iota0$ and $\alpha_*O_\Blk=O_\Blk$ for every atom $\Blk\notin X$.
+ Then $Y_{\alpha_*\kappa\otimes O}=Y_{\kappa\otimes O}$ for every finite signed measure
+ $\kappa$ on the labels of $X$, and $\kappa\succeq_\iota\kappa'$ implies
+ $\alpha_*\kappa\succeq_\iota\alpha_*\kappa'$.
+\item \emph{Averaging.} In the setting of (c) with $\alpha=R_h$, let $\Omega$ be a
+ finite set of record assignments on $X$ with numbers $\pi_\omega\ge0$, and
+ $\omega\mapsto\bar\omega$ an involution of $\Omega$ (fixed points allowed) such
+ that, at every $\Blk\in X$, $\bar\omega(\Blk)\circ R_h=\omega(\Blk)$ if
+ $\omega(\Blk)$ is a fold record and $\bar\omega(\Blk)=\omega(\Blk)$ if it is a
+ matching record, and $\pi_{\bar\omega}=\pi_\omega$. Let $\mathcal T_\omega$ be
+ $\mathcal U$ at the fold blocks where $\bar\omega(\Blk)\ne\omega(\Blk)$ and the
+ identity elsewhere, $\mathcal P_\omega$ the tensor product of the
+ $\mathcal P_{\psi_{h,s}}$ at the matching blocks $E_s$, and
+ $g_\omega=\mathcal P_\omega\mathcal T_\omega$. If operators $K_\omega$ on
+ $L^2(m_\omega)$ satisfy $K_{\bar\omega}=\mathcal T_\omega K_\omega\mathcal T_\omega^*$,
+ then
+ \[
+  \sum_{\omega\in\Omega}\pi_\omega\,Y_{[K_\omega]_\omega\otimes O}
+  =\sum_{\omega\in\Omega}\pi_\omega\,
+  Y_{[\frac12(K_\omega+g_\omega K_\omega g_\omega^*)]_\omega\otimes O}.
+ \]
+\item \emph{Charts.} Let $h=5$ and let $\bar\omega$ exchange $F_1$ and $F_2$ at every
+ fold block. The \emph{coordinate unitary} of a record assignment is
+ $\mathcal U_\omega=\bigotimes_\Blk\mathcal U_{\omega(\Blk)}$ with
+ $\mathcal U_{F_1}=I$, $\mathcal U_{F_2}=\mathcal U$, $\mathcal U_{E_0}=I$ and
+ $\mathcal U_{E_1}=\mathcal P_{(0\,1)}$; its \emph{chart reflection}
+ $g_5=\mathcal U_\omega^*g_\omega\mathcal U_\omega$ is $\mathcal U$ at every fold
+ factor and $\mathcal P_{(1\,2)}$ at every matching factor, whatever $\omega$ is,
+ so it permutes the feature labels by $\varphi$ at the fold factors and by
+ $(1\,2)$ at the matching factors, and
+ $g_5\operatorname{Lift}(D)g_5^*=\operatorname{Lift}(g_{5*}D)$ for the image $g_{5*}D$ of $D$
+ under these label permutations. In the charts the normalized leading stars
+ have one shape up to sign: $\mathcal U_\omega^*L\,\mathcal U_\omega$ is $\pm$ the star of
+ \ref{it:env:N1} (centre $0$, arms $1,2,3$, signed coefficients) at a fold factor,
+ and $\pm$ the one-arm star of \ref{it:env:N3} between $0$ and $1$ at a matching
+ factor. If $K_\omega=\mathcal U_\omega K\mathcal U_\omega^*$ for one operator $K$ for all
+ $\omega$ with the same fold and matching blocks, then
+ $K_{\bar\omega}=\mathcal T_\omega K_\omega\mathcal T_\omega^*$ and
+ $\frac12(K_\omega+g_\omega K_\omega g_\omega^*)=\mathcal U_\omega\,\frac12(K+g_5Kg_5^*)\,
+ \mathcal U_\omega^*$.
+\item \emph{Extra reflection.} Let $O$ in (c) be invariant under $R_1$ and $R_3$ as
+ well, and let $\omega$ be a record assignment whose fold records are all $F_1$, or
+ all $F_2$; put $h=3$ in the first case and $h=1$ in the second. Then $R_{h*}$
+ maps $[K]_\omega$ to $[\mathcal P'K\mathcal P'^*]_\omega$, where $\mathcal P'$ is the identity
+ at the fold blocks and $\mathcal P_{\psi_{h,s}}$ at a matching block carrying $E_s$; so
+ $Y_{[K]_\omega\otimes O}=Y_{[\frac12(K+\mathcal P'K\mathcal P'^*)]_\omega\otimes O}$. In the chart
+ of $\omega$, $T_\omega=\mathcal U_\omega^*\mathcal P'\mathcal U_\omega$ fixes every fold label and
+ acts by $(0\,2)$ at the $E_0$ factors and by $(0\,1)$ at the $E_1$ factors if
+ $h=3$, and by $(0\,1)$ and $(0\,2)$ if $h=1$. The two cases are conjugate by $g_5$:
+ $T_{\bar\omega}=g_5T_\omega g_5^{-1}$ on the labels. In a class $\Omega(X_F,X_E)$ with
+ $n\ge1$ fold blocks these assignments form the fraction $2^{1-n}$. No reflection
+ at individual primes or individual matching blocks is used.
+\item \emph{Pure matching words.} Let $X$ consist of matching blocks and $O$ in (c)
+ be invariant under $\mathcal G_6$. Every $\alpha\in\mathcal G_6$ maps the placement of
+ $E_s$ to itself with the names permuted by $\psi_{s,\alpha}$, where
+ $E_s\circ\alpha=\psi_{s,\alpha}\circ E_s$; $\alpha\mapsto\psi_{0,\alpha}$ is onto the
+ symmetric group of $\{0,1,2\}$, and $\psi_{1,\alpha}=c\,\psi_{0,\alpha}c^{-1}$ with
+ $c=(0\,1\,2)$. So $Y_{[K]_\omega\otimes O}$ equals the same energy with $K$ replaced by
+ its average over $\mathcal G_6$. In the chart the action is
+ $A_\tau(\sigma)=\bigotimes_j\sigma^{(\tau_j)}$, $\sigma^{(0)}=\sigma$,
+ $\sigma^{(1)}=\epsilon\sigma\epsilon$, $\epsilon=(1\,2)$, for the type vector $\tau$ of
+ $\omega$ (after fixing an ordering $\Blk_1,\dots,\Blk_m$ of $X$, $\tau_j=1$ if $\Blk_j$ carries $E_1$) and $\sigma=\psi_{0,\alpha}$;
+ since $A_{1-\tau}(\sigma)=A_\tau(\epsilon\sigma\epsilon)$, complementary words have the
+ same averaging group, and when the envelope of one word is transported to the
+ other words with the same number of $E_1$ coordinates by permuting the
+ coordinates, the averaged caps depend only on $\{k,m-k\}$, $k$ the number of $E_1$
+ coordinates. For $m=4,6$ the groups $\{k,m-k\}$ have the weights
+ $(\frac18,\frac12,\frac38)$ and $(\frac1{32},\frac3{16},\frac{15}{32},\frac5{16})$. For
+ two matching factors of different types, the diagonal weights $a,b,c,d$ at the
+ active chart vertices $(0,0),(0,1),(1,0),(1,1)$ pass the mask conditions
+ $ad\ge1$, $bc\ge1$ and average to $a/3$ on the diagonal orbit and $(b+c+d)/6$ off
+ it; $a=(1+\sqrt3)/2$, $b=c=1$, $d=1/a$ give both the value $(1+\sqrt3)/6$. For two
+ factors of one type the diagonal orbit receives $(a+d)/3\ge\frac23$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) $R_h$ acts on the first coordinate only, where it commutes with the
+rotation (\cref{lem:slot-array}(i)) and preserves the root
+(\cref{lem:layer12-geometry}(a)); $\iota$ acts on the layer. Under the law
+placed by $\phi$ the slot $(h-u_0,u_1,\ell)$ carries the label $y_{\phi(h-u_0),\ell}$,
+which is $y_{(\phi\circ R_h)(u_0),\ell}$; and $y_{\beta(\phi(u_0)),\ell}$ is the label of
+the object $\phi(u_0)$ in the relabelled family $y\circ\beta$. The table is the
+substitution of \cref{tab:reflection} ($R_1,R_3,R_5$ are $\vartheta_1,\vartheta_2,
+\vartheta_0$ there, and $\psi_{h,s}$ is $\psi_{s,R_h}$), the merges follow from
+$G_{sk}=\one[E_s=k]$ and $\psi_{h,s}^{-1}=\psi_{h,s}$ (\cref{lem:record:fold-identification}(e)), and the
+fixed folds are read off the table.
+
+(b) $\varsigma$ is an involution that preserves $\nu_F$ and $g_0$
+(\cref{lem:record:asymmetric-gram}(c)), so $\mathcal U$ is a self-adjoint unitary
+of $L^2(m_0)$ that fixes the constants. It maps the functions of $x_i$ onto the
+functions of $x_{2-i}$, and those of $(x_1,x_2)$ onto those of $(x_1,x_0)$; this
+gives the action on the $\mathcal H_i$, on the pair spaces, hence on
+$\mathcal K_{12},\mathcal K_{01}$, and on the projections. With the negation
+$Nf(u)=f(-u)$ on $L^2_0$, $\mathcal UV_a=V_{2-a}N$, and $N$ commutes with every real
+scalar matrix unit and with $\Jproj$; so $\mathcal UM_{ab}\mathcal U^*=M_{\varphi(a)\varphi(b)}$
+and the lift is transported as stated. The comparison record of
+$F_2$ is the reflected transpose of that of $F_1$ (\cref{def:record:mixture}(d)),
+$K'_2=\mathcal UK'^*\mathcal U^*$ as operators, and $\mathcal UK_0\mathcal U^*=K_0$ with
+$K_0$ self-adjoint (\cref{lem:record:asymmetric-gram}(c)); hence
+$D_{F_2}=K'_2-K_0=\mathcal U(K'-K_0)^*\mathcal U^*$ at every prime, and on a block by
+tensor products, the signed record being taken componentwise. Taking the skew and
+symmetric parts gives the next two identities. With \ref{it:env:N4}, dividing by
+the common coefficient and taking the transports of the leading star and of the
+remainder of $F_1$ gives \ref{it:env:N2}. The energies below are integrals of
+$\prod_vF_A(z_v)$ against placed measures, and $\mathcal U$ enters only through the
+identity of the operators of two records; the change of variables of (c) is a
+permutation of slots.
+
+(c) For every finite signed measure $\rho$ on labellings,
+$Y_\rho=\int\prod_{v\in V}F_A(z_v)\,d\rho(z)$ with the same lift at every slot, and
+$z\mapsto z\circ\alpha$ permutes the factors of the product; so
+$Y_{\alpha_*\rho}=Y_\rho$. The permutation acts on every atom, and
+$\alpha_*(\kappa\otimes O)=\alpha_*\kappa\otimes O$ by the invariance of the
+$O_\Blk$. Since $\alpha$ fixes the layer, it maps $V_+$ onto itself and commutes
+with $\iota$, so it acts on cut matrices at $\iota$ by a simultaneous
+permutation of rows and columns (\cref{rem:cut-symmetries}(c)).
+
+(d) By (a), $R_{h*}$ maps the measure placed by the records of $\bar\omega$ with
+object operator $K$ to the measure placed by the records of $\omega$ with object
+operator $\mathcal P_\omega K\mathcal P_\omega^*$: the fold records of $\bar\omega$
+go to those of $\omega$ with the same object law, and the matching laws keep
+their placement and have their names permuted, the matching marginal $m_E$
+being invariant under name permutations. With
+$K=K_{\bar\omega}=\mathcal T_\omega K_\omega\mathcal T_\omega^*$ and (c),
+$Y_{[K_{\bar\omega}]_{\bar\omega}\otimes O}=Y_{[g_\omega K_\omega g_\omega^*]_\omega\otimes O}$.
+Since $\omega\mapsto\bar\omega$ is a bijection of $\Omega$ and
+$\pi_{\bar\omega}=\pi_\omega$, the left side of the identity equals
+$\sum_\omega\pi_\omega Y_{[g_\omega K_\omega g_\omega^*]_\omega\otimes O}$; average the two
+expressions.
+
+(e) For $h=5$, (a) gives $\mathcal T_\omega=\mathcal U$ at every fold block and
+$\mathcal P_\omega=\mathcal P_{(1\,2)}$ at $E_0$, $\mathcal P_{(0\,2)}$ at $E_1$. At a
+fold factor $\mathcal U_\omega\in\{I,\mathcal U\}$ commutes with $\mathcal U$, so the
+chart reflection is $\mathcal U$; at $E_1$ it is
+$\mathcal P_{(0\,1)}\mathcal P_{(0\,2)}\mathcal P_{(0\,1)}=\mathcal P_{(1\,2)}$. Moreover
+$\mathcal U_{\bar\omega}=\mathcal T_\omega\mathcal U_\omega$, because $\mathcal U^2=I$;
+this gives $K_{\bar\omega}=\mathcal T_\omega K_\omega\mathcal T_\omega^*$, and
+$g_\omega\mathcal U_\omega=\mathcal U_\omega g_5$ gives the averaged form. The action on lifts is
+(b) and the paragraph before the lemma. By \ref{it:env:N2} the coordinate unitary of an $F_2$
+factor turns its star into $-1$ times a star of the $F_1$ shape. The matching star
+$V_1\Phat V_0^*+V_0\Phat V_1^*$ is invariant under $\mathcal P_{(0\,1)}$, so the coordinate unitary of an $E_1$ factor keeps the shape.
+
+(f) By (a), $F_1\circ R_3=F_1$ and $F_2\circ R_1=F_2$, so $R_{h*}$ maps the fold
+placements of $\omega$ to themselves with the same object laws, and at a matching
+block permutes the names by $\psi_{h,s}$; with (c) and the invariance of $O$ under
+$R_h$ this is the identity of energies, and averaging the two expressions gives the
+averaged form. The coordinate unitary of $\omega$ is $I$ at all fold factors in the first case and
+$\mathcal U$ at all of them in the second, which commutes with $\mathcal P'$ there; at the
+matching factors the native permutations $\psi_{3,0}=(0\,2)$, $\psi_{3,1}=(0\,1)$,
+respectively $\psi_{1,0}=(0\,1)$, $\psi_{1,1}=(1\,2)$, read in the chart
+$\mathcal U_{E_1}=\mathcal P_{(0\,1)}$, become $(0\,2),(0\,1)$, respectively $(0\,1),(0\,2)$, as
+$(0\,1)(1\,2)(0\,1)=(0\,2)$. Conjugation by $(1\,2)$ exchanges $(0\,1)$ and $(0\,2)$,
+which is the last assertion. Among the $2^{n+m}$ assignments of the class, $2^m$
+have all fold records $F_1$ and $2^m$ all $F_2$. For $n=1$ the reflections used on a
+partner pair are the pairing and then $R_h$ at the common placement; the operators so obtained at the two assignments of the pair, four in all, have the same energy, although the two operations do not define a group action on the assignments.
+
+(g) Every $\alpha\in\mathcal G_6$ maps the placement of $E_s$ to itself with the names
+permuted (\cref{lem:record:fold-identification}(e)). The maps $\alpha\mapsto\psi_{s,\alpha}$ are
+homomorphisms; the relation $\psi_{1,\alpha}=c\,\psi_{0,\alpha}c^{-1}$ holds for the
+generators $R_1,R_3,R_5$ by the table of (a), and the six images $\psi_{0,\alpha}$ are
+distinct. With (c) the energy is the same for every $\alpha$, and averaging gives the
+group average. In the chart the $E_1$ factors carry
+$(0\,1)c\,\sigma c^{-1}(0\,1)=\epsilon\sigma\epsilon$, since $(0\,1)c=c^{-1}(0\,1)=\epsilon$. As
+$\sigma\mapsto\epsilon\sigma\epsilon$ is a bijection of the symmetric group, the sets
+$\{A_\tau(\sigma)\}$ and $\{A_{1-\tau}(\sigma)\}$ coincide, so the averages coincide. A
+word with $k$ coordinates $E_1$ among $m$ has the weight $\binom mk2^{-m}$, which gives
+the weights of the groups. For two factors of different types conjugate the second
+coordinate by $\epsilon$: the active vertices become $(0,0),(0,2),(1,0),(1,2)$ and the
+action becomes the diagonal action $\sigma\otimes\sigma$, whose orbits on the label pairs
+are the three diagonal pairs and the six others; averaging a diagonal weight
+function over the orbits gives $a/3$ and $(b+c+d)/6$. For two factors of one type
+the active vertices are $(0,0),(0,1),(1,0),(1,1)$, the diagonal orbit receives
+$(a+d)/3\ge2(ad)^{1/2}/3\ge\frac23$.
+\end{proof}
+
+The identities of (d), (f) and (g) are between price-weighted energies of placed
+operators; they are not identities between the terms $I_\omega$ of the record
+expansion, and partners do not cancel. They are applied only to energies with $F_A$
+at every slot and with an invariant outside law: not to energies carrying index
+structure (the signed index, the common mean, the energies of
+\cref{lem:envelope-energy}), and not with $\Nbr$, $\lambda$, $\rho$ or $\nu$ outside,
+which are not invariant (\cref{lem:oct24:invariant-background}). The extra averages
+(f), (g) are used only on fully invariant outside monomials.
+
+\subsection{Outside laws invariant under reflections, and their price}
+\label{subsec:oct24:pure-background}
+
+\begin{lemma}[Invariant outside laws]\label{lem:oct24:invariant-background}
+Let $h\in\{1,3,5\}$.
+\begin{enumerate}[label=(\roman*)]
+\item For every choice of the completion weights $w,v$, the middle reference
+ $\mu_\Blk$ of \cref{lem:front12:reference} is $R_h$-invariant.
+\item For every choice of the state weights
+ $(w_{\mathfrak t},v_{\mathfrak t})_{\mathfrak t\in\{\rm L,D,S,R,C\}^2}$,
+ the upper reference of \cref{def:upper-reference} is $R_h$-invariant, and so is
+ every tail law (\cref{def:tail-law}).
+\item Every prefix law (\cref{def:clique-law}) is invariant under all
+ permutations of the first coordinate.
+\item At a middle block, $E_{\rm add}$ and $H$ are $R_h$-invariant and $G$ is
+ $R_5$-invariant (\cref{def:record:frame}). The bracket carries one copy of the
+ one-layer folded copies of the fold records, so its background, the outside measure $\Nbrz$ of
+ \cref{lem:bracket-energy} against which the energies of selected laws are priced, is
+ $\Nbr_{0,\Blk}=\mu_\Blk+E_{\rm add}+G+H=\Nbr^{\rm inv}_\Blk+G_\Blk$ (\cref{lem:record:gram});
+ $F_{\rm fold}$ is a summand of $\Nbr=\lambda+F_{\rm fold}+H$, not of $\Nbrz$. The
+ \emph{invariant background} $\Nbr^{\rm inv}_\Blk=\mu_\Blk+E_{\rm add}+H$ is invariant
+ under $R_1,R_3,R_5$ and the group $\mathcal G_6$ they generate, $\Nbr_{0,\Blk}$ is
+ $R_5$-invariant, and $\Nbr^{\rm inv}_\Blk$, $G_\Blk$ and $\Nbr_{0,\Blk}$ are $\succeq_\iota0$.
+ Off the middle blocks $\Nbr_{0,\Blk}=\Nbr^{\rm inv}_\Blk:=\mu_\Blk$ is invariant under
+ $\mathcal G_6$ and $\succeq_\iota0$.
+\item \emph{Assigned prices.} For the middle piece $i$ with start $X_i$, weights
+ $v_{{\rm D},i}$, $w_{{\rm S},i}$, polarization coefficient $(f_1+h_1)_i$ (an upper end)
+ and the exact rational upper ends $I^{\rm ex}_{2,i}$, $I^{\rm ex}_{3,i}$ of its degree
+ charges at the source exponent $a_0$, from which the native outside price of the
+ piece is computed, put
+ \begin{equation}\label{eq:invariant-price}
+  u^{\rm inv}_i=2v_{{\rm D},i}I^{\rm ex}_{2,i}+\frac{12w_{{\rm S},i}}{1-3/X_i}I^{\rm ex}_{3,i},
+  \qquad u^G_i=2v_{{\rm D},i}(f_1+h_1)_iI^{\rm ex}_{3,i},\qquad
+  \Uinv=\sum_iu^{\rm inv}_i .
+ \end{equation}
+ Then $u^{\rm inv}_i$ and $u^G_i$ bound the summed prices at $a_0$ of the invariant
+ tags $E_{\rm add}+H$ and of the generic tag $G$ over the blocks of the piece, and
+ $u^{\rm inv}_i+u^G_i\le u_i$, the upper end of the term of the piece in the native
+ outside price, with $\sum_iu_i\le U_0'$, the upper bound of $U_0$ at $a_0$
+ (\cref{lem:record:middle-prices}). At the exponent $a$ all these prices are at
+ most $t$ times their values. Consequently, if $0\le\kappa_b\le\kappa_H$ and an outside
+ polynomial has the coefficient $\kappa_b$ on the monomials whose middle factors are
+ all $\mu$ or invariant tags and $\kappa_H$ on all others, its completed value at the
+ exponent $a$ is at most
+ \[
+  \kappa_He^{U_0}-(\kappa_H-\kappa_b)e^{t\Uinv}
+  \qquad\text{for every }U_0\ge t\Bigl(\Uinv+\sum_iu^G_i\Bigr),
+ \]
+ for instance $U_0=tU_0'$. The same factor $e^{t\Uinv}$ is the background factor of the
+ orbit coupon (\cref{lem:orbit-coupon}).
+\end{enumerate}
+$G$ is not $R_1$- or $R_3$-invariant, and $\Nbr_\Blk$, $\lambda_\Blk$, $\rho_\Blk$,
+$\nu_\Blk$ are not asserted to be invariant under any $R_h$: $E_{\rm new}$ and the
+repaired records accept the six queries, whose first-coordinate pair $(0,2)$ is
+sent by $R_5$ to $(5,3)$.
+\end{lemma}
+
+\begin{proof}
+(i) By \cref{lem:front12:reference}(iii), $\widetilde\mu_\Blk=\sum_tw_tr^{\deg t}
+\pi_{t,2}+r\sum_tv_tr^{\deg t}\operatorname{Diag}_\iota(\pi_{t,1})$, where $\pi_{t,j}$
+is the sum of the $j$-layer components of type $t$. For each $j$ these
+components are those of the five-type datum of the $j$-layer root, $F$ and $E$
+laws, with the exchangeable $E$ law and the $\mathcal G_6$-invariant root
+(\cref{lem:record:fold-identification}(a)); by \cref{lem:five-type}(a) and its
+proof every type sum $\pi_{t,j}$ is $\mathcal G_6$-invariant, because
+precomposition with a chamber automorphism permutes the folds and the merges
+of each partition, fixes the constants, and maps each matching to itself with
+its names permuted. The positive roots of the late pieces are invariant as well,
+by the score or support-dictionary invariance
+(\cref{lem:positive-root-properties}(b), \cref{lem:imp:coherent39-law}). The
+weights depend only on the type, and $R_{h*}$ commutes
+with $\operatorname{Diag}_\iota$ and with the pull-back to $V$, since $R_h$ fixes
+the layer and the second coordinate. Hence $\widetilde\mu_\Blk$, its mass and
+$\mu_\Blk$ are invariant.
+
+(ii) The upper reference is the two-coordinate five-type measure of
+\cref{def:two-coordinate-five-type}, with the field laws, components and row
+data of \cref{subsec:layer72:upper}, the state weights $w_{\mathfrak t}$ and the
+reserved weights $v_{\mathfrak t}$. By \cref{lem:five-type}(d), for each type
+$\mathfrak t_1$ and pattern $\phi'\in P_{\mathfrak t_1}$ of the second coordinate,
+its components with second type $\mathfrak t_1$ and second pattern $\phi'$ form the
+image, under the emission $e_{\phi'}$, of a
+one-coordinate five-type measure of the row data of the first coordinate, with
+weights that depend only on the states. These row data are five-type data
+(\cref{subsec:layer72:upper}): the chamber reflections of an $\rm L$ coordinate
+are automorphisms of the graphs, and the $\rm E$ field laws are exchangeable in
+their object coordinate (\cref{lem:upper-geometry}(b)). So each such measure is
+$\mathcal G_6$-invariant by \cref{lem:five-type}(a), and the emission commutes with
+the action on the first coordinate. The two-layer part, and in the same way
+the diagonal copies of the one-layer part, are therefore invariant for any
+weights. A tail law is a law of the same kind at one prime.
+
+(iii) Given the clique data, the six first-coordinate labels are independent and
+identically distributed and the common square-affine map does not depend on
+the chamber, so the pull-back is invariant under every permutation of the
+first coordinate.
+
+(iv) $E_{\rm add}$ and $H$ are combinations of the diagonal copies
+$\operatorname{Diag}_\iota(\Pi^{(1)}_{E_s})$, and $R_{h*}$ maps
+$\operatorname{Diag}_\iota(\Pi^{(1)}_{E_s})$ to the diagonal copy of the one-layer $E$
+law placed by $\psi_{h,s}\circ E_s$, which is the same measure, the $E$ law being
+exchangeable. $G$ is a multiple of the diagonal copies placed by $G_{00}$ and
+$G_{11}$, which $R_5$ fixes ($\psi_{5,0}(0)=0$, $\psi_{5,1}(1)=1$), and which
+$R_1$ and $R_3$ send to merges outside $G$. The diagonal copies are reserved
+diagonal, hence $\succeq_\iota0$ (\cref{lem:commoncut}(i)), and $\mu_\Blk\succeq_\iota0$.
+The decomposition of $\Nbrz$ is \cref{def:record:frame}(d) and \cref{lem:record:gram}(i).
+Off the middle blocks $\Nbr_{0,\Blk}=\mu_\Blk$: the
+invariance is (ii) and (iii), and $\mu_\Blk\succeq_\iota0$ is \ref{it:record:R2} at
+$\iota$.
+
+(v) The masses of $E_{\rm add}$, $H$ and $G$ at a block of the piece are at most
+$2v_{\rm D}r^2$, $12w_{\rm S}r^3/(1-3/X_i)$ and $2v_{\rm D}(f_1+h_1)r^3$, divided by the
+normalizing mass $\widetilde\mu_\Blk(1)\ge1$ (\cref{def:record:frame}(b),
+\cref{lem:record:middle-prices}); a price is the mass times $q_\Blk^{2a}$, and summing
+over the blocks of the piece with the upper charges $I^{\rm ex}_{d,i}$ of the sums of
+$r_\Blk^dq_\Blk^{2a_0}$ gives the first claim. The formulas are the degree-two
+coefficient and the two summands of the degree-three coefficient of $\Nbrz-\mu$ in
+\cref{lem:record:middle-prices}, evaluated at the same exact charges as the native
+outside price, so $u^{\rm inv}_i+u^G_i$ is the term of the piece in that price, of
+which $u_i$ is the stored upper end (\cref{cert:envelopes}(c) checks
+$u^{\rm inv}_i+u^G_i\le u_i$ and $\sum_iu_i\le U_0'$). Every middle block has
+$\log q_\Blk\le L=570$, so $q_\Blk^{2a}\le tq_\Blk^{2a_0}$ (\cref{lem:record:repricing}).
+For the completed value, expand the outside polynomial in the actual positive tags $E_{\rm add}+H$ and $G$ before completing repeated blocks: with $v_\Blk$, $w_\Blk$ the prices at $a$ of
+the invariant and of the generic tag of $\Blk$, it is
+$\kappa_H\prod_\Blk(1+v_\Blk+w_\Blk)-(\kappa_H-\kappa_b)\prod_\Blk(1+v_\Blk)$ over the middle
+blocks outside the selection, which only increases when the selected blocks are
+included, the polynomial being nondecreasing in every variable. By
+\cref{lem:record:record-expansion}(iii) choose, in every piece, upper prices
+$m_\Blk\ge v_\Blk$ with $\sum_{\Blk\in i}m_\Blk=tu^{\rm inv}_i$ and $n_\Blk\ge w_\Blk$ with
+$\sum_{\Blk\in i}n_\Blk=tu^G_i$; then $\sum_\Blk m_\Blk=t\Uinv$ and
+$\sum_\Blk(m_\Blk+n_\Blk)=t(\Uinv+\sum_iu^G_i)\le U_0$. The chosen-tag-price form of
+\cref{rem:completion-subtraction} then bounds the polynomial by
+$\kappa_He^{U_0}-(\kappa_H-\kappa_b)e^{\sum_\Blk m_\Blk}=\kappa_He^{U_0}-(\kappa_H-\kappa_b)e^{t\Uinv}$.
+Upper prices are assigned to separate positive components, and no lower bound is
+inferred from an upper estimate; the transport by $t$ multiplies all tag prices
+together. The last sentence is the proof of \cref{lem:orbit-coupon}.
+\end{proof}
+
+The invariance in (i) and (ii) is that of the five-type completion on a
+product of six-chamber coordinates; it is the same chamber invariance that the
+completions of the $216$-slot design had (\cref{subsec:history:216}). The price
+$\Uinv$ is a chosen assignment, not a bound: a smaller number may replace it (the
+difference being treated as generic), a larger one may not, since the completed
+value decreases in $\Uinv$ at fixed $U_0$.
+
+\begin{lemma}[Invariant coupling orbits for exactly one folded error]
+\label{lem:orbit-coupon}
+Let $X$ be a finite set of middle blocks, $\omega$ a record assignment on $X$, and
+$K=\sum_Cc(C)[C]_\omega$ a collected finite real combination of placed couplings, $C$
+running over tensor products of the couplings of \cref{lem:oct24:pure-pair-substitute};
+put $M=\sum_C|c(C)|$. Let $h\in\{1,3\}$ be such that $R_h$ maps every fold placement of
+$\omega$ to itself ($h=3$ if all fold records of $\omega$ are $F_1$, $h=1$ if all are
+$F_2$, either if $\omega$ has none); then $R_{h*}[C]_\omega=[hC]_\omega$ for a permutation
+$C\mapsto hC$ of the couplings (\cref{lem:reflection-averaging}(f),(g)). Let
+$s=(h-1)/2$, the tag whose cut, the chamber cut $\vartheta_{0,1+s}$ of the first
+coordinate, has the reflection $R_h$ (\cref{def:record:frame}(e)), and put
+\[
+ M_h(K)=\sum_C\one\bigl[c(C)c(hC)>0\bigr]\min\bigl(|c(C)|,|c(hC)|\bigr),
+\]
+a coupling with $hC=C$ counting with its full $|c(C)|$. Let $d'=D'/2$ be the upper
+bound at $a_0$ of the sharp price of one folded tag, half the sharp total $D'$ of the
+first stage (\cref{lem:record:middle-prices}: per block of the piece $i$ the sharp
+price of a tag is at most $(v_{{\rm S},i}+v_{{\rm D},i})k_{\rm new}(X_i)r_\Blk^3q_\Blk^{2a_0}$), let
+\[
+ s'=\sum_i\operatorname{up}\bigl((v_{{\rm S},i}+v_{{\rm D},i})s_{\rm fold}(X_i)I^{\rm hi}_{4,i}\bigr)
+\]
+be the upper bound of its symmetric price, the symmetric part of a tag difference
+having the sharp coefficient $s_{\rm fold}(X)b^{-1}$
+(\cref{lem:record:one-stage-folded-e}(d),(e)), with the upper degree charges
+$I^{\rm hi}_{4,i}$ and the rounding $\operatorname{up}$ of \cref{def:closing-quantities},
+and put $\delta_{\rm s}=d'-s'$; $0\le s'\le d'$ (\cref{cert:envelopes}(d)). Let
+$U_0\ge t(\Uinv+\sum_iu^G_i)$ as in \cref{lem:oct24:invariant-background}(v), $d=td'$ and
+$v$ upper totals at $a$ of the sharp and variation prices of each tag, and
+$R_{\rm err}\ge e^{U_0}\tagser(d,v)$, for instance the value of
+\cref{def:closing-quantities}(2).
+\begin{enumerate}[label=(\roman*)]
+\item $|Y^{\Nbr}[K]-Y^{\Nbrz}[K]|\le\bigl(MR_{\rm err}-M_h(K)\,e^{t\Uinv}t\delta_{\rm s}+o(1)\bigr)
+ C_XY$.
+\item If $\omega$ has no fold record, the two reflections may be used at once:
+ the subtraction becomes $(M_1(K)+M_3(K))e^{t\Uinv}t\delta_{\rm s}$, and $M_1+M_3\le2M$.
+\item Every other category of the error keeps its bound: the categories with
+ several folded differences or with mixed tags, and, outside this comparison, the
+ matching, index, unequal-input and restoration energies.
+\item \emph{Gate.} The coefficient $MR_{\rm err}-M_h(K)e^{t\Uinv}t\delta_{\rm s}$ (in (ii) with
+ $M_1+M_3$) is nonnegative: $M_h\le M$, $e^{t\Uinv}\le e^{U_0}$, $t\delta_{\rm s}\le d$ and
+ $R_{\rm err}\ge e^{U_0}(d_0+d_1)=2e^{U_0}d$. The closing checks it in the form
+ coupon $\le MR_{\rm err}$, non-strictly. No strict form is needed: it is a
+ nonnegativity condition on a coefficient of a bound of the second kind of
+ \cref{lem:record:rec}(i), whose inflated constant $(1+z)c+c'z$ stays nonnegative.
+\end{enumerate}
+For a class of selections the \emph{invariant orbit mass} $M^{\rm inv}$ is the average
+over the class of $M_h(K_\omega)$ for the selections admitting an $h$ (in (ii) of
+$M_1+M_3$), and zero for the others, $K_\omega$ the collected expansion of the
+envelope of $\omega$.
+\end{lemma}
+
+\begin{proof}
+(i) For a two-element orbit $\{C,hC\}$ whose coefficients have the same sign put
+$b=\operatorname{sgn}(c(C))\min(|c(C)|,|c(hC)|)$; then
+\[
+ c(C)C+c(hC)\,hC=2b\,\frac{C+hC}2+\bigl(c(C)-b\bigr)C+\bigl(c(hC)-b\bigr)hC .
+\]
+The first coupling is positive, normalized and $R_h$-invariant, and the absolute
+coefficient mass is partitioned exactly into $2|b|$ and the residual mass. Fixed
+couplings are the one-element case, and opposite-sign orbits retain no mass. So
+$K=\sum_kc_kC_k$ with $\sum_k|c_k|=M$, in which $R_h$-invariant couplings carry the
+mass $M_h(K)$; and $Y^{\Nbr}[K]-Y^{\Nbrz}[K]=\sum_kc_k(Y^{\Nbr}[C_k]-Y^{\Nbrz}[C_k])$.
+
+Every $C_k$ is an admissible probability measure. Its difference is bounded as in the
+proof of \cref{lem:bracket-energy}: \cref{lem:sharp-first} with $F$ the first-stage
+atoms outside $X$, $\rho_\Blk=\Nbr_{0,\Blk}$, and the two tags. Let $C_k$ be
+$R_h$-invariant, and consider the category of the count vector $e_s$: exactly one
+record difference, of tag $s$. Its terms are energies
+$Y_{C_k\otimes\delta\otimes O}$, $\delta$ the difference of tag $s$ at one atom
+$\Blk'\in F$, $O$ the product of $\Nbrz$ at the other first-stage atoms and of $\mu$
+elsewhere. Expand $\Nbr_{0,\Blk}=\mu_\Blk+(E_{\rm add}+H)_\Blk+G_\Blk$. In a term without $G$,
+$C_k$ and the outside product are $R_h$-invariant
+(\cref{lem:oct24:invariant-background}(i)--(iv)), so their cut matrices at
+$\vartheta=\vartheta_{0,1+s}$, whose reflection is $R_h$, are symmetric. The energy is
+the diagonal cut form at $\vartheta$ evaluated at the half-function carrying $F_A$ at
+every slot, by \eqref{eq:cc:bilinear}, the cut matrix of the product being the Kronecker
+product \eqref{eq:cc:kron}; by \cref{rem:cut-symmetries}(a) the skew part
+$\frac12(\delta-R_{h*}\delta)$ contributes nothing, so $\delta$ may be replaced by its
+symmetric part $\frac12(\delta+R_{h*}\delta)$ at $\vartheta$. The reflection fixes the shared label of
+the folded record and transposes its conditional kernel, so this part has the sharp
+bound $s_{\rm fold}(X)b^{-1}$ of \cref{lem:record:one-stage-folded-e}(e) relative to the
+replaced record at $\vartheta$, and the argument of \cref{lem:sharp-first} charges the
+term with the symmetric price $(v_{\rm S}+v_{\rm D})s_{\rm fold}(X)r_{\Blk'}^4q_{\Blk'}^{2a}$
+instead of the sharp price. The terms with $G$ keep the sharp price. With
+$v_\Blk$, $w_\Blk$ the prices of the invariant and generic tags and $d_{\Blk'}$, $s_{\Blk'}$ the
+sharp and symmetric prices of the difference at $\Blk'$, and dropping, as in
+\cref{lem:sharp-first}, the requirement that the atoms be distinct, the category is
+at most $(1+o(1))C_XY$ times
+\[
+ \sum_{\Blk'}\Bigl[d_{\Blk'}\Bigl(\prod_\Blk(1+v_\Blk+w_\Blk)-\prod_\Blk(1+v_\Blk)\Bigr)
+ +s_{\Blk'}\prod_\Blk(1+v_\Blk)\Bigr],
+\]
+a polynomial with nonnegative coefficients that is nondecreasing in every variable.
+Insert upper prices: for $d_{\Blk'}$ and $s_{\Blk'}$ the repriced block coefficients,
+distributed as in \cref{lem:record:record-expansion}(iii) so that they sum to $d=td'$
+and to $ts'$, and for $v_\Blk,w_\Blk$ the chosen prices of the proof of
+\cref{lem:oct24:invariant-background}(v). As
+$\prod(1+m+n)-\prod(1+m)\le e^{\sum(m+n)}-e^{\sum m}$ coefficientwise and $s\prod(1+m)\le
+se^{\sum m}$, the category is at most $(de^{U_0}-t\delta_{\rm s}e^{t\Uinv}+o(1))C_XY$. Its
+bound in \cref{lem:bracket-energy} is $(de^{U_0}+o(1))C_XY$, the term of $e_s$ in
+$e^{U_0}\tagser(d,v)$; the other categories keep their bounds. So the difference for an
+invariant $C_k$ is at most $(R_{\rm err}-t\delta_{\rm s}e^{t\Uinv}+o(1))C_XY$, and for the
+others at most $(R_{\rm err}+o(1))C_XY$. Summing with $|c_k|$ gives (i).
+
+(ii) For $\omega$ without fold records both $R_1$ and $R_3$ fix the placements. The
+categories $e_0$ and $e_1$ are disjoint; treat the first with the orbit
+decomposition of $R_1$ and the second with that of $R_3$, the difference being linear
+in the coupling. Each mass is at most $M$.
+
+(iii) Only the category $e_s$ and only its terms without $G$ were changed.
+
+(iv) $M_h\le M$ because $\min(|c(C)|,|c(hC)|)\le|c(C)|$. The variation and sharp totals
+of the two tags are equal, $d_0=d_1=d$, and the terms $e_0$, $e_1$ of $\tagser$ are
+$d_0$ and $d_1$, so $R_{\rm err}\ge2e^{U_0}d$; and $t\delta_{\rm s}\le td'=d$. Hence the
+coupon is at most $Me^{U_0}d\le MR_{\rm err}/2$ in (i) and at most $2Me^{U_0}d\le MR_{\rm err}$
+in (ii). Under the inflation of \cref{def:robust} the improved category is bounded by
+the same argument with every structured energy multiplied by $1+z$, so the
+coefficient becomes $(1+z)c+c'z$ with $c\ge0$, $c'\ge0$.
+\end{proof}
+
+\subsection{(CP5) bounds for products of skew changes}\label{subsec:envelope-theorem}
+
+\paragraph{Skew selections and envelopes.}
+Let $X$ be a finite set of middle blocks, partitioned into a set $X_F$ of $n$
+\emph{fold blocks} and a set $X_E$ of $m$ \emph{matching blocks}, $n+m\ge2$ even.
+The \emph{skew selections} on $(X_F,X_E)$ are the $2^{n+m}$ selections of
+\cref{def:cp4}(c) on $X$ with the skew type at every block, one of $F_1,F_2$ at
+every fold block and one of $E_0,E_1$ at every matching block; $\Omega(X_F,X_E)$
+is their set, and the \emph{partner} $\bar\omega$ of $\omega$ exchanges $F_1$ and
+$F_2$ at every fold block. All of them have the same actual half marginal
+$m_\omega=\bigotimes_{X_F}m_{0,\Blk}\otimes\bigotimes_{X_E}m_{E,\Blk}$, and by \ref{it:env:N4}
+the same auxiliary monomials. An \emph{envelope family} for a set
+$\mathcal C\subseteq\Omega(X_F,X_E)$ closed under the pairing is an envelope $D_{(\omega)}$
+of \cref{lem:oct24:mask-schur} for every $\omega\in\mathcal C$, read in the chart of $\omega$,
+with $D_{(\bar\omega)}=D_{(\omega)}$; in all classes of the construction except
+$(0,4)$, $(0,6)$ it is one envelope $D$, and for $(0,4)$, $(0,6)$ it depends on the
+group $\{k,m-k\}$ of \cref{lem:reflection-averaging}(g). Put
+$D_\omega=\mathcal U_\omega\operatorname{Lift}(D_{(\omega)})\mathcal U_\omega^*$ and let $\bar D_\omega$ be its
+average with $g_\omega D_\omega g_\omega^*$ (\cref{lem:reflection-averaging}(d),(e)), the
+lift of $\frac12(D_{(\omega)}+g_{5*}D_{(\omega)})$ in the chart. The numbers of the family
+are class averages over $\mathcal C$:
+\begin{itemize}
+\item $\kappa_H$, the class average of the \emph{caps} of the $\bar D_\omega$, certified upper
+ bounds for $\|\bar D_\omega\|$ given by \cref{lem:oct24:mask-schur}(b) (for one envelope
+ $D$, the common value $\Gamma_F^n\Gamma_E^m\|(\frac12(D+g_{5*}D))^\sharp\|$ or its
+ weighted-frame form);
+\item $\kappa_b\le\kappa_H$, the class average of the caps after the additional averages
+ \cref{lem:reflection-averaging}(f), (g) where they apply, and of the caps of the
+ $\bar D_\omega$ elsewhere (an additional average is an average of unitary conjugates, and the
+ frame bounds are invariant under the label permutations involved, so its cap is at
+ most that of $\bar D_\omega$); for one envelope invariant under permutations of its
+ matching coordinates and $n\ge1$,
+ $\kappa_b=(1-2^{1-n})\kappa_H+2^{1-n}\sum_{k=0}^m2^{-m}\binom mkb_k$, $b_k$ the cap of the
+ doubly averaged envelope on the words with $k$ coordinates $E_1$;
+\item the coupling mass $M$, the average of $M(D_{(\omega)})$;
+\item the invariant orbit mass $M^{\rm inv}$ of \cref{lem:orbit-coupon}.
+\end{itemize}
+For a selection $\omega$ write $\pi^{\rm arm}_\omega$, $\pi^{\rm lead}_\omega$,
+$\pi^{\rm tot}_\omega$ and $\pi_\omega$ as in \cref{subsec:envelope-tools}, and let $L_\omega$ be
+the tensor product of its normalized leading stars.
+
+\begin{theorem}[Positive joint envelopes]\label{thm:envelopes}
+Assume (CP1)--(CP4) and (CP8) of \cref{thm:comparison} and the star form
+\ref{it:env:N1}--\ref{it:env:N4}. Let $(X_F,X_E)$ be as above with $n+m\le6$, let
+$\mathcal C\subseteq\Omega(X_F,X_E)$ be closed under $\omega\mapsto\bar\omega$, with an envelope
+family and its numbers $\kappa_H$, $\kappa_b$, $M$, $M^{\rm inv}$. Let $U_0$, $R_{\rm err}$ and
+$B=e^{U_0}+R_{\rm err}$ be upper bounds at the exponent $a$ as in
+\cref{lem:orbit-coupon}, and $\delta_{\rm s}$ its price saving.
+\begin{enumerate}[label=(\roman*)]
+\item \emph{Reduction.} For every $\omega\in\mathcal C$, $\pm L_\omega\preceq D_\omega$, and
+ $\sum_{\omega\in\mathcal C}|I_\omega|\le\sum_{\omega\in\mathcal C}(\phi_\omega+o(1)\pi_\omega)Y$ with the
+ class bound
+ \begin{equation}\label{eq:envelope-class-bound}
+ \begin{split}
+  \phi_\omega={}&\bigl[\kappa_He^{U_0}-(\kappa_H-\kappa_b)e^{t\Uinv}+MR_{\rm err}
+  -M^{\rm inv}e^{t\Uinv}t\delta_{\rm s}\bigr]\pi^{\rm arm}_\omega\\
+  &+B\bigl(\pi^{\rm tot}_\omega-\pi^{\rm lead}_\omega\bigr).
+ \end{split}
+ \end{equation}
+ The bracket is nonnegative (\cref{lem:oct24:invariant-background}(v),
+ \cref{lem:orbit-coupon}(iv)), and $\phi_\omega$ is a polynomial
+ with nonnegative coefficients in the auxiliary prices, each monomial a product of
+ one auxiliary price of each record of $\omega$, as (CP5) requires.
+\item \emph{Uniform cost.} Without the invariant split and the coupon, that is with
+ $\kappa_b=\kappa_H$ and $M^{\rm inv}=0$,
+ \begin{equation}\label{eq:oct24:envelope-cost}
+  \phi_\omega=\bigl(\kappa_He^{U_0}+MR_{\rm err}\bigr)\pi^{\rm arm}_\omega
+  +B\bigl(\pi^{\rm tot}_\omega-\pi^{\rm lead}_\omega\bigr).
+ \end{equation}
+\item \emph{Invariant background.} The main term of the outside energy obeys the split
+ \begin{equation}\label{eq:envelope-background}
+  \kappa_He^{U_0}-(\kappa_H-\kappa_b)e^{t\Uinv},
+ \end{equation}
+ for every class, with the assigned prices of
+ \cref{lem:oct24:invariant-background}(v). The class bound is nondecreasing in
+ $\kappa_H$, $\kappa_b$, $M$, $R_{\rm err}$, $B$ and $U_0$; $\Uinv$ is the assigned price,
+ not an upper bound for one, and $M^{\rm inv}$ and $\delta_{\rm s}$, which enter with a minus
+ sign, are a lower bound and the saving computed from the same tag prices as
+ $R_{\rm err}$.
+\item \emph{Admissibility and robustness.} The couplings of the expansions of the
+ $[D_\omega]_\omega$ (tensor products of $M_{ab},P_{12},P_{01},\Jproj$, placed by the
+ records) and their orbit averages are admissible positive laws
+ (\cref{def:admissible}), independent of the indices, with no sharp bound applied to
+ them. The bounds (i)--(iii) are robust (\cref{def:robust}), uniformly in
+ $(X_F,X_E)$, in $\mathcal C$ and in the envelope family ranging over a finite set.
+\item \emph{Witnesses.} The following envelopes pass the tests of
+ \cref{lem:oct24:mask-schur} in exact rational arithmetic at $Q_3$; their caps include
+ their frame factors, $\Gamma_F^n\Gamma_E^m$ of \cref{lem:oct24:mask-schur}(b) for the matrix envelopes in (a)--(b) and the E-type families in (d), and the weighted-frame bound for the diagonal mask envelopes in (b)--(c).
+ \begin{enumerate}[label=(\alph*)]
+ \item The singleton-block matrix envelopes of the pairs FF and FE.
+ \item The higher envelopes of the classes with $n\ge1$, $n+m\in\{4,6\}$, other than
+  $(6,0)$: the singleton-block matrix envelopes F1E3 and F1E5 (one fold factor),
+  F2E2 (two-fold), F3E1 (three-fold) and F4E0 (four-fold); and the diagonal mask
+  envelopes F2E4, F3E3, F4E2, F5E1, which use the extra averages of
+  \cref{lem:reflection-averaging}(f) on the invariant background.
+ \item The diagonal mask envelope F6E0.
+ \item The E-type envelopes: the diagonal envelopes of the crossed and of the
+  aligned matching pairs, with the averages of \cref{lem:reflection-averaging}(g),
+  and the families E4, E6, one diagonal envelope for each group of words.
+ \end{enumerate}
+\end{enumerate}
+The $o(1)$ consists of energy errors and large-product remainders.
+\end{theorem}
+
+The certified envelopes are the sixteen rows of \cref{tab:data:envelopes}, from the
+bundle \path{research/further_2026_10_25/envelopes/exact_background_pairs.json};
+its rows named F0E4 and F0E6 (candidate envelopes for the classes
+$(0,4),(0,6)$) are not used --- those classes
+instead use the envelopes named E4 and E6 in the table. The proofs of the domination are the exact rational
+tests of \cref{lem:oct24:mask-schur} (\cref{cert:envelopes}), not the numerical
+optimizations that proposed the matrices. For instance the FE envelope has
+$\kappa_H<0.916505$, $\kappa_b<0.775465$ and $M<25.050376$: the extra reflection of the
+mixed pair lowers its effective cap by about $0.14$.
+
+\begin{proof}
+\emph{Step 1: remainders.} Let $\omega\in\mathcal C$. By
+\ref{it:env:N1}--\ref{it:env:N3},
+$\widehat\Delta_\omega=\bigotimes_\Blk\widehat\Delta_{\omega(\Blk),\Blk}=L_\omega+\Upsilon_\omega$,
+where $\Upsilon_\omega$ is self-adjoint, the tensor having an even number of
+skew-adjoint factors, with $\|\Upsilon_\omega\|\le\upsilon_\omega:=\prod_\Blk(\ell_\Blk+\rho_\Blk)-
+\prod_\Blk\ell_\Blk$ \eqref{eq:oct24:star-tensor-error}; and the selected measure of $\omega$
+is $\zeta_\omega=\tilde\pi^{\rm arm}_\omega[\widehat\Delta_\omega]_\omega$, $\tilde\pi^{\rm arm}_\omega$ the
+product of the raw-arm coefficients, so that $\pi^{\rm arm}_\omega=\tilde\pi^{\rm arm}_\omega C_X$
+with $C_X=\prod_{\Blk\in X}q_\Blk^{2a}$. Since
+$\upsilon_\omega\operatorname{Diag}_\omega\pm[\Upsilon_\omega]_\omega\succeq_\iota0$,
+\ref{it:record:P5} and \ref{it:record:E1} give
+$|Y_{[\Upsilon_\omega]_\omega\otimes\lambda_{-X}}|\le\upsilon_\omega Y^{\Nbr}[\operatorname{Diag}_\omega]
+\le\upsilon_\omega(B+o(1))C_XY$, and $\tilde\pi^{\rm arm}_\omega\upsilon_\omega C_X=
+\pi^{\rm tot}_\omega-\pi^{\rm lead}_\omega$.
+
+\emph{Step 2: domination.} By \cref{lem:reflection-averaging}(e),
+$\mathcal U_\omega^*L_\omega\mathcal U_\omega$ is $\pm$ a tensor product of stars of the chart
+shape, with the numbers $c_p$ of \ref{it:env:N1}, \ref{it:env:N3}, and by
+\cref{lem:oct24:mask-schur}(a) it lies between $\pm\operatorname{Lift}(D_{(\omega)})$. Hence
+$\pm L_\omega\preceq D_\omega$, $[D_\omega]_\omega\pm[L_\omega]_\omega\succeq_\iota0$, and by
+\ref{it:record:P5}, $|Y_{[L_\omega]_\omega\otimes\lambda_{-X}}|\le Y^{\Nbr}[[D_\omega]_\omega]$.
+
+\emph{Step 3: the outside bracket, coupling by coupling.} The chart unitaries
+conjugate the coupling basis into itself ($\mathcal U$ by $\varphi$, $\mathcal P_{(0\,1)}$ by the
+transposition of the names), so $[D_\omega]_\omega=\sum_Cc(C)[C]_\omega$ with placed
+couplings, which are admissible probability measures
+(\cref{lem:oct24:pure-pair-substitute}), and $\sum_C|c(C)|=M(D_{(\omega)})$. By
+\cref{lem:orbit-coupon},
+$Y^{\Nbr}[[D_\omega]_\omega]\le Y^{\Nbrz}[[D_\omega]_\omega]+(M(D_{(\omega)})R_{\rm err}
+-M_\omega e^{t\Uinv}t\delta_{\rm s}+o(1))C_XY$, with $M_\omega$ the orbit mass of $\omega$
+(zero if no $h$ applies). With Steps 1 and 2,
+\[
+ |I_\omega|\le\tilde\pi^{\rm arm}_\omega\Bigl(Y^{\Nbrz}\bigl[[D_\omega]_\omega\bigr]
+ +\bigl(M(D_{(\omega)})R_{\rm err}-M_\omega e^{t\Uinv}t\delta_{\rm s}+o(1)\bigr)C_XY\Bigr)
+ +\bigl(B(\pi^{\rm tot}_\omega-\pi^{\rm lead}_\omega)+o(1)\pi_\omega\bigr)Y .
+\]
+The coupling mass is that of the envelope before any averaging.
+
+\emph{Step 4: averaging.} At every atom outside $X$, $\Nbr_{0,\Blk}$ is
+$R_5$-invariant and $\succeq_\iota0$ (\cref{lem:oct24:invariant-background}(iv)). By
+\ref{it:env:N4}, $\tilde\pi^{\rm arm}_{\bar\omega}=\tilde\pi^{\rm arm}_\omega$, and by
+\cref{lem:reflection-averaging}(e) the operators $K_\omega=D_\omega$ satisfy the
+hypothesis of \cref{lem:reflection-averaging}(d), with
+$\frac12(K_\omega+g_\omega K_\omega g_\omega^*)=\bar D_\omega$, because
+$g_5\operatorname{Lift}(D)g_5^*=\operatorname{Lift}(g_{5*}D)$ and $D_{(\bar\omega)}=D_{(\omega)}$. Summing
+Step 3 over $\mathcal C$ and applying \cref{lem:reflection-averaging}(d), the main
+terms become $\sum_\omega\tilde\pi^{\rm arm}_\omega Y^{\Nbrz}[[\bar D_\omega]_\omega]$. The operator
+$\bar D_\omega$ is a lift, positive, annihilating every vector with a constant factor,
+and of norm at most its cap.
+
+\emph{(iii) and (i).} Write $\Nbr_{0,\Blk}=\Nbr^{\rm inv}_\Blk+G_\Blk$ at the middle blocks
+outside $X$ and expand: $\Nbrz$ outside $X$ is $\sum_ZO_Z$, where
+$O_Z=\bigotimes_{\Blk\in Z}G_\Blk\otimes\bigotimes_{\Blk\notin Z\cup X}\Nbr^{\rm inv}_\Blk$ and $Z$ runs
+over the sets of middle blocks outside $X$; write $Y^{O_Z}[\kappa]=Y_{\kappa\otimes O_Z}$.
+Every $O_Z$ is a product of $R_5$-invariant measures $\succeq_\iota0$, and
+$O_\varnothing=\bigotimes\Nbr^{\rm inv}_\Blk$ is invariant under $\mathcal G_6$. For $Z\ne\varnothing$,
+or for $\omega$ admitting no additional average, $\bar D_\omega\preceq\|\bar D_\omega\|I$ gives, by
+the general form of \ref{it:record:E2} with the outside measure $O_Z\succeq_\iota0$,
+$Y^{O_Z}[[\bar D_\omega]_\omega]\le\|\bar D_\omega\|Y^{O_Z}[\operatorname{Diag}_\omega]$. For $Z=\varnothing$
+and $\omega$ with all fold records equal, or without fold records,
+\cref{lem:reflection-averaging}(f), (g) replace $\bar D_\omega$ by its additional average,
+whose norm is the cap $b(\omega)$ used in $\kappa_b$. Expanding
+$\Nbr^{\rm inv}_\Blk=\mu_\Blk+(E_{\rm add}+H)_\Blk$ in every $O_Z$, each term of
+$Y^{O_Z}[\operatorname{Diag}_\omega]$ is the energy of an admissible positive measure with $\mu$
+outside, at most $(1+o(1))C_X$ times the product of the tag prices times $Y$
+(\ref{it:record:E1}), as in the proof of \cref{lem:bracket-energy}. Summing over $Z$
+and averaging over the class, the coefficient of a monomial in the invariant tags
+alone is the class average $\kappa_b$, and that of every other monomial is $\kappa_H$:
+the main terms are at most $|\mathcal C|\,\tilde\pi^{\rm arm}C_X(1+o(1))Y$ times
+$\kappa_H\prod_\Blk(1+v_\Blk+w_\Blk)-(\kappa_H-\kappa_b)\prod_\Blk(1+v_\Blk)$, and
+\cref{lem:oct24:invariant-background}(v) bounds this by \eqref{eq:envelope-background}.
+The monotonicity: the derivative in $\kappa_H$ is $e^{U_0}-e^{t\Uinv}\ge0$, in $\kappa_b$
+it is $e^{t\Uinv}$, and the other variables enter with nonnegative coefficients.
+Adding the coupling terms of Step 3, averaged over the class, and the remainders of
+Step 1 gives \eqref{eq:envelope-class-bound}; all selections of $\mathcal C$ have the same
+auxiliary monomials, so the class sum may be written with the class averages. The
+energy errors and the large-product remainders of the finitely many applications
+of \ref{it:record:E1} and \cref{lem:orbit-coupon} are $o(1)$ times the monomials
+$\pi^{\rm arm}_\omega$, $\pi^{\rm lead}_\omega$, $\pi^{\rm tot}_\omega$, which are at most $2^{|X|}\pi_\omega$:
+the raw-arm and leading price of a record are at most its full skew price, and its
+remainder price at most $r_E(X)b^{-1}$ or $a_F(b)b^{-1/2}$ times its raw-arm price. This
+is (i).
+
+(ii) is the case $\kappa_b=\kappa_H$, $M^{\rm inv}=0$ of (i), which needs neither the additional
+averages nor \cref{lem:orbit-coupon}: by \ref{it:record:E2} with $\Nbrz\succeq_\iota0$
+outside and \ref{it:record:E1},
+$Y^{\Nbrz}[[\bar D_\omega]_\omega]\le\|\bar D_\omega\|(e^{U_0}+o(1))C_XY$.
+
+(iv) The couplings are those of \cref{lem:oct24:pure-pair-substitute}, placed and
+tensorized, and their orbit averages: positive, normalized, with uniform one-slot
+marginals and invariant under the translations at each prime; they are laws of field
+labels only, so they do not depend on the indices (O1); the only operator bounds
+applied to them are the brackets at $\iota$ between actual half spaces of Steps 1
+and 2, with nothing conditioned (O2); all energies carry $F_A$ at every slot, so
+(O3) and (O4) are void. Each bound is built from finitely many applications of
+\ref{it:record:E1} and of \cref{lem:sharp-first}, with nonnegative coefficients, and
+from the exact relations \ref{it:record:P5}, \ref{it:record:E2},
+\cref{lem:reflection-averaging} and the orbit decomposition; the number of
+applications is bounded in terms of $n+m\le6$ and the size of the coupling bases. If
+every structured-energy bound is inflated as in \cref{def:robust} by a factor $1+z$,
+the same proofs give the bounds with $e^{U_0}$, $R_{\rm err}$, $B$, the coupon and the
+background polynomial inflated, continuously in $z$; this is robustness
+(\cref{lem:record:rec}(i)).
+
+Finally, (v) follows from \cref{cert:envelopes}(b), together with the tests of
+\cref{lem:oct24:mask-schur}(c), (d) and the averages of
+\cref{lem:reflection-averaging}(d)--(g).
+\end{proof}
+
+\subsection{Variance savings retained inside dominating matrices}
+\label{subsec:class-credit}
+
+The lift of a positive envelope annihilates every vector having a constant factor at some block: it is built on the
+mean-zero feature spaces, which carry the stars because every record difference
+annihilates the constants. So its energy is
+a variance in the sense of \cref{lem:record:variance-interface}, and a lower
+bound for the energy of the product of the actual half marginals lowers the
+class cost. The credit must be taken with a fraction at most the norm bound of
+the averaged envelope on the branch where it is taken; keeping a larger variance
+subtraction with a smaller envelope would be invalid, and so would adding the
+credit of a quartic envelope to the full-norm credit of the same class.
+
+\begin{lemma}[Variance credit inside a positive envelope]\label{lem:class-credit}
+In the setting of \cref{thm:envelopes}, let $\mathcal C'\subseteq\mathcal C$ be a set of
+selections, and suppose that
+\[
+ \frac1{|\mathcal C'|}\sum_{\omega\in\mathcal C'}Y[J_\omega]\ge(\bar l-o(1))\,C_XY
+\]
+(a selected-only restoration). For $\omega\in\mathcal C'$ let $c_\omega$ be the cap that the
+proof of \cref{thm:envelopes}(i) uses for $\omega$ on the outside monomial of $\mu$ alone,
+that is, the bound for the norm of the averaged envelope of $\omega$ after the averages of
+\cref{lem:reflection-averaging}(d)--(g) that apply to it; let $0\le c\le\min_{\mathcal
+C'}c_\omega$ and $0\le g\le\max(\bar l,0)$. Then (CP5) holds for $\mathcal C$ with the class bounds
+$\phi_\omega-cg\,\pi^{\rm arm}_\omega$ for $\omega\in\mathcal C'$ and $\phi_\omega$ for
+$\omega\in\mathcal C\setminus\mathcal C'$, with $\phi_\omega$ of \eqref{eq:envelope-class-bound}. In the
+construction, $X$ consists of distinct middle blocks of the pieces of a multiset
+$m$ of pieces (the letter of \cref{sec:variance} for a multiset of pieces, not the matching-record count $m$ in the class cost $C_{n,m}$; in (a)--(c) the classes are named
+by their degrees), the gains are those of \eqref{eq:variance:fresh} at the piece caps $C_m$
+of \cref{lem:piece-caps} (\cref{cor:variance:final}), and the credited classes are:
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Aligned fold pairs.} In the class $(2,0)$ with the envelope FF,
+ $\mathcal C'=\{(F_1,F_1),(F_2,F_2)\}$, $c=\kappa_{FF}:=\kappa_H(\mathrm{FF})=\kappa_b(\mathrm{FF})$ and
+ $g=g_F(m)$. At one fold copy the coefficient of the outside
+ background law $\Nbrz$ in the fold gain $g_F(m)$ is zero, and no
+ term pooled over later pieces is added. The crossed fold pairs get no credit.
+\item \emph{Aligned matching pairs.} In the class of the aligned pairs
+ $\{(E_0,E_0),(E_1,E_1)\}$ with the envelope EE aligned, $\mathcal C'=\mathcal C$,
+ $c=\kappa^{\rm al}_b:=\kappa_b(\text{EE aligned})$ and $g=g^{\rm sel}_E(m)$, the selected-only
+ aligned gain, without the $E_{\rm add}$ background and the pool term; the residual
+ coefficient of the $\mu$ branch is $\kappa^{\rm al}_b(1-g)\ge0$. The crossed pairs get no
+ credit.
+\item \emph{Quartic classes.} In the classes $(4,0)$ and $(0,4)$, which keep their
+ envelopes F4E0 and E4, $\mathcal C'$ is the set of aligned words (all fold records equal,
+ respectively all matching records equal; weight $2^{1-4}$), $c$ is the cap of the
+ envelope on these words, $\kappa_{4,F}:=\kappa_H(\mathrm{F4E0})$ and $\kappa_{4,E}$ the invariant
+ cap of the aligned group of E4, and $g=g^{\rm sel}_T(m)$, $T\in\{F,E\}$. A quartic class
+ whose envelope is discarded would instead keep the full-norm credit, through
+ $-\prod_\Blk\gamma_\Blk\bigotimes_\Blk(I-\Jproj_\Blk)\preceq\bigotimes_\Blk\Delta_\Blk\preceq \prod_\Blk\gamma_\Blk\bigotimes_\Blk(I-\Jproj_\Blk)$, where $\Jproj_\Blk$ is the projection onto constants in the actual half space at $\Blk$, for the centred differences $\Delta_\Blk$ of norms
+ $\gamma_\Blk$ (\cref{lem:record:variance-interface}); the two alternatives are never added.
+ In the construction neither quartic envelope is discarded.
+\item No other envelope class receives a variance credit; in particular no class of
+ degree six does.
+\end{enumerate}
+\emph{Gates.} Every credit satisfies $0\le cg<C_{n,m}$, where
+$C_{n,m}=\kappa_He^{U_0}-(\kappa_H-\kappa_b)e^{t\Uinv}+MR_{\rm err}-M^{\rm inv}e^{t\Uinv}t\delta_{\rm s}$
+is the coefficient of $\pi^{\rm arm}_\omega$ in \eqref{eq:envelope-class-bound}. So the credited
+class bounds have nonnegative coefficients, as
+\cref{lem:record:record-expansion}(v) requires.
+\end{lemma}
+
+\begin{proof}
+By the proof of \cref{thm:envelopes}(i) it suffices to lower the bound of
+$\sum_{\mathcal C}\tilde\pi^{\rm arm}_\omega Y^{\Nbrz}[[\bar D_\omega]_\omega]$ by
+$\sum_{\mathcal C'}\tilde\pi^{\rm arm}_\omega(cg-o(1))C_XY$. In the expansion of the outside law
+into the monomials $O_Z$ and into $\mu$ and the invariant tags, consider, for
+$\omega\in\mathcal C'$, the term in which every outside factor is $\mu$: its energy is
+$Y[[\bar D^\mu_\omega]_\omega]$, where $\bar D^\mu_\omega$ is the averaged envelope of $\omega$ on
+this branch, of norm at most $c_\omega\ge c$ (\cref{lem:reflection-averaging}(d)--(g), $\mu$
+being invariant under $\mathcal G_6$). This operator annihilates every vector with a constant factor, so
+$\bar D^\mu_\omega=P\bar D^\mu_\omega P$ for the projection $P=\bigotimes_\Blk(I-\Jproj_\Blk)$, and
+$\bar D^\mu_\omega\preceq c_\omega P\preceq c_\omega(I-\Jproj)$, since $P$ and the projection
+$\Jproj$ onto the constants of $L^2(m_\omega)$ have orthogonal ranges. For $0\le c\le
+c_\omega$, $c_\omega(I-\Jproj)\preceq c_\omega I-c\Jproj$. Placing,
+$[\bar D^\mu_\omega]_\omega\preceq_\iota c_\omega\operatorname{Diag}_\omega-cJ_\omega$, and \ref{it:record:E2}
+gives $Y[[\bar D^\mu_\omega]_\omega]\le c_\omega Y[\operatorname{Diag}_\omega]-cY[J_\omega]$; the first term
+is the contribution of this branch to the bound of \cref{thm:envelopes}(i). Sum
+over $\mathcal C'$ with the common coefficient $\tilde\pi^{\rm arm}$. If $\bar l>0$ the
+hypothesis gives $\sum_{\mathcal C'}Y[J_\omega]\ge|\mathcal C'|(\bar l-o(1))C_XY$; if $\bar l\le0$ use
+$Y[J_\omega]\ge0$ (\ref{it:record:E2}, the cut operator of $J_\omega$ being a projection).
+In both cases $c\sum_{\mathcal C'}Y[J_\omega]\ge|\mathcal C'|(cg-o(1))C_XY$, and
+$\pi^{\rm arm}_\omega=\tilde\pi^{\rm arm}C_X$. The bound is robust, uniformly in the classes
+(\cref{lem:record:rec}(i)): it adds to the robust bound of \cref{thm:envelopes}(i)
+the exact relation \ref{it:record:E2} and subtracts $c$ times the lower bound of the
+hypothesis, which is robust in the applications below (\cref{rem:variance:robust}).
+
+(a) The aligned assignments $(F_j,F_j)$ on $X$ satisfy \cref{lem:var-gain}(a) with
+$C=C_m$ and $\bar l=b_F(m)$, and $g_F(m)=[b_F(m)-R_*]_+\le\max(\bar l,0)$
+(\cref{cor:var-classes}(i), \cref{cor:variance:final}(ii)). The FF envelope has
+$\kappa_b=\kappa_H$, so its cap on every branch is $\kappa_{FF}$, the largest admissible
+fraction.
+
+(b) The aligned matching class consists of its own partners, and its two
+selections have the same coefficient. The two aligned assignments together satisfy
+\cref{lem:var-gain}(a) with $\bar l=b_E(m)$, and $g^{\rm sel}_E(m)=[b_E(m)-R_*]_+$
+(\cref{cor:var-classes}(ii)). On the $\mu$ branch the full average of
+\cref{lem:reflection-averaging}(g) applies, so $c_\omega=\kappa^{\rm al}_b$ for both selections;
+the background and pool terms of \cref{prop:background-variance} belong to other
+outside monomials and are not used here, so this credit does not reuse the invariant
+background discount.
+
+(c) The aligned words of the class satisfy \cref{lem:var-gain}(a) with the selected-only
+restorations (\cref{cor:variance:final}(iii)); on the $\mu$ branch their caps are
+$\kappa_{4,F}$ (the F4E0 envelope has $\kappa_b=\kappa_H$) and the invariant cap of the
+aligned group of E4 (\cref{lem:reflection-averaging}(g)). For the alternative, a
+tensor of centred differences of norms $\gamma_\Blk$ satisfies the displayed order, its
+factors being self-adjoint or skew-adjoint with an even number of skew ones, and
+\cref{lem:record:variance-interface}(iii) credits it at the full prices; it replaces,
+and is never added to, the envelope bound of the class.
+
+(d) The crossed classes are not credited: the lower bounds of \cref{lem:record:paired-e-joint} concern only the two aligned matching words, all $E_0$ and all $E_1$, taken together, so no lower
+bound for the product energies of a crossed class is available, and these
+classes are priced by the background bound of \cref{thm:envelopes}(iii) alone.
+Degree six carries no variance credit in the closing (\cref{cor:variance:final}).
+
+\emph{Gates.} By \cref{lem:oct24:invariant-background}(v), $U_0\ge t\Uinv$, and by
+\cref{lem:orbit-coupon}(iv), $MR_{\rm err}\ge M^{\rm inv}e^{t\Uinv}t\delta_{\rm s}$; so
+\[
+ C_{n,m}=\kappa_be^{t\Uinv}+\kappa_H\bigl(e^{U_0}-e^{t\Uinv}\bigr)
+ +\bigl(MR_{\rm err}-M^{\rm inv}e^{t\Uinv}t\delta_{\rm s}\bigr)\ge\kappa_be^{t\Uinv}.
+\]
+The gains are in $[0,1)$ (\cref{cert:variance:fresh}) and $e^{t\Uinv}>1$. In (a), (b)
+and for F4E0, $c=\kappa_b$, so $cg<\kappa_b<C_{n,m}$. For E4,
+with the certified values
+$\kappa_b(\mathrm{E4})>0.4817590234$ and $\kappa_{4,E}<0.6667$
+(\cref{tab:data:envelopes}) and $e^{t\Uinv}>2.33$ (since
+$t\Uinv>0.84688$, at the opening of this section),
+$\kappa_b(\mathrm{E4})e^{t\Uinv}>1.122>\kappa_{4,E}>cg$. Also, the credited selections of a class form the
+fraction $p$ ($\frac12$, $1$, $\frac18$, $\frac18$) of its selections and $pc\le\kappa_b$, the class
+average of caps that are at least $c$ on the credited words, so the credit averaged over
+the class, $pcg$, is below $\kappa_b\le C_{n,m}$ as well. These gates are proved here and
+are not asserted by the certificate; the caps $c$ are fixed certified numbers, and
+under the inflation of \cref{def:robust} the coefficient $C_{n,m}$, a bound of the second
+kind of \cref{lem:record:rec}(i), only grows while the gain, a robust lower bound, only
+shrinks, so the gates need no margin.
+\end{proof}
+
+\subsection{Sixteen classes and their savings}\label{subsec:envelope-costs}
+
+This corollary is the final form of (CP5) used in the closing. A
+class $(n,m)$, also written $F_nE_m$, consists of the selections
+with $n$ skew fold changes and $m$ skew matching changes; there
+are sixteen such classes. For each it gives the class bound, says
+where a variance saving from the preceding subsection is credited,
+and defines the saving of the class.
+
+\begin{corollary}[The class bounds of the construction]\label{cor:envelope-costs}
+Let $U_0$, $R_{\rm err}$, $B$, $\Uinv$, $\delta_{\rm s}$ and the auxiliary totals be the
+certified quantities of \cref{def:closing-quantities} at the exponent $a$. For each
+class below, (CP5) holds with the class bound \eqref{eq:envelope-class-bound} of the
+stated envelope, credited by \cref{lem:class-credit} where stated; before any such credit, the class has the base cost
+\[
+ C_{n,m}=\kappa_He^{U_0}-(\kappa_H-\kappa_b)e^{t\Uinv}+M_{n,m}R_{\rm err}
+ -M^{\rm inv}_{n,m}e^{t\Uinv}t\delta_{\rm s}
+\]
+per raw-arm monomial, plus the remainder polynomial, in the form of
+\cref{lem:record:record-expansion}(v), with the numbers $\kappa_H$, $\kappa_b$,
+$M_{n,m}$, $M^{\rm inv}_{n,m}$ of its envelope. For a credited selection, \cref{lem:class-credit} subtracts in addition $cg\pi^{\rm arm}_\omega$ from its class bound.
+\begin{enumerate}[label=(\alph*)]
+\item $n\ge1$, $n+m\in\{4,6\}$, the class $\Omega(X_F,X_E)$: $(1,3)$ F1E3, $(2,2)$ F2E2,
+ $(3,1)$ F3E1, $(4,0)$ F4E0 (credited by \cref{lem:class-credit}(c)), $(1,5)$ F1E5,
+ $(2,4)$ F2E4, $(3,3)$ F3E3, $(4,2)$ F4E2, $(5,1)$ F5E1, $(6,0)$ F6E0.
+\item $(2,0)$: FF; the aligned pairs are credited (\cref{lem:class-credit}(a)).
+\item $(1,1)$: FE, on a union of two partner pairs.
+\item $(0,2)$: the aligned pairs with EE aligned (credited,
+ \cref{lem:class-credit}(b)) and the crossed pairs with EE crossed, each of the two classes being assigned one half of the coefficient of the matching-pair monomial, so that together they count it once.
+\item $(0,4)$, $(0,6)$: E4 (credited on its aligned words) and E6.
+\end{enumerate}
+The gates are: $C_{n,m}\ge\kappa_be^{t\Uinv}>0$; every coupon is at most $M_{n,m}R_{\rm err}$;
+$cg<C_{n,m}$ for every credit. The \emph{saving} of the class $(n,m)$,
+\[
+ D_{n,m}=\frac{BA_F^nA_E^m-C_{n,m}(A^{\rm arm}_F)^n(A^{\rm arm}_E)^m-B\mathcal R_{n,m}}{n!\,m!},
+\]
+with the full skew totals $A_F$, $A_E$ (for each of the two pair classes in (d), with the divisor $4$ in place of $0!\,2!=2$ and the cost of that pair class), is
+positive for all sixteen classes. The rows F0E4, F0E6 of the bundle are not used.
+\end{corollary}
+
+\begin{proof}
+The classes are disjoint and closed under the pairing, and each selection has at
+most six blocks. Every class bound is that of \cref{thm:envelopes}(i), with the numbers
+of the stated envelope (\cref{thm:envelopes}(v)), or that of \cref{lem:class-credit}. In
+(c) the class is the union of the two partner pairs $\{F_1E_s,F_2E_s\}$, $s\in\{0,1\}$; the
+extra reflection of \cref{lem:reflection-averaging}(f) applies to all four words, and the
+bounds of the two pairs add. In (d) the matching records $E_0$, $E_1$ are separate kinds
+of \cref{lem:record:record-expansion}(v), and the aligned and the crossed pairs each
+have the total $A_E^2/4$, the two matching records having equal totals. The literals of
+the closing are exact rationals or outward roundings in the safe directions
+($\kappa_H$, $\kappa_b$, $M$, $U_0$, $R_{\rm err}$, $B$ up; $M^{\rm inv}$, $\delta_{\rm s}$ down; $\Uinv$
+exact), and the class bound is monotone in them as \cref{thm:envelopes}(iii) states.
+The gates are those of \cref{lem:orbit-coupon}(iv) and \cref{lem:class-credit}. The
+energy errors of the class bounds are $o(1)$ times auxiliary monomials, which are at
+most $2^6$ times the full monomial $\pi_\omega$ (proof of \cref{thm:envelopes}(i)), as (CP5)
+requires. The savings are computed by the closing (\cref{cert:envelopes}(d)); no class
+is discarded.
+\end{proof}
+
+In the closing these classes are the degree classes of
+\cref{lem:record:record-expansion}(v), with the auxiliary prices of
+\ref{it:env:N1}--\ref{it:env:N3}. The complete polynomial subtracts $D_{n,m}$ for each of
+the sixteen classes (\cref{def:closing-quantities}), in total the uniform discount
+$0.4568954196753\ldots$; the largest savings are those of $(1,1)$, $0.2073597013\ldots$, and
+of $(2,0)$, $0.1230353939\ldots$. The credits (a) and (b) of \cref{lem:class-credit} are the
+skew pair terms of $D_{\rm var}$, and those of (c) belong to its degree-four term
+(\cref{cor:variance:final}, \eqref{eq:variance:dvar}); together the discount is
+$D=D_{\rm var}+\sum D_{n,m}$, above $0.466853979991$. Six matching factors form the class
+$(0,6)$, whose saving is $4.9330756374\ldots\cdot10^{-6}$.
+
+\begin{certificate}[The sixteen dominating matrices and their class bounds]\label{cert:envelopes}
+\sloppy The sixteen dominating matrices of
+\cref{cor:envelope-costs} exist with the stated exact rational
+weights, caps and savings: every positive-semidefiniteness and
+norm inequality in their definitions holds at $Q_3$; at later
+piece starts the same matrices are used with caps from the
+displayed formulas. The items below
+identify the data files and checkers for each part; paths are
+relative to \path{research/}.
+\begin{enumerate}[label=(\alph*)]
+\item \emph{The feature functions.} \path{continuation_2026_10_24/local/actual_features.py} writes
+ \path{continuation_2026_10_24/local/actual_features.json} (status
+ \texttt{PASS\_EXACT\_ACTUAL\_FEATURE\_IDENTITIES\_AND\_GATES}). For seven thresholds,
+ among them $Q_3=19951586$, it evaluates $\varrho_{02}$, $\varrho_{01}$, $\varrho_{03}$,
+ $\varrho_{34}$ of \cref{lem:oct24:feature-block} in outward rational interval
+ arithmetic, asserts the gates $\varrho_{0|12}<\frac12$ and $2(\tilde\varrho_{03}/q)\varrho_{0|12}<1$,
+ certifies $\Gamma_F$ by the Perron gate \eqref{eq:feature-perron} at a rational point,
+ and records $\rho_{\rm pair}$, $\eta_{\rm pair}$ and $\Gamma_E$; at $p=19,23,31,43$ it checks the
+ exact pair laws and the conditional expectation formula of the proof in exact
+ arithmetic, as spot checks accompanying the proof.
+ \path{continuation_2026_10_24/envelopes/weighted_frames.py} builds the matrices
+ $G^{\rm fr}_F$, $G^{\rm fr}_E$ of \cref{lem:oct24:mask-schur}(b) used by the diagonal caps.
+\item \emph{Witnesses.} The sixteen retained envelopes and the two unused rows are
+ stored with exact rational weights, caps and masses (and, for the matrix and E-type
+ rows, the frame factor $\Gamma_F^n\Gamma_E^m$; the diagonal caps include the weighted
+ frame bound) in
+ \path{further_2026_10_25/envelopes/exact_background_pairs.json};
+ \path{further_2026_10_25/envelopes/check_exact_background_pairs.json} records the exact
+ phase and norm gates of the pair envelopes FF and FE (status \texttt{PASS}).
+ \path{further_2026_10_25/verify.py} (lines 177--181) runs
+ \path{advance_2026_10_24/envelopes/verify_selected_envelopes.py} on this bundle at
+ $Q_3$, without an optimizer: it recertifies every row at $Q_3$, replays the pair
+ envelopes (\path{check_singleton_psd_pairs.py}), every envelope with $n\ge1$ and
+ $n+m\in\{4,6\}$ (\path{check_signed_higher.py}, which dispatches to the one-, two-,
+ three- and four-fold checkers and checks the diagonal and aligned-F rows with their
+ extra averages), the E-type envelopes with their physical group actions
+ (\path{check_e_type_envelopes.py}) and the orbit masses (\path{invariant_orbit_mass.py},
+ \path{check_invariant_orbit_mass.py}); its result \texttt{checks.envelopes} in
+ \path{further_2026_10_25/verification/selected.json} is
+ \texttt{PASS\_FRESH\_SELECTED\_ENVELOPE\_PORTFOLIO}. The orbit masses are those of
+ \texttt{invariant\_error.orbit\_masses} in \path{push_2026_10_25/artifacts/author.json}, field \texttt{result}
+ (per-class status \texttt{PASS\_INVARIANT\_REFLECTION\_ORBIT\_MASS}).
+\item \emph{Invariant price.} \path{further_2026_10_25/envelopes/chosen_background.py},
+ function \texttt{price}, applied to the native source
+ \path{push_2026_10_25/global/refined_L570_source.json}
+ at $a_0=\PushAnchor$ (the selected author adapter records status
+ \texttt{PASS\_EXACT\_CHOSEN\_INVARIANT\_ADDITION\_PRICE}), computes the exact rational
+ $\Uinv=0.8468844132135898012833113\ldots$ of \eqref{eq:invariant-price} and asserts
+ $u^{\rm inv}_i+u^G_i\le u_i$ for every piece and $\sum_iu_i\le U_0'$; the generic total is
+ $\sum_iu^G_i=2.3780326\ldots\cdot10^{-5}$. \path{further_2026_10_25/global/scalar_adapters.py},
+ lines 48--61, substitutes $e^{t\Uinv}$ for the background factor of the closing
+ evaluator, and lines 63--91 recompute $\Uinv$ independently.
+\item \emph{Costs and savings.} \path{advance_2026_10_24/global/closing_beta.py},
+ with this substitution, evaluates in outward interval arithmetic the remainder
+ polynomials (lines 184--190), the leading costs $C_{n,m}$ with the coupon and the gate
+ coupon $\le MR_{\rm err}$ (lines 191--209, the gate at line 205), the savings of the
+ general classes, of the two matching pairs and of E4, E6 (lines 222--241, retaining a
+ class only when the lower end of its saving is positive, and asserting it for the
+ class $(2,0)$ and the matching pairs) and the variance allocation (lines 244--258). The
+ symmetric price $s'$ and the saving $\delta_{\rm s}$ are computed by
+ \path{advance_2026_10_24/envelopes/invariant_error_mass.py}, function
+ \texttt{symmetric\_price} (lines 158--174), which asserts $0\le s'\le d'$
+ (\texttt{invariant\_error.price}, status \texttt{PASS\_FOLDED\_SYMMETRIC\_PRICE}). The
+ results are \texttt{discounts} and \texttt{invariant\_error.leading\_coupons} of
+ \path{push_2026_10_25/artifacts/author.json}, field \texttt{result}, with \texttt{discarded\_discounts}
+ empty; the independent assembly overlaps them (\texttt{checks.independent}).
+\end{enumerate}
+\end{certificate}
+
+\paragraph{Consequences and what to read next.}
+The arguments in this section use the following statements. Part~II: cut matrices and their order (\cref{def:cc:order}, \cref{lem:commoncut},
+\cref{rem:cut-symmetries}), the slot array (\cref{lem:slot-array}), the square shift
+(\cref{lem:square-shift}), independent pairs and conditional decorrelation
+(\cref{cor:peyre-independent,cor:cond-decorrelation}), the sector lemma
+(\cref{lem:sector}), monotone majorants (\cref{lem:majorant}), admissibility
+(\cref{def:admissible}) and the reflection positivity \ref{it:record:R2} of the
+reference factors. Part~III: (CP2)--(CP5), the charging rules and robustness
+(\cref{def:cp2,def:cp3,def:cp4,def:cp5,rem:cp:charging,def:robust,lem:record:rec}), the
+energy toolkit \ref{it:record:E1}, \ref{it:record:E2}, \ref{it:record:P5}, the tagged
+expansion and the bracket energies (\cref{lem:sharp-first,lem:bracket-energy}), the
+degree classes of \cref{lem:record:record-expansion}(v), the chosen tag prices of
+\cref{rem:completion-subtraction}, the repricing (\cref{lem:record:repricing}) and the
+variance form (\cref{lem:record:variance-interface}). Part~IV: \cref{lem:paley-triple},
+the weighted frames (\cref{lem:weighted-frame}), the real forms of the phase gates
+(\cref{rem:realified-gates}), the chamber geometry of the records
+(\cref{lem:record:fold-identification}, \cref{tab:reflection}) and the five-type completion
+(\cref{lem:five-type}, \cref{def:two-coordinate-five-type}). Part~V: the middle reference,
+frame, first stage and bracket with one fold copy (\cref{lem:front12:reference},
+\cref{def:record:frame}, \cref{lem:record:one-stage-folded-e}, \cref{lem:record:gram},
+\cref{lem:record:middle-prices}, \cref{lem:layer12-geometry},
+\cref{lem:positive-root-properties,lem:imp:coherent39-law});
+the prefix, upper and tail references (\cref{def:clique-law}, \cref{def:upper-reference},
+\cref{lem:upper-geometry}, \cref{def:tail-law}); the reference fold marginal, the actual
+features and the signed law (\cref{lem:old-f-law}, \cref{lem:actual-features},
+\cref{def:record:mixture}, \eqref{eq:signed-leading}, \cref{prop:signed-bounds}); the
+reflected transpose (\cref{lem:record:asymmetric-gram}(c)); the matching star and the
+prices of the changes (\cref{lem:oct24:matching-star}, \cref{lem:record:exact-marginal-e},
+\cref{lem:middle-comparison-prices}); the piece caps (\cref{lem:piece-caps}); and the variance gains
+(\cref{def:record:eligible}, \cref{lem:var-gain}, \cref{cor:var-classes},
+\cref{lem:record:paired-e-joint}, \cref{prop:background-variance},
+\cref{cor:variance:final}, \cref{rem:variance:robust}).
+
+\paragraph{Hypotheses verified in this section (\cref{tab:hypotheses}).}
+(CP5) for the sixteen envelope classes, with the class bounds of
+\cref{thm:envelopes}(i): the costs $C_{n,m}$ with the invariant split and the orbit
+coupon, and the remainder polynomials, in the form of
+\cref{lem:record:record-expansion}(v) (\cref{thm:envelopes}, \cref{lem:oct24:mask-schur},
+\cref{lem:reflection-averaging}, \cref{lem:oct24:invariant-background},
+\cref{lem:orbit-coupon}, \cref{cor:envelope-costs}); (CP5) for the credited classes, with
+the fractions $\kappa_{FF}$, $\kappa^{\rm al}_b$, $\kappa_{4,F}$ and $\kappa_{4,E}$ and their gates
+(\cref{lem:class-credit}); and, for these laws and bounds, the admissibility (CP8)(a)
+and the robustness (CP8)(b) (\cref{thm:envelopes}(iv), the proof of
+\cref{lem:class-credit}).

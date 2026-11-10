@@ -1,0 +1,796 @@
+\section{From the one-query argument to the full construction}\label{sec:design-walk}
+
+\paragraph{What this section proves and how to read it.}
+This section proves nothing and is not a premise of any later
+section. Its purpose is to explain, before the formal construction in
+Part~V, why each feature of that construction is needed.
+\Cref{sec:mechanism} reduced the theorem to: exhibit a signed law
+$\nu$ whose nonnegative summands accept six disjoint queries across
+$\iota$, dominate it at $\iota$ as in Part~III, and achieve
+$\Theta<1$. Each subsection below follows the same pattern:
+\emph{Problem} means ``with the naive choice just described,
+$\Theta\ge1$ (or no scale-independent bound exists), because [an
+explicit number]'', and \emph{Construction} describes the choice
+used in Part~V and names the section proving it. The numerical illustrations use the density-linear baseline of
+\cref{sec:closing}. The final theorem uses the additional moments,
+normalized assignments and joint mean allocation in
+\cref{sec:four-routes-closing}; \cref{subsec:walk:glance} connects
+these ingredients. Historical comparisons are collected in Part~VI.
+
+Every version of the argument has the same three tasks: verify
+finitely many local operator inequalities, sum the resulting prices
+over blocks of primes, and check $\Theta<1$. The subsections explain
+the local laws that make the first task possible with small
+constants, the block summation that makes the second finite, and the
+sharper inequalities that make the third true.
+
+The earlier $216$-slot construction used the same general tools.
+\Cref{tab:walk:substitutions} records the four structural changes;
+\cref{subsec:history:216} gives the historical instances and their
+certificates. Those instances are not premises of the present proof.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{The four structural substitutions.}\label{tab:walk:substitutions}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.375\textwidth}%
+>{\raggedright\arraybackslash}p{0.45\textwidth}%
+>{\raggedright\arraybackslash}p{0.11\textwidth}@{}}
+\toprule
+$216$-slot design & final design & explained in\\
+\midrule
+$V=(\Zsix)^3$, sorted by nine folds; the reserved cut is a chamber
+reflection of the third coordinate; exponent $a/(216-\theta)$
+& $V=(\Zsix)^2\times\{0,1\}$, sorted by seven folds; the reserved cut is the
+layer flip $\iota$; exponent $a/(72-\theta)$ ($a/71$ at $\theta=1$)
+& \cref{subsec:walk:queries}\\
+\addlinespace
+nine coupled families and a singleton recurrence, with the records that do
+not accept covered by obstruction cylinders; later one fixed family of
+sixteen (at one checkpoint four) amplified edges
+& six disjoint one-way queries with a common signed index; records that do
+not accept are repaired with their actual marginals, or deleted
+& \cref{subsec:walk:queries,subsec:walk:repair}\\
+\addlinespace
+a comparison law that is reflection positive at the reserved cut
+& a comparison law that is a signed combination of nonnegative accepting
+laws, not reflection positive, controlled at $\iota$ by a reserved Gram
+bracket; symmetric and skew changes priced separately; signed whole-block
+fold records, variance and envelope credits, common mean
+& \cref{subsec:walk:bracket,subsec:walk:accounting}\\
+\addlinespace
+the same laws for both classes of primes (a map law, two middle arrays, a
+three-depth high range); small primes in the index with generic bounds
+& class one: a square-clique prefix; class three: a twelve-label middle law
+and a two-layer $72$-slot upper law; small class-three primes in the index
+with the exact square-shift contraction
+& \cref{subsec:walk:blocks,subsec:walk:bracket,subsec:walk:analytic}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Put square-difference constraints into the reference law (graph laws)}\label{subsec:walk:graph-laws}
+
+\paragraph{Problem.}
+The crude accepting law of \cref{subsec:mech:crude} starts from independent
+labels and conditions them on a square difference. At every prime its change
+has variation more than one, and the prices of the primes multiply. The
+reference knows nothing about squares, so the comparison law has to create
+every square relation by itself.
+
+\paragraph{Construction: graph laws.}
+The square relations are put into the reference. At a prime $p$ the labels
+are drawn from a \emph{graph law} $\lambda_p(G)$ (\cref{def:graphs:labeling}):
+the uniform law on the labellings of the vertices of a small oriented graph $G$
+by distinct elements of $\Fp$ in which every edge $u\to w$ is a strict-square
+constraint, $z_w-z_u\in\Qsq$. The slots are labelled through maps from slots to
+vertices; the laws obtained in this way are the \emph{records} of
+\cref{subsec:walk:completions}. A record that maps a query to an edge of $G$
+already forces that query at the prime and is kept unchanged, so
+it needs no replacement and contributes no replacement price. The middle law lives on twelve
+vertices, $\Zsix\times\{0,1\}$ (one chamber coordinate and the layer), with all
+four layer lifts of the six edges $u\to\rot u$: $24$ directed edges, every vertex of
+outdegree two and indegree two (four incident constraints), and the
+edge $(0,0)\to(2,1)$ onto which every query projects. The
+upper law lives on all $72$ slots, with $720$ directed edges and every vertex of
+outdegree ten and indegree ten (twenty incident constraints), and
+its root contains every query
+(\cref{subsec:push:layer12spectral}, \cref{lem:upper-geometry}).
+
+\paragraph{Why a graph law is almost independent.}
+The number of labels available to a vertex whose $t$ neighbours carry distinct
+labels is $p2^{-t}$, up to a relative error of order $2^tp^{-1/2}$, by Weil's
+bound (\cref{lem:extension}). Iterating this count gives every marginal,
+conditional law and density of $\lambda_p(G)$, relative to the independent
+law, with explicit relative errors of order $2^tr$, $r=p^{-1/2}$
+(\cref{sec:labellings}); the relative form is what makes them usable at
+explicit thresholds (\cref{subsec:intro:new}). The law is invariant under the maps
+$z\mapsto sz+c$ with $s$ a nonzero square, so its one-slot marginals are
+uniform (\cref{lem:marginals}). The errors grow like $2^t$ with the number of
+constraints at a vertex, which is one reason why graphs of small degree are
+used where the primes are small: the twelve-label law from
+$Q_3=19\,951\,586$ on, the $72$-slot law only from $\Pthree=167\cdot2^{40}$ on
+(\cref{subsec:walk:blocks}). What remains is that a graph law is not
+reflection positive (\cref{subsec:walk:completions}), and that the records
+which do not map the queries to edges must be changed
+(\cref{subsec:walk:repair}).
+
+\subsection{Graph laws are not reflection positive: adding correction summands}
+\label{subsec:walk:completions}
+
+\paragraph{Problem.}
+At a chamber cut the two halves of a graph law are coupled through its cross
+edges. Relative to the product of its half laws, its normalized cut operator
+is a combination of character kernels such as $\chi(y-x)$, each of normalized
+size about $p^{-1/2}$, and its spectrum reaches down to about $-gr$, for a
+constant $g$ of the graph (\cref{sec:cuts}). So $\lambda_p(G)$ is not reflection
+positive, and the signed H\"older inequality (\cref{thm:holder}) does not apply
+to it.
+
+\paragraph{Construction: the five-type completion.}
+The root law (type L, weight $1$) is completed by records built from the laws
+of its half graphs and composed with maps of the chamber coordinate onto
+parts of itself: three folds (type D), two matchings (S), six merges (R) and
+two constants (C), with the graded weights $1$, $w_{\rm D}r$, $w_{\rm S}r$,
+$w_{\rm R}r^2$, $w_{\rm C}r^3$ (\cref{lem:five-type}).
+Positivity at a chamber cut is built in steps of one order in $r$ each. The
+aligned fold is a copy of the half law placed symmetrically; it is fixed
+samplewise by the cut, and it supplies the positive diagonal that cancels the
+negative part $-dr$ of the root if $w_{\rm D}\ge d$ (here
+$d,f,h$ are the spectral constants of \cref{lem:five-type}; this
+$d$ is not the slot count $d=72$). A fold that is aligned at
+one cut is not aligned at the others, where it couples two corners of the
+half; the matchings pay for this if $w_{\rm S}\ge w_{\rm D}$. The row errors
+$fr$, $hr$ of the folds and matchings are paid by the merges if
+$w_{\rm R}\ge fw_{\rm D}+hw_{\rm S}$, and the linear terms of the merges by the
+constants if $w_{\rm C}w_{\rm S}\ge w_{\rm R}^2$; the constants, of
+weight $r^3$, together with the matchings, of weight $r$, dominate
+the $r^2$ cross terms of the merges in the Schur complement at the
+cut, since the product of the $r^3$ and $r$ weights has the same
+$r$-order as the square of the $r^2$ merge weight. The chamber group transports
+positivity from one chamber cut to all of them (\cref{lem:slot-array}(i)), and
+one-layer copies of the completion records, placed on the reserved diagonal, restore
+positivity at $\iota$. (The history of this completion, through
+an earlier version on $216$ slots, is in \cref{sec:history}.) The
+twelve-label reference of the middle range (thirteen inequalities
+per piece, together with the inequality that protects the
+$2\times2$ block at $\iota$, \cref{lem:front12:reference}) and
+the $25$-state two-layer reference of the upper range ($105$
+inequalities per band, \cref{lem:upper-reference-rp}) are its two
+instances in the construction.
+
+\paragraph{Reweighting the principal law by a nonnegative function.}
+The root itself need not be the graph law. Reweighting it at every prime by a
+nonnegative weight built from trace scores---the average
+$\frac13\sum_j(1+\ulaw\Hs j)^2$ of the individual squares for the three
+opposite base pairs, or $1/100+(1+\ulaw H_{\mathcal D_{39}})^2$ for the
+coherent dictionary of $39$ traces---keeps its accepting support, its symmetries and its uniform one-slot
+marginals, and lowers the constant $d$ of its chamber cut below $\sqrt{30}$
+(\cref{def:positive-root,lem:positive-root-properties,lem:imp:coherent39-law,cert:positive-root-caps}). The
+price is a larger constant $k_{\rm L}$ of the layer cut, paid through the
+weight $v_{\rm L}$ of the one-layer copy (\cref{prop:root-layer}), and a changed
+half marginal, paid in the restorations of the variance credits and of the
+mean savings (\cref{lem:record:root-marginal}(iv)). Both cut bounds are proved
+in the fixed half charts in which the completion inequalities are stated
+(\cref{rem:root-charts}). The gain is only in the negative part
+of the chamber-cut operator. Indeed, every law satisfying the
+sixteen cross constraints of that cut, with the half marginal and
+chamber symmetries of the graph law, has centred norm --- the
+operator norm on half-functions of mean zero in the stated half
+marginal --- at least about $\sqrt{30}\,r$: with those marginals
+no improvement is
+possible. A nonnegative reweighting, however, changes the half
+marginal, and can thereby raise the least eigenvalue
+(\cref{subsec:obs:root}). The construction tilts the root on the
+seven pieces from $2^{30}$: averages of individual squares on six
+of them, and on the final piece the coherent $39$-trace square
+with the constant $1/100$ added. Sharper collision bounds on two
+explicit subspaces, an interpolation between the two pair bounds,
+and a layer remainder summed without expanding all its monomials
+make these parameter values work (\cref{sec:positive-roots}).
+
+\paragraph{Inputs.}
+The constants $d$, $f$, $h$ are spectral caps and row bounds of graph laws
+(for $d$ on the seven last middle pieces, of the positive roots). The
+spectral criterion certifies at one prime that the normalized cut operator of
+a graph law has spectrum in $[-gp^{-1/2},1+O(p^{-1})]$, by a character expansion
+of its kernel, an extraction of witnesses (\cref{lem:matching:extractionk}) and
+a Schur test; monotone majorants carry the bound to all larger primes
+(\cref{lem:majorant}). It has two routes: Route~A, through
+conditional laws of the opposite half
+(\cref{thm:spectral-criterion}), and, at the root of the upper law
+below $2^{52}$, Route~B, a direct decomposition into explicit
+uniform averages over allowed sets
+(\cref{thm:record:direct-star}). At the chamber cut of the uniform middle
+root, complete actual stars give the cap directly: the eighteen star features
+of the root have an exact signed star matrix of norm $\sqrt{30}$, and a
+translation-sector completion, a rectangular factorization of the root and
+balanced collisions bring the cap at $Q_3$ below $5.500058$
+(\cref{subsec:middle-l20}). The row bounds
+come from pinned influence, through Kassabov's and Peyre's inequalities
+(\cref{prop:middle-negative}), and from density ratios
+(\cref{lem:record:class-three,lem:row-comparison}).
+
+\paragraph{Why second-order character sums are needed.}
+On a block of primes (\cref{subsec:walk:blocks}) the negative side of a cut
+operator is governed by the worst prime, but the positive side multiplies over
+the primes: if the factors have spectra in $[-g_p,1+b_p]$, with
+$0\le g_p\le1+b_p$ and $b_p\ge0$, the tensor product has spectrum in
+\[
+ \Bigl[-\max_pg_p\prod_{q\ne p}(1+b_q),\ \prod_p(1+b_p)\Bigr]
+\]
+(\cref{lem:spec:tensorcomp}). The density ratios of the
+conditional rows --- the conditional distributions of one half
+given the labels of the other half, in the row notation of
+\cref{sec:spectral} --- multiply over the block in the same way. These quantities must therefore be of
+order $1/p$, and a first-order bound, such as Weil's bound for one character,
+of order $p^{-1/2}$, is not enough for them. In the $216$-slot design the
+first-order bound for a row of its middle completion would have
+given a bound of about $35$ for the logarithm of the product of
+the row factors over its first middle piece, where the
+second-order bound gave $4.3\cdot10^{-3}$ for the same logarithm. In the final design some of the second-order quantities
+follow from exact counts at the primes $p\equiv3\pmod4$: the density ratios of
+the middle rows lie between $R_2^{-1}$ and
+$R_2=(p-3)(p-7)/((p-11)(p-15))=1+O(1/p)$, and between $R_1^{-1}$ and
+$R_1=(p-1)/(p-3)$ for one layer (\cref{lem:record:class-three}). The others need
+genuinely second-order estimates (\cref{sec:dl}; \cref{subsec:intro:deligne}
+says where each enters): the four-cycle kernel, bounded through the character
+table of $\mathrm{GL}_2(\Fp)$ and Jacobi sums (\cref{thm:dl:K}); character
+sums in two variables and second moments of trace functions with
+a moving root $\lambda$ (not the principal law), bounded through
+Deligne's theorem and the Katz--Sarnak description of a family
+of curves (\cref{thm:dl:H2,lem:moving-root-moments}); and, for the second moment
+of the neighbourhood count behind the half variances of the root, a twisted
+second moment of Legendre traces, evaluated through a cusp form of weight four
+(\cref{thm:ahlgren-ono,lem:record:weighted-moment}).
+
+\subsection{Summing a price at every prime is too large: group primes into blocks}\label{subsec:walk:blocks}
+
+\paragraph{Problem.}
+With graph laws and repairs (\cref{subsec:walk:repair}) the comparison law
+changes a record of weight of order $r$ by a measure of norm of order $r$, so
+the change at one prime costs about $c/p$, for a local constant $c$, and is
+priced $(c/p)\,p^{2a}$. The sum $c\sum_pp^{2a-1}$ over all primes is unbounded
+(\cref{subsec:mech:crude}), and on a finite range it is large: over the primes
+$p\equiv3\pmod4$ of $[Q_3,\Pthree)$ the sum $\sum_p1/p$ alone is about $0.33$,
+while the local constants of the middle records are of order ten (twice a
+completion weight $w_{\rm D}$ between $5.43$ and $5.51$, times a norm
+coefficient of order one).
+
+\paragraph{Construction: blocks.}
+Consecutive primes are grouped into blocks $\Blk$ with $\log q_\Blk\le L$,
+$q_\Blk=\prod_{p\in\Blk}p$ (\cref{subsec:record:middle_blocks}), and each
+block carries one law: the completion,
+with $r=b_\Blk^{-1/2}$ for the least prime $b_\Blk$ of $\Blk$, of the tensor
+product over its primes of the graph laws (for the root on the seven last
+middle pieces, of their positive tilts). A tensor product of operators that
+preserve the constants
+decomposes into exact-support sectors (\cref{lem:sector}). On a sector with one
+active prime, the difference of two tensor products is the difference at that
+prime; on a sector with several active primes it is a product of small
+factors. So a change made jointly at all primes of a block costs about as much
+as at its worst prime, $c/b_\Blk$, and its price is
+$c\,b_\Blk^{-1}q_\Blk^{2a}\le c\,e^{2aL}/b_\Blk$: one selection factor $e^{2aL}$
+for the whole block. The negative spectrum of a block is likewise that of its
+worst prime, times a product $\prod_{p\in\Blk}(1+O(p^{-1}))$ that stays bounded
+(\cref{subsec:walk:completions}).
+
+\paragraph{Choosing the block-size bound $L$.}
+Near $x$ about $L/\log x$ primes $p\equiv3\pmod4$ fit into one block, so about
+$dx/(2L)$ blocks start in $[x,x+dx]$, and heuristically
+\[
+ \sum_{\Blk}\frac c{b_\Blk}\,q_\Blk^{2a}\approx
+ c\,\frac{e^{2aL}}{2L}\,\log\frac{\Pthree}{Q_3}.
+\]
+The factor $e^{2aL}/L$ is least at $L=1/(2a)$, where the total is
+about $c\,a\,e\log(\Pthree/Q_3)$ and grows linearly with $a$. Hence
+$a$ is limited by the local constants $c$: every price grows with $a$
+through $q_\Blk^{2a}$, and $a$ can be raised only by lowering a local
+constant. At the baseline parameters $e^{2aL}\log(\Pthree/Q_3)/(2L)$
+is about $0.039$, against about $0.33$ for single primes. The
+construction uses $L=570$, close to $1/(2a)\approx562.8$
+(\cref{def:record:exact-blocks}); although every block satisfies $\log q_\Blk\le L$,
+the local laws are verified at the slightly larger bound
+$L_{\rm loc}=585$, hence with the prime-count cap
+$\lfloor L_{\rm loc}/\log X\rfloor$, so they hold on every block
+(\cref{lem:record:local-domain}). Middle prices computed at the
+evaluation exponent $a_0=\PushAnchor$ are converted to $a$ by
+$t=e^{2(a-a_0)L}\approx1.000000062$ (\cref{lem:record:repricing}).
+Blocks are formed from exact prime counts below an explicit
+threshold and from fixed-size prime-counting intervals above it,
+controlled by \cref{thm:bmor}.
+
+\paragraph{The ranges.}
+A block is priced with the local constants of its least prime, so different
+laws are used where different constants are smallest (\cref{tab:ranges}).
+Below $Q_3$ the primes $p\equiv3\pmod4$ are not coordinates of the labels but
+enter the index of the queries, each at a factor close to one in the conductor
+moment $R_I$ (\cref{subsec:walk:analytic}). In $[Q_3,\Pthree)$ the twelve-label
+law needs one added edge in each nonaccepting record of degree one, so its
+changes are of order $r^2=1/p$ per prime. From $\Pthree=167\cdot2^{40}$ on, the
+two-layer law on all $72$ slots contains every query in its root, every one of
+its records of degree at most one accepts. Repairs start at degree two
+and deletions at degree three, so its operator prices at one prime
+are of order $r^3=p^{-3/2}$
+(\cref{sec:frontier:upper-oneway}); the Route~B criterion supplies
+its root caps from $\Pthree$ to $2^{52}$, with graded root counts and
+coefficients interpolated between certified prime thresholds, and
+the Route~A criterion those from $2^{52}$ on
+(\cref{subsec:upper-bands}). From
+$\Pfour=2^{512}$ on, the primes of both classes are single atoms with a fixed
+two-layer tail law, at prices $O(p^{-3/2+2a})$ with a convergent sum
+(\cref{sec:tail-index}). The primes $p\equiv1\pmod4$ below $2^{512}$ need no
+comparison at first order (\cref{subsec:walk:bracket}).
+
+\subsection{One query leaves an error term above $1$: use six disjoint queries}
+\label{subsec:walk:queries}
+
+\paragraph{Problem.}
+With one query the coupled term $BR_I/2$ of \cref{prop:mech:one-query}
+is about $1.45$ at the baseline values, already above $1$ before any
+comparison price is added (\cref{subsec:mech:budget}).
+
+\paragraph{Construction: six disjoint queries.}
+With $k$ disjoint queries and independent indices the matching term is
+$Be^T(R_I/2)^k$ (\cref{subsec:mech:budget}, \cref{thm:comparison}).
+But every retained record of the comparison law must accept every query, and
+acceptance costs added constraints. The geometry of $V$ decides how many
+queries are cheap. The six queries $e_j=((0,j,0),(2,\rot j,1))$, $j\in\Zsix$,
+of \cref{def:slot-array} all have the first-coordinate pair $(0,\rot0)=(0,2)$;
+they differ only in the second chamber coordinate, on which they act by
+$\rot$. The middle laws ignore that coordinate (\cref{lem:slot-array}(v)), so
+they see one query, the edge from the label $(0,0)$ to the label $(2,1)$, and
+each nonaccepting fold or matching record of the middle law needs one added
+edge; the prefix law ignores
+the layer as well and sees one coincidence event
+(\cref{subsec:front6:construction}). Six is the largest number of disjoint
+queries with this projection, since there are only six slots $(0,j,0)$. So six
+queries cost the middle range no more than one, while the matching term
+carries $(R_I/2)^6<0.0588$; finally $J<0.25177$.
+
+The larger family of twelve queries $((u,j,0),(\rot u,\rot j,1))$,
+$u\in\{0,5\}$, has two first-coordinate pairs, $(0,2)$ and $(5,3)$, and each
+nonaccepting fold or matching record then needs two added edges instead of
+one. The construction was first proved for these twelve queries and then
+specialized to the six, and only the six-query form was certified
+(row~8 of \cref{tab:history:checkpoints}). The twelve queries survive as the
+acceptance set of the middle merge repairs, of the one-way repairs and the
+dense EL comparison of the upper range, and of the tail, while the signed fold
+records of the middle, the LE mixture and the retained records $G_{01}L$,
+$G_{10}L$ of the upper range accept the six queries only
+(\cref{subsec:front12:construction,lem:six-query-retention}). Twelve queries
+would need more than new edges: joint laws (couplings) of the two
+halves forcing both queries of a fold record do exist, but with
+the unchanged references the symmetric error of the
+fold record is then of order $r$, at least about $r/\sqrt3$, and that of a
+matching fork at least about $\sqrt3\,r$ in symmetric plus skew norm
+(\cref{subsec:obs:twelve}).
+
+\paragraph{Why $216$ slots became $72$.}
+In the $216$-slot design the laws of the lower ranges ignored the third
+chamber coordinate: its only role there was to carry the reserved cut. A
+two-point layer with one reflection serves as well. The folds
+$f_0\circ f_4\circ f_0$ in each of two chamber coordinates, followed by the one
+fold of the layer, map $V=(\Zsix)^2\times\{0,1\}$ to a single slot
+(\cref{lem:slot-array}(iii)), so the chessboard estimate gives
+$\alpha^{72}\le Y$. Since the exponent of the theorem is $a/(|V|-\theta)$
+(\cref{thm:comparison}), the same price exponent $a$ gives about three times
+the saving: $a/(216-\theta)$ becomes $a/(72-\theta)$, and the density-linear
+induction (\cref{subsec:walk:analytic}) then gives $a/71$. The laws of the high
+range, which used the third coordinate in the $216$-slot design (a hierarchy of
+three depths), became two-layer laws on the $72$ slots. The first $72$-slot
+design, which also treated the two classes of primes separately, raised the
+exponent from $2.288\cdot10^{-7}$ to $1.992\cdot10^{-6}$.
+
+\subsection{Records that do not force a square difference: replace, delete, or dominate them}
+\label{subsec:walk:repair}
+
+\paragraph{Problem.}
+The reference law is a positive combination of records. Most of its
+mass already forces the queries (in the middle range, the principal
+law and the aligned fold). Some records do not: in the middle range
+the other two fold records $F_1,F_2$ and the two matching records
+$E_0,E_1$ (degree one), and the merges and constants; in the upper
+range some records of degree at least two. Bounding a non-forcing
+record by its whole mass (a union bound over obstructions) charges
+order $r$ for a degree-one record, which is first order and too
+large: summed over primes it cannot give $\Theta<1$ (see
+\cref{subsec:obs:polynomials} for the abandoned union-bound
+polynomials, which play no logical role). Each non-forcing record
+must instead be removed by domination, replaced at fixed marginals,
+or deleted, according to its type.
+
+\paragraph{Construction: polarization and replacement at fixed marginals.}
+Both are proved in \cref{sec:completion-repair}.
+\emph{Polarization} (\cref{lem:tr:polarization}): at a chamber cut the two
+nonaligned fold records are dominated, in the cut order, by the two matching
+records plus a merge correction of one more order in $r$, so they can be
+removed without losing positivity at that cut. This is an order of cut
+matrices, not of measures; only actual records are subtracted, so the law
+stays nonnegative. \emph{Additive repair} (\cref{lem:tr:repair}): a record whose
+graph lacks the query edge is replaced by the graph law with the edge added,
+reweighted by a factor $1+f(x)+g(y)$ so that its half marginals at the cut are
+exactly those of the old record. The reweighting keeps the support, hence
+every constraint, and $f,g$ solve two linear equations that are well
+conditioned when the conditional operator of the new record is a contraction.
+The new and the old record then have the same actual half marginals, so their
+difference annihilates the constants on both sides of the cut; its energy is
+controlled by its operator norm between the actual half spaces, which is of
+order $r$, not by its mass. A record of weight of order $r$ costs
+$O(r)\cdot O(r)=O(1/p)$. Records of high degree are simply deleted and charged
+by their mass. The copies of records that the completion places on the
+reserved diagonal are handled by a \emph{first stage}: polarization at the
+chamber cut $\vartheta_0$ removes their nonaccepting fold records, and a
+one-stage repair keeps the actual conditional marginals of their matchings
+(\cref{lem:record:first-stage}, \cref{sec:middle-frame}); its loss, with the
+errors of the two folded matching repairs tensored at their own first cuts
+(\cref{cor:two-cut-series}), is $L_0<4.7634\cdot10^{-4}$.
+
+\paragraph{Replacements that keep the old cross edges.}
+A one-way repair builds its new record from two half copies and the projected
+queries and discards the old cross graph, so that a degree-two record whose old
+cross graph is large changes by a kernel of the size of that whole graph. For
+such records the upper comparison keeps the old cross graph, adds the missing
+required edges, softens the unrequired old edges that meet them, and repairs
+the result to the exact old actual marginals. Written in one
+common list of actual star feature functions, the old and the new
+star matrices then nearly cancel, and the
+difference is priced separately in its symmetric and skew parts. For the six
+LE records four such softened laws, each repaired to the same marginals, are
+mixed; the star matrix of the mixture is the mixture of their matrices, and at
+the selected weights its norm is below that of every component
+(\cref{def:dense-comparison,prop:dense-comparison,prop:le-mixture}). At $2^{48}$
+the symmetric and skew operator norms in the actual half
+marginals are about $1.84r$ and $1.83r$ per LE record and $3.20r$
+and $2.31r$ per EL record, against about $9.2r$ per LE record and
+$9.7r$ per EL record, charged in full to both prices, for one-way repairs of the
+same records at $2^{49}$ in the construction of row~11 of
+\cref{tab:history:checkpoints}.
+
+
+\subsection{The forcing law is not reflection positive: domination by $2\times2$ blocks}
+\label{subsec:walk:bracket}
+
+\paragraph{Problem.}
+In the $216$-slot design the middle laws and all their changes depended only
+on the first two chamber coordinates, so every nonnegative law built from them
+was fixed samplewise by the reserved cut, and a nonnegative measure fixed
+samplewise by a cut is positive there (\cref{lem:commoncut}(i)): the
+comparison law stayed reflection positive at the reserved cut. The final
+middle law carries the layer: its twelve labels are a
+chamber coordinate times the layer, and its query edge runs from layer $0$ to
+layer $1$. So $\iota$ acts on its labels, and a change of a record is, at
+$\iota$, a signed measure that is not positive. In the first $72$-slot design
+the upper laws already carried the layer, and positivity at $\iota$ was kept
+by adding to each repair a positive diagonal of the size of its change, the
+one-sided bracket of \cref{subsec:history:layers}; this diagonal was paid at
+first order.
+
+\paragraph{Construction: domination at the reserved cut, with symmetric and skew parts bounded separately.}
+The comparison law $\nu$ need not be positive at any cut, and on the middle
+blocks it is not even nonnegative: there it is a finite signed combination of
+nonnegative laws that accept the queries (\cref{def:cp4}). It is compared with
+the first stage $\lambda$ at $\iota$ alone, through a nonnegative measure
+$\Nbr$ with
+$\bigl(\begin{smallmatrix}\Nbr&\lambda\\ \lambda&\Nbr\end{smallmatrix}\bigr)
+\succeq_\iota0$, that is $-\Nbr\preceq_\iota\lambda\preceq_\iota\Nbr$
+(\cref{lem:record:gram}); its energy factor is $B=e^{U_0}+R_{\rm err}<2.33263$
+(\cref{lem:bracket-energy}). Every change $\nu_\Blk-\lambda_\Blk$ is split into
+its symmetric and skew parts at $\iota$, and each part is priced with its own
+positive envelope (\cref{def:cp4}). A nonzero skew part is never positive
+semidefinite, since a cut matrix that is $\succeq0$ is symmetric; keeping $\nu$
+positive at $\iota$ means adding positive mass of the size of the change,
+which is what the first $72$-slot design paid. But a skew part costs nothing at
+first order. In the expansion of $Y_\nu-Y_\lambda$ over the blocks, every term
+with an odd number of skew factors vanishes, because both halves carry the
+same half-function and $\lambda$ is symmetric at $\iota$
+(\cref{lem:record:record-expansion}). The reserved cost is therefore
+$B(e^S\cosh A-1)$: the symmetric price $S$ enters linearly, the skew price $A$
+only through $\cosh A-1\approx A^2/2$. A comparison law that is positive at
+$\iota$ is its own bracket (\cref{rem:mech:positive}); the positive
+correction of the first $72$-slot design is that case.
+
+\paragraph{Signed combinations over a whole block of primes.}
+So the first-order change of an accepting record should be skew. Write $x_i$
+and $y_i$ for the labels of the object $i$ of a two-layer fold record on the
+layers $0$ and $1$. At $p\equiv3\pmod4$ the number $-1$ is a nonsquare, so the
+reserved reflection, which exchanges $x$ and $y$, maps the channel
+$\mathsf C=\chi(y_0-x_1)$ of the added accepting edge $x_1\to y_0$ to
+$-\mathsf D$, where $\mathsf D=\chi(y_1-x_0)$ is the channel of its mirror
+$x_0\to y_1$. Writing $K_{\rm old}$ for the cut kernel of the reference fold
+record at $\iota$, relative to the product of its two actual half
+laws, adding both edges multiplies this kernel by
+$(1+\mathsf C)(1+\mathsf D)$, so the change of kernel is
+\[
+ K_{\rm old}(1+\mathsf C)(1+\mathsf D)-K_{\rm old}
+ =K_{\rm old}(\mathsf C+\mathsf D)+K_{\rm old}\mathsf C\mathsf D:
+\]
+the first-order part $\mathsf C+\mathsf D$ is skew, and the symmetric part
+$\mathsf C\mathsf D$ is the kernel of the two disjoint cross
+pairs $(x_1,y_0)$ and $(x_0,y_1)$, spanning only two of the four
+pairs of $\{x_0,x_1\}\times\{y_0,y_1\}$ (a nonstar two-edge
+kernel), of normalized norm $O(1/p)$; the other orientation, $(1+\mathsf C)(1-\mathsf D)$, would make the
+first-order change symmetric; this is not the mirror pairing of
+\cref{lem:mirror}, which is the $(1+\mathsf C)(1+\mathsf D)$
+orientation above. Within nonnegative
+combinations of the accepting sign patterns a zero symmetric leading error
+forces this pairing, with skew leading norm $\sqrt2\,r$. The fold record of the
+construction allows signed weights: it is the signed mixture
+\[
+ \bigotimes_{p\in\Blk}P_{++,p}+\frac\tlaw2\bigotimes_{p\in\Blk}P_{-+,p}
+ -\frac\tlaw2\bigotimes_{p\in\Blk}P_{--,p},
+\]
+taken after the products over the primes of the block, of three nonnegative
+accepting laws, each repaired to the actual half marginal of the reference
+record by an accepting Markov coupling
+(\cref{def:record:mixture,lem:signed-components}). Its symmetric leading
+change is still zero, its skew leading change is a three-arm star of norm
+about $\sqrt{1+\tlaw^2+(1-\tlaw)^2}\,r=1.2732\,r$ at $\tlaw=127/500$, and its
+variation $1+\tlaw$ does not grow with the number of primes. In the complete
+sign model a zero symmetric leading error forces a one-parameter family with
+this skew norm, least at $\tlaw=1/2$, whose laws have variation at least
+$1+\tlaw$ for $\tlaw\ge0$; the three-component law attains this variation, and
+the complete closing chooses $\tlaw=127/500$ (\cref{rem:obs:sign-frontier}).
+The comparison theorem allows such a law,
+because the cancellation of the kernel is applied to each nonnegative product
+component and the variation multiplies only the constant of a vanishing
+remainder (\cref{def:cp4}). Mirror pairing is the case $\tlaw=0$. The even
+products of skew changes, which survive in $\cosh A$, are not positive
+semidefinite either; positive envelopes in the algebra generated by the features
+depending on a single label (the singleton features), averaged
+over the reflections of the slot array in the first chamber
+coordinate, price them well below the coefficient
+$B$ that norm envelopes would give
+(\cref{thm:envelopes,lem:oct24:mask-schur,lem:reflection-averaging}).
+
+\paragraph{Including one fold diagonal in the dominating law.}
+The bracket carries one copy of the fold diagonal,
+$\Nbr=\lambda+F_{\rm fold}+H$ (\cref{lem:record:gram}), where
+$F_{\rm fold}$ is the sum of the two one-layer fold copies, $H$ is
+the analogous diagonal copy of the two-layer matchings, $E_{\rm add}$
+below is a further pair of one-layer matching copies, $G$ is the
+polarization correction (two merge records), and
+$\Nbrz=\mu+E_{\rm add}+G+H$ is the auxiliary dominator of
+\cref{def:record:frame}. Then the part $\Nbrz-\mu$ of the bracket
+beyond the reference is invariant
+under the chamber group of the first coordinate except for the polarization
+correction $G$, a pair of
+merge records, and the envelopes use the invariant part as the
+positive background measure; its assigned price falls short of
+$U_0$ by only about $2.4\cdot10^{-5}$
+(\cref{lem:oct24:invariant-background}).
+The price is a doubled protection of the fold records in the completion,
+$v_{\rm D}\ge2w_{\rm D}k_{\rm D}$ (\cref{lem:front12:reference}(iv)), which
+raises the prices of the first stage. It is affordable because the
+first-stage error is a series in the two first-stage record
+differences (the tags of (CP2)(b)), each tag being the difference
+whose largest cut norm is attained at its own cut, whose sharp
+bounds multiply there:
+$R_{\rm err}<2.0445\cdot10^{-4}$ and $L_0<4.7634\cdot10^{-4}$, against about
+$3.3\cdot10^{-3}$ and $7.6\cdot10^{-3}$ with one sharp factor per term
+(\cref{cor:two-cut-series}).
+
+\paragraph{The two residue classes modulo $4$.}
+At $p\equiv1\pmod4$ the strict-square relation is symmetric. Labels drawn
+conditionally independently from a random square clique of $\Z/p^{2\mcl}\Z$
+(any two of its elements differ by an even power of $p$ times a unit square)
+give a reference that is reflection positive at every cut, since a chamber cut
+form is the square of a conditional mean, and that accepts every query unless
+its two labels coincide (\cref{lem:frontier:iidlocal}). This event has
+probability $2^{-\mcl}$ and is deleted, at a total price below
+$8\cdot10^{-69}$ (\cref{lem:frontier:iidenergy}); so these primes cost
+nothing at first order, and they leave the small modulus. At $p\equiv3\pmod4$
+the relation is the Paley tournament, so a law that draws the two ends of a
+query exchangeably cannot accept it: these primes need the oriented graph laws
+and the bracket above, and the completion uses that the two-label middle law is
+uniform on distinct pairs, which holds at $p\equiv3\pmod4$ and fails at $p=13$
+(\cref{rem:middle-class-three}). So the laws that the $216$-slot design used for
+both classes became a square-clique prefix below $2^{512}$ for class one and
+the middle and upper laws for class three
+(\cref{sec:frontier:iidprefix,subsec:obs:class-one}). Class three also gives
+exact identities used throughout: the density ratios of the rows, the Paley
+identities $\mathsf C^*=-\mathsf C$, $\mathsf C\mathsf C^*=pI-\Jall$ of the
+channels of the fold records (\cref{lem:square-shift}(c)), and the exact
+contraction of the index (\cref{subsec:walk:analytic}).
+
+\subsection{The crude bound exceeds $1$: five sharper inequalities}
+\label{subsec:walk:accounting}
+
+\paragraph{Problem.}
+Bounding every simultaneous change by its norm, without sharper
+family bounds, without retaining the common mean, and with
+$T=S+A$, gives only the crude sufficient condition
+\[
+ L_0+B\bigl(e^S\cosh A-1\bigr)+Be^{S+A}\Bigl(\frac{R_I}2\Bigr)^6+W<1,
+\]
+which is a different (stronger) requirement than $\Theta<1$: it has
+no factor $63/64$, no savings $D$, and no mean term. At the baseline
+values its left-hand side is about $1.603>1$
+(\cref{rem:record:plain}), so this crude route cannot prove the
+theorem. Five separate sharper inequalities below replace it by
+$\Theta<1$.
+
+\paragraph{Construction: five sharper inequalities.}
+Each credit below bounds a separately named term or coefficient
+in the closing quantities, and the five terms are distinct, so
+the five savings may be added without subtracting any quantity
+twice.
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Variance credits} (\cref{sec:variance}). A repaired record has the
+ actual half marginals of the record it replaces, so their difference
+ annihilates the constants, and its form against the bracket is a variance:
+ the energy of the diagonal copy at $\iota$ of its actual half
+ marginal minus that of the product of its actual
+ half marginals. Lower bounds for the latter, with positive backgrounds of the
+ outside bracket, for one to four blocks and for the late pieces jointly,
+ are subtracted from the reserved cost; finally $D_{\rm var}>0.0099585$.
+\item \emph{Positive joint envelopes} (\cref{thm:envelopes,cor:envelope-costs}).
+ The even skew products are priced below their trivial coefficient $B$: by
+ positive matrices built from the single-label and star feature
+ functions and averaged over the reflections of the slot array.
+ The part invariant under all reflections is priced separately at
+ a smaller price, since an error depending on one changed
+ coordinate can first be averaged over its orbit under the
+ reflections; leading and remainder prices are kept apart. With (a)
+ they form the discount $D>0.46685$, and
+ $\mathcal E=B(e^S\cosh A-1)-D<0.76897$, against about $1.2358$ before the
+ discount, of which about $1.2016$ is the even skew part.
+\item \emph{Bounding old and new records jointly} (the direct Gram
+ matrix, \cref{subsec:record:direct_gram}). The matching
+ envelopes of the fold records are built from a joint $2\times2$ Gram
+ estimate of the old and the new record at $\iota$, instead of their norm
+ envelopes. For the signed law its ideal coefficient is about $2.3842$
+ ($\sqrt6$ for pure pairing); each diagonal side coefficient of the joint
+ Gram bound is the larger of the signed coefficient and a
+ certified auxiliary coefficient bound for that side, and only its excess over the fold diagonal
+ $v_{\rm D}$ that the bracket already carries is paid
+ (\cref{prop:signed-sides}). The matching exponent is $T<0.60760$ instead of
+ $S+A\approx0.984$, and $J<0.25177$ instead of about $0.3668$. At the
+ October~18 design this step alone took the closing from $1.1219$ to
+ $1.0122$.
+\item \emph{The common mean} (\cref{lem:record:common-mean}(a)). The component
+ of empty support of the six signed indices is kept exactly, so the reserved
+ cost is counted $63$ times out of the $64$ copies of the constant term: the
+ coefficient of $L_0+\mathcal E$ is $63/64$. It saves about $0.0120$.
+\item \emph{The mean credit} (\cref{prop:record:mean-credit}). Positive means of
+ records of the reference, and of the chosen side diagonals that
+ the (CP6) matching dominators already include, at degrees up to
+ four and on the late pieces jointly, give
+ $m>1.58994$ in the term $(1-m)/64$, which saves about $0.0092$.
+\end{enumerate}
+The result is
+\[
+ \Theta=\tfrac{63}{64}\bigl(L_0+\mathcal E\bigr)+J+W+\tfrac{1-m}{64}
+ \approx0.757418+0.251761+0.000038-0.009218,
+\]
+certified as $\Theta<\PushTheta$ (\cref{sec:closing}). Without (d) and (e)
+it would be about $1.0212$: in the baseline every listed credit is needed, and
+the margin $1-\Theta$ is about $2.7\cdot10^{-11}$. Every credit is an exact
+relation minus upper bounds for the same quantities (\cref{def:cp8}); an upper
+bound is never used as a lower bound, and a certified joint bound is never
+replaced by a sum of looser ones (\cref{subsec:obs:pitfalls}).
+
+\subsection{Six parameters of the analytic stage and the estimates they control}\label{subsec:walk:analytic}
+
+Six further parameters, from the analytic stage rather than the
+local laws, were also tightened; each removes a loss that would
+otherwise cost the final exponent.
+
+\paragraph{The density exponent $\theta=1$.}
+The induction bounds $Y$ by $C\Lsc^{-a}\alpha^\theta$, and the exponent of the
+theorem is $a/(72-\theta)$. The analytic remainders of the cancellation and of
+the large products were first bounded absolutely, by $C\Lsc^{-\sigma}$; against
+$Y>C_0\Lsc^{-a}\alpha^\theta$ this needs $\alpha$ not too small, which forced
+$\theta<1$ and a sparse side condition $as/(s-\theta)<\sigma$,
+with $s<1$ the exponent of a bound for sparse sets. In the
+six-query design of exponent $7.057\cdot10^{-6}$, with
+$\theta=29/50$, this condition was within one per cent of
+binding. Moment bounds that are linear in the density make every remainder
+$O(\Lsc^{-\sigma}\alpha)$ (\cref{lem:record:density-can,lem:record:density-lp}),
+so the induction keeps $\theta=1$ under the single condition
+$a<\sigma$ (\cref{thm:record:lineardensity}); the baseline
+$a\approx8.884\cdot10^{-4}$ is below
+$\sigma=1/825\approx1.212\cdot10^{-3}$, and all analytic side
+conditions hold on the whole
+range $0<a\le9/10000$, independently of the thresholds $Q_3$ and $\Pthree$
+(\cref{cert:record:analytic-stage}).
+
+\paragraph{The Fourier cutoff $N^{1/20}$.}
+The error exponent is limited by the cutoff $N^\beta$ of the lift. When the
+cutoff was raised, the comparison was pointwise in the selected labels and
+saved $\gamma\beta/2-\tau-72\delta$, and the large-product estimate saved
+$\tau/4-\ell_0$, with $\gamma=255/1024$ the mixing exponent at the tail primes
+and $\delta,\ell_0$ the moment losses (\cref{def:record:analytic-stage}); so
+$\sigma<\min(\gamma\beta/2-\tau,\tau/4)\le\gamma\beta/10$, and at the cutoff
+$\beta=1/36$ of the earlier versions this bound is about $6.9\cdot10^{-4}$,
+below the final $a$. The stage inequalities that the certificate checks keep
+this form ((S1) and (S4) of \cref{cert:record:analytic-stage}). A single
+averaged comparison needs only $\gamma\beta/2-72\delta>\sigma$;
+summing the raw errors over the small selections in the improved
+induction uses the additional $\tau$ allowance in (S1), as proved in
+\cref{prop:density:production}. The
+actual-square kernel for Fourier cutoffs up to $N^{1/20}$ and prime-power
+moduli (\cref{app:kernel20}) allows $\sigma=1/825$; the prime powers are needed
+by the square-clique prefix.
+
+\paragraph{The least square step.}
+Fixing the labels at a set of atoms fixes a residue class modulo an integer
+$D$, which is split into progressions whose step must be a square divisible by
+$D$. The step is the least such square, $\sq(D)$ \eqref{eq:square-step}, where
+the earlier versions used the square of the index part of $D$. The
+single-level law therefore improved the step for its always-revealed modulus
+$24$ from $576$ to $144$. The selected finite-depth law instead averages
+$\sq(\prod_p p^{J_p})$ over its conductor depths, with the same least-square
+principle at every level (\cref{prop:imp:padic-price}).
+
+\paragraph{A fixed number of intervals.}
+Earlier versions took $\Kint=2^{64}$ intervals, making the wrap negligible.
+Every proof holds for arbitrary fixed $\Kint\ge2$
+(\cref{rem:fixed-parameters}). The matching term grows like $\Kint^{a/6}$,
+whereas the wrap decreases with $\Kint$. The selected fixed value
+$\Kint=\PushK$ gives $W<3.8345\cdot10^{-5}$. Feasibility at this integer is
+all the proof requires; the convexity calculation in
+\cref{rem:index-convexity} guides its choice.
+
+\paragraph{Square shifts at every conductor depth.}
+At the first odd-prime level the exact square-shift contraction is
+$\sqrt{p+1}/(p-1)$, optimal among doubly stochastic matrices on the
+strict-square transitions (\cref{lem:square-shift}(b)). This single-level
+optimality does not rule out a better distribution across conductor depths.
+The selected law conditions a uniform root to have valuation less than $m$
+in each prime-power coordinate, and then squares it. Its depth envelopes and finite moment are proved in
+\cref{lem:imp:padic-envelope,prop:imp:padic-price}; the certified value is
+$R_I<1.247139907407$ at the baseline exponent. The selected final closing
+uses $R_I<1.252937308029$ (\cref{sec:four-routes-closing}). The old prime-moment
+certificate remains an auxiliary majorant for this evaluation.
+
+\paragraph{The digit pairs of the prefix.}
+The square clique uses $\mcl=8192$ digit pairs. Its exception is priced below
+$2^{513-\mcl+1024\mcl a}$ (\cref{lem:frontier:iidenergy}); with the earlier
+$\mcl=2048$ this bound would exceed one as soon as $a>1535/2^{21}$, that is
+$\eps>1.0309\cdot10^{-5}$, below the final exponent. With $8192$ pairs the
+bound stays below the allowance $10^{-12}$ on the whole analytic range
+$a\le9/10000$ (\cref{rem:record:prefix-walls}).
+
+\subsection{From the local laws to the final closing}\label{subsec:walk:glance}
+
+The examples above explain the baseline prices. The same local
+interfaces support the main theorem, but its final assembly must
+recompute their assignments together. \Cref{tab:walk:glance} gives
+the reading path; the baseline numerical table is
+\cref{tab:closing-values}, and the selected numerical ledger is in
+\cref{sec:four-routes-closing}.
+
+\begin{table}[htbp]
+\centering\small
+\caption{The construction's interfaces and their final assembly.}
+\label{tab:walk:glance}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.43\textwidth}%
+>{\raggedright\arraybackslash}p{0.52\textwidth}@{}}
+\toprule
+Output & Proof and use\\
+\midrule
+$\alpha^{72}\le Y$ & Reflection positivity, \cref{sec:positivity}\\
+First-stage price $L_0$, dominator $B$ & Middle reference and frame,
+\cref{sec:middle-reference,sec:positive-roots,sec:middle-frame}\\
+Comparison prices $S,A$ & Middle and upper accepting laws,
+\cref{sec:middle-records,sec:upper-comparison}\\
+Discount $D$ & Fixed-marginal variance and positive envelopes,
+\cref{sec:variance,sec:envelopes}\\
+Matching price $T$ and joint mean & Chosen sides and disjoint mean
+allocations, \cref{sec:matching-mean,subsec:joint-mean}\\
+Conductor moment $R_I$ & Finite index law and summable tail,
+\cref{sec:tail-index}\\
+$Y\le C\Lsc^{-a}\alpha^\vartheta$ & Prefix moments and density induction,
+\cref{sec:density:moments-prefix,sec:density-upgrade}\\
+$\Theta<1$ & Normalized, compatible prices and the joint scalar,
+\cref{sec:four-routes-closing}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Each arrow from a local improvement to this closing requires its
+actual marginals, completion weights, restoration bounds and
+normalizing factors. A smaller isolated operator constant does not
+by itself lower $\Theta$. The final assembly keeps those dependencies
+explicit and evaluates every affected term at the selected parameters.

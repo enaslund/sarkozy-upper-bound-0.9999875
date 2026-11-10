@@ -1,0 +1,1090 @@
+\section{Preliminary lemmas: character sums, correlation, and monotone bounds}\label{sec:notation}
+
+\paragraph{What this section proves and how to read it.}
+This section proves no part of the main argument. It fixes
+conventions for finite probability spaces and operators, lists
+arithmetic notation, and states five inputs used as black boxes
+later: Weil's bound with Gauss and Jacobi evaluations (first-order
+$O(p^{-1/2})$ estimates), the spectrum of the square shift on
+$\mathbf F_p$, an explicit prime-counting bound, two correlation
+inequalities, and a method for extending a bound proved at the
+smallest prime of a range to every larger prime (monotone
+majorants). Inputs: only standard character-sum and probability
+facts, with Peyre's inequality proved in \cref{app:peyre}. Outputs:
+the lemmas cited by Parts~IV and~V for counting, correlation after
+fixing labels, and prime summation. A first reading should note the
+conventions in \cref{subsec:notation:conventions} and the statements
+only; proofs can be skipped. The list in
+\cref{subsec:notation:symbols} is an \emph{index of symbols} with
+pointers to defining sections, not a set of definitions; project
+terms are defined in \cref{subsec:intro:glossary} and at their formal
+sites. In particular ``price'' is defined in \cref{def:price}, not
+here.
+
+\subsection{Finite probability spaces, operators, and correlation}\label{subsec:notation:conventions}
+
+All probability spaces in the paper are finite. This subsection
+fixes expectation, norms, operator order and correlation once, so
+that later sections can use them without repeating conventions.
+Asymptotic notation is the standard one, made precise as follows:
+$X\ll Y$, $X=O(Y)$ and $X\lesssim Y$ all mean $|X|\le CY$ for an
+absolute constant $C$, independent of $N$, of the scale $\Lsc$, of
+$A$ and of $p$, unless a dependence is stated in the same
+statement or in the standing conventions of its section; $X\asymp
+Y$ means both $X\ll Y$ and $Y\ll X$; and $o(1)$ denotes a quantity
+tending to $0$ as $\Lsc\to\infty$ with all other parameters fixed,
+unless another limit is named. In statements at a least
+counterexample, $o(1)$ is this limit along counterexamples with
+$\Lsc\to\infty$.
+
+\begin{definition}[Finite probability spaces and operator order]\label{def:prelim:operators}
+For a finite probability space $(X,\mu)$,
+$\mathbb E_\mu f=\sum_{x\in X}\mu(x)f(x)$ and
+$\|f\|_{L^r(\mu)}=(\mathbb E_\mu|f|^r)^{1/r}$ for $1\le r<\infty$.
+The inner product is $\langle f,g\rangle_\mu=\mathbb E_\mu\overline f g$;
+$L^2_0(\mu)$ is the subspace of mean-zero functions.
+All unqualified averages on finite sets use uniform probability.
+A measure $\nu$ has density $h$ with respect to $\mu$ if
+$\nu(x)=h(x)\mu(x)$ at each point; its mass is $\nu(X)$. The notation
+$\delta_x$ denotes the probability measure concentrated at $x$.
+For a self-adjoint operator $T$, the notation $T\succeq0$ means
+$\langle f,Tf\rangle\ge0$ for every $f$. We write $S\preceq T$
+if $T-S\succeq0$; this is the \emph{Loewner order}.
+The operator norm is $\|T\|=\sup_{\|f\|_2=1}\|Tf\|_2$.
+For a numerical matrix, the operator norm uses the ordinary Euclidean
+norms on its coordinate spaces: matrix multiplication is a sum, with
+no probability normalization. In particular, this convention applies
+to the matrix of correlation bounds in \cref{thm:peyre-finite}.
+A \emph{Markov operator} preserves nonnegative functions and the
+constant function $1$.
+\end{definition}
+
+\paragraph{Kernels, projections and centred norms.}
+Probability spaces are finite and, after the points of mass zero are
+discarded, have full support. For such a space $(\Omega,\lambda)$,
+$\Jproj f=\ip{\one}{f}_\lambda\one=(\E_\lambda f)\one$ and
+$P_0=I-\Jproj$ (in Part~IV also written $Q$; this $Q$ is not the
+conductor cutoff $Q$ of \cref{sec:lifts}) are the
+orthogonal projections onto the constants and onto
+$L^2_0(\lambda)$. For finite probability spaces $(X,\mu)$, $(Y,\nu)$ and a
+kernel $K\colon X\times Y\to\C$ let $T_Kf(x)=\int K(x,y)f(y)\,d\nu(y)$, and let
+$\opnorm K$ be the norm of $T_K$ from $L^2(\nu)$ to $L^2(\mu)$. Both spaces carry
+the uniform probability unless another measure is indicated; for the uniform
+probabilities, $\opnorm K$ is the operator norm of the entry matrix of $K$
+(Euclidean norms) divided by $\sqrt{|X||Y|}$. If
+$X=Y$, $\mu=\nu$ and $K(y,x)=\overline{K(x,y)}$, then $T_K$ is self-adjoint. The
+all-ones kernel is $\Jall$, so that $T_{\Jall}=\Jproj$ on a uniform space; as a
+matrix acting on vectors indexed by $n$ points, $\Jall v=(\sum_yv(y))\one=n\Jproj v$.
+
+Let $T$ be a Markov operator from functions on $Y$ to functions on $X$ with
+$T\one=\one$ and $T^*\one=\one$, the adjoint taken with respect to $\mu$ and
+$\nu$. Equivalently, $Tf(x)=\E_\pi[f(y)\mid x]$ for the coupling
+$\pi(x,y)=\mu(x)T(x,y)$ of $\mu$ and $\nu$, $T(x,y)$ being the transition
+probability, so that $Tf(x)=\sum_{y\in Y}T(x,y)f(y)$; we call $T$ the operator of the coupling. As
+$\ip{\one}{Tf}_\mu=\ip{T^*\one}{f}_\nu$, $T$ maps $L^2_0(\nu)$ into $L^2_0(\mu)$,
+and its \emph{centred norm} is $\|T|_{L^2_0(\nu)}\|=\|T-\Jproj\|$, with
+$\Jproj f=(\E_\nu f)\one$. By \cref{def:prelim:maxcorr} the centred norm of the
+operator of a coupling is the maximal correlation of its two coordinates. For a
+cut $c$ of a slot array, $\kappa\succeq_c\kappa'$ means that the cut matrix of
+$\kappa-\kappa'$ is symmetric and positive semidefinite (\cref{def:cc:order}).
+
+\begin{definition}[Mean, fluctuation and compression]\label{def:split:notation}
+On a finite probability space $(\Omega,\lambda)$ with full support let
+$\Jproj f=(\E_\lambda f)\one$ and $P_0=I-\Jproj$. For a real function $U$ put
+$u=\E_\lambda U$, $U^\circ=P_0U$ and $\sigma_U=\norm{U^\circ}_2$. Thus
+$\norm U_2^2=u^2+\sigma_U^2$. For an operator $T$ on $L^2(\lambda)$ with
+$\ip\one{T\one}=1$, its two \emph{marginal errors} are $c=T\one-\one$ and
+$b=T^*\one-\one$; its \emph{mean-zero compression} is $C=P_0TP_0$. Relative to
+the constants and their orthogonal complement,
+\[
+ T=\begin{pmatrix}1&b^*\\c&C\end{pmatrix},
+\]
+where $b^*$ is the functional $g\mapsto\ip bg$ on $L^2_0(\lambda)$.
+\end{definition}
+
+Both marginal errors are mean-zero, since
+$\ip\one c=\ip\one{T\one}-1=0=\ip{T^*\one}\one-1=\ip b\one$, and for
+$f=\alpha\one+f_0$ with $f_0\in L^2_0(\lambda)$,
+$Tf=(\alpha+\ip b{f_0})\one+(\alpha c+Cf_0)$, which is the block form. The
+operator of a coupling of $\lambda$ with itself has $b=c=0$ and centred norm
+$\|C\|$. The completion inequalities of \cref{lem:five-type} are written in
+this notation.
+
+\begin{definition}[Maximal and conditional maximal correlation]\label{def:prelim:maxcorr}
+For random variables $X,Y$ on a finite probability space, the \emph{maximal
+correlation} is
+\[
+  \rho(X;Y)=\sup\big\{|\E f(X)g(Y)|:\ \E f(X)=\E g(Y)=0,\ \E f(X)^2=\E g(Y)^2=1\big\},
+\]
+with $\rho=0$ if either side has no non-constant functions. The intersection
+of the spaces $L^2(X)$ and $L^2(Y)$ of functions of $X$ and of $Y$, inside
+$L^2$ of the underlying space, contains the constants. If it consists of the constants only, then
+$\rho(X;Y)$ is the Friedrichs cosine of these two subspaces
+(the supremum of $|\langle f,g\rangle|$ over unit vectors $f$ in
+one subspace and $g$ in the other, after the constants are
+removed); if it is larger,
+then $\rho(X;Y)=1$, while the Friedrichs cosine may be smaller. In all cases
+$\rho(X;Y)$ is the norm of the conditional expectation operator
+$L^2_0(X)\to L^2_0(Y)$. For a family $(X_i)_{i\in I}$ and $S\subseteq I$, the
+\emph{conditional} maximal correlation of $X_i,X_j$ given $X_S=s$ is the
+maximal correlation computed under $\Pr(\cdot\mid X_S=s)$, for every value
+$s$ of positive probability.
+\end{definition}
+
+\begin{definition}[Friedrichs angle]\label{def:prelim:angle}
+For closed subspaces $V,W$ of a finite-dimensional Hilbert space, the
+\emph{cosine of the Friedrichs angle} is
+$\cos\angle(V,W)=\sup\{|\ip vw|:\ v\in V,\ w\in W,\ \norm v=\norm w=1,\
+v,w\perp V\cap W\}$. It is $0$ if one space contains the other.
+\end{definition}
+
+\subsection{Arithmetic notation, square classes, and index of symbols}\label{subsec:notation:symbols}
+
+\paragraph{Arithmetic notation.}
+Throughout, $p$ denotes a prime, $q=1/p$ and $r=p^{-1/2}$; for odd $p$,
+$\chi=\chi_p$ is the quadratic character. We write $[N]=\{1,\dots,N\}$ and
+$\ee t=e^{2\pi it}$. All logarithms are natural, an empty product is $1$, and
+a positive integer is \emph{squarefree} if no square of a prime divides it.
+For a positive integer $d$ we write $v_p(d)$ for the exponent of $p$ in $d$,
+$\varphi(d)$ for the number of invertible residues modulo $d$, $\omega(d)$ for
+the number of its distinct prime divisors (always with its argument) and
+$\rad(d)$ for their product; $\pi(x)$ is the number of primes up to $x$. For
+$\xi\in\Q/\Z$, $q(\xi)$ is its reduced denominator, the \emph{conductor}, with
+$q(0)=1$; for a set $U$ of primes, $q_U=\prod_{p\in U}p$. For an odd prime $p$
+we put
+\[
+  \Qsq=\{u^2:u\in\Fp^\times\},\qquad \Ap(t)=\one_{\Qsq}(t),\qquad
+  \Om=\{(x,y)\in\Fp^2:\ y-x\in\Qsq\};
+\]
+$\chi_p(t)$ is $1$ on nonzero squares, $-1$ on non-squares and $0$ at $t=0$,
+and $G_p(k)=\sum_{u\in\Fp}\ee{ku^2/p}$. The space $L^2(\Fp)$ carries the
+uniform probability, $\ip fg=\E_{a\in\Fp}\overline{f(a)}g(a)$, and
+$e_k(a)=\ee{ka/p}$, $k\in\Fp$, is an orthonormal basis; the $e_k$ with
+$k\ne0$ span $L^2_0(\Fp)$. For a law $\nu$ on a finite set and functions $F$ and $G$ on that set,
+$\norm F_\nu^2=\E_\nu|F|^2$ and $\ip FG_\nu=\E_\nu\overline FG$; the index is
+dropped when the law is clear.
+
+\begin{definition}[Strict square classes]\label{def:strict-square-class}
+Let $D=8d$ with $d$ odd, not necessarily squarefree. A residue $r\bmod D$ is a
+\emph{strict square class} if $r\equiv1\pmod8$ and $r$ is a nonzero square
+modulo every prime dividing $d$.
+\end{definition}
+
+By Hensel's lemma the second condition is equivalent to $r$ being the square
+of a unit modulo every odd prime power dividing $D$: if $p$ is odd, $p\nmid r$ and $c_j^2\equiv
+r\pmod{p^j}$, then $c_{j+1}=c_j+tp^j$ with $2c_jt\equiv(r-c_j^2)/p^j\pmod p$
+satisfies $c_{j+1}^2\equiv r\pmod{p^{j+1}}$, and $t$ exists because
+$p\nmid2c_j$. Every unit modulo $8$ has square $1$, so by the Chinese remainder
+theorem the strict square classes modulo $D$ are exactly the squares of units
+modulo $D$; in particular a strict square class is a unit modulo $D$.
+
+The external index of \cref{def:hyb:coupled} also uses nonunit squares at a fixed prime-power
+modulus. We use the following more general class only when explicitly stated.
+\begin{definition}[Nonvanishing square classes]\label{def:nonvanishing-square-class}
+Let $D=2^{h_2}\prod_{p\text{ odd}}p^{h_p}$ with $h_2\ge3$.
+A residue $r\bmod D$ is a nonvanishing square class if, at each odd
+$p\mid D$, it has valuation $2j_p<h_p$ and square unit part, and at $2$
+it has valuation $2j_2$ with $h_2-2j_2\ge3$ and unit part congruent
+to $1$ modulo $8$. The valuations and unit parts are properties of the
+reductions of $r$ modulo $p^{h_p}$ for odd $p$ and modulo $2^{h_2}$ at $2$. In particular zero modulo a
+prime-power coordinate is excluded.
+\end{definition}
+These conditions imply the existence of a square root modulo each full
+prime-power coordinate. At odd primes this is Hensel lifting after
+division by $p^{2j_p}$. At $2$, begin with an odd root modulo $8$: if
+$b^2\equiv u\pmod{2^k}$ with $k\ge3$, one of $b$ and $b+2^{k-1}$
+squares to $u$ modulo $2^{k+1}$, since their squares differ by
+$2^kb$ modulo $2^{k+1}$. This lifts every unit $u\equiv1\pmod8$.
+Strict square classes with $v_2(D)=3$ are a special case.
+
+\paragraph{The least square step.}
+For a positive integer $d$ put
+\begin{equation}\label{eq:sq}
+ \sq(d)=\prod_{p\mid d}p^{2\lceil v_p(d)/2\rceil},
+\end{equation}
+the least positive square divisible by $d$: a square $\prod_pp^{2k_p}$ is
+divisible by $d$ exactly when $2k_p\ge v_p(d)$ for every $p$. Thus
+$d\mid\sq(d)\mid d^2$, $\sq(de)=\sq(d)\sq(e)$ for coprime $d,e$, and
+$\sq(p)=p^2$, $\sq(8)=16$, $\sq(24)=144$.
+
+\paragraph{Conventions on numbers.}
+$o(1)$ is as defined in \cref{subsec:notation:conventions}; in
+the analytic statements of Part~II the convergence as
+$\Lsc\to\infty$ is uniform in the set $A$. Numbers in the text
+are the numbers certified in \cref{app:certificates}, written as in the
+certificate (outward-rounded decimals or exact rationals); a decimal that is
+not certified is marked ``about''. A \emph{price} is $\|\zeta\|_{\rm
+var}q_{\Blk}^{2a}$ for a signed block measure $\zeta$ (\cref{def:price}); an
+\emph{operator price} is a weight times an operator norm relative to the
+actual half marginals times $q_{\Blk}^{2a}$; an \emph{upper price} is any
+number at least the price, in practice a certified upper bound. Every coefficient that is
+\emph{evaluated at an endpoint} is an admissible majorant in the sense of
+\cref{lem:majorant}, written with its powers of $r$ cancelled first
+(\cref{rem:majorant-use}).
+
+\paragraph{Symbols.}
+\Cref{tab:notation} lists the principal symbols and where they are defined.
+Its rules concern named quantities, written with the bare letter: $t$ denotes
+only the repricing factor, $\tau$ and $\sigma$ only the analytic-stage
+parameters, $\iota$ only the reserved cut and $J$ only the matching term; and
+$\delta_{p,j}$ at a prime-power index coordinate denotes its depth tail,
+while $\delta_p$, $\delta_j$ denote inclusion probabilities in the
+whole-coordinate special case. A letter used as a bound
+variable inside one statement or proof is local to it, for instance a number
+$t$ of roots or the index of $e_t$, a type $\tau$, a permutation $\sigma$, an
+index set $J$, the matrix $\mathcal E$ of correlation bounds in
+\cref{thm:peyre-finite}, or the point mass $\delta_x$. In the same local
+sense $m$ or $m_0$ may denote a probability measure on a set of labels
+(\cref{sec:labellings,sec:middle-records,sec:envelopes}), $m$ a multiset of
+middle pieces (\cref{lem:piece-caps} and
+\cref{sec:variance,sec:envelopes,sec:matching-mean}), and $t$ may index
+the records of a block (\cref{sec:comparison-theorem,sec:comparison-lemmas}
+and Part~V); the mean credit $m$ occurs only in the closing formulas, and the
+repricing factor $t$ only in formulas that carry a price certified at the
+anchor $a_0$ to the exponent $a$: the repricing statements
+(\cref{lem:record:repricing,cor:first-stage-repricing}), the totals and
+credits of Part~V formed from such prices (for instance the middle prices,
+the variance credit and the class costs of the envelopes,
+\cref{def:closing-quantities,cor:envelope-costs}) and the closing formulas;
+these local uses do not occur there. Two rules are followed in every section: the letter $B$ alone is the energy
+factor of the reserved Gram bracket, and a block of primes is written $\Blk$
+wherever both can occur (Part~IV, which never meets the energy factor, may
+write a block as $B$); and the layer coordinate of a slot is $\ell$, so that
+$t$ is free for the repricing factor. Several objects of the local laws carry
+sans-serif letters: the Paley channels $\mathsf A$--$\mathsf D$ of the fold
+record, the scores $\Hs j$ of the positive roots, the signed-law parameter
+$\tlaw$ and the root-tilt parameter $\ulaw$; neither $\tlaw$ nor $\ulaw$ is
+ever the repricing factor $t$. The reserved cost is $\mathcal E$
+(calligraphic, without subscript), and the query family is $\mathcal E_6$
+(always with its subscript).
+
+\begingroup
+\small
+\setlength{\LTpre}{6pt}\setlength{\LTpost}{6pt}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.22\textwidth}%
+>{\raggedright\arraybackslash}p{0.74\textwidth}@{}}
+\caption{Principal symbols. Numerical illustrations are at the baseline
+parameters unless the selected parameters are specified.}\label{tab:notation}\\
+\toprule
+symbol & meaning (and where it is defined)\\
+\midrule
+\endfirsthead
+\toprule
+symbol & meaning (and where it is defined)\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+$N$, $[N]$, $s(N)$ & the scale of the main theorem; $\{1,\dots,N\}$; the
+ largest size of a subset of $[N]$ with no nonzero square difference\\
+$A$, $\alpha$ & a square-difference-free set $A\subseteq[N]$ and its density
+ $\alpha=|A|/N$; the letter $A$ alone is also the skew total (row $S$, $A$,
+ $T$)\\
+$\epsilon$ & the exponent of the main theorem, $s(N)\le CN^{1-\epsilon}$,
+ $\eps=a/(72-\theta)=\FourRoutesExponent$; the baseline has
+ $\eps=a/71=\PushExponent$\\
+$a$, $a_0$, $a_{\rm u}$ & the price exponent of the functional,
+ baseline $a=\PushA$, selected $a=\FourRoutesA$; the anchor $a_0=\PushAnchor$, at
+ which the middle prices are certified (\cref{subsec:closing-quantities}); the
+ upper ledger has its own anchor $a_{\rm u}=883/10^6$
+ (\cref{prop:record:upper})\\
+$\theta$ & the density exponent of the induction: baseline $1$, selected
+ $\FourRoutesDensity$ (also denoted $\vartheta$ in the closing);
+ chamber reflections carry their cut indices, and $\theta(x;4,r)$
+ always carries its arguments\\
+$\Lsc$, $\Kint$ & the interval scale, $N=\Kint\Lsc$; the number of intervals
+ of the index: baseline $\Kint=\PushK$, selected $\Kint=\FourRoutesK$\\
+$L$, $L_{\rm loc}$, $L_{\rm band}$, $L_{\rm u}$ & the actual block budget
+ $L=570$ of the middle range (\cref{def:record:exact-blocks}), used for the
+ repricing and for the caps in the restorations of \cref{lem:record:restoration}; the local cap $L_{\rm loc}=585$, at which
+ the local laws, the block densities, the row constants, the spectral caps and
+ $k_{\rm D}$, $k_{\rm new}$ are evaluated at every piece start
+ (\cref{lem:record:local-domain}); the budget $L_{\rm band}$ of an upper band,
+ an integer between $550$ and $886$ at which the local data of the band are
+ evaluated (\cref{def:record:upper-bands}); and the block length
+ $L_{\rm u}=50000/27$ of the local data of the tail datum, larger than every
+ band budget (\cref{def:record:parameters})\\
+$G_N$, $e_p$ & the label group $\prod_p\Z/p^{e_p}\Z$ over the set
+ $\mathcal P_N$ of primes of the scale $N$, with $e_p=2\mcl$ at the
+ primes $p\equiv1\ (4)$ below $\Pfour$ and $e_p=1$ otherwise
+ (\cref{def:record:functional})\\
+$V$, $d$ & the slot array $(\Z/6\Z)^2\times\{0,1\}$ with slots
+ $(u_0,u_1,\ell)$, $d=|V|=72$; the layer coordinate is $\ell$
+ (\cref{def:slot-array})\\
+$\rot$ & the rotation of $\Z/6\Z$: $\rot j=j+2$ for even $j$ and $\rot j=j-2$
+ for odd $j$\\
+$\vartheta_{c,a}$, $H_a$ & the chamber reflection $\vartheta_a(j)=2a-1-j$ in the
+ coordinate $c\in\{0,1\}$, with plus half $H_a=\{a,a+1,a+2\}$\\
+$\iota$ & the reserved cut $(u_0,u_1,\ell)\mapsto(u_0,u_1,1-\ell)$, with plus half
+ $\{\ell=0\}$; $\iota$ is used for nothing else, and the class indicator is
+ written $\one_{p\equiv1\,(4)}$\\
+$\mathcal E_6$, $e=(u_e,v_e)$ & the six queries $u_e=(0,j,0)$,
+ $v_e=(\rot0,\rot j,1)$, $j\in\Z/6\Z$ (\cref{def:slot-array})\\
+$p$, $q$, $r$; $\chi$, $\Qsq$, $\Om$ & a prime, $q=1/p$, $r=p^{-1/2}$; the
+ quadratic character, the nonzero squares, the strict-square pairs\\
+$G_p(k)$, $G_\chi$, $\eps_G$, $\Jac$ & Gauss sums, $G_\chi^2=\chi(-1)p$,
+ $\eps_G=G_\chi/\sqrt p$ (\cref{thm:gauss}); the Jacobi sum
+ (\cref{thm:jacobi})\\
+$\delta_{p,j}$; $\delta_p$, $\delta_j$ & the conductor-depth tail
+ $\Pr(J_{e,p}\ge j)$ of \cref{def:hyb:coupled}, with the selected
+ $m=64$ law of \cref{lem:imp:padic-envelope}; the latter two symbols
+ are inclusion probabilities in the whole-coordinate special case\\
+$\omega_e=(b_e,s_e)$ & the index of the query $e$: an interval and a residue
+ modulo $\Mzero$ (\cref{def:hyb:coupled}); count errors are written $e_t$,
+ $w_\Delta$, never $\omega$\\
+$\Mzero$, $D_\Jc$, $\sq(d)$ & the external modulus
+ $2^{129}\prod_{p<Q_3,\,p\equiv3\,(4)}p^{128}$ at $m=64$;
+ the revealed modulus $\prod_p p^{J_{e,p}}$ for one query;
+ the least square divisible by $d$, \eqref{eq:sq}\\
+$\Jc$, $R_I$ & the independent depth vector, with every interval revealed
+ (\cref{def:hyb:coupled}); the conductor moment
+ $\E_\Jc(\Kint\sq(D_\Jc))^{a/36}=M_{\rm pad}(\Kint)$,
+ bounded above by $1.247140$ (\cref{cert:index-moment})\\
+$Q_3$, $\Pthree$, $\Pfour$, $\Pfive$ & $19951586$, $167\cdot2^{40}$, $2^{512}$,
+ $2^{65536}$: the primes $p\equiv3\ (4)$ of $[Q_3,\Pthree)$ form the middle
+ range and those of $[\Pthree,\Pfour)$ the upper range; the large primes are those from $\Pfour$ on, one atom each; mixing in
+ the sense of \ref{it:record:R4} is asserted only from $\Pfive$ on
+ (\cref{def:record:parameters})\\
+$\mcl$, $m$ & the number of digit pairs of the square-clique prefix,
+ $\mcl=8192$ (\cref{def:record:parameters}); the mean credit in $\Theta$
+ (\cref{def:cp7})\\
+$B$ & only the energy factor of the reserved Gram bracket,
+ $B=e^{U_0}+R_{\rm err}$ (\cref{def:cp3}); its certified upper end at the
+ baseline parameters is $2.332628665480$\\
+$\Blk$, $q_\Blk$, $b_\Blk$ & a block (atom) of primes; the product and the
+ least of its primes\\
+$\Nbr$, $\Nbrz$ & the reserved Gram bracket measures (\cref{def:cp3}), never
+ the scale $N$\\
+$S$, $A$, $T$ & the symmetric, skew and matching price totals
+ (\cref{thm:comparison})\\
+$P$, $V$, $D$, $U_0$, $R_{\rm err}$, $L_0$ & the first-stage and bracket
+ totals, with the tag totals $d_j$, $v_j$; $L_0=e^P\tagser(d,v)$ and
+ $R_{\rm err}=e^{U_0}\tagser(d,v)$ (\cref{def:cp2,def:cp3}); for two tags with
+ equal totals the series $\tagser$ has the finite majorant $\tagser_n^+$
+ (\cref{cor:two-cut-series})\\
+$\mathcal E$, $J$, $W$, $\Theta$ & the reserved cost, the matching term, the
+ wrap and the closing number,
+ $\Theta=\frac{63}{64}(L_0+\mathcal E)+J+W+\frac{1-m}{64}$ for six queries
+ in the baseline (\cref{thm:comparison}); the selected joint formula is
+ \eqref{eq:final-joint-closing}; $\Theta(z)$ is its inflated form\\
+$D$, $D_{\rm var}$ (closing) & the total discount in
+ $\mathcal E=B(e^S\cosh A-1)-D$, the sum of the variance credit $D_{\rm var}$
+ and the savings of the envelope classes (\cref{def:closing-quantities}),
+ never in one formula with the first-stage total $D$; the first-stage sharp
+ total enters the closing only through its two equal tag totals $d_0=d_1$,
+ each one half of it (\cref{def:closing-quantities})\\
+$\mathsf A$, $\mathsf B$, $\mathsf C$, $\mathsf D$ & the four Paley channels
+ $\chi(y_2-x_0)$, $\chi(x_2-y_0)$, $\chi(y_0-x_1)$, $\chi(y_1-x_0)$ of the $F$
+ record, sans-serif so as not to collide with the prices\\
+$t$ & only the repricing factor $e^{2(a-a_0)L}$, about $1.0000000616512$
+ ($a_0=\PushAnchor$, $L=570$; \cref{def:closing-quantities})\\
+$\beta$, $\eta$, $\gamma$, $\tau$, $t_{\rm an}$, $\sigma$ & the analytic-stage
+ parameters $1/20$, $17/100$, $255/1024$, $1/201$, $1/60$, $1/825$
+ (\cref{def:record:analytic-stage})\\
+$\tside$, $\tau^{\rm sp}$, $t_Y$, $\Sigma_i$ & the direct-Gram side weight
+ $31/32$; the free parameter of the spectral test; the mean (Young) allowance
+ of a row of the upper completion, free in the joint rows of the bands
+ (\cref{lem:five-type}(f)) and $1/50$ in the Schur rows of the tail datum
+ (\cref{lem:five-type}(c)); the block-start sums, certified lower bounds for $\sum_{\Blk}b_\Blk^{-1}$ over the blocks of piece $i$ (\cref{lem:record:lower-start-sums})\\
+$\Jall$, $\Jproj$ & the all-ones kernel; the projection onto constants; $J$
+ alone is the matching term\\
+$E_0$, $E_1$, $F_0$, $F_1$, $F_2$, $G$, $H$, $C$ & $E_0$ and $E_1$ matching records, $F_0$, $F_1$ and $F_2$ fold records,
+ $G$ merge records, $H$ reserved half-diagonal records and $C$ constant records of the local laws (\cref{def:patterns,def:record:frame})\\
+$e_t(p,n)$, $w_\Delta$, $e^\pm_t$, $a_t$, $b_t$, $h_t$ & the coarse and graded
+ insertion-count errors and their coefficients
+ (\cref{eq:graphs:et,eq:graphs:graded}, \cref{lem:extension})\\
+$A_F$, $A^{\rm arm}_F$, $A^{\rm lead}_F$, $A^{\rm rem}_F$, $S_F$ (and $E$);
+ $S_{\rm oth}$, $A_{\rm oth}$ & the full skew price, the raw-arm price (coefficient $w_{\rm D}r^2$ per fold
+ record, before the leading and remainder split), and the leading and remainder prices and the symmetric price of the fold (matching) records, with
+ $A_F=A^{\rm lead}_F+A^{\rm rem}_F$, while the full skew price $A_E$ of the
+ matching records is bounded directly; the other middle symmetric and skew
+ prices (\cref{lem:middle-comparison-prices}, \eqref{eq:middle-piece-prices})\\
+$\kappa_{FF}$ & the cap of the envelope of the pairs of fold records, the
+ fraction of their variance gain that is credited (\cref{lem:class-credit})\\
+$\tlaw$ & the signed-law parameter $\tlaw=\FurtherT$ of the fold records
+ (\cref{def:record:mixture})\\
+$\mathfrak v_\nu$, $n_\nu$ & the variation factor of the comparison law and
+ the number of its product components (\cref{def:cp4})\\
+$\ulaw$; $\Hs0$, $\Hs1$, $\Hs2$, $\Hbar$ & the root-tilt parameter, with
+ its seven values for the seven tilted pieces in \cref{def:record:parameters};
+ the three opposite-base-pair scores $\Hs0$, $\Hs1$, $\Hs2$ and their mean
+ $\Hbar$. The last of the seven tilted pieces uses the signed coherent trace
+ sum $H_{\mathcal D_{39}}$ and the positive floor $1/100$
+ (\cref{def:positive-root})\\
+$\tagser(d,v)$, $d_j$, $v_j$ & the tagged first-stage series and the sharp
+ and variation totals of the tag $j$ (\cref{def:cp2})\\
+$\Uinv$ & the assigned price of the invariant tags $E_{\rm add}+H$ of the
+ outside law $\Nbrz$ (\cref{lem:oct24:invariant-background})\\
+$C_{n,m}$, $\mathcal R_{n,m}$, $D_{n,m}$ & the leading class cost per raw-arm
+ monomial, the remainder polynomial and the saving of the class with $n$ fold
+ and $m$ matching skew records (\cref{cor:envelope-costs})\\
+$M_{n,m}$, $M^{\rm inv}_{n,m}$, $\delta_{\rm s}$ & the collected coupling mass
+ and the invariant orbit mass of a class; the price saving of one folded tag,
+ sharp minus symmetric (\cref{lem:orbit-coupon})\\
+$m_F$, $m_Q$ & the fold and nonempty-$Q$ coupons of the mean credit $m$
+ (\cref{prop:record:mean-credit})\\
+$\Phat$ & the normalized Paley operator $P/r$ at a class-three prime;
+ $\Phat^*=-\Phat$, and $\Phat^2=-I$ on $L^2_0$ (\cref{lem:square-shift}(c))\\
+$s_\tlaw$, $d_\tlaw$, $\ell_\tlaw$, $e_{\rm sg}$ & the ideal and actual
+ coefficients of the signed direct Gram, the leading cap over $r$ and the
+ signed remainder constant (\cref{lem:record:direct-gram,prop:signed-bounds})\\
+$k_{\rm D}$, $e_o$; $k_{\rm new}$, $s_{\rm fold}$; $\bar H_X$ & the negative
+ cap and the centred remainder coefficient of the reference fold record
+ (\cref{lem:old-f-law}); the sharp and symmetric coefficients of the one-stage
+ folded repair (\cref{lem:record:one-stage-folded-e}); the block density
+ factor $(1-n_Xe_X)^{-1}$ of a piece starting at $X$\\
+$\delta^+_{s,i}$ & the increment of the side $s\in\{L,R\}$ of the piece $i$
+ over its auxiliary side, $\max(0,\bar H_{X_i}d_\tlaw(X_i)-d^{\rm aux}_s(X_i))$
+ rounded up (\cref{prop:signed-sides}); not to be confused with $\delta_{\rm s}$\\
+$g$, $c^+$, $B_{\rm top}$ & the prime caps of a cut,
+ $-gp^{-1/2}I\preceq\Op\preceq(1+c^+/p)I$ for its normalized cut operator $\Op$ at $p$;
+ the positive constant is written $c^+$ for the cuts of the middle range and
+ $B_{\rm top}$ for the upper range, where the caps come from Route~B
+ (\cref{lem:layer12-caps,thm:record:direct-star,lem:spec:tensorcomp})\\
+piece, band & a range of the middle partition (\cref{def:record:exact-blocks});
+ a range of the upper partition (\cref{def:record:upper-bands})\\
+\end{longtable}
+\endgroup
+
+\subsection{Character sums}\label{subsec:prelim:characters}
+
+Let $p$ be an odd prime. A \emph{multiplicative character} is a homomorphism
+$\psi\colon\Fp^\times\to\C^\times$; we extend every multiplicative character,
+the trivial one $\psi_0$ included, by $\psi(0)=0$, and only nontrivial
+characters will enter the sums below. The characters form a cyclic group of
+order $p-1$ (the dual of the cyclic group $\Fp^\times$); $\chi_p$ is its
+unique element of order $2$. Hence for every $m\mid p-1$ there are characters
+of order exactly $m$, and if $4\mid p-1$ every character $\psi$ of order $4$
+satisfies $\psi^2=\chi_p$. Since $|\psi(t)|=1$ for $t\ne0$,
+$\psi(t^{-1})=\overline{\psi(t)}=\bar\psi(t)$. The element $-1$ is the
+element of order two of the cyclic group $\Fp^\times$, so it is a square
+exactly when $4\mid p-1$: $\chi(-1)=1$ if $p\equiv1\pmod4$ and $\chi(-1)=-1$
+if $p\equiv3\pmod4$. For $s\in\Fp$ the \emph{Gauss sum} of $\psi$ is
+\[
+  g_s(\psi)=\sum_{t\in\Fp}\psi(t)\,\ee{st/p},\qquad g(\psi)=g_1(\psi),\qquad
+  G_\chi=g(\chi_p)=\sum_{t\in\Fp}\chi_p(t)\,\ee{t/p},
+\]
+and for multiplicative characters $\psi_1,\psi_2$ the \emph{Jacobi sum} is
+$\Jac(\psi_1,\psi_2)=\sum_{t\in\Fp}\psi_1(t)\psi_2(1-t)$.
+
+\begin{theorem}[Weil's bound]\label{thm:weil}
+Let $p$ be an odd prime and $a_1,\dots,a_t\in\Fp$ distinct, $t\ge1$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item $\big|\sum_{x\in\Fp}\chi_p\big((x-a_1)\cdots(x-a_t)\big)\big|\le(t-1)\sqrt p$.
+\item If $t\ge2$ is even, then
+ \[
+  \Bigl|\sum_{x\in\Fp}\chi_p\bigl((x-a_1)\cdots(x-a_t)\bigr)+1\Bigr|\le(t-2)\sqrt p ,
+ \]
+ so the sum has modulus at most $(t-2)\sqrt p+1$.
+\end{enumerate}
+\end{theorem}
+
+Part (a) is Weil's theorem; see \cite[Theorem~11.23]{IwaniecKowalski},
+\cite[Ch.~II]{Schmidt76}. Part (b) follows from (a).
+
+\begin{proof}[Proof of \textup{(b)}]
+Put $f(x)=\prod_{i\le t}(x-a_i)$, $c=\prod_{i<t}(a_t-a_i)\ne0$ and
+$b_i=1/(a_i-a_t)$ for $i<t$; the $b_i$ are distinct and nonzero. The map
+$u\mapsto a_t+1/u$ is a bijection from $\Fp^\times$ onto $\Fp\setminus\{a_t\}$,
+and $x-a_i=(a_t-a_i)(u-b_i)/u$ for $x=a_t+1/u$ and $i<t$. Hence
+\[
+ f(a_t+1/u)=\frac{c\,g(u)}{u^t},\qquad g(u)=\prod_{i<t}(u-b_i).
+\]
+As $t$ is even, $\chi(u^{-t})=1$ for $u\ne0$. Since $f(a_t)=0$ and
+$g(0)=\prod_{i<t}(-b_i)=1/c$,
+\[
+ \sum_{x\in\Fp}\chi(f(x))=\chi(c)\sum_{u\ne0}\chi(g(u))
+ =\chi(c)\sum_{u\in\Fp}\chi(g(u))-1 .
+\]
+The polynomial $g$ is a product of $t-1\ge1$ distinct linear factors, so by
+(a) the last sum has modulus at most $(t-2)\sqrt p$.
+\end{proof}
+
+Part (b) is the character sum over an even number of distinct roots, with the point at infinity retained: the
+substitution moves the root $a_t$ to infinity, and the proof needs only (a).
+Its case $t=2$ is the \emph{two-root identity}, which we record with a direct
+proof: for distinct $a,b\in\Fp$,
+\begin{equation}\label{eq:two-root}
+ \sum_{y\in\Fp}\chi\bigl((y-a)(y-b)\bigr)=-1,\qquad\text{hence}\qquad
+ \E_{y\in\Fp}\,\chi(y-a)\chi(y-b)=\one_{a=b}-q\quad(a,b\in\Fp).
+\end{equation}
+Indeed, for $y\ne a$, $\chi((y-a)(y-b))=\chi((y-b)/(y-a))=\chi(1-(b-a)/(y-a))$,
+and as $y$ runs over $\Fp\setminus\{a\}$ the argument $1-(b-a)/(y-a)$ runs
+over $\Fp\setminus\{1\}$; the term $y=a$ vanishes. So the sum is
+$\sum_{s\ne1}\chi(s)=-\chi(1)=-1$, because there are as many squares as
+non-squares in $\Fp^\times$. For $a=b$ the average is $(p-1)/p=1-q$.
+
+\begin{theorem}[Gauss sums; see {\cite[Ch.~6, \S\S3--4 and Ch.~8, \S2]{IrelandRosen}}, {\cite[Ch.~1]{BerndtEvansWilliams}}]\label{thm:gauss}
+Let $p$ be an odd prime and $\psi$ a nontrivial multiplicative character of $\Fp$.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item\label{it:gauss:twist} $g_0(\psi)=0$, and $g_s(\psi)=\bar\psi(s)\,g(\psi)$
+  for every $s\in\Fp^\times$.
+\item\label{it:gauss:abs} $|g(\psi)|=\sqrt p$.
+\item\label{it:gauss:quad} For the quadratic character,
+  $\overline{G_\chi}=\chi_p(-1)G_\chi$ and $G_\chi^2=\chi_p(-1)\,p$; moreover
+  $G_p(k)=\chi_p(k)G_\chi$ for every $k\in\Fp^\times$, and
+  $\sum_{t\in\Fp}\chi_p(t)\ee{kt/p}=\chi_p(k)G_\chi$ for every $k\in\Fp$. We
+  write $\eps_G=G_\chi/\sqrt p$; thus $|\eps_G|=1$ and $\eps_G^2=\chi_p(-1)$, so
+  $G_\chi$ is real if $p\equiv1\pmod4$ and purely imaginary if $p\equiv3\pmod4$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\ref{it:gauss:twist} $g_0(\psi)=\sum_{t\ne0}\psi(t)=0$, because $\psi$ is a
+nontrivial character of the finite group $\Fp^\times$: if $\psi(t_0)\ne1$ then
+multiplying the sum by $\psi(t_0)$ permutes its terms. For $s\ne0$ substitute
+$t=s^{-1}u$: $g_s(\psi)=\sum_u\psi(s^{-1}u)\ee{u/p}=\psi(s^{-1})g(\psi)=\bar\psi(s)g(\psi)$.
+
+\ref{it:gauss:abs} On the one hand, by \ref{it:gauss:twist} and
+$|\bar\psi(s)|=1$ for $s\ne0$, $\sum_{s\in\Fp}|g_s(\psi)|^2=(p-1)|g(\psi)|^2$.
+On the other hand, expanding,
+\[
+  \sum_{s\in\Fp}|g_s(\psi)|^2=\sum_{x,y\in\Fp}\psi(x)\overline{\psi(y)}\sum_{s\in\Fp}\ee{s(x-y)/p}=p\sum_{x\in\Fp}|\psi(x)|^2=p(p-1).
+\]
+Hence $|g(\psi)|^2=p$.
+
+\ref{it:gauss:quad} $\chi_p$ is real, so
+$\overline{G_\chi}=\sum_t\chi_p(t)\ee{-t/p}=g_{-1}(\chi_p)=\chi_p(-1)G_\chi$ by
+\ref{it:gauss:twist}; with \ref{it:gauss:abs},
+$p=G_\chi\overline{G_\chi}=\chi_p(-1)G_\chi^2$. The number of $u\in\Fp$ with
+$u^2=t$ is $1+\chi_p(t)$ (this includes $t=0$, since $\chi_p(0)=0$), so for
+$k\ne0$
+$G_p(k)=\sum_t(1+\chi_p(t))\ee{kt/p}=\sum_t\ee{kt/p}+g_k(\chi_p)=0+\chi_p(k)G_\chi$.
+The last formula is \ref{it:gauss:twist} for $k\ne0$ and $g_0(\chi_p)=0$ for
+$k=0$. Finally $|\eps_G|=1$ by \ref{it:gauss:abs} and
+$\eps_G^2=G_\chi^2/p=\chi_p(-1)$, and $\chi_p(-1)=1$ exactly when
+$p\equiv1\pmod4$.
+\end{proof}
+
+\begin{remark}[Gauss's sign]\label{rem:gauss-sign}
+Gauss evaluated the sign: $G_\chi=\sqrt p$ if $p\equiv1\pmod4$ and
+$G_\chi=i\sqrt p$ if $p\equiv3\pmod4$ \cite[Ch.~6, \S4]{IrelandRosen}. It is
+not used in this paper: wherever $\eps_G$ occurs, only $|\eps_G|=1$ and
+$\eps_G^2=\chi_p(-1)$ are needed, which is \cref{thm:gauss}\ref{it:gauss:quad}.
+\end{remark}
+
+\begin{theorem}[Jacobi sums; see {\cite[Ch.~8, \S3]{IrelandRosen}}, {\cite[Ch.~2]{BerndtEvansWilliams}}]\label{thm:jacobi}
+Let $p$ be an odd prime and $\psi_1,\psi_2$ multiplicative characters such that
+$\psi_1$, $\psi_2$ and $\psi_1\psi_2$ are nontrivial. Then
+\[
+  \Jac(\psi_1,\psi_2)=\frac{g(\psi_1)\,g(\psi_2)}{g(\psi_1\psi_2)},\qquad\text{hence}\qquad |\Jac(\psi_1,\psi_2)|=\sqrt p .
+\]
+\end{theorem}
+
+\begin{proof}
+Expanding the product and grouping by $s=x+y$,
+\[
+  g(\psi_1)g(\psi_2)=\sum_{s\in\Fp}\ee{s/p}\sum_{x+y=s}\psi_1(x)\psi_2(y).
+\]
+For $s=0$ the inner sum is
+$\sum_x\psi_1(x)\psi_2(-x)=\psi_2(-1)\sum_{x\ne0}(\psi_1\psi_2)(x)=0$, since
+$\psi_1\psi_2$ is nontrivial (\cref{thm:gauss}\ref{it:gauss:twist}, first part
+of its proof). For $s\ne0$ substitute $x=st$, $y=s(1-t)$; this is a bijection
+of the solutions of $x+y=s$ with $t\in\Fp$, and the inner sum becomes
+$(\psi_1\psi_2)(s)\sum_t\psi_1(t)\psi_2(1-t)=(\psi_1\psi_2)(s)\Jac(\psi_1,\psi_2)$.
+Hence
+\[
+ g(\psi_1)g(\psi_2)=\Jac(\psi_1,\psi_2)\sum_{s\ne0}(\psi_1\psi_2)(s)\ee{s/p}
+ =\Jac(\psi_1,\psi_2)\,g(\psi_1\psi_2).
+\]
+By \cref{thm:gauss}\ref{it:gauss:abs} all three Gauss sums have modulus
+$\sqrt p\ne0$, which gives both claims.
+\end{proof}
+
+\subsection{The square shift and the Paley matrix}\label{subsec:notation:square-shift}
+
+The square shift adds a uniformly chosen nonzero square. At the primes $p\equiv3\pmod4$ dividing
+the small modulus $\Mzero$ it is the one-coordinate kernel of the external index
+(\cref{def:hyb:coupled}), so its centred norm is the inclusion probability of
+that coordinate; its tensor products over a set of primes give the
+strict-square pair law, which the
+cancellation along an accepted query expands in characters; and the Paley
+matrix is the signed part of both.
+
+\begin{lemma}[The square shift and the Paley matrix]\label{lem:square-shift}
+Let $p$ be an odd prime, $q=1/p$ and $r=p^{-1/2}$. Let $T_p$ be the
+\emph{square shift} on $L^2(\Fp)$,
+\[
+ (T_pf)(x)=\E_{u\in\Qsq}f(x+u),
+\]
+let $C$ be the $p\times p$ \emph{Paley matrix} $C(x,y)=\chi(y-x)$, and let
+$P=T_C$ be the \emph{Paley operator}, $(Pf)(x)=\E_{y\in\Fp}\chi(y-x)f(y)$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item $T_p$ is doubly stochastic: its matrix $\frac2{p-1}\Ap(y-x)$ has
+ $(p-1)/2$ nonzero entries in each row and in each column. It is diagonal in
+ the additive characters: $T_pe_0=e_0$, and $T_pe_k=\lambda_ke_k$ for $k\ne0$
+ with
+ \[
+  \lambda_k=\frac{G_p(k)-1}{p-1}=\frac{\chi(k)G_\chi-1}{p-1}.
+ \]
+ Hence $\|T_p|_{L^2_0}\|\le(\sqrt p+1)/(p-1)=1/(\sqrt p-1)$, with equality if
+ $p\equiv1\pmod4$. Likewise the matrices $(\Ap(\pm(y-x))-\frac12)_{x,y}$ have
+ the eigenvalue $-\frac12$ at $e_0$ and $(G_p(\pm k)-1)/2$ at $e_k$, $k\ne0$,
+ and norm at most $(\sqrt p+1)/2$.
+\item If $p\equiv3\pmod4$, then $|\lambda_k|=\sqrt{p+1}/(p-1)$ for every
+ $k\ne0$, so $T_p$ restricted to $L^2_0(\Fp)$ is $\sqrt{p+1}/(p-1)$ times a
+ unitary operator, and
+ \[
+  \|T_p|_{L^2_0}\|=\frac{\sqrt{p+1}}{p-1}.
+ \]
+ The norm in this display is best possible among such transitions: for every odd $p$, every doubly stochastic matrix $T$ on
+ $\Fp$ with $T(x,y)=0$ unless $y-x\in\Qsq$ satisfies
+ $\|T|_{L^2_0}\|\ge\sqrt{p+1}/(p-1)$. The number $\sqrt{p+1}/(p-1)$ is $1$ at
+ $p=3$, less than $1$ for $p\ge5$, and less than $1/(\sqrt p-1)$ for every $p$.
+\item $C\one=C^*\one=0$, $C^*=\chi(-1)C$ and $CC^*=C^*C=pI-\Jall$, so
+ $\|C\|=\sqrt p$. Hence $P\one=P^*\one=0$, $P^*=\chi(-1)P$,
+ $P^*P=PP^*=q(I-\Jproj)$ and $\|P\|=r$. Moreover, as matrices and as
+ operators on $L^2(\Fp)$,
+ \[
+  T_p=\frac{\Jall-I+C}{p-1},\qquad T_p=\frac{p\Jproj-I+pP}{p-1}.
+ \]
+ In particular $C^*=-C$ and $P^*=-P$ if $p\equiv3\pmod4$.
+\item Let $\mathcal S$ be a finite set of odd primes,
+ $X_{\mathcal S}=\prod_{p\in\mathcal S}\Fp$ with the uniform probability, and
+ $\pi_{\mathcal S}$ the uniform probability on
+ $\prod_{p\in\mathcal S}\Om\subseteq X_{\mathcal S}\times X_{\mathcal S}$, the
+ strict-square pair law. The characters of $X_{\mathcal S}$ are
+ $z\mapsto\ee{z\xi}=\prod_p\ee{a_pz_p/p}$ with $\xi=\sum_pa_p/p\in\Q/\Z$, and
+ $\widehat g(\xi)=\E_zg(z)\ee{-z\xi}$. For functions $g_1,g_2$ on
+ $X_{\mathcal S}$,
+ \[
+  \int g_1(x)g_2(y)\,d\pi_{\mathcal S}(x,y)=\sum_{\xi}\widehat{g_1}(-\xi)\,\widehat{g_2}(\xi)\,g(\xi),
+ \]
+ the sum running over the characters of $X_{\mathcal S}$, where
+ \[
+  g(\xi)=\prod_{p\in\mathcal S,\ a_p\ne0}\frac{G_p(a_p)-1}{p-1}
+  =\frac1{\varphi(q(\xi))}\sum_{m\in(\Z/q(\xi)\Z)^\times}\ee{\xi m^2}
+ \]
+ is the unit quadratic average of the actual-square kernel
+ (\cref{def:kernel-notation}). Moreover
+ \[
+  |g(\xi)|\le\prod_{p\mid q(\xi)}\frac1{\sqrt p-1},\qquad\text{and}\qquad
+  |g(\xi)|\le q(\xi)^{-1/3}\ \text{if every prime factor of $q(\xi)$ is at least $64$.}
+ \]
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) Since $|\Qsq|=(p-1)/2$, the matrix of $T_p$ is
+$T_p(x,y)=\frac2{p-1}\Ap(y-x)$. For fixed $x$ there are $(p-1)/2$ values of $y$
+with $y-x\in\Qsq$, and for fixed $y$ there are as many values of $x$; so $T_p$
+is doubly stochastic. It is a convolution, and
+$T_pe_k(x)=e_k(x)\,\E_{u\in\Qsq}\ee{ku/p}$. Every nonzero square has exactly two
+square roots, so
+\[
+ \E_{u\in\Qsq}\ee{ku/p}=\frac1{p-1}\sum_{m\in\Fp^\times}\ee{km^2/p}=\frac{G_p(k)-1}{p-1}.
+\]
+This is $1$ at $k=0$, and $(\chi(k)G_\chi-1)/(p-1)$ at $k\ne0$ by
+\cref{thm:gauss}\ref{it:gauss:quad}. The $e_k$ with $k\ne0$ form an orthonormal
+basis of $L^2_0(\Fp)$, so $\|T_p|_{L^2_0}\|=\max_{k\ne0}|\lambda_k|\le
+(|G_\chi|+1)/(p-1)=(\sqrt p+1)/(p-1)$. If $p\equiv1\pmod4$, then
+$G_\chi=\pm\sqrt p$ is real, $\chi$ takes both signs on $\Fp^\times$, and some
+$k\ne0$ has $\chi(k)G_\chi=-\sqrt p$, so that $|\lambda_k|=(\sqrt p+1)/(p-1)$.
+For the second statement,
+$\sum_y(\Ap(y-x)-\frac12)e_k(y)=e_k(x)\bigl(\sum_{u\in\Qsq}\ee{ku/p}-\frac p2\one_{k=0}\bigr)$,
+which is $-\frac12e_0$ at $k=0$ and $\frac12(G_p(k)-1)e_k$ at $k\ne0$; for
+$\Ap(x-y)$ replace $k$ by $-k$. Both matrices are diagonal in the orthonormal
+basis $(p^{-1/2}e_k)_k$ of $\C^{\Fp}$, so their norms are the largest moduli of
+their eigenvalues, at most $(\sqrt p+1)/2$, since $|G_p(\pm k)|=\sqrt p$ for
+$k\ne0$.
+
+(b) If $p\equiv3\pmod4$, then $G_\chi^2=-p$ (\cref{thm:gauss}\ref{it:gauss:quad}),
+so $\chi(k)G_\chi=\pm i\sqrt p$ for $k\ne0$ and $|\chi(k)G_\chi-1|^2=p+1$.
+Hence $|\lambda_k|=\sqrt{p+1}/(p-1)$ for every $k\ne0$, and $T_p$ is diagonal on
+$L^2_0(\Fp)$ in an orthonormal basis with eigenvalues of this common modulus.
+For the optimality, let $T$ be doubly stochastic with $T(x,y)=0$ unless
+$y-x\in\Qsq$. Since $T\one=\one$ and $T^*\one=\one$, $T$ maps $L^2_0$ into
+itself, and the constants carry the singular value $1$. Hence the squared
+Hilbert--Schmidt norm satisfies
+$\|T\|_{\rm HS}^2=1+\|T|_{L^2_0}\|_{\rm HS}^2\le1+(p-1)\|T|_{L^2_0}\|^2$. Each
+row of $T$ has at most $(p-1)/2$ nonzero entries, summing to $1$, so by
+Cauchy--Schwarz its squared entries sum to at least $2/(p-1)$, and
+$\|T\|_{\rm HS}^2\ge2p/(p-1)$. Combining,
+$\|T|_{L^2_0}\|^2\ge(2p/(p-1)-1)/(p-1)=(p+1)/(p-1)^2$. Finally
+$\sqrt{p+1}<\sqrt p+1$ for every $p$, and $\sqrt{p+1}<p-1$ exactly when $p>3$.
+
+(c) The row sums $\sum_y\chi(y-x)$ and the column sums vanish, so
+$C\one=C^*\one=0$. The adjoint has entries
+$C^*(x,y)=\overline{C(y,x)}=\chi(x-y)=\chi(-1)C(x,y)$. The $(x,z)$ entry of $CC^*$
+is $\sum_y\chi(y-x)\chi(y-z)$, which is $p-1$ for $x=z$ and $-1$ for $x\ne z$ by
+\eqref{eq:two-root}; so $CC^*=pI-\Jall$, and $C^*C=\chi(-1)C^2=CC^*$. On the
+constants $CC^*$ vanishes and on their orthogonal complement it is $pI$, so
+$\|C\|^2=p$. As a matrix acting on vectors, $P$ is $C/p$, and the uniform
+probability multiplies every inner product by the same factor $1/p$, so the
+adjoint of $P$ is $C^*/p$. Hence $P^*=\chi(-1)P$,
+$P^*P=C^*C/p^2=(pI-\Jall)/p^2=q(I-\Jproj)$ (as $\Jall/p=\Jproj$ on vectors),
+$PP^*=P^*P$ and $\|P\|=\|C\|/p=r$. Finally
+$2\Ap(y-x)=1+\chi(y-x)-\one_{y=x}$ for all $x,y$: both sides are $2$ if
+$y-x\in\Qsq$ and $0$ otherwise. So
+$T_p=\frac2{p-1}(\Ap(y-x))_{x,y}=(\Jall-I+C)/(p-1)$; applied to $f$ this is
+$(p\E f-f+pPf)/(p-1)$.
+
+(d) The map $(x,u)\mapsto(x,x+u)$ is a bijection of $\Fp\times\Qsq$ onto $\Om$.
+So under $\pi_{\mathcal S}$ the pair $(x,y)$ is $(x,x+u)$, with $x$ uniform on
+$X_{\mathcal S}$ and $u=(u_p)_p$ independent of $x$, its coordinates independent
+and uniform on the sets $\Qsq$. Hence
+$\int g_1(x)g_2(y)\,d\pi_{\mathcal S}=\E_xg_1(x)(T_{\mathcal S}g_2)(x)$ with
+$T_{\mathcal S}=\bigotimes_{p\in\mathcal S}T_p$. Expand
+$g_2(y)=\sum_\xi\widehat{g_2}(\xi)\ee{y\xi}$. The character $\ee{\cdot\,\xi}$ is
+the tensor product of the characters $e_{a_p}$ of the factors, so by (a)
+$T_{\mathcal S}\ee{\cdot\,\xi}=g(\xi)\ee{\cdot\,\xi}$ with
+$g(\xi)=\prod_{a_p\ne0}(G_p(a_p)-1)/(p-1)$; and
+$\E_xg_1(x)\ee{x\xi}=\widehat{g_1}(-\xi)$. This is the identity. By the
+computation in (a), $(G_p(a)-1)/(p-1)=\frac1{p-1}\sum_{m\in\Fp^\times}\ee{am^2/p}$.
+By the Chinese remainder theorem, $m\bmod q(\xi)$ runs over the units exactly
+when $(m\bmod p)_{p\mid q(\xi)}$ runs over $\prod_p\Fp^\times$, and
+$\ee{\xi m^2}=\prod_p\ee{a_pm^2/p}$; this gives the second expression for
+$g(\xi)$. By (a) each factor has modulus at most $1/(\sqrt p-1)$, and for
+$p\ge64$, $\sqrt p-1=p^{1/3}(p^{1/6}-p^{-1/3})\ge p^{1/3}(2-\tfrac14)\ge p^{1/3}$.
+Multiply over $p\mid q(\xi)$.
+\end{proof}
+
+The optimality in (b) concerns this specified class of transitions, the
+doubly stochastic kernels supported on square shifts; it places no
+restriction on a different construction of the indices. The index law uses
+(b), the Paley channels of the local laws use (c) (\cref{lem:paley-triple}),
+the pinned pair bounds (bounds with prescribed labels fixed) use
+the second statement of (a) (\cref{lem:mid:pinpair}), and the
+cancellation uses (d).
+
+\subsection{Primes in the classes modulo four}\label{subsec:notation:primes}
+
+For primes in a residue class modulo four we use the following explicit
+Chebyshev estimate. Write $\theta(x;4,r)=\sum_{p\le x,\ p\equiv r\ (4)}\log p$.
+
+\begin{theorem}[Bennett--Martin--O'Bryant--Rechnitzer {\cite[Theorem~1.2 and Table~1]{BMOR18}}]\label{thm:bmor}
+For $r\in\{1,3\}$ and every real $x\ge4\,800\,162\,889$,
+\[
+ \Bigl|\theta(x;4,r)-\frac x2\Bigr|<c_\theta(4)\,\frac{x}{\log x},
+ \qquad c_\theta(4)=0.0004822=\frac{2411}{5000000}.
+\]
+Consequently, if $X\ge4\,800\,162\,889$, then
+$|\theta(t;4,r)-t/2|\le\mathsf e_Xt$ for every $t\ge X$, where
+$\mathsf e_X=2411/(5000000\log X)$.
+\end{theorem}
+
+The consequence holds because $t/\log t\le t/\log X$ for $t\ge X$. The constants
+are those of the published version (\cref{subsec:external:sources}). In the
+construction this theorem supplies the prime counts for the cells of the middle range above
+$4\,800\,162\,890$, from which their prices and the analytic lower start sums of the mean credit are computed
+(\cref{eq:record:cell-charge,lem:record:lower-start-sums}); the same cell charge
+prices the cells of the upper bands (\cref{prop:record:upper}). Below
+$4\,800\,162\,890$, one more than the threshold of the theorem, no Chebyshev estimate is used (\cref{rem:record:middle-scope}).
+
+\subsection{Two correlation inequalities (Peyre and Kassabov)}\label{subsec:notation:correlation}
+
+Maximal correlation and the Friedrichs angle are defined in
+\cref{def:prelim:maxcorr,def:prelim:angle}. When the intersection of the two
+function spaces consists of the constants, the maximal correlation is the
+cosine of the Friedrichs angle between them; this is why an inequality for
+angles (Kassabov's) and one for correlations (Peyre's) combine in the pinned
+influence bounds of the local laws.
+
+\begin{theorem}[Peyre's tensorization {\cite[Theorem~3.3.1]{Peyre}}]\label{thm:peyre-finite}
+Let $A,B$ be disjoint nonempty finite sets, and let $(X_v)_{v\in A\cup B}$ be
+random variables on a common probability space, each taking finitely many
+values. Let $\eps_{ij}\ge0$ for $i\in A$, $j\in B$, and
+$\mathcal E=(\eps_{ij})$. Suppose that for all $i\in A$, $j\in B$, every
+$S\subseteq(A\cup B)\setminus\{i,j\}$ and every value $s$ of
+$X_S=(X_v)_{v\in S}$ with $\Pr(X_S=s)>0$,
+\begin{equation}\label{eq:peyre:hyp}
+  \rho(X_i;X_j\mid X_S=s)\le\eps_{ij}.
+\end{equation}
+Then
+\begin{equation}\label{eq:peyre:concl}
+  \rho\big((X_a)_{a\in A};(X_b)_{b\in B}\big)\le\min\{1,\opnorm{\mathcal E}\}.
+\end{equation}
+More precisely, \eqref{eq:peyre:concl} holds as soon as there are enumerations
+$A=\{a_1,\dots,a_N\}$ and $B=\{b_1,\dots,b_M\}$ such that \eqref{eq:peyre:hyp}
+holds for $i=a_k$, $j=b_l$ and the single set
+$S=\{a_1,\dots,a_{k-1}\}\cup\{b_1,\dots,b_{l-1}\}$, for all $1\le k\le N$ and
+$1\le l\le M$.
+\end{theorem}
+
+Here $\opnorm{\mathcal E}$ is the norm of $\mathcal E$ as an operator
+$\ell^2(B)\to\ell^2(A)$ (Euclidean norms, \cref{def:prelim:operators}), its
+largest singular value. The second statement has a weaker hypothesis, because
+the sets $S$ it uses are among those allowed in the first: they avoid $a_k$
+and $b_l$. \Cref{app:peyre} gives the complete proof, which is Peyre's argument in
+finite form; the proof establishes the second statement directly. The paper
+applies only the first.
+
+\begin{corollary}[Independent pairs]\label{cor:peyre-independent}
+Let $(X_k,Y_k)$, $1\le k\le n$, be pairs of finite-valued random variables,
+the $n$ pairs independent of each other. Then
+\[
+ \rho\big((X_k)_k;(Y_k)_k\big)=\max_k\rho(X_k;Y_k).
+\]
+The same holds conditionally: if the triples $(X_k,Y_k,Z_k)$ are independent
+across $k$ and $z=(z_k)_k$ is a value of $(Z_k)_k$ of positive probability,
+then $\rho((X_k)_k;(Y_k)_k\mid(Z_k)_k=z)=\max_k\rho(X_k;Y_k\mid Z_k=z_k)$.
+\end{corollary}
+
+\begin{proof}
+Apply \cref{thm:peyre-finite} with $X_{a_k}=X_k$ and $X_{b_k}=Y_k$. Let $S$
+avoid $a_k$ and $b_l$, and let $s$ be a value of $X_S$ of positive probability.
+The event $\{X_S=s\}$ is an intersection of events, one in each pair, so under
+$\Pr(\cdot\mid X_S=s)$ the pairs are still independent. If $k\ne l$, then
+$X_k$ and $Y_l$ lie in different pairs, are conditionally independent, and
+$\rho(X_k;Y_l\mid X_S=s)=0$. If $k=l$, the event depends only on the other
+pairs, the conditional law of $(X_k,Y_k)$ is its law, and
+$\rho(X_k;Y_k\mid X_S=s)=\rho(X_k;Y_k)$. So the hypothesis holds with the
+diagonal matrix $\mathcal E=\diag(\rho(X_k;Y_k))_k$, whose norm is
+$\max_k\rho(X_k;Y_k)$. The reverse inequality holds because functions of $X_k$
+alone and of $Y_k$ alone are admissible in the definition of
+$\rho((X_k)_k;(Y_k)_k)$. For the conditional statement apply this under
+$\Pr(\cdot\mid(Z_k)_k=z)$: by the same product computation the pairs remain
+independent, with the conditional laws of $(X_k,Y_k)$ given $Z_k=z_k$.
+\end{proof}
+
+In operator form: the operator of a product of couplings is the tensor product
+of the operators of the factors, and its centred norm is the largest centred
+norm of a factor (\cref{lem:sector}(c)).
+
+\begin{corollary}[Conditional decorrelation]\label{cor:cond-decorrelation}
+Let $X,Y,Z$ be finite-valued random variables on a common probability space
+and $\eps\ge0$, and assume $\rho(X;Y\mid Z=z)\le\eps$ for every value $z$ with
+$\Pr(Z=z)>0$. If a real function $f\in L^2(X,Z)$ satisfies $\E[f\mid Z]=0$ and
+$g\in L^2(Y,Z)$ is real, then
+\[
+ |\E[fg]|\le\eps\,\norm f\,\norm{g-\E[g\mid Z]}\le\eps\norm f\norm g .
+\]
+\end{corollary}
+
+\begin{proof}
+This is \cref{lem:peyre:basic}(b), proved in \cref{app:peyre} on a finite space
+of full support (\cref{sec:peyre:conv}); every quantity here depends only on
+the joint law of $(X,Y,Z)$, so this is no restriction. The proof is fibrewise:
+on each set $\{Z=z\}$ of positive probability the hypothesis bounds
+$|\E[fg\mid Z=z]|$ by $\eps$ times the conditional norms of $f$ and of
+$g-\E[g\mid Z]$, and Cauchy--Schwarz for the sum over $z$ gives the claim.
+\end{proof}
+
+The two corollaries are used together when a law on a whole block
+is built from feature functions (the block step of
+\cref{lem:oct24:feature-block}): given a function of all the
+labels of a block, the conditional correlation tensorizes over
+the primes of the block
+(\cref{cor:peyre-independent}), and a function with conditional mean zero is
+then decorrelated from every function of the other side
+(\cref{cor:cond-decorrelation}).
+
+\begin{theorem}[Kassabov's angle inequality {\cite[Lemma~4.2(b)]{Kassabov}}]\label{thm:kassabov}
+Let $V_1,V_2,V_3$ be subspaces of a finite-dimensional Hilbert space and put
+$\eps_{ij}=\cos\angle(V_i,V_j)$. If $\eps_{13}<1$ and $\eps_{23}<1$, then
+\[
+  \cos\angle(V_1\cap V_3,V_2\cap V_3)\le\frac{\eps_{12}+\eps_{13}\eps_{23}}{\sqrt{(1-\eps_{13}^2)(1-\eps_{23}^2)}} .
+\]
+\end{theorem}
+
+It enters through the elimination of pinned vertices in \cref{lem:mid:allpin},
+and through it in the pinned influence theorem \cref{prop:middle-negative}.
+
+\subsection{Monotone majorants: a bound at the smallest prime implies the bound at every larger prime}\label{subsec:notation:majorants}
+
+Every local constant of Part~V is an explicit expression in a prime $p$. It is
+computed once, at the start $X$ of a range of primes (a piece of the middle
+range, an upper band, the tail threshold), and then used at every prime
+$p\ge X$ and on every block of primes of the range. This is valid because each
+such constant, written as a function of the real variables $r=p^{-1/2}$,
+$q=1/p$, $\lambda=1/\log p$ and a block count (the number of primes in the block), is nondecreasing in each of
+them. To write a constant in these variables replace $p$ by $r^{-2}$: for
+instance $p/(p-1)=1/(1-r^2)$, $1/(p-1)=r^2/(1-r^2)$, $k/(p-k)=kr^2/(1-kr^2)$ and
+$k/p=kr^2$ for a fixed number $k$. ``Nondecreasing'' always refers to these variables. The definition
+and the lemma below record the calculus once; every section that evaluates a
+constant at an endpoint cites the lemma and displays the constant in a form
+built from its operations.
+
+\begin{definition}[Admissible and small functions]\label{def:majorant}
+A \emph{box} is a product $\Delta=I_1\times\dots\times I_k$ of intervals
+$I_j\subseteq[0,\infty)$, each containing its supremum $x^+_j<\infty$; the
+point $x^+=(x^+_1,\dots,x^+_k)$ is its \emph{endpoint}, and $\Delta$ is ordered
+coordinatewise. A function $\varphi\colon\Delta\to[0,\infty)$ is
+\emph{admissible} if $\varphi(x)\le\varphi(x')$ whenever $x\le x'$. If $r$ is a
+coordinate whose interval lies in $(0,\infty)$, then $\varphi$ is \emph{small} if
+$\varphi/r$ is admissible. A map $F\colon\mathcal D\to[0,\infty)$ on a set
+$\mathcal D\subseteq[0,\infty)^m$ is \emph{monotone} if $F(y)\le F(y')$ whenever
+$y\le y'$ in $\mathcal D$.
+\end{definition}
+
+\begin{lemma}[Admissible majorants]\label{lem:majorant}
+Let $\Delta$ be a box with endpoint $x^+$.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item Nonnegative constants, the coordinates, and every power series in the
+ coordinates with nonnegative coefficients that converges on $\Delta$ are
+ admissible; such a series in which every monomial contains $r$ is small. In
+ particular every polynomial in $r$ with nonnegative coefficients, such as a
+ count error of \cref{lem:extension}, and $p/(p-1)=1/(1-r^2)$ are admissible.
+\item If $F\colon\mathcal D\to[0,\infty)$ is monotone and
+ $\varphi_1,\dots,\varphi_m$ are admissible with
+ $(\varphi_1(x),\dots,\varphi_m(x))\in\mathcal D$ for every $x\in\Delta$, then
+ $F(\varphi_1,\dots,\varphi_m)$ is admissible. Hence sums, products, maxima,
+ minima and square roots of admissible functions, and powers $\varphi^\psi$
+ with $\varphi\ge1$, are admissible; so are $e^\varphi$, $e^\varphi-1$,
+ $(e^\varphi-1)/\varphi$ (with value $1$ where $\varphi=0$) and
+ $\log(1+\varphi)$, and, where $\varphi<1$ on $\Delta$, also $1/(1-\varphi)$,
+ $(1+\varphi)/(1-\varphi)$ and $-\log(1-\varphi)$; and so are the operator
+ norm of a matrix whose entries are admissible and the largest eigenvalue of
+ a real symmetric matrix whose entries are admissible. Finally,
+ $(G,D,r)\mapsto G+D^2r/(1+Gr)$ is monotone on
+ $\{G,D,r\ge0,\ Dr\le1\}$, so $\varphi_G+\varphi_D^2\varphi_r/(1+\varphi_G\varphi_r)$
+ is admissible for admissible $\varphi_G,\varphi_D,\varphi_r$ with
+ $\varphi_D\varphi_r\le1$ on $\Delta$.
+\item Every small function is admissible. If $\varphi,\psi$ are small and
+ $h$ is admissible, then $\varphi+\psi$, $\max(\varphi,\psi)$,
+ $\min(\varphi,\psi)$, $h\varphi$ and $\sqrt{\varphi\psi}$ are small. If
+ $F(y)=yG(y)$ with $G\ge0$ monotone, then $F\circ\varphi$ is small for small
+ $\varphi$ (with values in the domain of $G$); in particular $e^\varphi-1$,
+ and, where $\varphi<1$, $-\log(1-\varphi)$, $\varphi/(1-\varphi)$ and
+ $(1+\varphi)/(1-\varphi)-1$ are small. If $\varphi_1,\dots,\varphi_n$ are
+ small, then $\prod_i(1+\varphi_i)-1$ is small. The function $\log(1+\varphi)$
+ need not be small: $\log(1+y)/y$ decreases.
+\item One fixed candidate, chosen independently of $x$ (for instance by
+ its value at the endpoint), among finitely many admissible candidates is admissible. If $\varphi$ is admissible and $\psi\le\varphi$ on
+ $\Delta$, then $\max(\varphi,\psi)=\varphi$ is admissible, whatever $\psi$ is.
+\end{enumerate}
+Consequently the following hold.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item \emph{Endpoint.} If $\varphi$ is admissible, then $\varphi(x)\le\varphi(x^+)$
+ for every $x\in\Delta$. In particular, let $P>1$ and $L\ge0$ be real, and let
+ $\Delta=(0,P^{-1/2}]\times(0,1/P]\times(0,1/\log P]\times[0,L/\log P]$ in the
+ variables $r$, $q$, $\lambda$ and the block count (or a product of some of
+ these factors). Then every inequality of the form $\varphi(x^+)<c$ (or $\le c$) checked at the
+ endpoint holds at every prime $p\ge P$ and every block count at most
+ $L/\log P$, and every admissible coefficient at such a prime is at most its
+ value at the endpoint.
+\item \emph{Piece start.} Let $X>1$, $q_X=1/X$, $r_X\ge X^{-1/2}$ and
+ $n_X\ge0$ (the certificates use $r_X=1/\lfloor\sqrt X\rfloor$), and let
+ $\varphi(q,r,l)$ be admissible on the box $(0,q_X]\times(0,r_X]\times[0,n_X]$.
+ If a quantity at the prime $p$ with block count $l\le n_X$ is
+ $r^d\varphi(q,r,l)$, where $d\ge0$, $r=p^{-1/2}$ and $q=1/p$, then for every
+ prime $p\ge X$ it is at most $p^{-d/2}\varphi(q_X,r_X,n_X)$.
+\item \emph{Block inflation.} Let $c\ge0$ and $L>0$. The function
+ $X\mapsto\exp(cL/(X\log X))$ is nonincreasing on $(1,\infty)$ (decreasing if
+ $c>0$). If $\Blk$ is a set of
+ primes, all at least $X>1$, with $q_\Blk\le e^L$, then $|\Blk|\le L/\log X$,
+ $\sum_{p\in\Blk}1/p\le L/(X\log X)$ and
+ $\prod_{p\in\Blk}(1+c/p)\le\exp(cL/(X\log X))$.
+\item \emph{Matrix tests.} Let $M_0$ be a fixed Hermitian matrix and
+ $E_1,\dots,E_m\succeq0$ fixed positive semidefinite matrices of the same
+ size, and let $c_1,\dots,c_m$ be real functions on $\Delta$
+ with $c_i(x)\ge c_i(x^+)$ for every $x$ (for instance $c_i=-\varphi_i$, or
+ $c_i=g/\varphi_i$ with a constant $g\ge0$ independent of $x$, where $\varphi_i>0$ is admissible). If
+ $M_0+\sum_ic_i(x^+)E_i\succeq0$, then $M_0+\sum_ic_i(x)E_i\succeq0$ for every
+ $x\in\Delta$.
+\item \emph{Several thresholds.} Let $\mathcal A(p,g)$ be a statement about a
+ prime $p$ and a number $g$ that remains true when $g$ is increased (for
+ instance $C_p\succeq-gp^{-1/2}I$, $C_p\preceq(1+g/p)I$ or $c(p)\le g$). If,
+ for each $s$ in a finite set, $\mathcal A(p,g_s)$ holds for every prime
+ $p\ge y_s$, then $\mathcal A(p,\min\{g_s:y_s\le y\})$ holds for every prime
+ $p\ge y$ and every real $y\ge\min_sy_s$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) For $0\le x\le x'$ every monomial satisfies $x^\alpha\le x'^\alpha$, so a
+series with nonnegative coefficients is admissible. If every monomial contains
+$r$, the series is $r$ times a series with nonnegative coefficients, which
+converges on $\Delta$ because $r>0$ there; so it is small. The count errors are
+polynomials in $r$ with nonnegative coefficients, and
+$1/(1-r^2)=\sum_{k\ge0}r^{2k}$ for $r<1$.
+
+(ii) If $x\le x'$, then $\varphi_i(x)\le\varphi_i(x')$ for every $i$, and the
+monotonicity of $F$ gives the claim. The listed maps are monotone on their
+domains: $(y,z)\mapsto y+z$, $yz$, $\max(y,z)$, $\min(y,z)$ on $[0,\infty)^2$;
+$y\mapsto\sqrt y$; $(y,z)\mapsto y^z$ on $[1,\infty)\times[0,\infty)$;
+$y\mapsto e^y$, $e^y-1$, $(e^y-1)/y=\sum_{k\ge0}y^k/(k+1)!$ and $\log(1+y)$ on
+$[0,\infty)$; and $y\mapsto1/(1-y)=\sum_ky^k$,
+$(1+y)/(1-y)=1+2\sum_{k\ge1}y^k$ and $-\log(1-y)=\sum_{k\ge1}y^k/k$ on $[0,1)$.
+For real matrices with $0\le M\le M'$ entrywise and unit vectors $u,v$,
+$|v^*Mu|\le|v|^{\mathsf T}M|u|\le|v|^{\mathsf T}M'|u|\le\|M'\|$, where $|u|$ is
+the vector of moduli; so $\|M\|\le\|M'\|$. For real symmetric $M\ge0$,
+$u^{\mathsf T}Mu\le|u|^{\mathsf T}M|u|$, so the largest eigenvalue is the maximum
+of $u^{\mathsf T}Mu$ over nonnegative unit vectors $u$, which is monotone in the
+entries in the same way. Finally, on
+$\mathcal D=\{G,D,r\ge0,\ Dr\le1\}$ the map $F(G,D,r)=G+D^2r/(1+Gr)$ has the
+partial derivatives $1-D^2r^2/(1+Gr)^2\ge0$ (as $Dr\le1\le1+Gr$),
+$2Dr/(1+Gr)\ge0$ and $D^2/(1+Gr)^2\ge0$. If $y\le y'$ in $\mathcal D$, the
+path from $y$ to $y'$ that raises first $G$, then $D$, then $r$ stays in
+$\mathcal D$, because the product $Dr$ only increases along it, up to its
+value at $y'$; so $F(y)\le F(y')$.
+
+(iii) A small $\varphi=r\varphi'$ is a product of admissible functions. Write
+also $\psi=r\psi'$. Then $\varphi+\psi=r(\varphi'+\psi')$,
+$\max(\varphi,\psi)=r\max(\varphi',\psi')$,
+$\min(\varphi,\psi)=r\min(\varphi',\psi')$, $h\varphi=rh\varphi'$ and
+$\sqrt{\varphi\psi}=r\sqrt{\varphi'\psi'}$, and (ii) applies to the cofactors.
+If $F(y)=yG(y)$, then $F(\varphi)/r=G(\varphi)\varphi'$, admissible by (ii);
+this covers $e^y-1$ with $G(y)=(e^y-1)/y$, $-\log(1-y)$ with
+$G(y)=\sum_{k\ge1}y^{k-1}/k$, $y/(1-y)$ with $G(y)=1/(1-y)$, and
+$(1+y)/(1-y)-1=2y/(1-y)$. Finally
+$\prod_i(1+\varphi_i)-1=\sum_{\emptyset\ne I}\prod_{i\in I}\varphi_i$, and each
+term is a small function times admissible ones.
+
+(iv) A choice made once is a fixed admissible function, and
+$\max(\varphi,\psi)=\varphi$ when $\psi\le\varphi$.
+
+(a) Every $x\in\Delta$ satisfies $x\le x^+$. For a prime $p\ge P>1$,
+$p^{-1/2}\le P^{-1/2}$, $1/p\le1/P$ and $1/\log p\le1/\log P$.
+
+(b) For a prime $p\ge X$, $1/p\le q_X$, $p^{-1/2}\le X^{-1/2}\le r_X$ and
+$l\le n_X$, so $\varphi(1/p,p^{-1/2},l)\le\varphi(q_X,r_X,n_X)$ by (a); multiply
+by $p^{-d/2}$.
+
+(c) The function $X\log X$ is positive on $(1,\infty)$, with derivative
+$\log X+1>0$. Every prime of $\Blk$ is at least $X$, so
+$|\Blk|\log X\le\log q_\Blk\le L$; then $\sum_{p\in\Blk}1/p\le|\Blk|/X\le
+L/(X\log X)$, and $\prod_{p\in\Blk}(1+c/p)\le\exp(c\sum_{p\in\Blk}1/p)$.
+
+(d) The difference of the two matrices is
+$\sum_i(c_i(x)-c_i(x^+))E_i\succeq0$.
+
+(e) Every $s$ with $y_s\le y$ gives $\mathcal A(p,g_s)$ at every prime
+$p\ge y\ge y_s$, hence $\mathcal A(p,g)$ for the smallest such $g_s$.
+\end{proof}
+
+\begin{remark}[How the lemma is applied]\label{rem:majorant-use}
+(1) \emph{Cancel the powers of $r$ first.} A remainder of the form
+$q\cdot c(q,r)$ is used as $r\cdot(rc(q,r))$, with the admissible coefficient
+$rc(q,r)$, before the piece start is used. At the piece start the coefficient
+is evaluated at $q_X=1/X$ and $r_X=1/\lfloor\sqrt X\rfloor\ge X^{-1/2}$, and the bound used for a
+block with least prime $b\ge X$ is $b^{-1/2}$ times this
+coefficient (part (b) with $d=1$). A remainder computed at $q_X$ and then
+divided by the larger $r_X$ would not in general bound the coefficient, since
+$q_X/r_X<X^{-1/2}$ when $r_X>X^{-1/2}$; this is never done.
+
+(2) \emph{Logarithmic counts.} Inserting the vertices of a labelling in a
+fixed order, with the count errors of \cref{lem:extension} at each step,
+gives logarithmic count bounds. Where such a bound must be small in the sense
+of \cref{def:majorant} it is used in the form $\sum e$, an
+upper bound for $\sum\log(1+e)$, or $\sum-\log(1-e)$; both are small when the
+count errors $e$ are, whereas $\sum\log(1+e)$ is admissible but in general not
+small.
+
+(3) \emph{Choices and gates.} Orders, partitions, Schur-test parameters and the
+branch of a maximum are fixed at the endpoint before (a) is applied. A minimum
+of bounds is taken only among bounds whose own hypotheses, which are gates,
+hold at the endpoint, and hence everywhere by (a). No monotonicity of an
+eigenvector or of an optimized parameter is used. When one branch of a maximum
+is not monotone, (iv) applies once it is shown to be dominated by an admissible
+branch; this is how the two branches of the maximum in the spectral criterion
+are treated (\cref{lem:spectral-monotone,lem:record:monotone-endpoint}).
+
+(4) \emph{Classes.} A matrix test whose matrices depend on $p$ only through
+$p\bmod4$ is checked for both classes, and (d) is applied within each class.
+The threshold hypotheses of spectral data are gates built from the
+operations of (i) and (ii), and persist by (a). A spectral cap valid for every
+prime $p\ge P$, times the block inflation of (c) evaluated at the start
+$X\ge P$ of a piece or band, bounds the corresponding factor on every block of
+that piece or band (\cref{cor:spectral-criterion-blocks}).
+\end{remark}
+
+\paragraph{Consequences and what to read next.}
+External inputs: Weil's theorem (\cref{thm:weil}(a)), the explicit Chebyshev
+bound of Bennett, Martin, O'Bryant and Rechnitzer (\cref{thm:bmor}) and
+Kassabov's inequality (\cref{thm:kassabov}); \cref{subsec:external:sources}
+gives their sources. Peyre's theorem (\cref{thm:peyre-finite}) and the
+conditional decorrelation inequality (\cref{cor:cond-decorrelation}) are proved
+in \cref{app:peyre}. Everything else is proved here from standard facts: the
+cyclicity of $\Fp^\times$, the Chinese remainder theorem, Hensel's lemma,
+Fourier analysis on finite abelian groups and the Cauchy--Schwarz inequality.

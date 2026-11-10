@@ -1,0 +1,28 @@
+# Reading the paper
+
+[main.pdf](main.pdf) is the complete manuscript. The TeX entry point is
+[main.tex](main.tex); [hexagon-source.zip](hexagon-source.zip) is a standalone
+upload containing the sources and the dependency figure.
+
+| Part | Content |
+| --- | --- |
+| I | Main result, proof outline and local construction |
+| II | Analytic framework, reflection positivity and the square kernel |
+| III | Comparison theorem and its estimates |
+| IV | Counting, correlations, spectra, character sums and extraction |
+| V | Construction, local estimates, density induction and final closing |
+| VI | Development, obstructions and scope of the argument |
+| Appendices A–F | External inputs, finite Peyre theorem, kernel proof, certificates, data and the earlier OpenAI exponent |
+
+The numerical conclusion for the main theorem is assembled in
+[32_four_routes_closing.tex](sections/32_four_routes_closing.tex).
+Earlier numerical tables describe intermediate constructions and are retained
+as part of the manuscript. Source filenames retain their existing numbering;
+the input order in `main.tex` determines the printed order.
+
+The historical verification packages cited in the appendices are not part of
+this initial release. Their names are retained as references in the finished
+paper, rather than as runnable commands for this repository. The Lean
+companion is described separately in [lean/README.md](../lean/README.md).
+
+See [PUBLICATION.md](PUBLICATION.md) for build and upload instructions.

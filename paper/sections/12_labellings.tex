@@ -1,0 +1,1015 @@
+
+\section{Square-constraint labellings over \texorpdfstring{$\mathbb F_p$}{Fp}}
+\label{sec:labellings}
+
+\paragraph{Part IV.}
+\Cref{sec:labellings} and the five sections after it prove the local
+operator estimates with which Part~V verifies the hypotheses (CP1)--(CP7) of
+the comparison theorem (\cref{thm:comparison}). The statements of Part~IV
+are made for arbitrary oriented graphs, spectral data or couplings, and their
+hypotheses are inequalities that a finite check verifies at one prime and that
+the admissible majorants of \cref{lem:majorant} extend to all larger primes;
+an evaluation at a particular graph and threshold, such as
+\cref{lem:trace-mixing}\ref{it:trace:72}, is stated as an instance.
+
+\paragraph{What this section proves and how to read it.}
+This section proves the counting estimates behind every local law.
+A \emph{graph labelling} is a map from the vertices of a small
+oriented graph $G$ to $\mathbf F_p$ sending each directed edge to a
+nonzero-square difference (\emph{injective} is a separate adjective;
+$\lambda_p(G)$ is uniform on the injective labellings). The main
+estimate is: once neighbours of a new vertex carry distinct labels,
+the number of choices for the new label is $p2^{-t}$ up to relative
+error $O(t2^tp^{-1/2})$ for $t$ constraints (Weil's bound).
+Iterating gives sizes, marginals and conditional laws; comparing two
+graphs gives a ratio of four counts; at $p\equiv3\pmod4$ exact
+identities for directed triples are proved. Inputs: Weil's bound
+(\cref{sec:notation}). Outputs: the counts used for cut operators,
+spectral bounds and all Part~V local laws. A first reading should
+follow the definitions and \cref{lem:extension}; sequential counts
+can be used as reference. Terminology for Part~IV: a \emph{cut
+operator} $A_p$ represents $E[F(x)H(x')]$ as
+$\langle F,A_pH\rangle$ in the half law (defined in
+\cref{sec:cuts}); a \emph{spectral cap} is a certified bound
+$-gp^{-1/2}I\preceq A_p\preceq(1+c^+/p)I$ for all $p\ge p_0$ in a
+stated residue class, for a stated threshold $p_0$;
+\emph{pinning} means conditioning on prescribed labels; the
+\emph{soft kernel} is the kernel obtained by expanding every
+square indicator as $(1+\chi)/2$ and dropping the condition that
+labels be distinct; the resulting terms in which two labels that
+must be distinct coincide are the \emph{coincidence terms}, and
+the difference between the true kernel and the soft kernel is a
+sum of such terms. Full definitions are at the sites
+noted; this paragraph only allows the statements to be read in order.
+
+\paragraph{Conventions.}
+Throughout, $p$ is an odd prime, $q=1/p$ and $r=p^{-1/2}$; $\chi=\chi_p$ is the
+quadratic character of $\Fp$ with $\chi(0)=0$, and $\Qsq$ is the set of nonzero
+squares. $L^2(\Fp)$ carries the uniform probability, $\E_x$ is the average over
+$x\in\Fp$, $H_0\subseteq L^2(\Fp)$ is the space of mean-zero functions and
+$\Jproj$ is the projection onto the constants. A strict-square pair is a pair
+$(x,x')$ with $x'-x\in\Qsq$; $\Om$ is the set of them.
+
+\subsection{Oriented graphs, labellings, and count errors}\label{subsec:labellings:defs}
+
+The local laws of Part~V are uniform distributions on assignments
+of elements of $\Fp$ to the vertices of a small directed graph,
+with prescribed differences required to be nonzero squares. This
+subsection defines those assignments (called labellings) and the
+error terms that measure how close their counts are to what
+independent uniform labels would give.
+
+\begin{definition}[Oriented graphs and strict-square labellings]
+\label{def:graphs:labeling}
+An \emph{oriented graph} $G=(W,E)$ is a finite directed graph without loops
+and with at most one edge on each unordered pair of vertices. The degree
+$\deg_G(w)$ counts incoming and outgoing edges, and for $W'\subseteq W$,
+$G[W']$ is the induced oriented graph and $G-w=G[W\setminus\{w\}]$. A
+\emph{strict-square labelling} of $G$ over $\Fp$ is a map $z\colon W\to\Fp$ with
+$z_v-z_u\in\Qsq$ for every edge $(u,v)\in E$; it is \emph{injective} if
+$z_u\ne z_w$ for $u\ne w$. Let $\operatorname{Inj}_p(G)$ be the set of injective
+strict-square labellings and, when it is nonempty, let $\lambda_p(G)$ (also
+written $\lambda_G$) be the uniform probability on it: the \emph{graph law} of
+$G$ at $p$. For a block $\Blk$ (a finite set of odd primes),
+$\lambda_{\Blk}(G)=\bigotimes_{p\in\Blk}\lambda_p(G)$ is a law on
+$(\prod_{p\in\Blk}\Fp)^W$; the labels at different primes are independent. A
+labelling of a set $A\subseteq W$ is \emph{feasible} if it is the restriction
+of an element of $\operatorname{Inj}_p(G)$.
+\end{definition}
+
+A vertex is labelled by a field element. The extension count below counts the
+possible labels of one new vertex after its neighbours have distinct fixed
+labels. Each neighbour imposes a condition on one quadratic character and so
+halves the count, up to a character sum of size $O(\sqrt p)$: the main term is
+$p2^{-t}$ for $t$ constraints. For integers $t,\Delta\ge0$ and $n,z\ge0$ put
+\begin{equation}\label{eq:graphs:et}
+ h_t=\frac t2-1+2^{-t},\qquad e_t(p,n)=2^t\bigl(h_tr+nr^2\bigr),\qquad
+ w_\Delta(p,n)=2^\Delta\Bigl(\frac\Delta2r+nr^2\Bigr),
+\end{equation}
+the \emph{coarse} count error and its uniform majorant, and the \emph{graded}
+coefficients and count errors
+\begin{equation}\label{eq:graphs:graded}
+\begin{gathered}
+ a_t=(t-3)2^{t-1}+2,\qquad b_t=2^{t-1}-1\quad(t\ge1),\qquad a_0=b_0=0,\\
+ e^+_t=a_tr+b_tr^2,\qquad e^-_t(z)=e^+_t+z2^tr^2 .
+\end{gathered}
+\end{equation}
+Thus $a_0=a_1=a_2=0$, $a_3=2$, $a_4=10$, $a_5=34$, and $b_2=1$, $b_4=7$. We use
+the following elementary properties.
+\begin{enumerate}[label=\textup{(E\arabic*)}]
+\item\label{it:et:mono} $a_{t+1}-a_t=(t-1)2^{t-1}$ and $b_{t+1}-b_t=2^{t-1}$
+ for $t\ge1$, $a_1-a_0=b_1-b_0=0$, and $h_{t+1}-h_t=\frac12(1-2^{-t})$; so
+ $a_t$, $b_t$, $h_t$ are nondecreasing in $t$, and $h_t\le t/2$.
+\item\label{it:et:compare} $a_t+b_t=2^th_t$. Hence
+ $e^+_t\le e^-_t(z)\le e_t(p,z)$, with $e_t(p,z)-e^-_t(z)=b_t(r-r^2)\ge0$, and
+ $e_t(p,n)\le w_\Delta(p,n)$ for $t\le\Delta$.
+\item\label{it:et:poly} For fixed $t,z,n,\Delta$, each of $e^+_t$, $e^-_t(z)$,
+ $e_t(p,n)$, $w_\Delta(p,n)$ and its quotient by $r$ is a polynomial in $r$ with
+ nonnegative coefficients; so all of them are nondecreasing in $r$, that is,
+ nonincreasing in $p$. All are nondecreasing in $t$ ($w_\Delta$ in $\Delta$), $z$
+ and $n$.
+\item\label{it:et:main} $2^{-t}(1-e^-_t(z))$ and $2^{-t}(1-e_t(p,z))$ are
+ nonincreasing in $t$ and in $z$.
+\end{enumerate}
+Indeed $a_t+b_t=(t-2)2^{t-1}+1=2^th_t$, which gives \ref{it:et:compare} with
+\ref{it:et:mono}; \ref{it:et:poly} is read off \eqref{eq:graphs:et} and
+\eqref{eq:graphs:graded}; and for \ref{it:et:main},
+$2^{-t}(1-e^-_t(z))=2^{-t}-2^{-t}a_tr-2^{-t}b_tr^2-zr^2$ and
+$2^{-t}(1-e_t(p,z))=2^{-t}-h_tr-zr^2$, where $2^{-t}a_t$ and $2^{-t}b_t$ are
+nondecreasing (for $t\ge1$ their increments are $\frac12-2^{-t}$ and
+$2^{-t-1}$, and from $t=0$ to $t=1$ they are zero).
+
+\subsection{Counting choices for one new vertex}\label{subsec:labellings:extension}
+
+An edge between a new vertex, labelled $x$, and a vertex labelled $\beta$
+imposes $x-\beta\in\Qsq$ (edge into the new vertex) or $\beta-x\in\Qsq$ (edge
+out of it), that is, $\chi(x-\beta)=1$ or $\chi(x-\beta)=\chi(-1)$. The
+admissible labels of a vertex whose $t$ neighbours carry distinct labels, and
+which must avoid a set of used labels, therefore form a set $\Phi$ as in the
+following lemma, with the neighbour labels as roots. More generally, for
+$\epsilon_i\in\{\pm1\}$ the condition $\epsilon_i(x-\beta_i)\in\Qsq$ is
+$\chi(x-\beta_i)=\chi(\epsilon_i)$, so counts of this form are the case
+$s_i=\chi(\epsilon_i)$. At $p\equiv3\pmod4$ the sign records the orientation of
+the edge; at $p\equiv1\pmod4$ every sign is $+1$.
+
+\begin{lemma}[Graded extension count]\label{lem:extension}
+Let $t\ge0$, let $\beta_1,\dots,\beta_t\in\Fp$ be distinct, let
+$s_1,\dots,s_t\in\{1,-1\}$, and let $\mathcal X\subseteq\Fp$ contain
+$\beta_1,\dots,\beta_t$. Put
+\[
+ \Phi=\{x\in\Fp\setminus\mathcal X:\ \chi(x-\beta_i)=s_i\ (1\le i\le t)\},\qquad
+ \mathfrak S=\sum_{x\in\Fp}\prod_{i=1}^t\bigl(1+s_i\chi(x-\beta_i)\bigr).
+\]
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item\label{it:ext:soft} $|\mathfrak S-p|\le a_t\sqrt p+b_t$.
+\item\label{it:ext:upper} $|\Phi|\le p2^{-t}(1+e^+_t)$, whatever the size of
+ $\mathcal X$.
+\item\label{it:ext:lower} If $|\mathcal X|\le z$, then $|\Phi|\ge p2^{-t}(1-e^-_t(z))$.
+\item\label{it:ext:coarse} If $|\mathcal X|\le n$, then
+ $p2^{-t}-h_t\sqrt p-n\le|\Phi|\le p2^{-t}+h_t\sqrt p$; hence
+ $|\Phi|\in p2^{-t}[1-e_t(p,n),1+e_t(p,n)]$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+For $y\ne0$ the indicator of $\chi(y)=s$ is $\frac12(1+s\chi(y))$. Let
+$f(x)=2^{-t}\prod_i(1+s_i\chi(x-\beta_i))$, so that $\mathfrak S=2^t\sum_xf(x)$.
+Each factor $\frac12(1+s_i\chi(x-\beta_i))$ lies in $\{0,\frac12,1\}$, so
+$0\le f\le1$, and for $x\notin\{\beta_1,\dots,\beta_t\}$, $f(x)$ is the
+indicator of the $t$ conditions. Since the roots lie in $\mathcal X$,
+\begin{equation}\label{eq:ext:split}
+ |\Phi|=\sum_{x\notin\mathcal X}f(x)=2^{-t}\mathfrak S-\sum_{x\in\mathcal X}f(x),
+ \qquad 0\le\sum_{x\in\mathcal X}f(x)\le|\mathcal X| .
+\end{equation}
+Expanding the product and using the multiplicativity of $\chi$,
+\[
+ \mathfrak S=\sum_{S\subseteq\{1,\dots,t\}}s_SW_S,\qquad
+ s_S=\prod_{i\in S}s_i,\qquad
+ W_S=\sum_{x\in\Fp}\chi\Bigl(\prod_{i\in S}(x-\beta_i)\Bigr).
+\]
+Here $W_\emptyset=p$; $W_S=\sum_x\chi(x-\beta)=0$ for $|S|=1$; $W_S=-1$ for
+$|S|=2$ by \eqref{eq:two-root}; for odd $|S|=k\ge3$, $|W_S|\le(k-1)\sqrt p$ by
+\cref{thm:weil}\textup{(a)}, the roots being distinct; and for even $|S|=k\ge4$,
+$|W_S+1|\le(k-2)\sqrt p$ by \cref{thm:weil}\textup{(b)}, so
+$|W_S|\le(k-2)\sqrt p+1$. Summing,
+\[
+ |\mathfrak S-p|\le\sqrt p\Bigl[\sum_{k\ \mathrm{odd},\,k\ge3}\binom tk(k-1)
+ +\sum_{k\ \mathrm{even},\,k\ge4}\binom tk(k-2)\Bigr]
+ +\sum_{k\ \mathrm{even},\,k\ge2}\binom tk .
+\]
+For $t\ge1$ the last sum is $2^{t-1}-1=b_t$. The bracket equals
+$\sum_{k\ge3}\binom tk(k-1)-\sum_{k\ \mathrm{even},\,k\ge4}\binom tk$; since
+$\sum_{k\ge0}\binom tk(k-1)=(t-2)2^{t-1}$ and
+$\sum_{k\ \mathrm{even}}\binom tk=2^{t-1}$, removing the terms $k\le2$ gives
+$\bigl[(t-2)2^{t-1}+1-\binom t2\bigr]-\bigl[2^{t-1}-1-\binom t2\bigr]=a_t$. This
+proves \ref{it:ext:soft}; for $t=0$, $\mathfrak S=p$.
+
+By \ref{it:ext:soft}, $2^{-t}\mathfrak S\in p2^{-t}[1-e^+_t,1+e^+_t]$. The
+upper bound of \eqref{eq:ext:split} uses only $f\ge0$, which gives
+\ref{it:ext:upper}; its lower bound gives
+$|\Phi|\ge p2^{-t}(1-e^+_t)-z=p2^{-t}(1-e^-_t(z))$, which is \ref{it:ext:lower}.
+Finally $2^{-t}(a_t\sqrt p+b_t)\le2^{-t}(a_t+b_t)\sqrt p=h_t\sqrt p$ by
+\ref{it:et:compare}, and \ref{it:ext:coarse} follows from \ref{it:ext:upper}
+and \ref{it:ext:lower}.
+\end{proof}
+
+Two features of the count recur below. First, the excluded labels are handled
+collectively, through \eqref{eq:ext:split}: the exact value $W_S=-1$ of a pair
+sum is available only for the sum over all of $\Fp$, and the partial sums of
+$\chi(x-\beta_i)\chi(x-\beta_j)$ over $x\notin\mathcal X$ are not $-1$ when
+$\mathcal X$ contains more than the roots. Second, Weil's bound needs distinct
+roots. This is why every count in this paper is a count of \emph{injective}
+extensions: the pinned labels are then distinct, and injectivity contributes only the excluded-label term $z2^tr^2$ of $e^-_t(z)$, which is of lower order.
+The coarse error $e_t(p,n)$ results from bounding $|W_S|$ for $|S|=2$ by $\sqrt p$ instead of using $W_S=-1$, and for even $|S|=k\ge4$ by $(k-1)\sqrt p$; it is larger than the graded error by
+\ref{it:et:compare}, so every statement proved or certified with $e_t(p,n)$
+remains valid, and the certificates use both.
+
+\begin{corollary}[Signed neighbourhoods]\label{lem:record:signed-nbhd}
+Let $x_1,\dots,x_4\in\Fp$ be distinct, $s\in\{\pm1\}^4$, and put
+$\upsilon_+=11r+6q$ and $\upsilon_-=11r+70q$. The soft count
+$\mathfrak S=\sum_{z\in\Fp}\prod_i(1+s_i\chi(z-x_i))$ satisfies
+$|\mathfrak S-p|\le10\sqrt p+7\le11\sqrt p+6$, and the signed neighbourhood
+$\{z\notin\{x_1,\dots,x_4\}:\chi(z-x_i)=s_i\ \forall i\}$ has between
+$\frac p{16}(1-\upsilon_-)$ and $\frac p{16}(1+\upsilon_+)$ elements. If $k$
+further labels are excluded, at least $\frac p{16}(1-\upsilon_--16kq)$ of its
+elements remain.
+\end{corollary}
+
+\begin{proof}
+Take $t=4$ in \cref{lem:extension}, so $a_4=10$, $b_4=7$, and $\mathcal X=\{x_1,\dots,x_4\}$.
+Part \ref{it:ext:soft} gives $|\mathfrak S-p|\le10\sqrt p+7\le11\sqrt p+6$, part
+\ref{it:ext:upper} gives at most $\frac p{16}(1+10r+7q)\le\frac p{16}(1+\upsilon_+)$
+elements and part \ref{it:ext:lower} with $z=4$ at least
+$\frac p{16}(1-10r-71q)\ge\frac p{16}(1-\upsilon_-)$, since $q\le r$. Removing $k$
+labels costs at most $k=\frac p{16}\cdot16kq$.
+\end{proof}
+
+\subsection{Sequential counts and densities}\label{subsec:labellings:sequential}
+
+Labelling the vertices of a graph one at a time and applying
+\cref{lem:extension} at each step bounds the number of completions of a
+partial labelling. The lemmas of this subsection hold with any count error
+that the extension count supplies; we isolate in \cref{def:graphs:error-pair} the property of the error that the lemmas use.
+
+\begin{definition}[One-step error pairs]\label{def:graphs:error-pair}
+Let $n\ge1$. A \emph{one-step error pair} at $(p,n)$ consists of two sequences
+$(\epsilon^+_t)_{t\ge0}$, $(\epsilon^-_t)_{t\ge0}$ of nonnegative numbers,
+nondecreasing in $t$, such that
+$p2^{-t}(1-\epsilon^-_t)\le|\Phi|\le p2^{-t}(1+\epsilon^+_t)$ for every set $\Phi$ of
+\cref{lem:extension} with $t$ roots and an excluded set of at most $n$ labels.
+\end{definition}
+
+By \cref{lem:extension} and \ref{it:et:mono}--\ref{it:et:poly}, two one-step
+error pairs at $(p,n)$ are the \emph{graded pair}, $\epsilon^+_t=e^+_t$ and
+$\epsilon^-_t=e^-_t(n)$, and the \emph{coarse pair}, $\epsilon^\pm_t=e_t(p,n)$;
+so is every pair of larger nondecreasing sequences.
+
+\begin{lemma}[Sequential counts]\label{lem:graphs:sequential}
+Let $G=(W,E)$ be an oriented graph, $n\ge|W|$, $A\subseteq W$, and let
+$v_1,\dots,v_s$ be an ordering of $W\setminus A$. Let $t_i$ be the number of
+$G$-neighbours of $v_i$ in $A\cup\{v_1,\dots,v_{i-1}\}$, so that
+$\sum_it_i=|E|-|E(G[A])|$, and put $\mathrm{main}=p^s2^{-\sum_it_i}$. Let
+$(\epsilon^+,\epsilon^-)$ be a one-step error pair at $(p,n)$ with
+$\epsilon^-_{t_i}<1$ for all $i$, and define the \emph{logarithmic count errors}
+of the ordering,
+\[
+ \mathrm{up}=\sum_i\log\bigl(1+\epsilon^+_{t_i}\bigr),\qquad
+ \mathrm{lo}=\sum_i-\log\bigl(1-\epsilon^-_{t_i}\bigr).
+\]
+For $x\in\operatorname{Inj}_p(G[A])$ let $C(x)$ be the number of
+$y\in\operatorname{Inj}_p(G)$ with $y|_A=x$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item\label{it:seq:count} $\mathrm{main}\cdot e^{-\mathrm{lo}}\le C(x)\le\mathrm{main}\cdot e^{\mathrm{up}}$
+ for every $x\in\operatorname{Inj}_p(G[A])$; the upper bound holds without the
+ hypothesis on $\epsilon^-$. In particular every element of
+ $\operatorname{Inj}_p(G[A])$ is feasible, and $\operatorname{Inj}_p(G)\ne\emptyset$
+ if $\operatorname{Inj}_p(G[A])\ne\emptyset$ (for instance if $A=\emptyset$).
+\item\label{it:seq:marg} The marginal of $\lambda_p(G)$ on $A$ is supported on
+ $\operatorname{Inj}_p(G[A])$, and its density with respect to $\lambda_p(G[A])$
+ takes values in $[e^{-(\mathrm{up}+\mathrm{lo})},e^{\mathrm{up}+\mathrm{lo}}]$.
+\item\label{it:seq:rows} \emph{Anchored extension probability.} Let $Z=W\setminus A$ and let $H$ be the
+ set of edges of $G$ between $A$ and $Z$. For every $x\in\operatorname{Inj}_p(G[A])$,
+ the probability under $y\sim\lambda_p(G[Z])$ that $(x,y)\in\operatorname{Inj}_p(G)$
+ lies in $2^{-|H|}[e^{-(\mathrm{up}+\mathrm{lo})},e^{\mathrm{up}+\mathrm{lo}}]$.
+\item\label{it:seq:coarse} For the coarse pair,
+ $e^{\mathrm{up}+\mathrm{lo}}=R:=\prod_i\frac{1+e_{t_i}(p,n)}{1-e_{t_i}(p,n)}$. If
+ $G$ has maximum degree $\Delta$ and $e_\Delta(p,n)<1$, the hypotheses hold for
+ the coarse pair, for every $A$ and every ordering.
+\item\label{it:seq:thresholds} \emph{Thresholds.} For the graded and the coarse
+ pairs, the quantities $\epsilon^\pm_{t_i}$, $\mathfrak u=\sum_i\epsilon^+_{t_i}/r$
+ and $\mathfrak l=\mathrm{lo}/r$, and for the coarse pair also $\log R/r$, are
+ nondecreasing functions of $r$ on the range where every $\epsilon^-_{t_i}<1$.
+ Hence, if $\epsilon^-_{t_i}<1$ at a real threshold $P>1$, then the same holds at
+ every prime $p\ge P$, and there
+ $\log(\max_xC(x)/\mathrm{main})\le r_p\,\mathfrak u(P)$ and
+ $\log(\mathrm{main}/\min_xC(x))\le r_p\,\mathfrak l(P)$, where $r_p=p^{-1/2}$ and
+ $\mathfrak u(P)$, $\mathfrak l(P)$ are evaluated at $r=P^{-1/2}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Every edge not inside $A$ is counted exactly once in $\sum_it_i$, at its
+endpoint of largest index; this gives $\sum_it_i=|E|-|E(G[A])|$.
+
+\ref{it:seq:count} The elements of $\operatorname{Inj}_p(G)$ extending $x$ are
+obtained by choosing $y(v_1),y(v_2),\dots$ in turn. When $v_i$ is labelled,
+its $t_i$ labelled neighbours carry pairwise distinct labels (injectivity),
+and, since $G$ has at most one edge on each unordered pair, each of them
+imposes exactly one condition $\chi(y(v_i)-\beta)=s$, with $\beta$ its label. The
+new label must avoid the $|A|+i-1\le n-1$ labels used so far, which contain
+the roots. Conversely every sequence of choices satisfying these conditions
+gives an element of $\operatorname{Inj}_p(G)$ extending $x$: the edges inside
+$A$ are satisfied by $x$, every other edge at the step of its later endpoint.
+So the number of choices at step $i$ is the size of a set $\Phi$ of
+\cref{lem:extension} with $t_i$ roots and at most $n-1$ excluded labels, and it
+lies in $p2^{-t_i}[1-\epsilon^-_{t_i},1+\epsilon^+_{t_i}]$ whatever the earlier
+choices were. Multiplying over $i$ gives \ref{it:seq:count}.
+
+\ref{it:seq:marg} The marginal of $\lambda_p(G)$ at $x$ is
+$C(x)/\sum_{x'}C(x')$ and $\lambda_p(G[A])(x)=1/|\operatorname{Inj}_p(G[A])|$, so
+the density is $C(x)/\operatorname{mean}_{x'}C(x')$, which lies between
+$\min C/\max C$ and $\max C/\min C$, hence in the stated interval by
+\ref{it:seq:count}; it is positive everywhere on $\operatorname{Inj}_p(G[A])$.
+
+\ref{it:seq:rows} The probability is $C(x)/|\operatorname{Inj}_p(G[Z])|$. By
+\ref{it:seq:count}, $C(x)\in p^s2^{-|H|-|E(G[Z])|}[e^{-\mathrm{lo}},e^{\mathrm{up}}]$.
+By \ref{it:seq:count} for $G[Z]$ with no anchors and the same ordering,
+$|\operatorname{Inj}_p(G[Z])|\in p^s2^{-|E(G[Z])|}\prod_i[1-\epsilon^-_{t^0_i},1+\epsilon^+_{t^0_i}]$,
+where $t^0_i\le t_i$ is the number of earlier neighbours of $v_i$ in $Z$; since
+$\epsilon^\pm$ are nondecreasing in $t$, this interval lies in
+$p^s2^{-|E(G[Z])|}[e^{-\mathrm{lo}},e^{\mathrm{up}}]$. Divide.
+
+\ref{it:seq:coarse} The identity is the definition. If $e_\Delta(p,n)<1$ then
+$e_{t_i}(p,n)\le e_\Delta(p,n)<1$ by \ref{it:et:poly}, since $t_i\le\Delta$.
+
+\ref{it:seq:thresholds} By \ref{it:et:poly}, $\epsilon^\pm_t$ and $\epsilon^\pm_t/r$ are
+polynomials in $r$ with nonnegative coefficients. The functions
+$x\mapsto-\log(1-x)/x=\sum_{k\ge1}x^{k-1}/k$ and
+$x\mapsto\operatorname{artanh}(x)/x=\sum_{k\ge0}x^{2k}/(2k+1)$ are increasing
+on $(0,1)$, so
+$-\log(1-\epsilon^-)/r=\bigl(-\log(1-\epsilon^-)/\epsilon^-\bigr)(\epsilon^-/r)$ and
+$\log\frac{1+e}{1-e}/r=2\bigl(\operatorname{artanh}(e)/e\bigr)(e/r)$ are products of
+nonnegative nondecreasing functions of $r$ (this is an instance of
+\cref{lem:majorant}). Since $r_p\le P^{-1/2}$ for $p\ge P$, the hypothesis
+transfers from $P$ to $p$, and by \ref{it:seq:count} and $\log(1+x)\le x$,
+$\log(\max C/\mathrm{main})\le\sum_i\epsilon^+_{t_i}(p)=r_p\mathfrak u(p)\le
+r_p\mathfrak u(P)$; the other bound is the same argument.
+\end{proof}
+
+The next lemma collects the facts about one vertex, about subsets and about
+conditional laws of a graph law that the cut and spectral estimates use; its
+part \ref{it:vertex:tuple} is the density bound behind the extraction of
+\cref{lem:matching:extractionk}.
+
+\begin{lemma}[Vertices, subsets and conditional laws]\label{lem:graphs:vertex}
+Let $G=(W,E)$ be an oriented graph with $|W|\le n$, maximum degree $\Delta$ and
+$e_\Delta(p,n)<1$. Let $\lambda=\lambda_p(G)$, $d_w=\deg_G(w)$, and for $Y\subseteq W$
+put
+\[
+ R_Y=\prod_{i\in Y}\frac{1+e_{d_i}(p,n)}{1-e_{d_i}(p,n)},\qquad d_i=\deg_G(i).
+\]
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item\label{it:vertex:inv} $\lambda$ is invariant under the maps
+ $z\mapsto(\alpha z_w+\beta)_{w\in W}$ with $\alpha\in\Qsq$, $\beta\in\Fp$, and its
+ one-vertex marginals are uniform (\cref{lem:marginals}).
+\item\label{it:vertex:dens} Let $w\in W$. Conditionally on $z_{W\setminus\{w\}}$, the
+ label $z_w$ is uniform on its admissible set $\Phi_w(z_{W\setminus\{w\}})$, which
+ has at least $p2^{-d_w}(1-e_{d_w}(p,n))$ elements; so its conditional density
+ with respect to the uniform probability on $\Fp$ is at most
+  $2^{d_w}/(1-e_{d_w}(p,n))$. If $m$ is a probability measure on
+  $\operatorname{Inj}_p(G)$ whose density with respect to $\lambda$ takes values in
+  an interval $[c,Rc]$, $c>0$, then under $m$ the conditional probability of each
+ value of $z_w$ given $z_{W\setminus\{w\}}$ is at most $R/|\Phi_w|$.
+\item\label{it:vertex:del} The marginal of $\lambda$ on $W\setminus\{w\}$ is
+ supported on $\operatorname{Inj}_p(G-w)$, and its density with respect to
+ $\lambda_p(G-w)$ takes values in $[R_{\{w\}}^{-1},R_{\{w\}}]$.
+\item\label{it:vertex:subset} Let $J\subseteq W$. The marginal $\lambda_J$ of
+ $\lambda$ on $J$ is supported on $\operatorname{Inj}_p(G[J])$, and its density with
+ respect to $\lambda_p(G[J])$ takes values in an interval $[c',R_{W\setminus J}c']$,
+ $c'>0$ (in particular in $[R_{W\setminus J}^{-1},R_{W\setminus J}]$). For $m$ as in
+ \ref{it:vertex:dens}, the density of the marginal $m_J$ with respect to
+ $\lambda_p(G[J])$ takes values in an interval $[c'',R\,R_{W\setminus J}c'']$.
+\item\label{it:vertex:tuple} Let $W=V\sqcup C\sqcup U$ with $V\ne\emptyset$, let $x_C$ be a
+ feasible labelling of $C$, order $V$, and let $t_i$ be the number of
+ neighbours of the $i$-th vertex of $V$ in $C$ and among the earlier vertices of
+ $V$, so that $t_V=\sum_it_i$ is the number of edges inside $V$ or between $V$
+ and $C$. The conditional law of $z_V$ given $z_C=x_C$ is supported on injective
+ tuples, and its density with respect to the uniform probability on $\Fp^V$ is
+ at most
+ \[
+  \frac{2^{t_V}R_U}{\prod_i(1-e_{t_i}(p,n))}\ \le\ \frac{2^{t_V}R_U}{(1-e_\Delta(p,n))^{|V|}} .
+ \]
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\ref{it:vertex:inv} is \cref{lem:marginals}, parts (1) and (2): the map
+$z\mapsto\alpha z+\beta$ is a bijection of $\operatorname{Inj}_p(G)$.
+
+\ref{it:vertex:dens} For fixed $z_{W\setminus\{w\}}=y'$ the elements of
+$\operatorname{Inj}_p(G)$ extending $y'$ correspond to the admissible values of
+$z_w$, all equally likely under $\lambda$. They form a set $\Phi$ of
+\cref{lem:extension} whose roots are the $d_w$ (distinct) labels of the
+neighbours of $w$ and whose excluded set consists of the other $|W|-1\le n$
+labels, so \cref{lem:extension}\ref{it:ext:coarse} gives the lower bound. Under
+$m$ the conditional probability of $a\in\Phi_w$ is
+$(dm/d\lambda)(y',a)/\sum_{a'\in\Phi_w}(dm/d\lambda)(y',a')\le Rc/(|\Phi_w|c)$.
+
+\ref{it:vertex:subset} The marginal of $\lambda$ at $x\in\Fp^J$ is
+$C(x)/|\operatorname{Inj}_p(G)|$, $C(x)$ the number of completions. By
+\cref{lem:graphs:sequential}\ref{it:seq:count},\ref{it:seq:coarse} for the anchors
+$J$ and any ordering of $W\setminus J$, whose numbers $t_i$ of earlier neighbours
+satisfy $t_i\le d_i$, $C$ is positive exactly on $\operatorname{Inj}_p(G[J])$ and
+takes values in an interval whose endpoints have ratio at most
+$\prod(1+e_{t_i})/(1-e_{t_i})\le R_{W\setminus J}$ (by \ref{it:et:poly}). The density with
+respect to the uniform law on $\operatorname{Inj}_p(G[J])$ is proportional to $C$.
+For $m$, $m_J(x)$ is the sum of $m$ over the completions of $x$, which lies
+between $cC(x)/|\operatorname{Inj}_p(G)|$ and $RcC(x)/|\operatorname{Inj}_p(G)|$.
+
+\ref{it:vertex:del} is \ref{it:vertex:subset} with $J=W\setminus\{w\}$.
+
+\ref{it:vertex:tuple} The conditional probability of $x_V$ is
+$C(x_C,x_V)/\sum_{x'_V}C(x_C,x'_V)$, where $C(x_C,x_V)$ is the number of completions
+of $(x_C,x_V)$ on $U$. By \cref{lem:graphs:sequential}\ref{it:seq:count} with the
+anchors $C\cup V$, this count is positive exactly when
+$(x_C,x_V)\in\operatorname{Inj}_p(G[C\cup V])$, and it takes values in an interval
+with endpoint ratio at most $R_U$; so the admissible tuples are injective, and
+the conditional probability of each is at most $R_U$ divided by their number.
+Since $x_C$ is feasible, $x_C\in\operatorname{Inj}_p(G[C])$, and
+\cref{lem:graphs:sequential}\ref{it:seq:count} for $G[C\cup V]$ with the anchors $x_C$
+and the given ordering of $V$ shows that there are at least
+$p^{|V|}2^{-t_V}\prod_i(1-e_{t_i}(p,n))$ admissible tuples. Multiplying by
+$p^{|V|}$ gives the bound, and the last inequality is \ref{it:et:poly} with
+$t_i\le\Delta$.
+\end{proof}
+
+For a block $\Blk$ all these statements hold at each prime of $\Blk$, and the
+corresponding statements for $\lambda_{\Blk}(G)$ follow because its marginals,
+conditional laws and densities are products over the primes of $\Blk$.
+
+\subsection{Comparing two graph laws: a ratio of four counts}\label{subsec:labellings:four-count}
+
+In Part~V (\cref{lem:front12:reference,lem:upper-reference-rp}) the conditional laws given a middle label (the rows of the middle and upper references) of two graph laws whose graphs differ only away from the conditioned and queried
+vertices are compared. Their density is then a ratio of four completion counts, whose main
+terms cancel.
+
+\begin{lemma}[Four-count comparison]\label{lem:four-count}
+Let $G$ and $G'$ be oriented graphs with vertex sets $W$ and $W'$, and let
+$M,S$ be disjoint subsets of $W\cap W'$ such that $G[M\cup S]=G'[M\cup S]$ (the
+same edges with the same orientations). Fix orderings and one-step error pairs
+for which \cref{lem:graphs:sequential} applies to $G$ with the anchors $M$ and with
+the anchors $M\cup S$, and to $G'$ with the same anchors, and write
+$\mathrm{up}_G(A),\mathrm{lo}_G(A)$, $\mathrm{up}_{G'}(A),\mathrm{lo}_{G'}(A)$ for
+the logarithmic count errors with the anchors $A$; write $C_G^A(x_A)$ for the
+number of elements of $\operatorname{Inj}_p(G)$ extending $x_A$, so that
+$C_G^\emptyset=|\operatorname{Inj}_p(G)|$. Let $\lambda=\lambda_p(G)$ and $\lambda'=\lambda_p(G')$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item\label{it:four:formula} For every $x_M\in\operatorname{Inj}_p(G[M])$, the conditional laws
+ of $z_S$ given $z_M=x_M$ under $\lambda$ and under $\lambda'$ are both supported on
+ $\Sigma(x_M)=\{x_S:(x_M,x_S)\in\operatorname{Inj}_p(G[M\cup S])\}$, and the density
+ of the first with respect to the second is
+ \[
+  \varrho(x_M,x_S)=\frac{C_G^{M\cup S}(x_M,x_S)\,C_{G'}^M(x_M)}
+  {C_G^M(x_M)\,C_{G'}^{M\cup S}(x_M,x_S)} .
+ \]
+\item\label{it:four:errors} The main terms cancel, and
+ \begin{align*}
+  \log\varrho&\le\mathrm{up}_G(M\cup S)+\mathrm{lo}_G(M)+\mathrm{lo}_{G'}(M\cup S)
+  +\mathrm{up}_{G'}(M),\\
+  -\log\varrho&\le\mathrm{lo}_G(M\cup S)+\mathrm{up}_G(M)+\mathrm{up}_{G'}(M\cup S)
+  +\mathrm{lo}_{G'}(M).
+ \end{align*}
+ With $M=\emptyset$ this compares the marginals of $\lambda$ and $\lambda'$ on $S$.
+\item\label{it:four:block} For a block $\Blk$, the density of the conditional law of
+ $z_S$ given $z_M$ under $\lambda_{\Blk}(G)$ with respect to that under
+ $\lambda_{\Blk}(G')$ is the product over $p\in\Blk$ of the densities of
+ \ref{it:four:formula}, and its logarithm lies in the sum over $p\in\Blk$ of the
+ intervals of \ref{it:four:errors}.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\ref{it:four:formula} Under $\lambda$ the law of $z_{M\cup S}$ is
+$C_G^{M\cup S}/|\operatorname{Inj}_p(G)|$ and that of $z_M$ is
+$C_G^M/|\operatorname{Inj}_p(G)|$, so the conditional law of $z_S$ given $z_M=x_M$
+is $C_G^{M\cup S}(x_M,\cdot)/C_G^M(x_M)$. By \cref{lem:graphs:sequential}\ref{it:seq:count}
+it is positive exactly on $\Sigma(x_M)$. The same holds for $G'$, with the same
+set $\Sigma(x_M)$ because $G'[M\cup S]=G[M\cup S]$, and the ratio is $\varrho$.
+
+\ref{it:four:errors} For a graph $H$ with vertex set $W_H$ write
+$\mathrm{main}_H(A)=p^{|W_H|-|A|}2^{-(|E(H)|-|E(H[A])|)}$ for the main term of
+\cref{lem:graphs:sequential}. In the quotient of the four main terms of $\varrho$
+the powers of $p$ cancel, and the powers of $2$ combine to
+$2^{|E(G[M\cup S])|-|E(G[M])|-|E(G'[M\cup S])|+|E(G'[M])|}=1$, since $G$ and $G'$
+have the same induced graphs on $M\cup S$ and on $M$. By
+\cref{lem:graphs:sequential}\ref{it:seq:count} each count $C_H^A$ lies in
+$\mathrm{main}_H(A)\,[e^{-\mathrm{lo}_H(A)},e^{\mathrm{up}_H(A)}]$; inserting
+these four intervals gives the bounds.
+
+\ref{it:four:block} The labels at different primes are independent under both
+product laws, so the conditional laws and their density are products.
+\end{proof}
+
+In Part~V the lemma is applied to the field graphs $G_F$ and $G_E$ of a fold
+record and of a matching record on three objects (the fold and matching patterns of \cref{def:patterns}), whose induced graphs on any
+two adjacent objects coincide (\cref{lem:layer12-geometry}(d) in the middle
+range, \cref{lem:upper-geometry}(d) in the upper range): on two adjacent
+objects the fold relation and the matching relation both relate every pair of
+distinct object values and neither has a forward pair. With $M$ the middle
+object and $S$ one of the outer objects, part \ref{it:four:formula} writes the
+density of the conditional outer marginals of the rows as a ratio of
+completion counts, and part \ref{it:four:errors} bounds its logarithm: in the
+middle range the counts are exact (\cref{lem:record:class-three}(iii)), and in
+the upper range part \ref{it:four:errors} with the graded insertion counts gives
+the pointwise marginal ratio of the rows \ref{it:record:upper-F5}. With
+$M=\emptyset$ and $S$ the middle object, part \ref{it:four:errors} bounds the
+density of the middle marginals at first order. On a block whose primes are at
+least $b$ and whose logarithmic length $\sum\log p$ is at most
+$L$ (any such bound; $L=570$ in the construction), the errors,
+which are
+nondecreasing in $r$ by \cref{lem:graphs:sequential}\ref{it:seq:thresholds}, add
+over at most $L/\log b$ primes by part \ref{it:four:block}.
+
+\subsection{How uniform is one label, or a queried pair, given the others?}\label{subsec:labellings:trace}
+
+The mixing hypothesis (R4) of \cref{hyp:record:reference} needs, at large primes, that conditioning on all other
+slots leaves the maximal correlation of one slot, or of a queried pair of slots, with the rest small (\cref{def:mixing}). For a graph law this follows from the symmetry of
+$\lambda_p(G)$ alone: the operator $T^*T$ commutes with translations and with
+square dilations, so it is diagonal, or block diagonal, in the additive
+characters with equal traces along the dilation orbits, and its trace is an
+average of reciprocal counts.
+
+\begin{lemma}[Trace lemma for conditional mixing]\label{lem:trace-mixing}
+Let $G=(W,E)$ be an oriented graph with $n=|W|\ge3$ vertices and maximum degree
+$\Delta$, let $p$ be an odd prime with $\operatorname{Inj}_p(G)\ne\emptyset$, and
+let $\lambda=\lambda_p(G)$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item\label{it:trace:slot} \emph{One slot.} Let $v\in W$, $d=\deg_G(v)$, and let
+ $w<1$ with $w\ge e_d(p,n-1)$ (for instance $w=w_\Delta(p,n)$ if this is below
+ one). The conditional
+ operator $T=T^{\lambda,v}$ of \cref{def:mixing} satisfies, for every
+ $f\colon\Fp\to\C$ with $\E f=0$,
+ \[
+  \|Tf\|^2\le\frac2{p-1}\Bigl(\frac{2^d}{1-w}-1\Bigr)\|f\|^2 .
+ \]
+\item\label{it:trace:pair} \emph{A pair, trace form.} Let $(u,v)\in E$ and
+ $W'=W\setminus\{u,v\}$. The pair $(z_u,z_v)$ has law $\Unif(\Om)$. For a
+ labelling $z'$ of $W'$ in the support of the marginal of $\lambda$, let
+ $\Phi(z')\subseteq\Om$ be the set of pairs $(x,x')$ such that $z'$ together with
+ $z_u=x$, $z_v=x'$ lies in $\operatorname{Inj}_p(G)$; for $y\in\Qsq$ let
+ $c_y(z')$ be the number of $x$ with $(x,x+y)\in\Phi(z')$, and put
+ $\varphi_y(z')=\frac{p-1}2\,c_y(z')/|\Phi(z')|-1$. The conditional operator
+ $(T_{uv}f)(z')=\E_\lambda[f(z_u,z_v)\mid z_{W'}=z']$ satisfies, for every
+ $f\in L^2(\Unif(\Om))$ with mean zero,
+ \[
+  \|T_{uv}f\|^2\le\max\Bigl\{\E_\lambda\Bigl[\frac2{p-1}\sum_{y\in\Qsq}\varphi_y^2\Bigr],\
+  p\,\E_\lambda\Bigl[\frac1{|\Phi|}\Bigr]\Bigr\}\|f\|^2 .
+ \]
+\item\label{it:trace:explicit} \emph{A pair, explicit form.} In \ref{it:trace:pair}
+ let $d'_u=\deg_G(u)-1$, $d'_v=\deg_G(v)-1$, $t=d'_u+d'_v$, $s=\max(d'_u,d'_v)$,
+ $n_\times=d'_ud'_v$, and let $e<1$ with $e\ge e_t(p,2n-4)$ and $e\ge e_{s+1}(p,n)$.
+ Put
+ \[
+  \eta=\frac{n_\times2^{t-s+1}}{p-1},\qquad
+  \varphi_{\rm gen}=\frac{3e}{(1-e)^2}+(1+e)\eta,\qquad
+  \varphi_{\rm exc}=\frac{2^{t-s}(1+e)}{(1-e)^2} .
+ \]
+ Then for every mean-zero $f\in L^2(\Unif(\Om))$,
+ \[
+  \|T_{uv}f\|^2\le\max\Bigl\{\varphi_{\rm gen}^2+\frac{2n_\times}{p-1}\varphi_{\rm exc}^2,\
+  \frac{2^{t+1}}{(p-1)(1-e)^2}\Bigr\}\|f\|^2 .
+ \]
+\item\label{it:trace:72} \emph{Seventy-two vertices of degree at most twenty.} If
+ $n=72$ and $\Delta\le20$, then for every prime $p\ge2^{512}$, every vertex $v$ and
+ every edge $(u,v)$, the squared norms in \ref{it:trace:slot} and
+ \ref{it:trace:pair} on the mean-zero functions are at most $2^{22}/p$ and
+ $2^{92}/p$ respectively.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $\mathfrak G$ be the group of the maps $x\mapsto\alpha x+\beta$ ($\alpha\in\Qsq$,
+$\beta\in\Fp$), acting on labellings coordinatewise. It preserves
+$\operatorname{Inj}_p(G)$ (it multiplies every difference by a nonzero square),
+hence $\lambda$ and all its marginals (\cref{lem:marginals}); its translations act
+transitively on $\Fp$, and $\mathfrak G$ acts transitively on $\Om$
+(\cref{lem:marginals}, part (3)), so the one-slot marginals are uniform and, the
+edge $(u,v)$ forcing $(z_u,z_v)\in\Om$, the pair has law $\Unif(\Om)$.
+
+\ref{it:trace:slot} For a labelling $z'$ of $W\setminus\{v\}$ in the support of the
+marginal $\lambda'$, let $\Phi_v(z')$ be the set of admissible labels of $v$; since
+$\lambda$ is uniform, $Tf(z')=|\Phi_v(z')|^{-1}\sum_{x\in\Phi_v(z')}f(x)$. The labels
+of the $d$ neighbours of $v$ are distinct and lie among the $n-1$ excluded
+labels, so \cref{lem:extension}\ref{it:ext:coarse} gives
+$|\Phi_v(z')|\ge p2^{-d}(1-e_d(p,n-1))\ge p2^{-d}(1-w)$. For $g\in\mathfrak G$,
+$\Phi_v(gz')=g\Phi_v(z')$, hence $T(f\circ g)=(Tf)\circ g$; the maps $f\mapsto f\circ g$
+are unitary on $L^2(\Fp)$ and on $L^2(\lambda')$, so $S=T^*T$ commutes with them.
+Commuting with the translations, $S$ is diagonal in the characters
+$e_\xi(x)=e(\xi x/p)$, each of which spans the joint eigenspace of the
+translations for its own character: $Se_\xi=\kappa_\xi e_\xi$ with
+$\kappa_\xi=\|Te_\xi\|^2\ge0$. Since $e_\xi(\alpha x)=e_{\alpha\xi}(x)$, commuting with
+the dilations gives $\kappa_{\alpha\xi}=\kappa_\xi$ for $\alpha\in\Qsq$: $\kappa$ takes one
+value $\kappa_+$ on $\Qsq$ and one value $\kappa_-$ on the nonsquares, and
+$\kappa_0=\|T\one\|^2=1$. In the orthonormal basis $(\sqrt p\,\one_{\{x\}})_x$,
+\[
+ \tr S=\sum_xp\,\|T\one_{\{x\}}\|^2
+ =\sum_xp\,\E_{\lambda'}\Bigl[\frac{\one\{x\in\Phi_v\}}{|\Phi_v|^2}\Bigr]
+ =p\,\E_{\lambda'}\Bigl[\frac1{|\Phi_v|}\Bigr]\le\frac{2^d}{1-w},
+\]
+and $\tr S=1+\frac{p-1}2(\kappa_++\kappa_-)$. Hence
+$\max(\kappa_+,\kappa_-)\le\frac2{p-1}\bigl(\frac{2^d}{1-w}-1\bigr)$, and for
+$f=\sum_{\xi\ne0}\widehat f(\xi)e_\xi$,
+$\|Tf\|^2=\sum_{\xi\ne0}\kappa_\xi|\widehat f(\xi)|^2\le\max(\kappa_+,\kappa_-)\|f\|^2$.
+Finally $e_d(p,n-1)\le e_\Delta(p,n)\le w_\Delta(p,n)$ by \ref{it:et:compare},
+\ref{it:et:poly}.
+
+\ref{it:trace:pair} Use the coordinates $(x,y)$, $x'=x+y$, which identify $\Om$
+with $\Fp\times\Qsq$ and $\Unif(\Om)$ with the uniform law there; write
+$\E_y$ for the average over $y\in\Qsq$ and $\lambda''$ for the marginal of $z_{W'}$.
+Since $\lambda$ is uniform, $T_{uv}f(z')=|\Phi(z')|^{-1}\sum_{\omega\in\Phi(z')}f(\omega)$, and
+as in \ref{it:trace:slot}, $\Phi(gz')=g\Phi(z')$ for $g\in\mathfrak G$ (acting diagonally
+on $\Om$), so $S=T_{uv}^*T_{uv}$ commutes with the unitaries $f\mapsto f\circ g$. The
+translation $x\mapsto x+\beta$ acts by $(x,y)\mapsto(x+\beta,y)$ and the dilation by
+$\alpha\in\Qsq$ by $(x,y)\mapsto(\alpha x,\alpha y)$. For $k\in\Fp$ let
+$\mathcal H_k=\{e_k(x)\psi(y)\}$; these spaces are orthogonal, they are the joint
+eigenspaces of the translations (with distinct characters), and
+$L^2_0(\Unif(\Om))=(\mathcal H_0\ominus\C\one)\oplus\bigoplus_{k\ne0}\mathcal H_k$. So $S$
+preserves each $\mathcal H_k$, and also $\mathcal H_0\ominus\C\one$ (it fixes $\one$
+and is self-adjoint), and $\|T_{uv}|_{L^2_0}\|^2$ is the largest of the norms of
+the restrictions $S_k$ of $S$ to $\mathcal H_k$ ($k\ne0$) and to
+$\mathcal H_0\ominus\C\one$.
+
+\emph{Nonzero frequencies.} The dilation by $\alpha$ maps $\mathcal H_k$ onto
+$\mathcal H_{\alpha k}$ and commutes with $S$, so $\tr S_k$ takes one value
+$\sigma_+$ for $k\in\Qsq$ and one value $\sigma_-$ for the nonsquares. Since
+$S_k\succeq0$, $\|S_k\|\le\tr S_k$, and
+$\frac{p-1}2(\sigma_++\sigma_-)\le\tr S$. In the orthonormal basis
+$(|\Om|^{1/2}\one_{\{\omega\}})_\omega$, as in \ref{it:trace:slot},
+$\tr S=|\Om|\,\E_{\lambda''}[1/|\Phi|]$. With $|\Om|=p(p-1)/2$ this gives
+$\|S_k\|\le\sigma_++\sigma_-\le p\,\E[1/|\Phi|]$.
+
+\emph{Frequency zero.} For $\psi\in\mathcal H_0$ with $\E_y\psi=0$,
+\[
+ T_{uv}\psi(z')=\sum_{y\in\Qsq}\frac{c_y(z')}{|\Phi(z')|}\psi(y)
+ =\E_y\bigl[(1+\varphi_y(z'))\psi(y)\bigr]=\E_y\bigl[\varphi_y(z')\psi(y)\bigr],
+\]
+so by Cauchy--Schwarz
+$|T_{uv}\psi(z')|^2\le\E_y[\varphi_y(z')^2]\,\E_y|\psi|^2$, and
+$\|T_{uv}\psi\|^2\le\E_{\lambda''}\bigl[\frac2{p-1}\sum_y\varphi_y^2\bigr]\|\psi\|^2$.
+
+\ref{it:trace:explicit} Fix $z'$ in the support; let $\mathcal L=z'(W')$, a set of $n-2$
+labels, and let $B_u$, $B_v$ be the sets of labels of the neighbours of $u$,
+respectively $v$, in $W'$; $|B_u|=d'_u$, $|B_v|=d'_v$. A pair $(x,x+y)$ lies in
+$\Phi(z')$ iff $x,x+y\notin\mathcal L$ and $x$ satisfies the $d'_u$ conditions
+$\chi(x-\beta)=s_\beta$ ($\beta\in B_u$) from the edges at $u$ and the $d'_v$
+conditions $\chi(x-(\beta'-y))=s'_{\beta'}$ ($\beta'\in B_v$) from the edges at $v$; the
+edge $(u,v)$ is the condition $y\in\Qsq$. So $c_y$ is the size of a set $\Phi$ of
+\cref{lem:extension} with excluded set $\mathcal L\cup(\mathcal L-y)$, of size at most $2n-4$,
+which contains all the roots. Call $y$ \emph{generic} if
+$B_u\cap(B_v-y)=\emptyset$; at most $n_\times$ values of $y$ are not.
+
+\emph{Counts.} For generic $y$ there are $t$ distinct roots, and
+\cref{lem:extension}\ref{it:ext:coarse} gives $c_y\in p2^{-t}[1-e,1+e]$. For every
+$y$, keeping only the conditions of an endpoint with $s$ conditions,
+\cref{lem:extension}\ref{it:ext:upper} gives $c_y\le p2^{-s}(1+e^+_s)\le p2^{-s}(1+e)$,
+since $e^+_s\le e_s(p,n)\le e_{s+1}(p,n)\le e$. Labelling first the endpoint
+with $s$ conditions and then the other endpoint, which has $t-s+1\le s+1$
+conditions (its own and the edge $(u,v)$),
+\cref{lem:graphs:sequential}\ref{it:seq:count} with the coarse pair gives
+$|\Phi(z')|\ge p^22^{-(t+1)}(1-e)^2$.
+
+\emph{Bounds.} Hence $p\,\E[1/|\Phi|]\le2^{t+1}/(p(1-e)^2)$, which is at most the
+second term. Recall $|\Qsq|=\frac{p-1}2$. For generic $y$,
+$|\Qsq|c_y/|\Phi|\le|\Qsq|p2^{-t}(1+e)/(p^22^{-(t+1)}(1-e)^2)\le(1+e)/(1-e)^2$, so
+$\varphi_y\le3e/(1-e)^2$; and
+$|\Phi|=\sum_yc_y\le|\Qsq|p2^{-t}(1+e)+n_\times p2^{-s}(1+e)=|\Qsq|p2^{-t}(1+e)(1+\eta)$,
+so $|\Qsq|c_y/|\Phi|\ge(1-e)/((1+e)(1+\eta))$ and
+\[
+ -\varphi_y\le\frac{2e+(1+e)\eta}{(1+e)(1+\eta)}\le2e+(1+e)\eta .
+\]
+Thus $|\varphi_y|\le\varphi_{\rm gen}$ for generic $y$. For the other $y$,
+$-1\le\varphi_y\le|\Qsq|p2^{-s}(1+e)/(p^22^{-(t+1)}(1-e)^2)\le\varphi_{\rm exc}$, and
+$\varphi_{\rm exc}\ge1$, so $|\varphi_y|\le\varphi_{\rm exc}$. Therefore
+$\frac2{p-1}\sum_y\varphi_y^2\le\varphi_{\rm gen}^2+\frac{2n_\times}{p-1}\varphi_{\rm exc}^2$,
+and \ref{it:trace:explicit} follows from \ref{it:trace:pair}.
+
+\ref{it:trace:72} In \ref{it:trace:slot} take $w=w_{20}(p,72)=2^{20}(10r+72r^2)$,
+which is at least $e_d(p,71)$ for $d\le20$ by \ref{it:et:compare},
+\ref{it:et:poly}; the bound is nondecreasing in $d$, so $d=20$ is the worst case.
+In \ref{it:trace:explicit} take $e=e_{38}(p,140)=2^{38}((18+2^{-38})r+140r^2)$,
+which is at least $e_t(p,140)$ and $e_{s+1}(p,72)$ since $t\le38$ and $s+1\le20$;
+the right side of \ref{it:trace:explicit} is nondecreasing in $n_\times\le361$,
+$t-s\le19$ and $t+1\le39$, so the worst case is $d'_u=d'_v=19$, with
+$\eta=361\cdot2^{20}/(p-1)$ and $\varphi_{\rm exc}=2^{19}(1+e)/(1-e)^2$. Multiplied by
+$p$, the three resulting expressions are
+\[
+ \frac2{1-r^2}\Bigl(\frac{2^{20}}{1-w}-1\Bigr),\qquad
+ \Bigl(\frac{\varphi_{\rm gen}}r\Bigr)^2+\frac{722\,\varphi_{\rm exc}^2}{1-r^2},\qquad
+ \frac{2^{39}}{(1-r^2)(1-e)^2},
+\]
+and $e/r$, $w/r$ and $\eta/r=361\cdot2^{20}r/(1-r^2)$ are nondecreasing in $r$; so
+all three are nondecreasing in $r$ (\cref{lem:majorant}), and it suffices to
+bound them at $p=2^{512}$, which \cref{cert:trace-mixing-72} does.
+\end{proof}
+
+\begin{certificate}[Mixing constants of the two-layer root at $p=2^{512}$]
+\label{cert:trace-mixing-72}
+At $p=2^{512}$, the quantities $e=e_{38}(p,140)$,
+$\eta=361\cdot2^{20}/(p-1)$, $\varphi_{\rm gen}=3e/(1-e)^2+(1+e)\eta$,
+$\varphi_{\rm exc}=2^{19}(1+e)/(1-e)^2$ and $w=2^{20}(10p^{-1/2}+72p^{-1})$
+of the proof of \cref{lem:trace-mixing}\ref{it:trace:72} satisfy
+$e<\frac12$, $w<\frac12$ and the three inequalities below. They are
+evaluated in exact rational arithmetic by the function
+\texttt{leading\_trace} of
+\path{research/push_2026_10_17/structural/layer72_analytic.py}:
+\[
+ p\Bigl(\varphi_{\rm gen}^2+\frac{722}{p-1}\varphi_{\rm exc}^2\Bigr)<2^{92},\qquad
+ \frac{p\,2^{39}}{(p-1)(1-e)^2}<2^{92},\qquad
+ \frac{2p}{p-1}\Bigl(\frac{2^{20}}{1-w}-1\Bigr)<2^{22} .
+\]
+For orientation only (not part of the check), the three left sides are approximately $2^{87.51}$, $2^{39}$ and $2^{21}$. How the check
+is run and authenticated is recorded in its row of \cref{tab:cert:finite}.
+\end{certificate}
+
+\subsection{Primes $p\equiv3\pmod4$: the Paley tournament, triples, and operators}\label{subsec:labellings:class-three}
+
+At a prime $p\equiv3\pmod4$, $-1$ is a nonsquare, so for $x\ne y$ exactly one of
+$y-x$ and $x-y$ is a square: the strict-square relation is a tournament, the
+Paley tournament, and the character kernel $\chi(t-s)$ is antisymmetric. This is
+why the middle and upper primes are taken with
+$p\equiv3\pmod4$: the laws of directed
+configurations there have exact counts and exact correlation identities, which
+the following lemma collects. (At $p\equiv1\pmod4$ the relation is symmetric
+and the tournament statements of the lemma fail; its part \ref{it:paley:corr}
+holds for every odd $p$, and the disjoint-triple operator at the end of the
+subsection uses no character sum and is treated at every prime $p\ge7$.)
+
+\begin{lemma}[Paley-triple calculus]\label{lem:paley-triple}
+Let $p\equiv3\pmod4$ be prime and write $a\to b$ if $\chi(b-a)=1$. Put
+$k=(p-3)/4$ and let $P$ be the Paley operator of \cref{lem:square-shift},
+$(Ph)(s)=\E_t\chi(t-s)h(t)$ on $L^2(\Fp)$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item\label{it:paley:counts} \emph{Tournament counts.} $\to$ is a tournament on $\Fp$
+ in which every label has $(p-1)/2$ out-neighbours and $(p-1)/2$
+ in-neighbours. Two distinct labels $a\ne a'$ have exactly $k$ common
+ out-neighbours and exactly $k$ common in-neighbours, and
+ $\#\{c:a\to c\to a'\}=k+1-\one[a\to a']$.
+\item\label{it:paley:corr} \emph{Character correlations.}
+ $\E_t\chi(t-a)\chi(t-a')=\one[a=a']-q$ for all $a,a'\in\Fp$ (for every odd $p$;
+ this is \eqref{eq:two-root}).
+\item\label{it:paley:op} \emph{The Paley operator.} $P^*=-P$, $P\one=0$,
+ $P^*P=PP^*=q(I-\Jproj)$ and $\|P\|=r$ (\cref{lem:square-shift}(c)). Hence $P$
+ maps $H_0$ into itself, and on $H_0$ we have $P^2=-qI$, i.e.\ $pP^2=-I$, and
+ $P/r$ is unitary with eigenvalues $\pm i$.
+\item\label{it:paley:triples} \emph{Directed triples.} Let $\nu_F$ be the uniform law on
+ $H_F=\{(x_0,x_1,x_2):\ x_0,x_1,x_2\ \text{distinct},\ x_0\to x_2\}$, and
+ $V_i\colon L^2(\Fp)\to L^2(\nu_F)$, $(V_ih)(x)=h(x_i)$. The coordinates of
+ $\nu_F$ are uniform, each $V_i$ is an isometry, and $V_i^*$ is the conditional
+ expectation onto $x_i$. On $H_0$,
+ \[
+  V_0^*V_2=\frac{P-qI}{1-q},\qquad
+  V_0^*V_1=V_1^*V_2=-\frac{I+V_0^*V_2}{p-2}=-\frac I{p-1}-\frac{pP}{(p-1)(p-2)},
+ \]
+ and so $V_2^*V_0=-(P+qI)/(1-q)$ and
+ $V_1^*V_0=V_2^*V_1=-\frac I{p-1}+\frac{pP}{(p-1)(p-2)}$. The norms on $H_0$ are
+ exactly
+ \[
+  \|V_0^*V_2\|=\varrho:=\frac{r\sqrt{1+q}}{1-q}=\frac{\sqrt{p+1}}{p-1},\qquad
+  \|V_0^*V_1\|=\|V_1^*V_2\|=\varrho_1:=\frac{q}{1-q}\sqrt{1+\frac q{(1-2q)^2}},
+ \]
+ and $\varrho_1\le\varrho':=q(1+\varrho)/(1-2q)$. For $p\ge7$, $\varrho'\le\varrho$, and
+ the Gram operator $(V_i^*V_j)_{i,j}$ of $(V_0,V_1,V_2)$ on $H_0^3$ has norm at
+ most $\Gamma:=1+\varrho+\varrho'$.
+\item\label{it:paley:features} \emph{Features.} Let $A_1=V_2P$, $A_2=V_1P$ and
+ $(A_3h)(x)=-\E_s[\chi(s-x_2)\chi(s-x_1)h(s)]-q\,\E h$, operators
+ $L^2(\Fp)\to L^2(\nu_F)$. Each $A_j$ annihilates the constants and maps into the
+ $\nu_F$-mean-zero functions, and on $H_0$
+ \begin{gather*}
+  A_1^*A_1=A_2^*A_2=qI,\qquad A_3^*A_3=\frac{1-2q-q^2}{p-1}I\preceq qI,\qquad
+  A_1^*A_2=-\frac q{p-1}I+\frac P{(p-1)(p-2)},\\
+  A_1^*A_3=-\frac q{(p-1)(p-2)}I+\frac q{p-1}P,\qquad
+  A_2^*A_3=\frac q{(p-1)(p-2)}I+\frac q{p-1}P,\\
+  V_1^*A_3=-\frac q{p-1}I+\frac P{(p-1)(p-2)},\qquad
+  V_2^*A_3=-\frac q{p-1}I-\frac P{(p-1)(p-2)},\\
+  V_0^*A_1=-\frac{I+P}{p-1},\qquad V_0^*A_2=\frac I{(p-1)(p-2)}-\frac P{p-1},\qquad
+  V_0^*A_3=\frac{2I}{p(p-1)(p-2)} .
+ \end{gather*}
+ Hence, for $\xi\in\R^3$ and $A_\xi=\xi_1A_1+\xi_2A_2+\xi_3A_3$, $V_0^*A_\xi=a_\xi I+b_\xi P$
+ on $H_0$ with
+ \[
+  a_\xi=-\frac{\xi_1q}{1-q}+\frac{\xi_2q^2}{(1-q)(1-2q)}+\frac{2\xi_3q^3}{(1-q)(1-2q)},
+  \qquad b_\xi=-\frac{(\xi_1+\xi_2)q}{1-q},
+ \]
+ and $\|(A_1,A_2,A_3)\|\le r\gamma$ on $H_0^3$, with $\gamma^2=1+q(1+2r)/(1-2q)$.
+\item\label{it:paley:perturb} \emph{Density perturbation.} Let $m=g\nu_F$ be a
+ probability measure on $H_F$ with uniform coordinate marginals and
+ $|g-1|\le e$. Then $|\ip FG_m-\ip FG_{\nu_F}|\le e\|F\|_{\nu_F}\|G\|_{\nu_F}$ and
+ $(1-e)\|F\|^2_{\nu_F}\le\|F\|_m^2\le(1+e)\|F\|^2_{\nu_F}$ for all $F,G$. In
+ particular, for $f,h\in H_0$ the correlations $\ip{V_if}{V_jh}$ under $m$ and
+ under $\nu_F$ differ by at most $e\|f\|\|h\|$, the norms $\|V_if\|$ being equal
+ under both laws; and for every operator $A\colon L^2(\Fp)\to L^2(\nu_F)$, the
+ adjoints of $V_i$ in $L^2(m)$ and in $L^2(\nu_F)$ satisfy
+ $\|V_{i,m}^*A-V_{i,\nu_F}^*A\|\le e\|A\|$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\ref{it:paley:corr} is \eqref{eq:two-root}.
+
+\ref{it:paley:counts} Since $\chi(-1)=-1$, $\chi(a-b)=-\chi(b-a)$, so exactly one of
+$a\to b$, $b\to a$ holds for $a\ne b$; out- and in-neighbours of $a$ are the
+$(p-1)/2$ labels $b$ with $\chi(b-a)=1$, respectively $-1$. For $a\ne a'$,
+\[
+ 4\#\{c:a\to c,\ a'\to c\}=\sum_{c\ne a,a'}(1+\chi(c-a))(1+\chi(c-a'))
+ =(p-2)-\chi(a'-a)-\chi(a-a')-1=p-3,
+\]
+using $\sum_{c\ne a}\chi(c-a)=0$ and \eqref{eq:two-root}; the in-neighbours are the
+same computation with $1-\chi$, and give $p-3$ again. For the paths,
+$4\#\{c\}=\sum_{c\ne a,a'}(1+\chi(c-a))(1+\chi(a'-c))=(p-2)-2\chi(a'-a)+1$,
+because both linear sums equal $-\chi(a'-a)$ and
+$\sum_c\chi(c-a)\chi(a'-c)=-\sum_c\chi((c-a)(c-a'))=1$; this is $4k$ if $a\to a'$
+and $4k+4$ otherwise.
+
+\ref{it:paley:op} The first assertions are \cref{lem:square-shift}(c), since
+$\chi(-1)=-1$. As $P^*\one=-P\one=0$, $P$ maps $H_0$ into itself; there
+$P^*P=PP^*=qI$, so $P/r$ is unitary, and $P^2=-P^*P=-qI$, so its eigenvalues
+are $\pm i$.
+
+\ref{it:paley:triples} The translations preserve $H_F$ and act transitively on
+each coordinate, so the coordinates are uniform, $V_i$ is an isometry, and
+$\ip{V_ih}F_{\nu_F}=\E_s\overline{h(s)}\,\E_{\nu_F}[F\mid x_i=s]$. Given $x_0=s$, the label
+$x_2$ is uniform on the set $s+\Qsq$ of the out-neighbours of $s$, and given
+$(x_0,x_2)$ the label $x_1$ is uniform on the other $p-2$ labels. So $V_0^*V_2$ is
+the square shift $T_p$ of \cref{lem:square-shift}, which is
+$(p\Jproj-I+pP)/(p-1)$ by part (c) there, that is $(pP-I)/(p-1)$ on $H_0$; and
+for $g\in H_0$, $\E[g(x_1)\mid x_0,x_2]=-(g(x_0)+g(x_2))/(p-2)$, which gives $V_0^*V_1$;
+conditioning on $x_2$ instead gives $V_2^*V_1=-(I+V_2^*V_0)/(p-2)$, whose adjoint
+is $V_1^*V_2$. The closed forms follow from $q/(1-q)=1/(p-1)$, and the adjoints
+from $P^*=-P$. By \ref{it:paley:op}, $P$ is normal on $H_0$ with eigenvalues
+$\pm ir$, so $V_0^*V_2$ has eigenvalues $(-q\pm ir)/(1-q)$, of modulus $\varrho$, and
+$V_0^*V_1$ has eigenvalues $-\frac1{p-1}\mp\frac{ipr}{(p-1)(p-2)}$, of modulus
+$\frac1{p-1}(1+\frac p{(p-2)^2})^{1/2}=\varrho_1$; and
+$\varrho_1=\|I+V_0^*V_2\|/(p-2)\le(1+\varrho)/(p-2)=\varrho'$. The inequality $\varrho'\le\varrho$
+is $q\le\varrho(1-3q)$, i.e.\ $1\le(p-3)\sqrt{p+1}/(p-1)$, which holds for $p\ge7$.
+The Schur test applied to the symmetric matrix of the norms of the blocks of the
+Gram operator bounds its norm by the largest row sum,
+$1+\max(\varrho+\varrho_1,2\varrho_1)\le\Gamma$.
+
+\ref{it:paley:features} By \ref{it:paley:op}, $A_1\one=A_2\one=0$, and
+$A_3\one=-(\one[x_1=x_2]-q)-q=0$ by \ref{it:paley:corr}. The functions $A_1h$, $A_2h$
+have mean $\E Ph=0$, and $\E_{\nu_F}[\chi(s-x_2)\chi(s-x_1)]$ does not depend on $s$
+(translation invariance), hence equals its average over $s$, which is $-q$; so
+$\E_{\nu_F}A_3h=q\E h-q\E h=0$.
+
+Let $M_{1|2}=V_2^*V_1$, the conditional expectation of a function of $x_1$ given
+$x_2$. For distinct $a,b$ the number of $x_0$ with $(x_2,x_1)=(a,b)$ is
+$(p-2-\chi(a-b))/2$; summing $g(b)$ against these weights gives, on all of
+$L^2(\Fp)$,
+\[
+ M_{1|2}=\frac{p\Jproj-I}{p-1}+\frac{pP}{(p-1)(p-2)},\qquad
+ M_{1|2}^*=V_1^*V_2=\frac{p\Jproj-I}{p-1}-\frac{pP}{(p-1)(p-2)} .
+\]
+On $H_0$, where $\Jproj=0$ and $P$ maps $H_0$ into itself,
+$A_1^*A_1=A_2^*A_2=P^*P=qI$ and
+$A_1^*A_2=P^*M_{1|2}P=-\frac{P^*P}{p-1}+\frac{pP^*P\,P}{(p-1)(p-2)}
+=-\frac q{p-1}I+\frac P{(p-1)(p-2)}$, since $pq=1$.
+For $A_3$ write $\Psi_h(a,b)=\E_s\chi(s-a)\chi(s-b)h(s)$, so $A_3h(x)=-\Psi_h(x_2,x_1)$
+on $H_0$, and $\varphi_s(b)=\chi(s-b)$. By \ref{it:paley:corr},
+$(P\varphi_s)(a)=q-\one[a=s]$, and $\Jproj\varphi_s=0$, so
+\[
+ \E[\chi(s-x_1)\mid x_2=a]=(M_{1|2}\varphi_s)(a)
+ =-\frac{\chi(s-a)}{p-1}-\frac{p\one[a=s]-1}{(p-1)(p-2)} .
+\]
+Multiplying by $\chi(s-a)h(s)$ and averaging over $s$, with $\chi(s-a)^2=\one[s\ne a]$
+and $\chi(s-a)\one[a=s]=0$, gives
+$\E[\Psi_h(a,x_1)\mid x_2=a]=\frac q{p-1}h(a)+\frac{Ph(a)}{(p-1)(p-2)}$ for $h\in H_0$,
+which is $-V_2^*A_3h(a)$. Conditioning on $x_1$ with $M_{1|2}^*$ gives $V_1^*A_3$ in
+the same way. Then $A_1^*A_3=P^*V_2^*A_3$ and $A_2^*A_3=P^*V_1^*A_3$, and $P^*=-P$,
+$P^2=-qI$ give the stated values. For $A_3^*A_3$: the law of $(x_2,x_1)$ is
+$(p-2-\chi(a-b))/(p(p-1)(p-2))$ on distinct pairs, $\Psi_h$ is symmetric and the
+antisymmetric part $\chi(a-b)$ integrates to zero against
+$\Psi_{h'}\Psi_h$; with $\E_{a,b}\Psi_{h'}\Psi_h=\E_{s,s'}h'(s)h(s')(\one[s=s']-q)^2
+=q(1-2q)\ip{h'}h$ and $\Psi_h(a,a)=-qh(a)$, one gets
+$\frac p{p-1}\bigl[q(1-2q)-q^3\bigr]\ip{h'}h=\frac{1-2q-q^2}{p-1}\ip{h'}h$, which is at
+most $q\ip hh$ for $h'=h$. Next $V_0^*A_1=V_0^*V_2P=(P^2-qP)/(1-q)=-(I+P)/(p-1)$
+and $V_0^*A_2=V_0^*V_1P=-\frac P{p-1}-\frac{pP^2}{(p-1)(p-2)}$. Finally, given
+$x_0=s$ and $x_2=a$, $\E[\chi(t-x_1)\mid x_0,x_2]=-(\chi(t-s)+\chi(t-a))/(p-2)$; so
+\begin{align*}
+ \E\bigl[\chi(t-x_2)\chi(t-x_1)\bigm|x_0=s\bigr]
+ &=-\frac{\chi(t-s)\E[\chi(t-x_2)\mid x_0=s]+\Pr(x_2\ne t\mid x_0=s)}{p-2}\\
+ &=-\frac{1-2\cdot\one[t\ne s]/(p-1)}{p-2},
+\end{align*}
+by $\E[\chi(t-x_2)\mid x_0=s]=(1-\chi(t-s)-p\one[t=s])/(p-1)$ (the computation of
+$V_0^*V_2$ applied to $\varphi_t$) and
+$\Pr(x_2=t\mid x_0=s)=(\one[t\ne s]+\chi(t-s))/(p-1)$. Averaging against $h\in H_0$
+gives $V_0^*A_3h=-\E[\Psi_h(x_2,x_1)\mid x_0]=\frac{2q}{(p-1)(p-2)}h$.
+
+The formula for $V_0^*A_\xi$ is linearity with $1/(p-1)=q/(1-q)$ and
+$1/((p-1)(p-2))=q^2/((1-q)(1-2q))$. For the norm, the Schur test applied to the
+matrix of the norms $\|A_i^*A_j\|$ (with $\|P\|=r$) bounds
+$\|(A_1,A_2,A_3)\|^2$ by its largest row sum. The first two rows sum to
+$q+\frac{q^2}{1-q}+\frac{rq^2}{(1-q)(1-2q)}+\frac{q^3}{(1-q)(1-2q)}+\frac{q^2r}{1-q}
+=q\bigl(1+\frac{q(1+2r)}{1-2q}\bigr)=q\gamma^2$, and the third row is smaller by
+$\frac{2q^2(1-2q+qr-q^2)}{(1-q)(1-2q)}>0$.
+
+\ref{it:paley:perturb} $|\ip FG_m-\ip FG_{\nu_F}|=|\E_{\nu_F}[(g-1)\overline FG]|\le
+e\,\E_{\nu_F}|F||G|$, and Cauchy--Schwarz gives the first claim; the second is
+the case $F=G$. The coordinate marginals of $m$ are uniform, so
+$\|V_if\|_m=\|f\|=\|V_if\|_{\nu_F}$ and the means of $V_if$, $f\in H_0$, vanish under
+both laws. For the adjoints,
+$\ip f{(V_{i,m}^*-V_{i,\nu_F}^*)Ah}=\ip{V_if}{Ah}_m-\ip{V_if}{Ah}_{\nu_F}$, which is at
+most $e\|f\|\|A\|\|h\|$ in modulus.
+\end{proof}
+
+In the middle range these identities enter three times: the counts of
+\ref{it:paley:counts} make the middle pair law exact
+(\cref{lem:record:class-three}) and give the actual pair laws of the fold
+records (\cref{lem:actual-features}); the Grams of \ref{it:paley:triples} give
+the channel norms of the reference fold record (\cref{lem:old-f-law}) and, with
+\ref{it:paley:perturb}, the block-extension estimates for the actual features (\cref{lem:oct24:feature-block});
+and \ref{it:paley:features} is the Gram-matrix calculus behind the
+joint bound for the reference and the signed comparison fold
+records (\cref{lem:record:direct-gram}), with $A_3$ the second-order feature of the
+comparison record.
+
+The matching records of the middle range are uniform on pairs of disjoint
+injective triples, and at the reserved cut their Markov operator relative to
+the actual half law is the following operator (the identification is \cref{lem:record:gram}). Its negativity is exact and
+uses no character sum.
+
+\begin{lemma}[The disjoint-triple operator]\label{sec:frontier:empty-triple-negative}
+Let $p\ge7$, let $\mathcal T$ be the set of ordered triples of distinct elements
+of $\Fp$ with its uniform law, and let $T$ be the Markov operator on
+$L^2(\mathcal T)$ which, given a triple $x$, chooses a triple $y\in\mathcal T$
+disjoint from $x$ uniformly:
+$Tf(x)=\frac1{(p-3)(p-4)(p-5)}\sum_{y\cap x=\emptyset}f(y)$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item\label{it:triple:spec} $T$ is self-adjoint, annihilates the functions whose
+ average over the orderings of each unordered triple vanishes, and on functions
+ of the unordered triple it has the eigenvalues
+ \begin{equation}\label{eq:triple:spectrum}
+  \lambda_j=(-1)^j\binom{p-3-j}{3-j}\Big/\binom{p-3}3\qquad(j=0,1,2,3),
+ \end{equation}
+ that is $1$, $-\frac3{p-3}$, $\frac6{(p-3)(p-4)}$ and
+ $-\frac6{(p-3)(p-4)(p-5)}$, the eigenvalue $1$ having the constants as its
+ eigenspace.
+\item\label{it:triple:bound} Hence $-\frac3{p-3}I\preceq T\preceq I$, the lower constant
+ is attained, and $\|T-\Jproj\|=\frac3{p-3}$.
+\item\label{it:triple:block} For a block $\Blk$ of primes with least prime $b\ge7$, the
+ tensor product $T_{\Blk}=\bigotimes_{p\in\Blk}T$ on $L^2$ of the product of the
+ uniform laws satisfies $-\frac3{b-3}I\preceq T_{\Blk}\preceq I$ and
+ $\|T_{\Blk}-\Jproj\|\le\frac3{b-3}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\ref{it:triple:spec} The kernel of $T$ with respect to the uniform law is symmetric,
+so $T$ is self-adjoint, and $T\one=\one$. For $f$ on $\mathcal T$ let $\bar f$ be its
+average over the six orderings of each triple. Then
+$Tf(x)=\binom{p-3}3^{-1}\sum_Y\bar f(Y)$, the sum over the unordered triples $Y$
+disjoint from $\{x_0,x_1,x_2\}$; so $Tf=0$ if $\bar f=0$, and on the functions of
+the unordered triple $T$ acts as the operator $\bar T$ on functions of
+$3$-subsets of $\Fp$ given by the same formula.
+
+For $0\le j\le3$ let $\mathcal F_j$ be the space of functions on $j$-subsets, with
+the counting inner product. Put $(U_jf)(B)=\sum_{x\in B}f(B\setminus\{x\})$ for
+$f\in\mathcal F_j$ and $|B|=j+1$, and $D_{j+1}=U_j^*$, so
+$(D_{j+1}g)(A)=\sum_{y\notin A}g(A\cup\{y\})$. Counting the terms that add and
+remove the same element gives $D_{j+1}U_j-U_{j-1}D_j=(p-2j)I$ on $\mathcal F_j$
+($U_{-1}D_0=0$). For $j\le2<p/2$ this gives $D_{j+1}U_j\succeq(p-2j)I$, so $U_j$ is
+injective and $\mathcal F_{j+1}=U_j(\mathcal F_j)\oplus\ker D_{j+1}$ (the range of
+$U_j$ is orthogonal to $\ker U_j^*$). Iterating, $\mathcal F_3$ is the direct sum
+of the four spaces of \emph{lifts} $f_h(Y)=\sum_{A\subseteq Y,|A|=j}h(A)$ of
+\emph{harmonic} functions $h\in\ker D_j$ ($j=0,\dots,3$, with $\ker D_0=\mathcal F_0$
+the constants); indeed the lift $U_2\cdots U_jh$ is $(3-j)!\,f_h$.
+
+If $h$ is harmonic on $j$-subsets, the sum of $h(A)$ over the $j$-sets $A$
+containing a fixed set $B$ with $|B|<j$ is zero: for $|B|=j-1$ it is $(D_jh)(B)$,
+and for smaller $B$ it is $(j-|B|)^{-1}$ times the sum of these over the
+$(j-1)$-sets $B'\supseteq B$, since each $A\supseteq B$ contains $j-|B|$ of them.
+Hence inclusion--exclusion over the elements of a $3$-set $S$ gives
+\[
+ \sum_{|A|=j,\ A\cap S=\emptyset}h(A)=\sum_{B\subseteq S}(-1)^{|B|}\sum_{A\supseteq B}h(A)
+ =(-1)^j\sum_{A\subseteq S,\ |A|=j}h(A) .
+\]
+Each $j$-set $A$ disjoint from $S$ lies in $\binom{p-3-j}{3-j}$ of the $3$-sets
+disjoint from $S$, so
+$\sum_{Y\cap S=\emptyset}f_h(Y)=\binom{p-3-j}{3-j}(-1)^jf_h(S)$, that is
+$\bar Tf_h=\lambda_jf_h$. The values \eqref{eq:triple:spectrum} follow by
+evaluating the binomial coefficients; the four eigenvalues are distinct, so the
+four spaces are the eigenspaces of the self-adjoint operator $\bar T$, and the
+$j=0$ space is the constants.
+
+\ref{it:triple:bound} The spectrum of $T$ lies in $\{1,\lambda_1,\lambda_2,\lambda_3,0\}$. For
+$p\ge7$, $|\lambda_3|\le\lambda_2\le\frac3{p-3}=|\lambda_1|$ (these are $1\le p-5$ and
+$2\le p-4$), and the $j=1$ space is not zero.
+
+\ref{it:triple:block} The eigenvalues of $T_{\Blk}$ are the products of eigenvalues of
+the factors, with tensor products of eigenvectors. Every factor has modulus at
+most one. A negative product has a negative factor, of modulus at most
+$\frac3{p-3}\le\frac3{b-3}$; and a product other than the one with all factors
+equal to $1$ (whose eigenvector is the constant) has a factor of modulus at most
+$\frac3{p-3}$.
+\end{proof}
+
+The operator $\bar T$ is the normalized adjacency operator of the Kneser graph
+of $3$-subsets of a $p$-set, two subsets being adjacent when they are disjoint,
+and \eqref{eq:triple:spectrum} is its classical spectrum; the proof above is
+self-contained. In the middle range (\cref{lem:record:gram}) the bound is used as follows: for a block with least prime $b\ge7$
+(writing $r=b^{-1/2}$ in this paragraph), an unfolded
+empty-triple record of mass $w_Er$ has reserved
+negative part at least $-\frac3{b-3}$ times its own half diagonal, so it is
+compensated by a folded actual-half diagonal of mass
+$\frac3{b-3}w_Er=\frac{3w_E}{1-3/b}r^3$; in particular the doubled correction
+used to replace a removed folded empty-triple diagonal has mass at most
+$\frac{6w_E}{1-3/b}r^3$. The actual half law of the record is exactly the
+uniform law on injective triples, so no change of reference density is
+required.
+
+\paragraph{Consequences and what to read next.}
+Weil's bound in odd and even degree (\cref{thm:weil}) and the two-root identity
+\eqref{eq:two-root}; the square shift and the Paley operator
+(\cref{lem:square-shift}); square-affine invariance and its consequences for one-slot
+and pair marginals (\cref{lem:marginals}); the conditional operator of
+\cref{def:mixing}; and the admissible majorants (\cref{lem:majorant}) for the
+transfer of thresholds.

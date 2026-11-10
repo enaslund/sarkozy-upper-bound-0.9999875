@@ -1,0 +1,929 @@
+
+\section{Middle primes III: the reference law $\mu$, first stage $\lambda$, and its dominator}
+\label{sec:middle-frame}
+
+\paragraph{What this section proves and how to read it.}
+This section builds $\mu$ (five-type completion of the
+twelve-label principal law), $\lambda$ (polarization and one-stage
+replacements), and the law $\Nbr$ dominating $\lambda$ at $\iota$,
+and proves (CP1)--(CP3) for middle atoms with prices $L_0,B$.
+Inputs: caps of \cref{sec:middle-reference,sec:positive-roots}.
+Outputs: $\mu,\lambda,\Nbr$ for \cref{sec:middle-records}. A first
+reading should follow the three constructions and the (CP1)--(CP3)
+statements; weight verification is reference material.
+``Frame'' in labels below means the package of these three laws together with the records and prices defined with them, as
+defined in \cref{def:record:frame}. On a middle block the
+reference (\cref{subsec:middle-reference-law}) is the five-type
+completion of the twelve-label principal law, which is uniform on
+the intervals below $2^{30}$ and tilted
+(\cref{sec:positive-roots}) on the seven intervals from $2^{30}$;
+its completion weights use the caps of the principal law
+(\cref{sec:middle-reference,sec:positive-roots}) and of the
+reference fold record (\cref{lem:old-f-law}). The first stage
+(\cref{subsec:middle-first-stage}) is obtained by polarization at
+one chamber cut, which removes the two nonaccepting one-layer
+fold copies $\operatorname{Diag}_\iota(\Pi^{(1)}_{F_1})$,
+$\operatorname{Diag}_\iota(\Pi^{(1)}_{F_2})$, and by replacing the
+one-layer matching copies by accepting laws with the same actual
+conditional marginals; the two resulting record differences are
+the tags of (CP2)(b). The law $\Nbr$
+(\cref{subsec:middle-gram}) then dominates $\lambda$ at $\iota$ in
+a $2\times2$ block, giving (CP3), and
+\cref{subsec:middle-frame-prices} computes the resulting prices
+$L_0$ and $B$. Later sections build the comparison records on
+this reference (\cref{sec:middle-records}) and compare them with
+$\mu$, $\lambda$ and $\Nbr$ through the variance savings
+(\cref{sec:variance}), the dominating matrices
+(\cref{sec:envelopes}) and the matching envelopes
+(\cref{sec:matching-mean}); the closing
+(\cref{sec:closing}) uses the prices through $B$, $R_{\rm err}$
+and $L_0$.
+
+The middle reference uses twelve labels, two layers over one chamber
+coordinate, and is pulled back to the slot array $V$ by ignoring the second
+chamber coordinate. It is the five-type completion of \cref{lem:five-type}
+applied to the twelve-label root: folds, matchings, merges and constants are
+added with weights in powers of $r=b^{-1/2}$ ($b$ the least prime of the block) until every chamber cut is
+positive, and one-layer copies placed on the reserved diagonal restore
+positivity at the layer flip $\iota$. On the seven tilted pieces the positive
+root changes two inputs of the completion, its caps at the chamber cut L20 and
+at the layer cut L21, both proved in fixed half charts
+(\cref{rem:root-charts}). (\Cref{sec:history} explains how this
+completion developed from an earlier version on $216$ slots;
+nothing here depends on that history.) The comparison law built
+on this reference need not be reflection positive; it is compared with
+the first stage $\lambda$ only at $\iota$, through the
+$2\times2$ block of \cref{subsec:middle-gram}, with symmetric and
+skew errors priced separately.
+
+\emph{Conventions.} In this section $\vartheta_a$ is the chamber cut
+$\vartheta_{0,a}$ of the first coordinate: the reflection
+$u_0\mapsto2a-1-u_0$ with plus half $H_a=\{a,a+1,a+2\}$ (indices mod $6$),
+$a\in\Z/6\Z$. The reserved cut $\iota$ flips the layer $\ell$ and has plus
+half $V_+=\{\ell=0\}$. For a prime $p$ we write $r=p^{-1/2}$ and $q=1/p$; on a
+block $\Blk$ with least prime $b=b_{\Blk}$, $r=b^{-1/2}$ and $q=1/b$, while
+$q_{\Blk}=\prod_{p\in\Blk}p$. The order $\succeq_c$ of cut matrices is that of
+\cref{def:cc:order}. The pieces, the blocks, the twelve-label graphs and the
+caps of their cuts are those of \cref{sec:middle-reference,sec:positive-roots}.
+Every middle block has $\log q_{\Blk}\le L=570$; the local data of a piece are
+evaluated at its start $X$ and at the local cap $L_{\rm loc}=585$
+(\cref{lem:record:local-domain}).
+
+\subsection{The reference law of a middle block}
+\label{subsec:middle-reference-law}
+
+Fix a middle block $\Blk$ of a piece starting at $X$, with least prime $b$,
+$r=b^{-1/2}$ and $q=1/b$. An \emph{object} carries one label of $X_{\Blk}$
+per layer. Write $\lambda_{\rm F}=\lambda_{\Blk}(G_{\rm F,2})$ and
+$\lambda_{\rm E}=\lambda_{\Blk}(G_{\rm E,2})$ for the two-layer $F$ and $E$
+laws of three objects $(y_0,y_1,y_2)$, $y_o=(y_{o,0},y_{o,1})$, and
+$\lambda^{(1)}_{\rm F}$, $\lambda^{(1)}_{\rm E}$ for their one-layer versions.
+The components of the reference are images of these laws under the patterns
+of \cref{def:patterns}: the folds $F_0=(0,1,2,2,1,0)$, $F_1=(1,0,0,1,2,2)$ and
+$F_2=(2,2,1,0,0,1)$ applied to the $F$ law, and the matchings
+$E_0=(0,1,1,2,2,0)$ and $E_1=(0,0,1,1,2,2)$, the six merges $G_{sk}$ (which use
+the objects $0,1$) and the two constants $C_0,C_1$ (which use the object $0$)
+applied to the $E$ law. Under a pattern $\phi$, a configuration
+$(y_0,y_1,y_2)$ of three objects gives the slot $(u_0,u_1,\ell)$ of $V$ the
+label $y_{\phi(u_0),\ell}$, whatever $u_1$ is. We write $\Pi_\phi$
+($\Pi_{\phi,\Blk}$ when the block matters) for the resulting image on
+$X_{\Blk}^V$ of the two-layer law, $\Pi^{(1)}_\phi$ for that of the one-layer
+law, and $\Pi_{\rm L}$ for the two-layer root of the block pulled back in the
+same way: the uniform law $\lambda_{\Blk}(G_{\rm L,2})$ on the pieces below $2^{30}$, and on the pieces from $2^{30}$ the positive root
+$\Gamma_{\Blk,\ulaw}$ of \cref{def:positive-root} with the parameter of the
+piece; $\Pi^{(1)}_{\rm L}$ is the pullback of the one-layer root
+$\lambda_{\Blk}(G_{\rm L,1})$, which is not tilted. The five types
+$\rm L,D,S,R,C$, with multiplicities $1,3,2,6,2$ and degrees $0,1,1,2,3$, are
+those of \cref{def:patterns}; $\pi_{\mathfrak t,j}$ is the sum of the $j$-layer
+components of type $\mathfrak t$, of mass equal to the multiplicity. For a law
+$\kappa$ of one-layer configurations, $\operatorname{Diag}_\iota(\kappa)$
+places the same configuration on both layers (the diagonal copy of
+\cref{lem:commoncut}(i)); it is fixed samplewise by $\iota$. The halves of the
+components at $\vartheta_0$ are listed in \cref{tab:corner}.
+
+\paragraph{Rows.}
+Let $j\in\{1,2\}$. Under the $j$-layer $E$ law let $\nu$ be the law of one object (in this paragraph $\nu$ is this one-object law, not the comparison law)
+and $\nu^\xi$ the conditional law of an outer object given that the
+middle object $y_1$ equals $\xi$: $\nu$ is uniform on the $j$-tuples, indexed by the layers, of block
+labels whose labels at each prime are pairwise distinct, and $\nu^\xi$ is uniform on those whose labels
+avoid the labels of $\xi$ at every prime. Let $T^\xi_{\rm F}$ and
+$T^\xi_{\rm E}$ be the densities, relative to $\nu^\xi\otimes\nu^\xi$, of the
+conditional law of $(y_0,y_2)$ given $y_1=\xi$ under the $j$-layer $F$ and
+$E$ laws, regarded as operators on $L^2(\nu^\xi)$. For a prime $p$ let
+$\rho_{{\rm F},j}(p)$ and $\rho_{{\rm E},j}(p)$ be the Schur-test bounds of
+\cref{cor:influence-schur} for the conditional maximal correlation of the
+labels of objects $0$ and $2$, with the labels of object $1$ pinned, under
+$\lambda_p(G_{{\rm F},j})$ and $\lambda_p(G_{{\rm E},j})$, in the form of
+\cref{rem:influence-uses}(1) (graded count errors; the two vertex sets of the
+corollary are the labels of the two outer objects); they are explicit
+functions of $r=p^{-1/2}$, and
+$\rho_{{\rm F},j}(X)$, $R_j(X)$ below denote their values at $r=X^{-1/2}$.
+With $n=L_{\rm loc}/\log X$,
+$R_1(p)=(p-1)/(p-3)$, $R_2(p)=(p-3)(p-7)/((p-11)(p-15))$ and
+$\upsilon_j=(e^{n(R_j(X)-1)^2}-1)^{1/2}$, the \emph{row constants} of the
+piece are
+\[
+ f_j=\frac{R_j(X)^n\rho_{{\rm F},j}(X)+2\upsilon_j+\upsilon_j^2}{X^{-1/2}},
+ \qquad h_j=\frac{\rho_{{\rm E},j}(X)}{X^{-1/2}} .
+\]
+These are the row constants that the certificate evaluates
+(\cref{rem:row-comparison-uses}(1)).
+
+\begin{lemma}[The reference]\label{lem:front12:reference}
+Let $\Blk$ be a middle block of a piece starting at $X$, with least prime $b$
+and $r=b^{-1/2}$.
+\begin{enumerate}[label=(\roman*)]
+\item \emph{Rows.} For $j\in\{1,2\}$ the middle object has the law $\nu$
+ under the $j$-layer $F$ law as well as under the $j$-layer $E$ law, and
+ for every value $\xi$,
+ \[
+  \|T^\xi_{\rm F}-\Jproj\|\le f_jr,\qquad \|T^\xi_{\rm E}-\Jproj\|\le h_jr
+ \]
+ on $L^2(\nu^\xi)$, $\Jproj$ being the projection onto constants.
+\item \emph{Negative envelopes.} Let $d$, $d_1$, $k_{\rm L}$ and $k_{\rm E}$
+ be the block caps, at the piece start $X$ and the local cap $L_{\rm loc}$, of
+ the root cuts L20 and L10 and of the layer cuts L21 and E21: for L10 and
+ E21, and for L21 on the pieces below $2^{30}$, those of
+ \cref{lem:layer12-caps}(b); for L20 on the pieces below $2^{30}$ that of
+ \cref{imp:local:collision-gap}; for L20 and L21 on the pieces from $2^{30}$ those
+ of the positive root (\cref{cert:positive-root-caps}). Let $k_{\rm D}=k_{\rm D}(X,L_{\rm loc})$ be
+ the cap of the reference fold record of \cref{lem:old-f-law}(e), and put
+ $k_{\rm S}=k_{\rm R}=k_{\rm C}=k_{\rm E}$. Then
+ \[
+  \Pi_{\rm L}\succeq_{\vartheta_0}-dr\,\Pi_{F_0},\qquad
+  \Pi^{(1)}_{\rm L}\succeq_{\vartheta_0}-d_1r\,\Pi^{(1)}_{F_0},
+ \]
+ and $\Pi_\phi\succeq_\iota-k_{\mathfrak t}r\operatorname{Diag}_\iota(\Pi^{(1)}_\phi)$
+ for every two-layer component $\Pi_\phi$ of type $\mathfrak t$, the root
+ included.
+\item \emph{Completion.} Let $w=(w_{\rm L},w_{\rm D},w_{\rm S},w_{\rm R},w_{\rm C})$
+ with $w_{\rm L}=1$ and $v=(v_{\rm L},v_{\rm D},v_{\rm S},v_{\rm R},v_{\rm C})$ be
+ nonnegative weights satisfying the thirteen inequalities
+ \begin{align*}
+  &w_{\rm D}\ge d,&&w_{\rm S}\ge w_{\rm D},&&w_{\rm R}\ge f_2w_{\rm D}+h_2w_{\rm S},
+   &&w_{\rm C}w_{\rm S}\ge w_{\rm R}^2,\\
+  &v_{\rm D}\ge d_1v_{\rm L},&&v_{\rm S}\ge v_{\rm D},&&v_{\rm R}\ge f_1v_{\rm D}+h_1v_{\rm S},
+   &&v_{\rm C}v_{\rm S}\ge v_{\rm R}^2,\\
+  &v_{\mathfrak t}\ge k_{\mathfrak t}w_{\mathfrak t}\quad(\mathfrak t\in\{\rm L,D,S,R,C\}).
+ \end{align*}
+ Then
+ \[
+  \widetilde\mu_{\Blk}=\sum_{\mathfrak t}w_{\mathfrak t}r^{\deg\mathfrak t}\pi_{\mathfrak t,2}
+   +r\sum_{\mathfrak t}v_{\mathfrak t}r^{\deg\mathfrak t}\operatorname{Diag}_\iota(\pi_{\mathfrak t,1})
+ \]
+ is a nonnegative measure on $X_{\Blk}^V$ of mass at least one, reflection
+ positive at every cut of the family (the chamber cuts of both
+ coordinates and $\iota$), and invariant under the layer swap and under the
+ square-affine maps of (R3) of \cref{hyp:record:reference}; in particular
+ its one-slot marginals are its mass times the uniform law.
+\item \emph{Protection.} If the weights satisfy moreover the fourteenth
+ inequality
+ \begin{equation}\label{eq:protection}
+  v_{\rm D}\ge2k_{\rm D}w_{\rm D},
+ \end{equation}
+ which implies $v_{\rm D}\ge k_{\rm D}w_{\rm D}$ of the third line, then for
+ $s\in\{1,2\}$
+ \[
+  2w_{\rm D}r\,\Pi_{F_s}+v_{\rm D}r^2\operatorname{Diag}_\iota(\Pi^{(1)}_{F_s})
+  \succeq_\iota0.
+ \]
+ Parts (i)--(iii) do not use \eqref{eq:protection}; the bracket of
+ \cref{subsec:middle-gram} does.
+\end{enumerate}
+The \emph{reference law} of $\Blk$ is
+$\mu_{\Blk}=\widetilde\mu_{\Blk}/\widetilde\mu_{\Blk}(1)$. It satisfies (R1)--(R3)
+of \cref{hyp:record:reference}, with (R2) at every cut of the family, and it
+is admissible (\cref{def:admissible}).
+\end{lemma}
+
+\begin{proof}
+(i) \emph{One prime.} For one layer the middle law is uniform for both laws,
+by translation invariance; for two layers it is uniform on the distinct
+pairs for the $E$ law by symmetry and for the $F$ law by
+\cref{lem:record:class-three}(ii), since $p\ge Q_3>11$. Under the $E$ law the
+outer objects given $y_1=\xi$ have exactly the marginal $\nu^\xi$, so
+$T^\xi_{\rm E}$ is the density of a coupling with exact marginals and
+$\|T^\xi_{\rm E}-\Jproj\|$ is its conditional maximal correlation, at most
+$\rho_{{\rm E},j}(p)$ by \cref{cor:influence-schur}. Under the $F$ law the
+actual outer marginals given $y_1=\xi$ have densities in
+$[R_j(p)^{-1},R_j(p)]$ relative to $\nu^\xi$ (\cref{lem:record:class-three}(iii),
+$p>15$), and the coupling relative to these actual marginals has maximal
+correlation at most $\rho_{{\rm F},j}(p)$; in the language of the four-count
+comparison (\cref{lem:four-count}), these densities are ratios of completion
+counts.
+
+\emph{The block.} Fix $j\in\{1,2\}$. Given $\xi=(\xi_p)_p$ the conditional laws are products over
+the primes of $\Blk$. By \cref{lem:row-comparison}(c), the densities of the
+actual outer marginals multiply, so they are at most
+$R_{\Blk}=\prod_pR_j(p)\le R_j(b)^n$, because $R_j$ decreases and
+$|\Blk|\le n_X\le n$ (\cref{lem:record:local-domain}(ii)); their chi-square
+defects multiply, and a density with values in $[R^{-1},R]$ has defect at
+most $R-1$; writing $g$ for an outer marginal density and $g_p$ for its factor at $p$,
+\[
+ 1+\|g-1\|^2=\prod_p(1+\|g_p-1\|^2)\le\exp\Bigl(\sum_p(R_j(p)-1)^2\Bigr)
+ \le e^{n(R_j(b)-1)^2}
+\]
+for each such $g$; and the maximal correlation of the
+product coupling is the largest of the factors, at most
+$\max_p\rho_{{\rm F},j}(p)$, respectively $\max_p\rho_{{\rm E},j}(p)$. Hence
+\cref{lem:row-comparison}(a), with $H_{\rm L},H_{\rm R}\le R_{\Blk}$ and
+$v_{\rm L},v_{\rm R}\le\upsilon$, $\upsilon^2=e^{n(R_j(b)-1)^2}-1$, gives
+$\|T^\xi_{\rm F}-\Jproj\|\le R_{\Blk}\max_p\rho_{{\rm F},j}(p)+2\upsilon+\upsilon^2$;
+the $E$ kernel has exact marginals, so
+$\|T^\xi_{\rm E}-\Jproj\|\le\max_p\rho_{{\rm E},j}(p)$.
+
+\emph{Evaluation at the piece start.} As functions of $r=p^{-1/2}$ (with $n$
+fixed), $(R_1-1)/r^2=2/(1-3r^2)$ and
+$(R_2-1)/r^2=(16-144r^2)/((1-11r^2)(1-15r^2))
+=\sum_{m\ge0}(24\cdot15^m-8\cdot11^m)r^{2m}$ are power series with
+nonnegative coefficients, so $\upsilon/r$ and $\upsilon^2/r=r(\upsilon/r)^2$ are
+admissible majorant functions in the sense of \cref{lem:majorant} (a different use of \emph{admissible} from admissible laws), since $(e^x-1)/x$ increases; $R_j^n$ is
+nondecreasing in $r$; and $\rho_{{\rm F},j}/r$, $\rho_{{\rm E},j}/r$ are admissible,
+the bound of \cref{cor:influence-schur} being $r$ times an admissible function
+of $r$ (\cref{rem:influence-uses}(3)). Hence $\max_p\rho(p)\le\rho(b)$, and the bound
+of the previous paragraph, divided by $r$, is a majorant function of $r$,
+so the bound is at most $r$ times that quotient at $r=b^{-1/2}$, which is at most its value at $X$ by \cref{lem:majorant}(b):
+$\|T^\xi_{\rm F}-\Jproj\|\le f_jr$ and $\|T^\xi_{\rm E}-\Jproj\|\le h_jr$.
+
+(ii) The plus half of $\vartheta_0$ carries the objects $0,1,2$ of $H_0$, and
+by \cref{lem:layer12-geometry}(b) the half graph of the root at $\vartheta_0$
+is $G_{\rm F,2}$, whose labelling law $\lambda_{\rm F}$ is the law of the plus
+half of $\Pi_{F_0}$. The configurations of $\Pi_{F_0}$ are fixed by
+$\vartheta_0$ (as $F_0(5-u)=F_0(u)$), so the cut form of $\Pi_{F_0}$ at a real
+half-function $\Phi$ is $\E_{\lambda_{\rm F}}\Phi^2$. For the uniform root the
+cut form of $\Pi_{\rm L}$ is $\ip\Phi{\mathsf A_{\Blk}\Phi}$, where $\mathsf A_{\Blk}$ is its cut operator on $L^2(\lambda_{\rm F})$, and
+\cref{imp:local:collision-gap} for the cut L20 gives the first inequality. For the
+positive root of a piece from $2^{30}$ the cut form of $\Pi_{\rm L}$ at $\Phi$
+is $\ip\Phi{T_{\Blk}\Phi}$ on $L^2(\lambda_{\rm F})$, where $T_{\Blk}$ is the
+cut operator of the reweighted graph law relative to the fixed half law
+$\lambda_{\rm F}$ (\cref{lem:spec:cutkernel}(f)); \cref{cert:positive-root-caps}
+with \cref{lem:spec:tensorcomp}(b) gives $T_{\Blk}\succeq-dr$, which is the
+first inequality with the same $\Pi_{F_0}$ (\cref{rem:root-charts}). The
+one-layer root is the uniform law on every piece, and
+\cref{lem:layer12-caps}(b) for the cut L10 gives the second inequality. At
+$\iota$, by \cref{lem:layer12-geometry}(c) the half graphs of $G_{\rm L,2}$ and
+$G_{\rm E,2}$ are their one-layer graphs, and the cut form of
+$\operatorname{Diag}_\iota(\Pi^{(1)}_\phi)$ at $\Phi$ is the mean of $\Phi^2$
+under $\Pi^{(1)}_\phi$. So the caps L21 and E21 give
+$\lambda_{\Blk}(G_{\rm L,2})\succeq_\iota-k_{\rm L}r\operatorname{Diag}_\iota(\lambda_{\Blk}(G_{\rm L,1}))$
+for the uniform root and
+$\lambda_{\rm E}\succeq_\iota-k_{\rm E}r\operatorname{Diag}_\iota(\lambda^{(1)}_{\rm E})$.
+For the positive root, the layer bounds of \cref{cert:positive-root-caps} with
+\cref{lem:spec:cutkernel}(f) and \cref{lem:spec:tensorcomp}(b) give the
+inequality relative to the half law of
+$\operatorname{Diag}_\iota(\Pi^{(1)}_{\rm L})$, the untilted one-layer root:
+$\Gamma_{\Blk,\ulaw}\succeq_\iota
+-k_{\rm L}r\operatorname{Diag}_\iota(\lambda_{\Blk}(G_{\rm L,1}))$.
+A component is the image of its field law under an emission, and it inherits
+the bound of the field law (\cref{lem:five-type}(e)); this gives the
+inequality for the root and, with $k_{\rm E}$, for the matchings, the merges
+and the constants. For the folds it is \cref{lem:old-f-law}(e), with the cap
+$k_{\rm D}=k_{\rm D}(X,L_{\rm loc})$: its values at the $33$ piece starts,
+with the gates of that lemma, are in \cref{cert:record:old-f-cap}, and its
+conditions on the block ($p\ge X\ge2^{24}$,
+$\sum_{p\in\Blk}\log p\le L_{\rm loc}$) hold by
+\cref{lem:record:local-domain}(i),(ii).
+
+(iii) \emph{Positivity, mass and invariance.} All components are probability
+laws and all weights are nonnegative; the root has weight $w_{\rm L}=1$, so
+$\widetilde\mu_{\Blk}(1)\ge1$. Every graph law $\lambda_p(G)$ is invariant under
+the diagonal maps $z\mapsto\alpha z+\beta$ with $\alpha$ a nonzero square,
+which preserve injectivity and multiply differences by squares; the
+component maps act on the vertices only and commute with them, and on a
+block the maps act independently at each prime. The positive root is
+invariant under the same maps and under the layer swap
+(\cref{lem:positive-root-properties,lem:imp:coherent39-law}). Translations act transitively, so every
+one-slot marginal is its mass times the uniform law (\cref{lem:marginals}). The layer swap is an
+automorphism of the three two-layer graphs (\cref{lem:layer12-geometry}(a)),
+and a diagonal copy is fixed by it.
+
+\emph{First-coordinate cuts.} For $j\in\{1,2\}$, the middle law $\nu$ and the
+conditional references $\nu^\xi$ of the $j$-layer $E$ law, the two-object marginal of that law, the $j$-layer $E$ and $F$ laws and the $j$-layer root form a
+five-type datum on the label set of one object (\cref{def:five-type-datum}):
+the $E$ law is exchangeable; by (i) the middle law of the $F$ law is $\nu$, so
+that the $F$ law has the form required there with the kernels $T^\xi_{\rm F}$;
+and the root is invariant under $\mathcal G_6$ (\cref{lem:layer12-geometry}(a)
+for the uniform root, \cref{lem:positive-root-properties,lem:imp:coherent39-law}
+for the positive root). For $j=2$, (i) gives the full-norm hypotheses
+of \cref{lem:five-type}(b) with $e_{\rm F}=f_2r$ and $e_{\rm E}=h_2r$, and (ii)
+the root envelope with $\delta=dr$; for the graded weights
+$(1,w_{\rm D}r,w_{\rm S}r,w_{\rm R}r^2,w_{\rm C}r^3)$ the conditions of
+\cref{lem:five-type}(b) are the four inequalities of the first line. So
+$\sum_{\mathfrak t}w_{\mathfrak t}r^{\deg\mathfrak t}\pi_{\mathfrak t,2}$ is
+reflection positive at every chamber cut of the first coordinate. The same
+holds for $j=1$ with the inputs $d_1,f_1,h_1$ and the weights $v$ (the second
+line, homogeneous in $v_{\rm L}$), and the diagonal copy preserves this
+positivity (\cref{lem:five-type}(e)).
+
+\emph{The reserved cut.} By (ii) every two-layer component of type $\mathfrak t$
+is bounded below at $\iota$ by $-k_{\mathfrak t}r$ times the diagonal copy of its
+one-layer component, and the third line is
+$v_{\mathfrak t}\ge k_{\mathfrak t}w_{\mathfrak t}$; so
+$\widetilde\mu_{\Blk}\succeq_\iota0$ by the fold pairing of
+\cref{lem:five-type}(e). The one-layer component of a type need not be the
+one-layer marginal of its two-layer component, only the order of (ii) being
+used (\cref{lem:five-type}(e)); for the positive root it is the untilted
+$\Pi^{(1)}_{\rm L}$. The first coordinate and
+the layer are the active coordinates of the pullback to $V$, so both
+conclusions hold on $V$ (\cref{lem:slot-array}(v)).
+
+\emph{Second-coordinate cuts.} $\widetilde\mu_{\Blk}$ is the pullback of a law on
+the labels indexed by $(u_0,\ell)$, so every configuration is fixed by every
+chamber cut of the second coordinate, and the cut matrix there is
+nonnegative diagonal (\cref{lem:slot-array}(v), \cref{lem:commoncut}).
+
+\emph{Normalization} preserves positivity and the marginal assertions, and
+(R1) holds because the block and its law do not depend on the scale. The
+reference is a nonnegative law depending only on the labels in the finite fields at the primes of the block, invariant under
+the maps of (R3); so it has uniform whole-slot marginals and does not depend
+on the interval, residue or inclusion indices, which is (O1) of
+\cref{def:admissible}; no sharp bound is claimed for it, so clause (O2) is vacuous for it.
+
+(iv) By (ii) for the type D,
+$2w_{\rm D}r\,\Pi_{F_s}\succeq_\iota-2k_{\rm D}w_{\rm D}r^2
+\operatorname{Diag}_\iota(\Pi^{(1)}_{F_s})$, and
+$\operatorname{Diag}_\iota(\Pi^{(1)}_{F_s})\succeq_\iota0$, being fixed
+samplewise by $\iota$ (\cref{lem:commoncut}); so \eqref{eq:protection} gives
+the claim.
+\end{proof}
+
+\begin{remark}[The certified weights]\label{rem:middle-weights}
+In each of the $33$ pieces the weights $w,v$ are fixed rationals
+(\cref{tab:data:middle-weights}), chosen at $(X,L_{\rm loc})$ with the caps of
+the piece, and the thirteen inequalities of \cref{lem:front12:reference}(iii)
+and the protection \eqref{eq:protection} are checked exactly with the inputs
+of the piece, $462$ inequalities in all (\cref{cert:record:frame-data}). In
+every piece three of them fix the leading weights: $w_{\rm D}=w_{\rm S}$ is the
+block cap $d$ of L20, rounded up; $v_{\rm L}$ is the block cap $k_{\rm L}$ of
+L21, rounded up; and $v_{\rm D}=v_{\rm S}$ is $2k_{\rm D}w_{\rm D}$,
+rounded up to the tabulated rational, so that the protection inequality holds, with equality before rounding. The inequality
+$v_{\rm D}\ge d_1v_{\rm L}$ is slack, also on the seven pieces from $2^{30}$,
+where $v_{\rm L}$ is the layer cap of the same positive root. Its
+smallest slack on these seven pieces is greater than $5.7\cdot10^{-5}$;
+the exact rational check retains this gate along with protection. The certificate checks $v_{\rm S}\ge2k_{\rm E}w_{\rm S}$, which is
+stronger than required. Since every input of \cref{lem:front12:reference} is
+evaluated at the piece start and is valid for every block of the piece
+(\cref{lem:record:local-domain}), one set of weights serves all blocks of a
+piece.
+\end{remark}
+
+\begin{remark}[The fixed half charts]\label{rem:root-charts}
+The caps of the positive root are proved in two fixed charts: at the chamber
+cut on $L^2(\lambda_{\rm F})$, the half law of $\Pi_{F_0}$, and at the layer
+cut on $L^2(\lambda_{\Blk}(G_{\rm L,1}))$, the half law of
+$\operatorname{Diag}_\iota(\Pi^{(1)}_{\rm L})$
+(\cref{cert:positive-root-caps}). These are the diagonal measures
+against which \cref{lem:front12:reference}(ii) is stated and which the
+completion of (iii) uses, so the actual half marginal of the positive root,
+whose density relative to the fixed half law differs from $1$ by $O(r)$ in the norms used below, is not needed there. Its change is paid
+where the half marginal enters: in the restorations of the variance credits
+and of the mean savings (\cref{lem:record:root-marginal}(iv)).
+\end{remark}
+
+Together with the laws of the other ranges (\cref{lem:frontier:iidlocal},
+\cref{lem:upper-reference-rp}, \cref{lem:tail-law}), the reference laws of
+the middle blocks form the reference $\mu=\bigotimes_{\Blk}\mu_{\Blk}$ of
+(CP1). Of its components, the root and the aligned fold $\Pi_{F_0}$ accept
+the six queries, both as two-layer components and as one-layer diagonals
+(the positive root has the support of the uniform root); every other record
+is removed or replaced, by the first stage below or by the comparison law
+(\cref{cert:record:middle-geometry}).
+
+\subsection{The first stage $\lambda$ (polarization and one-stage replacements)}\label{subsec:middle-first-stage}
+
+The comparison law will not contain the two one-layer fold records
+$\operatorname{Diag}_\iota(\Pi^{(1)}_{F_1})$ and
+$\operatorname{Diag}_\iota(\Pi^{(1)}_{F_2})$, which do not accept the queries,
+nor the folded matching records in their reference form. The first stage
+removes them at the price of a second-order correction at one chamber cut,
+and replaces the folded matching records by laws that accept the queries
+and keep their actual conditional marginals.
+
+\begin{definition}[The middle frame]\label{def:record:frame}
+The frame consists of the following objects.
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Reference.} $\mu=\bigotimes_{\Blk}\mu_{\Blk}$ is the reference of
+ (CP1); on a middle block, $\mu_{\Blk}$ is the law of
+ \cref{lem:front12:reference}.
+\item \emph{Records.} Let $\Blk$ be a middle block with least prime $b$, and
+ put $r=b^{-1/2}$ and $q=r^2$. Before the common normalization, define the following measures (the first two are summands of $\widetilde\mu_{\Blk}$; the next three are added in (d) below):
+ \begin{itemize}
+ \item $F_{\rm fold}=v_{\rm D}r^2\bigl(\operatorname{Diag}_\iota(\Pi^{(1)}_{F_1})
+  +\operatorname{Diag}_\iota(\Pi^{(1)}_{F_2})\bigr)$ is the sum of the two
+  nonaccepting one-layer fold components on the reserved diagonal, of mass $2v_{\rm D}r^2$;
+ \item $E_{\rm fold}=v_{\rm S}r^2\bigl(\operatorname{Diag}_\iota(\Pi^{(1)}_{E_0})
+  +\operatorname{Diag}_\iota(\Pi^{(1)}_{E_1})\bigr)$ is the sum of the two
+  reserved-folded matching components, of mass $2v_{\rm S}r^2$;
+ \item $E_{\rm add}=v_{\rm D}r^2\bigl(\operatorname{Diag}_\iota(\Pi^{(1)}_{E_0})
+  +\operatorname{Diag}_\iota(\Pi^{(1)}_{E_1})\bigr)$ is a pair of reserved-folded
+  matching records of total mass $2v_{\rm D}r^2$;
+ \item $G=(f_1+h_1)r\,(G_e+G_o)$, with
+  $G_e=v_{\rm D}r^2\operatorname{Diag}_\iota(\Pi^{(1)}_{G_{00}})$ and
+  $G_o=v_{\rm D}r^2\operatorname{Diag}_\iota(\Pi^{(1)}_{G_{11}})$, is the
+  \emph{polarization correction}: two merge records of common record weight
+  $v_{\rm D}r^2$, of total mass $2v_{\rm D}(f_1+h_1)r^3$;
+ \item $H$ adds, for each of the two two-layer matching components
+  $\Pi_{E_0},\Pi_{E_1}$ of weight $w_{\rm S}r$, its actual half diagonal
+  $\operatorname{Diag}_\iota(\Pi^{(1)}_{E_s})$ with coefficient
+  $2w_{\rm S}r\cdot3/(b-3)$; thus $H$ has mass $12w_{\rm S}r^3/(1-3q)$.
+ \end{itemize}
+ All five measures are nonnegative and reserved diagonal, that is, fixed
+ samplewise by $\iota$. In the decompositions below all five measures are
+ divided by $\widetilde\mu_{\Blk}(1)$; only the first two are records of $\mu_{\Blk}$ itself.
+\item \emph{First stage.} $E_{\rm new}$ is the nonnegative reserved-diagonal
+ replacement of $E_{\rm fold}+E_{\rm add}$ given by
+ \cref{lem:record:one-stage-folded-e}. It has the same mass, it accepts
+ the six queries, and at its own first-coordinate cut ($\vartheta_1$ for $E_0$, $\vartheta_2$ for $E_1$) each record of
+ $E_{\rm new}$ has the same actual conditional marginals as the record it
+ replaces.
+\item \emph{Decomposition.} Blockwise, and with all records zero outside the
+ middle blocks,
+ \begin{align*}
+  \rho&=\mu-F_{\rm fold}+E_{\rm add}+G,&
+  \lambda&=\mu-F_{\rm fold}-E_{\rm fold}+E_{\rm new}+G,\\
+  \delta_E&=E_{\rm new}-E_{\rm fold}-E_{\rm add},&
+  \Nbr&=\lambda+F_{\rm fold}+H,\\
+  \Nbrz&=\mu+E_{\rm add}+G+H.
+ \end{align*}
+ Hence $\lambda=\rho+\delta_E$, $\Nbr=\Nbrz+\delta_E$,
+ $\Nbr-\lambda=F_{\rm fold}+H$ and
+ $\Nbr+\lambda=2\mu-F_{\rm fold}-2E_{\rm fold}+H+2E_{\rm new}+2G$; in
+ particular $F_{\rm fold}$ occurs with coefficient one in $\Nbr-\lambda$. (The bracket measures $\Nbr$
+ and $\Nbrz$ are unrelated to the scale $N=\Kint\Lsc$.)
+\item \emph{Prices and tags.} $U_0$ is the summed price of
+ $\Nbrz-\mu=E_{\rm add}+G+H$ and $P$ that of $F_{\rm fold}+E_{\rm add}+G$. The
+ record differences of $\delta_E$ form two tags (\cref{def:cp2}(b)): the
+ differences of type $E_0$, sharp at their first-coordinate cut
+ $\vartheta_1$, form the tag $0$, and those of type $E_1$, sharp at
+ $\vartheta_2$, the tag $1$. $V$ and $D$ are the summed variation and sharp
+ prices of $\delta_E$, the sharp price of a difference being its mass times
+ its sharp bound at its own cut, relative to its actual half marginals, times
+ $q_{\Blk}^{2a}$ (\cref{def:price}(b)). The two tags have equal totals, the
+ sharp total $D/2$ and the variation total $V/2$ each, because the two
+ records of a block have the same mass and the same sharp bound
+ (\cref{lem:record:middle-prices}). With the two-tag series $\tagser$ of
+ \cref{cor:two-cut-series},
+ \[
+  R_{\rm err}=e^{U_0}\tagser(D/2,V/2),\qquad B=e^{U_0}+R_{\rm err},\qquad
+  L_0=e^{P}\tagser(D/2,V/2).
+ \]
+\end{enumerate}
+\end{definition}
+
+The actual half marginal of $\Pi_{E_s}$ at $\iota$ is the uniform law on
+ordered triples of distinct labels placed by $E_s$, which is the half law
+of $\Pi^{(1)}_{E_s}$ (\cref{lem:record:fold-identification}(d)); this is the
+diagonal that $H$ adds. All records in \cref{def:record:frame}(b) are images of invariant laws under
+vertex maps, followed by a diagonal copy, so they are positive records
+(\cref{def:cp:records}): their normalizations are admissible. Admissibility of the replacements in \cref{def:record:frame}(c) is verified after \cref{lem:record:one-stage-folded-e} below.
+
+\begin{lemma}[The polarized first stage]\label{lem:middle-polarization}
+For every middle block, $E_{\rm add}+G-F_{\rm fold}\succeq_{\vartheta_0}0$. Hence
+$\rho_{\Blk}\succeq_{\vartheta_0}\mu_{\Blk}\succeq_{\vartheta_0}0$, and (CP2)(a)
+holds at the cut $\vartheta_0$, with the variation price $p_{\Blk}$ of the
+positive records $F_{\rm fold}$, $E_{\rm add}$ and $G$.
+\end{lemma}
+
+\begin{proof}
+The one-layer data of the proof of \cref{lem:front12:reference}(iii) form a
+five-type datum whose rows satisfy $\|T^\xi_{\rm F}-\Jproj\|\le f_1r$ and
+$\|T^\xi_{\rm E}-\Jproj\|\le h_1r$ (\cref{lem:front12:reference}(i) with
+$j=1$). By \cref{lem:tr:polarization}(a) with $\varepsilon=(f_1+h_1)r$,
+\[
+ \Pi^{(1)}_{E_0}+\Pi^{(1)}_{E_1}+(f_1+h_1)r\bigl(\Pi^{(1)}_{G_{00}}+\Pi^{(1)}_{G_{11}}\bigr)
+ \succeq_{\vartheta_0}\Pi^{(1)}_{F_1}+\Pi^{(1)}_{F_2} .
+\]
+A diagonal copy preserves this order of cut matrices (\cref{lem:five-type}(e));
+multiplying by the record weight $v_{\rm D}r^2$ gives
+$E_{\rm add}+G\succeq_{\vartheta_0}F_{\rm fold}$ (\cref{rem:polarization-uses}(1)).
+The reference is positive at $\vartheta_0$ (\cref{lem:front12:reference}), and
+$\rho_{\Blk}-\mu_{\Blk}$, which is $E_{\rm add}+G-F_{\rm fold}$ divided by
+$\widetilde\mu_{\Blk}(1)$, is a real combination of the three positive records,
+of variation at most their total mass.
+\end{proof}
+
+So the first stage costs only second order in $r$ (the removed fold copies have mass $2v_{\rm D}r^2$): the nonaccepting
+one-layer fold copies are traded for matching records at the one
+cut $\vartheta_0$ where positivity is needed, and the row errors
+are paid by merges of degree three.
+Since only actual components of the reference are subtracted, $\rho$ and
+$\lambda$ stay nonnegative. The tensor step, $Y_\rho\ge Y_\mu$, is Step~1 of
+\cref{lem:record:first-stage}.
+
+\paragraph{The folded matching records.}
+For $s\in\{0,1\}$ the folded matching record of type $E_s$ in
+$E_{\rm fold}+E_{\rm add}$ has mass $(v_{\rm S}+v_{\rm D})r^2$: the one-layer law
+$\Pi^{(1)}_{E_s}$, uniform on the halves, placed on the reserved diagonal. By
+\cref{cert:record:middle-geometry}, at its first-coordinate cut
+($\vartheta_1$ for $E_0$, $\vartheta_2$ for $E_1$) the label of object~$2$ lies
+on both sides of the cut (it is \emph{shared}), the labels of objects $0$
+and $1$ lie on one side each (they are \emph{private}), and the six queries
+need exactly the edge $y_0\to y_1$. At one prime (the block statement then follows by tensoring), given the shared label $c$, the private
+pair is uniform on the ordered distinct pairs of $V_c=\Fp\setminus\{c\}$.
+Write
+$V_c^\pm=\{a\in V_c:\chi(a-c)=\pm1\}$, each of size $(p-1)/2$, let
+$\mathbf M_c$ be the $0/1$ matrix of the relation $a\to a'$ on $V_c$, and
+$\mathbf M_c^{+-}$ its restriction to $V_c^+\times V_c^-$, extended by zero.
+
+\begin{lemma}[One-stage replacement of the folded matching records]\label{lem:record:one-stage-folded-e}
+Let $p\ge11$ with $p\equiv3\pmod4$, $k=(p-3)/4$,
+$\kappa^{\rm fold}_p=(1+3r)r/(1-3q)=(\sqrt p+3)/(p-3)$ and
+\[
+ k_{\rm new}(p)=\frac{1+5q}{(1-3q)(1+q)}+\frac{qr}{(1-3q)(1-2q)},\qquad
+ s_{\rm fold}(p)=\frac{(1+r)^2+4q}{(1-3q)^2}+\frac q{(1-2q)^2}.
+\]
+\begin{enumerate}[label=(\alph*)]
+\item The four blocks of $\mathbf M_c$, from $V_c^+$ to $V_c^+$, from $V_c^+$
+ to $V_c^-$, from $V_c^-$ to $V_c^+$ and from $V_c^-$ to $V_c^-$, have equal
+ row and column degrees, namely $k$, $k+1$, $k$ and $k$.
+\item The matrix $\mathcal K_+=\mathbf M_c/(2k)-\mathbf M_c^{+-}/(2k(k+1))$ is
+ doubly stochastic, supported on the pairs $a\to a'$, with entries $1/(2k)$
+ or $1/(2(k+1))$ there; from each $a$ it chooses each destination sector
+ with probability $1/2$ and, within a sector, is uniform on the out-neighbours of $a$ in that sector.
+\item Let $\mathcal K_0=(\Jall-I)/(p-2)$ on $V_c$, the conditional coupling of
+ the record being replaced, and $\Delta=\mathcal K_+-\mathcal K_0$. On $L^2$ of
+ the uniform law of $V_c$ both $\mathcal K_+$ and $\mathcal K_0$ fix constants
+ and preserve mean-zero functions; there
+ $\|\mathcal K_+\|\le\kappa^{\rm fold}_p$ and $\|\mathcal K_0\|=1/(p-2)$; the
+ symmetric part of $\Delta$ has norm exactly $1/(p-2)$, attained at the
+ sector contrast $\one_{V_c^+}-\one_{V_c^-}$; and
+ $\|\Delta\|\le k_{\rm new}(p)\,r$.
+\item Let $\Blk$ be a block of such primes $p\ge X\ge2^{24}$ with least prime
+ $b$, put $r_X=X^{-1/2}$, $q_X=1/X$, $\alpha_X=(1+3r_X)/(1-3q_X)$ and
+ $\beta_X=1/(1-2q_X)$, write $k_{\rm new}(X)$ and $s_{\rm fold}(X)$ for the displayed formulas evaluated at $q_X,r_X$, and suppose
+ $\alpha_X^2r_X+\beta_X^2q_Xr_X<k_{\rm new}(X)$. For every shared label
+ $c=(c_p)_{p\in\Blk}$ the difference
+ $\Delta_c=\bigotimes_p\mathcal K_+^{(c_p)}-\bigotimes_p\mathcal K_0^{(c_p)}$
+ satisfies $\|\Delta_c\|\le k_{\rm new}(X)\,b^{-1/2}$ and
+ $\|\operatorname{Sym}\Delta_c\|\le s_{\rm fold}(X)/b$.
+\item Replace each folded matching record of type $E_s$ by the measure of
+ the same mass under which the shared label is uniform and, given it, the
+ private pair is distributed by $\bigotimes_p\mathcal K_+^{(c_p)}$, placed on
+ the reserved diagonal; let $E_{\rm new}$ be the sum of the two replacements.
+ Then $E_{\rm new}$ is a nonnegative reserved-diagonal measure of the mass of
+ $E_{\rm fold}+E_{\rm add}$; it accepts the six queries; it is invariant under
+ the groups $\mathcal G_p$ of the maps $z\mapsto\alpha z+\beta$ ($\alpha$ a
+ nonzero square) acting independently at the primes of $\Blk$, so it has
+ uniform one-slot marginals and its queried pair is uniform on the
+ strict-square pairs; and at its own first-coordinate cut each of its
+ records has the same actual conditional marginals as the record it
+ replaces, differs from it by at most $k_{\rm new}(X)\,b^{-1/2}$ in sharp
+ operator norm, uniformly in the shared label, its symmetric part by at
+ most $s_{\rm fold}(X)/b$, and by at most twice its mass in variation. The coupling is direct: no label is resampled when the two private labels coincide.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) We use the Paley counts of \cref{lem:paley-triple}(a): two distinct
+labels have exactly $k$ common out-neighbours and $k$ common in-neighbours,
+and $\#\{c':a\to c'\to b'\}=k+1-\one[a\to b']$ for $a\ne b'$. Now, for
+$a\in V_c^+$, i.e.\ $c\to a$, the out-neighbours of $a$ in $V_c^+$ are the
+common out-neighbours of $c$ and $a$ ($k$), and those in $V_c^-$ are the
+labels on paths $a\to a'\to c$ ($k+1$, as $a\not\to c$); for $a\in V_c^-$ they
+are the common out-neighbours of $a$ and $c$ ($k$) and the labels on paths
+$a\to a'\to c$ ($k$, as $a\to c$). The column degrees are computed in the
+same way from common in-neighbours and paths $c\to a\to a'$.
+(b) By (a), the row of $a$ puts mass $1/2$ uniformly on each destination
+sector. Since row and column degrees agree in each block, the column of $a'$
+receives from each of the two source sectors its degree in that block
+divided by twice that degree, in all $1/2+1/2=1$.
+(c) Both matrices are doubly stochastic for the uniform law, which gives
+the first claim. On $V_c$, $\mathbf M_c=(\Jall-I+\mathbf C_c)/2$, where
+$\mathbf C_c$ is the compression of the $p\times p$ matrix $(\chi(a'-a))$,
+whose norm is $\sqrt p$ (\cref{lem:square-shift}(c)); as $\chi(-1)=-1$,
+$\mathbf C_c$ is skew-symmetric. On mean-zero $f$, $\Jall f=0$, so
+$\|\mathbf M_cf\|\le(1+\sqrt p)\|f\|/2$. Each block of $\mathbf M_c^{+-}$ has
+row and column sums $k+1$, so $\|\mathbf M_c^{+-}\|\le k+1$ by the Schur test.
+Hence $\|\mathcal K_+f\|\le[(1+\sqrt p)/(4k)+1/(2k)]\|f\|=\kappa^{\rm fold}_p\|f\|$.
+On constants $\Delta$ vanishes; on mean-zero functions
+$\mathcal K_0=-I/(p-2)$, and, since $2k=(p-3)/2$ and $2k(k+1)=(p-3)(p+1)/8$,
+\[
+ \Delta f=\frac{\mathbf C_cf}{p-3}-\frac f{(p-3)(p-2)}
+  -\frac{8\,\mathbf M_c^{+-}f}{(p-3)(p+1)} .
+\]
+Let $\mathbf h_c=\one_{V_c^+}-\one_{V_c^-}$, the sector contrast, and let
+$\mathcal Z_c$ be the space of functions with mean zero on each of the two
+sectors, so that the mean-zero functions are the orthogonal sum of the
+multiples of $\mathbf h_c$ and $\mathcal Z_c$. By (b) and its proof, for every
+$a'$ the column of $a'$ receives mass $1/2$ from each source sector, and every
+row puts mass $1/2$ on each target sector. Hence $\mathcal K_+$ and
+$\mathcal K_+^*$ map every mean-zero function to a function with zero sum on
+each sector, so they map $\mathcal Z_c$ into itself, and
+$\mathcal K_+\mathbf h_c=\mathcal K_+^*\mathbf h_c=0$; both summands reduce
+$\Delta$, and $\Delta\mathbf h_c=\Delta^*\mathbf h_c=\mathbf h_c/(p-2)$. On
+$\mathcal Z_c$ the all-ones part of the block $\mathbf M_c^{+-}$ vanishes and
+the identity has no entries in it, so there $\mathbf M_c^{+-}$ is half the
+$(V_c^+,V_c^-)$ block of $\mathbf C_c$: its norm is at most $\sqrt p/2$, and,
+being off-diagonal for the splitting of $\mathcal Z_c$ by the sectors, its
+compression to $\mathcal Z_c$ has symmetric and skew parts of norm at most
+$\sqrt p/4$ each. As the compression of $\mathbf C_c$ is skew, the symmetric
+part of $\Delta$ on $\mathcal Z_c$ has norm at most
+\[
+ \frac1{(p-3)(p-2)}+\frac{2\sqrt p}{(p-3)(p+1)}\le\frac1{p-2};
+\]
+after clearing the positive denominators the inequality reads
+$4q+2r(1-2q)/(1+q)\le1$, whose left side decreases in $p$ and is below
+$0.82$ at $p=11$. So the symmetric part of $\Delta$ has norm $1/(p-2)$,
+attained at $\mathbf h_c$. Finally, on $\mathcal Z_c$,
+\[
+ \|\Delta\|\le\frac{\sqrt p}{p-3}+\frac1{(p-3)(p-2)}+\frac{4\sqrt p}{(p-3)(p+1)}
+ =\frac{\sqrt p(p+5)}{(p-3)(p+1)}+\frac1{(p-3)(p-2)}=k_{\rm new}(p)\,r,
+\]
+which is larger than $1/(p-2)$, the norm of $\Delta$ on the multiples of
+$\mathbf h_c$.
+(d) Both couplings fix the constants on both sides, so they are
+sector-preserving in the sense of \cref{lem:sector}, and $\Delta_c$ and its
+symmetric part map every sector $H_S$ (of exact support $S\subseteq\Blk$)
+into itself; their norms are the largest over the sectors
+(\cref{lem:sector}(a)). On $H_\emptyset$, $\Delta_c=0$. On $H_{\{p\}}$,
+$\Delta_c$ is the factor $\Delta$ at $p$, so by (c) its norm is at most
+$k_{\rm new}(p)r_p$ and its symmetric part has norm $1/(p-2)$. The function
+$k_{\rm new}$ is nondecreasing in $q$ and $r$ (its first term is
+$(1+4q/(1+q))/(1-3q)$), so $k_{\rm new}(p)\le k_{\rm new}(X)$, while
+$r_p\le b^{-1/2}$ and $1/(p-2)\le1/(b-2)\le\beta_X/b$. On $H_S$ with
+$|S|\ge2$ the operator is
+$\bigotimes_{p\in S}\mathcal K_+^\circ-\bigotimes_{p\in S}\mathcal K_0^\circ$,
+the centred factors having norms $\|\mathcal K_+^\circ\|\le\kappa^{\rm fold}_p
+\le\alpha_Xb^{-1/2}$ and $\|\mathcal K_0^\circ\|=1/(p-2)\le\beta_X/b$, all
+below one; so its norm is at most
+$\alpha_X^2/b+\beta_X^2/b^2\le(\alpha_X^2r_X+\beta_X^2q_Xr_X)b^{-1/2}
+<k_{\rm new}(X)b^{-1/2}$. This proves the first bound. For the symmetric
+part, the decomposition of (c) gives on the mean-zero functions at one prime
+$\|\operatorname{Sym}\mathcal K_+^\circ\|\le1/(4k)+1/(4k)=2q/(1-3q)$ and
+$\|\operatorname{Skew}\mathcal K_+^\circ\|\le(\sqrt p+1)/(4k)=r(1+r)/(1-3q)$,
+since $\mathbf C_c$ is skew and the symmetric and skew parts of the
+off-diagonal block $\mathbf M_c^{+-}$ have norm at most $(k+1)/2$. On a
+two-prime sector $\{p,p'\}$, as $\mathcal K_0^\circ$ is symmetric,
+\[
+ \operatorname{Sym}\Delta_c=\operatorname{Sym}\mathcal K_+^\circ\otimes
+ \operatorname{Sym}\mathcal K_+^\circ+\operatorname{Skew}\mathcal K_+^\circ\otimes
+ \operatorname{Skew}\mathcal K_+^\circ-\mathcal K_0^\circ\otimes\mathcal K_0^\circ ,
+\]
+of norm at most
+$[4q_pq_{p'}+r_pr_{p'}(1+r_p)(1+r_{p'})]/((1-3q_p)(1-3q_{p'}))
++q_pq_{p'}/((1-2q_p)(1-2q_{p'}))\le s_{\rm fold}(X)/b$, using
+$r_pr_{p'}\le1/b$ and $q_pq_{p'}\le q_X/b$. On a sector with $|S|\ge3$ the
+whole operator has norm at most $\alpha_X^3b^{-3/2}+\beta_X^3b^{-3}<1/b$, as
+$X\ge2^{24}$. Since $\beta_X\le s_{\rm fold}(X)$ and $1\le s_{\rm fold}(X)$,
+every sector gives at most $s_{\rm fold}(X)/b$.
+(e) Positivity, mass and the reserved-diagonal placement are clear. The
+support lies on $a_0\to a_1$, strictly, at every prime, so the queried
+edge is a strict-square edge and the three labels are distinct. The maps
+of $\mathcal G_p$ preserve the sectors and the relation $\to$, so the law
+is invariant; as $\mathcal G_p$ is transitive on labels and on the pairs
+$a\to a'$, the one-slot marginals and the law of the queried pair are
+uniform. At the cut the two half marginals are the laws of
+$(c,a_0)$ and $(c,a_1)$; by (b) they are uniform on distinct pairs, as for
+the record being replaced. The record difference is the coupling
+difference $\Delta_c$ of (d) conditional on the shared label, which gives the
+sharp bound and the bound of its symmetric part, and two probability laws
+differ by at most $2$ in variation. No conditioning on a coincidence is
+made.
+\end{proof}
+
+Only one strict edge has to be imposed, because the six queries need only
+the edge between the two private labels of a folded matching record; a
+single sector-balanced coupling of the private pair, which keeps both
+actual half marginals at the record's own cut, therefore replaces each
+record, with no additional conditioning event and no resampling at coincidences. The sector balance also
+keeps the difference nearly skew: at a prime its symmetric part has norm exactly
+$1/(p-2)$, carried by the sector contrast, and on a block it is of order
+$1/b$, while the sharp coefficient $k_{\rm new}$ is about $1+7q$. The
+symmetric part gives each folded tag the symmetric price
+$(v_{\rm S}+v_{\rm D})s_{\rm fold}(X)r^4q_{\Blk}^{2a}$ on a block, which the
+orbit coupon of the positive envelopes uses (\cref{lem:orbit-coupon}). The
+coefficients
+$k_{\rm new}(X)$ and $s_{\rm fold}(X)$ at the $33$ piece starts and the
+two-support gate of (d) are recorded in \cref{cert:record:one-stage}
+(\cref{app:certificates}); the gate holds at every $X\ge2^{24}$, since
+$k_{\rm new}(X)>1$ while its left side is below $2^{-11}$. The replaced records
+are positive records whose normalizations are admissible: they involve only
+the field labels, and their sharp bounds hold for every value of the shared
+label, which is (O2) of \cref{def:admissible}.
+
+\emph{(CP2)(b).} On a middle block, $\delta_{E,\Blk}=\sum_{s\in\{0,1\}}
+(\kappa'_s-\kappa_s)$, where $\kappa_s$ is the folded matching record of type
+$E_s$ in $E_{\rm fold}+E_{\rm add}$ and $\kappa'_s$ its replacement in $E_{\rm new}$:
+the two have the same mass $(v_{\rm S}+v_{\rm D})r^2$, and by
+\cref{lem:record:one-stage-folded-e}(e) the difference has a sharp bound
+$k_{\rm new}(X)b^{-1/2}$ relative to $\kappa_s$ at the cut $\vartheta_{1+s}$,
+in the sense of \cref{def:price}(b), with the shared label as the label of
+that definition, and variation at most twice the mass. The difference of type
+$E_s$ carries the tag $s$ of (CP2)(b), whose cut $\vartheta_{1+s}$ is the same
+in every middle block. This is (CP2)(b) with two tags, with the sharp and
+variation prices of \cref{lem:record:middle-prices}; the tag totals are
+equal.
+
+\subsection{The law $\Nbr$ dominating $\lambda$ at $\iota$}\label{subsec:middle-gram}
+
+Hypothesis~(CP3) requires one nonnegative law $\Nbr$ that dominates
+$\lambda$ at the reserved cut in a $2\times2$ block. The next lemma
+builds $\Nbr$ from $\mu$ and $\lambda$ record by record and proves
+that the block is positive semidefinite.
+
+\begin{lemma}[The $2\times2$ block dominating $\lambda$ at $\iota$]\label{lem:record:gram}
+Let the weights of every middle piece satisfy the thirteen inequalities of
+\cref{lem:front12:reference}(iii) and the protection \eqref{eq:protection}.
+\begin{enumerate}[label=(\roman*)]
+\item $\mu\preceq_\iota\Nbrz$, and $\Nbrz-\mu=E_{\rm add}+G+H$ is a
+ nonnegative reserved-diagonal measure.
+\item $\Nbr=\Nbrz+\delta_E=\lambda+F_{\rm fold}+H$ is a nonnegative measure,
+ $\lambda_{\Blk}$ is symmetric at $\iota$, and blockwise
+ $\begin{pmatrix}\Nbr_{\Blk}&\lambda_{\Blk}\\ \lambda_{\Blk}&\Nbr_{\Blk}\end{pmatrix}
+ \succeq_\iota0$; in particular $-\Nbr\preceq_\iota\lambda\preceq_\iota\Nbr$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) Each of $E_{\rm add}$, $G$ and $H$ is a positive measure fixed
+samplewise by $\iota$, so its cut matrix is a nonnegative diagonal matrix
+(\cref{lem:commoncut}), and so is that of their sum $\Nbrz-\mu$.
+
+(ii) $\lambda$ is nonnegative: $F_{\rm fold}$ and $E_{\rm fold}$ are actual
+components of the unnormalized reference, and $E_{\rm new}$ and $G$ are
+nonnegative. Hence so is $\Nbr=\lambda+F_{\rm fold}+H$. The reference is
+invariant under the layer swap (\cref{lem:front12:reference}) and all records
+are reserved diagonal, so the cut matrices of $\lambda_{\Blk}$ and
+$\Nbr_{\Blk}$ at $\iota$ are symmetric. As in (i),
+$\Nbr-\lambda=F_{\rm fold}+H\succeq_\iota0$. Next,
+$\Nbr+\lambda=2\mu-F_{\rm fold}-2E_{\rm fold}+H+2E_{\rm new}+2G$, where
+$E_{\rm new}$ and $G$ are nonnegative and reserved diagonal; it remains to show
+$2\mu-F_{\rm fold}-2E_{\rm fold}+H\succeq_\iota0$, and we do so summand by summand
+in $2\widetilde\mu_{\Blk}$ (all records are divided by the same normalizer
+$\widetilde\mu_{\Blk}(1)$). Each fold component $\Pi_{F_s}$, $s\in\{1,2\}$,
+enters $2\widetilde\mu_{\Blk}$ with
+$2w_{\rm D}r\,\Pi_{F_s}+2v_{\rm D}r^2\operatorname{Diag}_\iota(\Pi^{(1)}_{F_s})$,
+and $-F_{\rm fold}$ removes one $v_{\rm D}r^2\operatorname{Diag}_\iota(\Pi^{(1)}_{F_s})$;
+what remains is positive at $\iota$ by \cref{lem:front12:reference}(iv). Each
+matching component $\Pi_{E_s}$ enters with
+$2w_{\rm S}r\,\Pi_{E_s}+2v_{\rm S}r^2\operatorname{Diag}_\iota(\Pi^{(1)}_{E_s})$;
+$-2E_{\rm fold}$ removes its folded part, and $H$ adds
+$2w_{\rm S}r\cdot3/(b-3)\cdot\operatorname{Diag}_\iota(\Pi^{(1)}_{E_s})$. The
+component $\Pi_{E_s}$ is uniform on two disjoint injective triples, and its
+cut operator at $\iota$ relative to its actual half law, the uniform law on
+injective triples, which is the half law of $\Pi^{(1)}_{E_s}$, is the
+disjoint-triple operator at each prime; on the block its spectrum lies in
+$[-3/(b-3),1]$ (\cref{sec:frontier:empty-triple-negative}(c)). Hence
+$\Pi_{E_s}+\frac3{b-3}\operatorname{Diag}_\iota(\Pi^{(1)}_{E_s})\succeq_\iota0$.
+Every other component (the root, the aligned fold $\Pi_{F_0}$, the merges and
+the constants) keeps both its two-layer part and its folded part, which
+are positive together at $\iota$ by \cref{lem:front12:reference}(ii) and the
+third line $v_{\mathfrak t}\ge k_{\mathfrak t}w_{\mathfrak t}$ of
+\cref{lem:front12:reference}(iii). So $2\mu-F_{\rm fold}-2E_{\rm fold}+H\succeq_\iota0$,
+and $\Nbr_{\Blk}\pm\lambda_{\Blk}\succeq_\iota0$, which is the block statement
+for the symmetric matrices: conjugation by the unitary
+$2^{-1/2}\bigl(\begin{smallmatrix}1&1\\1&-1\end{smallmatrix}\bigr)$ turns the
+block matrix into the diagonal matrix with blocks $\Nbr_{\Blk}+\lambda_{\Blk}$ and
+$\Nbr_{\Blk}-\lambda_{\Blk}$ (\cref{def:cp3}). Outside the middle,
+$\Nbr_{\Blk}=\lambda_{\Blk}=\mu_{\Blk}\succeq_\iota0$.
+\end{proof}
+
+With the price $u_{\Blk}$ of $\Nbr_{0,\Blk}-\mu_{\Blk}$ given by
+\cref{lem:record:middle-prices}, the lemma is hypothesis (CP3) of
+\cref{thm:comparison} (\cref{def:cp3}). The
+energy bound that the bracket buys (every structured energy of a
+fixed selected law with $\Nbr$ outside is at most $B+o(1)$ times its price times
+$Y$, the part without record differences costing at most $e^{U_0}$ and the
+rest at most $R_{\rm err}$) is \cref{lem:bracket-energy}, which assumes only
+(CP1), (CP2)(b), (CP3) and (CP8).
+
+\begin{remark}[What the bracket buys]\label{rem:middle-bracket}
+The bracket is a Gram bracket at $\iota$, not a domination at every cut: the
+comparison law built later need not be reflection positive, and the comparison
+is made at the reserved cut only. Two features of the comparison rest on
+this. First, $\lambda_{\Blk}$ is symmetric at $\iota$, so in the expansion of
+$Y_\nu-Y_\lambda$ every tensor term with an odd number of skew factors is
+skew-adjoint and has zero real quadratic form on the identical reserved
+half-functions; this is why the reserved cost is $B(e^S\cosh A-1)$ and not
+$B(e^{S+A}-1)$, where $S$ and $A$ are the total symmetric and skew prices of \cref{lem:record:record-expansion}. Second, the conductors
+of the index supports are held fixed through every Cauchy--Schwarz step:
+for complementary fold maps $f_+,f_-$ and every slot-weight vector $w=(w_v)$,
+$\frac12(\sum_vw_{f_+(v)}+\sum_vw_{f_-(v)})=\sum_vw_v$, so although a later
+chamber fold can give four occurrences of a conductor on one energy and
+none on the other, their geometric mean has the original two; only after the
+complementary energies are combined are the conductor powers averaged. The
+conductor moment of the matching term is therefore exactly $R_I^6$, also in
+the mixed-cut remainder of \cref{lem:bracket-energy}
+(\cref{lem:record:folded-energy}(e)).
+
+The bracket carries one copy of the one-layer folded copies of the fold records, so that
+$\Nbrz-\mu=E_{\rm add}+G+H$, whose coefficient of $r^2$, namely $2v_{\rm D}$, is half
+that of the first-stage records $F_{\rm fold}+E_{\rm add}$
+(\cref{lem:record:middle-prices}). Its part $E_{\rm add}+H$ is invariant under
+the chamber reflections and the group $\mathcal G_6$ they generate, as $\mu$
+is, and the positive envelopes use $\mu+E_{\rm add}+H$ as their invariant
+background (\cref{lem:oct24:invariant-background}). The price is the
+protection \eqref{eq:protection}, binding in every piece
+(\cref{rem:middle-weights}), and the diagonal copy of the fold
+records available to the joint Gram bound of the matching
+envelopes has coefficient $v_{\rm D}$ per side
+(\cref{prop:record:matching}).
+\end{remark}
+
+\subsection{Prices $L_0$ and $B$ for $\lambda$ and $\Nbr$}
+\label{subsec:middle-frame-prices}
+
+\begin{lemma}[Middle prices]\label{lem:record:middle-prices}
+Let $\Blk$ be a block of a middle piece starting at $X$, with least prime
+$b\ge X$ and $r=b^{-1/2}$. Evaluate every local coefficient below at $X$.
+Then the prices of $\Blk$ are at most $q_{\Blk}^{2a}$ times
+\begin{align*}
+ &\Nbrz-\mu:\ 2v_{\rm D}r^2+\Bigl(2v_{\rm D}(f_1+h_1)+\frac{12w_{\rm S}}{1-3/X}\Bigr)r^3,\\
+ &F_{\rm fold}+E_{\rm add}+G:\ 4v_{\rm D}r^2+2v_{\rm D}(f_1+h_1)r^3,\\
+ &\delta_E\ \text{(sharp)}:\ 2(v_{\rm S}+v_{\rm D})k_{\rm new}(X)\,r^3,\qquad
+ \delta_E\ \text{(variation)}:\ 4(v_{\rm S}+v_{\rm D})r^2,
+\end{align*}
+where $k_{\rm new}$ is the coefficient of \cref{lem:record:one-stage-folded-e};
+each of the two tags carries half of the last two prices.
+\end{lemma}
+
+\begin{proof}
+Dividing by the normalizing mass $\widetilde\mu_{\Blk}(1)\ge1$ only decreases
+each mass, so it suffices to bound unnormalized masses. The masses of
+$E_{\rm add}$, $G$ and $H$ (\cref{def:record:frame}(b)) give the first price
+and those of $F_{\rm fold}$, $E_{\rm add}$ and $G$ the second, with
+$3/(b-3)=3r^2/(1-3q)\le3r^2/(1-3/X)$. The two prices of $\delta_E$ are those
+of (CP2)(b) above: two record differences, each of a record of mass
+$(v_{\rm S}+v_{\rm D})r^2$, with sharp bound $k_{\rm new}(X)r$ and variation
+at most twice that mass, and no coincidence term; each tag consists of one of
+them. The row constants $f_1,h_1$ and the coefficient $k_{\rm new}$ are valid
+at every block of the piece when evaluated at $X$
+(\cref{lem:record:local-domain}(iii)).
+\end{proof}
+
+Summing over the blocks of each piece with the charges $b_d(X,Y)$ of
+\cref{lem:record:block-charge} for a piece $[X,Y)$, writing $b_2,b_3$ for $b_2(X,Y),b_3(X,Y)$ below, and over the $33$ pieces, with the weights and
+row constants of each piece,
+\begin{gather*}
+ U_0\le\sum_{\rm pieces}\Bigl[2v_{\rm D}b_2+\Bigl(2v_{\rm D}(f_1+h_1)
+  +\frac{12w_{\rm S}}{1-3/X}\Bigr)b_3\Bigr],\qquad
+ P\le\sum_{\rm pieces}\bigl[4v_{\rm D}b_2+2v_{\rm D}(f_1+h_1)b_3\bigr],\\
+ D\le\sum_{\rm pieces}2(v_{\rm S}+v_{\rm D})k_{\rm new}(X)\,b_3,\qquad
+ V\le\sum_{\rm pieces}4(v_{\rm S}+v_{\rm D})\,b_2 ,
+\end{gather*}
+each tag carrying half of $D$ and of $V$. In the certificate arithmetic all coefficients have nonnegative
+lower endpoints in every piece, so upper charges times upper coefficients are
+upper bounds. The certificate evaluates these sums from
+\path{research/push_2026_10_25/global/refined_L570_source.json},
+with exact finite block histograms and outward analytic charges, at the anchor exponent
+$a_0=\PushAnchor$ at which the middle prices are tabulated
+(\cref{cert:record:middle-price}): the totals there (primed, denoting evaluation at $a_0$) have the upper ends
+$U_0'\le0.8469081935391430$, $P'\le1.6936504653996420$,
+$D'\le4.741704122563\cdot10^{-5}$ and $V'\le3.387253370148178$, and each of
+the two tags has sharp total at most $D'/2$ and variation total at most
+$V'/2$; the four sums of each piece are listed in
+\cref{tab:record:middle-charges}. At the baseline exponent $a$
+every middle block has $\log q_{\Blk}\le L=570$
+(\cref{lem:record:local-domain}(ii)), so all these prices are at most
+$t=e^{2(a-a_0)L}$ times their values at $a_0$ (\cref{lem:record:repricing}),
+and \cref{cor:first-stage-repricing} with the two-tag series of
+\cref{cor:two-cut-series} at $n=4$ gives $U_0<0.846908245753$,
+$B<2.332628665480$, $R_{\rm err}<2.042558854365\cdot10^{-4}$ and
+$L_0<4.763323725665\cdot10^{-4}$ (\cref{def:closing-quantities}(2)); the repriced
+tag totals, about $2.37\cdot10^{-5}$ (sharp) and $1.694$ (variation), satisfy
+the hypotheses of that corollary, since the sharp total is below
+the variation total and below $6$, and their product is below $36$. For
+comparison, the one-sharp bounds
+$De^{P+V}$ and $De^{U_0+V}$ of \cref{rem:cp:tags} would be about
+$7.7\cdot10^{-3}$ and $3.3\cdot10^{-3}$: in the tagged series a term whose
+differences all carry one tag pays no variation price, and a term with both
+tags pays the variation of the less frequent tag only. The prices of the
+comparison records of the middle range are those of
+\cref{lem:middle-comparison-prices}, assembled from
+\cref{prop:signed-bounds,lem:oct24:matching-star,lem:record:exact-marginal-e,lem:merge-repair}
+with the same block charges.
+
+\paragraph{Consequences and what to read next.}
+This section depends on the following statements, grouped by topic.
+\Cref{lem:record:class-three}, \cref{lem:record:local-domain} and
+\cref{lem:record:block-charge} (pairs, domain and charges);
+\cref{lem:layer12-geometry} (the half graphs and the symmetries); the caps of
+the root: \cref{lem:layer12-caps,imp:local:collision-gap,cert:positive-root-caps}, with \cref{lem:spec:cutkernel}(f)
+and \cref{lem:spec:tensorcomp}(b); \cref{def:positive-root} and
+\cref{lem:positive-root-properties,lem:imp:coherent39-law}; \cref{lem:old-f-law} (the cap
+$k_{\rm D}$); \cref{prop:middle-negative} in the form of
+\cref{cor:influence-schur}, \cref{lem:row-comparison}, \cref{lem:four-count},
+\cref{lem:sector} and \cref{lem:majorant} (the rows, the block steps and the
+evaluation at the piece start); \cref{lem:five-type} with
+\cref{lem:slot-array}, \cref{lem:marginals}, \cref{lem:commoncut} and
+\cref{lem:record:fold-identification} (the completion);
+\cref{lem:tr:polarization} (the first stage); \cref{lem:paley-triple} and
+\cref{lem:square-shift} (the one-stage repair);
+\cref{sec:frontier:empty-triple-negative} (the coefficient of $H$);
+\cref{def:cp2,def:cp3,cor:two-cut-series} (the tags and the series);
+\cref{lem:record:repricing} and \cref{cor:first-stage-repricing} (prices at
+$a$). Certificates:
+\cref{cert:record:middle-price,cert:layer12-grid,cert:l20-grid,cert:positive-root-caps,cert:record:one-stage,cert:record:old-f-cap,cert:record:frame-data,cert:record:middle-geometry}.
+
+\paragraph{Hypotheses verified in this section (\cref{tab:hypotheses}).}
+(CP1) for the middle atoms, that is, (R1)--(R3) with (R2) at every cut of the
+family (\cref{lem:front12:reference}); (CP2)(a) at $\vartheta_0$
+(\cref{lem:middle-polarization}) and (CP2)(b) with two tags
+(\cref{lem:record:one-stage-folded-e}, \cref{cert:record:one-stage}); (CP3)
+(\cref{lem:record:gram}, under the protection \eqref{eq:protection}); the
+prices $P$, $V$, $D$, $U_0$ and the tag totals
+(\cref{lem:record:middle-prices,lem:record:block-charge,cert:record:middle-price},
+\cref{lem:record:repricing}); and the admissibility clause (CP8)(a) for the
+reference, the first-stage records and the bracket records. These are the
+rows ``(CP1) middle'', ``(CP2)(a)'', ``(CP2)(b)'', ``(CP3)'' and ``$P$,
+$V$, $D$, $U_0$, tags'' of \cref{tab:hypotheses}.

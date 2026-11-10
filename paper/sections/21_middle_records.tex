@@ -1,0 +1,2348 @@
+
+
+\section{Middle primes IV: the comparison law $\nu$ and its prices $S,A$}
+\label{sec:middle-records}
+
+\paragraph{What this section proves and how to read it.}
+This section proves (CP4) for middle atoms: it constructs $\nu$
+from $\lambda$ by keeping forcing records, replacing non-forcing
+records at fixed actual marginals, and deleting the rest, and
+bounds symmetric and skew prices $S,A$. A \emph{record} is one
+summand (see \cref{subsec:intro:glossary}); $F_0,F_1,F_2$ are fold
+records (two-layer, defined below) and $E_0,E_1$ matching records.
+The key idea is mirror pairing: adding a required edge together
+with its mirror makes the first-order change purely skew. Inputs:
+\cref{sec:middle-frame}. Outputs: middle contributions to $S,A$
+for \cref{sec:closing}. A first reading should follow the
+keep/replace/delete classification and mirror pairing; per-prime
+kernel estimates are reference material.
+On a middle block the comparison law
+keeps the two-layer root and the aligned fold $F_0$, which accept the six
+queries, and changes the other two-layer records: the fold records $F_1,F_2$
+are replaced by the signed whole-block fold record of parameter $\tlaw$
+(\cref{subsec:oct24:pure-local,subsec:pure-bounds}), a combination of mass one
+of three positive accepting product laws, each with the exact actual half
+marginals of the record it replaces; the matching records $E_0,E_1$ by the
+exact-marginal law $K_1$ (\cref{subsec:record:e_side}); the six merge records
+by their actual-marginal mirror repairs (\cref{subsec:merge-repair}); the
+two-layer constants by strict Paley-edge laws. The folded merges and
+constants and the polarization correction $G$ of the first stage are
+deleted. Every replacement keeps the actual half marginals at
+$\iota$ of the record it replaces, so every record difference annihilates the
+constants on both sides of the reserved cut, and every deleted record is
+positive. \Cref{lem:middle-comparison-prices} collects the symmetric, skew and
+auxiliary prices of a block; they enter $S$, $A$ and the class bounds as sums
+over the pieces of the degree charges times local coefficients evaluated at
+the piece start. Later sections use more than the prices: the three-arm
+leading stars and remainders of the fold changes and the one-arm stars and
+degree-four remainders of the matching changes
+(\cref{prop:signed-bounds,lem:oct24:matching-star}) are the inputs of the
+positive envelopes (\cref{thm:envelopes}); the coefficient
+$d_\tlaw$ of the joint Gram matrix for the reference and signed
+records (\cref{prop:signed-bounds}(d)) is the input of the matching sides
+(\cref{prop:signed-sides}); the negative cap $k_{\rm D}$
+(\cref{lem:old-f-law}(e)) enters the completion
+(\cref{lem:front12:reference}); and the centred norm $\kappa_F$ of the
+reference fold record (\cref{lem:record:old-f-marginal}) is an input of the
+variance credits (\cref{sec:variance}).
+
+The idea of the section is a signed pairing of the fold records. The
+reference fold record has the two cross edges $x_0\to y_2$ and $y_0\to x_2$
+between its layer-zero labels $x$ and its layer-one labels $y$, and the
+queries need one more, $x_1\to y_0$. Adding it alone would change the record
+at first order in its symmetric and in its skew part. Adding it together with
+the mirror edge $x_0\to y_1$ (the reversal of its image $y_1\to x_0$ under the
+reserved reflection) makes the first-order change purely skew, a two-arm star
+of norm about $\sqrt2\,r$, and pushes the symmetric change to second order:
+this is the mirror pairing (\cref{subsec:mirror}). The signed record adds two
+further product laws with coefficients $\pm\tlaw/2$, the signed sum being
+taken after the products over the primes of the block. The first-order change
+stays purely skew and becomes a three-arm star of norm about
+$(1+\tlaw^2+(1-\tlaw)^2)^{1/2}r$ (about $1.2732\,r$ at $\tlaw=127/500$), at the
+price of a total variation $1+\tlaw$ per block, whatever the number of primes;
+\cref{rem:mirror-why} explains the trade. Two inputs about the reference fold
+record are exact rather than perturbative: the pair laws of its actual half
+marginal (\cref{lem:actual-features}), and a centred bound for its
+coincidences, which also lowers its negative cap
+(\cref{lem:old-f-law}(e),(f)).
+
+\subsection{One prime: halves, kernels and channels}
+\label{subsec:middle-records:notation}
+
+Throughout the section $p\equiv3\pmod4$ is a prime, $p\ge19$ unless a larger
+bound is stated (every middle prime is at least $Q_3=19951586>2^{24}$; the
+statements below that need $p\ge2^{20}$ or $p\ge2^{24}$ say so), and
+\[
+ q=\frac1p,\quad r=p^{-1/2},\quad Z=(1-q)(1-2q),\quad h_0=1-14q,\quad
+ e_0=\frac{2q}{(1-3q)(1-4q)},\quad k_p=\frac{p-3}4 .
+\]
+Let $\chi$ be the quadratic character and write $a\to b$ if $\chi(b-a)=1$; as
+$\chi(-1)=-1$ this is a tournament. Finite sets carry their uniform
+probability and $\E$ is the corresponding average; $H_0$ is the space of
+mean-zero functions on $\Fp$, $P$ the Paley operator
+$(Ph)(s)=\E_t\chi(t-s)h(t)$, so $P^*=-P$, $P\one=0$ and $P^*P=qI$ on $H_0$, and
+$\mathcal G_p$ the group of the maps $t\mapsto\alpha t+\beta$, $\alpha$ a nonzero
+square, acting diagonally on tuples of labels (\cref{lem:paley-triple}).
+
+\paragraph{Halves and kernels.}
+A \emph{half} is a triple $x=(x_0,x_1,x_2)$ of distinct labels. Let $H_F$ be
+the set of halves with $x_0\to x_2$, so $|H_F|=p(p-1)(p-2)/2$, and $\nu_F$ its
+uniform law; its coordinates are uniform, $V_i\colon L^2(\Fp)\to L^2(\nu_F)$,
+$(V_ih)(x)=h(x_i)$, is an isometry and $V_i^*$ is the conditional expectation
+onto $x_i$ (\cref{lem:paley-triple}(d)). At the reserved cut a two-layer fold
+record of a middle block is, at one prime, a probability measure on
+$H_F\times H_F$: the first half carries the layer-zero labels $x$ of the three
+objects and the second the layer-one labels $y$
+(\cref{lem:record:fold-identification}(b),(d)). We identify such a measure
+with its density $K(x,y)$ relative to $\nu_F\otimes\nu_F$ and with the operator
+$Kf(x)=\E_yK(x,y)f(y)$ on $L^2(\nu_F)$; every function on $H_F\times H_F$ is
+regarded as such a kernel, and $\|\cdot\|$ is the operator norm on
+$L^2(\nu_F)$ unless another space is named. The reserved reflection exchanges
+$x_i$ and $y_i$; it maps $K$ to $K^\top(x,y)=K(y,x)$, the adjoint operator.
+Put $\operatorname{Sym}K=\frac12(K+K^\top)$,
+$\operatorname{Skew}K=\frac12(K-K^\top)$ and $\Pi_\perp=I-\Jproj$. If
+$m=g\nu_F$ is a probability measure with $g\ge1-\eta$ for some $\eta\in[0,1)$, the \emph{operator of
+$K$ on $L^2(m)$} has the same bilinear form,
+$\ip{\varphi}{K_m\psi}_m=\int\varphi(x)K(x,y)\psi(y)\,d\nu_F(x)\,d\nu_F(y)$; by
+\cref{lem:record:actual-correlation}(b) its norm is at most $\|K\|/(1-\eta)$,
+and its symmetric and skew parts are those of $K$, transported in the same
+way. If $K,K'$ are densities of probability measures with both half marginals
+$m$, the operator of $K'-K$ on $L^2(m)$ is the operator $\Delta$ of the charging
+rule \cref{rem:cp:charging}(ii) for the replacement of $K$ by $K'$; the same
+holds when $K'$ is a signed density of mass one with both half marginals $m$.
+
+\paragraph{The Paley channels.}
+The cross characters of a pair of halves are
+\begin{equation}\label{eq:middle:channels}
+ \mathsf A=\chi(y_2-x_0),\qquad\mathsf B=\chi(x_2-y_0),\qquad
+ \mathsf C=\chi(y_0-x_1),\qquad\mathsf D=\chi(y_1-x_0);
+\end{equation}
+on six distinct labels $\mathsf A=1$, $\mathsf B=1$, $\mathsf C=1$ and
+$\mathsf D=1$ mean $x_0\to y_2$, $y_0\to x_2$, $x_1\to y_0$ and $x_0\to y_1$.
+Let $I_\times$ be the indicator that $x$ and $y$ have no common label. Since
+$\chi(-1)=-1$, transposition acts by
+\begin{equation}\label{eq:middle:transpose}
+ (\mathsf A,\mathsf B,\mathsf C,\mathsf D)^\top
+ =(\mathsf B,\mathsf A,-\mathsf D,-\mathsf C),\qquad I_\times^\top=I_\times .
+\end{equation}
+Kernels below are defined at every pair of halves; a channel whose two labels
+coincide vanishes there. The edges of $\mathsf A$ and $\mathsf D$ form a star
+at $x_0$ with leaves $y_2,y_1$, and those of $\mathsf B$ and $\mathsf C$ a star
+at $y_0$ with leaves $x_2,x_1$; the two stars have no common label. A monomial
+in the channels is a \emph{star monomial} if all its edges lie in one star
+($\mathsf A$, $\mathsf B$, $\mathsf C$, $\mathsf D$, $\mathsf A\mathsf D$,
+$\mathsf B\mathsf C$) and a \emph{nonstar} otherwise; the nine nonstars are
+listed in \cref{lem:record:projected-nonstar}. This two-star picture organizes
+all the estimates of the fold records: star monomials have norms of order $r$,
+and nonstars, which contain two disjoint cross edges, of order $q$.
+
+\paragraph{Features.}
+For the operators $A_1=V_2P$, $A_2=V_1P$ and
+$(A_3h)(x)=-\E_s[\chi(s-x_2)\chi(s-x_1)h(s)]-q\E h$ of
+\cref{lem:paley-triple}(e), the kernels of $A_1V_0^*$, $A_2V_0^*$ and $A_3V_0^*$
+are $-\mathsf B$, $\mathsf C$ and $\mathsf B\mathsf C-q$, since they depend on
+$y$ only through $y_0$, which is uniform; transposing, $\mathsf A=-V_0A_1^*$
+and $\mathsf D=-V_0A_2^*$. Put $A_\star=A_2+A_3$ and, for $0\le\tlaw\le1$,
+\[
+ A_\tlaw=A_2+\tlaw A_1+(1-\tlaw)A_3,\qquad
+ \mathbf a_\tlaw=(\tlaw,1,1-\tlaw),\qquad
+ |\mathbf a_\tlaw|^2=1+\tlaw^2+(1-\tlaw)^2,
+\]
+so that $A_\tlaw=A_{\mathbf a_\tlaw}$ in the notation of
+\cref{lem:paley-triple}(e), with the \emph{arm vector} $\mathbf a_\tlaw$, and
+$A_0=A_\star$. The actual half marginal $m_0=g_0\nu_F$ of the reference fold
+record (\cref{lem:old-f-law}(a)) is translation invariant, so its coordinates
+are uniform and $V_i$ is also an isometry $H_0\to L^2(m_0)$; write $V_{i,m}^*$
+for its adjoint in $L^2(m_0)$, $\mathcal H_i=V_iH_0$, and $\mathcal K_{12}$ for
+the orthogonal complement in $L^2(m_0)$ of $\mathcal H_1+\mathcal H_2$ within
+the $m_0$-mean-zero functions of $(x_1,x_2)$. The operator $A_3$ maps $H_0$
+into the latter space, because $s\mapsto\E_{m_0}[\chi(s-x_2)\chi(s-x_1)]$ is
+translation invariant, hence constant. Put $A_3^\circ=\Pi_{\mathcal K_{12}}A_3$,
+$A_\star^\circ=A_2+A_3^\circ$ and
+$A^\circ_\tlaw=A_2+\tlaw A_1+(1-\tlaw)A_3^\circ$; the three arms $A_2$,
+$\tlaw A_1$ and $(1-\tlaw)A_3^\circ$ of $A^\circ_\tlaw$ map into $\mathcal H_1$,
+$\mathcal H_2$ and $\mathcal K_{12}$, and $A^\circ_0=A^\circ_\star$.
+
+\begin{lemma}[Two-feature spectral calculation]\label{lem:two-feature-spectrum}
+Let $V\colon H_0\to\mathcal H$ be an isometry and $A\colon H_0\to\mathcal H$
+satisfy, for real $a,b,c$,
+\[
+ V^*A=aI+bP,\qquad A^*A=cI,
+\]
+where $P^*=-P$ and $P^*P=qI$ on $H_0$, and $r=\sqrt q$. Then
+$\delta=c-a^2-b^2q\ge0$, and
+\begin{align*}
+ \|AV^*+VA^*\|&=|a|+\sqrt{c-b^2q},\\
+ \|AV^*-VA^*\|&=|b|r+\sqrt{c-a^2}.
+\end{align*}
+The spectrum of $AV^*+VA^*$ is contained in
+$\{0,a\pm\sqrt{c-b^2q}\}$. Thus one pair of Gram identities determines
+both the symmetric reference spectrum and the skew spectrum of a mirror or
+signed star, in whichever half-marginal Hilbert space the identities hold.
+\end{lemma}
+
+\begin{proof}
+Put $M=V^*A$ and $A_\perp=A-VM$. Then $V^*A_\perp=0$ and
+$A_\perp^*A_\perp=A^*A-M^*M=\delta I$, proving $\delta\ge0$.
+If $\delta>0$, write $A_\perp=\sqrt\delta\,U$, with $U$ an isometry
+orthogonal to $V$. Both operators vanish off $VH_0\oplus UH_0$, and on
+this sum they are
+\[
+ AV^*+VA^*=\begin{pmatrix}2aI&\sqrt\delta I\\\sqrt\delta I&0\end{pmatrix},
+ \qquad
+ AV^*-VA^*=\begin{pmatrix}2bP&-\sqrt\delta I\\\sqrt\delta I&0\end{pmatrix}.
+\]
+The first matrix has eigenvalues $a\pm\sqrt{a^2+\delta}$.
+On a $P$-eigenspace of eigenvalue $i\varepsilon r$, $\varepsilon\in\{\pm1\}$,
+the second has eigenvalues
+$i(b\varepsilon r\pm\sqrt{b^2q+\delta})$; its norm is
+$|b|r+\sqrt{b^2q+\delta}$. Substitution gives the formulas. If $\delta=0$,
+then $A=VM$, and the operators on $VH_0$ are $2aI$ and $2bP$;
+the same conclusions hold directly.
+\end{proof}
+
+\paragraph{The reflected transpose.}
+The map $\varsigma(x)=(-x_2,-x_1,-x_0)$ is an involution of $H_F$ preserving
+$\nu_F$: the relation $s\to t$ becomes $-t\to-s$ under negation, so
+$x_0\to x_2$ is preserved, and $\one[x_0\to x_1]$ and $\one[x_1\to x_2]$ are
+exchanged. Put $(\mathcal Uf)(x)=f(\varsigma x)$, a self-adjoint unitary on
+$L^2(\nu_F)$, and call $K^\varsigma(x,y)=K(\varsigma y,\varsigma x)$ the
+\emph{reflected transpose} of a function $K$ on $H_F\times H_F$. As operators
+$K^\varsigma=\mathcal UK^\top\mathcal U$. The map
+$(x,y)\mapsto(\varsigma y,\varsigma x)$ preserves $\mathsf A$, $\mathsf B$ and
+$I_\times$, and $\mathsf C^\varsigma=\chi(y_1-x_2)$. Only this arithmetic
+identification of coordinates is used; no negation invariance of an input
+function is assumed.
+
+\subsection{The reference fold record at the reserved cut}\label{subsec:old-f}
+
+Before the fold records $F_1,F_2$ can be replaced, the record
+they replace must be understood exactly: the reference's own
+two-layer fold record at the reserved cut. At one prime this is
+the uniform law on pairs of halves $(x,y)$ with six distinct
+labels and the two cross edges $x_0\to y_2$ and $y_0\to x_2$ (the
+channels $\mathsf A$ and $\mathsf B$ of
+\eqref{eq:middle:channels}). The next lemma collects everything
+later sections use about it: how many completions $y$ each half
+$x$ has and the resulting normalizing constant and actual half
+marginal; an exact spectral description of its leading part; its
+centred norms and remainder in the actual marginal; and its
+negative cap $k_{\rm D}$ at $\iota$, which enters the completion
+inequality $v_{\rm D}\ge k_{\rm D}w_{\rm D}$ of
+\cref{lem:front12:reference} and the protection inequality
+\eqref{eq:protection}. The exact pair laws of its actual half
+marginal follow in \cref{lem:actual-features}.
+
+\begin{lemma}[The reference fold record]\label{lem:old-f-law}
+Let $p\ge19$, $\Psi_0=I_\times(1+\mathsf A)(1+\mathsf B)$, $z_0=\E\Psi_0$ (the
+average over $\nu_F\otimes\nu_F$) and $K_0=\Psi_0/z_0$. On six distinct labels
+$\Psi_0$ is $4$ times the indicator of $x_0\to y_2$ and $y_0\to x_2$, and it
+vanishes elsewhere; so $K_0$ is uniform on the pairs of halves with six
+distinct labels, $x_0\to y_2$ and $y_0\to x_2$. It is the law at $\iota$ of
+each two-layer fold record $\Pi_{F_0},\Pi_{F_1},\Pi_{F_2}$ of the middle
+reference at one prime (\cref{lem:record:fold-identification}).
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Fibres and normalizer.} For $x\in H_F$ put
+ $e_{01}=\one[x_0\to x_1]$ and $e_{12}=\one[x_1\to x_2]$. The number of $y$ with
+ $\Psi_0(x,y)\ne0$ is $N_0(x)=(p-5)(k_p-1)\bigl(\frac{p-3}2-e_{01}-e_{12}\bigr)$,
+ and as $\Psi_0^\top=\Psi_0$ the same formula counts the $x$ for a given $y$.
+ Both half marginals of $K_0$ equal $m_0=g_0\nu_F$, where $g_0\circ\varsigma=g_0$,
+ \[
+  g_0=\frac{(p-2)(p-3-2e_{01}-2e_{12})}{(p-3)(p-4)},\qquad
+  \|g_0-1\|_\infty=\eta_F:=\frac{2(p-1)}{(p-3)(p-4)}
+  =\frac{2q(1-q)}{(1-3q)(1-4q)}\le e_0,
+ \]
+ the largest value of $g_0$ is $(p-2)/(p-4)=1+2/(p-4)$, and, with
+ $h_0\le z_0\le1$,
+ \[
+  z_0=\frac{(p-3)(p-4)(p-5)(p-7)}{p(p-1)(p-2)^2}
+  =1-14q+\frac{q^2(53-273q+364q^2)}{(1-q)(1-2q)^2}.
+ \]
+ On a block $\Blk$ of at most $n$ primes $p\ge X$ the density of
+ $m_{0,\Blk}=\bigotimes_pm_{0,p}$ relative to $\nu_{F,\Blk}=\bigotimes_p\nu_{F,p}$
+ is at most $(1+e_0(X))^n\le e^{ne_0(X)}$, and at most $(1-ne_0(X))^{-1}$ if
+ $ne_0(X)<1$, where $e_0(X)$ denotes $e_0$ evaluated at $q=1/X$.
+\item \emph{Leading part.} As kernels
+ $\Psi_0=\Jproj+\mathsf L+\mathsf A\mathsf B-\mathsf C_{\rm rem}$, with
+ $\mathsf L=\mathsf A+\mathsf B$ and
+ $\mathsf C_{\rm rem}=(1-I_\times)(1+\mathsf A)(1+\mathsf B)$. On $L^2(\nu_F)$:
+ \begin{enumerate}[label=(\roman*)]
+ \item $\mathsf L$ annihilates the constants and has its spectrum in
+  $\{0\}\cup\{q/(1-q)\pm(q-q^3/(1-q)^2)^{1/2}\}$; hence $\mathsf L\succeq-(r-q)I$
+  and $\|\mathsf L\|\le r+q/(1-q)\le\Gamma r$, where $\Gamma=1+\varrho+\varrho'$,
+  $\varrho=r\sqrt{1+q}/(1-q)$ and $\varrho'=q(1+\varrho)/(1-2q)$
+  (\cref{lem:paley-triple}(d));
+ \item $\|\mathsf A\mathsf B\|\le2q/(1-q)\le2q/Z$;
+ \item $\mathsf C_{\rm rem}$ is nonnegative and symmetric, its row sums are at
+  most $q(17-120q+247q^2)/Z\le17q$, and
+  $\|\mathsf C_{\rm rem}\|\le17q\le17q/Z\le36q$.
+ \end{enumerate}
+\item \emph{Centred norms.} $\|\Pi_\perp K_0\Pi_\perp\|\le h_{\rm old}/h_0$ with
+ $h_{\rm old}=\Gamma r+(2/Z+36)q$, and on the $m_0$-centred functions of
+ $L^2(m_0)$ the operator of $K_0$ has norm at most
+ $\kappa_{\rm old}=(h_{\rm old}/h_0+e_0^2)/(1-e_0)$. Moreover
+ $K_0=(\Jproj+\mathsf L)/z_0+R_{\rm old}$ with $\|R_{\rm old}\|\le19q/(Zh_0)$.
+\item \emph{Negative cap on the uniform law.}
+ $K_0\succeq-r\bigl[1+(19/Z-1)r\bigr]h_0^{-1}I$ on $L^2(\nu_F)$.
+\item \emph{Blocks.} Let $\Blk$ be a block of primes $p\ge X\ge2^{24}$ with
+ least prime $b$ and $\sum_{p\in\Blk}\log p\le L$, let $n_X\ge\lfloor L/\log
+ X\rfloor$ be an integer (the certificate takes $n_X=\lfloor L/\log^-X\rfloor$
+ with a rational lower bound $\log^-X\le\log X$), $q_X=1/X$,
+ $r_X\ge X^{-1/2}$ and $e_X=e_0(X)$, suppose $n_Xe_X<1$, and put
+ $\bar H_X=(1-n_Xe_X)^{-1}$ and
+ \[
+  k_{\rm D}(X,L)=\bar H_X\bigl[1+(e_o(X)-1)r_X\bigr],
+ \]
+ where $e_o(X)$ is the constant $e_o$ of \eqref{eq:signed-constants} at $(q_X,r_X)$. The notation $k_{\rm D}(X,L)$ suppresses the choices $n_X,r_X$ fixed here. If $[1+(e_o(X)-1)r_X]r_X<1$, then for every real function
+ $\varphi$ on $H_{F,\Blk}=\prod_{p\in\Blk}H_{F,p}$
+ \[
+  \int\varphi(x)\varphi(y)\bigotimes_{p\in\Blk}K_{0,p}\,
+  d\nu_{F,\Blk}(x)\,d\nu_{F,\Blk}(y)\ \ge\ -k_{\rm D}(X,L)\,b^{-1/2}
+  \int\varphi^2\,d\nu_{F,\Blk} .
+ \]
+ Hence every two-layer fold component of the reference of $\Blk$ satisfies
+ \[
+  \Pi_{F_j}\succeq_\iota-k_{\rm D}(X,L)\,b^{-1/2}\operatorname{Diag}_\iota(\Pi^{(1)}_{F_j}),
+ \]
+ which is the fold case of \cref{lem:front12:reference}(ii), with its reserved
+ cap $k_{\rm D}=k_{\rm D}(X,L)$, on every block of a piece starting at $X$.
+\item \emph{Actual centred remainder.} Let $p\ge2^{24}$, let $T_{\rm old}$ be the
+ operator of $K_0$ on $L^2(m_0)$, the Markov operator of
+ \cref{lem:record:old-f-marginal}(c), let $O=T_{\rm old}-\Jproj$ be its
+ centred part, and put
+ \[
+  O_0=V_0PV^*_{2,m}-V_2PV^*_{0,m}=-\bigl(A_1V^*_{0,m}+V_0A_1^{*_m}\bigr),
+ \]
+ adjoints in $L^2(m_0)$. Then $O=O_0+R_o$ with $\|R_o\|\le e_oq$, where $e_o$
+ is the constant of \eqref{eq:signed-constants} at $(q,r)$; $O_0$ is
+ self-adjoint, annihilates the constants, has its spectrum in
+ $\{0\}\cup\{q/(1-q)\pm(q-q^3/(1-q)^2)^{1/2}\}$, and $\|O_0\|\le\Gamma_Ar$, with
+ $\Gamma_A$ of \cref{lem:actual-features}(d). Hence
+ $T_{\rm old}\succeq-\bigl[1+(e_o-1)r\bigr]r\,I$ on $L^2(m_0)$, and the centred
+ norm of $T_{\rm old}$ is at most $(\Gamma_A+e_or)r$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) All counts use \cref{lem:paley-triple}(a). Fix $x$. The label $y_0$ is an
+in-neighbour of $x_2$ other than $x_0$, and other than $x_1$ if $e_{12}=1$:
+$\frac{p-1}2-1-e_{12}$ choices. Then $y_2$ is a common out-neighbour of $x_0$
+and $y_0$ other than $x_2$, and other than $x_1$ if $x_0\to x_1$ and
+$y_0\to x_1$; if $e_{01}=1$, exactly $k_p-1$ admissible $y_0$ satisfy
+$y_0\to x_1$, namely the common in-neighbours of $x_1,x_2$ other than $x_0$.
+Finally $y_1$ is any of the $p-5$ remaining labels. This gives $N_0$. The
+ordered pairs of sources $x_0\ne y_0$ with two distinct common out-neighbours
+$x_2,y_2$ number $p(p-1)k_p(k_p-1)$, and each extends in $(p-4)(p-5)$ ways;
+dividing by $|H_F|$ gives the mean $\bar N_0=(p-3)(p-7)(p-4)(p-5)/(8(p-2))$. As
+$\Psi_0=4$ on its support, $\E_yK_0(x,y)=4N_0(x)/(|H_F|z_0)$, and averaging
+over $x$ gives $z_0=4\bar N_0/|H_F|$; so each half marginal has the density
+$N_0/\bar N_0=g_0$. As $e_{01}+e_{12}\in\{0,1,2\}$, $g_0$ takes the values
+$1+2/(p-4)$, $1-2/((p-3)(p-4))$ and $1-2(p-1)/((p-3)(p-4))$, the last being the
+farthest from one and the first the largest; $\varsigma$ exchanges $e_{01}$
+and $e_{12}$. Multiplying out,
+$(1-3q)(1-4q)(1-5q)(1-7q)-(1-14q)(1-q)(1-2q)^2=53q^2-273q^3+364q^4$, positive
+because $273^2<4\cdot53\cdot364$, which gives the expansion of $z_0$; and
+$(1-q)(1-2q)^2-(1-3q)(1-4q)(1-5q)(1-7q)=q(14-123q+385q^2-420q^3)>0$ for
+$q\le1/19$ gives $z_0\le1$. On a block, $g_{0,p}\le1+2/(p-4)\le1+e_0(p)\le
+1+e_0(X)$ for $p\ge X$; and $1+y\le e^y$ and $e^{ny}\le(1-ny)^{-1}$ for
+$0\le ny<1$.
+
+(b) (i) By the kernel identities of \cref{subsec:middle-records:notation},
+$\mathsf L=-(A_1V_0^*+V_0A_1^*)$; it annihilates the constants because $A_1$
+does and maps into mean-zero functions. On $H_0$, $A_1^*A_1=qI$ and
+$M:=V_0^*A_1=-(I+P)/(p-1)$ (\cref{lem:paley-triple}(e)), so \cref{lem:two-feature-spectrum}, with
+$a=b=-q/(1-q)$ and $c=q$, gives the nonzero eigenvalues of $\mathsf L$ as
+$q/(1-q)\pm\sqrt{q-q^3/(1-q)^2}$. The
+bounds follow from $(q-q^3/(1-q)^2)^{1/2}\le r$ and
+$\varrho r=q\sqrt{1+q}/(1-q)\ge q/(1-q)$.
+(ii) The kernel $\mathsf A\mathsf B$ depends on $(x_0,x_2)$ and $(y_0,y_2)$
+and is a product of two single cross edges; for independent uniform labels it
+is a tensor product of two operators of norm $r$, and
+\cref{lem:record:projection} with the density $2/(1-q)$ of a directed edge on
+both sides gives the bound.
+(iii) Both factors of $\mathsf C_{\rm rem}$ are nonnegative, and
+$\mathsf C_{\rm rem}^\top=\mathsf C_{\rm rem}$. Fix $x$. Then
+$\E_y\mathsf A=\E_y\mathsf B=0$. The pair $(y_0,y_2)$ is a uniform directed
+edge, with density $(1+\chi(y_2-y_0)-\one_{y_0=y_2})/(1-q)$ relative to two
+independent labels; against $\mathsf A\mathsf B=\chi(y_2-x_0)\chi(x_2-y_0)$ the
+three terms contribute $0$, $q\chi(x_2-x_0)=q$ and $-q^2$
+(\cref{lem:paley-triple}(b) and $x_0\to x_2$). Hence $\E_y\mathsf A\mathsf B=q$
+and $\E_y(1+\mathsf A)(1+\mathsf B)=1+q$, while
+$\E_y\Psi_0(x,y)=4N_0(x)/|H_F|\ge(p-5)(p-7)^2/(p(p-1)(p-2))$ by (a). The row sum
+of $\mathsf C_{\rm rem}$ at $x$ is the difference,
+\[
+ \frac{p+1}p-\frac{(p-5)(p-7)^2}{p(p-1)(p-2)}
+ =\frac{17p^2-120p+247}{p(p-1)(p-2)}=\frac{q(17-120q+247q^2)}Z ,
+\]
+at most $17q$ because $17-120q+247q^2\le17(1-3q+2q^2)$ for $q\le69/213$; and
+$17/Z\le36$. The Schur test for a nonnegative symmetric kernel bounds the norm
+by the largest row sum.
+
+(c) $\Pi_\perp\Jproj\Pi_\perp=0$, so by (b)
+$\|\Pi_\perp K_0\Pi_\perp\|\le(\Gamma r+2q/Z+36q)/z_0\le h_{\rm old}/h_0$. The bound
+in $L^2(m_0)$ is \cref{lem:record:actual-correlation}(a) with $m_L=m_R=m_0$,
+$\eta=e_0\ge\eta_F$ and all functions; and
+$R_{\rm old}=(\mathsf A\mathsf B-\mathsf C_{\rm rem})/z_0$.
+
+(d) By (b) and $\Jproj\succeq0$,
+$\Psi_0\succeq-(r-q+2q/Z+17q/Z)I=-r[1+(19/Z-1)r]I$; divide by $z_0\ge h_0$.
+
+(e), (f): see the end of \cref{subsec:record:f_remainders}. The proof of (f)
+uses \cref{lem:actual-features} and \cref{lem:record:conditional-collision}(d),
+and that of (e) uses (f).
+\end{proof}
+
+The reference uses the cap $k_{\rm D}$ for its fold type
+(\cref{lem:front12:reference}(ii)). Its values $k_{\rm D}(X,585)$ at the $33$
+piece starts, all below the recorded F21 block caps of \cref{lem:layer12-caps},
+are those of \cref{cert:record:old-f-cap}; at $X=Q_3$ the block
+count is $n_X=34$, $\bar H_X<1.0000035$, $1+(e_o-1)r_X<1.0014832$ and
+$k_{\rm D}<1.0014866$.
+
+\begin{corollary}[Actual marginal and centred norm of the reference fold record]
+\label{lem:record:old-f-marginal}
+Let $p\ge19$.
+\begin{enumerate}[label=(\alph*)]
+\item The actual half marginal is $m_0=g_0\nu_F$, with $g_0$ and
+ $\|g_0-1\|_\infty=\eta_F$ as in \cref{lem:old-f-law}(a).
+\item The joint law of the two $\iota$-halves of the fold record has the density
+ $K_0=\Psi_0/z_0$ relative to $\nu_F\otimes\nu_F$, with
+ $z_0=(p-3)(p-4)(p-5)(p-7)/(p(p-1)(p-2)^2)\ge1-14q$.
+\item The Markov operator $T_{\rm old}$ of this coupling on $L^2(m_0)$ is
+ self-adjoint, $T_{\rm old}\one=\one$, and, provided $(2/Z+36)q<1$ and
+ $\eta_F<1$,
+ \[
+  \|T_{\rm old}-\Jproj\|\le\kappa_F(q,r):=\frac{\dfrac{\bar\Gamma r+(2/Z+36)q}
+  {1-(2/Z+36)q}+\eta_F^2}{1-\eta_F},\qquad
+  \bar\varrho=\frac{r(1+q)}{1-q},\quad\bar\Gamma=1+\bar\varrho
+  +\frac{q(1+\bar\varrho)}{1-2q}.
+ \]
+\item Let $X$ be a nonempty finite set of middle blocks, $j\in\{0,1,2\}$, and
+ $\kappa_X$ the largest value of $\kappa_F(1/p,p^{-1/2})$ at the primes $p$ of
+ the blocks of $X$. The Markov operator $T_X$ at $\iota$ of
+ $\Pi_X=\bigotimes_{\Blk\in X}\Pi_{F_j,\Blk}$ on $L^2(m_X)$,
+ $m_X=\bigotimes_\Blk m_{F_j,\Blk}$ the actual half marginal, satisfies
+ $\|T_X-\Jproj\|\le\kappa_X$ and $T_X\preceq(1-\kappa_X)\Jproj+\kappa_XI$; hence, if
+ $\kappa_X<1$, with $J_X$ the law with independent $\iota$-halves of law $m_X$,
+ \[
+  Y[J_X]\ge\frac{Y[\Pi_X]-\kappa_X(1+o(1))C_XY}{1-\kappa_X}.
+ \]
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+(a) and (b) are \cref{lem:old-f-law}(a). (c) The layer swap preserves the
+record, so the coupling is symmetric, and $T_{\rm old}$ is self-adjoint and
+fixes the constants. As $\varrho\le\bar\varrho$, $\Gamma\le\bar\Gamma$, and
+\cref{lem:old-f-law}(b) gives
+$\|\Pi_\perp(\Psi_0-\Jproj)\Pi_\perp\|\le\bar\Gamma r+(2/Z+36)q$; with
+$z_0\ge1-14q\ge1-(2/Z+36)q$, $\|\Pi_\perp K_0\Pi_\perp\|$ is at most the inner
+fraction, and \cref{lem:record:actual-correlation}(a) with $\eta=\eta_F$ gives
+(c). (d) Every $\Pi_{F_j,\Blk}$ has the law $\bigotimes_{p\in\Blk}K_{0,p}$ at $\iota$
+(\cref{lem:old-f-law}), so $T_X$ is the tensor product of the prime operators
+$T_{\rm old}$, each with $\|T_{\rm old}-\Jproj\|\le\kappa_X$;
+\cref{lem:sector}(c) gives $\|T_X-\Jproj\|\le\kappa_X$, and as $T_X$ is
+self-adjoint and fixes the constants, $T_X-\Jproj\preceq\kappa_X(I-\Jproj)$. The
+energy bound is (P3) of \cref{lem:energy-toolkit} at $\iota$ with the outside
+law $\mu$, followed by (E1) for the diagonal copy $\operatorname{Diag}_\iota(m_X)$.
+\end{proof}
+
+The certificate evaluates $\kappa_F$ at the piece start with
+$\bar\varrho=r(1+q)/(1-q)$, which exceeds the exact norm
+$\varrho=r\sqrt{1+q}/(1-q)$ of $V_0^*V_2$, and with $1-(2/Z+36)q$, which is
+below $z_0$; both substitutions only increase $\kappa_F$, which is admissible
+in $(q,r)$. The bound $\kappa_{\rm old}$ of \cref{lem:old-f-law}(c) bounds the
+same norm; the variance credits use $\kappa_F$, and the block bounds of the
+signed law the actual centred norm $(\Gamma_A+e_or)r$ of
+\cref{lem:old-f-law}(f).
+
+The actual half marginal $m_0$ is not uniform, but its pair laws are exact
+and simple, and they give the correlations of the feature spaces without any
+density-perturbation allowance.
+
+\begin{lemma}[Exact actual features]\label{lem:actual-features}
+Let $p\ge19$, $\mu=2/(p-4)$, and let $m_{ij}$ be the law of $(x_i,x_j)$ under
+the actual half marginal $m_0$ of \cref{lem:old-f-law}(a).
+\begin{enumerate}[label=(\alph*)]
+\item $m_{01}(a,b)=m_{12}(a,b)=\dfrac{1-\mu\chi(b-a)}{p(p-1)}$ for $a\ne b$, and
+ $m_{02}$ is uniform on the pairs $a\to b$.
+\item On $H_0$, $V^*_{0,m}V_2=(P-qI)/(1-q)$ and
+ $V^*_{0,m}V_1=V^*_{1,m}V_2=-(I+\mu pP)/(p-1)$. Hence the correlations of the
+ singleton feature spaces in $L^2(m_0)$ are
+ \[
+  \varrho_{02}=\|V^*_{0,m}V_2\|=\frac{r\sqrt{1+q}}{1-q},\qquad
+  \varrho_{01}=\|V^*_{0,m}V_1\|=\|V^*_{1,m}V_2\|
+  =\frac q{1-q}\Bigl(1+\frac{4q}{(1-4q)^2}\Bigr)^{1/2};
+ \]
+ $\varrho_{02}$ is the number $\varrho$ of \cref{lem:paley-triple}(d).
+\item On $H_0$,
+ \begin{gather*}
+  A_3^{*_m}A_3=\frac{q(1-2q-q^2)}{1-q}\,I\preceq qI,\qquad
+  A_3^{*_m}V_0=\frac{p+4}{p(p-1)(p-4)}\,I,\\
+  V^*_{1,m}A_3=-\frac q{p-1}I+\frac\mu{p-1}P,\qquad
+  V^*_{2,m}A_3=-\frac q{p-1}I-\frac\mu{p-1}P .
+ \end{gather*}
+ Hence, as operators from $H_0$ to $L^2(m_0)$, $\|A_1\|=\|A_2\|=r$,
+ $\|A_3^\circ\|\le\|A_3\|\le r$ and $\|\Pi_{\mathcal H_1+\mathcal H_2}A_3\|\le J_Fqr$,
+ where
+ \[
+  J_F=\Bigl(\frac2{1-\varrho_{01}}\Bigr)^{1/2}
+  \Bigl(\frac r{1-q}+\frac{2q}{(1-q)(1-4q)}\Bigr).
+ \]
+\item The synthesis map $(h_0,h_1,h_2,h_3)\mapsto V_0h_0+(A_2h_1+A_1h_2+A_3h_3)/r$
+ from $H_0^4$ to $L^2(m_0)$ has squared norm at most
+ \[
+  \Gamma_A=1+\varrho_{02}+2\varrho_{01}+\frac{qr(1+4q)}{(1-q)(1-4q)}
+  +\frac{2qr}{1-q}+\frac{4q^2}{(1-q)(1-4q)} .
+ \]
+\item Let $\Blk$ be a middle block with least prime $b$ and actual marginal
+ $m_{0,\Blk}=\bigotimes_pm_{0,p}$, and let $\mathcal H_i(\Blk)$ and
+ $\mathcal K_{12}(\Blk)$ be the spaces of \cref{subsec:middle-records:notation}
+ for the whole objects. Let $\mathcal V_0$ be the direct sum over $p\in\Blk$
+ of the maps $V_0$ at $p$, an isometry from $\bigoplus_pH_0(\mathbb F_p)$
+ into $\mathcal H_0(\Blk)$, and let $\mathcal A_1,\mathcal A_2,\mathcal A_3$ be
+ the direct sums of the prime arms $A_2$, $A_1$, $A_3^\circ$. Then
+ $\mathcal A_1$, $\mathcal A_2$, $\mathcal A_3$ have ranges in $\mathcal H_1(\Blk)$,
+ $\mathcal H_2(\Blk)$, $\mathcal K_{12}(\Blk)$ and norms at most $b^{-1/2}$, and
+ for real $c_1,c_2,c_3$ and $\mathcal A=c_1\mathcal A_1+c_2\mathcal A_2+c_3\mathcal A_3$
+ the star $\mathcal A\mathcal V_0^*-\mathcal V_0\mathcal A^*$ on $L^2(m_{0,\Blk})$
+ is the orthogonal sum over $p\in\Blk$ of the prime stars
+ $(c_1A_2+c_2A_1+c_3A_3^\circ)V^*_{0,m}-V_0(c_1A_2+c_2A_1+c_3A_3^\circ)^{*_m}$ on the
+ sectors of exact support $\{p\}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) By \cref{lem:old-f-law}(a) the weight of a half $x$ under $m_0$ is
+proportional to $\one[x_0\to x_2](d-1-e_{01}-e_{12})$, with $d=(p-1)/2$; put
+$k=k_p=(d-1)/2$. Fix $(x_1,x_2)=(a,b)$ with $a\ne b$ and put $j=\one[a\to b]$.
+The label $x_0$ is an in-neighbour of $b$ other than $a$, in $d-j$ ways, and
+$k$ of these are also in-neighbours of $a$ (\cref{lem:paley-triple}(a)); so
+the total weight is $(d-j)(d-1-j)-k$, which is $(d-1)(d-\frac12)$ for $j=0$ and
+$(d-1)(d-\frac52)$ for $j=1$. Their mean over the two values of $j$ is
+$(d-1)(d-\frac32)=(d-1)(p-4)/2$, and the two values are this mean times
+$1+\mu$ and $1-\mu$; as $\chi(b-a)=2j-1$, this is the formula for $m_{12}$. The
+map $\varsigma$ preserves $m_0$ (\cref{lem:old-f-law}(a)) and sends $(x_0,x_1)$
+to $(-x_2,-x_1)$, so $m_{01}(a,b)=m_{12}(-b,-a)$, which is the same formula.
+For $x_0\to x_2$, the sum of $d-1-e_{01}-e_{12}$ over $x_1\notin\{x_0,x_2\}$ is
+$(p-2)(d-1)-2(d-1)$, the same for every directed pair; so $m_{02}$ is uniform
+on the directed pairs.
+
+(b) The first identity is that of \cref{lem:paley-triple}(d), as $m_{02}$ is the
+uniform law of directed pairs, as under $\nu_F$. For $f\in H_0$, by (a),
+$(V^*_{0,m}V_1f)(a)=\sum_{b\ne a}\frac{1-\mu\chi(b-a)}{p-1}f(b)
+=-\frac{f(a)+\mu p(Pf)(a)}{p-1}$, and likewise for $V^*_{1,m}V_2$. On $H_0$ the
+operator $P$ is normal with eigenvalues $\pm ir$ (\cref{lem:paley-triple}(c)),
+so $\|P-qI\|^2=q+q^2$ and $\|I+\mu pP\|^2=1+\mu^2p$, and
+$\mu^2p=4q/(1-4q)^2$.
+
+(c) For $h\in H_0$, $A_3h$ is the function
+$-\frac1p\sum_s\chi(s-x_1)\chi(s-x_2)h(s)$ of $(x_1,x_2)$, which is symmetric in
+$(x_1,x_2)$; and the density of $m_{12}$ relative to the uniform law of
+distinct pairs is $1-\mu\chi(x_2-x_1)$, whose nonconstant part is
+antisymmetric. So the Gram $A_3^{*_m}A_3$ is that of the uniform law of
+distinct pairs. The pair $(x_1,x_2)$ under $\nu_F$ gives the same Gram,
+since its density relative to that law is $1-\chi(x_2-x_1)/(p-2)$, and it is the value
+$(1-2q-q^2)/(p-1)\cdot I$ of \cref{lem:paley-triple}(e). Next, by (a) and
+\eqref{eq:two-root},
+\[
+ (V^*_{1,m}A_3h)(a)=-\frac1{p(p-1)}\sum_s\chi(s-a)h(s)
+ \sum_{b\ne a}\bigl(1-\mu\chi(b-a)\bigr)\chi(s-b)
+ =\frac{-h(a)+\mu p(Ph)(a)}{p(p-1)},
+\]
+because the inner sum is $-\chi(s-a)-\mu$ for $s\ne a$; conditioning on $x_2$
+instead, the inner sum is $-\chi(s-b)+\mu$, which gives $V^*_{2,m}A_3$. For
+$A_3^{*_m}V_0$, translation invariance shows that
+$\E_{m_0}[\chi(s-x_1)\chi(s-x_2)\mid x_0=a]=\kappa(s-a)$ for a function $\kappa$;
+the computation below gives $\kappa(0)=\kappa_0$ and $\kappa(t)=\kappa_1$ for every
+$t\ne0$, and then $A_3^{*_m}V_0=-q(\kappa_0-\kappa_1)I$ on $H_0$, since
+$\ip{A_3h}{V_0h'}_{m_0}=-\E_a\E_sh'(a)h(s)\kappa(s-a)$. Fix $x_0=0$ and write $b=x_1$,
+$c=x_2$; the conditional weight is $\one[0\to c](d-1-e_{0b}-e_{bc})$, of total
+$d(d-1)(p-4)$. With $e_{0b}=(1+\chi(b))/2$, $e_{bc}=(1+\chi(c-b))/2$ and
+\eqref{eq:two-root}, the sum over $b\notin\{0,c\}$ of $\chi(b)$ times the weight
+is $-(p-3)$ for every $c$, so $\kappa_0=-d(p-3)/(d(d-1)(p-4))=-2/(p-4)$. For
+$s\ne0$ put $\xi=\chi(s)$, $u=\chi(s-c)$ and $v=\chi(c)$; the sums over
+$b\notin\{0,c\}$ of $\chi(s-b)$, $\chi(b)\chi(s-b)$ and $\chi(c-b)\chi(s-b)$ are
+$-\xi-u$, $1-vu$ and $p\one_{c=s}-1-v\xi$, so the sum over $b$ of the
+weight times $\chi(s-b)$ is $\frac12[(v-(p-5))(\xi+u)-p\one_{c=s}]$. Summing
+$u$ times this over $c\ne0$ with the factor $\one[0\to c]=(1+v)/2$, and using
+$(1+v)(v-(p-5))=-(p-6)(1+v)$, $\sum_{c\ne0}(1+v)u=1-\xi$ and
+$\sum_{c\ne0}(1+v)u^2=p-2-\xi$, gives $-(p-6)(p-3)/4$, the term with
+$\one_{c=s}$ vanishing because $u=0$ at $c=s$; so
+$\kappa_1=-(p-6)/((p-1)(p-4))$ and $-q(\kappa_0-\kappa_1)=(p+4)/(p(p-1)(p-4))$.
+Finally $\|A_i\|=\|P|_{H_0}\|=r$ for $i=1,2$, as $V_1,V_2$ are isometries;
+$\|A_3\|^2\le q$ by the first identity. The Gram of $(V_1,V_2)$ on $H_0^2$ is at
+least $(1-\varrho_{01})I$ by (b), so
+$\|\Pi_{\mathcal H_1+\mathcal H_2}A_3\|\le(1-\varrho_{01})^{-1/2}\sqrt2\max_i
+\|V^*_{i,m}A_3\|$, and $\|V^*_{i,m}A_3\|\le q/(p-1)+\mu r/(p-1)=
+qr\bigl(r/(1-q)+2q/((1-q)(1-4q))\bigr)$.
+
+(d) The Gram of the four maps is a $4\times4$ block operator on $H_0^4$ with
+diagonal blocks of norm at most one (by (c), and as $V_0$, $A_2/r$, $A_1/r$ are
+isometries). Its off-diagonal blocks have the norms $\varrho_{01}$ (for $V_0$ and
+$A_2/r$, since $P/r$ is unitary on $H_0$), $\varrho_{02}$ ($V_0$ and $A_1/r$),
+$\varrho_{01}$ ($A_2/r$ and $A_1/r$), $\|A_3^{*_m}V_0\|/r=qr(1+4q)/((1-q)(1-4q))$ and
+$\|V^*_{i,m}A_3\|/r\le qr/(1-q)+2q^2/((1-q)(1-4q))$ for $i=1,2$, by (b) and (c).
+Every row sum of these norms is at most $\Gamma_A$, and the Schur test bounds
+the norm of the Gram by the largest row sum.
+
+(e) The Markov operators of couplings with exact marginals preserve the
+sectors of exact prime support (\cref{lem:sector}(a)), and the stars are
+defined sectorwise. A function of the prime-$p$ labels lying in
+$\mathcal H_i(p)$ lies in $\mathcal H_i(\Blk)$. One lying in $\mathcal K_{12}(p)$
+lies in $\mathcal K_{12}(\Blk)$: the conditional expectation under $m_{0,\Blk}$ of a
+function of the whole-object label $x_1$ given the prime-$p$ labels is a
+function of $x_{1,p}$ alone, hence lies in $\mathcal H_1(p)$ plus the constants,
+which is orthogonal to $\mathcal K_{12}(p)$; likewise for $x_2$. The prime pieces
+of $\mathcal V_0$ and of each $\mathcal A_i$ have ranges in the mutually
+orthogonal sectors of exact support $\{p\}$, so these maps are isometric,
+respectively of norm $\max_p\|A\|\le\max_pr_p\le b^{-1/2}$ by (c), and the star
+splits into its prime stars.
+\end{proof}
+
+\subsection{Adding an edge together with its mirror: first-order change purely skew}\label{subsec:mirror}
+
+This subsection contains the algebraic idea on which the fold
+replacement rests. Recall that $x$ and $y$ are the layer-zero and
+layer-one triples of a fold record at one prime. For the record
+$F_1$ to accept the six queries, one further cross edge is needed
+beyond the two reference edges, namely $x_1\to y_0$
+(\cref{cert:record:middle-geometry}); its channel is $\mathsf C$.
+Imposing only this edge would change the record already at first
+order in $r=p^{-1/2}$ in its symmetric part, which is too
+expensive. The reserved reflection sends the channel $\mathsf C$
+to $-\mathsf D$, where $\mathsf D$ is the channel of the mirror
+edge $x_0\to y_1$. Imposing the mirror edge as well cancels the
+first-order symmetric change exactly, leaving a purely skew
+first-order change and a symmetric change only at second order.
+Part~(d) of the next lemma is the one-parameter signed form of
+this pairing used in \cref{subsec:oct24:pure-local}; mirror pairing
+itself is the case $\tlaw=0$.
+
+\begin{lemma}[Mirror pairing]\label{lem:mirror}
+Let $\Phi=(1+\mathsf A)(1+\mathsf B)\bigl[(1+\mathsf C)(1+\mathsf D)-1\bigr]$ and
+$\Phi'=(1+\mathsf A)(1+\mathsf B)\bigl[(1+\mathsf C)(1-\mathsf D)-1\bigr]$,
+polynomials in the channels \eqref{eq:middle:channels}, read as kernels.
+\begin{enumerate}[label=(\alph*)]
+\item $\operatorname{Sym}\Phi=\Phi_{\rm s}:=(1+\mathsf A)(1+\mathsf B)\mathsf C\mathsf D$ and
+ $\operatorname{Skew}\Phi=\Phi_{\rm a}:=(1+\mathsf A)(1+\mathsf B)(\mathsf C+\mathsf D)$,
+ whereas $\operatorname{Skew}\Phi'=0$ and
+ $\operatorname{Sym}\Phi'=(1+\mathsf A)(1+\mathsf B)(\mathsf C-\mathsf D-\mathsf C\mathsf D)$.
+\item The four monomials $\mathsf C\mathsf D$, $\mathsf A\mathsf C\mathsf D$,
+ $\mathsf B\mathsf C\mathsf D$, $\mathsf A\mathsf B\mathsf C\mathsf D$ of $\Phi_{\rm s}$
+ are nonstars: each contains the two-edge matching of $\mathsf C$ ($x_1$--$y_0$)
+ and $\mathsf D$ ($x_0$--$y_1$), whose endpoints span only two of the four pairs
+ of $\{x_0,x_1\}\times\{y_0,y_1\}$. The skew part splits as
+ $\Phi_{\rm a}=L_p+\Phi_{\rm a,ns}$ into the star part
+ $L_p=\mathsf C+\mathsf D+\mathsf A\mathsf D+\mathsf B\mathsf C$ and the nonstar part
+ $\Phi_{\rm a,ns}=\mathsf A\mathsf C+\mathsf B\mathsf D+\mathsf A\mathsf B\mathsf C
+ +\mathsf A\mathsf B\mathsf D$.
+\item $L_p=A_\star V_0^*-V_0A_\star^*$ on $L^2(\nu_F)$, with $A_\star=A_2+A_3$; it
+ annihilates the constants, has mean-zero range, and
+ \[
+  \|L_p\|=|\beta|r+(\gamma-\lambda^2)^{1/2}\le l:=r\Bigl[\Bigl(\frac{2+2q^2/(1-2q)}
+  {1-q}\Bigr)^{1/2}+\frac q{1-q}\Bigr],
+ \]
+ where $\lambda=\frac{p+2}{p(p-1)(p-2)}$, $\beta=-\frac1{p-1}$ and
+ $\gamma=q+\frac{1-2q-q^2}{p-1}+\frac{2q}{(p-1)(p-2)}$. In particular $l/r\to\sqrt2$
+ as $q\to0$, and $l/r$ is admissible in $(q,r)$.
+\item \emph{The signed pairing.} For $0\le\tlaw\le1$ let
+ \[
+  \Phi_\tlaw=(1+\mathsf C)\bigl(1+(1-\tlaw)\mathsf B\bigr)
+  \bigl[1+\mathsf D+(1+\tlaw)\mathsf A+(1-\tlaw)\mathsf A\mathsf D\bigr]
+  -(1+\mathsf A)(1+\mathsf B),
+ \]
+ and put $\tilde x_\tlaw=\mathsf D+\tlaw\mathsf A+(1-\tlaw)\mathsf A\mathsf D$ and
+ $\tilde y_\tlaw=\mathsf C-\tlaw\mathsf B+(1-\tlaw)\mathsf B\mathsf C$. Then
+ $\Phi_0=\Phi$,
+ \[
+  \operatorname{Sym}\Phi_\tlaw=\tilde x_\tlaw\tilde y_\tlaw,\qquad
+  \operatorname{Skew}\Phi_\tlaw=L_{\tlaw,p}+K_\tlaw-K_\tlaw^\top,\qquad
+  K_\tlaw=\mathsf A\mathsf C\bigl(1+(1-\tlaw)\mathsf B\bigr),
+ \]
+ where
+ $L_{\tlaw,p}=\tilde x_\tlaw+\tilde y_\tlaw=\mathsf C+\mathsf D+\tlaw(\mathsf A-\mathsf B)
+ +(1-\tlaw)(\mathsf A\mathsf D+\mathsf B\mathsf C)$ is, on $L^2(\nu_F)$, the operator
+ $A_\tlaw V_0^*-V_0A_\tlaw^*$, with $A_\tlaw=A_2+\tlaw A_1+(1-\tlaw)A_3$ of
+ \cref{subsec:middle-records:notation}. The factor $\tilde x_\tlaw$ is a rectangular
+ star with centre $x_0$, leaves $y_1,y_2$ and coefficients $(1,\tlaw,1-\tlaw)$, and
+ $\tilde y_\tlaw$ one with centre $y_0$, leaves $x_1,x_2$ and coefficients
+ $-(1,\tlaw,1-\tlaw)$ (\cref{lem:record:projected-nonstar}(b)); $K_\tlaw$ does not
+ depend on $y_1$, and its only factor that depends on $x_1$ is $\mathsf C$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) By \eqref{eq:middle:transpose}, $(1+\mathsf A)(1+\mathsf B)$ and
+$\mathsf C\mathsf D\mapsto(-\mathsf D)(-\mathsf C)$ are symmetric,
+$\mathsf C+\mathsf D$ is skew and $\mathsf C-\mathsf D$ is symmetric; and
+$(1+\mathsf C)(1\pm\mathsf D)-1=\mathsf C\pm\mathsf D\pm\mathsf C\mathsf D$.
+(b) is the expansion of the products; the star monomials of $\Phi_{\rm a}$ are
+the singletons $\mathsf C,\mathsf D$ and the products $\mathsf A\mathsf D$ (at $x_0$)
+and $\mathsf B\mathsf C$ (at $y_0$).
+(c) The kernels of $A_2V_0^*$ and $A_3V_0^*$ are $\mathsf C$ and
+$\mathsf B\mathsf C-q$ (\cref{subsec:middle-records:notation}); by
+\eqref{eq:middle:transpose} the kernel of the adjoint $V_0A_\star^*$ is
+$(\mathsf C+\mathsf B\mathsf C-q)^\top=-\mathsf D-\mathsf A\mathsf D-q$, and the
+difference is $L_p$. Each $A_j$ annihilates the constants and maps into
+mean-zero functions (\cref{lem:paley-triple}(e)), hence so does $L_p$. On $H_0$,
+by \cref{lem:paley-triple}(e), $M:=V_0^*A_\star=\lambda I+\beta P$ and
+$A_\star^*A_\star=\gamma I$, because the parts of $A_2^*A_3$ and $A_3^*A_2$ that
+contain $P$ cancel ($P^*=-P$). Apply \cref{lem:two-feature-spectrum} with
+$(a,b,c)=(\lambda,\beta,\gamma)$ to obtain the stated norm. Finally
+$|\beta|r=rq/(1-q)$ and
+$\gamma/q=\frac{2-3q-q^2}{1-q}+\frac{2q^2}{(1-q)(1-2q)}\le\frac{2+2q^2/(1-2q)}{1-q}$.
+
+(d) The first factor of $\Phi_\tlaw+(1+\mathsf A)(1+\mathsf B)$ is
+$(1+\mathsf C)(1+(1-\tlaw)\mathsf B)=1+\mathsf B+\tilde y_\tlaw$ times
+$1+\mathsf D+(1+\tlaw)\mathsf A+(1-\tlaw)\mathsf A\mathsf D=1+\mathsf A+\tilde x_\tlaw$.
+The two factors are polynomials in disjoint channels, so
+\[
+ \Phi_\tlaw=(1+\mathsf B)\tilde x_\tlaw+(1+\mathsf A)\tilde y_\tlaw
+ +\tilde x_\tlaw\tilde y_\tlaw .
+\]
+By \eqref{eq:middle:transpose}, $\tilde x_\tlaw^\top=-\mathsf C+\tlaw\mathsf B
+-(1-\tlaw)\mathsf B\mathsf C=-\tilde y_\tlaw$ and $\tilde y_\tlaw^\top=-\tilde x_\tlaw$,
+so $\Phi_\tlaw^\top=-(1+\mathsf A)\tilde y_\tlaw-(1+\mathsf B)\tilde x_\tlaw
++\tilde x_\tlaw\tilde y_\tlaw$. Hence $\operatorname{Sym}\Phi_\tlaw=\tilde x_\tlaw\tilde y_\tlaw$
+and $\operatorname{Skew}\Phi_\tlaw=(\tilde x_\tlaw+\tilde y_\tlaw)+(\mathsf B\tilde x_\tlaw
++\mathsf A\tilde y_\tlaw)$, and
+$\mathsf B\tilde x_\tlaw+\mathsf A\tilde y_\tlaw=\mathsf A\mathsf C(1+(1-\tlaw)\mathsf B)
++\mathsf B\mathsf D(1+(1-\tlaw)\mathsf A)=K_\tlaw-K_\tlaw^\top$, since
+$K_\tlaw^\top=\mathsf B(-\mathsf D)(1+(1-\tlaw)\mathsf A)$. At $\tlaw=0$ the first
+factor is $(1+\mathsf C)(1+\mathsf B)(1+\mathsf A)(1+\mathsf D)$, so $\Phi_0=\Phi$. The
+kernels of $A_2V_0^*$, $A_1V_0^*$ and $A_3V_0^*$ are $\mathsf C$, $-\mathsf B$ and
+$\mathsf B\mathsf C-q$, so the kernel of $A_\tlaw V_0^*$ is $\tilde y_\tlaw-(1-\tlaw)q$
+and that of its adjoint $V_0A_\tlaw^*$ is $-\tilde x_\tlaw-(1-\tlaw)q$; their
+difference is $L_{\tlaw,p}$. With $\mathsf D=\chi(y_1-x_0)$, $\mathsf A=\chi(y_2-x_0)$,
+$\mathsf C=-\chi(x_1-y_0)$ and $\mathsf B=\chi(x_2-y_0)$, $\tilde x_\tlaw$ and
+$\tilde y_\tlaw$ are the stated rectangular stars, and
+$K_\tlaw=\chi(y_2-x_0)\cdot\mathsf C(1+(1-\tlaw)\mathsf B)$ involves the labels
+$x_0,x_1,x_2,y_0,y_2$ only.
+\end{proof}
+
+\begin{remark}[Why the mirror]\label{rem:mirror-why}
+For the orientation $(1+\mathsf C)(1-\mathsf D)$ the whole first-order change
+$\mathsf C-\mathsf D$ is symmetric, priced in $S$, which enters the closing
+through $e^S$. For the pairing of \cref{lem:mirror} the symmetric change is of
+order $q$, and the first-order change is the skew two-arm star $L_p$ of norm
+about $\sqrt2\,r$: odd skew terms vanish in the expansion of the reserved cost,
+and the even products of such stars are priced by positive envelopes
+(\cref{thm:envelopes}), after reflection averaging, at a fraction of their
+norms. The signed record keeps this structure and lowers the leading norm from
+$\sqrt2\,r$ to about $|\mathbf a_\tlaw|r=(1+\tlaw^2+(1-\tlaw)^2)^{1/2}r$ by two further
+product laws with coefficients $\pm\tlaw/2$ (\cref{lem:mirror}(d)). The cost is
+a total variation $1+\tlaw$ per block, which enters only the vanishing
+remainders of the comparison theorem through the variation factor of
+\cref{def:cp4}, and a larger second-order symmetric part ($s_F$ of
+\cref{prop:signed-bounds}). Replacements that change the cross edge
+$y_0\to x_2$ of the reference record, and the limits of positive mixtures, are
+discussed in \cref{subsec:obs:pairing}.
+\end{remark}
+
+\subsection{The signed combination over a whole block replacing $F_1,F_2$}\label{subsec:oct24:pure-local}
+
+The comparison records of $F_1$ and $F_2$ replace the reference fold record,
+at every prime, by three positive accepting kernels repaired to the actual
+half marginal $m_0$, and combine their tensor products over the block with the
+signed coefficients $1,\tlaw/2,-\tlaw/2$. The repair precedes tensorization and
+the signed sum follows it: every product has exactly the product of the actual
+prime marginals, and the sector lemma prices the block difference by its prime
+differences (\cref{lem:sector}(b) with its closing clause and (h),
+\cref{rem:signed-mixture-sectors}). In this subsection the densities of the
+components are taken relative to $m_0\otimes m_0$; the operator of such a
+density $P$ on $L^2(m_0)$ is its Markov operator
+$T[P]\psi(x)=\int P(x,y)\psi(y)\,dm_0(y)$, which is the operator on $L^2(m_0)$,
+in the sense of \cref{subsec:middle-records:notation}, of the
+$\nu_F\otimes\nu_F$-density $P\,(g_0\otimes g_0)$.
+
+\begin{lemma}[Positive components with the actual half marginal]
+\label{lem:signed-components}
+Let $p\ge2^{24}$, $0\le\tlaw\le1$ and $(u,v)\in\{(1,1),(-1,1),(-1,-1)\}$, and on
+$H_F\times H_F$ put
+\[
+ U_{uv}=2\,\one[x_1\to y_0]\bigl(1+(1-\tlaw)\mathsf B\bigr)(1+u\mathsf D)(1+v\mathsf A),
+ \qquad z_{uv}=\E_{\nu_F\otimes\nu_F}U_{uv},\qquad
+ R_{uv}=\frac{U_{uv}}{z_{uv}\,g_0\otimes g_0},
+\]
+so that $R_{uv}$ is the density of the probability measure
+$U_{uv}\,\nu_F\otimes\nu_F/z_{uv}$ relative to $m_0\otimes m_0$.
+\begin{enumerate}[label=(\alph*)]
+\item $U_{uv}\ge0$; it vanishes unless $x_1\to y_0$, and it is invariant under
+ $\mathcal G_p$ acting diagonally on all six labels.
+\item For all $x,y\in H_F$,
+ $|\E_{y'\sim\nu_F}U_{uv}(x,y')-1|\le qR_{\rm row}$ and
+ $|\E_{x'\sim\nu_F}U_{uv}(x',y)-1|\le qR_{\rm col}$, where
+ \begin{gather*}
+  R_{\rm row}=(5-3\tlaw)+\frac{2[1+(5-3\tlaw)q]}{1-2q}
+  +(2-\tlaw)\Bigl(1+\frac{2q}{1-q}\Bigr),\\
+  R_{\rm col}=(5-4\tlaw)+\frac{2[1+(5-4\tlaw)q]}{1-2q}+\frac{1+q}{1-2q};
+ \end{gather*}
+ both are below $10$, and $|z_{uv}-1|\le\eta_c:=10q$.
+\item The marginal defects $\alpha=\one-R_{uv}\one$ and $\beta=\one-R_{uv}^*\one$,
+ $R_{uv}$ acting on $L^2(m_0)$, are $\mathcal G_p$-invariant and $m_0$-centred, and
+ $|\alpha|,|\beta|\le M_c:=\frac{2\eta_c+(1+\eta_c)e_0}{h_c(1-e_0)}$, $h_c=1-\eta_c$.
+ The query coupling $J_C=\frac2{1-q}\one[x_1\to y_0]$, a density relative to
+ $m_0\otimes m_0$, has both marginals $m_0$, satisfies $J_C\beta=0$ and
+ $J_C^*\alpha=0$, and $\|\Pi_\perp J_C\Pi_\perp\|\le\varrho_{02}$ on $L^2(m_0)$, with
+ $\Pi_\perp$ the projection off the constants and $\varrho_{02}$ of
+ \cref{lem:actual-features}(b).
+\item The density
+ \[
+  P_{uv}=\frac{R_{uv}+J_C\bigl(\alpha(x)+\beta(y)\bigr)+2M_cJ_C}{1+2M_c}
+ \]
+ relative to $m_0\otimes m_0$ is that of a $\mathcal G_p$-invariant probability
+ measure supported on $x_1\to y_0$, with both half marginals $m_0$, and
+ $\|\Pi_\perp(T[P_{uv}]-T[R_{uv}])\Pi_\perp\|\le2M_c\bigl(\|\Pi_\perp T[R_{uv}]\Pi_\perp\|
+ +2\varrho_{02}\bigr)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) For $a\ne b$, $1+\chi(b-a)$ is $2$ if $a\to b$ and $0$ otherwise; the other
+three factors lie in $[0,2]$ for all values $0,\pm1$ of the channels; and the
+channels are invariant under the maps $t\mapsto\alpha t+\beta$ with $\alpha$ a
+nonzero square, acting on all labels.
+
+(b) \emph{Rows.} Fix $x$, and write $2\,\one[x_1\to y_0]=1+\mathsf C-\delta_{10}$,
+$\delta_{10}=\one[y_0=x_1]$ (at $y_0=x_1$ the channel $\mathsf C$ vanishes). Then
+$U_{uv}=H(1+u\mathsf D)(1+v\mathsf A)-\delta_{10}\bigl(1+(1-\tlaw)\mathsf B\bigr)
+(1+u\mathsf D)(1+v\mathsf A)$, where $H=(1+\mathsf C)(1+(1-\tlaw)\mathsf B)\ge0$ is a
+function of $y_0$. Under $\nu_F$ the label $y_0$ is uniform, $y_2$ is a uniform
+out-neighbour of $y_0$, and $y_1$ is uniform on the other $p-2$ labels. By
+\cref{lem:paley-triple}(b), $\E H=1+(1-\tlaw)\E_c\chi(c-x_1)\chi(x_2-c)=
+1+(1-\tlaw)q$. Next $\E[\mathsf A\mid y_0=c]=(p\one_{c=x_0}-1-\chi(c-x_0))/(p-1)$,
+so $(p-1)\E[H\mathsf A]=H(x_0)-\E H-\E_c[H(c)\chi(c-x_0)]$. Here $H(x_0)$ is $0$
+or $2(2-\tlaw)$, as $\chi(x_2-x_0)=1$, and
+$\E_c[H(c)\chi(c-x_0)]=-q+(1-\tlaw)q-(1-\tlaw)\E_c\chi((c-x_0)(c-x_1)(c-x_2))$,
+where the last average has modulus at most $2r$ by \cref{thm:weil}(a). Hence
+$|\E[H\mathsf A]|\le q(3-2\tlaw+q+2r)/(1-q)\le2(2-\tlaw)q$, the last step because
+$q+2r+(4-2\tlaw)q\le1$; so $|\E[H(1+v\mathsf A)]-1|\le(5-3\tlaw)q$. Given
+$(y_0,y_2)$, $|\E[\mathsf D\mid y_0,y_2]|=|\chi(y_0-x_0)+\chi(y_2-x_0)|/(p-2)\le
+2q/(1-2q)$, and $H(1+v\mathsf A)\ge0$, so the term with $u\mathsf D$ is at most
+$\frac{2q}{1-2q}[1+(5-3\tlaw)q]$ in modulus. For the excluded
+query coincidence $y_0=x_1$ (the removed query of the preceding
+remark), at $y_0=x_1$
+the factor $1+(1-\tlaw)\mathsf B$ is at most $2-\tlaw$, and with
+$\xi=\chi(x_1-x_0)$ the conditional means given $y_0=x_1$ are
+$\E\mathsf A=-(1+\xi)/(p-1)$,
+$\E\mathsf D=-\xi/(p-2)+(1+\xi)/((p-1)(p-2))$ and
+$\E\mathsf A\mathsf D=-(p-3)/((p-1)(p-2))$; the largest value of
+$1+u\E\mathsf D+v\E\mathsf A+uv\E\mathsf A\mathsf D$ over $u,v,\xi$ is $1+2/(p-1)$.
+These three bounds add up to $qR_{\rm row}$.
+
+\emph{Columns.} Fix $y$, and integrate $x_1$ first: given $(x_0,x_2)$ it is
+uniform on the other $p-2$ labels, so
+$|\E[\mathsf C\mid x_0,x_2]|=|\chi(y_0-x_0)+\chi(y_0-x_2)|/(p-2)\le2q/(1-2q)$. The
+remaining factor $(1+(1-\tlaw)\mathsf B)G$, $G=(1+u\mathsf D)(1+v\mathsf A)$ a function
+of $x_0$, is nonnegative; $\E G=1-uvq$ by \cref{lem:paley-triple}(b), and
+$\E[\mathsf B\mid x_0]=(p\one_{x_0=y_0}-1-\chi(x_0-y_0))/(p-1)$ is $1$ at
+$x_0=y_0$ and $0$ or $-2/(p-1)$ elsewhere, so
+$-2q(1+q)/(1-q)\le\E[\mathsf BG]\le4q$. Hence
+$|\E[(1+(1-\tlaw)\mathsf B)G]-1|\le(5-4\tlaw)q$, and the $\mathsf C$-term is at most
+$\frac{2q}{1-2q}[1+(5-4\tlaw)q]$. The removed query has column mass
+$q\,\E[(1+(1-\tlaw)\chi(x_2-y_0))G(x_0)\mid x_1=y_0]\le q(1+q)/(1-2q)$: given
+$x_1=c$ the pair $(x_0,x_2)$ is uniform on the $(p-1)(p-2)/2$ directed pairs
+avoiding $c$, the sum over $x_2$ of $1+(1-\tlaw)\chi(x_2-c)$ is at most
+$(p-1)/2$ for every $x_0$, and $\sum_{x_0}G(x_0)=p(1-uvq)$.
+
+For $q\le1/100$ the two bounds are at most $9.19$ and $8.18$. Averaging the row
+estimate over $x$ gives $|z_{uv}-1|\le qR_{\rm row}<10q$.
+
+(c) $R_{uv}\one(x)=\E_{y\sim\nu_F}U_{uv}(x,y)/(z_{uv}g_0(x))$. By (b) the ratio
+$\E_yU_{uv}(x,y)/z_{uv}$ is within $2\eta_c/h_c$ of one, and
+$|g_0-1|\le e_0$ (\cref{lem:old-f-law}(a)), so
+$|\alpha|\le(e_0+2\eta_c/h_c)/(1-e_0)\le M_c$; likewise for $\beta$. Invariance
+holds because $U_{uv}$, $\nu_F$ and $g_0$ are invariant, and
+$\int\alpha\,dm_0=1-\iint R_{uv}\,dm_0\,dm_0=0$. The label $y_0$ is uniform under
+$m_0$ and, for every $x$, $\Pr(x_1\to y_0)=(1-q)/2$; so $J_C\one=\one$, and likewise
+$J_C^*\one=\one$. As $\beta$ is translation invariant and $m_0$-centred,
+$\E_{m_0}[\beta\mid y_0]=0$ (\cref{lem:spec:affpair}(d)(iii)), and
+$(J_C\beta)(x)=\frac2{1-q}\E_{m_0}\bigl[\one[x_1\to y_0]\E[\beta\mid y_0]\bigr]=0$;
+likewise $J_C^*\alpha=0$. Finally, as $2\,\one[a\to c]=1+\chi(c-a)-\one_{c=a}$,
+the operator of $J_C$ on $L^2(m_0)$ is $V_1SV^*_{0,m}$ with
+$S=(\Jproj+P-qI)/(1-q)$ on $L^2(\Fp)$; so
+$\Pi_\perp J_C\Pi_\perp=V_1\frac{P-qI}{1-q}V^*_{0,m}\Pi_\perp$, of norm at most
+$\|P-qI\|/(1-q)=\varrho_{02}$ on $H_0$.
+
+(d) This is \cref{cor:markov-completion} with $m_X=m_Y=m_0$, $R=R_{uv}$,
+$J=J_C$ and $M=M_c$; the density vanishes off $x_1\to y_0$, where both
+$R_{uv}$ and $J_C$ vanish, and it is invariant because $R_{uv}$, $J_C$, $\alpha$
+and $\beta$ are.
+\end{proof}
+
+\begin{remark}[Coincidences of the two halves]
+The kernels $U_{uv}$ are defined at every pair of halves; only the query
+coincidence $y_0=x_1$ is excluded. At another coincidence $x_i=y_j$ the
+channels of that pair vanish, and $U_{uv}\ge0$ there. Acceptance needs only
+$x_1\to y_0$ (\cref{cert:record:middle-geometry}); invariance under
+$\mathcal G_p$, hence uniform one-slot marginals and uniform queried pairs,
+holds on the whole product; and every bound of \cref{prop:signed-bounds} is a
+bound for the operator of the kernel on all pairs of halves (stars and
+nonstars for independent labels, compressed by the induced densities; the
+removed query charged $k_{\rm col}q$). No later statement assumes distinct
+labels in the two halves of a fold record: the middle frame (\cref{def:record:frame}) and the dominating matrices of \cref{sec:envelopes}, the
+matching Gram and the mean credit use operators on $L^2(m_0)$; the
+restorations use only the reference records and the root; admissibility
+(O1) allows invariant signed measures and (O2) applies only the records' own
+norms at $\iota$ (\cref{def:admissible}); and \ref{it:record:R4} concerns only
+tail primes.
+\end{remark}
+
+\begin{definition}[The signed whole-block fold record]\label{def:record:mixture}
+Let $p\ge2^{24}$ and $0\le\tlaw\le1$; the construction uses $\tlaw=127/500$.
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Reference law:} $\Psi_0$, $z_0$, $K_0=\Psi_0/z_0$ and $m_0=g_0\nu_F$ of
+ \cref{lem:old-f-law}.
+\item \emph{Components:} the densities $P_{++,p}$, $P_{-+,p}$, $P_{--,p}$ of
+ \cref{lem:signed-components} at every prime $p$, relative to
+ $m_{0,p}\otimes m_{0,p}$.
+\item \emph{The record of $F_1$} on a middle block $\Blk$ is the signed measure
+ with the density
+ \begin{equation}\label{eq:signed-law}
+  K_{\tlaw,\Blk}=\bigotimes_{p\in\Blk}P_{++,p}
+  +\frac\tlaw2\bigotimes_{p\in\Blk}P_{-+,p}-\frac\tlaw2\bigotimes_{p\in\Blk}P_{--,p}
+ \end{equation}
+ relative to $m_{0,\Blk}\otimes m_{0,\Blk}$, $m_{0,\Blk}=\bigotimes_pm_{0,p}$: the
+ signed sum is taken after the three products. It has mass one, both half
+ marginals $m_{0,\Blk}$, and total variation at most $1+\tlaw$, whatever the
+ number of primes.
+\item \emph{The record of $F_2$} is the reflected transpose $K^\varsigma_{\tlaw,\Blk}$,
+ taken componentwise at every prime; its reference law is $K_0^\varsigma=K_0$.
+\item Both are placed by $F_1$ and $F_2$ (\cref{lem:record:fold-identification}(b)),
+ with the weight $w_{\rm D}r$ of the records they replace. At $\tlaw=0$ the record is
+ $\bigotimes_pP_{++,p}$, whose raw kernel $U_{++}$ adds to the reference record
+ the query edge and its mirror: it is a mirror pairing in the sense of
+ \cref{lem:mirror}.
+\end{enumerate}
+\end{definition}
+
+For one prime put
+$K_{\tlaw,p}=P_{++,p}+\frac\tlaw2P_{-+,p}-\frac\tlaw2P_{--,p}$,
+the same combination as \eqref{eq:signed-law} at one prime, and
+write $D_{\tlaw,p}=T[K_{\tlaw,p}]-T_{\rm old}$ for the record
+difference of $F_1$ at $p$, where $T$ is extended linearly to signed densities
+and $T_{\rm old}$ is the operator of $K_0$ on $L^2(m_0)$, that is $T$ of the
+$m_0\otimes m_0$-density $K_0/(g_0\otimes g_0)$; the difference $D_{\tlaw,p}$ annihilates
+the constants on both sides, and $D^{\rm s}_{\tlaw,p}$, $D^{\rm a}_{\tlaw,p}$ are its
+symmetric and skew parts. The leading part of $D^{\rm a}_{\tlaw,p}$ is
+\begin{equation}\label{eq:signed-leading}
+ L^\circ_{\tlaw,p}=A^\circ_\tlaw V_{0,m}^*-V_0(A^\circ_\tlaw)^{*_m},\qquad
+ A^\circ_\tlaw=A_2+\tlaw A_1+(1-\tlaw)A_3^\circ,
+\end{equation}
+on $L^2(m_0)$, adjoints taken in $L^2(m_0)$: the operator $L_{\tlaw,p}$ of
+\cref{lem:mirror}(d) with the adjoints of the actual marginal and with $A_3$
+replaced by its part orthogonal to the singleton features. It is a three-arm
+star with centre $\mathcal H_0$, arms in $\mathcal H_1$, $\mathcal H_2$ and
+$\mathcal K_{12}$, and coefficients $(1,\tlaw,1-\tlaw)$; at $\tlaw=0$ it is the
+two-arm star $A^\circ_\star V^*_{0,m}-V_0(A^\circ_\star)^{*_m}$ of the mirror pairing.
+For $F_2$ the record difference is $\mathcal UD_{\tlaw,p}^*\mathcal U$, since
+$K^\varsigma=\mathcal UK^\top\mathcal U$ componentwise and $\mathcal UK_0\mathcal U=K_0$;
+$\mathcal U$ is unitary on $L^2(m_0)$ because $g_0\circ\varsigma=g_0$, and the
+symmetric and skew parts of $\mathcal UD_{\tlaw,p}^*\mathcal U$ are
+$\mathcal UD^{\rm s}_{\tlaw,p}\mathcal U$ and $-\mathcal UD^{\rm a}_{\tlaw,p}\mathcal U$.
+
+\paragraph{Acceptance.}
+By \cref{cert:record:middle-geometry}, the six queries need in the two-layer
+$F_1$ exactly the cross edge $x_1\to y_0$ and in $F_2$ exactly $x_2\to y_1$;
+$F_0$ accepts. Every component $P_{uv,p}$ is supported on $x_1\to y_0$
+(\cref{lem:signed-components}(a),(d)), so every product of components accepts
+the query of $F_1$ at every prime of the block; as
+$\mathsf C^\varsigma=\chi(y_1-x_2)$, the reflected components accept the query of
+$F_2$. Every component is $\mathcal G_p$-invariant, so its one-slot marginals are
+uniform and, $\mathcal G_p$ being transitive on the ordered pairs $(a,a')$ with
+$a\to a'$, its queried pair is uniform on the strict-square pairs.
+
+\begin{certificate}[Query images of the middle records]\label{cert:record:middle-geometry}
+The frozen geometry record
+\path{research/frontier_2026_10_17/structural/middle6_geometry.json}, with the
+labels $x_i=i$ and $y_i=3+i$, gives the following projections of
+the six slot queries of $\mathcal E_6$ onto each record (the
+queries as they read on the original labels, before any
+compression). In the two-layer records $F_0$ accepts, and the only needed
+cross edges are $x_1\to y_0$ in $F_1$, $x_2\to y_1$ in $F_2$ and $x_0\to y_1$ in
+$E_0$ and in $E_1$. In the one-layer records $E_0,E_1$ the only needed edge is
+$0\to1$; at the chamber cut $\vartheta_1$ for $E_0$ and $\vartheta_2$ for $E_1$,
+label $2$ lies on both sides of the cut and labels $0$ and $1$ on one side each.
+The two checker programs re-derived these facts independently
+(\path{research/record_gate_2026_10_18/U01/compute/geometry_components.py},
+\path{research/record_gate_2026_10_18/U03/compute/indep_geometry.py}).
+\end{certificate}
+
+\subsection{Nonstar and coincidence remainders}\label{subsec:record:f_remainders}
+
+This subsection collects the nonstar, rectangular-star and coincidence bounds
+used by the signed fold records (\cref{prop:signed-bounds}) and by the
+reference fold record (\cref{lem:old-f-law}(e),(f)). No estimate of this
+subsection is applied to the matching records. A polynomial of degree at most
+one in each character attains its maximum modulus on $[-1,1]^4$ at a vertex,
+so it is bounded by its maximum on $\{\pm1\}^4$ everywhere, including where a
+character vanishes.
+
+\begin{lemma}[Projected nonstars and rectangular stars]\label{lem:record:projected-nonstar}
+\begin{enumerate}[label=(\alph*)]
+\item For each nonstar monomial $m$, $\|m\|\le\pi_mq$, where
+ \[
+ \begin{gathered}
+  \pi_{\mathsf A\mathsf B}=\frac2{1-q},\qquad
+  \pi_{\mathsf A\mathsf C}=\pi_{\mathsf B\mathsf D}=\Bigl(\frac2Z\Bigr)^{1/2},\qquad
+  \pi_{\mathsf C\mathsf D}=\frac1{1-2q},\\
+  \pi_{\mathsf A\mathsf B\mathsf C}=\pi_{\mathsf A\mathsf B\mathsf D}=\frac2{Z^{1/2}},\qquad
+  \pi_{\mathsf A\mathsf C\mathsf D}=\pi_{\mathsf B\mathsf C\mathsf D}=\frac{\sqrt2}{1-2q},\qquad
+  \pi_{\mathsf A\mathsf B\mathsf C\mathsf D}=\frac2{1-2q}.
+ \end{gathered}
+ \]
+ Every $\pi_m$ is at most $2/Z$. Consequently
+ $\|\Phi_{\rm s}\|\le\mathcal N_{\rm s}:=q(3+2\sqrt2)/(1-2q)$ and
+ $\|\Phi_{\rm a,ns}\|\le\mathcal N_{\rm a}:=q\bigl(2(2/Z)^{1/2}+4/Z^{1/2}\bigr)$.
+\item \emph{Rectangular stars.} For independent uniform labels $z,u,v$ and real
+ $a_1,a_2,a_3$, the \emph{rectangular star}
+ $a_1\chi(u-z)+a_2\chi(v-z)+a_3\chi(u-z)\chi(v-z)$, as an operator between
+ functions of $z$ and functions of $(u,v)$, has norm at most
+ $r(a_1^2+a_2^2+a_3^2)^{1/2}$: its Gram on mean-zero functions of $z$ is
+ $q(a_1^2+a_2^2+a_3^2-2qa_3^2)$, and on the constants $a_3^2q(1-q)$. A product of
+ two rectangular stars on disjoint sets of labels has norm at most the product
+ of their norms, and its restriction to $H_F\times H_F$, as a kernel relative to
+ $\nu_F\otimes\nu_F$, has norm at most $2/Z$ times that.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) A nonstar monomial is $m=m_1m_2$, with $m_1$ a nonempty product of characters of
+the star at $x_0$ and $m_2$ of the star at $y_0$. For independent uniform labels
+the operator of $m$ is the tensor product of those of $m_1$ and $m_2$. A single
+edge has norm $r$, and a full star has norm $(q-q^2)^{1/2}$, its Gram operator
+being $q(1-2q)I+q^2\Jproj$ by \cref{lem:paley-triple}(b); so monomials with two,
+three and four edges have norms $q$, $q(1-q)^{1/2}$ and $q(1-q)$. Each $m$
+depends on $x$ through the coordinates $I$ and on $y$ through $J$, where
+$(I,J)$ is $(\{0,2\},\{0,2\})$, $(\{0,1\},\{0,2\})$, $(\{0,2\},\{0,1\})$,
+$(\{0,1\},\{0,1\})$, $(\{0,1,2\},\{0,2\})$, $(\{0,2\},\{0,1,2\})$,
+$(\{0,1\},\{0,1,2\})$, $(\{0,1,2\},\{0,1\})$ and $(\{0,1,2\},\{0,1,2\})$ in the order
+of the display; \cref{lem:record:projection} multiplies the norms by the square
+roots of the two density bounds, which gives the $\pi_m$. The coefficients of
+$\Phi_{\rm s}$ are one on $\mathsf C\mathsf D,\mathsf A\mathsf C\mathsf D,
+\mathsf B\mathsf C\mathsf D,\mathsf A\mathsf B\mathsf C\mathsf D$, and those of
+$\Phi_{\rm a,ns}$ one on $\mathsf A\mathsf C,\mathsf B\mathsf D,\mathsf A\mathsf B
+\mathsf C,\mathsf A\mathsf B\mathsf D$; the triangle inequality gives the last
+claims.
+(b) The Gram kernel of the star, as a function of $(z,z')$, is the average over
+$(u,v)$ of the product of the two values; by
+$\E_u\chi(u-z)\chi(u-z')=\one_{z=z'}-q$ (\cref{lem:paley-triple}(b)) it is
+$(a_1^2+a_2^2)(\one_{z=z'}-q)+a_3^2(\one_{z=z'}-q)^2$, the cross terms containing
+an isolated average $\E_u\chi(u-\cdot)=0$; as an operator this is
+$q(a_1^2+a_2^2+a_3^2(1-2q))I+q\bigl(-(a_1^2+a_2^2)+a_3^2q\bigr)\Jproj$, with the
+stated values on mean-zero functions and on the constants, both at most
+$q(a_1^2+a_2^2+a_3^2)$. A product on disjoint labels is a tensor product of
+operators. The induced density of $\nu_F$ relative to three independent labels
+is $2/Z$ (\cref{lem:record:projection}(b)), and \cref{lem:record:projection}(a)
+on both halves gives the factor $2/Z$.
+\end{proof}
+
+\begin{lemma}[Conditional collisions]\label{lem:record:conditional-collision}
+Let $g$ be a polynomial in $\mathsf A,\mathsf B,\mathsf C,\mathsf D$ of degree at
+most one in each, $M_g$ its maximum modulus on $\{\pm1\}^4$, and $\delta_{ij}$ the
+indicator of $x_i=y_j$, $i,j\in\{0,1,2\}$.
+\begin{enumerate}[label=(\alph*)]
+\item $\|(1-I_\times)g\|\le9M_gq$.
+\item Fix $(i,j)$. On $\{x_i=y_j\}$ every character becomes $0$, a fixed sign, a
+ function of the free labels of one half only (\emph{one-sided}), or the
+ character of a pair $(x_{i'},y_{j'})$ of free labels (\emph{cross}). After like
+ terms are collected, at most two cross characters remain in each monomial, and
+ they form a single edge, a two-edge star or a two-edge matching. Let
+ $c^{ij}_0(g)$, $c^{ij}_r(g)$, $c^{ij}_q(g)$ be the sums of the absolute
+ coefficients of the monomials with no cross character, with a single cross
+ edge or a two-edge star, and with a two-edge matching. Then $\delta_{ij}g$ is
+ the direct sum over the common value $v$ of $q$ times conditional operators
+ $T^{ij}_v$ between the conditional laws given $x_i=v$ and given $y_j=v$, and
+ $\|T^{ij}_v\|\le\|T^{ij,0}_v\|+(2/Z)(c^{ij}_rr+c^{ij}_qq)$, where $T^{ij,0}_v$,
+ the conditional operator of the no-cross part, has norm at most $c^{ij}_0$.
+\item With $c_\ast(g)=\sum_{i,j}c^{ij}_\ast(g)$,
+ \[
+  \|(1-I_\times)g\|\le q\Bigl[c_0(g)+\frac2Z\bigl(c_r(g)r+c_q(g)q\bigr)
+  +\frac{36M_gq}{1-q}\Bigr],
+ \]
+ and $c^{ij}_0(g)$ may be replaced in $c_0(g)$ by any bound for
+ $\sup_v\|T^{ij,0}_v\|$.
+\item \emph{The reference collision in bundled form.} Let $g=(1+\mathsf A)(1+\mathsf B)$,
+ so that $(1-I_\times)g=\mathsf C_{\rm rem}$ (\cref{lem:old-f-law}(b)), and on a half
+ put $h=\chi(x_1-x_0)$ and $k=\chi(x_2-x_1)$. The no-cross parts of the nine
+ substitutions $\delta_{ij}g$ sum to
+ \[
+ \begin{aligned}
+  &4\delta_{00}+4\delta_{22}+\delta_{02}+\delta_{20}+\delta_{11}\\
+  &\quad+\delta_{01}\bigl(1+k(y)\bigr)+\delta_{10}\bigl(1+k(x)\bigr)
+  +\delta_{12}\bigl(1+h(x)\bigr)+\delta_{21}\bigl(1+h(y)\bigr)=qVCV^*,
+ \end{aligned}
+ \]
+ where $V=(V_0,V_1,V_2,kV_1,hV_1)\colon L^2(\Fp)^5\to L^2(\nu_F)$ and $C$ is the
+ symmetric $5\times5$ matrix with diagonal $(4,1,4,0,0)$ and entries $1$ at the
+ positions $01$, $02$, $12$, $03$, $24$ and their transposes. Then
+ $\|C\|\le56119/10000$; on $H_0^5$ the map $V$ has squared norm at most
+ $\Gamma_5=1+2(r+q)/(1-q)+2q(1+r)/((1-q)(1-2q))$; and the constant-input part
+ $q\bigl[15\,\one\otimes\one+\one\otimes(h+k)+(h+k)\otimes\one\bigr]$ of $qVCV^*$ is
+ annihilated by centring on both sides. Consequently, with $Q_\nu$ the
+ projection off the constants in $L^2(\nu_F)$ and $c^\nu_{\rm col}$, $c_{\rm col}$
+ of \eqref{eq:signed-constants},
+ $\|Q_\nu\mathsf C_{\rm rem}Q_\nu\|\le c^\nu_{\rm col}q$, and on the $m_0$-centred
+ functions of $L^2(m_0)$ the operator of $\mathsf C_{\rm rem}$ has norm at most
+ $c_{\rm col}q$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) Pointwise $|(1-I_\times)g|\le M_g\sum_{i,j}\delta_{ij}$, and for fixed $x$ each
+event $y_j=x_i$ has probability $q$, since $y_j$ is uniform; likewise for fixed
+$y$. The Schur test gives the bound.
+(b) As $x_i$ and $y_j$ are independent and uniform under $\nu_F\otimes\nu_F$,
+$\E[\varphi(x)\delta_{ij}g\,\psi(y)]=q\,\E_v\E[\varphi(x)g\,\psi(y)\mid x_i=y_j=v]$
+for real $\varphi,\psi$, which is the direct-sum description; Cauchy--Schwarz in
+$v$ bounds the norm by $q\sup_v\|T^{ij}_v\|$. Given $x_i=v$ the two free labels of
+$x$ are uniform on a set of $(p-1)(p-2)/2$ pairs, for each $i$ and $v$, so their
+density relative to two independent uniform labels is $2/Z$, and likewise for
+$y$. The coincidence removes every edge of the two stars at $x_i$ or $y_j$, and
+inspection of the nine cases shows that the remaining cross edges are none, a
+star or a matching. A monomial without a cross character is a product of
+one-sided factors of modulus at most one, so its conditional operator has rank
+one and norm at most one. For independent labels a single cross edge, times
+one-sided factors, has norm at most $r$, a two-edge star at most
+$(q-q^2)^{1/2}\le r$, and a two-edge matching at most $q$; conjugation by the two
+square-root densities costs the factor $2/Z$, as in \cref{lem:record:projection}.
+Values of the kernel off the support of the conditional laws do not matter, so
+fixed signs may be substituted first.
+(c) Let $\kappa=\sum_{i,j}\delta_{ij}$. As both halves are injective, simultaneous
+coincidences form a partial matching between $\{0,1,2\}$ and $\{0,1,2\}$, and
+$0\le\kappa-\one_{\kappa\ge1}\le\binom\kappa2$, the right side being the sum of
+$\delta_{ij}\delta_{i'j'}$ over the $18$ unordered pairs of coincidences with
+$i\ne i'$, $j\ne j'$. Given $x$, the probability that $y$ has two prescribed
+distinct labels at two prescribed positions is at most $(p-2)/|H_F|=2q^2/(1-q)$.
+So the kernel $(\kappa-\one_{\kappa\ge1})g$ has row and column sums at most
+$36M_gq^2/(1-q)$, and the Schur test bounds its norm. Now
+$(1-I_\times)g=\sum_{i,j}\delta_{ij}g-(\kappa-\one_{\kappa\ge1})g$, and (b) bounds
+each $\delta_{ij}g$.
+(d) \emph{Substitutions.} At $x_0=y_0=v$ and at $x_2=y_2=v$ both characters of
+$g$ equal $1$ (for instance $\mathsf A=\chi(y_2-v)=1$ as $y_0\to y_2$), so $g=4$.
+At $x_0=y_2$ the character $\mathsf A$ vanishes and $\mathsf B$ stays cross; at
+$x_2=y_0$, $\mathsf B$ vanishes and $\mathsf A$ stays cross; at $x_1=y_1$ both stay
+cross. At $x_0=y_1$, $\mathsf A=\chi(y_2-y_1)=k(y)$ is one-sided and $\mathsf B$
+stays cross; at $x_1=y_0$, $\mathsf B=\chi(x_2-x_1)=k(x)$; at $x_1=y_2$,
+$\mathsf A=\chi(x_1-x_0)=h(x)$; at $x_2=y_1$, $\mathsf B=\chi(y_1-y_0)=h(y)$. This
+gives the displayed no-cross parts, and leaves twelve single cross characters
+counted with the norms $1$ or $2$ of their one-sided multipliers (one each at
+$02$ and $20$, two at $11$, two each at $01$, $10$, $12$, $21$) and the two-edge
+matching $\mathsf A\mathsf B$ at $11$. As operators on $L^2(\nu_F)$,
+$\delta_{ij}=qV_iV_j^*$ (the label $y_j$ is uniform), and the one-sided factors
+give $\delta_{01}k(y)=qV_0(kV_1)^*$, $\delta_{10}k(x)=q(kV_1)V_0^*$,
+$\delta_{12}h(x)=q(hV_1)V_2^*$ and $\delta_{21}h(y)=qV_2(hV_1)^*$; this is $qVCV^*$.
+
+\emph{The matrix.} $C$ is nonnegative and symmetric. For the positive vector
+\[
+ w=\Bigl(1,\frac{43367}{10^5},1,\frac{17820}{10^5},\frac{17820}{10^5}\Bigr)
+\]
+the quotients $(Cw)_a/w_a$ are $561187/10^5$, $243367/43367$, $561187/10^5$,
+$10^5/17820$ and $10^5/17820$, all below $56119/10000$, so
+$\|C\|\le56119/10000$.
+
+\emph{The synthesis maps.} On $H_0$ every Gram entry $V_a^*V_b$,
+$a\ne b$, is a
+translation- and dilation-invariant operator, $\alpha I+\beta P$; fixing the two
+source labels and summing the third, with $D_0=(p-1)(p-2)$, the ten entries are
+\[
+\begin{array}{c|cccccccccc}
+ ab&01&02&03&04&12&13&14&23&24&34\\\hline
+ \alpha&-\frac1{p-1}&-\frac1{p-1}&\frac1{D_0}&\frac1{D_0}
+ &-\frac1{p-1}&-\frac1{p-2}&-\frac1{p-2}&\frac1{D_0}&\frac1{D_0}&\frac1{p-2}\\[2pt]
+ \beta&-\frac p{D_0}&\frac p{p-1}&\frac p{D_0}&\frac p{p-1}
+ &-\frac p{D_0}&0&0&-\frac p{p-1}&-\frac p{D_0}&0
+\end{array}
+\]
+(the entries $01$, $02$, $12$ are those of \cref{lem:paley-triple}(d)). As
+$\|\alpha I+\beta P\|=(\alpha^2+q\beta^2)^{1/2}$ on $H_0$, the entries $02$, $04$,
+$23$ have norm at most $a_5=(r+q)/(1-q)$ and the others at most
+$b_5=q(1+r)/((1-q)(1-2q))\le a_5$; every row has at most two entries of the
+first kind, so by the Schur test $\|V|_{H_0^5}\|^2\le1+2a_5+2b_5=\Gamma_5$.
+
+\emph{Centring.} Write $V=V^0+V\Jproj$ with $V^0$ the restriction to $H_0^5$.
+Then $VCV^*=V^0C(V^0)^*+\sum_{a,b}C_{ab}\,|U_a\rangle\langle U_b|$ with
+$U=(V_a\one)_a=(\one,\one,\one,k,h)$, and $\sum_{a,b}C_{ab}U_a\otimes U_b$ is the
+displayed constant-input part. Every $V^0_a$ maps into $\nu_F$-mean-zero
+functions (for $kV_1$ and $hV_1$ because $\E[k\mid x_1]$ and $\E[h\mid x_1]$ are
+constant), and $Q_\nu(\cdot)Q_\nu$ annihilates the constant-input part: each of
+its terms has a constant output or a constant input. Hence $\|Q_\nu(qVCV^*)Q_\nu\|\le q\|C\|\Gamma_5$. The single cross
+characters and the matching cost at most $(2/Z)(12r+q)q$ by (b), and
+$(\kappa-\one_{\kappa\ge1})g$ at most $36M_gq^2/(1-q)=144q^2/(1-q)$ by the proof of
+(c); the certified constant $c^\nu_{\rm col}$ uses $288q/(1-q)$, twice this. So
+$\|Q_\nu\mathsf C_{\rm rem}Q_\nu\|\le c^\nu_{\rm col}q$.
+
+\emph{Actual centring.} Let $\varphi,\psi$ be $m_0$-centred with
+$\|\varphi\|_{m_0}=\|\psi\|_{m_0}=1$. Then $\|\varphi\|_{\nu_F}\le(1-e_0)^{-1/2}$ and
+$|\E_{\nu_F}\varphi|=|\E_{m_0}[\varphi(g_0^{-1}-1)]|\le e_0/(1-e_0)$. Split $\varphi$ and
+$\psi$ into their $\nu_F$-centred parts and their $\nu_F$-means; the centred-centred
+term is at most $c^\nu_{\rm col}q/(1-e_0)$, and the three terms with a mean are at
+most $\|\mathsf C_{\rm rem}\|\le17q$ (\cref{lem:old-f-law}(b)(iii)) times
+$2e_0/(1-e_0)^{3/2}+e_0^2/(1-e_0)^2$. This is $c_{\rm col}q$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{lem:old-f-law}(e),(f)]
+\emph{Transport.} For a kernel $K$ relative to $\nu_F\otimes\nu_F$, the operator
+of $K$ on $L^2(m_0)$ is $M_{g_0}^{-1}N_KM_{g_0}^{-1}$, where $M_{g_0}$ is
+multiplication by $g_0$ and $N_K\psi(x)=\int K(x,y)\psi(y)\,dm_0(y)$ is its
+\emph{natural} operator (\cref{lem:record:actual-correlation}(b)). As
+$\|M_{g_0}^{-1}-I\|\le e_0/(1-e_0)$, three rules follow. (T1) The operator has norm
+at most $\|K\|/(1-e_0)$. (T2) For every operator $N$ on $L^2(m_0)$,
+$\|M_{g_0}^{-1}NM_{g_0}^{-1}-N\|\le D_g\|N\|$, with $D_g=(2e_0+e_0^2)/(1-e_0)^2$ of
+\eqref{eq:signed-constants}. (T3) For the constant kernel $\one$,
+$\Pi_\perp M_{g_0}^{-1}N_{\one}M_{g_0}^{-1}\Pi_\perp$ is the rank-one operator
+$\ip{g_0^{-1}-\one}{\cdot}_{m_0}(g_0^{-1}-\one)$, of norm
+$\|g_0^{-1}-\one\|^2_{m_0}\le c_g=e_0^2/(1-e_0)^2$. Moreover, the coordinates of
+$m_0$ being uniform, the natural operator of a kernel that depends on $y$ only
+through $y_j$ is $AV^*_{j,m}$, where $A$ has the same kernel as an operator from
+$L^2(\Fp)$; so $N_{\mathsf L}=V_0PV^*_{2,m}-V_2PV^*_{0,m}=O_0$, and
+$N_{\mathsf C}=A_2V^*_{0,m}$, $N_{-\mathsf B}=A_1V^*_{0,m}$,
+$N_{\mathsf B\mathsf C-q}=A_3V^*_{0,m}$, the natural operator of a transposed kernel
+being the adjoint in $L^2(m_0)$.
+
+(f) \emph{The leading operator.} By \cref{lem:actual-features}(a),(b) the pair
+$(x_0,x_2)$ is uniform on the directed pairs under $m_0$, so
+$V^*_{0,m}V_2=(P-qI)/(1-q)$ on $H_0$ as under $\nu_F$, and $V_0$, $V_2$ are
+isometries of $H_0$ into $L^2(m_0)$. \Cref{lem:two-feature-spectrum} therefore
+applies with the same Gram data as in (b)(i) to
+$O_0=-(A_1V^*_{0,m}+V_0A_1^{*_m})$: it is self-adjoint,
+annihilates the constants and has the stated spectrum. In the synthesis of
+\cref{lem:actual-features}(d), $O_0/r$ is the image of a $4\times4$ matrix of
+norm one, so $\|O_0\|\le\Gamma_Ar$.
+
+\emph{The remainder.} By \cref{lem:old-f-law}(b),
+$\Psi_0=\Jproj+\mathsf L+\mathsf A\mathsf B-\mathsf C_{\rm rem}$, and
+$O=\Pi_\perp T_{\rm old}\Pi_\perp$ is $1/z_0$ times the centred operator of
+$\Psi_0$ on $L^2(m_0)$. In that operator the constant kernel costs $c_g$ by
+(T3); $\mathsf L$ gives $O_0$ up to $D_g\|O_0\|\le D_g\Gamma_Ar$ by (T2);
+$\mathsf A\mathsf B$ costs $2q/(Z(1-e_0))$ by (b)(ii) and (T1); and
+$\mathsf C_{\rm rem}$ costs $c_{\rm col}q$ by
+\cref{lem:record:conditional-collision}(d). So the centred operator of
+$\Psi_0$ is $O_0+R'$ with $\|R'\|\le r_oq$, $r_o$ of \eqref{eq:signed-constants},
+and its norm is at most $(\Gamma_A+r_or)r$. As $h_0\le z_0\le1$ and
+$1-z_0\le14q$ (\cref{lem:old-f-law}(a)), $0\le z_0^{-1}-1\le14q/h_0$, and
+$O=O_0+R'+(z_0^{-1}-1)(O_0+R')=O_0+R_o$ with
+$\|R_o\|\le r_oq+(14q/h_0)(\Gamma_A+r_or)r=(r_o+n_o)q=e_oq$. Finally
+$T_{\rm old}=\Jproj+O\succeq O\succeq O_0-e_oqI$, and the smallest eigenvalue
+$q/(1-q)-(q-q^3/(1-q)^2)^{1/2}$ of $O_0$ is at least $q-r$; so
+$T_{\rm old}\succeq-(r-q+e_oq)I=-[1+(e_o-1)r]rI$, and
+$\|O\|\le\Gamma_Ar+e_oq=(\Gamma_A+e_or)r$.
+
+(e) For $p\in\Blk$ put $c_p=[1+(e_o(p)-1)r_p]r_p$, with $e_o(p)$ the value of $e_o$
+at $(1/p,p^{-1/2})$. By (f) the operator $T_p$ of $K_{0,p}$ on $L^2(m_{0,p})$, the
+Markov operator of a symmetric coupling of $m_{0,p}$ with itself, is
+self-adjoint with spectrum in $[-c_p,1]$. The constant $e_o$ is a
+nondecreasing function of $(q,r)$ and at least $56119/10000>1$
+(\eqref{eq:signed-constants} and the remark after it), so $c/r=1+(e_o-1)r$ is
+nondecreasing, and $c_p\le r_pc_X/r_X\le b^{-1/2}[1+(e_o(X)-1)r_X]$, where
+$c_X=[1+(e_o(X)-1)r_X]r_X<1$ by hypothesis. By \cref{lem:sector}(c),
+$\bigotimes_pT_p\succeq-\max_pc_p\,I$ on $L^2(m_{0,\Blk})$. Its form at $\varphi$ is the
+left side of the inequality, and
+$\|\varphi\|^2_{m_{0,\Blk}}\le(1+e_X)^{n_X}\int\varphi^2d\nu_{F,\Blk}\le\bar H_X\int\varphi^2d\nu_{F,\Blk}$
+by (a), since $\Blk$ has at most $\lfloor L/\log X\rfloor\le n_X$ primes; as
+$\bar H_Xc_X/r_X=k_{\rm D}(X,L)$, this is the inequality. The cut form at
+$\iota$ of $\Pi_{F_j}$ at a real half-function is the left side, with $\varphi$ the
+half-function read through $F_j$, and that of
+$\operatorname{Diag}_\iota(\Pi^{(1)}_{F_j})$ is $\int\varphi^2d\nu_{F,\Blk}$, because the
+one-layer fold law is $\nu_{F,\Blk}$
+(\cref{lem:record:fold-identification}(b),(d)).
+\end{proof}
+
+\subsection{Prime and block bounds of the signed fold records}
+\label{subsec:pure-bounds}
+
+The leading skew part of a signed fold difference is the three-arm star
+$L^\circ_{\tlaw,p}$ of \eqref{eq:signed-leading}; the next proposition bounds it,
+the symmetric part and the remainder, on primes and on blocks. Its constants
+are the following expressions in $q$, $r$ and $\tlaw$, with $e_0$, $h_0$, $Z$ and
+$|\mathbf a_\tlaw|$ of \cref{subsec:middle-records:notation}, $\varrho_{02}$, $J_F$
+and $\Gamma_A$ of \cref{lem:actual-features}, and $\eta_c=10q$, $h_c=1-\eta_c$, $M_c$
+of \cref{lem:signed-components}:
+\begin{equation}\label{eq:signed-constants}
+\begin{aligned}
+ &D_g=\frac{2e_0+e_0^2}{(1-e_0)^2},\qquad c_g=\frac{e_0^2}{(1-e_0)^2},\qquad
+  n_c=\frac{18/Z+3}{1-e_0}+\frac{(1+2q)c_g}q,\\
+ &c_c=\sqrt3\,\Gamma_A+\Bigl(n_c+\frac{D_g}q\sqrt3\,\Gamma_Ar\Bigr)r,\qquad
+  E_c=\frac{10c_cr}{h_c}+\frac{2M_c}q\Bigl(\frac{c_cr}{h_c}+2\varrho_{02}\Bigr),\\
+ &c_+=\sqrt3\,\Gamma_A+\Bigl(n_c+\frac{D_g}q\sqrt3\,\Gamma_Ar+E_c\Bigr)r,\\
+ &e_{\rm sg}=\frac{(18-12\tlaw)/Z+k_{\rm col}}{1-e_0}+\frac{(1+2q)c_g}q
+  +\frac{D_g}q\sqrt{3+2\tlaw^2}\,\Gamma_Ar+(1+\tlaw)E_c,\\
+ &\Gamma_5=1+\frac{2(r+q)}{1-q}+\frac{2q(1+r)}{(1-q)(1-2q)},\qquad
+  c^\nu_{\rm col}=\frac{56119}{10000}\Gamma_5+\frac2Z(12r+q)+\frac{288q}{1-q},\\
+ &c_{\rm col}=\frac{c^\nu_{\rm col}}{1-e_0}
+  +17\Bigl[\frac{2e_0}{(1-e_0)^{3/2}}+\frac{e_0^2}{(1-e_0)^2}\Bigr],\qquad
+  r_o=\frac2{Z(1-e_0)}+c_{\rm col}+\frac{c_g}q+\frac{D_g}q\Gamma_Ar,\\
+ &n_o=\frac{14}{h_0}(\Gamma_A+r_or)r,\qquad e_o=r_o+n_o,\qquad
+  s_p=\frac{2|\mathbf a_\tlaw|^2/Z+k_{\rm col}}{1-e_0}+c_{\rm col}+(1+\tlaw)E_c+n_o,\\
+ &a_p=\frac{2(1+(1-\tlaw)^2)^{1/2}/Z+k_{\rm col}}{1-e_0}
+  +\frac{D_g}q|\mathbf a_\tlaw|\Gamma_Ar+(1+\tlaw)E_c+2(1-\tlaw)J_Fr,\\
+ &c_{\ge2}=(\Gamma_A+e_or)^2+(1+\tlaw)c_+^2,\qquad
+  s_F=\max(s_p,c_{\ge2}),\qquad a_F=\max(a_p,c_{\ge2}),\\
+ &\ell_\tlaw=(1+e_0)\biggl[\Bigl(\frac{|\mathbf a_\tlaw|^2+2\tlaw q
+  +2(1-\tlaw)^2q^2/(1-2q)}{1-q}\Bigr)^{1/2}+\frac{(1+\tlaw)q}{1-q}\biggr]
+  +2(1-\tlaw)J_Fq,\\
+ &s_\tlaw=\bigl(4-2\tlaw+2\tlaw^2+2(1+\tlaw^2)^{1/2}\bigr)^{1/2},\qquad
+  d_\tlaw=s_\tlaw\Gamma_A+(e_o+e_{\rm sg})r,
+\end{aligned}
+\end{equation}
+where $k_{\rm col}=9/4$ if $\tlaw=0$ or $\tlaw\ge2/(p-1)$, and $k_{\rm col}=3$
+otherwise. Each expression is built from $q$, $r$ and positive constants by
+sums, products, maxima and square roots, and reciprocals of the positive
+decreasing denominators $1-q$, $1-2q$, $1-4q$, $Z$, $h_0$, $h_c$, $1-e_0$ and
+$1-\varrho_{01}$, after every remainder carrying $q$ has been written as $r$ times
+an admissible coefficient ($e_0/q$, $D_g/q$, $c_g/q$ and $M_c/q$ are themselves
+such functions); so for a fixed branch of $k_{\rm col}$ it is a nondecreasing
+function of $(q,r)$ (\cref{lem:majorant}), and its value at $(q_X,r_X)$, with
+$q_X=1/X$ and $r_X\ge X^{-1/2}$, bounds its value at every prime $p\ge X$. Also
+$e_o\ge c_{\rm col}\ge56119/10000$. At $\tlaw=127/500$, $k_{\rm col}=9/4$ for every
+$p\ge2^{24}$. In words: $c_cr$ bounds the centred norm of an unnormalized
+positive component, $qE_c$ its normalization and positive completion, $c_+r$ the
+centred norm of a repaired component; $qe_{\rm sg}$ is the distance of the signed
+record from its natural leading operator and $qe_o$ that of the reference
+record (\cref{lem:old-f-law}(f)); $s_pq$ and $a_pq$ are the prime symmetric and
+skew remainders, $c_{\ge2}/b$ the bound on larger supports, $\ell_\tlaw r$ the
+leading star, and $d_\tlaw$ the actual coefficient of the direct Gram of the
+signed record; $s_0=\sqrt6$.
+
+\begin{proposition}[Prime and block bounds of the signed fold records]
+\label{prop:signed-bounds}
+Let $0\le\tlaw\le1$, let $\Blk$ be a middle block with least prime $b\ge2^{24}$,
+evaluate the constants of \eqref{eq:signed-constants} at $q=1/b$, $r=b^{-1/2}$,
+and let $D_\tlaw=T[K_{\tlaw,\Blk}]-\bigotimes_pT_{{\rm old},p}$ be the record
+difference of $F_1$ on $\Blk$, an operator on $L^2(m_{0,\Blk})$, with $T[\cdot]$
+taken relative to $m_{0,\Blk}\otimes m_{0,\Blk}$.
+\begin{enumerate}[label=(\alph*)]
+\item $\|\operatorname{Sym}D_\tlaw\|\le s_F/b$.
+\item $\operatorname{Skew}D_\tlaw=L_{\tlaw,\Blk}+R_{\tlaw,\Blk}$, where $L_{\tlaw,\Blk}$ is
+ $L^\circ_{\tlaw,p}$ on the sector of exact support $\{p\}$, $p\in\Blk$, and zero on
+ the other sectors; $\|L_{\tlaw,\Blk}\|\le\ell_\tlaw b^{-1/2}$ and
+ $\|R_{\tlaw,\Blk}\|\le a_F/b$. The operator $L_{\tlaw,\Blk}$ is the three-arm star
+ $\mathcal A\mathcal V_0^*-\mathcal V_0\mathcal A^*$ of \cref{lem:actual-features}(e)
+ with $(c_1,c_2,c_3)=(1,\tlaw,1-\tlaw)$.
+\item \emph{One prime.} At a prime $p\ge2^{24}$, with the constants at
+ $(1/p,p^{-1/2})$: $\|D^{\rm s}_{\tlaw,p}\|\le s_pq$,
+ $\|D^{\rm a}_{\tlaw,p}-L^\circ_{\tlaw,p}\|\le a_pq$ and $\|L^\circ_{\tlaw,p}\|\le\ell_\tlaw r$;
+ every centred component $\Pi_\perp T[P_{uv,p}]\Pi_\perp$ has norm at most $c_+r$, and
+ the centred reference $O$ at most $(\Gamma_A+e_or)r$; and the centred signed
+ record is
+ \[
+  \Pi_\perp T[K_{\tlaw,p}]\Pi_\perp=O_0+L^m_{\tlaw,p}+R^{\rm new}_{\tlaw,p},\qquad
+  L^m_{\tlaw,p}=A_\tlaw V^*_{0,m}-V_0A_\tlaw^{*_m},\qquad
+  \|R^{\rm new}_{\tlaw,p}\|\le e_{\rm sg}q,
+ \]
+ with $O_0$ of \cref{lem:old-f-law}(f) and $A_\tlaw$ unprojected.
+\item \emph{The inputs of the direct Gram.} On every exact support $S\subseteq\Blk$
+ with $|S|\ge2$, the restrictions of the centred reference
+ $\bigotimes_pT_{\rm old,p}$ and of the centred signed record have norms with sum at
+ most $c_{\ge2}/b$; and $c_{\ge2}r<2<s_\tlaw\le d_\tlaw$. With the prime
+ decompositions of (c) and \cref{lem:old-f-law}(f) and the frame $\Gamma_A$, these
+ are the inputs of the direct common-cut Gram of the signed record
+ (\cref{lem:record:direct-gram}, \cref{prop:signed-sides}), whose coefficient before the frame factor $\Gamma_A$ and the
+ remainder term in $d_\tlaw$ is $s_\tlaw$ and whose actual coefficient is $d_\tlaw$.
+\item For $F_2$ the record difference is $\mathcal UD_\tlaw^*\mathcal U$,
+ $\mathcal U=\bigotimes_p\mathcal U_p$, with the same bounds and the leading part
+ $-\mathcal UL_{\tlaw,\Blk}\mathcal U$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Write $\operatorname{op}(K)=M_{g_0}^{-1}N_KM_{g_0}^{-1}$ for the operator on
+$L^2(m_0)$ of a kernel $K$ relative to $\nu_F\otimes\nu_F$, with the transport
+rules (T1)--(T3) and the natural operators of the star channels from the
+proof of \cref{lem:old-f-law}(e),(f). In the frame of
+\cref{lem:actual-features}(d), a natural operator $A_xV^*_{0,m}+V_0A_y^{*_m}$, with
+$A_x=A_{\mathbf x}$, $A_y=A_{\mathbf y}$ for vectors $\mathbf x,\mathbf y\in\R^3$ in the
+notation of \cref{lem:paley-triple}(e), is $r$ times the image of a matrix of norm
+$\max(|\mathbf x|,|\mathbf y|)$, so its norm is at most $\max(|\mathbf x|,|\mathbf y|)\Gamma_Ar$.
+
+\emph{Step 1: the components.} Expand
+$U_{uv}=(1+\mathsf C)(1+(1-\tlaw)\mathsf B)(1+u\mathsf D)(1+v\mathsf A)
+-\delta_{10}(1+(1-\tlaw)\mathsf B)(1+u\mathsf D)(1+v\mathsf A)$. The star monomials
+$\mathsf C,\mathsf B,\mathsf B\mathsf C$ and $\mathsf D,\mathsf A,\mathsf A\mathsf D$ have the
+natural operators of the proof of \cref{lem:old-f-law}(e),(f), with the constants
+$-q$ of $\mathsf B\mathsf C$ and $\mathsf A\mathsf D$ moved into the constant kernel;
+the star part is $A_xV^*_{0,m}+V_0A_y^{*_m}$ with
+$\mathbf x=(\tlaw-1,1,1-\tlaw)$ and $\mathbf y=-(v,u,uv)$, so
+$\max(|\mathbf x|,|\mathbf y|)=\sqrt3$, and the constant kernel has a coefficient of
+modulus at most $1+2q$. The nine nonstar monomials have coefficients of modulus
+at most one and norms at most $(2/Z)q$ each
+(\cref{lem:record:projected-nonstar}(a)); the removed query has norm at most
+$3q$ by the Schur test, its row and column masses being at most
+$q(2-\tlaw)(1+2q/(1-q))$ and $q(1+q)/(1-2q)$ (proof of
+\cref{lem:signed-components}(b)). By (T1)--(T3) the centred operator of
+$U_{uv}$ on $L^2(m_0)$ has norm at most
+$\sqrt3\,\Gamma_Ar+D_g\sqrt3\,\Gamma_Ar+n_cq=c_cr$. Dividing by $z_{uv}$, with
+$|z_{uv}^{-1}-1|\le\eta_c/h_c$, changes it by at most $(10q/h_c)c_cr$, and the
+completion of \cref{lem:signed-components}(d) by at most
+$2M_c(c_cr/h_c+2\varrho_{02})$; together $E_cq$. Hence
+$\|\Pi_\perp T[P_{uv}]\Pi_\perp\|\le c_cr+E_cq=c_+r$.
+
+\emph{Step 2: the signed record.} With the coefficients $c_{++}=1$,
+$c_{-+}=\tlaw/2$, $c_{--}=-\tlaw/2$, $\sum c_{uv}=1$ and $\sum|c_{uv}|=1+\tlaw$, and
+by \cref{lem:mirror}(d),
+\[
+\begin{gathered}
+ \sum_{uv}c_{uv}U_{uv}=\Psi^{\rm soft}_\tlaw-\delta_{10}G_\tlaw,\qquad
+ \Psi^{\rm soft}_\tlaw=\Phi_\tlaw+(1+\mathsf A)(1+\mathsf B),\\
+ G_\tlaw=\bigl(1+(1-\tlaw)\mathsf B\bigr)\bigl[1+\mathsf D+(1+\tlaw)\mathsf A
+ +(1-\tlaw)\mathsf A\mathsf D\bigr].
+\end{gathered}
+\]
+The star part of $\Psi^{\rm soft}_\tlaw$ is $A_xV^*_{0,m}+V_0A_y^{*_m}$ with
+$\mathbf x=\mathbf a_\tlaw-\mathbf e$ and $\mathbf y=-\mathbf a_\tlaw-\mathbf e$,
+$\mathbf e=(1,0,0)$: by \cref{lem:mirror}(d) it is the star part $-\mathbf e$ of
+$(1+\mathsf A)(1+\mathsf B)$, whose natural operator is $O_0$, plus $L_{\tlaw,p}$,
+whose natural operator is $L^m_{\tlaw,p}$; its constants cancel, and
+$\max(|\mathbf x|,|\mathbf y|)=(3+2\tlaw^2)^{1/2}$. The nonstars of
+$\Psi^{\rm soft}_\tlaw$ are those of the products of $\{\mathsf C,(1-\tlaw)\mathsf B,
+(1-\tlaw)\mathsf B\mathsf C\}$ with $\{\mathsf D,(1+\tlaw)\mathsf A,(1-\tlaw)\mathsf A\mathsf D\}$,
+of absolute coefficient sum $(3-2\tlaw)\cdot3=9-6\tlaw$, each of norm at most
+$(2/Z)q$. For the removed query, on $\{-1,0,1\}^2$
+\[
+ \bigl|1+\mathsf D+(1+\tlaw)\mathsf A+(1-\tlaw)\mathsf A\mathsf D\bigr|
+ \le1+\tlaw+(1-\tlaw)\mathsf D+\mathsf A+\mathsf A\mathsf D ,
+\]
+and $0\le1+(1-\tlaw)\mathsf B\le2-\tlaw$. With the conditional means of the
+proof of \cref{lem:signed-components}(b), the row average of the right side
+given $y_0=x_1$ is at most $1+\tlaw$ when $\tlaw\ge2/(p-1)$, so the row mass is
+at most $(2-\tlaw)(1+\tlaw)q\le9q/4$; given $x_1=y_0=c$, the column average of
+$(1+(1-\tlaw)\chi(x_2-c))$ times the right side is at most
+$(1+\tlaw-q)/(1-2q)$, as in the column estimate there, so the column mass is
+below $9q/4$. At $\tlaw=0$ the record is $P_{++}$ alone, whose removed query
+has row and column masses below $9q/4$ by \cref{lem:signed-components}(b). For
+$0<\tlaw<2/(p-1)$ the row average exceeds $1+\tlaw$ by at most
+$2/((p-1)(p-2))$, and both masses are below $3q$. By the Schur test the
+removed query has norm at most $k_{\rm col}q$. By (T1)--(T3) and Step~1 for the normalizations and
+completions of the three components, weighted by $\sum|c_{uv}|=1+\tlaw$, the
+centred signed record is $O_0+L^m_{\tlaw,p}+R^{\rm new}_{\tlaw,p}$ with
+$\|R^{\rm new}_{\tlaw,p}\|\le e_{\rm sg}q$. This is the last claim of (c).
+
+\emph{Step 3: the prime difference.} Now
+$D_{\tlaw,p}=\Pi_\perp(T[K_{\tlaw,p}]-T_{\rm old})\Pi_\perp$, and
+\[
+ \sum_{uv}c_{uv}U_{uv}-\Psi_0=\Phi_\tlaw-\delta_{10}G_\tlaw+\mathsf C_{\rm rem},
+\]
+since $\Psi_0=(1+\mathsf A)(1+\mathsf B)-\mathsf C_{\rm rem}$; this kernel has no constant
+term. Hence $D_{\tlaw,p}$ is the centred operator of
+$\Phi_\tlaw-\delta_{10}G_\tlaw+\mathsf C_{\rm rem}$, plus the normalizations and
+completions of the components (at most $(1+\tlaw)E_cq$), minus $(z_0^{-1}-1)$ times
+the centred operator of $\Psi_0$, which is self-adjoint and at most $n_oq$ by
+the proof of \cref{lem:old-f-law}(f). \emph{Symmetric part.}
+$\operatorname{Sym}\Phi_\tlaw=\tilde x_\tlaw\tilde y_\tlaw$ is a product of two rectangular
+stars with $|\mathbf a_\tlaw|^2$ as the sum of the squared coefficients of each, so
+its norm on $L^2(\nu_F)$ is at most $(2|\mathbf a_\tlaw|^2/Z)q$
+(\cref{lem:record:projected-nonstar}(b)); the removed query costs $k_{\rm col}q$;
+both are transported by (T1); and $\mathsf C_{\rm rem}$, symmetric, costs
+$c_{\rm col}q$ (\cref{lem:record:conditional-collision}(d)). With the
+normalizations and the completions this gives $\|D^{\rm s}_{\tlaw,p}\|\le s_pq$.
+\emph{Skew part.} $\operatorname{Skew}\Phi_\tlaw=L_{\tlaw,p}+K_\tlaw-K_\tlaw^\top$. The
+operator of $L_{\tlaw,p}$ differs from its natural operator $L^m_{\tlaw,p}$ by at most
+$D_g|\mathbf a_\tlaw|\Gamma_Ar$ (T2), and $L^m_{\tlaw,p}-L^\circ_{\tlaw,p}
+=(1-\tlaw)\bigl(TV^*_{0,m}-V_0T^{*_m}\bigr)$ with
+$T=\Pi_{\mathcal H_1+\mathcal H_2}A_3$, of norm at most $2(1-\tlaw)J_Fqr$
+(\cref{lem:actual-features}(c)). On the full label spaces, $K_\tlaw$ ignores the
+input label $y_1$ and its output has mean zero in $x_1$; so with $\mathcal H$ the
+functions independent of the middle label, $K_\tlaw=\Pi_{\mathcal H^\perp}K_\tlaw\Pi_{\mathcal H}$,
+$K_\tlaw-K_\tlaw^\top$ is an off-diagonal block, and
+$\|K_\tlaw-K_\tlaw^\top\|=\|K_\tlaw\|\le r\cdot(1+(1-\tlaw)^2)^{1/2}r$, the norms of the
+one-edge star $\mathsf A$ and of the rectangular star $\mathsf C(1+(1-\tlaw)\mathsf B)$
+(\cref{lem:record:projected-nonstar}(b)); its restriction to $H_F\times H_F$ costs
+$2/Z$, and (T1) transports it. The removed query costs $k_{\rm col}q/(1-e_0)$
+again. The reference collision $\mathsf C_{\rm rem}$, the normalization of the
+reference and the constant centring are self-adjoint and are not charged to the
+skew part. With the normalizations and completions this gives
+$\|D^{\rm a}_{\tlaw,p}-L^\circ_{\tlaw,p}\|\le a_pq$. \emph{Leading star.} On
+$L^2(\nu_F)$, $A_\tlaw^*A_\tlaw$ is the scalar
+$\gamma_\tlaw=q[\tlaw^2+1+(1-\tlaw)^2(1-2q-q^2)/(1-q)-2\tlaw q/(1-q)
++2(1-\tlaw)^2q^2/((1-q)(1-2q))]$ by \cref{lem:paley-triple}(e) (the parts with $P$ of
+the cross Grams cancel), and $\gamma_\tlaw/q$ is at most the quotient under the
+square root in $\ell_\tlaw$; and $V_0^*A_\tlaw=\alpha I+\beta P$ with
+$|\beta|=(1+\tlaw)q/(1-q)$. \Cref{lem:two-feature-spectrum} gives
+$\|A_\tlaw V_0^*-V_0A_\tlaw^*\|\le|\beta|r+\gamma_\tlaw^{1/2}$ on $L^2(\nu_F)$. The
+coordinates of $m_0$ being uniform, $V^*_{0,m}=V_0^*M_{g_0}$ and
+$A_\tlaw^{*_m}=A_\tlaw^*M_{g_0}$, so $L^m_{\tlaw,p}$ is unitarily equivalent to
+$M_{g_0}^{1/2}(A_\tlaw V_0^*-V_0A_\tlaw^*)M_{g_0}^{1/2}$, of norm at most $1+e_0$ times
+that; with the projection cost above, $\|L^\circ_{\tlaw,p}\|\le\ell_\tlaw r$. This
+proves (c), the claim on the components being Step~1 and that on the
+reference \cref{lem:old-f-law}(f).
+
+\emph{Step 4: blocks.} Every component and the reference are couplings with
+both marginals $m_{0,p}$, so their Markov operators are sector-preserving, with
+centred norms at most $c_+(p)r_p\le c_+b^{-1/2}$ and
+$(\Gamma_A+e_o(p)r_p)r_p\le(\Gamma_A+e_or)b^{-1/2}$, both below one, by (c) and the
+monotonicity of the constants. By \cref{rem:signed-mixture-sectors}, $D_\tlaw$
+vanishes on the empty sector, is $D_{\tlaw,p}$ on the sector $\{p\}$, and on a
+sector $S$ with $|S|\ge2$ has norm at most
+$(1+\tlaw)\prod_{p\in S}c_+(p)r_p+\prod_{p\in S}(\Gamma_A+e_o(p)r_p)r_p\le c_{\ge2}/b$,
+the further centred factors being contractions; the same bound holds for its
+symmetric and skew parts, and all these norms are maxima over the sectors.
+The operator $L_{\tlaw,\Blk}$ vanishes on the sectors with $|S|\ge2$ and is the
+orthogonal sum of the $L^\circ_{\tlaw,p}$ on the singletons, which is the star of
+\cref{lem:actual-features}(e); on the singletons (c) applies with $q_p\le1/b$ and
+$r_p\le b^{-1/2}$. This proves (a), (b) and the first claim of (d). For the
+second, only the factor $1+\tlaw$ of $c_{\ge2}$ depends on $\tlaw$, so $c_{\ge2}$ is at
+most its value at $(2^{-24},2^{-12})$ and $\tlaw=1$, which is
+$<8$ by outward evaluation of the formula for $c_{\ge2}$ in
+\eqref{eq:signed-constants} (the value is $7.043\ldots$); hence
+$c_{\ge2}r<8\cdot2^{-12}<2$; and $s_\tlaw^2\ge4-2\tlaw+2\tlaw^2+2\ge4+3/2$ on
+$[0,1]$, while $\Gamma_A\ge1$.
+
+(e) $\mathcal U$ is unitary on $L^2(m_{0,\Blk})$ because $g_0\circ\varsigma=g_0$; the
+record difference of $F_2$ is $\mathcal UD_\tlaw^*\mathcal U$ componentwise, whose
+symmetric and skew parts are $\mathcal U(\operatorname{Sym}D_\tlaw)\mathcal U$ and
+$-\mathcal U(\operatorname{Skew}D_\tlaw)\mathcal U$, and conjugation preserves norms and
+the sector decomposition.
+\end{proof}
+
+\begin{certificate}[The constants of the signed law and of the matching records]
+\label{cert:signed-local}
+At each of the $33$ piece starts, the constants below have been
+evaluated in outward interval arithmetic and satisfy the gates
+listed in this certificate ($R_{\rm row},R_{\rm col}<10$,
+$c_+r<1$, $c_{\ge2}r<d_\tlaw$, and the others named). In detail,
+the functions \texttt{sharp\_bounds}, \texttt{e\_bounds} and
+\texttt{old\_negative} of
+\path{research/advance_2026_10_24/local/low_domain.py} evaluate the constants of
+\eqref{eq:signed-constants}, the coefficients $s_E(X)$, $a_E(X)$, $r_E(X)$ of
+\cref{lem:record:exact-marginal-e}(ii) and \cref{lem:oct24:matching-star}, and
+$k_{\rm D}(X,585)$ of \cref{lem:old-f-law}(e), in outward rational interval
+arithmetic at $q=1/X$, $r=1/\lfloor\sqrt X\rfloor$ and $\tlaw=127/500$, at each of
+the $33$ piece starts; the leading cap is computed there by
+\texttt{actual\_leading} of
+\path{research/continuation_2026_10_24/local/orientation_local.py}, which is the
+closed form $\ell_\tlaw$ of \eqref{eq:signed-constants} at the arm vector
+$\mathbf a_\tlaw$. The final scalar evaluation calls them through
+\path{research/advance_2026_10_24/global/evaluate_signed.py}, selected by the
+low-domain flag of the final design file
+\path{research/push_2026_10_25/global/refined_L570_source.json}, from
+\path{research/improvements_2026_10_25/global/selected.py}, invoked with the selected push design. It asserts
+$R_{\rm row},R_{\rm col}<10$, $c_+r<1$, $c_{\ge2}r<d_\tlaw$ and
+the centred-norm bound $\|T_{\rm old}P_0\|\le(\Gamma_A+e_or)r$
+of \cref{lem:old-f-law}(f) with a constant exceeding $e_o$, so
+that
+$(\Gamma_A+e_or)r<1$;
+$e_o>1$, $n_Xe_X<1$ and $[1+(e_o-1)r]r<1$; the gates of
+\cref{lem:record:exact-marginal-e}(ii); and in each piece the inequalities
+$A^{\rm lead}_{F,i}\ge A^{\rm arm}_{F,i}$ and $A_{E,i}\ge A^{\rm arm}_{E,i}$ between
+the prices of \cref{subsec:middle-comparison}. The totals of those prices at the
+exponent $a$ are stored in \path{research/push_2026_10_25/artifacts/author.json}
+(key \texttt{raw\_totals}); no stored record holds the per-piece constants. A
+read-only evaluation of the three functions at $X=Q_3=19951586$
+($r_X=1/4466$) gives the following upper bounds: $\Gamma_A<1.0002241$,
+$R_{\rm row}<7.9840009$, $R_{\rm col}<6.9840008$, $c_+<1.7371505$,
+$E_c<0.04070887$, $e_{\rm sg}<17.254638$, $c^\nu_{\rm col}<5.6198028$,
+$c_{\rm col}<5.6198068$, $e_o<7.6238442$, $s_F=s_p<11.166062$,
+$a_F=a_p<4.7973987$, $c_{\ge2}<4.7880514$, $\ell_\tlaw<1.2731978$,
+$s_\tlaw<2.3842273$ and $d_\tlaw<2.3903321$; for the matching records
+$s_E<5.4071859\cdot10^{-4}$, $a_E<1.0000003$, $1/(1-q_X)<1.0000001$,
+$\kappa^E/r<1.0012128$ and $r_E<10.829703$; and for the cap $n_X=34$,
+$\bar H_X<1.0000035$, $1+(e_o-1)r_X<1.0014832$ and $k_{\rm D}<1.0014866$. As
+$q\to0$, $\ell_\tlaw\to|\mathbf a_\tlaw|=1.27319\ldots$ and $d_\tlaw\to s_\tlaw$.
+Independently, \path{research/advance_2026_10_24/local/check_signed_law.py} checks the
+polynomial and leading skew identities of \cref{lem:mirror}(d), the exact
+two-centre Gram and $18$ collision sign patterns, with exact finite checks at
+small primes; \path{research/advance_2026_10_24/local/check_signed_sharp.py} the
+factored symmetric and skew identities, the matrix $C$ of
+\cref{lem:record:conditional-collision}(d) with its exact Schur rows, and exact
+conditional feature Grams; and
+\path{research/advance_2026_10_24/local/check_low_domain.py} the uniform analytic
+majorants and gates from $2^{20}$, for $21$ values of the parameter.
+\end{certificate}
+
+\subsection{The matching records $E_0,E_1$ and their replacement $K_1$}\label{subsec:record:e_side}
+
+The two two-layer matching records $E_0,E_1$ of a middle block, of weight
+$w_{\rm S}r$ each, do not accept the six queries: each needs exactly the cross
+edge $x_0\to y_1$ (\cref{cert:record:middle-geometry}). They are replaced by an
+exact-marginal law that imposes this edge and its mirror image $x_1\to y_0$, and
+nothing else. Unlike the fold records it needs no repair: its fibre count is
+constant (\cref{lem:record:e-law}(a)).
+
+\paragraph{The empty half law.}
+Let $H_E$ be the set of all halves, $|H_E|=p(p-1)(p-2)$, and $\nu_E$ its uniform
+law. Kernels are densities relative to $\nu_E\otimes\nu_E$ and operators act on
+$L^2(\nu_E)$; $V_i$, $\Pi_\perp$, $\top$, $\operatorname{Sym}$ and
+$\operatorname{Skew}$ are as in \cref{subsec:middle-records:notation}, with $\nu_E$
+in place of $\nu_F$. For $i\ne j$ and mean-zero $g$, $\E[g(x_j)\mid x_i]=-g(x_i)/(p-1)$,
+so the Gram operator of $V=(V_0,V_1,V_2)$ on $H_0^3$ is $(1+u)I-uJ_3$, with
+$u=1/(p-1)$ and $J_3$ the all-ones $3\times3$ matrix; its eigenvalues are
+$1+u=1/(1-q)$ and $1-2u=(1-3q)/(1-q)$. Every pair of coordinates of $\nu_E$ is
+uniform on the distinct pairs, of density $1/(1-q)$, and $\nu_E$ has density
+$1/Z$ (\cref{lem:record:projection}(b)); \cref{lem:record:projection}(a)
+applies with these bounds. Write
+$\delta_{\mathsf C}=\one[x_1=y_0]$, $\delta_{\mathsf D}=\one[x_0=y_1]$ and
+$\delta_{ij}=\one[x_i=y_j]$. At $\iota$ the reference's two-layer matching record
+is the uniform law of pairs of disjoint halves, $K^E_0=I_\times/z^E_0$, with both
+half marginals $\nu_E$ (\cref{lem:record:fold-identification}(d)).
+
+\begin{lemma}[The exact-marginal matching law]\label{lem:record:e-law}
+Let $p\ge19$ and $z_1=(p^2-3p+4)/(p(p-1))$.
+\begin{enumerate}[label=(\alph*)]
+\item The kernel
+ $K_1=(1+\mathsf C-\delta_{\mathsf C})(1+\mathsf D-\delta_{\mathsf D})/z_1$ is the
+ density of a $\mathcal G_p$-invariant probability measure on $H_E\times H_E$ whose
+ two half marginals both equal $\nu_E$. It is $4/z_1$ times the indicator of the
+ strict edges $x_1\to y_0$ and $x_0\to y_1$ and imposes no other relation between
+ the halves; in particular other coincidences between the halves, such as
+ $x_2=y_2$, have positive probability. Under it each of the pairs $(x_0,y_1)$ and
+ $(x_1,y_0)$ is uniform on the strict-square pairs.
+\item $z^E_0=(p-3)(p-4)(p-5)/(p(p-1)(p-2))\ge1-9q$, and on mean-zero functions
+ $K^E_0$ has norm at most $k^E_{\rm old}=9q/(1-9q)$; its exact value there is
+ $3/(p-3)$ (\cref{sec:frontier:empty-triple-negative}). Moreover $z_1\ge1-2q$ and
+ $0<z_1-z^E_0=(7p^2-37p+52)/(p(p-1)(p-2))\le7q/Z$.
+\item $K_1-K^E_0=\Pi_\perp(K_1-K^E_0)\Pi_\perp$, and
+ \[
+  \operatorname{Skew}(K_1-K^E_0)=\frac{\mathsf C+\mathsf D-\delta_{\mathsf C}\mathsf D
+  -\delta_{\mathsf D}\mathsf C}{z_1},\qquad
+  \|\mathsf C+\mathsf D\|=\frac r{1-q},\qquad
+  \|\delta_{\mathsf C}\mathsf D\|,\|\delta_{\mathsf D}\mathsf C\|\le\frac{qr}{1-q},
+ \]
+ so that $\|\operatorname{Skew}(K_1-K^E_0)\|\le a^E_p:=r(1+2q)/((1-q)(1-2q))$.
+\item Write $1-I_\times=\sum_{i,j}\delta_{ij}-\varepsilon_E$. Then $\varepsilon_E\ge0$,
+ $\|\varepsilon_E\|\le18q^2/(1-q)$, and
+ \[
+  \Pi_\perp\operatorname{Sym}(K_1-K^E_0)\Pi_\perp
+  =\mathcal S+\frac{\Pi_\perp\mathsf C\mathsf D\Pi_\perp
+  +\Pi_\perp\delta_{\mathsf C}\delta_{\mathsf D}\Pi_\perp}{z_1}
+  -\frac{\Pi_\perp\varepsilon_E\Pi_\perp}{z^E_0},
+ \]
+ where $\mathcal S=qV[J_3/z^E_0-(E_{10}+E_{01})/z_1]V^*$ on mean-zero functions,
+ $E_{ij}$ being matrix units. Moreover $\|\mathcal S\|\le\mathfrak s_p$,
+ $\|\mathsf C\mathsf D\|/z_1\le q/((1-q)(1-2q))$ and
+ $\|\delta_{\mathsf C}\delta_{\mathsf D}\|/z_1\le q^2/((1-q)(1-2q))$, where
+ \[
+  \mathfrak s_p=\frac q{1-q}\Bigl[\frac{1+\sqrt2}{1-9q}
+  +\frac{7q}{Z(1-9q)(1-2q)}\Bigr].
+ \]
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) For $a\ne b$, $1+\chi(b-a)$ is $2$ if $a\to b$ and $0$ otherwise, and for
+$a=b$ the factor $1+0-1$ vanishes; this describes $K_1$. Fix a half $x$. Under
+$\nu_E$ the pair $(y_0,y_1)$ is uniform on ordered distinct pairs, and the pairs
+with $x_1\to y_0$ and $x_0\to y_1$ number $(\frac{p-1}2)^2-k_p=(p^2-3p+4)/4$, the
+coincident ones being the $k_p$ common out-neighbours of $x_0$ and $x_1$
+(\cref{lem:paley-triple}(a)), whatever the orientation between $x_0$ and $x_1$.
+Hence $\E_yK_1(x,y)=4((\frac{p-1}2)^2-k_p)/(p(p-1)z_1)=1$; the column sums are
+one by the same count with common in-neighbours. Invariance holds because $\chi$
+is invariant under square dilations; every relation other than the two strict
+edges is free; and $\mathcal G_p$ acts transitively on the ordered pairs $(a,a')$
+with $a\to a'$, so the invariant law of each queried pair is uniform on them.
+(b) Given $x$, the half $y$ avoids three labels with probability $z^E_0$; the rest
+is the symmetry of $I_\times$, the Schur test with row sums
+$\E_y(1-I_\times)\le9q$, and the identities
+$(1-3q)(1-4q)(1-5q)-(1-9q)Z=18q^2-42q^3$, $p^2-3p+4-(p-1)(p-2)=2$ and
+$(p^2-3p+4)(p-2)-(p-3)(p-4)(p-5)=7p^2-37p+52\le7p^2$.
+(c) Both laws have the half marginals $\nu_E$, which gives the first identity.
+Expanding the product and using that transposition maps $\mathsf C,\mathsf D$
+to $-\mathsf D,-\mathsf C$ and exchanges $\delta_{\mathsf C},\delta_{\mathsf D}$,
+\[
+ z_1\operatorname{Sym}K_1=1+\mathsf C\mathsf D-\delta_{\mathsf C}-\delta_{\mathsf D}
+ +\delta_{\mathsf C}\delta_{\mathsf D},\qquad
+ z_1\operatorname{Skew}K_1=\mathsf C+\mathsf D-\delta_{\mathsf C}\mathsf D
+ -\delta_{\mathsf D}\mathsf C,
+\]
+and $K^E_0$ is symmetric. As operators $\mathsf C=V_1PV_0^*$ and
+$\mathsf D=V_0PV_1^*$, so $\mathsf C+\mathsf D$ is
+$\bigl(\begin{smallmatrix}0&1\\1&0\end{smallmatrix}\bigr)\otimes P$ conjugated by the
+row $(V_0,V_1)$; the Gram matrix
+$\bigl(\begin{smallmatrix}1&-u\\-u&1\end{smallmatrix}\bigr)$ of that row commutes with
+$\bigl(\begin{smallmatrix}0&1\\1&0\end{smallmatrix}\bigr)$, with eigenvalues $1-u$ and
+$1+u$ on $(1,1)$ and $(1,-1)$, so $\|\mathsf C+\mathsf D\|=(1+u)\|P\|=r/(1-q)$. The
+kernel $\delta_{\mathsf C}\mathsf D$ depends on $(x_0,x_1)$ and $(y_0,y_1)$; for
+independent labels it is $qI\otimes P$, of norm $qr$, and the two pair densities
+$1/(1-q)$ give the bound; likewise for $\delta_{\mathsf D}\mathsf C$. Then use
+$z_1\ge1-2q$.
+(d) With $\kappa=\sum\delta_{ij}$, $\varepsilon_E=\kappa-\one_{\kappa\ge1}$ is bounded
+by the sum of $\delta_{ij}\delta_{i'j'}$ over the $18$ compatible pairs, and given
+$x$ two prescribed labels of $y$ at two prescribed positions have probability
+$1/(p(p-1))$; the Schur test gives the bound. Since
+$\Pi_\perp\delta_{ij}\Pi_\perp=qV_iV_j^*$ on mean-zero functions, the compressions of
+$\sum\delta_{ij}/z^E_0$ and of $(\delta_{\mathsf C}+\delta_{\mathsf D})/z_1$ give
+$\mathcal S$, and the constants $1/z_1$, $1/z^E_0$ are removed by the
+compression. Write $J_3/z^E_0-(E_{10}+E_{01})/z_1=(J_3-E_{10}-E_{01})/z^E_0
++(E_{10}+E_{01})(1/z^E_0-1/z_1)$. The matrix $J_3-E_{10}-E_{01}$ has the
+characteristic polynomial $\lambda^3-3\lambda^2+\lambda+1$, with roots $1$ and
+$1\pm\sqrt2$, and $\|E_{10}+E_{01}\|=1$; with $\|V\|^2=1/(1-q)$ and (b) this gives
+$\|\mathcal S\|\le\mathfrak s_p$. The kernel $\mathsf C\mathsf D$ is a two-edge
+matching on the pairs $(x_0,x_1)$, $(y_0,y_1)$, of norm $q$ for independent
+labels, and $\delta_{\mathsf C}\delta_{\mathsf D}$ is $qI\otimes qI$ there; the pair
+densities give the last two bounds.
+\end{proof}
+
+\begin{lemma}[Orthogonal channels]\label{lem:record:e-orthogonal}
+Let $p\ge19$.
+\begin{enumerate}[label=(\alph*)]
+\item The pair-star map $\mathcal T_E\colon L^2(\Fp)\to L^2(\nu_E)$,
+ $\mathcal T_Eg(x)=\E_t\chi(t-x_1)\chi(t-x_0)g(t)$, has norm at most
+ $(q(1-2q)/(1-q))^{1/2}\le r$ on mean-zero functions: for independent labels its
+ norm there is exactly $(q(1-2q))^{1/2}$, at most $(q(1-q))^{1/2}$.
+\item On mean-zero functions $\mathsf C\mathsf DV_0=\mathsf C\mathsf DV_1=-u\mathcal T_E$
+ and $\mathsf C\mathsf DV_2=2\mathcal T_E/((p-1)(p-2))$. Hence, if $H$ is the
+ orthogonal projection onto $V(H_0^3)$,
+ \[
+  \|\mathsf C\mathsf DH\|\le e_E:=\frac{qr}{((1-q)(1-3q))^{1/2}}
+  \Bigl(2+\frac{4q^2}{(1-2q)^2}\Bigr)^{1/2}.
+ \]
+\item $\|\operatorname{Sym}(K_1-K^E_0)\|\le s^E_p$, where
+ \[
+  s^E_p=\mathfrak s_p+\frac{2e_E}{1-2q}+\frac{q^2}{(1-q)(1-2q)}
+  +\frac{18q^2}{(1-q)(1-9q)} .
+ \]
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) For independent labels $\mathcal T_E^*\mathcal T_E$ has the kernel
+$(\E_x\chi(t-x)\chi(t'-x))^2=(\one_{t=t'}-q)^2$ by \cref{lem:paley-triple}(b), so
+$\mathcal T_E^*\mathcal T_E=q(1-2q)I+q^2\Jproj$; restricting the pair $(x_0,x_1)$ to
+distinct labels costs the density factor $1/(1-q)$.
+(b) Given $y_0$, the label $y_1$ is uniform off $y_0$, so
+$\E[\chi(y_1-x_0)\mid y_0]=-\chi(y_0-x_0)/(p-1)$; this gives
+$\mathsf C\mathsf DV_0=-u\mathcal T_E$, and $\mathsf C\mathsf DV_1=-u\mathcal T_E$ in
+the same way. Given $y_2=t$, the pair $(y_0,y_1)$ is uniform on the ordered
+distinct pairs avoiding $t$, and by \cref{lem:paley-triple}(b)
+$\sum_{a\ne a';\,a,a'\ne t}\chi(a-x_1)\chi(a'-x_0)=1+2\chi(t-x_1)\chi(t-x_0)$,
+whose constant term is annihilated on mean-zero $g$; this gives
+$\mathsf C\mathsf DV_2$. If $h=Vc$ with $c$ a triple of mean-zero functions, then
+$\|h\|^2\ge(1-2u)\|c\|^2$ and
+$\mathsf C\mathsf Dh=\mathcal T_E(-uc_0-uc_1+2c_2/((p-1)(p-2)))$, so
+$\|\mathsf C\mathsf Dh\|\le ru(2+4/(p-2)^2)^{1/2}(1-2u)^{-1/2}\|h\|=e_E\|h\|$.
+(c) By \cref{lem:record:e-law}(c),(d) it suffices to bound
+$\|\mathcal S+X/z_1\|$ with $X=\Pi_\perp\mathsf C\mathsf D\Pi_\perp$. Here
+$\mathcal S=H\mathcal SH$, and $X$ is self-adjoint with
+$XH=\Pi_\perp\mathsf C\mathsf DH$, because $\Pi_\perp H=H$; so $\|XH\|=\|HX\|\le e_E$
+and $\|X-(I-H)X(I-H)\|=\|HX+(I-H)XH\|\le2e_E$. The operators $\mathcal S$ and
+$(I-H)X(I-H)/z_1$ act on orthogonal subspaces, so their sum has norm at most
+$\max(\|\mathcal S\|,\|X\|/z_1)\le\mathfrak s_p$, because
+$(1+\sqrt2)/(1-9q)\ge1/(1-2q)$. Hence $\|\mathcal S+X/z_1\|\le\mathfrak s_p+2e_E/z_1$,
+and the other two terms of \cref{lem:record:e-law}(d) contribute
+$q^2/((1-q)(1-2q))$ and $18q^2/((1-q)(1-9q))$.
+\end{proof}
+
+\begin{lemma}[Prices of the matching records]\label{lem:record:exact-marginal-e}
+Let $p\ge2^{20}$. In the comparison law each two-layer matching record $E_0,E_1$
+of a middle block is replaced, at every prime, by the law $K_1$ of
+\cref{lem:record:e-law}, and the block record is the tensor product over the
+primes.
+\begin{enumerate}[label=(\roman*)]
+\item On $L^2(\nu_E)$, $\|\operatorname{Sym}(K_1-K^E_0)\|\le s^E_p$ and
+ $\|\operatorname{Skew}(K_1-K^E_0)\|\le a^E_p$. The centred operator of $K^E_0$ is
+ self-adjoint, of norm $k^E_p=3/(p-3)=3q/(1-3q)$
+ (\cref{sec:frontier:empty-triple-negative}), so the centred symmetric part of
+ $K_1$ has norm at most $c^{\rm s}_Eq:=k^E_p+s^E_p$ and the centred operator of
+ $K_1$ norm at most $\kappa^E_p:=k^E_p+s^E_p+a^E_p$. Each of $s^E_p/r$, $a^E_p/r$,
+ $c^{\rm s}_E$ and $\kappa^E_p/r$ is a nondecreasing function of $(q,r)$.
+\item Let $\Blk$ be a block of a piece starting at $X\ge2^{20}$, with least prime
+ $b$, let $q_X=1/X$ and $r_X\ge X^{-1/2}$, and put, with every quantity of (i) at
+ $(q_X,r_X)$,
+ \[
+ \begin{gathered}
+  s_E(X)=\frac{s^E}r,\qquad a_E(X)=\frac{a^E}r=\frac{1+2q_X}{(1-q_X)(1-2q_X)},\\
+  c^{\rm s}_E(X)=c^{\rm s}_E,\qquad\kappa_E(X)=\frac{\kappa^E}r,\qquad
+  r_E(X)=2c^{\rm s}_E(X)a_E(X).
+ \end{gathered}
+ \]
+ Suppose that, at $(q_X,r_X)$, $3q/(1-3q)<1$, $\kappa_Er<1$, $r_Er^2<1$,
+ $4/((1-q)(1-2q))<r_E$, $\kappa_E^3<r_E$,
+ \[
+  s^E_{(2)}:=\frac{6r}{1-3q}s_E+s_E^2+a_E^2<2\qquad\text{and}\qquad
+  s^E_{(3)}:=\Bigl[\Bigl(\frac{3r}{1-3q}\Bigr)^3+\kappa_E^3\Bigr]r<2 .
+ \]
+ Then the block differences
+ $\bigotimes_{p\in\Blk}K_{1,p}-\bigotimes_{p\in\Blk}K^E_{0,p}$ of $E_0$ and $E_1$ have,
+ on $L^2(\bigotimes_p\nu_{E,p})$, symmetric part of norm at most $s_E(X)b^{-1/2}$ and
+ skew part of norm at most $a_E(X)b^{-1/2}$. The block law is invariant under
+ independent maps of $\mathcal G_p$ at the primes of $\Blk$, accepts the six queries,
+ and its queried pair is uniform on the pairs that are strict-square at every
+ prime of $\Blk$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) The bounds are \cref{lem:record:e-law}(c) and \cref{lem:record:e-orthogonal}(c);
+the centred operator of $K_1$ is that of $K^E_0$ plus the difference, and its
+symmetric part is that of $K^E_0$ plus the symmetric part of the difference. The
+monotonicity holds because every term is a positive expression in $(q,r)$ with
+nonnegative coefficients and positive decreasing denominators, after the powers
+of $r$ are cancelled ($\mathfrak s_p/q$, $e_E/q$ and the last two terms of $s^E_p$
+divided by $q$ are such expressions).
+(ii) For $p\in\Blk$, $q_p\le q_X$ and $r_p\le b^{-1/2}\le X^{-1/2}\le r_X$, so by (i)
+$s^E_p\le s_E(X)r_p$, $a^E_p\le a_E(X)r_p$, the centred symmetric part of $K_{1,p}$
+has norm at most $c^{\rm s}_E(X)q_p$, the centred operator of $K_{1,p}$ norm at most
+$\kappa_E(X)r_p<1$, and the centred reference $T_{0,p}$, self-adjoint, norm
+$k^E_p\le(3r_X/(1-3q_X))r_p<1$. The prime operators are Markov operators of
+couplings with exact marginals $\nu_{E,p}$, so by \cref{lem:sector}(a),(b) the
+block difference vanishes on the empty sector, is the prime difference on the
+singleton sectors, and the norms of its symmetric and skew parts are the
+maxima over the sectors. On a singleton $\{p\}$ they are at most
+$s_E(X)b^{-1/2}$ and $a_E(X)b^{-1/2}$. On a sector $\{p,p'\}$,
+\cref{lem:sector}(h) gives the symmetric part
+$T^\circ_{0,p}\otimes S^\circ_{p'}+S^\circ_p\otimes T^\circ_{0,p'}+S^\circ_p\otimes S^\circ_{p'}
++A^\circ_p\otimes A^\circ_{p'}$, of norm at most $s^E_{(2)}r_pr_{p'}\le s^E_{(2)}/b$, and the
+skew part $(T_{0,p}+S_p)^\circ\otimes A^\circ_{p'}+A^\circ_p\otimes(T_{0,p'}+S_{p'})^\circ$,
+of norm at most $2c^{\rm s}_E(X)a_E(X)b^{-3/2}=r_E(X)b^{-3/2}$; here $S_p$, $A_p$ are
+the symmetric and skew parts of the prime difference. On a sector $S$ with
+$|S|\ge3$ the reference tensor is self-adjoint, so the skew part is that of the
+new tensor (\cref{lem:sector}(b)), of norm at most $(\kappa_E(X)b^{-1/2})^3<
+r_E(X)b^{-3/2}$; and the symmetric part has norm at most the sum of the norms of
+the two tensors, $[(3r_X/(1-3q_X))^3+\kappa_E(X)^3]b^{-3/2}\le s^E_{(3)}/b$; the further
+centred factors are contractions. Since $s^E_b\ge\mathfrak s_b\ge(1+\sqrt2)q_b$ and
+$s^E_b\le s_E(X)r_b$, the bounds $s^E_{(2)}/b,s^E_{(3)}/b<2/b$ are below
+$s_E(X)b^{-1/2}$; and $r_E(X)b^{-3/2}\le r_E(X)r_X^2b^{-1/2}<b^{-1/2}\le
+a_E(X)b^{-1/2}$. Invariance, acceptance and the queried pairs hold primewise by
+\cref{lem:record:e-law}(a).
+\end{proof}
+
+The values of $s_E(X)$, $a_E(X)$, $r_E(X)$ at the $33$ piece starts, with
+$r_X=1/\lfloor\sqrt X\rfloor$, and the gates of (ii) are those of
+\cref{cert:record:e-coefficients}; at $Q_3$ they are those of
+\cref{cert:signed-local}.
+
+\begin{lemma}[Matching one-arm stars]\label{lem:oct24:matching-star}
+Let $\Blk$ be a block of a piece starting at $X\ge2^{20}$, with least prime $b$,
+under the hypotheses of \cref{lem:record:exact-marginal-e}(ii), and let
+$D^{\rm a}_{E,\Blk}$ be the skew part of the block difference of a matching record.
+The matching coefficients of the piece are
+\[
+ s_E(X)=\frac{s^E}r,\qquad a_E(X)=\frac{1+2q}{(1-q)(1-2q)},\qquad
+ r_E(X)=2\Bigl(\frac3{1-3q}+\frac{s^E}q\Bigr)a_E(X),
+\]
+at $(q,r)=(q_X,r_X)$, with $s^E=s^E_p$ of \cref{lem:record:e-orthogonal}(c) there.
+Then $D^{\rm a}_{E,\Blk}=L_{E,\Blk}+R_{E,\Blk}$, where $L_{E,\Blk}$ equals
+$L_{E,p}=\mathsf C+\mathsf D=V_1PV_0^*-V_0(V_1P)^*$ on the sector of exact support
+$\{p\}$, for $p\in\Blk$, and zero on every other sector. The leading term is a
+one-arm star with centre $\mathcal H_0$ and arm in $\mathcal H_1$, of arm norm at most
+$b^{-1/2}$ and norm at most $b^{-1/2}/(1-b^{-1})$; and
+$\|R_{E,\Blk}\|\le r_E(X)b^{-3/2}$, where $r_E(X)\ge2(4+\sqrt2)$, and $r_E(X)<11$ if
+$r_X\le2^{-10}$, for instance for $r_X=1/\lfloor\sqrt X\rfloor$.
+\end{lemma}
+
+\begin{proof}
+At a prime, \cref{lem:record:e-law}(c) gives
+$D^{\rm a}_{E,p}-L_{E,p}=(z_1^{-1}-1)(\mathsf C+\mathsf D)-(\delta_{\mathsf C}\mathsf D+
+\delta_{\mathsf D}\mathsf C)/z_1$, and $1-2q\le z_1\le1$, so
+$\|D^{\rm a}_{E,p}-L_{E,p}\|\le\frac r{1-q}\cdot\frac{2q}{1-2q}+\frac{2qr}{(1-q)(1-2q)}
+=\frac{4qr}{(1-q)(1-2q)}$, which is below $r_E(X)b^{-3/2}$ by the gate
+$4/((1-q)(1-2q))<r_E$ and monotonicity. On the sectors of size at least two the
+skew part of the block difference is at most $r_E(X)b^{-3/2}$ by the proof of
+\cref{lem:record:exact-marginal-e}(ii), and $L_{E,\Blk}$ vanishes there. The
+sectors are orthogonal, which gives the bound on $R_{E,\Blk}$. The arm $V_1P$ has
+norm $r_p\le b^{-1/2}$, and $\|L_{E,p}\|=r_p/(1-q_p)\le b^{-1/2}/(1-b^{-1})$
+(\cref{lem:record:e-law}(c)); $L_{E,\Blk}$ is the orthogonal sum of the $L_{E,p}$
+over the singleton sectors. Finally $3/(1-3q)\ge3$, $s^E/q\ge\mathfrak s_p/q\ge
+1+\sqrt2$ and $a_E\ge1$ give $r_E\ge2(4+\sqrt2)$; and $r_E$ is a nondecreasing
+function of $(q,r)$ whose value at $(2^{-20},2^{-10})$ is
+$10.834\ldots<11$ by outward evaluation of its formula, so
+$r_E(X)<11$ when $r_X\le2^{-10}$.
+\end{proof}
+
+\subsection{Merges replaced at fixed marginals, and deleted records}\label{subsec:merge-repair}
+
+The six two-layer merge records of a middle block have weight
+$w_{\rm R}r^2$ each. We replace them by positive laws which accept the six
+queries and preserve their actual half marginals. Four records use a pair
+of mirror edges; the other two use one edge with the unused labels drawn
+conditionally from their original half laws. The mirror construction cancels
+the leading symmetric error. The two-layer constant records also admit an
+accepting replacement, so only their folded counterparts are deleted.
+
+\begin{definition}[Merge records and their designated edges]\label{def:merge-records}
+Let $E_0=(0,1,1,2,2,0)$ and $E_1=(0,0,1,1,2,2)$ be the matching patterns and,
+for $s\in\{0,1\}$ and $k\in\{0,1,2\}$, let
+$G_{sk}(j)=\one[E_s(j)=k]$ be the merge patterns, with objects $0,1$
+(\cref{def:patterns}). At a prime $p\equiv3\pmod4$, the two-layer merge
+record $\pi_{sk}$ is uniform on injective four-label tuples
+$(x_0,x_1,y_0,y_1)$, where $x_a$ and $y_a$ are the labels of object $a$
+in layers zero and one. At the reserved cut both half marginals are the
+uniform law $m_p$ on ordered distinct pairs. For this pattern
+$G_{sk}$, every query of $\mathcal E_6$ reads the same designated
+pair $x_{G_{sk}(0)}\to y_{G_{sk}(2)}$, determined by $G_{sk}$.
+
+For $(s,k)\in\{(0,0),(0,1),(1,0),(1,1)\}$ replace $\pi_{sk}$ by the
+uniform injective four-label law satisfying the two mirror edges
+$x_1\to y_0$ and $x_0\to y_1$. For $(s,k)\in\{(0,2),(1,2)\}$ use instead
+the law with density
+\[
+ \frac{2}{1-1/p}\one[x_0\to y_0]
+ \quad\hbox{relative to }m_p\otimes m_p.
+\]
+The latter law allows coincidences between the two halves, but each half
+remains an ordered distinct pair. Block replacements are products of
+these laws over the primes of the block.
+\end{definition}
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+record & pattern & designated $\mathcal E_6$ edge & replacement\\
+\midrule
+$G_{00}$ & $(1,0,0,0,0,1)$ & $x_1\to y_0$ & both mirror edges\\
+$G_{01}$ & $(0,1,1,0,0,0)$ & $x_0\to y_1$ & both mirror edges\\
+$G_{02}$ & $(0,0,0,1,1,0)$ & $x_0\to y_0$ & first-coordinate edge\\
+$G_{10}$ & $(1,1,0,0,0,0)$ & $x_1\to y_0$ & both mirror edges\\
+$G_{11}$ & $(0,0,1,1,0,0)$ & $x_0\to y_1$ & both mirror edges\\
+$G_{12}$ & $(0,0,0,0,1,1)$ & $x_0\to y_0$ & first-coordinate edge\\
+\bottomrule
+\end{tabular}
+\caption{The six merge records and their accepting replacements. Each
+replacement has exactly the original ordered-distinct-pair half laws.}
+\label{tab:merge-records}
+\end{table}
+
+\begin{lemma}[Exact merge repairs]\label{lem:merge-repair}
+The replacements of \cref{def:merge-records} are positive probability laws
+with both actual half marginals equal to $m_p$. They are invariant under
+$\mathcal G_p$, accept every query of $\mathcal E_6$, and have uniform
+queried pairs on the ordered strict-square pairs.
+
+Write $D_p$ for the old Markov operator on $L^2(m_p)$, and $P_p^{\rm c}$,
+$P_p^{\rm s}$ for the mirror-edge and first-coordinate replacements.
+For $p\ge2^{24}$ put
+\begin{gather*}
+ d_p=\frac2{p-2},\qquad \eta^{\rm G}_p=\frac1{p-1},\qquad
+ \gamma^{\rm G}_p=\frac{\sqrt p}{p-1},\qquad
+ \rho_p=\frac{\sqrt{p+1}}{p-1},\\
+ s^{\rm G}_p=\frac{5p-6}{(p-2)(p-3)},\qquad
+ a^{\rm G}_p=\frac{p^{-1/2}[1+2p^{-1/2}(4-6/p)]}{(1-2/p)(1-3/p)}.
+\end{gather*}
+For a block $\Blk$ with least prime $b$, the differences between the product
+replacement and the product source have symmetric and skew norms at most
+\[
+ \begin{array}{c|cc}
+ &\text{symmetric}&\text{skew}\\ \hline
+ \text{mirror-edge replacement}&s_b&a_b\\
+ \text{first-coordinate replacement}&d_b+\eta_b&\gamma_b.
+ \end{array}
+\]
+All norms are relative to the product of the actual half laws $m_p$.
+\end{lemma}
+
+\begin{proof}
+\emph{Half marginals and acceptance.}
+Fix $x_0\ne x_1$ and put $k=(p-1)/2$. Among labels different from both
+$x_0,x_1$, the two allowed out-neighbour sets for $y_0,y_1$ have sizes
+$k$ and $k-1$ in some order. Their intersection has size $(p-3)/4$.
+Thus the number of admissible distinct pairs $(y_0,y_1)$ is
+\[
+ k(k-1)-(p-3)/4=(p-2)(p-3)/4,
+\]
+independent of the fixed half. The incoming-neighbour count is identical,
+so the mirror law has both marginals $m_p$. The first-coordinate law has
+the same marginals because each coordinate of $m_p$ is uniform and a
+strict Paley edge has uniform endpoints. Each designated edge in
+\cref{tab:merge-records} holds under its replacement. Square-affine
+invariance and transitivity on ordered strict-square pairs give the
+claimed queried-pair law. The construction uses only $\mathcal E_6$.
+
+\emph{The source and the first-coordinate law.}
+The source operator averages over ordered pairs disjoint from its input
+pair. Its eigenvalues are $1$ on constants, zero on antisymmetric pair
+functions, $-2/(p-2)$ on $u(x_0)+u(x_1)$ with $\E u=0$, and
+$2/((p-2)(p-3))$ on symmetric functions with zero row sums. These mutually
+orthogonal spaces exhaust $L^2(m_p)$: summing a function over all pairs
+and subtracting the pairs meeting the input gives the displayed values.
+In particular $\|D_p-\Jproj\|=d_p$.
+
+Let $V_i$ embed a singleton function as a function of coordinate $i$ of
+$m_p$. The normalized strict Paley operator $P$ has symmetric part
+$\Jproj-\eta^{\rm G}_p(I-\Jproj)$, skew norm $\gamma^{\rm G}_p$, and centered norm
+$\rho_p$. Since $P_p^{\rm s}=V_0PV_0^*$, its difference from $D_p$ has
+symmetric norm at most $d_p+\eta^{\rm G}_p$, skew norm $\gamma^{\rm G}_p$, and centered
+replacement norm $\rho_p$.
+
+\emph{The mirror law.}
+Write $C=\chi(y_0-x_1)$ and $H=\chi(y_1-x_0)$. On the injective source,
+$P_p^{\rm c}$ has density $(1+C)(1+H)$ relative to $D_p$.
+Transposition exchanges $C,H$ with $-H,-C$, respectively. Hence, as
+identities of kernels relative to $m_p\otimes m_p$,
+\begin{equation}\label{eq:merge:mirror-identities}
+ \operatorname{Sym}(P_p^{\rm c}-D_p)=D_pCH,\qquad
+ \operatorname{Skew}(P_p^{\rm c}-D_p)=D_p(C+H),
+\end{equation}
+where the products on the right are pointwise products of densities.
+Put $z=(p-2)(p-3)/(p(p-1))$ and $\tau=1-z$. Then $D_p$ is the
+indicator of disjoint halves divided by $z$, and the deleted collision
+kernel has constant row and column mass $\tau$. On independent field
+pairs the two-edge character kernel $CH$ has norm $1/p$; restricting
+both halves to distinct pairs costs at most $(1-1/p)^{-1}$. Schur's
+bound on the collision kernel gives
+\[
+ \|D_pCH\|\le\frac{1/(p-1)+\tau}{z}
+ =\frac{5p-6}{(p-2)(p-3)}=s^{\rm G}_p.
+\]
+For the linear term, the singleton embeddings on mean-zero functions
+satisfy $V_i^*V_i=I$ and $V_0^*V_1=V_1^*V_0=-\eta^{\rm G}_p I$.
+If $Kf(x)=\E_y\chi(y-x)f(y)$, then
+$C+H=V_1KV_0^*+V_0KV_1^*$. Orthogonalizing $V_0+V_1$ and
+$V_0-V_1$ gives the two blocks $(1-\eta^{\rm G}_p)K$ and
+$-(1+\eta^{\rm G}_p)K$, so the norm is $(1+\eta^{\rm G}_p)/\sqrt p=\gamma^{\rm G}_p$.
+The collision part has norm at most $2\tau$. Consequently
+\[
+ \|D_p(C+H)\|\le\frac{\gamma^{\rm G}_p+2\tau}{z}=a^{\rm G}_p,
+ \qquad \|P_p^{\rm c}-\Jproj\|\le\alpha^{\rm G}_p:=d_p+s^{\rm G}_p+a^{\rm G}_p.
+\]
+
+\emph{Products over primes.}
+Every operator is Markov in the same actual half law, so it preserves
+the orthogonal decomposition by exact nonconstant prime support.
+For $p\ge2^{24}$ the displayed formulas imply
+\[
+ \alpha^{\rm G}_p\le2p^{-1/2},\quad d_p\le p^{-1/2},\quad
+ s^{\rm G}_p\ge5/p,\quad a^{\rm G}_p\ge4/p,
+ \qquad \rho_p^2+d_p^2\le d_p+\eta^{\rm G}_p,\quad
+ \rho_p^2\le\gamma^{\rm G}_p.
+\]
+For example, the first two follow by substituting
+$r\le2^{-12}$ in their positive rational majorants; the other four
+follow directly after clearing denominators. All the bounds decrease
+with $p$. On singleton supports use the prime bounds. On a support of
+size at least two, the mirror difference has symmetric norm at most
+$\alpha_b^2+d_b^2\le5/b\le s_b$, and skew norm at most
+$\alpha_b^2\le4/b\le a_b$, since the source is self-adjoint. Further
+support factors are contractions. For the first-coordinate difference
+the corresponding bounds are $\rho_b^2+d_b^2$ and $\rho_b^2$.
+Taking the maximum over the orthogonal supports proves the block claims.
+\end{proof}
+
+\begin{corollary}[The six merge prices]\label{cor:merge-repair}
+For a middle piece starting at $X$, set $q_X=1/X$,
+$r_X=1/\lfloor\sqrt X\rfloor$, and
+\begin{align*}
+ g_{\rm S}(X)&=\frac{20}{(1-2q_X)(1-3q_X)}
+                  +\frac4{1-2q_X}+\frac2{1-q_X},\\
+ g_{\rm A}(X)&=\frac{4(1+8r_X)}{(1-2q_X)(1-3q_X)}
+                  +\frac2{1-q_X}.
+\end{align*}
+On a block of that piece, with least prime $b$ and $r=b^{-1/2}$, the six
+merge changes have total symmetric and skew prices at most
+\[
+ w_{\rm R}g_{\rm S}(X)r^4q_\Blk^{2a},\qquad
+ w_{\rm R}g_{\rm A}(X)r^3q_\Blk^{2a},
+\]
+respectively. Their norm envelopes are positive reserved diagonals of
+their actual ordered-distinct-pair half laws.
+\end{corollary}
+
+\begin{proof}
+There are four mirror and two first-coordinate records, each of mass
+$w_{\rm R}r^2$ before the common normalization. In the formulas of
+\cref{lem:merge-repair}, drop the negative numerator corrections and
+use $1/b\le q_X$, $b^{-1/2}\le r_X$. Summing gives the displayed
+coefficients. The charging rule of \cref{rem:cp:charging}(ii) applies
+relative to the unchanged actual half marginals. Omitting the
+division by the reference normalizer (a number $\ge1$, so its
+reciprocal is $\le1$) only enlarges the prices.
+\end{proof}
+
+\begin{certificate}[The merge coefficients]\label{cert:merge-coefficients}
+The coefficients $g_{\rm S}(X)$ and $g_{\rm A}(X)$ are the explicit positive
+rational functions of \cref{cor:merge-repair}; no graph-count approximation
+is needed to define them. At $X=Q_3=19951586$ they are, respectively,
+$26.0000055133\ldots$ and $6.0071663530\ldots$, and they decrease to $26$
+and $6$. The exact checker
+\path{research/four_routes_2026_10_26/pair_transfer/actual_g_mirror_check.py}
+verifies the rational endpoint gates at $p=2^{24}$ and the physical
+marginals, designated edges and mirror identities by exact enumeration
+at $p=7,11,19$. It also checks the source spectral polynomial at $p=7,11$.
+The uniform proof and the operator identities were independently reviewed
+in \path{research/four_routes_2026_10_26/folded_states/INDEPENDENT_ACTUAL_G_MIRROR_REVIEW.md}.
+The original source weights and reference laws are unchanged; these
+coefficients replace only the merge comparison prices.
+\end{certificate}
+
+\begin{lemma}[Accepting two-layer constants]\label{lem:record:accepting-c2}
+Each of the two two-layer constant records of a block can be replaced
+by a positive accepting law with the same actual half marginals. If
+$b\ge7$ is the least prime (as for every middle block) and $r=b^{-1/2}$,
+the symmetric and skew norms of
+the normalized replacement minus the source are at most
+\[
+ \frac{r^2}{(1-1/b)^2},\qquad \frac r{1-1/b},
+\]
+respectively. For a piece starting at $X$, the two records together have
+symmetric and skew prices at most
+\[
+ \frac{2w_{\rm C}}{(1-1/X)^2}r^5q_\Blk^{2a},\qquad
+ \frac{2w_{\rm C}}{1-1/X}r^4q_\Blk^{2a}.
+\]
+Both norm envelopes are uniform one-label reserved diagonals.
+\end{lemma}
+
+\begin{proof}
+Write $(a_p,b_p)$ for the labels of the single object of either
+constant record in layers $0$ and $1$ at the prime $p$ (the labels
+seen at the reserved cut). They are uniform
+ordered distinct labels: this is the one-object marginal of the original
+injective matching law. All six queries read $a_p\to b_p$. Replace this
+law by the uniform strict Paley edge, independently at every prime.
+It is square-affine invariant, accepts all six queries and has the same
+uniform endpoint marginals. The two records give the same physical law,
+but both of their weights are retained.
+
+On uniform field $L^2$, the old and new operators are
+$D_p=\Jproj-\eta_p(I-\Jproj)$ and
+$P_p=D_p+\frac p{p-1}K_p$, where
+$K_pf(a)=\E_b\chi(b-a)f(b)$, $K_p^*=-K_p$ and
+$K_p^*K_p=p^{-1}(I-\Jproj)$. They commute and are normal. On a
+nonconstant complex Fourier mode their eigenvalues are $-\eta_p$ and
+$-\eta_p\pm i\gamma_p$. The singleton-support difference is therefore
+purely skew, of norm $\gamma_p$. On a support of exactly two primes the
+symmetric difference is $\pm\gamma_p\gamma_{p'}$. On a support of size
+at least three its symmetric norm is at most
+$\rho_b^3+\eta_b^3\le\gamma_b^2$; the last inequality follows from
+$(b+1)^{3/2}+1\le b(b-1)$ for $b\ge7$.
+On every support of size at least two the skew norm is at most
+$\rho_b^2\le\gamma_b$. Constants cancel. These exact-support bounds
+prove the asserted whole-block norms without a factor for the number
+of primes. Each original record has mass $w_{\rm C}r^3$ before normalization,
+so the two norm prices follow from \cref{rem:cp:charging}(ii).
+The comparison replacement changes neither the reference nor its first
+stage or Gram bracket.
+\end{proof}
+
+\paragraph{Deletions.}
+The comparison law deletes the six folded merge records
+($6v_{\rm R}r^3$), the polarization correction $G$ of the first stage
+($2v_{\rm D}(f_1+h_1)r^3$), and the two folded constant records
+($2v_{\rm C}r^4$). These are positive records, symmetric at $\iota$
+(the folded ones reserved diagonal), and a deleted positive record is
+charged its mass to the symmetric part only
+(\cref{rem:cp:charging}(i)). The two-layer constant records are replaced
+as in \cref{lem:record:accepting-c2} and are not included in these deletions.
+
+\subsection{The comparison law of a middle block and its prices}
+\label{subsec:middle-comparison}
+
+On a middle block $\Blk$ the comparison law is
+\[
+ \nu_\Blk=\lambda_\Blk+\sum_{t\in\mathcal T_\Blk}\zeta_t,
+\]
+where $\zeta_t$ is the replacement of the record $t$ minus $t$, or minus $t$ if
+$t$ is deleted, each with its weight in $\lambda_\Blk$, divided
+by the normalizing mass $\widetilde\mu_\Blk(1)$ of the reference
+(\cref{lem:front12:reference}). The records $t\in\mathcal T_\Blk$ and their
+replacements are: the two two-layer fold records $F_1,F_2$ (weight
+$w_{\rm D}r$), replaced by the signed records of
+\cref{def:record:mixture}(c),(d); the two two-layer matching records (weight
+$w_{\rm S}r$), replaced by the block laws of \cref{lem:record:exact-marginal-e};
+the six two-layer merge records (weight $w_{\rm R}r^2$), replaced by the repairs
+of \cref{cor:merge-repair}; the two two-layer constant records (weight
+$w_{\rm C}r^3$), replaced by \cref{lem:record:accepting-c2}; and the deleted records listed above. The first
+stage changes only one-layer folded records (\cref{def:record:frame}), so the
+two-layer records enter $\lambda_\Blk$ with the weights of $\mu_\Blk$. The
+retained records of $\nu_\Blk$ are the two-layer root and $F_0$, the folded root
+and the folded $F_0$, the record $E_{\rm new}$ of the first stage, and the
+replacements; each accepts the six queries: the root and $F_0$ contain the edge
+$0\to2$ of the first coordinate in both layers, and so do their diagonal copies
+(on the pieces from $2^{30}$ the root is the positive root of
+\cref{sec:positive-roots}, which has the support of the uniform root and
+accepts the six queries, \cref{lem:positive-root-properties,imp:local:filtered-coherent,cert:positive-root-caps}); $E_{\rm new}$ by
+\cref{lem:record:one-stage-folded-e}; the replacements by
+\cref{lem:signed-components,lem:record:exact-marginal-e,cor:merge-repair,lem:record:accepting-c2}. The
+comparison law of the block is a signed measure,
+\[
+ \nu_\Blk=\nu^+_\Blk-\frac\tlaw2\,w\,\Pi^{--}_{F_1,\Blk}-\frac\tlaw2\,w\,\Pi^{--}_{F_2,\Blk},
+ \qquad w=\frac{w_{\rm D}r}{\widetilde\mu_\Blk(1)},
+\]
+where $\Pi^{--}_{F_1,\Blk}$ and $\Pi^{--}_{F_2,\Blk}$ are the probability records
+placed by $F_1$ and $F_2$ with the laws $\bigotimes_pP_{--,p}$ and
+$\bigotimes_pP^\varsigma_{--,p}$, and $\nu^+_\Blk\ge0$ consists of all other records
+of $\nu_\Blk$, among them the components $\bigotimes_pP_{++,p}$ and
+$\frac\tlaw2\bigotimes_pP_{-+,p}$ of the two signed records.
+
+\begin{lemma}[Comparison prices of a middle block]\label{lem:middle-comparison-prices}
+Let $\Blk$ be a block of the middle piece $i$ starting at $X$, with least prime
+$b\ge X$ and $r=b^{-1/2}$, and evaluate the constants of
+\eqref{eq:signed-constants} and the matching coefficients of
+\cref{lem:record:exact-marginal-e}(ii) at the piece start, at $(q_X,r_X)$ with
+$q_X=1/X$ and $r_X=1/\lfloor\sqrt X\rfloor$. Then
+$\nu_\Blk$ is a finite real combination of the three nonnegative measures
+$\nu^+_\Blk$, $\Pi^{--}_{F_1,\Blk}$ and $\Pi^{--}_{F_2,\Blk}$, each invariant under
+independent square-affine maps at the primes of $\Blk$ and accepting the six
+queries, with $\nu_\Blk(1)>0$ and total variation
+$|\nu|_\Blk\le\nu_\Blk(1)+2\tlaw w$; it satisfies (a)
+of \cref{def:record:comparison-law}, and its changes satisfy (b) there with norm
+envelopes $\operatorname{Diag}_\iota$ of their actual half marginals and prices
+\[
+ s_\Blk\le\bigl(S_2r^2+S_3r^3+S_4r^4+S_5r^5\bigr)q_\Blk^{2a},\qquad
+ a_\Blk\le\bigl(A_2r^2+A_3r^3+A_4r^4\bigr)q_\Blk^{2a},
+\]
+where
+\begin{align*}
+ S_2&=2w_{\rm S}s_E,&
+ A_2&=2w_{\rm D}\ell_\tlaw+2w_{\rm S}a_E,\\
+ S_3&=2w_{\rm D}s_F+6v_{\rm R}+2v_{\rm D}(f_1+h_1),&
+ A_3&=2w_{\rm D}a_F+w_{\rm R}g_{\rm A},\\
+ S_4&=2v_{\rm C}+w_{\rm R}g_{\rm S},&
+ A_4&=\frac{2w_{\rm C}}{1-q_X},\\
+ S_5&=\frac{2w_{\rm C}}{(1-q_X)^2}.&&
+\end{align*}
+with $s_F,a_F,\ell_\tlaw$ of \eqref{eq:signed-constants} (\cref{prop:signed-bounds}),
+$s_E=s_E(X)$, $a_E=a_E(X)$ of \cref{lem:record:exact-marginal-e}(ii), and
+$g_{\rm S}=g_{\rm S}(X)$, $g_{\rm A}=g_{\rm A}(X)$ of \cref{cor:merge-repair}. The auxiliary prices
+(\cref{def:cp5}) of the skew change of each of the two fold records are, times
+$q_\Blk^{2a}$, the raw-arm price $w_{\rm D}r^2$, the leading price
+$w_{\rm D}\ell_\tlaw r^2$ and the remainder price $w_{\rm D}a_Fr^3$; those of each
+of the two matching records are $w_{\rm S}r^2$, $w_{\rm S}r^2/(1-q_X)$ and
+$w_{\rm S}r_Er^4$, with $r_E=r_E(X)$ of \cref{lem:oct24:matching-star}. Summed over
+the two records of each kind they are $2w_{\rm D}r^2$, $2w_{\rm D}\ell_\tlaw r^2$,
+$2w_{\rm D}a_Fr^3$ and $2w_{\rm S}r^2$, $2w_{\rm S}r^2/(1-q_X)$, $2w_{\rm S}r_Er^4$.
+Every selected law of these changes is admissible (\cref{def:admissible}).
+\end{lemma}
+
+\begin{proof}
+Dividing by $\widetilde\mu_\Blk(1)\ge1$ only decreases the weights, so it suffices to
+charge the unnormalized ones. \emph{Decomposition and (a).} The records of
+$\lambda_\Blk$ that the comparison law keeps, the replacements of the matching
+and merge records, the accepting two-layer constants, and the components $\bigotimes_pP_{++,p}$, $\frac\tlaw2\bigotimes_pP_{-+,p}$
+of the two signed records are nonnegative measures; their sum is $\nu^+_\Blk$,
+and $\nu_\Blk(1)=\nu^+_\Blk(1)-\tlaw w$, which gives the total variation. The
+two-layer root has weight one in $\widetilde\mu_\Blk$ and is retained, so
+$\nu^+_\Blk(1)\ge1/\widetilde\mu_\Blk(1)$ and
+$\nu_\Blk(1)\ge(1-\tlaw w_{\rm D}r)/\widetilde\mu_\Blk(1)>0$, as $w_{\rm D}<6$
+(\cref{rem:middle-weights}, \cref{tab:data:middle-weights}) and $r<2^{-12}$. Every
+record and component is invariant under independent square-affine maps at the
+primes of $\Blk$ (\cref{lem:signed-components}(a),(d), \cref{lem:record:e-law}(a),
+\cref{cor:merge-repair,lem:record:accepting-c2}; for the unchanged records \cref{lem:front12:reference}
+and \cref{lem:record:one-stage-folded-e}), so its one-slot marginals are uniform
+and its queried pairs are its mass times the uniform law on strict-square pairs; and each accepts
+the six queries, as listed above. This is (a) and the clause \ref{it:record:R5}
+for each of the three components. \emph{Prices.} Each replacement has the same
+actual half marginals on both halves of $\iota$ as the record it replaces, so
+\cref{rem:cp:charging}(ii) charges it its weight times the norms of the symmetric
+and skew parts of the difference; for the signed records the proof of (ii) uses
+only that the new record has mass one and the half marginals of the old one,
+not that it is nonnegative. The two fold records cost at most
+$w_{\rm D}r\cdot s_Fr^2$ and $w_{\rm D}r\cdot(\ell_\tlaw r+a_Fr^2)$ each
+(\cref{prop:signed-bounds}(a),(b),(e)), the two matching records
+$w_{\rm S}r\cdot s_Er$ and $w_{\rm S}r\cdot a_Er$ each
+(\cref{lem:record:exact-marginal-e}(ii)), and the six merge records together
+$w_{\rm R}g_{\rm S}r^4$ to the symmetric part and $w_{\rm R}g_{\rm A}r^3$ to the skew
+part (\cref{cor:merge-repair}). The two-layer constants add $S_5r^5$ and
+$A_4r^4$, respectively (\cref{lem:record:accepting-c2}). The deleted records are
+charged their masses to the symmetric part (\cref{rem:cp:charging}(i)). The skew
+change of a fold record splits into its leading three-arm star, of norm at most
+$\ell_\tlaw r$ with arms of norm at most $r$ (\cref{prop:signed-bounds}(b),
+\cref{lem:actual-features}(e)), and a remainder of norm at most $a_Fr^2$; that of
+a matching record into its one-arm star, of norm at most $r/(1-q_X)$ with arm
+norm at most $r$, and a remainder of norm at most $r_Er^3$
+(\cref{lem:oct24:matching-star}); times the weights these are the auxiliary
+prices. The coefficients are evaluated at the piece start and bound the norms at
+every block of the piece (\cref{lem:majorant}, the constants being
+nondecreasing in $(q,r)$), and the weights and the row constants $f_1,h_1$ are
+those of the piece (\cref{lem:record:local-domain}(iii)). \emph{Admissibility.}
+The changes are invariant signed measures on the field labels only, independent
+of the indices, so (O1) holds; and the only operator bounds applied to them are
+their own norms at $\iota$, with no shared label, so (O2) holds.
+\end{proof}
+
+Summing over the blocks of each piece with the charges of
+\cref{lem:record:block-charge} and over the pieces gives the middle parts of $S$
+and $A$ and the totals of the auxiliary prices directly. In the piece $i$, with
+start $X_i$, weights $w_{{\rm D},i}=w_{{\rm S},i}$, the coefficients of
+\cref{lem:middle-comparison-prices} at $X_i$, and the certified degree charges
+$\bar I_{d,i}\ge\sum_\Blk b_\Blk^{-d/2}q_\Blk^{2a_0}$ of \cref{tab:record:middle-pieces},
+the prices at the anchor $a_0$ are
+\begin{equation}\label{eq:middle-piece-prices}
+\begin{aligned}
+ &A^{\rm arm}_{F,i}=\operatorname{up}(2w_{{\rm D},i}\bar I_{2,i}),\quad
+  A^{\rm lead}_{F,i}=\operatorname{up}(2w_{{\rm D},i}\ell_\tlaw(X_i)\bar I_{2,i}),\quad
+  A^{\rm rem}_{F,i}=\operatorname{up}(2w_{{\rm D},i}a_F(X_i)\bar I_{3,i}),\\
+ &S_{F,i}=\operatorname{up}(2w_{{\rm D},i}s_F(X_i)\bar I_{3,i}),\qquad
+  A_{F,i}=A^{\rm lead}_{F,i}+A^{\rm rem}_{F,i},\\
+ &A^{\rm arm}_{E,i}=\operatorname{up}(2w_{{\rm S},i}\bar I_{2,i}),\quad
+  A^{\rm lead}_{E,i}=\operatorname{up}\Bigl(\frac{2w_{{\rm S},i}\bar I_{2,i}}{1-q_{X_i}}\Bigr),\quad
+  A^{\rm rem}_{E,i}=\operatorname{up}(2w_{{\rm S},i}r_E(X_i)\bar I_{4,i}),\\
+ &A_{E,i}=2\operatorname{up}(w_{{\rm S},i}a_E(X_i)\bar I_{2,i}),\qquad
+  S_{E,i}=\operatorname{up}(2w_{{\rm S},i}s_E(X_i)\bar I_{2,i}),\\
+ &S_{{\rm oth},i}=\sigma_{s,i}+S^{\rm oth}_{3,i}\bar I_{3,i}
+       +S_{4,i}\bar I_{4,i}+S_{5,i}\bar I_{3,i}/X_i,\\
+ &A_{{\rm oth},i}=\sigma_{a,i}+w_{{\rm R},i}g_{\rm A}(X_i)\bar I_{3,i}
+       +A_{4,i}\bar I_{4,i},
+\end{aligned}
+\end{equation}
+with $\operatorname{up}(x)=10^{-30}\lceil10^{30}x\rceil$ and
+$S^{\rm oth}_3=S_3-2w_{\rm D}s_F=6v_{\rm R}+2v_{\rm D}(f_1+h_1)$.
+Here $\sigma_{s,i},\sigma_{a,i}\in[0,10^{-30})$ are the rounding
+slacks of the corresponding merge and two-layer-constant rows of
+the authenticated middle-price source named in
+\cref{def:closing-quantities}(3): each is its stored upward
+rounding minus its exact unrounded expression. Keeping these
+slacks makes the update an exact rational replacement of the
+two-layer constant and merge contributions as stored there. The degree-five charge needs no new prime enumeration,
+since $b^{-5/2}\le X_i^{-1}b^{-3/2}$.
+The totals at the exponent $a$ are $t$ times the sums over the $33$ pieces,
+$t=e^{2(a-a_0)L}$ with $L=570$ (\cref{lem:record:repricing},
+\cref{def:closing-quantities}): $A^{\rm arm}_F=t\sum_iA^{\rm arm}_{F,i}$ and so on for
+$A^{\rm lead}_F$, $A^{\rm rem}_F$, $A_F$, $S_F$, $A^{\rm arm}_E$, $A^{\rm lead}_E$,
+$A^{\rm rem}_E$, $A_E$, $S_E$, $S_{\rm oth}$ and $A_{\rm oth}$, with the middle totals
+$S_{\rm mid}=S_F+S_E+S_{\rm oth}$ and $A_{\rm mid}=A_F+A_E+A_{\rm oth}$. The merge and constant replacements have different symmetric and skew
+prices, as displayed in \eqref{eq:middle-piece-prices}. The full skew
+price $A_E$ of the matching records is bounded directly; $A_F$ is the sum of the
+leading and remainder prices, and $A^{\rm lead}_F\ge A^{\rm arm}_F$,
+$A_E\ge A^{\rm arm}_E$ (\cref{cert:signed-local}). At the density-linear
+baseline exponent $a=\PushA$, the following conservative upper totals
+remain valid: the generic symmetric and skew prices
+$S_{{\rm oth},i}$ and $A_{{\rm oth},i}$ in \eqref{eq:middle-piece-prices} are each no larger than the corresponding generic rows of
+\cref{def:closing-quantities}(3). The totals at $a$, which are the
+baseline totals used in \cref{sec:closing}, are
+$A^{\rm arm}_F=A^{\rm arm}_E<0.42332183839047$,
+$A^{\rm lead}_F<0.53897233394172$,
+$A^{\rm rem}_F<0.00005658950959$,
+$A_F<0.53902892345131$,
+$A^{\rm lead}_E<0.42332183982722$,
+$A^{\rm rem}_E<1.436778E-8$,
+$A_E<0.42332184557419$,
+$S_F<0.00013191008864$,
+$S_E<0.00003092662078$,
+$S_{\rm oth}<0.00052581574396$,
+$A_{\rm oth}<0.00023870593198$,
+$S_{\rm mid}<0.00068865245337$ and
+$A_{\rm mid}<0.96258947495747$
+(\path{research/push_2026_10_25/artifacts/author.json}, key
+\texttt{raw\_totals}; \cref{tab:data:prices}). The final construction
+uses the smaller prices in \eqref{eq:middle-piece-prices} and also
+retains the common reference normalization; its complete new totals
+are given in \cref{sec:four-routes-closing}.
+
+\paragraph{Consequences and what to read next.}
+From Part~II: \cref{lem:majorant} (evaluation at the piece start),
+\cref{lem:sector} (sectors of block differences, Markov tensor maximum, the
+closing clause of (b) and the two-support step (h)) and
+\cref{rem:signed-mixture-sectors} (signed sums of products),
+\cref{def:admissible}, and the Weil bound \cref{thm:weil}. From Part~III: the
+signed comparison laws of \cref{def:cp4}, the auxiliary prices of
+\cref{def:cp5}, the charging rules \cref{rem:cp:charging}, the energy toolkit
+\cref{lem:energy-toolkit} (for \cref{lem:record:old-f-marginal}(d)),
+\cref{lem:record:repricing}. From Part~IV:
+\cref{lem:record:fold-identification} (the records at $\iota$ and their half
+marginals),
+\cref{lem:paley-triple} (Paley counts, the Paley operator, directed triples and
+their features), \cref{lem:spec:affpair} (invariant functions),
+\cref{lem:extension,lem:graphs:sequential} (count errors),
+\cref{sec:frontier:empty-triple-negative} (the disjoint-triple operator),
+\cref{prop:middle-negative,cor:influence-schur} (correlations of the merge graph
+laws), \cref{lem:record:actual-correlation,lem:record:projection} (actual marginals,
+projected kernels), and the repair package
+\cref{lem:tr:repair,cor:markov-completion}.
+From \cref{sec:middle-reference,sec:middle-frame}: the reference
+(\cref{lem:front12:reference}) and its weights (\cref{rem:middle-weights}), the
+frame (\cref{def:record:frame}), the block charges, the local domain and the
+recorded F21 caps (\cref{lem:layer12-caps}); from \cref{sec:positive-roots}, the support of the
+positive root. Data and certificates:
+\cref{cert:record:middle-geometry,cert:signed-local,cert:merge-coefficients,cert:record:old-f-cap,cert:record:e-coefficients};
+the totals of \cref{tab:data:prices}.
+
+\paragraph{Hypotheses verified in this section (\cref{tab:hypotheses}).} (CP4) for the middle atoms, that is,
+the signed decomposition of $\nu_\Blk$ into nonnegative accepting components with
+uniform one-slot marginals, its variation and \ref{it:record:R5}, and the
+brackets of every change with the prices and auxiliary prices of
+\cref{lem:middle-comparison-prices}; the negative cap $k_{\rm D}=k_{\rm D}(X,L)$ used
+in (CP1) for the middle atoms (\cref{lem:old-f-law}(e)); the centred norm
+$\kappa_F$ used by the variance credits (\cref{lem:record:old-f-marginal}); the
+direct-Gram coefficient $d_\tlaw$ (\cref{prop:signed-bounds}(d)); and the
+admissibility clause (CP8)(a) for the changes of the middle records.

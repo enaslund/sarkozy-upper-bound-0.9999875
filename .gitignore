@@ -1,0 +1,30 @@
+# Dependencies and compiled Lean artifacts
+**/.lake/
+*.olean
+*.ilean
+*.olean.server
+*.olean.private
+
+# Local environments, logs and TeX intermediates
+.venv/
+__pycache__/
+*.pyc
+*.log
+*.aux
+*.bbl
+*.blg
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+.DS_Store
+
+# Local configuration and credentials
+.env
+.env.*
+*.pem
+*.key
+
+# Local build directories
+_build/

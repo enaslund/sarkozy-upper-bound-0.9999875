@@ -1,0 +1,1305 @@
+
+\section{Middle primes II: reweighting the principal law on seven intervals}
+\label{sec:positive-roots}
+
+\paragraph{What this section proves and how to read it.}
+On seven middle intervals from $2^{30}$ onward, the uniform
+twelve-label law has spectral bound $g\to\sqrt{30}$, which forces
+completion weights too large for $\Theta<1$. This section
+reweights it by an explicit nonnegative function (a \emph{tilted
+law}, called a \emph{positive root} in the text) that preserves
+support and one-slot marginals and improves the bound to
+$g(\lambda)<\sqrt{30}$ (where $\lambda=2\ulaw/(1+\ulaw^2)$ in
+terms of the tilt parameter $\ulaw$ of
+\cref{def:positive-root}, and $g(\lambda)$ is the leading
+coefficient defined there), at the price of a larger bound at a
+second
+cut and a changed one-half marginal, both bounded here. The other
+$26$ intervals use the uniform law of \cref{sec:middle-reference};
+the choice of which intervals are reweighted is part of the
+construction (\cref{sec:design}). Inputs: \cref{sec:middle-reference}
+and Part~IV trace estimates. Outputs: the two cut bounds and
+marginal controls used in \cref{sec:middle-frame}. A first reading
+should follow the definition and the two bound statements; the
+pair-score calculations are reference material.
+On seven pieces of the middle range, from $2^{30}$ onward, the two-layer
+root is a positive reweighting of the uniform twelve-label law. Six pieces
+use individual squares of the three quartic pair scores; the last uses
+39 coherent traces, with a positive floor. The support, invariance under the chamber
+reflections and layer swap of \cref{lem:layer12-geometry}(a) and uniform
+one-slot marginals are preserved. We bound the
+chamber and layer operators in the fixed uniform induced-half charts
+used by \cref{sec:middle-frame}, and give the actual marginal variance
+and range needed by \cref{lem:record:root-marginal}(iv).
+The pair-score toolkit is proved first; then come the sharper
+collision bound on the two protected subspaces, the interpolation
+between the pair bounds for the actual (physical) kernel
+(\cref{imp:env:physical-interpolation}), the
+layer remainder summed without expanding all monomials
+(\cref{imp:env:layer-resummation}), and the
+finite bounds for the coherent law. The seven endpoint caps
+$g,c^+$ are in \cref{cert:positive-root-caps}. These caps
+determine the completion
+weights $w_{\rm D}$ and $v_{\rm L}$.
+
+The reason for the tilt is visible in the leading matrices. The negative cap of L20 of
+the uniform root tends to $\sqrt{30}$, the norm of the complete star matrix of its soft
+kernel (\cref{lem:l20-star-matrix}), and through the completion inequality
+$w_{\rm D}\ge d$ of \cref{lem:front12:reference}(iii), where $d$ is the block cap
+of L20, this cap fixes the first-order weights $w_{\rm D}=w_{\rm S}$ of the
+reference. The linear part $2\ulaw\Hbar$ of a tilt adds to that matrix a coupling of the
+pairs of opposite base labels, and the eigenvector of the least eigenvalue has a component along
+this coupling; the least eigenvalue rises to $-g(\lambda)$ with $g(\lambda)<\sqrt{30}$
+(\cref{lem:root-pair-matrix}). This gain is at order one in the coefficient of $r$. The
+costs are of order $r$: the layer cut of the tilted root has a larger cap,
+which enters the reference only through the larger one-layer weight $v_{\rm L}$
+it forces (\cref{rem:middle-weights}), and the half marginal of the root changes,
+which the restorations pay through its range ratio and its chi-square.
+
+\emph{Conventions.} Those of \cref{sec:middle-reference}. Throughout $p\equiv3\pmod4$,
+$q=1/p$, $r=p^{-1/2}$, every space carries a probability measure, $\ulaw\ge0$ is
+rational, and $P_0$ is the projection onto mean-zero functions.
+In \cref{imp:local:collision-gap} the same centering $P_0$ is written $Q$,
+with protected subspaces $P_{\rm c},P_{\rm p}$ defined there. For an operator $T$ with
+a kernel on a product of two spaces and a function $f$ on that product, $T\circ f$ is the
+operator whose kernel is the pointwise product of the kernel of $T$ with $f$, as in
+\cref{lem:swapped-rectangle,lem:tilt-marginals}.
+
+\subsection{The tilted law $\Gamma_{p,\ulaw}$}\label{subsec:positive-root-law}
+
+On seven middle intervals the uniform twelve-label law is
+reweighted (tilted) by an explicit sum of squares, hence by a
+nonnegative weight with the same support. This one-parameter
+family is the positive root; the definition fixes the weight and
+the parameter value used on each interval.
+
+\begin{definition}[Positive roots]\label{def:positive-root}
+Let $x$ be a labelling of the twelve vertices $(u,\ell)$ of $G_{\rm L,2}$ at the
+prime $p$. For $j\in\{0,1,2\}$ let
+\[
+ \Hs j(x)=r\sum_{z\in\Fp}\chi\Bigl(\prod_{u\in\{j,j+3\}}\ \prod_{\ell\in\{0,1\}}
+ (z-x_{u,\ell})\Bigr)
+\]
+be the normalized trace score of the opposite base pair $\{j,j+3\}$, and
+$\Hbar=(\Hs0+\Hs1+\Hs2)/3$. For rational $\ulaw\ge0$ the
+\emph{individual-square positive root} is
+\begin{equation}\label{eq:positive-root}
+ \Gamma_{p,\ulaw}=\frac{w_\ulaw}{\E w_\ulaw}\,\lambda_p(G_{\rm L,2}),\qquad
+ w_\ulaw=\frac13\sum_{j=0}^2(1+\ulaw\Hs j)^2,
+\end{equation}
+the expectation being under $\lambda_p(G_{\rm L,2})=\Gamma_{p,0}$. Thus
+\[
+ w_\ulaw=1+2\ulaw\Hbar+\ulaw^2 V,
+ \qquad V=\frac13\sum_j\Hs j^2.
+\]
+We put $\gamma=\ulaw^2$, $s=1+\gamma$ and $\lambda=2\ulaw/s$,
+the \emph{strength} of the tilt. On a block,
+$\Gamma_{\Blk,\ulaw}=\bigotimes_{p\in\Blk}\Gamma_{p,\ulaw}$. The selected construction uses individual squares on the six successive
+middle pieces starting at $2^{30},2^{31},2^{32},2^{34},2^{36},2^{40}$, with parameters
+$711/4096$, $1021/4096$, $1455/4096$, $833/1024$, $3851/4096$, $4049/4096$,
+respectively. On $[2^{45},P_3)$ it uses instead
+\[
+ \Gamma_{p,\ulaw}=
+ \frac{1/100+(1+\ulaw H_{\mathcal D_{39}})^2}
+ {\E[1/100+(1+\ulaw H_{\mathcal D_{39}})^2]}
+ \,\lambda_p(G_{\rm L,2}),\qquad \ulaw=67/40,
+\]
+where $H_{\mathcal D_{39}}=\sum_{S\in\mathcal D_{39}}c_SH_S$
+with coefficients $c_S\in\{\pm1/15\}$ and $H_S$ the trace
+function of the support $S$; the list $\mathcal D_{39}$ of $39$
+subsets (``supports'') of the twelve label positions, with the
+signs $c_S$, is defined in \cref{imp:local:filtered-coherent}. All expectations normalising
+these weights are under the uniform law $\lambda_p(G_{\rm L,2})$.
+Below $2^{30}$ the principal law remains uniform.
+\end{definition}
+
+Why squares of the individual scores, rather than the square
+$(1+\ulaw\Hbar)^2$ of their average? The two weights have the same
+linear term $2\ulaw\Hbar$, but the square of the average also
+contains the mixed products $\Hs j\Hs k$ ($j\ne k$), whose cut
+operators are harder to bound; the individual-square weight
+avoids them. On the last interval such products are instead
+included in a controlled form: the score $H_{\mathcal D_{39}}$ is
+one symmetrised list of trace functions, invariant under all
+chamber reflections and the layer swap, so that the same tilted
+law can be bounded at every sorting cut. It is called the
+\emph{coherent} law for this reason, and the list of supports
+with their coefficients is called its \emph{dictionary}.
+
+The three base pairs are $\{0,3\}$, $\{1,4\}$ and $\{2,5\}$: each consists of a base of the
+even component $\{0,2,4\}$ of $G_{\rm L,2}$ and a base of the odd component $\{1,3,5\}$, and
+a score is a quartic character sum over the four labels of the pair, two in each layer.
+
+\begin{lemma}[Properties of the positive roots]\label{lem:positive-root-properties}
+Let $\Gamma_{p,\ulaw}$ be the individual-square root of
+\eqref{eq:positive-root}. The coherent root has the separate admissibility statement of
+\cref{lem:imp:coherent39-law}.
+\begin{enumerate}[label=(\alph*)]
+\item On the support of $\Gamma_{p,0}$ every score lies in $r\Z$ and satisfies
+ $|\Hs j|\le2+r$, and $w_\ulaw>0$. Hence $\Gamma_{p,\ulaw}$ is a probability law with the
+ support of $\Gamma_{p,0}$, and it accepts the six queries.
+\item The chamber reflections $u\mapsto k-u$ ($k\in\{1,3,5\}$) and the translation
+ $u\mapsto u+2$ permute the three scores, and the layer swap $\ell\mapsto1-\ell$ and every
+ map $z\mapsto\alpha z+\beta$ of the labels with $\alpha\ne0$ fix each of them. Hence
+ $\Gamma_{p,\ulaw}$, and $\Gamma_{\Blk,\ulaw}$ on a block, is invariant under the maps of
+ \cref{lem:layer12-geometry}(a) and under the square-affine maps, and every slot is
+ uniform.
+\item At the chamber cut $\vartheta_0$, with plus half $(a,b,c)$ on the objects
+ $0,1,2$ and reflected half $(a',b',c')$ on the objects $5,4,3$, the scores pair $a$
+ with $c'$, $b$ with $b'$ and $c$ with $a'$; the reflection exchanges $\Hs0$ and $\Hs2$
+ and fixes $\Hs1$. At the layer cut $\iota$ each score selects in each layer one label of
+ each of the two components of $G_{\rm L,2}$, at the same bases.
+\end{enumerate}
+The half marginals of $\Gamma_{p,\ulaw}$ differ from the uniform induced half laws at
+order $r$, as quantified in \cref{prop:root-chamber,prop:root-layer}; all caps
+below are proved in those fixed uniform half charts, which are the
+diagonal measures of the completion.
+\end{lemma}
+
+\begin{proof}
+(a) On the support all twelve labels are distinct, so the four labels of a base pair are
+distinct. The sum in $\Hs j$ is an integer, and \cref{thm:weil}(b) with $t=4$ bounds its
+modulus by $2\sqrt p+1$; hence $\Hs j\in r\Z$ and $|\Hs j|\le2+r$. Let $\ulaw>0$. If
+$1+\ulaw\Hs j=0$ with $\Hs j=rn$, $n\in\Z$, then $\sqrt p=-\ulaw n$ would be rational;
+so every square in $w_\ulaw$ is strictly positive on the support (and
+$w_0=1$), $\E w_\ulaw>0$, and $\Gamma_{p,\ulaw}$ has the support of $\Gamma_{p,0}$.
+Acceptance of a query is a property of the support, and $\Gamma_{p,0}$ accepts the six
+queries.
+
+(b) $\Hs j$ depends only on the four labels on the vertices $(u,\ell)$ with
+$u\in\{j,j+3\}$, symmetrically. The map $u\mapsto k-u$ sends $\{j,j+3\}$ to
+$\{k-j,k-j+3\}$ and $u\mapsto u+2$ sends it to $\{j+2,j+5\}$ (indices mod $6$), both base
+pairs; the layer swap fixes the vertex set of each base pair. Under $z\mapsto\alpha z+\beta$
+the substitution $z=\alpha z'+\beta$ in the defining sum multiplies the product by
+$\alpha^4$, and $\chi(\alpha^4)=1$. The weight $w_\ulaw$ is a symmetric function of
+$(\Hs0,\Hs1,\Hs2)$, so every map that preserves $\Gamma_{p,0}$ and permutes the scores
+preserves $w_\ulaw$ and $\Gamma_{p,\ulaw}$. The maps of \cref{lem:layer12-geometry}(a) are
+automorphisms of $G_{\rm L,2}$ and preserve its uniform labelling law, and so do the
+square-affine maps, which preserve strict squareness of differences; a block law is a
+product. Translations act transitively on the labels, so every slot is uniform
+(\cref{lem:marginals}).
+
+(c) At $\vartheta_0$ the reflection is $u\mapsto5-u$, so the objects $0,1,2$ of the plus
+half face $5,4,3$. The base pairs $\{0,3\}$, $\{1,4\}$, $\{2,5\}$ therefore join $a$
+with $c'$, $b$ with $b'$ and $c$ with $a'$, and $u\mapsto5-u$ maps $\{0,3\}$ to $\{2,5\}$
+and $\{1,4\}$ to itself. At $\iota$ the plus half is the layer $\ell=0$, and the base pair
+$\{j,j+3\}$ has one base in each component.
+\end{proof}
+
+\subsection{The chamber symmetry for the tilted law}\label{subsec:positive-root-chamber}
+
+This subsection proves the cap of the chamber cut L20 of a positive root. The proof
+follows that of \cref{subsec:middle-l20} for the uniform root: the soft kernel is a
+swapped rectangle, its leading part is a complete star matrix synthesized by the actual
+frame, and everything else is a remainder of order $q$. The tilt adds to the leading
+part one exact matrix term, the coupling of the pair features by the linear term
+$2\ulaw\Hbar$ (\cref{lem:root-pair-matrix}); its square terms are, up to order $q$,
+multiples of the untilted kernel (\cref{lem:root-square}); the
+linear term has an explicit remainder (\cref{lem:root-linear}); and the normalization,
+the half marginal and the pointwise conditional score mean are bounded in
+\cref{lem:root-normalization}. All estimates are written so that they can be evaluated
+at a prime endpoint and hold for every larger prime.
+
+\paragraph{The chart.}
+At $\vartheta_0$ the half graph of the root is $G_{\rm F,2}$
+(\cref{lem:layer12-geometry}(b)), and the half reference is
+$\mu_p=\lambda_p(G_{\rm F,2})=\lambda_{F,p}$, the uniform law on injective tuples
+$x=(a_0,a_1,b_0,b_1,c_0,c_1)$ with $a_i\to c_j$. We use the notation of
+\cref{subsec:middle-l20}: the \emph{core} $C=(a_0,a_1,c_0,c_1)$ and the \emph{pair}
+$b=(b_0,b_1)$ of $x$; the independent laws $\mu^{\rm core}$ (the uniform law of the
+admissible cores, injective directed copies of $K_{2,2}$) and $\mu^{\rm pair}$ (the uniform
+law of the ordered distinct pairs) of \cref{prop:l20-rectangular}; and the features
+$V_k$, $W_S$, $\mathbf u,\mathbf v,\mathbf w,\mathbf z,\mathbf e$ of
+\cref{lem:l20-star-matrix}, the same formulas defining them on $\mu_p$ and on
+$\mu^{\rm core}\otimes\mu^{\rm pair}$. The law $\mu_p$ is $\mu^{\rm core}\otimes\mu^{\rm pair}$
+conditioned on $b\cap C=\emptyset$, an event of probability
+\[
+ h_p=\frac{(1-4q)(1-5q)}{1-q}\ \ge\ h'_p=(1-4q)(1-5q),
+\]
+and $J_\mu\colon L^2(\mu_p)\to L^2(\mu^{\rm core}\otimes\mu^{\rm pair})$ denotes its
+isometric embedding (\cref{lem:restriction}(a)). The rectangle of
+\cref{prop:l20-rectangular} is built from $\mathsf K(z,C)$,
+$\bar{\mathsf K}(C)=\E_z\mathsf K(z,C)$, $\mathsf R(C;b)=\mathsf K(b_0,C)\mathsf K(b_1,C)$ and
+$\mathfrak r=\mathsf R\one$:
+\[
+ \mathsf R=\mathfrak r\otimes\one+\mathsf R_\star+\mathsf R_\circ,\qquad
+ \mathsf R_\star=r\bigl(\sqrt{30}\,\mathbf z\mathbf v^*+2\mathbf w\mathbf e^*\bigr),\qquad
+ \|\mathsf R_\circ\|\le N_A,\qquad\mathsf R_\circ\one=\mathsf R_\circ^*\one=0
+\]
+\eqref{eq:l20-rectangle}, with $\|\mathbf z\|^2\le g_{\mathbf z}$,
+$\|\mathbf w\|,\|\mathbf v\|,\|\mathbf e\|\le1$ (\cref{prop:l20-rank4}) and
+$\|\mathsf R_\star\|\le k_4r$ (\cref{prop:l20-rectangular}(b)), and $\mathsf R^*\one=\E\mathfrak r$
+is constant. The soft L20 kernel
+on $L^2(\mu^{\rm core}\otimes\mu^{\rm pair})$ is
+$K_{\rm soft}=T[\mathsf R,\mathsf R]=(\mathsf R\otimes\mathsf R^*)\operatorname{Swap}$
+\eqref{eq:l20-swap}, with kernel $\mathsf R(C;b')\mathsf R(C';b)$ at a pair of halves
+$x=(C,b)$, $x'=(C',b')$. Further
+\begin{gather*}
+ Z_4=(1-q)(1-3q)(1-7q),\qquad\eta=11r+2q,\qquad c_0=\frac4{1-q}+2q,\\
+ \mathfrak r_+=\frac{(1+\eta)^2}{1-q},\qquad\mathfrak r_-=(1-\eta)(1-\eta-16q),
+\end{gather*}
+so that $\mathfrak r_-\le\mathfrak r\le\mathfrak r_+$, as $|\bar{\mathsf K}-1|\le\eta$
+(\cref{prop:l20-rectangular}(d)). We write $\mathfrak r_2=s_p\ge\|\mathfrak r\|_2$ for the
+bound of \cref{prop:l20-rectangular}(d), $\mathfrak m_+\ge|\E\bar{\mathsf K}-1|$ for that of
+\cref{prop:l20-rank4}, $\Gamma_{20}\ge\|\mathcal F\|^2$ for the frame cap of
+\cref{lem:l20-star-matrix}(b) ($\mathcal F$ the synthesis of the eighteen features on
+$L^2(\mu_p)$, in the coefficient space of \cref{lem:l20-star-matrix}), $N_A$, $D_{\rm bal}$
+and $\eps_Z$ for the caps and the normalizer error of
+\cref{prop:l20-rectangular,prop:l20-collisions}, $\chi^+_p\ge\|T_0\one-\one\|^2$ for the
+root-half chi-square bound of \cref{subsec:middle-l20} (\cref{lem:record:root-marginal}(ii)),
+and $R_p$ for that of \cref{lem:record:root-marginal}(i). For a feature map $Y$ on
+$\mu^{\rm core}\otimes\mu^{\rm pair}$ and the same map $Y_\mu$ on $\mu_p$,
+$J_\mu^*Y=\sqrt{h_p}\,Y_\mu$ (\cref{lem:restriction}(a)); hence a leading operator
+$YMY'^*$ of the soft kernel becomes $Y_\mu MY_\mu'^*$ under the compression
+$h_p^{-1}J_\mu^*(\cdot)J_\mu$, with no factor $h_p^{-1}$, which only norm
+remainders pay.
+
+The cut operator of the uniform root on $L^2(\mu_p)$ is the operator $T$ of
+\cref{subsec:middle-l20}, which we write $T_0$:
+\[
+ T_0=K_0/Z_0,\qquad K_0=K^\mu_{\rm soft}-T_{\rm coll},\qquad
+ K^\mu_{\rm soft}=h_p^{-1}J_\mu^*K_{\rm soft}J_\mu ,
+\]
+where $K^\mu_{\rm soft}$ is the soft kernel as an operator on $L^2(\mu_p)$, $T_{\rm coll}$ is
+its restriction to the pairs of halves with a common label, a nonnegative kernel with
+$\|T_{\rm coll}\|\le D_{\rm bal}$ (\cref{prop:l20-collisions}(a)), and
+$Z_0=\ip\one{K_0\one}\ge1-\eps_Z$ (\cref{prop:l20-completion,prop:l20-rectangular}); on
+cross-injective pairs every factor of the soft kernel is $0$ or $2$, so the \emph{raw
+kernel} $K_0$ is $2^{16}$ times the indicator that $(x,x')$ join to a
+labelling of $G_{\rm L,2}$. By
+\cref{lem:spec:cutkernel}(f) the cut operator of $\Gamma_{p,\ulaw}$ on $L^2(\mu_p)$ is
+\[
+ T_\ulaw=\frac{T_0\circ w_\ulaw}{\E_{\Gamma_{p,0}}w_\ulaw}
+ =\frac{K_0\circ w_\ulaw}{\ip\one{(K_0\circ w_\ulaw)\one}},
+\]
+self-adjoint because $w_\ulaw$ is invariant under the reflection
+(\cref{lem:positive-root-properties}(c)).
+
+\paragraph{The scores as kernels.}
+For a pair $y=(y_0,y_1)$ of labels put $\psi_y(z)=\chi(z-y_0)\chi(z-y_1)$. By
+\cref{lem:positive-root-properties}(c), at $\vartheta_0$
+\[
+ \Hs0(x,x')=\frac1r\E_z\psi_a(z)\psi_{c'}(z),\qquad
+ \Hs1(x,x')=\frac1r\E_z\psi_b(z)\psi_{b'}(z),\qquad
+ \Hs2(x,x')=\frac1r\E_z\psi_c(z)\psi_{a'}(z),
+\]
+where $a,b,c$ are the pairs of $x$ and $a',b',c'$ those of $x'$; so the multiplier of a
+score is a scalar product of rows of raw pair maps, the setting of
+\cref{lem:swapped-rectangle}(d), and we call $\Hs0,\Hs2$ the \emph{core scores} and $\Hs1$
+the \emph{private score}. Let $\mathcal U_a=W_{01}/r$ and $\mathcal U_c=W_{45}/r$ be the
+normalized pair features of the core and $\mathcal U_b=W_{23}/r=\mathbf e$ that of the
+private pair. Since $\E_z\psi_y(z)=-q$ for distinct labels, $W_{01}$ has the kernel
+$\psi_a(z)+q$ on mean-zero label functions, and
+\begin{equation}\label{eq:root-score-feature}
+ \Hs0=r\,\mathcal U_a\mathcal U_c^*+qr,\qquad
+ \Hs1=r\,\mathcal U_b\mathcal U_b^*+qr,\qquad
+ \Hs2=r\,\mathcal U_c\mathcal U_a^*+qr
+\end{equation}
+as kernels on the half, the term $qr$ denoting the constant kernel
+$qr\,\one\otimes\one$. In the coefficient space of \cref{lem:l20-star-matrix} the three couplings
+are $e_{01}e_{45}^*$, $e_{23}e_{23}^*$ and $e_{45}e_{01}^*$.
+
+\begin{lemma}[The pair-feature matrix of a tilt]\label{lem:root-pair-matrix}
+In the coefficient space of \cref{lem:l20-star-matrix}, with orthonormal coordinates $e_i$
+($0\le i\le5$) and $e_S$ (the twelve supports) and $\Phat$ specialized to $i$
+(\cref{rem:realified-gates}), let $M$ be the star matrix of the soft L20 kernel and, for
+$\lambda\ge0$,
+\[
+ M_\lambda=M+\tfrac\lambda3\bigl(e_{01}e_{45}^*+e_{45}e_{01}^*+e_{23}e_{23}^*\bigr).
+\]
+Then $M_\lambda$ is unitarily equivalent to the direct sum of
+$\left(\begin{smallmatrix}0&2&\sqrt{26}\\2&\lambda/3&0\\\sqrt{26}&0&0\end{smallmatrix}\right)$,
+$\left(\begin{smallmatrix}0&2\\2&\lambda/3\end{smallmatrix}\right)$, $(-\lambda/3)$ and the
+zero matrix of size twelve; its characteristic polynomial is
+$x^{12}(x+\frac\lambda3)(x^2-\frac\lambda3x-4)(x^3-\frac\lambda3x^2-30x+\frac{26\lambda}3)$.
+Consequently, for $0\le\lambda\le3\sqrt{26}$ the least eigenvalue of $M_\lambda$ is
+$-g(\lambda)$, where $g(\lambda)\in(\sqrt{26},\sqrt{30}]$ is the root of
+\begin{equation}\label{eq:root-cubic}
+ 3g^3+\lambda g^2-90g-26\lambda=0 ,
+\end{equation}
+decreasing in $\lambda$, $g(0)=\sqrt{30}$; every other negative eigenvalue is at least
+$-\max(2,\lambda/3)$; and $\|M_\lambda\|\le\sqrt{30}+\lambda/3$. The same holds at
+$\Phat=-i$.
+\end{lemma}
+
+\begin{proof}
+(1) As in the proof of \cref{lem:l20-star-matrix}(a) put
+$\hat{\mathbf v}=(e_2+e_3)/\sqrt2$, $\hat{\mathbf w}=(e_0+e_1+e_4+e_5)/2$,
+$\hat{\mathbf e}=e_{23}$, $\hat{\mathbf u}=(e_0+e_1-e_4-e_5)/2$ and
+\[
+ \hat{\mathbf z}=\frac1{\sqrt{15}}\Bigl(\sum_S\sigma_Se_S-2i\,\hat{\mathbf u}\Bigr),\qquad
+ \sigma_S=(-1)^{|S\cap\{0,1\}|},
+\]
+the sum running over the eleven supports $S\subseteq\{0,1,4,5\}$ of the core stars, and
+$\sigma_S$ being the sign of the star $S$ in the expansion of $\mathsf K$. The vectors
+$\hat{\mathbf v},\hat{\mathbf z},\hat{\mathbf w},\hat{\mathbf e}$ are orthonormal
+($|\hat{\mathbf z}|^2=(11+4)/15$), and a comparison of entries gives
+\[
+ M=\sqrt{30}\,(\hat{\mathbf v}\hat{\mathbf z}^*+\hat{\mathbf z}\hat{\mathbf v}^*)
+ +2(\hat{\mathbf w}\hat{\mathbf e}^*+\hat{\mathbf e}\hat{\mathbf w}^*).
+\]
+
+(2) $\sigma_{01}=\sigma_{45}=1$, so the coordinates of $\hat{\mathbf z}$ along $e_{01}$ and $e_{45}$
+are both $1/\sqrt{15}$. With $\hat{\mathbf u}_\pm=(e_{01}\pm e_{45})/\sqrt2$ this gives
+\[
+ \hat{\mathbf z}=\sqrt{2/15}\;\hat{\mathbf u}_++\sqrt{13/15}\;\hat{\mathbf z}_\perp
+\]
+with a unit vector $\hat{\mathbf z}_\perp$ orthogonal to $\hat{\mathbf v}$, $\hat{\mathbf w}$,
+$\hat{\mathbf e}$, $\hat{\mathbf u}_+$ and $\hat{\mathbf u}_-$; the six vectors
+$\hat{\mathbf v},\hat{\mathbf u}_+,\hat{\mathbf z}_\perp,\hat{\mathbf w},\hat{\mathbf e},
+\hat{\mathbf u}_-$ are orthonormal.
+
+(3) $e_{01}e_{45}^*+e_{45}e_{01}^*=\hat{\mathbf u}_+\hat{\mathbf u}_+^*-\hat{\mathbf u}_-\hat{\mathbf u}_-^*$, so the
+pair term is $\frac\lambda3(\hat{\mathbf u}_+\hat{\mathbf u}_+^*-\hat{\mathbf u}_-\hat{\mathbf u}_-^*+\hat{\mathbf e}\hat{\mathbf e}^*)$.
+
+(4) As $\sqrt{30}\sqrt{2/15}=2$ and $\sqrt{30}\sqrt{13/15}=\sqrt{26}$,
+\begin{multline*}
+ M_\lambda=2(\hat{\mathbf v}\hat{\mathbf u}_+^*+\hat{\mathbf u}_+\hat{\mathbf v}^*)
+ +\sqrt{26}\,(\hat{\mathbf v}\hat{\mathbf z}_\perp^*+\hat{\mathbf z}_\perp\hat{\mathbf v}^*)
+ +\tfrac\lambda3\hat{\mathbf u}_+\hat{\mathbf u}_+^*\\
+ +2(\hat{\mathbf w}\hat{\mathbf e}^*+\hat{\mathbf e}\hat{\mathbf w}^*)+\tfrac\lambda3\hat{\mathbf e}\hat{\mathbf e}^*
+ -\tfrac\lambda3\hat{\mathbf u}_-\hat{\mathbf u}_-^*.
+\end{multline*}
+In the orthonormal bases $(\hat{\mathbf v},\hat{\mathbf u}_+,\hat{\mathbf z}_\perp)$, $(\hat{\mathbf w},\hat{\mathbf e})$,
+$\hat{\mathbf u}_-$, completed by an orthonormal basis of the complement, on which $M_\lambda$
+vanishes, this is the displayed direct sum. Its blocks have the characteristic
+polynomials $x^3-\frac\lambda3x^2-30x+\frac{26\lambda}3$, $x^2-\frac\lambda3x-4$ and
+$x+\frac\lambda3$.
+
+(5) For $g>0$ the value of the cubic at $x=-g$ is $-f(g)/3$ with
+$f(g)=3g^3+\lambda g^2-90g-26\lambda$. Since $f(0)=-26\lambda\le0$ and $f''\ge0$ on
+$[0,\infty)$, $f$ has exactly one positive root $g(\lambda)$ (for $\lambda=0$ it is
+$\sqrt{30}$); as $f(\sqrt{26})=-12\sqrt{26}<0$ and $f(\sqrt{30})=4\lambda\ge0$, it lies in
+$(\sqrt{26},\sqrt{30}]$. At the root $\partial_gf=9g^2+2\lambda g-90>0$ and
+$\partial_\lambda f=g^2-26>0$, so $g$ decreases in $\lambda$. So the $3\times3$ block has
+the single negative eigenvalue $-g(\lambda)$. The $2\times2$ block has the negative
+eigenvalue $\lambda/6-(\lambda^2/36+4)^{1/2}\in[-2,0)$, and the last block $-\lambda/3$;
+for $\lambda\le3\sqrt{26}<3g(\lambda)$ both lie above $-g(\lambda)$. The $3\times3$ block is
+$B_0+\frac\lambda3\hat{\mathbf u}_+\hat{\mathbf u}_+^*$, where $B_0$ has the characteristic polynomial
+$x^3-30x$, so its norm is at most $\sqrt{30}+\lambda/3$; the $2\times2$ block has norm
+$\lambda/6+(\lambda^2/36+4)^{1/2}\le2+\lambda/3$. At $\Phat=-i$ the matrix is the
+complex conjugate (\cref{rem:realified-gates}), with the same spectrum.
+\end{proof}
+
+The orientation of the pair term matters. The scores couple the core pair $a$ of one
+half with the core pair $c'$ of the other, and the leading vector $\hat{\mathbf z}$ has a
+component along $\hat{\mathbf u}_+$, on which this coupling is positive. With the opposite sign
+on the two core couplings, $\hat{\mathbf u}_+$ and $\hat{\mathbf u}_-$ exchange their roles, the
+cubic becomes $3g^3-\lambda g^2-90g+26\lambda=0$, and its root exceeds $\sqrt{30}$.
+
+\begin{lemma}[Square of a score on the rectangle]\label{lem:root-square}
+Suppose $k_4r+N_A<1$. Then for each score, on $L^2(\mu^{\rm core}\otimes\mu^{\rm pair})$,
+\[
+ \bigl\|K_{\rm soft}\circ\Hs j^2-(1-2q)^2\,K_{\rm soft}\bigr\|\le256c_0\mathfrak r_+q,
+ \qquad
+ \bigl\|K_{\rm soft}\circ\Hs j^2-K_{\rm soft}\bigr\|\le4q\mathfrak r_2^2+256c_0\mathfrak r_+q .
+\]
+\end{lemma}
+
+\begin{proof}
+Take the core score $\Hs0$; $\Hs2$ is its transpose. For a pair $y$ of distinct labels let
+$\Psi_y(z,z')=\psi_y(z)\psi_y(z')$ in $L^2(\Fp^2)$, so that
+$\Hs0^2(x,x')=q^{-1}\ip{\Psi_a}{\Psi_{c'}}$. By \cref{cor:raw-pair-maps}(b),
+$\Psi_y=r(1-2q)d+\rho_y$, where $d=\sqrt p\,\one_{z=z'}$ is a unit vector, $\rho_y\perp d$
+is the row of the remainder of \eqref{eq:raw-pair-split}, and the map
+$F\mapsto\ip{\rho_y}F$ has norm at most $\sqrt{c_0}\,q$ into $L^2$ of a uniform distinct
+pair $y$. Under $\mu^{\rm core}$ the pairs $a$ and $c$ of a core are uniform distinct
+pairs, so the same bound holds into $L^2(\mu^{\rm core})$. Since $\rho\perp d$, the cross terms vanish and
+\[
+ \Hs0^2=(1-2q)^2+q^{-1}\ip{\rho_a}{\rho_{c'}},\qquad
+ K_{\rm soft}\circ\Hs0^2-(1-2q)^2K_{\rm soft}
+ =q^{-1}\,T[\mathsf R,\mathsf R]\circ\ip{\rho_a}{\rho_{c'}} .
+\]
+By \cref{lem:swapped-rectangle}(d) the right side is
+$q^{-1}(\mathcal Y_a\otimes I)\operatorname{Swap}(\mathcal Y_c^*\otimes I)$, the auxiliary
+label being shared and the private variables exchanged, where $\mathcal Y_a$ has the kernel
+$\mathsf R(C;b)\rho_{a(C)}$ from $L^2(\mu^{\rm pair})\otimes L^2(\Fp^2)$ to
+$L^2(\mu^{\rm core})$, and $\mathcal Y_c$
+likewise. The Gram $\mathcal Y_a\mathcal Y_a^*$ is the pointwise product of the positive
+semidefinite kernel $\mathsf R\mathsf R^*$, whose diagonal is
+$\E_b\mathsf R(C;b)^2=256\,\mathfrak r(C)\le256\,\mathfrak r_+$ ($\mathsf R$ takes the values
+$0$ and $256$), with the Gram of the residual pair map, which lies between $0$ and
+$c_0q^2$. By the positive Schur order of \cref{lem:swapped-rectangle}(b),
+$\|\mathcal Y_a\|^2\le256c_0\mathfrak r_+q^2$, and likewise for $\mathcal Y_c$; this proves the
+first bound for the core scores. For the private score the pairs $b$ and $b'$ are the input
+variables of $\mathsf R$: in the variables $(b,C)$ the soft kernel is
+$T[\mathsf R^*,\mathsf R^*]$ (the last sentence of \cref{lem:swapped-rectangle}), and the same
+argument applies with the rows of $\mathsf R^*$, whose square norm is the constant
+$256\,\E\mathfrak r\le256\,\mathfrak r_+$.
+
+For the second bound, $\mathsf R=\mathfrak r\otimes\one+\mathsf R_c$ with $\mathsf R_c\one=0$
+and $\mathsf R_c^*\mathfrak r=0$ (\cref{prop:l20-rectangular}(a)), so $\mathsf R$ maps $\one$
+to $\mathfrak r$ and $\one^\perp$ into $\mathfrak r^\perp$, and its norm is the larger of
+$\|\mathfrak r\|_2\le\mathfrak r_2$ and $\|\mathsf R_c\|\le k_4r+N_A<1$
+(\cref{prop:l20-rectangular}(b),(d)). As $\mathfrak r_2=s_p\ge1/(1-q)>1$,
+$\|K_{\rm soft}\|=\|\mathsf R\|^2\le\mathfrak r_2^2$ (\cref{lem:swapped-rectangle}(a)), and
+$1-(1-2q)^2\le4q$.
+\end{proof}
+
+The estimate bounds the square of a score on the whole rectangle at once,
+with the coefficient $4\mathfrak r_2^2+256c_0\mathfrak r_+$ of $q$, which tends to
+$1028$ as $p\to\infty$. Bounded class by class instead, the remainder class
+of the rectangle alone would give about $N_A^2/q$, about $8\cdot10^4q$.
+
+\paragraph{Linear prices.}
+The linear part of the tilt is $K_{\rm soft}\circ\Hbar$. Its finite price uses the
+following constants. Put
+\[
+ d_{\mathsf K}=\Bigl(\frac{5q+34qr+11q^3}{Z_4}\Bigr)^{1/2}+2q,\quad
+ d_{\mathfrak r}=\frac{(2+\eta+16q)d_{\mathsf K}+15q}{1-q},\quad
+ \delta_{\mathfrak r}=\frac{d_{\mathfrak r}}{\sqrt{1-q}},\quad
+ A_{\mathfrak r}=1+\delta_{\mathfrak r}.
+\]
+In the expansion of $\bar{\mathsf K}-1$ the single terms vanish and the pair terms sum to
+exactly $2q$; the higher terms are $\mathcal W/p$ in the notation of
+\cref{lem:record:weighted-moment} (signs $(-1,-1,1,1)$ on $(a_0,a_1,c_0,c_1)$), and the core
+law $\mu^{\rm core}$ has the density $P_{\rm adm}D_4/Z_4$ relative to independent uniform
+labels ($D_4$ is the indicator that the four labels are distinct, and $P_{\rm adm}$ is $16$
+on the admissible cores, of total probability $Z_4/16$, and $0$ on the other distinct
+quadruples), so
+$\E_{\mu^{\rm core}}(\mathcal W/p)^2\le\E[P_{\rm adm}\mathcal W^2]/(p^2Z_4)$. Hence
+\cref{lem:record:weighted-moment}(b) gives $\|\bar{\mathsf K}-1\|_2\le d_{\mathsf K}$, and since
+$(1-q)(\mathfrak r-1)=(\bar{\mathsf K}-1)(\bar{\mathsf K}+1-16q)-15q$,
+$\|\mathfrak r-1\|_2\le d_{\mathfrak r}$. For a core function $f$ invariant under the
+square-affine maps and a normalized core star $\mathcal U_S=W_S/r$, the Gram of
+$f\mathcal U_S$ commutes with the affine group and is self-adjoint, hence scalar
+(\cref{lem:spec:affpair}(d)), and its trace gives $\|f\mathcal U_S\|\le\|f\|_2/\sqrt{1-q}$
+(as in \cref{lem:general-star}(a)). So multiplying a core star by $\mathfrak r$ changes it
+by at most $\delta_{\mathfrak r}$ and enlarges its norm by at most the factor
+$A_{\mathfrak r}$; for the private features, which are independent of the core, the change
+is at most $d_{\mathfrak r}\le\delta_{\mathfrak r}$.
+
+\emph{Product maps.} Fix a same-side core pair $A_0$ (the pair $a$ or the pair $c$), with
+normalized pair feature $\mathcal U_{A_0}$. For a core support $S$ with $2\le|S|\le4$ the
+product map $\mathcal U_S\times\mathcal U_{A_0}\colon\mathcal H\otimes\mathcal H\to L^2(\mu^{\rm core})$,
+$F\mapsto\E_{t,z}\,\mathcal U_S(\cdot;t)\,\mathcal U_{A_0}(\cdot;z)F(t,z)$
+($\mathcal H=L^2_0(\Fp)$), is bounded on three orthogonal pieces of $\mathcal H\otimes\mathcal H$: the functions
+vanishing on the diagonal $t=z$, the mean-zero diagonal functions
+$D_{\mathcal H}f=(P_0\otimes P_0)\sqrt p\,\one_{t=z}f(t)$, $f\in\mathcal H$, whose Gram is $(1-2q)I$, and the
+constant diagonal vector $e_0=(p\one_{t=z}-1)/\sqrt{p-1}$ of
+\cref{lem:swapped-rectangle}(c). With $d=|S\triangle A_0|$, $c=|S\cap A_0|$,
+$u=|S\cup A_0|$, the densities $\mathfrak d_2=1/(1-q)$, $\mathfrak d_3=4/((1-q)(1-3q))$,
+$\mathfrak d_4=16/Z_4$ of a same-side pair, a triple of core labels
+consisting of one same-side pair and one further core label, and the whole
+core relative to independent uniform labels, and the bounds $\omega_1=0$, $\omega_2=q$,
+$\omega_3=2r$, $\omega_4=2r+q$ for the complete character mean $|\E_t\psi_S(t)|$ of
+$1,\dots,4$ distinct labels, put
+\begin{gather*}
+ \varrho^o_S=\begin{cases}2\sqrt{\mathfrak d_2},&S=A_0,\\\sqrt{\mathfrak d_u},&S\ne A_0,\end{cases}
+ \qquad
+ \varrho^d_S=\frac{\one_{d\ne0}+cr+q+\omega_{|S|}}{\sqrt{1-2q}},\qquad
+ \varrho^c_S=\begin{cases}0,&S=A_0,\\[2pt]
+ \dfrac{\omega_d+cq+\omega_{|S|}q}{r\sqrt{1-q}},&S\ne A_0,\end{cases}\\
+ R_S=\bigl((\varrho^o_S)^2+(\varrho^d_S)^2+(\varrho^c_S)^2\bigr)^{1/2}.
+\end{gather*}
+Then $\mathcal U_S\times\mathcal U_{A_0}$ has norm at most $R_S$, except that for $S=A_0$
+the vector $e_0$ has the constant image $h_{A_0}\one$,
+$h_{A_0}=(1-2q-q^2)/(r\sqrt{1-q})$, which is set apart. Indeed, on the off-diagonal piece
+choose an output label in $S\setminus A_0$ and one in $A_0$: with the two auxiliary labels
+they span a matching or a three-edge path, of norm $q$ by two Paley transforms
+(\cref{lem:matching:kernel}(a)), the other labels entering as bounded multipliers and the
+density of the $u$ labels costing $\sqrt{\mathfrak d_u}$; for $S=A_0$ the incidence is a
+$K_{2,2}$, of counting norm $2p$ (\cref{thm:dl:K}), whence $2q$; the separate distinctness
+compressions stay in place. On $D_{\mathcal H}\mathcal H$ the image is
+$r^{-1}(W_{S\triangle A_0}-\text{$c$ holes}-w_{A_0}W_S-w_SW_{A_0})$, with $w_{A_0}=-q$, each
+hole (evaluation at a common label) costing $q$ and every nonempty star having norm at
+most $r$. On $e_0$ the image is $(\E_t\psi_S\psi_{A_0}-w_Sw_{A_0})/(r\sqrt{1-q})$, bounded
+by $\varrho^c_S$ for $S\ne A_0$ and equal to $h_{A_0}$ for $S=A_0$. A singleton inside
+$A_0$ times $\mathcal U_{A_0}$ costs $1/\sqrt{1-q}$ and one outside $A_0$ costs
+$\sqrt{\mathfrak d_3}$; so the products of $\mathbf w$, and of $\mathbf u$ and
+$\mathbf u\Phat$ ($\Phat$ is unitary on $\mathcal H$), with $\mathcal U_{A_0}$ have norm at most
+$R_{\mathbf w}=1/\sqrt{1-q}+\sqrt{\mathfrak d_3}$. With
+$\mathbf z=(\sum_S\sigma_S\mathcal U_S-2\mathbf u\Phat)/\sqrt{15}$ and $\sigma_{A_0}=1$,
+\begin{gather*}
+ \mathbf z\times\mathcal U_{A_0}=h'_{\mathbf z}\,\one e_0^*+(\text{residual}),\qquad
+ 0\le h'_{\mathbf z}\le h_{\mathbf z}=\frac1{r\sqrt{15(1-q)}},\\
+ \|\text{residual}\|\le R_{\mathbf z}=\frac{\sum_SR_S+2R_{\mathbf w}}{\sqrt{15}},
+\end{gather*}
+the sum running over the eleven core supports. For the private pair, $\mathbf v\times\mathbf e$
+has norm at most $R_{\mathbf v}=(2/(1-q))^{1/2}$, and
+$\mathbf e\times\mathbf e=h'_{\mathbf e}\one e_0^*+(\text{residual})$ with residual norm at most
+$R_{\mathbf e}=(4/(1-q)+(2r+2q)^2/(1-2q))^{1/2}$ and
+$0\le h'_{\mathbf e}\le h_{\mathbf e}=1/(r\sqrt{1-q})$, by the computation for $S=A_0$, the
+private pair being a uniform distinct pair. As $p\to\infty$, $R_{\mathbf z}$ tends to about
+$10.14$, $R_{\mathbf w}$ to $3$, $R_{\mathbf v}$ to $\sqrt2$ and $R_{\mathbf e}$ to $2$. The class
+prices are
+\begin{align*}
+ \eps_{00}&=r(2\delta_{\mathfrak r}+\delta_{\mathfrak r}^2),\qquad
+ \eps_{01,c}=2qA_{\mathfrak r}(\sqrt{30}R_{\mathbf z}+2R_{\mathbf w}),\\
+ \eps_{01,b}&=2q\bigl\{\sqrt{30}\sqrt{g_{\mathbf z}}\,\mathfrak r_2R_{\mathbf v}
+   +2(\mathfrak r_2R_{\mathbf e}+h_{\mathbf e}d_{\mathfrak r})\bigr\},\\
+ \eps_{11,c}&=r^3\bigl\{30\bigl(R_{\mathbf z}^2+2h_{\mathbf z}R_{\mathbf z}
+   +\tfrac{h_{\mathbf z}^2}{p-1}\bigr)+4\sqrt{30}(R_{\mathbf z}+h_{\mathbf z})R_{\mathbf w}
+   +4R_{\mathbf w}^2\bigr\},\\
+ \eps_{11,b}&=r^3\bigl\{30g_{\mathbf z}R_{\mathbf v}^2
+   +4\sqrt{30}\sqrt{g_{\mathbf z}}\,R_{\mathbf v}(R_{\mathbf e}+h_{\mathbf e})
+   +4\bigl(R_{\mathbf e}^2+2h_{\mathbf e}R_{\mathbf e}+\tfrac{h_{\mathbf e}^2}{p-1}\bigr)\bigr\},\\
+ \eps_{02}&=2A_{\mathfrak r}N_A,\qquad
+ \eps_{12,c}=2N_A\bigl\{\sqrt{30}(rh_{\mathbf z}+rR_{\mathbf z})+2rR_{\mathbf w}\bigr\},\\
+ \eps_{12,b}&=2N_A\bigl\{\sqrt{30}\sqrt{g_{\mathbf z}}\,rR_{\mathbf v}
+   +2(rh_{\mathbf e}+rR_{\mathbf e})\bigr\},\qquad
+ \eps_{22}=N_A^2/r,
+\end{align*}
+and, a core value counted twice and the private value once,
+\begin{gather*}
+ \eps_{\rm lin}=\eps_{00}+\frac{2\eps_{01,c}+\eps_{01,b}}3+\frac{2\eps_{11,c}+\eps_{11,b}}3
+ +\eps_{02}+\frac{2\eps_{12,c}+\eps_{12,b}}3+\eps_{22}+qr\mathfrak r_2^2,\\
+ \mathfrak l_0=\frac{2\sqrt{30}\,rh_{\mathbf z}A_{\mathfrak r}+2rh_{\mathbf e}\mathfrak r_2}3 .
+\end{gather*}
+
+\begin{lemma}[Linear root trace]\label{lem:root-linear}
+Suppose $k_4r+N_A<1$. On $L^2(\mu^{\rm core}\otimes\mu^{\rm pair})$,
+\[
+ P_0(K_{\rm soft}\circ\Hbar)P_0=\frac r3\bigl(\mathcal U_a\mathcal U_c^*+\mathcal U_c\mathcal U_a^*
+ +\mathcal U_b\mathcal U_b^*\bigr)+\mathcal R_{\rm lin},\qquad
+ \|\mathcal R_{\rm lin}\|\le\eps_{\rm lin},
+\]
+the leading term being the pair term of \cref{lem:root-pair-matrix} with coefficient
+$r/3$ per score, synthesized by the features. Moreover
+$\|P_0(K_{\rm soft}\circ\Hbar)\one\|\le\mathfrak l_0r+\eps_{\rm lin}$ and
+$\|P_0(K_{\rm soft}\circ\Hbar)\|\le r(1+2\mathfrak l_0)+\eps_{\rm lin}$, and
+$\mathfrak l_0\to(2\sqrt2+2)/3$.
+\end{lemma}
+
+\begin{proof}
+By \eqref{eq:root-score-feature}, $K_{\rm soft}\circ\Hs0=r\,K_{\rm soft}\circ\mathcal U_a\mathcal U_c^*
++qr\,K_{\rm soft}$, and the last term has norm at most $qr\mathfrak r_2^2$ (proof of
+\cref{lem:root-square}); the same holds for the other scores. Expand both factors of
+$K_{\rm soft}=T[\mathsf R,\mathsf R]$ by \eqref{eq:l20-rectangle}: $K_{\rm soft}$ is the
+sum of the operators $T[X,Y]$ with $X,Y$ the rank $\mathfrak r\otimes\one$, the star
+$\mathsf R_\star$ or the remainder $\mathsf R_\circ$, six classes up to transposition. For a
+core score write the kernel of $T[X,Y]\circ\mathcal U_a\mathcal U_c^*$ at $(x,x')$ as
+$\E_z[X(C;b')\mathcal U_a(C;z)]\,[Y(C';b)\mathcal U_c(C';z)]$: it factors through the
+shared auxiliary label $z$ and the exchange of the private variables
+(\cref{lem:swapped-rectangle}(d)), and its norm is at most the product of the norms of
+the two factors, each a product map of the arms (core or pair feature
+factors) of $X$ or $Y$ with a pair feature. The
+star $\mathsf R_\star$ has the two arms $(\mathbf z,\mathbf v)$ and $(\mathbf w,\mathbf e)$
+with the coefficients $\sqrt{30}\,r$ and $2r$.
+
+\emph{Rank/rank.} The factors are $\mathfrak r\,\mathcal U_a$ and $\mathfrak r\,\mathcal U_c$,
+so the class is $r\,(\mathfrak r\,\mathcal U_a)(\mathfrak r\,\mathcal U_c)^*$. Since
+$P_0(\mathfrak r\,\mathcal U_a)-\mathcal U_a=P_0((\mathfrak r-1)\mathcal U_a)$ has norm at most
+$\delta_{\mathfrak r}$, it is the leading term $r\,\mathcal U_a\mathcal U_c^*$ up to
+$\eps_{00}$ after centring on both sides.
+
+\emph{Rank/star.} The factors are $\mathfrak r\,\mathcal U_a$ (norm at most $A_{\mathfrak r}$)
+tensored with the private arm, and the product of the core arm with $\mathcal U_c$, with the
+coefficient $r\cdot r=q$ of the star and the score. By the product maps the second factor is
+bounded by $R_{\mathbf z}$ or $R_{\mathbf w}$ except for the large constant
+$h'_{\mathbf z}\one e_0^*$ of $\mathbf z\times\mathcal U_c$, which yields an operator whose
+input is the constant function of $x'$: a constant-to-feature rank, killed by $P_0$ on the
+right. The two placements give $\eps_{01,c}$. For the private score the large constant is
+that of $\mathbf e\times\mathbf e$; its output is $\mathfrak r$ times a constant, and
+$P_0(\mathfrak r h)=hP_0\mathfrak r$ is paid by $h_{\mathbf e}d_{\mathfrak r}$ in $\eps_{01,b}$.
+
+\emph{Star/star.} The coefficient is $r\cdot r\cdot r$ and the four arm pairs give the
+products of the bounds above. The only term with a large constant on both sides is
+$\mathbf z\times\mathcal U_a$ against $\mathbf z\times\mathcal U_c$ (for the private score
+$\mathbf e\times\mathbf e$ against itself); there the two vectors $e_0$ meet through the
+exchange of the auxiliary labels, and the entangled swap of
+\cref{lem:swapped-rectangle}(c) reduces the term to $I/(p-1)$. This gives $\eps_{11,c}$ and
+$\eps_{11,b}$.
+
+\emph{Classes with the remainder.} Apply $\mathsf R_\circ$ fibrewise in its own core and
+private variables, keeping the shared auxiliary label (it is not duplicated), then the free
+feature on the other side: rank/remainder costs $2A_{\mathfrak r}N_A$, star/remainder
+$\eps_{12,c}$ or $\eps_{12,b}$ (here the large constant costs $rh_{\mathbf z}$ or
+$rh_{\mathbf e}$), and remainder/remainder $N_A^2/r$, the raw pair rows having norm at most
+one.
+
+Averaging the three scores, a core value twice and the private value once, gives the
+first assertion. The constant-to-feature ranks are explicit: at a core score the vector
+obtained by contracting $e_0$ with $\mathfrak r\,\mathcal U\otimes\mathbf v$ has norm at most
+$A_{\mathfrak r}$ and mean zero, by translation invariance and independence, with the
+coefficient $\sqrt{30}\,rh_{\mathbf z}\cdot r$; at the private score the vector from
+$\mathbf w\otimes\mathbf e$ has norm at most $\E\mathfrak r\le\mathfrak r_2$, with the
+coefficient $2rh_{\mathbf e}\cdot r$. Exactly one of the two orientations survives in
+$P_0(K_{\rm soft}\circ\Hbar)\one$, which gives $\mathfrak l_0r$ rather than twice that
+number; the other parts of $P_0(K_{\rm soft}\circ\Hbar)\one$ are bounded by their norms. The
+leading pair term has norm at most $r$, which gives the bound for
+$\|P_0(K_{\rm soft}\circ\Hbar)\|$. As $p\to\infty$, $A_{\mathfrak r},\mathfrak r_2\to1$ and
+$\mathfrak l_0\to(2\sqrt{30}/\sqrt{15}+2)/3$.
+\end{proof}
+
+\begin{lemma}[Normalization, marginal and conditional prices]\label{lem:root-normalization}
+Let $p\ge2^{20}$. Put
+\begin{gather*}
+ \bar{\mathfrak r}=\frac{1+2\mathfrak m_++d_{\mathsf K}^2}{1-q},\qquad
+ \mathfrak s_b=\frac{512\,\bar{\mathfrak r}q^2}{1-q},\qquad
+ \mathfrak s_c=\frac{32\,\mathfrak r_+(1+\eta)^2q^2}{Z_4},\qquad
+ \mathfrak s=\frac{2\mathfrak s_c+\mathfrak s_b}3,\\
+ c_{\rm lin}=(2+r)D_{\rm bal}+\frac{\mathfrak s}{h'_pr},\qquad
+ \eps^{\rm raw}_{\rm lin}=\frac{\eps_{\rm lin}}{h'_p}+c_{\rm lin},\\
+ \eps^{\rm raw}_{\rm sq}=\frac{4q\mathfrak r_2^2+256c_0\mathfrak r_+q}{h'_p}
+ +\bigl((2+r)^2-1\bigr)D_{\rm bal}+\frac{\mathfrak s}{h'_pq},\qquad
+ \eps_{\rm sq}=\frac{\eps^{\rm raw}_{\rm sq}}{1-\eps_Z},\\
+ \mathfrak l=\frac1{1-\eps_Z}\Bigl\{\frac{\mathfrak l_0r+\eps_{\rm lin}}{\sqrt{h'_p}}
+ +\frac{[r(1+2\mathfrak l_0)+\eps_{\rm lin}]\sqrt{8q/(1-q)}}{h'_p}+c_{\rm lin}\Bigr\},\\
+ h_0=\frac{72q+37qr+2qr/(1-q)}{1-36q}.
+\end{gather*}
+\begin{enumerate}[label=(\alph*)]
+\item If $k_4r+N_A<1$, then in the fixed half chart $L^2(\mu_p)$,
+ $\bigl\|K_0\circ\tfrac13\sum_j\Hs j^2-K_0\bigr\|\le\eps^{\rm raw}_{\rm sq}$ and
+ \[
+  \Bigl\|P_0(K_0\circ\Hbar)P_0-\frac r3\,\mathcal F\bigl(e_{01}e_{45}^*+e_{45}e_{01}^*
+  +e_{23}e_{23}^*\bigr)\mathcal F^*\Bigr\|\le\eps^{\rm raw}_{\rm lin};
+ \]
+ consequently $\bigl\|T_0\circ\tfrac13\sum_j\Hs j^2-T_0\bigr\|\le\eps_{\rm sq}$ and
+ $\|P_0(T_0\circ\Hbar)\one\|\le\mathfrak l$.
+\item For each score, $|\E_{\Gamma_{p,0}}\Hs j|\le h_0$ and
+ $\E_{\Gamma_{p,0}}\Hs j^2\ge1-4q-36q(2+r)^2-2q/(1-q)$; in particular
+ $|\E_{\Gamma_{p,0}}\Hbar|\le h_0$.
+\item Put $\Delta_{\rm core}=(1-q)^4-16r-144q-512qr-512q^2$, positive for $p\ge2^{20}$,
+ and
+ \begin{gather*}
+  c_{\rm core}=\frac{148q+616qr+580q^2}{r\Delta_{\rm core}}+2r,\qquad
+  \varphi_b=\frac{24r+8q}{1-\eta},\qquad d_b=\frac{16q}{1-\eta-16q},\\
+  c_b=\frac{4q+(1+d_b)\varphi_b^2+d_b}r,\qquad c_{\rm avg}=\frac{2c_{\rm core}+c_b}3,\qquad
+  I_{\rm in}=\frac{128\,q\,\mathfrak r_+\bar{\mathfrak r}}{1-\eta},\qquad
+  \rho_{\rm in}=\mathfrak r_-^2-I_{\rm in}-D_{\rm bal}.
+ \end{gather*}
+ If $\rho_{\rm in}>0$, then for every half $x$
+ \[
+  \bigl|\E_{\Gamma_{p,0}}[\Hbar\mid x]\bigr|\le c_{\rm cond}
+  :=\frac{\mathfrak r_+\bar{\mathfrak r}\,c_{\rm avg}+(2+r)(I_{\rm in}+D_{\rm bal})
+  +\mathfrak s/r}{\rho_{\rm in}} .
+ \]
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) \emph{Spikes.} $\bar{\mathfrak r}$ bounds
+$\E\mathfrak r\le\E\bar{\mathsf K}^2/(1-q)$, as $\E\bar{\mathsf K}^2\le1+2\mathfrak m_++d_{\mathsf K}^2$. When the two halves share a label, the only large values of a score
+occur when the two selected pairs are equal as sets; there
+$\Hs j=(1-2q)/r$, and otherwise $|\Hs j|\le2+r$. For the private score, $\{b'\}=\{b\}$ has
+probability $2q^2/(1-q)$ and $\mathsf R\le256$; integrating the core of the other half gives
+the column mass $\E\mathfrak r\le\bar{\mathfrak r}$, so the rows and columns of the soft kernel
+on this event are at most $\mathfrak s_b$. For a core score, $\{c'\}=\{a\}$ has the same
+probability; given it, the labels $a'$ are a uniform ordered distinct pair among the
+$(p-3)/4$ common predecessors of the pinned pair (\cref{lem:paley-triple}(a)), and both must
+lie in the set of labels that extend $(b,c')$ cyclically, of at most $p(1+\eta)/16$ points,
+so the conditional mean of $\mathsf R(C';b)$ is at most $16(1+\eta)^2/((1-3q)(1-7q))$;
+integrating the pair of the other half gives $\mathfrak r(C)\le\mathfrak r_+$, and this
+gives $\mathfrak s_c$. Away from these events a score has
+$|\Hs j|\le2+r$, as a single repeated label leaves a character sum of degree two, so
+$|\Hs j^2-1|\le(2+r)^2-1$, and the nonnegative kernel $T_{\rm coll}$ contributes in the
+displayed directions. The spike prices are row and column bounds of nonnegative kernels
+(Schur's test), compressed with the factor $1/h_p\le1/h'_p$.
+
+\emph{Squares.} For $V=\frac13\sum_j\Hs j^2$,
+$K_0\circ V-K_0=h_p^{-1}J_\mu^*(K_{\rm soft}\circ V-K_{\rm soft})J_\mu
+-T_{\rm coll}\circ(V-1)$, and \cref{lem:root-square,lem:restriction}(b) bound the first term
+by $(4q\mathfrak r_2^2+256c_0\mathfrak r_+q)/h'_p$; with the collision bounds this is
+$\eps^{\rm raw}_{\rm sq}$, and division by $Z_0\ge1-\eps_Z$ gives $\eps_{\rm sq}$.
+
+\emph{Linear term.} By \cref{lem:restriction}(a) the embedding maps centred functions to
+centred functions and $J_\mu^*\one=\sqrt{h_p}\one$, so
+$P_0(K^\mu_{\rm soft}\circ\Hbar)P_0=h_p^{-1}P_0J_\mu^*\bigl[P_0(K_{\rm soft}\circ\Hbar)P_0\bigr]
+J_\mu P_0$. By \cref{lem:root-linear} and the identity $J_\mu^*Y=\sqrt{h_p}Y_\mu$ for
+the features, the leading term becomes
+$\frac r3\mathcal F(e_{01}e_{45}^*+e_{45}e_{01}^*+e_{23}e_{23}^*)\mathcal F^*$ and the remainder
+has norm at most $\eps_{\rm lin}/h'_p$; the collision part $T_{\rm coll}\circ\Hbar$ has norm at
+most $c_{\rm lin}$. For the marginal, \cref{lem:restriction}(b) with both events of
+probability $h_p$ gives
+\[
+ \|P_0(K^\mu_{\rm soft}\circ\Hbar)\one\|\le\frac{\|P_0(K_{\rm soft}\circ\Hbar)\one\|}{\sqrt{h_p}}
+ +\|P_0(K_{\rm soft}\circ\Hbar)P_0\|\,\frac{(1-h_p)^{1/2}}{h_p},
+\]
+where $1-h_p=(8q-20q^2)/(1-q)\le8q/(1-q)$ and \cref{lem:root-linear} bounds the two norms.
+Adding $c_{\rm lin}$ and dividing by $Z_0$ gives $\mathfrak l$.
+
+(b) Before global injectivity the root is the product of the uniform laws of its two
+components, each a cyclic $K_{2,2,2}$ on the bases of one parity (the
+parts being the two layer labels at each of the three bases, with all
+edges directed cyclically to the next base), and each score pairs the
+two labels of one base of one component with those of a base of the other. Each such pair
+is a uniform ordered distinct pair: square-affine maps act transitively on each of the
+two orbits of ordered distinct pairs and the layer swap exchanges them. Hence, with
+$\E\psi_y(z)=-q$, $\E\Hs j=r^{-1}\E_z(\E\psi_y(z))^2=qr$, and
+\[
+ \E\Hs j^2=q^{-1}\E_{z,z'}\bigl(\E_y\psi_y(z)\psi_y(z')\bigr)^2
+ =(1-2q)^2+\frac{q(1-3q)^2}{1-q}\ \ge\ 1-4q,
+\]
+as $\E_y\psi_y(z)^2=1-2q$ and $\E_y\psi_y(z)\psi_y(z')=-q(1-3q)/(1-q)$ for $z\ne z'$. The
+thirty-six coincidences between the labels of the two components have total probability
+at most $36q$; on them $|\Hs j|\le2+r$, except on the events where the two selected pairs
+are equal as sets, of probability at most $2q^2/(1-q)$, where $|\Hs j|\le1/r$. Conditioning
+on injectivity therefore gives
+$|\E_{\Gamma_{p,0}}\Hs j|\le(qr+36q(2+r)+2qr/(1-q))/(1-36q)=h_0$ and
+$\E_{\Gamma_{p,0}}\Hs j^2\ge\E\Hs j^2-36q(2+r)^2-2q(1-2q)^2/(1-q)$, whence the bounds.
+
+(c) Fix $x=(C,b)$. On $\mu^{\rm core}\otimes\mu^{\rm pair}$ the soft conditional law of $x'=(C',b')$ given $x$ is
+proportional to $\mathsf R(C;b')\mathsf R(C';b)$; it is the product of a law of $C'$ that
+depends on $b$ and a law of $b'$ that depends on $C$, and
+$\E_{x'}K_{\rm soft}(x,x')=\mathfrak r(C)\E\mathfrak r$.
+
+\emph{A core score.} Take $\Hs0$, which tests the pair $c'$ of $C'$:
+$\E[\Hs0\mid x]=r^{-1}\E_z\psi_a(z)\,\E[\psi_{c'}(z)\mid b]$. In independent uniform labels
+$(a'_0,a'_1,c'_0,c'_1)$ the law of $C'$ given $b$ has a density proportional to the
+product of the four internal edge factors $1+\chi(c'_j-a'_i)$, of the vertex weights
+$w_A(a'_i)$ and $w_C(c'_j)$, with $w_A(y)=(1-\chi(b_0-y))(1-\chi(b_1-y))$ and
+$w_C(y)=(1+\chi(b_0-y))(1+\chi(b_1-y))$, and of the indicator that the four labels are
+distinct. Each weight has mean $1-q$, $L^2$ norm at most $2$ and supremum at most $4$;
+testing a vertex by $\chi(z-y)$, for $z\notin\{b_0,b_1\}$, gives a weight of mean at most
+$2r+2q$ in modulus (two quadratic character sums
+contribute $q$ each and the cubic one $2r$),
+with the same norm bounds. Expand the four internal edge factors into the $16$ subsets of
+edges. A single edge, a Paley operator of norm $r$ between two weights of norm $2$, costs
+$4r$; each of the two matchings costs $16q$; each of the four adjacent two-edge paths
+costs $16q$ (integrate the two leaf Paley transforms first and use the supremum of the
+internal weight); each of the four three-edge paths costs $64qr$; and the cycle costs
+$16q$, as a product of two operators $M_{w_1}PM_{w_2}P$, each of Hilbert--Schmidt norm at
+most $4r$. The distinctness costs only the same-side coincidences:
+$w_A(y)w_C(y)=(1-\chi(b_0-y)^2)(1-\chi(b_1-y)^2)=0$ kills the four cross-side ones, and on a
+same-side coincidence $w^2\le4w$ and every doubled edge factor is at most twice the
+original, so its mass is at most
+$16q\,\E_a[w_A(a)(\E_cw_C(c)(1+\chi(c-a)))^2]\le16q(1+8r+16q)$; the two such events cost
+$C_{\rm coll}=32q+256qr+512q^2$. Without tests this bounds the normalizing mass below by
+$(1-q)^4-16r-112q-256qr-C_{\rm coll}=\Delta_{\rm core}$. With the two vertices of $c'$
+tested, the empty graph gives $m^2$, the four single edges $16rm$, the matchings $32q$, the
+two paths centred on the untested side $32q$, the two paths centred at a tested vertex
+$32qm$, the three-edge paths $256qr$, the cycle $16q$ and the coincidences $C_{\rm coll}$; the
+sum is
+\[
+ m^2+16rm+80q+32qm+256qr+C_{\rm coll}=148q+616qr+580q^2 .
+\]
+Hence $|\E[\psi_{c'}(z)\mid b]|\le(148q+616qr+580q^2)/\Delta_{\rm core}$ for
+$z\notin\{b_0,b_1\}$, and the two exceptional labels cost $2q$, which gives the soft bound
+$c_{\rm core}$. The lower bound $\Delta_{\rm core}$ increases with $p$ and is positive at
+$p=2^{20}$, hence for $p\ge2^{20}$.
+
+\emph{The private score.} $\E[\Hs1\mid x]=r^{-1}\E_z\psi_b(z)\E[\psi_{b'}(z)\mid C]$, and
+given $C$ the pair $b'$ is a uniform ordered distinct pair from the set $L_C$ of cyclic
+extensions of $C$, of $n=p\bar{\mathsf K}(C)/16\ge p(1-\eta)/16$ points. For $z\notin C$,
+expanding $\mathsf K(t,C)\chi(z-t)$ in $t$ gives $|\E_{t\in L_C}\chi(z-t)|\le\varphi_b$: the four
+terms with one further character cost $q$ each, the six cubic terms $2r$ each, the four
+quartic terms $2r+q$ each (\cref{thm:weil}(b)) and the quintic term $4r$, and the mass is
+$\bar{\mathsf K}\ge1-\eta$. Sampling without replacement gives
+$\E\chi(z-b'_0)\chi(z-b'_1)=(n\gamma_C^2-\E_{t\in L_C}\chi(z-t)^2)/(n-1)$ with
+$\gamma_C=\E_{t\in L_C}\chi(z-t)$, of modulus at most $(1+d_b)\varphi_b^2+d_b$, as
+$1/(n-1)\le d_b$; the four labels $z\in C$ cost $4q$. This gives the soft bound $c_b$, and
+$c_{\rm avg}$ for $\Hbar$.
+
+\emph{The row of the actual kernel.} (``Physical'' in this proof
+means: of the actual kernel $K_0$, as opposed to the soft kernel
+$K_{\rm soft}$.) The soft row of $K_{\rm soft}\circ\Hbar$ at $x$ is at most
+$c_{\rm avg}\,\mathfrak r(C)\E\mathfrak r\le\mathfrak r_+\bar{\mathfrak r}\,c_{\rm avg}$ in modulus, and
+the soft row of $K_{\rm soft}$ is at least $\mathfrak r_-^2$. Passing to the physical
+conditional law removes, first, the eight coincidences of $b'$ with the core $C'$, which
+are excluded from the actual half: given $C$ the pair $b'$ is uniform in $L_C$, so each
+costs at most $16q/(1-\eta)$ of the row mass $\mathfrak r(C)\E\mathfrak r$, together
+$I_{\rm in}$; second, the coincidences across the cut, of row mass at most $D_{\rm bal}$
+(\cref{prop:l20-collisions}(a), the compression factor $h_p\le1$ being used in the
+conservative direction); third, the equal-pair spikes, of score at most $1/r$ and row mass
+at most $\mathfrak s$. On the first two kinds $|\Hbar|\le2+r$. The ratio of the remaining
+numerator and denominator is at most $c_{\rm cond}$.
+\end{proof}
+
+The conditional bound $c_{\rm cond}$ is about $299r$; it is used only for the range of the
+tilted marginal, by Jensen's inequality in \cref{lem:tilt-marginals}, while the much
+smaller $L^2$ bound $\mathfrak l$ prices its variance.
+
+\begin{proposition}[The chamber cut of a positive root]\label{prop:root-chamber}
+Let $p\ge2^{30}$, suppose $k_4r+N_A<1$ and $\rho_{\rm in}>0$, and let
+$\Gamma_{p,\ulaw}$ be the individual-square root, with
+$s=1+\ulaw^2$, $\lambda=2\ulaw/s$, and $g=g(\lambda)$ of
+\eqref{eq:root-cubic}. Put
+\begin{gather*}
+ \eps_0=\frac{2rd_{\mathfrak r}(\sqrt{30}\sqrt{g_{\mathbf z}}+2)+k_4^2q+2\mathfrak r_2N_A
+   +2k_4rN_A+N_A^2}{h'_p}+D_{\rm bal},\qquad
+ \eps_\ulaw=s\eps_0+2\ulaw\eps^{\rm raw}_{\rm lin}+\ulaw^2\eps^{\rm raw}_{\rm sq},\\
+ z_-=s-2\ulaw h_0-\ulaw^2\eps_{\rm sq},\qquad z_{\rm raw}=(1-\eps_Z)z_-,\qquad
+ g_{\rm ch}=\frac{sg\,r\Gamma_{20}+\eps_\ulaw}{z_{\rm raw}},\\
+ c_{\rm ch}=\frac{s(\sqrt{30}+\lambda/3)r\Gamma_{20}+\eps_\ulaw+sd_{\mathfrak r}^2/h'_p}{z_{\rm raw}},
+ \qquad
+ d_\ulaw=\frac{s\sqrt{\chi^+_p}+2\ulaw\mathfrak l+\ulaw^2\eps_{\rm sq}}{z_-}.
+\end{gather*}
+If $z_->0$, $\ulaw c_{\rm cond}<1$, $c_{\rm ch}<1$ and $d_\ulaw<1$, the cut operator
+$T_\ulaw$ of $\Gamma_{p,\ulaw}$ at $\vartheta_0$ in the fixed uniform actual half chart
+$L^2(\mu_p)$ satisfies
+\begin{gather*}
+ -\Bigl(g_{\rm ch}+\frac{d_\ulaw^2}{1+g_{\rm ch}}\Bigr)I\preceq T_\ulaw\preceq
+ \Bigl(1+\frac{d_\ulaw^2}{1-c_{\rm ch}}\Bigr)I,\qquad \|T_\ulaw\one-\one\|^2\le d_\ulaw^2,\\
+ \frac{\sup T_\ulaw\one}{\inf T_\ulaw\one}\le R_p\,\frac{(1+\ulaw(2+r))^2}{(1-\ulaw c_{\rm cond})^2}.
+\end{gather*}
+With $g^\ulaw_{20}=(g_{\rm ch}+d_\ulaw^2/(1+g_{\rm ch}))/r$ and
+$c^{+,\ulaw}_{20}=d_\ulaw^2/(q(1-c_{\rm ch}))$ evaluated at an endpoint $P$, the same bounds,
+$-g^\ulaw_{20}p^{-1/2}\le T_\ulaw\le1+c^{+,\ulaw}_{20}/p$, the variance $d_\ulaw^2$ and the
+range ratio hold for every prime $p\ge P$ with the same $\ulaw$. The block caps follow from
+\cref{lem:spec:tensorcomp}(b): a middle block $\Blk$ of a piece starting at $X\ge P$, with
+least prime $b$ and $\sum_{p\in\Blk}\log p\le L_{\rm loc}$, has
+$T_{\Blk,\ulaw}\succeq-g^\ulaw_{20}\exp\bigl(c^{+,\ulaw}_{20}L_{\rm loc}/(X\log X)\bigr)b^{-1/2}$
+if $g^\ulaw_{20}X^{-1/2}<1$.
+\end{proposition}
+
+\begin{proof}
+\emph{The base kernel.} Expand $K_{\rm soft}=T[\mathsf R,\mathsf R]$ by \eqref{eq:l20-rectangle}
+and keep the positive rank: $T[\mathfrak r\otimes\one,\mathfrak r\otimes\one]$ is the rank-one
+operator $(\mathfrak r\otimes\one)\ip{\mathfrak r\otimes\one}{\cdot}$. The two rank/star classes
+are the star part $T_\star=r\{\sqrt{30}(\mathbf v\mathbf z^*+\mathbf z\mathbf v^*)
++2(\mathbf w\mathbf e^*+\mathbf e\mathbf w^*)\}$ of \eqref{eq:l20-rank4-operator}, up to the
+factor $\mathfrak r$ on one side, which costs $2rd_{\mathfrak r}(\sqrt{30}\sqrt{g_{\mathbf z}}+2)$;
+star/star costs $k_4^2q$, rank/remainder $2\mathfrak r_2N_A$, star/remainder $2k_4rN_A$ and
+remainder/remainder $N_A^2$, as $\|T[X,Y]\|\le\|X\|\|Y\|$. The compression to $\mu_p$
+(\cref{lem:restriction}) and the collisions give, in the coefficient space,
+\[
+ P_0K_0P_0=r\,\mathcal FM\mathcal F^*+P_0\mathfrak r_\mu\mathfrak r_\mu^*P_0+\mathcal R_0,
+ \qquad\|\mathcal R_0\|\le\eps_0,
+\]
+where $\mathfrak r_\mu$ is the function $\mathfrak r(C)$ on the actual half; the centred rank
+$P_0\mathfrak r_\mu\mathfrak r_\mu^*P_0$ is positive semidefinite, of norm at most
+$\|\mathfrak r-1\|_2^2/h_p\le d_{\mathfrak r}^2/h'_p$, and enters only the absolute norm.
+
+\emph{The tilt.} By \cref{def:positive-root},
+$K_0\circ w_\ulaw=K_0+2\ulaw\,K_0\circ\Hbar+\ulaw^2\,K_0\circ V$
+with $V=\frac13\sum_j\Hs j^2$. By \cref{lem:root-normalization}(a),
+$K_0\circ V=K_0+\mathcal R_V$ with
+$\|\mathcal R_V\|\le\eps^{\rm raw}_{\rm sq}$, and $P_0(K_0\circ\Hbar)P_0$ is the pair
+term up to $\eps^{\rm raw}_{\rm lin}$. As $1+\ulaw^2=s$ and $2\ulaw/s=\lambda$,
+\[
+ P_0(K_0\circ w_\ulaw)P_0=s\,r\,\mathcal FM_\lambda\mathcal F^*
+ +sP_0\mathfrak r_\mu\mathfrak r_\mu^*P_0+\mathcal R_\ulaw,\qquad\|\mathcal R_\ulaw\|\le\eps_\ulaw .
+\]
+By \cref{lem:root-pair-matrix}, applicable since $\lambda\le1$,
+$M_\lambda\succeq-gI$ and $\|M_\lambda\|\le\sqrt{30}+\lambda/3$, so
+$\mathcal FM_\lambda\mathcal F^*\succeq-g\Gamma_{20}$ and
+$\|\mathcal FM_\lambda\mathcal F^*\|\le(\sqrt{30}+\lambda/3)\Gamma_{20}$, the features mapping into
+mean-zero functions.
+
+\emph{Mass, marginal and range.} Apply \cref{lem:tilt-marginals} to the kernel of $T_0$,
+which has mass one, $\|T_0\one-\one\|\le(\chi^+_p)^{1/2}$
+(\cref{lem:record:root-marginal}(ii)) and range ratio $\sup T_0\one/\inf T_0\one\le R_p$: by
+\eqref{eq:record:root-count} the density is a ratio of completion counts between two
+bounds whose quotient is $R_p$. Take the scores $\eta_j=\Hs j$, which the transposition
+permutes (\cref{lem:positive-root-properties}(c)), and the constants
+\[
+ (c_V,\delta_0,e,\ell,h,c,b)=\bigl(1,(\chi^+_p)^{1/2},\eps_{\rm sq},\mathfrak l,
+ h_0,c_{\rm cond},2+r\bigr)
+\]
+of \cref{lem:root-normalization} and
+\cref{lem:positive-root-properties}(a). It gives $\E_{\Gamma_{p,0}}w_\ulaw\ge z_-$,
+$\|T_\ulaw\one-\one\|\le d_\ulaw$ and the range ratio. Since the raw mass of
+$K_0\circ w_\ulaw$ is $Z_0\,\E_{\Gamma_{p,0}}w_\ulaw\ge z_{\rm raw}$,
+$P_0T_\ulaw P_0\succeq-g_{\rm ch}P_0$ and $\|P_0T_\ulaw P_0\|\le c_{\rm ch}$.
+
+\emph{The constant block.} $T_\ulaw$ is self-adjoint with $\ip\one{T_\ulaw\one}=1$ and
+$\|P_0T_\ulaw\one\|=\|T_\ulaw\one-\one\|\le d_\ulaw$, so \cref{prop:matching:positive}(a)
+and (a$'$) give the two full bounds; no alignment of spectral directions is assumed.
+
+\emph{Uniformity.} The quantities $\mathfrak r_-$, $h'_p$, the square term $4q\mathfrak r_2^2$
+and the conditional ratio were coarsened so that every normalized remainder has a positive
+increasing numerator and a positive decreasing denominator in $q,r$; the retained
+$N_A/q$, $D_{\rm bal}/q$, frame cap, normalizer error, $\chi^+_p$ and $R_p$ have this
+property (\cref{prop:l20-collisions}, \cref{lem:record:root-marginal}). Thus
+$G=g_{\rm ch}/r$, $c_{\rm ch}/r$ and $D=d_\ulaw/r$ increase toward a smaller prime
+endpoint. The negative coefficient is $G+D^2r/(1+Gr)$; its derivative in $G$ is
+$1-D^2r^2/(1+Gr)^2>0$, as $Dr<1$, and its derivatives in $D$ and $r$ are nonnegative
+(\cref{lem:majorant}(ii)). The
+positive coefficient $D^2/(1-(c_{\rm ch}/r)\,r)$, the variance divided by $q$ and the range multiplier
+increase as well on the gated domain, so the values at $P$ bound every prime $p\ge P$.
+For the block caps, the primes of $\Blk$ satisfy the prime bounds and
+$\sum_{p\in\Blk}1/p\le L_{\rm loc}/(X\log X)$ (\cref{lem:record:local-domain}), the cut
+operator of $\Gamma_{\Blk,\ulaw}$ is the tensor product of the prime operators
+(\cref{lem:spec:cutkernel}(f)), and \cref{lem:spec:tensorcomp}(b) applies.
+\end{proof}
+
+\subsection{The layer-flip symmetry $\iota$ for the tilted law}\label{subsec:positive-root-layer}
+
+This subsection bounds the reserved cut $\iota$ of a positive root, the cut L21. Here the
+scores are positive Gram kernels, so the tilt costs only at order $r$; the bounds are
+proved on the fixed uniform induced layer half, the half law of the one-layer root, which
+is not tilted.
+
+\paragraph{The two components.}
+At $\iota$ the half graph of $G_{\rm L,2}$ is $G_{\rm L,1}$, two directed triangles on the
+bases $\{0,2,4\}$ and $\{1,5,3\}$ (\cref{lem:layer12-geometry}(c)). Let $\mu_\triangle$ be the
+uniform law of a directed cyclic triangle $x_0\to x_1\to x_2\to x_0$ of $\Fp$, let
+$\nu_\triangle=\mu_\triangle\otimes\mu_\triangle$ (one triangle for each component), and let
+$\nu=\lambda_p(G_{\rm L,1})$ be $\nu_\triangle$ conditioned on its six labels being distinct,
+an event of probability $h\ge h_-=1-9q$. In a component, with the labels $x$ of the layer
+$0$ and $x'$ of the layer $1$ indexed along the triangle, the cross edges are
+$x_i\to x'_{i+1}$ and $x'_i\to x_{i+1}$: a six-cycle without an edge between the two labels
+of one base. The soft kernel of a component is
+\[
+ \Phi(x,x')=\prod_{i\ne j}\bigl(1+(D_\triangle)_{ij}\chi(x'_j-x_i)\bigr),\qquad
+ N_\Phi=\Phi-1,
+\]
+$D_\triangle$ being the skew adjacency matrix of the directed triangle
+($(D_\triangle)_{i,i+1}=1$, $(D_\triangle)_{i+1,i}=-1$ with indices mod $3$, and
+$0$ on the diagonal), and the soft layer
+kernel on $\nu_\triangle\otimes\nu_\triangle$ is $\Phi\otimes\Phi$. A score $\Hs j$ multiplies the
+kernel by $r^{-1}\ip{f_j(x)}{f_j(x')}$, $f_j(x)(z)=\chi(z-x_j)\chi(z-x_{j+3})$, the product of
+the raw pair rows of the two selected labels of a half, one from each component. Put
+\begin{gather*}
+ d_2=\frac2{1-q},\quad d_\mu=\frac8{1-q^2},\quad
+ \kappa=\frac{\sqrt3+\sqrt7}2,\\
+ \mathfrak b=6+15d_2+18\sqrt{d_2d_\mu}+4d_\mu+14d_\mu r,\quad
+ \mathfrak n=\kappa(1+5r)r+\mathfrak bq,\quad M_\Phi=d_\mu(1+q)^3,\\
+ Z_-=(1-\mathfrak bq)^2-q\bigl[18M_\Phi^2+384M_\Phi+72d_\mu^2(1+q)^5\bigr],
+\end{gather*}
+and let $p\ge2^{30}$. The following facts hold for every score.
+\begin{enumerate}[label=(L\arabic*)]
+\item $\|N_\Phi\|\le\mathfrak n$ and $\|N_\Phi\one\|\le\mathfrak bq$ on $L^2(\mu_\triangle)$.
+ Indeed the six single edges and the six two-edge stars have the coefficient matrix
+ $\left(\begin{smallmatrix}iD_\triangle&-I_3\\-I_3&0\end{smallmatrix}\right)$
+ (\cref{cor:star-matrix}), whose characteristic polynomial is $(z^2-1)(z^4-5z^2+1)$ and whose
+ norm is $\kappa$. The six features (the coordinate isometries $V_i$ and the pair stars
+ $W_{\{j,k\}}/r$) have actual Gram at most $(1+5r)I$ for $p\ge2^{20}$
+ (\cref{lem:general-star}): the off-diagonal norms are at most $r\sqrt{1+q}/(1-q)$
+ (singleton/singleton), $2q/(1-q)$ (incident singleton/pair), exactly $r$ (opposite
+ singleton/pair: condition on that coordinate and negate while swapping the other two)
+ and $(3q+\sqrt3r)/(1-q)$ (pair/pair), with row sums at most $5r$. The uncentred stars
+ leave $+6q$ times the constant kernel, each pair mean being $-q$ and each star
+ coefficient $-1$. The remaining $51$ masks can be priced using just
+ their active coordinates. The one-, two-, and three-coordinate densities
+ of a directed triangle are $1,d_2,d_\mu$. A kernel using $u$ output and
+ $v$ input coordinates therefore incurs only $\sqrt{d_ud_v}$.
+ The exact mask partition is
+ \[
+ \begin{array}{c|c|c|c}
+ \text{mask type}&(u,v)&\text{number}&\text{bound per mask}\\ \hline
+ \text{two-edge matching or forest}&(2,2)&15&d_2q\\
+ \text{matching number two forest}&(2,3),(3,2)&9+9&\sqrt{d_2d_\mu}q\\
+ \text{two disjoint two-edge stars}&(3,3)&3&d_\mu q\\
+ \text{matching number three forest}&(3,3)&14&d_\mu rq\\
+ \text{full six-cycle}&(3,3)&1&d_\mu q
+ \end{array}
+ \]
+ A path of $k\le5$ edges has full-cube norm at most
+ $r^{\lceil k/2\rceil}$: the two-edge star has squared norm
+ $q(1-q)$, the three- and five-edge paths factor into Paley
+ transforms with intervening contractions, and the four-edge path
+ is bounded by fixing its middle vertex and applying two transforms.
+ Disconnected components tensor. For the full cycle, fix one
+ coordinate on each side and apply the two-edge matching/path
+ bound, at cost $q$; no $r^3$ estimate for that cycle is used.
+ Summing the table and the six means gives $\mathfrak b$.
+ In particular
+ \[
+ \mathfrak b\le6+\frac{102}{1-q}
+                     +\frac{32+112r}{1-q^2}<140.004
+                     \qquad(p\ge2^{30}),
+ \]
+ with limit $140$. All these majorants are increasing in $q,r$.
+\item The passive selected-coordinate maps $h\mapsto\E_z\chi(z-y)h(z)$ and
+ $F\mapsto\E_{z,z'}\chi(z-y)\chi(z'-y)F(z,z')$ have norms $r$ and $(q(1-q))^{1/2}$
+ (\cref{cor:raw-pair-maps}(a)).
+\item \emph{Insertion of a score multiplier in a monomial of $N_\Phi\otimes N_\Phi$.}
+In a monomial of $N_\Phi\otimes N_\Phi$ choose one cross
+ edge in each component; it has at most one endpoint among the selected labels of a score,
+ as no cross edge joins the two labels of a base. With the other vertices pinned, a bounded
+ multiplier depending on at most one endpoint of each chosen edge can be placed between
+ the two Paley transforms, or before or after their tensor product, so the kernel has norm
+ at most $q$ times the supremum of the multiplier (\cref{lem:matching:kernel}(d)). Given the
+ other two vertices of a triangle, the active vertex has exactly $(p+1)/4$ completions
+ (\cref{lem:paley-triple}(a)), a conditional density at most $4/(1+q)\le4$; Cauchy--Schwarz
+ over the pinned vertices recovers the triangle energies, at the cost $16$.
+\item \emph{Rows and coincidences.} Each two-edge column of $\Phi$ has uniform mean $1+q$, so
+ the rows of $\Phi$ are at most $M_\Phi$. A cross-component equality across the cut costs at
+ most $4d_\mu^2(1+q)^5q$ of row mass (given a coordinate, the other two of its triangle have
+ density $d_\mu$), a twin equality $x_u=x'_u$ at most $64M_\Phi q$, an equality between
+ the two components inside one half at most $M_\Phi^2q$ (integrate the other half against
+ the two row bounds), and a same-component equality at different bases makes $\Phi$ vanish,
+ the third base supplying a contradictory edge. The soft mass is at least
+ $(1-\mathfrak bq)^2$ by (L1); counting the eighteen cross-component coincidences inside the
+ two halves, the six twins and the eighteen cross-component coincidences across the cut,
+ the raw mass of the uniform root relative to $\nu\otimes\nu$ is at least $Z_-$; division by
+ the half probability squared only increases it.
+\end{enumerate}
+
+\begin{lemma}[Inserting an opposite-base-pair score into the soft kernel]\label{lem:native-pair-linear}
+Fix one of the opposite-base-pair scores $\Hs0,\Hs1,\Hs2$ introduced
+above and denote it by $\mathsf H$. On the two independent cyclic
+triangles put
+$K=\Phi\otimes\Phi$, $e=\mathfrak b-6$. Then, for $p\ge2^{30}$,
+\[
+ \|K\circ\mathsf H-\mathsf H\|\le C_{\rm pair}q,\qquad
+ C_{\rm pair}=2304+2\kappa(1+5r)(1+e)
+                    +r(12+14e+e^2)<2897.
+\]
+Restriction to the actual six-distinct half costs at most
+$(1-9q)^{-1}$. Cross-cut collisions must still be charged separately.
+\end{lemma}
+\begin{proof}
+Keep the same auxiliary label in the two raw pair rows. For an
+operator $A$ on the first triangle, let
+\[
+ (VF)(x,y)=\E_s\chi(s-x_i)\chi(s-y_j)F(x,s).
+\]
+Uniformity of $y_j$ and the Paley bound give $\|V\|\le r$, while
+direct composition gives
+$(A\otimes J)\circ\mathsf H=r^{-1}V(A\otimes I)V^*$.
+Thus this term has norm at most $r\|A\|$.
+Write $\Phi=J+S+R$, with $S$ the twelve raw star monomials.
+The preceding bounds give
+$\|S\|\le\kappa(1+5r)r+6q$ and $\|R\|\le eq$.
+Each nonempty old-edge monomial times $\mathsf H$ costs at most
+$16q$: select one old edge and the passive score coordinate in
+the other triangle. The passive Paley map and the two-edge
+matching/path bound leave $r^3$ before the raw factor $r^{-1}$;
+the conditional triangle densities cost $16$. The absence of an
+old edge at the selected base is used here.
+Apply this bound to the $12^2=144$ terms of $S\otimes S$.
+The one-sided $S$ and $R$ terms use the displayed sandwich.
+The remaining $R\otimes S$, $S\otimes R$, $R\otimes R$ terms
+use the Schur multiplier norm at most $r^{-1}$ of the positive
+raw pair Gram. Summing gives the stated bound $C_{\rm pair}q$.
+The endpoint inequality uses $r\le2^{-15}$ and the rational
+upper bound for $\mathfrak b$ above. Conditioning both half laws
+on six distinct labels gives the single factor $(1-9q)^{-1}$.
+\end{proof}
+
+\begin{proposition}[The layer cut of a positive root]\label{prop:root-layer}
+Let $p\ge2^{30}$ and let $\Gamma_{p,\ulaw}$ be the individual-square
+root, with $\gamma=\ulaw^2$. Let $\nu$ be the fixed uniform induced layer
+half. With $d_\mu,\mathfrak b,\mathfrak n,M_\Phi,Z_-$ as above and
+$h_0$ of \cref{lem:root-normalization}, put
+$B_H=2+r$ and
+\begin{gather*}
+ m_\ulaw=1+2\ulaw r+\gamma,\qquad F_\ulaw=1+2\ulaw B_H+\gamma B_H^2,\qquad
+ C_{\rm nn,\ulaw}=3969\cdot16\,F_\ulaw,\\
+ C_{\rm sc,\ulaw}=127\bigl[4(1+4\ulaw r+4\gamma q)+2(q+2\ulaw r+\gamma)\bigr],\qquad
+ C_{\rm cr,\ulaw}=\bigl[256M_\Phi+64d_\mu^2(1+q)^5\bigr]F_\ulaw,\\
+ C_\ulaw=C_{\rm nn,\ulaw}+C_{\rm sc,\ulaw}+C_{\rm cr,\ulaw},\qquad
+ C_{\rm in,\ulaw}=127\bigl[9F_\ulaw+2(q+2\ulaw r+\gamma)\bigr],\\
+ z^\iota_\ulaw=1+\gamma-\gamma\Bigl[4q+36qB_H^2+\frac{2q}{1-q}\Bigr]-2\ulaw h_0,
+\end{gather*}
+and
+\begin{align*}
+ g^\iota_\ulaw&=\frac{2\mathfrak nm_\ulaw+C_\ulaw q}{rz^\iota_\ulaw h_-Z_-},\\
+ c^\iota_\ulaw&=\frac{2\ulaw r+\gamma c_0q
+   +(2\mathfrak nm_\ulaw+C_\ulaw q)/h_-}{z^\iota_\ulaw Z_-},\\
+ A^\iota_\ulaw&=\frac{C_\ulaw+C_{\rm in,\ulaw}+910\gamma
+   +2(1+\gamma)\mathfrak b/h_-}{z^\iota_\ulaw h_-Z_-},\qquad
+ c^{+,\iota}_\ulaw=\frac{q(A^\iota_\ulaw)^2}{1-c^\iota_\ulaw}.
+\end{align*}
+Here $C_{\rm nn,\ulaw}$ bounds the $N_\Phi\otimes N_\Phi$ monomials,
+$C_{\rm sc,\ulaw}$ the selected-label coincidences, $C_{\rm cr,\ulaw}$ the other
+cross coincidences, and $C_{\rm in,\ulaw}$ the input-half coincidences. If
+$z^\iota_\ulaw>0$ and $c^\iota_\ulaw<1$, the cut operator $T^\iota_\ulaw$ of
+$\Gamma_{p,\ulaw}$ at $\iota$ on $L^2(\nu)$ satisfies
+\[
+ -g^\iota_\ulaw rI\preceq T^\iota_\ulaw\preceq(1+c^{+,\iota}_\ulaw q)I,\qquad
+ \|P_0T^\iota_\ulaw\one\|\le qA^\iota_\ulaw,\qquad\|P_0T^\iota_\ulaw P_0\|\le c^\iota_\ulaw .
+\]
+The bounds at an endpoint hold for all larger primes with the same $\ulaw$, and
+$g^\iota_\ulaw\to\sqrt3+\sqrt7$. The block caps follow from \cref{lem:spec:tensorcomp}(b), as in
+\cref{prop:root-chamber}.
+\end{proposition}
+
+\begin{proof}
+Write $w_\ulaw=\frac13\sum_j\Upsilon_j$, with
+$\Upsilon_j=1+2\ulaw\Hs j+\gamma\Hs j^2$. It suffices to bound the soft
+operator of one polynomial $\Upsilon=1+2\ulaw\mathsf H+\gamma\mathsf H^2$
+and then average and normalize. By \cref{lem:spec:cutkernel}(f),
+$T^\iota_\ulaw=(T^\iota_0\circ w_\ulaw)/\E_{\Gamma_{p,0}}w_\ulaw$.
+
+\emph{Soft expansion.} $\Phi\otimes\Phi=1\otimes1+N_\Phi\otimes1+1\otimes N_\Phi+N_\Phi\otimes N_\Phi$.
+The base term $(1\otimes1)\circ\Upsilon$ is positive semidefinite: $\mathsf H$ is a positive Gram kernel,
+so is its pointwise square, and the coefficients of $\Upsilon$ are nonnegative. In
+$(N_\Phi\otimes1)\circ\Upsilon$ the passive component carries the constant kernel and its selected
+labels; retaining the auxiliary variables, (L1) and (L2) give the absolute price
+$\mathfrak n[1+2\ulaw r+\gamma(1-q)]\le\mathfrak nm_\ulaw$ in both orders, and the other
+component the same. For the $63^2$ monomials of $N_\Phi\otimes N_\Phi$, (L3) with the
+multiplier $\Upsilon$ on four distinct selected labels, where $|\mathsf H|\le B_H$ (\cref{thm:weil}(b)) and
+$|\Upsilon|\le F_\ulaw$, gives $16F_\ulaw q$ each, together $C_{\rm nn,\ulaw}q$. The strict score
+mask is part of this multiplier; no other cross-injectivity mask is removed inside a norm.
+
+\emph{Coincidences.} The four single coincidences between the selected labels of the two
+halves have, before the input half is conditioned, total row and column mass at most $4q$,
+and there $|\mathsf H|\le2r$, so $|\Upsilon|\le1+4\ulaw r+4\gamma q$; the two equal-pair events have mass
+at most $2q^2$ and $\mathsf H=(1-2q)/r$, so $|\Upsilon|\le1+2\ulaw/r+\gamma/q$. They are deleted from the
+unmasked part $1+N_\Phi\otimes1+1\otimes N_\Phi$, whose kernel is pointwise
+at most $1+2\cdot63=127$ in absolute value ($N_\Phi$ being a sum of $63$
+character monomials of modulus at most $1$), which costs $C_{\rm sc,\ulaw}q$. After these four, the coincidences across the cut are four twins and
+sixteen cross-component equalities, on which $|\Upsilon|\le F_\ulaw$, and (L4) gives
+$C_{\rm cr,\ulaw}q$. These are positive row and column bounds of the deleted kernels, not
+Schur monotonicity of signed kernels.
+
+\emph{Mass.} The raw mass of the uniform root is at least $Z_-$ (L4). Its scores have
+$|\E_{\Gamma_{p,0}}\Hs j|\le h_0$ and $\E_{\Gamma_{p,0}}\Hs j^2\ge1-4q-36qB_H^2-2q/(1-q)$
+(\cref{lem:root-normalization}(b)); so $\E_{\Gamma_{p,0}}w_\ulaw\ge z^\iota_\ulaw$.
+
+\emph{Lower bound.} The restriction to $\nu$ costs $h_-^{-1}$ (\cref{lem:restriction}) and the
+normalization $Z_-^{-1}$ of the uniform root. Dividing by the tilt mass gives $T^\iota_\ulaw\succeq-g^\iota_\ulaw r$.
+
+\emph{Centred norm.} The selected pair of a half is a uniform distinct pair under $\nu$, by
+square-affine invariance and the interchange of the two components, so the centred base
+is at most $2\ulaw r+\gamma c_0q$: $P_0\mathsf HP_0=r\,\mathcal U\mathcal U^*$ with
+$\|\mathcal U\|\le1$, and \cref{cor:raw-pair-maps}(b) gives $\|P_0\mathsf H^2P_0\|\le c_0q$. The other
+terms are those of the lower bound, which gives $c^\iota_\ulaw$.
+
+\emph{Row.} On a six-distinct output half the unconditioned base row is constant, as
+$\mathsf H$ has mean $0$ and $\mathsf H^2$ has mean $(1-2q)^2+q^3$ when the other half is
+unconditioned. In a one-component term the linear row vanishes
+after the passive coordinate is integrated, and the square row multiplies $N_\Phi(x,x')$ by
+\[
+ \E_z\bigl[\chi(z-y)^2\chi(z-y')^2\chi(z-y'')^2\bigr]-\bigl(\E_z\chi(z-y)\chi(z-y')\chi(z-y'')\bigr)^2,
+ \qquad y\ne y'',
+\]
+where $y,y''$ are the two selected labels of the output half and $y'$ that
+of the input half in the active component; this differs from one by at
+most $7q$, also when $y'\in\{y,y''\}$. With $|N_\Phi|\le65$ this
+costs $455q$. The two
+components therefore have row price $2(1+\gamma)\mathfrak bq/\sqrt h+910\gamma q$. The nine
+input-half coincidences and their pair spikes cost $C_{\rm in,\ulaw}q$, by the same
+ordinary/equal-pair split; all other errors cost $C_\ulaw q$. With $h^{-1/2}\le h_-^{-1}$, the
+half compression, the normalization of the uniform root and the tilt
+mass this gives $\|P_0T^\iota_\ulaw\one\|\le qA^\iota_\ulaw$.
+
+\emph{Upper bound.} $T^\iota_\ulaw$ is self-adjoint of mass one, so
+\cref{prop:matching:positive}(a) gives $T^\iota_\ulaw\preceq1+q^2(A^\iota_\ulaw)^2/(1-c^\iota_\ulaw)$.
+
+\emph{Uniformity.} After the explicit factor $r$ in $g^\iota_\ulaw$ is cancelled, all numerators
+are positive increasing in $q,r$ and all lower denominators positive decreasing, so
+evaluation at $q=1/P$, $r=P^{-1/2}$ is uniform for $p\ge P$. As $q\to0$, $\mathfrak n/r\to\kappa$
+and $m_\ulaw$ and $z^\iota_\ulaw$ tend to $1+\gamma$, so $g^\iota_\ulaw\to2\kappa=\sqrt3+\sqrt7$.
+\end{proof}
+
+For $\gamma=1$, the individual squares at $\ulaw=1$, the proposition is
+the individual-square layer bound at that parameter; then
+$z^\iota_1=2-4q-36qB_H^2-2q/(1-q)-2h_0$, $2\mathfrak nm_1/r=2[\kappa(1+5r)+\mathfrak br](2+2r)$
+and $F_1=(3+r)^2$. The proved coefficient tends to $2\kappa$ for every $\ulaw>0$, because the
+two one-component terms are priced separately; the larger layer cap costs only through
+the weight $v_{\rm L}$ of the completion (\cref{rem:middle-weights}).
+
+\paragraph{Sharper bounds for the tilted law (next nine subsections).}
+The following subsections sharpen the two cut bounds above at the
+seven interval starts. In order they: isolate collision terms on
+two explicit subspaces; give a finite gap for the uniform law;
+split a remainder across that gap; retain a constant term at the
+layer-flip cut; list supports for the $39$-trace law; extend it to
+all sorting cuts; use one parameter for both cuts; evaluate an
+explicit layer price; and evaluate a finite chamber price. A first reading can skip to
+\cref{subsec:positive-root-caps} and use the stated bounds.
+
+\input{sections/20b_selected_refinements}
+
+\subsection{Values of the bounds at the seven interval starts}\label{subsec:positive-root-caps}
+
+The preceding subsections proved bounds for the tilted law in
+terms of quantities evaluated at the start of each interval. The
+following certificate records those values at the seven starts,
+checked by exact and outward-interval arithmetic; the table at its
+end is the form in which later sections use them.
+
+\begin{certificate}[The positive roots]\label{cert:positive-root-caps}
+The chamber caps for the selected individual-square (pair-score) laws combine
+\cref{imp:local:collision-gap,imp:env:finite-gap-chamber,imp:env:physical-interpolation};
+their layer prices use \cref{imp:env:layer-resummation} where it improves the
+retained finite price. The last band uses
+\cref{imp:local:coherent-parameter,imp:env:coherent-parameter,imp:env:coherent-single-pin},
+with the exact matrix gate at $\ulaw=67/40$.
+All prices concern the same tilted law at both cuts, and that law's
+actual marginal enters the restoration. Every positivity or
+contractivity condition required above --- in particular
+$z_->0$, $\Delta_g>0$, $\rho_{\rm in}>0$, $c_{\rm ch}<1$,
+$d_\ulaw<1$ and $gX^{-1/2}<1$ at each endpoint $X$ --- is checked
+in outward interval arithmetic, with the uniform endpoint
+majorants proved above.
+
+The exact selected data are the \texttt{local.spectra} and
+\texttt{local.further\_root\_law} entries of
+\path{research/push_2026_10_25/global/refined_parent.json}. They agree
+exactly with the native data authenticated by
+\path{research/improvements_2026_10_25/verify.py}; only scalar charges
+are reanchored by \path{research/push_2026_10_25/verify.py}.
+The former reruns independent collision, pair-gap, interpolation,
+resummation, coherent covariance, selected matrix, finite chamber,
+finite layer and single-pin checkers. Its full tier regenerates the
+native completion. The latter checks exact equality of all native
+records and reruns the independent closing and restoration assemblies.
+At $L_{\rm loc}=585$, the exported prices, rounded upward, are:
+\begin{center}\scriptsize
+\begin{tabular}{@{}llllll@{}}
+\toprule
+piece start & law, $\ulaw$ & cut & $g$ & $c^+$ & block cap\\
+\midrule
+$2^{30}$ & individual squares, $711/4096$ & L20 & $5.476619678296$ & $25.456659470084$ & $5.476623331076$\\
+ &  & L21 & $6.313078885225$ & $3.988889092310$ & $6.313079545011$\\
+$2^{31}$ & individual squares, $1021/4096$ & L20 & $5.474335244881$ & $27.623843030000$ & $5.474337162024$\\
+ &  & L21 & $6.315256713466$ & $3.962812801799$ & $6.315257030740$\\
+$2^{32}$ & individual squares, $1455/4096$ & L20 & $5.471257426364$ & $30.397461416086$ & $5.471258447645$\\
+ &  & L21 & $6.312562621834$ & $3.927444212402$ & $6.312562774077$\\
+$2^{34}$ & individual squares, $833/1024$ & L20 & $5.464133834236$ & $36.835698528597$ & $5.464134125055$\\
+ &  & L21 & $6.307298870667$ & $3.877354549660$ & $6.307298906003$\\
+$2^{36}$ & individual squares, $3851/4096$ & L20 & $5.460775686025$ & $37.085210712622$ & $5.460775755114$\\
+ &  & L21 & $5.426082230198$ & $1.143781717023$ & $5.426082232316$\\
+$2^{40}$ & individual squares, $4049/4096$ & L20 & $5.457521105807$ & $37.019255725148$ & $5.457521109684$\\
+ &  & L21 & $4.646587567237$ & $0.075183415124$ & $4.646587567244$\\
+$2^{45}$ & coherent 39, $67/40$ & L20 & $5.434450251962$ & $983.324753609660$ & $5.434450254811$\\
+ &  & L21 & $2.869197519095$ & $0.460807795864$ & $2.869197519096$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The seven per-prime marginal variances and range ratios are recorded as
+exact rationals in the corresponding rows of the data file named above and
+displayed in
+\cref{tab:data:positive-roots}. They are bounds in the fixed uniform
+chamber half, with its actual root marginal retained. No return to a
+uniform root is made in computing the restorations.
+\end{certificate}
+
+The finite tables retain the larger choice
+$\mathfrak b_{\rm cert}=6+51d_\mu$ in the layer formulas and the
+corresponding certified remainder prices. Since
+$\mathfrak b\le\mathfrak b_{\rm cert}$, these remain valid
+majorants for the same laws. The sharper triangle estimate and
+\cref{lem:native-pair-linear} do not change the chosen weights or
+permit an uncharged change of the actual half marginals.
+
+The block caps of L20, rounded upward, give $w_{\rm D}=w_{\rm S}$,
+and those of L21 give $v_{\rm L}$ (\cref{rem:middle-weights}). The
+restorations use actual budget $570$ and the respective maximum block
+cardinalities $\lfloor L/\log X\rfloor$ ($L=570$), namely
+$27,26,25,24,22,20,18$ at the seven starts; local operator tensorization
+uses budget $585$.
+
+\begin{remark}[The family of tilts]\label{rem:positive-root-family}
+The root $g(\lambda)$ of \eqref{eq:root-cubic} is the limit of the chamber coefficient
+$g^\ulaw_{20}$ as $p\to\infty$ (\cref{prop:root-chamber}: $\Gamma_{20}\to1$, $z_{\rm raw}\to s$).
+It decreases from $g(0)=\sqrt{30}$, the limit of the uniform root, to about $5.466411$ at
+$\lambda=1/2$, $5.456962$ at $\lambda=24/25$ ($\ulaw=3/4$), $5.456161$ at $\lambda=1$ ($\ulaw=1$,
+the largest value of $2\ulaw/(1+\ulaw^2)$).
+For comparison, the leading matrix of a square-of-the-average weight
+has strength $6\ulaw/(3+\ulaw^2)$: the same cubic gives $5.443543$ at
+$\lambda=4080/2467$ ($\ulaw=51/40$) and $5.442090$ at its maximum
+$\lambda=\sqrt3$. These matrix values explain the historical interest in
+that family; a finite law must also pay its mixed-product errors. The gain is at order one; the costs are at order $r$: the layer coefficient
+tends to $\sqrt3+\sqrt7$ for every $\ulaw$, the half marginal moves, and the range ratio
+grows like $(1+\ulaw(2+r))^2/(1-\ulaw c_{\rm cond})^2$ and enters the restorations through the
+per-block product of the per-prime range ratios, bounded by
+$M_{\Blk}\le R_\ulaw(X)^n$ in \cref{lem:record:root-marginal}(iv). The selected seven middle pieces and their parameters are those of
+\cref{def:positive-root}. The coherent last-band law has its own full
+chamber and layer estimates above; the one-layer root is unchanged.
+\end{remark}
+
+\paragraph{Consequences and what to read next.}
+\Cref{thm:weil} (the scores); \cref{lem:layer12-geometry} and \cref{lem:marginals} (the
+symmetries); \cref{lem:l20-star-matrix,prop:l20-completion,prop:l20-rank4,prop:l20-rectangular,prop:l20-collisions}
+(the star matrix and the frame cap, the normalizer, the rank-four Gram, the rectangle and the
+collision cap of the uniform root);
+\cref{lem:general-star,cor:star-matrix,rem:realified-gates} and \cref{lem:spec:affpair}(d)
+(stars); \cref{cor:raw-pair-maps,lem:swapped-rectangle,lem:l20-star-mean} (pair maps, swapped
+products, star means), with \cref{thm:dl:K}, \cref{lem:matching:kernel} and
+\cref{lem:paley-triple} (witness kernels and completion counts);
+\cref{lem:record:weighted-moment} (the fluctuation of the extension count);
+\cref{lem:restriction} (the actual half);
+\cref{lem:tilt-marginals} and \cref{prop:matching:positive}(a),(a$'$) (mass, marginal, range and
+the constant block); \cref{lem:record:root-marginal}(i),(ii) and
+\eqref{eq:record:root-count} ($R_p$, $\chi^+_p$); \cref{lem:spec:cutkernel}(f) and
+\cref{lem:spec:tensorcomp}(b) (cut operators of a reweighted law, block caps);
+\cref{lem:majorant} (evaluation at an endpoint); \cref{lem:record:local-domain} (the block
+budget). Certificate:
+\cref{cert:positive-root-caps}.
+
+\paragraph{Hypotheses verified in this section (\cref{tab:hypotheses}).} the seven positive-root bands
+supply the root inputs of ``(CP1) middle'': positivity, support, native
+sorting symmetries, uniform single-slot marginals, and finite chamber
+and layer caps. Pair laws use \cref{lem:positive-root-properties};
+the coherent law uses the physical dictionary, positive floor and
+square-affine invariance of \cref{lem:imp:coherent39-law}. Their common finite interfaces
+and actual marginal data are certified in \cref{cert:positive-root-caps}.
+The completion is in \cref{sec:middle-frame}; restorations use
+\cref{lem:record:root-marginal}(iv).

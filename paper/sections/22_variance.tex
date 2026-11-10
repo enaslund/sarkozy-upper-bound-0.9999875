@@ -1,0 +1,1798 @@
+\section{The variance identity: savings $D_{\mathrm{var}}$ from fixed marginals}\label{sec:variance}
+
+\paragraph{What this section proves and how to read it.}
+When a replacement keeps the same one-half marginals, its energy
+against $\Nbr$ equals a diagonal energy minus a product energy (a
+variance). The trivial bound keeps only the diagonal ($\le BC_XY$);
+this section bounds the product energy below by $gC_XY$, giving the
+improved class bound $B-g$ allowed by (CP5). The total saving
+$D_{\rm var}$ is subtracted in $\Theta$ as $(63/64)D$ (a
+\emph{saving}, called a \emph{credit} in the text; the word
+\emph{coupon} below means one proved term in a single coefficient: a subtracted
+saving $g$ for price coefficients, or an added energy lower bound
+for the mean constant $m$). Four records per
+middle block are treated (\emph{eligible} means: replaced at fixed
+marginals and annihilating constants). Reading-order note: the
+final $D_{\rm var}$ in \cref{cor:variance:final} uses dominator
+caps from \cref{sec:envelopes}, and \cref{sec:envelopes} in turn
+uses the variance savings for aligned classes; the per-block
+inequalities here do not depend on \cref{sec:envelopes}, only the
+final assembly does---read the two sections as: per-block
+identities first, assembly last. Inputs:
+\cref{sec:middle-records}. Output: $D_{\rm var}>0.0099$ (baseline).
+
+The lower bounds are not positive semidefinite orders at $\iota$. They restore
+the product energy from the root of the reference in four steps. (A) At the
+chamber cut of the fold that produces the record, the actual half law of the
+root and the law induced by the record are mutually absolutely continuous,
+with a pointwise density bound and a chi-square bound
+(\cref{lem:record:root-marginal}; for the positive roots of the late
+pieces, \cref{lem:record:root-marginal}(iv)); the chi-square bound rests on the
+second moment of a neighbourhood count, which a modular evaluation of a
+character sum makes small (\cref{lem:record:weighted-moment}). (B) The root is
+a probability coupling at that cut, so its energy is at most that
+of its own half diagonal; step (A) compares that diagonal with
+the record. (C) The reference is a positive mixture of the root
+and of laws of controlled energy, so a stated positive fraction
+of $Y$ is recovered from the root energy
+(\cref{lem:record:restoration}). (D) At the reserved cut the
+record's own Markov operator, in its own actual marginal space,
+has centred norm $k_\phi<1$ (\cref{subsec:variance:centred}),
+i.e. it is a contraction towards the projection onto constants. The two
+matching records are not folds; they are reached from the two fold records by
+a polarization at the chamber cut $\vartheta_0$
+(\cref{lem:record:paired-e-bridge,lem:record:paired-e-joint}).
+\Cref{lem:var-gain} turns the four steps into a gain. For a selected matching
+product the exterior bracket adds positive background terms, which a joint
+restoration bounds below (\cref{prop:background-variance}). The energies
+$Y[\kappa]$, $Y^{\Nbr}[\kappa]$, $Y^{\Nbrz}[\kappa]$ of selected laws, the price
+$C_X=\prod_{\Blk\in X}q_\Blk^{2a}$, the diagonal copies $\operatorname{Diag}_\vartheta$,
+the product laws $J_\vartheta$ and the relations
+\ref{it:record:E1}--\ref{it:record:E3}, \ref{it:record:P1}--\ref{it:record:P4} and
+\ref{it:record:P3b} are those of \cref{sec:comparison-lemmas}
+(\cref{lem:energy-toolkit}); $Y=Y_\mu$.
+
+\subsection{The four records treated here}\label{subsec:variance:eligible}
+
+The variance saving applies to only four records of a middle
+block: the two nonaligned folds $F_1,F_2$ and the two matchings
+$E_0,E_1$, called the \emph{eligible} records. Each is replaced
+by a law with exactly the same actual half marginals at $\iota$,
+so the difference annihilates constants and part of its price can
+be recovered as a variance, as the following subsections show.
+This subsection fixes the four laws, their actual half marginals,
+and the two comparison laws---the diagonal copy and the product
+of the marginals---between which the variance is measured.
+
+Let $\Blk$ be a middle block (\cref{def:record:exact-blocks}) with least prime
+$b=b_\Blk$, and put $r=r_\Blk=b^{-1/2}$ and $q=r^2$. We write $x\to y$ if
+$\chi(y-x)=1$ at every prime of $\Blk$; the laws below are products over the
+primes of $\Blk$ of the laws at one prime. We use the components of the
+reference of $\Blk$ (\cref{subsec:middle-reference-law}): the \emph{two-layer $F$
+law} $\lambda_F$, uniform on six distinct labels
+$(y_{o,\ell})_{o\in\{0,1,2\},\,\ell\in\{0,1\}}$ with $y_{0,\ell}\to y_{2,\ell'}$ for
+all $\ell,\ell'$, and the \emph{two-layer $E$ law} $\lambda_E$, uniform on six
+distinct labels; a map $\phi\colon\Z/6\Z\to\{0,1,2\}$ places the label
+$y_{\phi(u),\ell}$ at the six slots $(u,v,\ell)$, $v\in\Z/6\Z$; the type-$\rm D$
+components $\Pi_{F_j,\Blk}$ are the images of $\lambda_F$ under the folds $F_j$
+of \cref{def:patterns}, of weight $w_{\rm D}r$ each in $\widetilde\mu_\Blk$, and the
+type-$\rm S$ components $\Pi_{E_s,\Blk}$ the images of $\lambda_E$ under the matchings
+$E_s$, of weight $w_{\rm S}r$ each; and the \emph{root} $\Pi_{\mathrm L,\Blk}$ is the
+uniform law on twelve distinct labels $(y_{u,\ell})_{u\in\Z/6\Z,\,\ell\in\{0,1\}}$
+with $y_{u,\ell}\to y_{\rot u,\ell'}$ for all $u,\ell,\ell'$, which contains all four
+layer lifts of the six directed edges $0\to2\to4\to0$ and $1\to5\to3\to1$; this
+is the root of the blocks of the pieces starting below $2^{30}$. On the seven
+pieces starting at $2^{30},2^{31},2^{32},2^{34},2^{36},2^{40},2^{45}$ the root is the positive root
+$\Gamma_{\Blk,\ulaw}$ of \cref{def:positive-root}, a positive reweighting of the
+uniform law with the same support; it is invariant under the
+chamber automorphisms used below, the layer interchange and independent
+square-affine maps at the primes of $\Blk$
+(\cref{lem:positive-root-properties,lem:imp:coherent39-law}),
+and every statement of this section about the root holds for it, with the
+density and chi-square bounds of its half law given by
+\cref{lem:record:root-marginal}(iv) in place of (i)--(iii). For $j\in\{0,1,2\}$ the
+\emph{fold chamber} of $F_j$ is the chamber cut $\vartheta_{2j}$ of the first
+coordinate, in the notation of \cref{subsec:chamber-geometry}: its reflection
+is $u\mapsto4j-1-u$ (that is $5-u$, $3-u$ and $1-u$) and its plus half is
+$H_{2j}=\{2j,2j+1,2j+2\}$ (indices mod $6$). By
+\cref{lem:record:fold-identification}(a)--(d): the root is invariant under the
+chamber automorphisms (for a positive root by
+\cref{lem:positive-root-properties}(b) and \cref{lem:imp:coherent39-law}), so at each $\vartheta_{2j}$ it couples
+two copies of one half law $\nu_{\mathrm L,\Blk}$, which, read in the order
+$(2j,2j+1,2j+2)$, lives on the support of $\lambda_F$ and does not depend on $j$;
+$\Pi_{F_j,\Blk}=\operatorname{Diag}_{\vartheta_{2j}}(\lambda_F^{(j)})$, where
+$\lambda_F^{(j)}$ places the labels of the object $o$ at the object $2j+o$; and
+at $\iota$ the records $\Pi_{F_j,\Blk}$, $\Pi_{E_s,\Blk}$ are symmetric, with
+actual half marginal the layer-zero triple law of $\lambda_F$ placed by $F_j$,
+respectively the uniform law on ordered triples of distinct labels placed by
+$E_s$.
+
+\begin{definition}[Eligible records and repairs]\label{def:record:eligible}
+The \emph{eligible records} of a middle block $\Blk$ are
+$\phi\in\{F_1,F_2,E_0,E_1\}$. For such $\phi$ let $\Pi_{\phi,\Blk}$ be the
+normalized reference record, $m_{\phi,\Blk}$ its actual half marginal at $\iota$
+(the same on both halves), $D_{\phi,\Blk}=\operatorname{Diag}_\iota(m_{\phi,\Blk})$
+its \emph{selected diagonal}, and $J_{\phi,\Blk}$ the law under which the two
+$\iota$-halves are independent, each with law $m_{\phi,\Blk}$ (the
+\emph{product of the actual half marginals}). A \emph{repair} of $\phi$ is a
+signed measure $\Pi'_{\phi,\Blk}$ of mass one on the labels of $\Blk$ that is a
+finite real combination of nonnegative measures, each invariant under
+independent square-affine maps at the primes of $\Blk$ and with the actual half
+marginal $m_{\phi,\Blk}$ on both sides of $\iota$. The \emph{record difference}
+$\Delta_{\phi,\Blk}$ is the operator on $L^2(m_{\phi,\Blk})$ with
+\[
+ \ip{\psi}{\Delta_{\phi,\Blk}\psi'}_{m_{\phi,\Blk}}
+ =\int\psi(z_+)\psi'(z_-)\,d(\Pi'_{\phi,\Blk}-\Pi_{\phi,\Blk})(z),
+\]
+and $\Delta^{\rm s}_{\phi,\Blk}$, $\Delta^{\rm a}_{\phi,\Blk}$ are its symmetric and
+skew parts. In the comparison law of the middle range the repair of $F_j$ is
+the signed whole-block fold record of \cref{def:record:mixture}(c),(d), a
+combination of three positive product laws, each with both half marginals
+$m_{F_j,\Blk}$ (\cref{lem:signed-components}), and the repair of $E_s$ is the
+exact-marginal matching law of \cref{lem:record:e-law}, tensorized over the
+primes of $\Blk$ (\cref{lem:record:exact-marginal-e}).
+\end{definition}
+
+Both $\Pi_{\phi,\Blk}$ and its repair have the actual half marginal
+$m_{\phi,\Blk}$ on both sides of $\iota$, so
+\begin{equation}\label{eq:record:zero-marginal}
+ \Delta_{\phi,\Blk}\one=\Delta_{\phi,\Blk}^*\one=0,\qquad
+ \Delta_{\phi,\Blk}=(I-\Jproj)\Delta_{\phi,\Blk}(I-\Jproj),
+\end{equation}
+where $\Jproj$ is the projection onto the constants of $L^2(m_{\phi,\Blk})$; the
+same holds for $\Delta^{\rm s}_{\phi,\Blk}$ and $\Delta^{\rm a}_{\phi,\Blk}$. The
+record of weight $w_\phi\in\{w_{\rm D}r,w_{\rm S}r\}$ contributes
+$w_\phi(\Pi'_{\phi,\Blk}-\Pi_{\phi,\Blk})$, normalized by
+$\widetilde\mu_\Blk(1)\ge1$, to $\nu_\Blk-\lambda_\Blk$: the first stage changes
+only the one-layer folded records (\cref{def:record:frame}), so the two-layer
+records enter $\lambda_\Blk$ and $\mu_\Blk$ with the same weight. In the
+per-record decomposition of \cref{def:record:comparison-law}(b) its norm
+envelopes are $\tilde\pi^{\rm s}D_{\phi,\Blk}$ and $\tilde\pi^{\rm a}D_{\phi,\Blk}$
+for any $\tilde\pi^{\rm s}\ge w_\phi\|\Delta^{\rm s}_{\phi,\Blk}\|$ and
+$\tilde\pi^{\rm a}\ge w_\phi\|\Delta^{\rm a}_{\phi,\Blk}\|$
+(\cref{rem:cp:charging}(ii)), with prices $\tilde\pi^{\rm s}q_\Blk^{2a}$ and
+$\tilde\pi^{\rm a}q_\Blk^{2a}$; the norm bounds are those of
+\cref{prop:signed-bounds} for $F_j$ and of \cref{lem:record:exact-marginal-e} for
+$E_s$. The two records of one kind in a block have differences of equal
+symmetric and skew norms: that of $F_2$ is $UD^*U$, with $D$ that of $F_1$ and
+$U$ a self-adjoint unitary, so that its symmetric and skew parts are
+$UD^{\rm s}U$ and $-UD^{\rm a}U$ (\cref{def:record:mixture}(d),
+\cref{prop:signed-bounds}(e)), and $E_0$, $E_1$ place one and the same law. So
+the two fold records of a block carry the same prices, and so do its two
+matching records. Every positive law constructed in this section
+(the records, their repairs, their diagonals and their products)
+is a positive measure,
+invariant under independent translations at the primes of its blocks, whose
+normalization has uniform one-slot marginals and does not depend on the
+indices (O1); the only operator-norm bounds at a cut applied to
+these laws, the contraction ($d=1$) of a probability coupling
+and the centred norms of
+a record's own Markov operator at $\iota$, condition on no shared label (O2). So
+the laws are admissible (\cref{def:admissible}), and
+\ref{it:record:E1}--\ref{it:record:E3} apply to them.
+
+The comparison at the fold chamber of $F_j$ is the following statement.
+
+\begin{hypothesis}[Root density, (A)]\label{hyp:variance:A}
+For $j\in\{1,2\}$, at the fold chamber $\vartheta_{2j}$ of $F_j$ (reflection
+$u\mapsto3-u$ for $F_1$, $u\mapsto1-u$ for $F_2$), the actual half law
+$\nu_{\mathrm L,\Blk}$ of the root on the objects $H_{2j}$ and the law
+$\lambda_F^{(j)}$, whose $\vartheta_{2j}$-diagonal copy is the record
+$\Pi_{F_j,\Blk}$, satisfy $M_\Blk^{-1}\le d\nu_{\mathrm L,\Blk}/d\lambda_F^{(j)}
+\le M_\Blk$.
+\end{hypothesis}
+
+\Cref{lem:record:root-marginal} proves hypothesis (A) with an explicit
+$M_\Blk$, for the uniform root in (i)--(iii) and for the positive roots of the
+late pieces in (iv), and also bounds the chi-square divergence of the two laws.
+The record compared with the root is the two-layer record itself, which the
+first stage does not change, not its reserved-cut marginal. The
+comparison is made at a chamber cut because no comparison is available at
+$\iota$: there the half laws of the folded records are singular to that of the
+root, and no positive semidefinite order at $\iota$ bounds the product energy
+from below (\cref{rem:record:variance-n1}).
+
+\subsection{Comparing the principal half law with the record half law}\label{subsec:variance:root}
+
+Restoration needs the chi-square distance between two half laws
+at a chamber cut: the half law of the principal (root) record and
+the half law of an eligible record. At one prime this distance is
+governed by the second moment of a signed neighbourhood count---
+how many common neighbours, with prescribed signs, four labels
+have. That second moment is computed first; one of the graph
+moments in it is evaluated through the Ahlgren--Ono identity
+(\cref{thm:ahlgren-ono}), the others by Weil's bound. At one prime $p\equiv3\pmod4$ we use $q=1/p$, $r=p^{-1/2}$ and $k_p=(p-3)/4$,
+the exact number of common successors, and of common predecessors, of two
+distinct elements of $\Fp$ (\cref{lem:paley-triple}(a)). Signed
+neighbourhoods of four distinct labels and their soft counts $\mathfrak S$ are
+those of \cref{lem:record:signed-nbhd}: with $\upsilon_+=11r+6q$ and
+$\upsilon_-=11r+70q$, a signed neighbourhood has between
+$\frac p{16}(1-\upsilon_-)$ and $\frac p{16}(1+\upsilon_+)$ elements, and at
+least $\frac p{16}(1-\upsilon_\times)$ of them avoid two further labels, where
+\[
+ \upsilon_\times=\upsilon_-+32q=11r+102q .
+\]
+
+\paragraph{The second moment of a neighbourhood count.}
+The chi-square comparison needs the second moment of the fluctuation of a
+neighbourhood count. For independent uniform $x=(x_1,x_2,x_3,x_4)\in\Fp^4$ and
+the signs $s=(-1,-1,1,1)$ put $s_A=\prod_{i\in A}s_i$ and
+\[
+ \mathcal W=\sum_{\substack{A\subseteq\{1,2,3,4\}\\|A|\in\{3,4\}}}s_A
+ \sum_{z\in\Fp}\prod_{i\in A}\chi(z-x_i),\qquad
+ P_{\rm adm}=\prod_{i\in\{1,2\},\ k\in\{3,4\}}\bigl(1+\chi(x_k-x_i)\bigr).
+\]
+For a finite simple graph $G$ on $\{0,\dots,n-1\}$ let
+$M_G=\E\prod_{\{u,v\}\in G,\,u<v}\chi(\xi_v-\xi_u)$ for independent uniform
+$\xi_0,\dots,\xi_{n-1}\in\Fp$. Let $G_5$ be the graph on five vertices with the
+eight edges $01$, $02$, $03$, $04$, $13$, $14$, $23$, $24$ (the complete
+tripartite graph with parts $\{0\}$, $\{1,2\}$, $\{3,4\}$); $G_{12}$ the complete
+tripartite graph on six vertices with parts $\{0,1\}$, $\{2,3\}$, $\{4,5\}$; and
+$G_{10}$ the graph on six vertices with the ten edges $01$, $03$, $04$, $05$,
+$12$, $14$, $15$, $23$, $25$, $34$.
+
+\begin{lemma}[Second moment of the neighbourhood count]
+\label{lem:record:weighted-moment}
+Let $p\equiv3\pmod4$ be prime.
+\begin{enumerate}[label=(\alph*)]
+\item The moment satisfies
+ \begin{equation}\label{eq:record:weighted-identity}
+  \frac{\E[P_{\rm adm}\mathcal W^2]}{p^2}=(4+8q)M_{G_5}+M_{G_{12}}+24M_{G_{10}}
+  +5q-4q^2+14q^3-15q^4,
+ \end{equation}
+ $|M_{G_5}|,|M_{G_{12}}|\le q$ and $|M_{G_{10}}|\le qr$. Consequently
+ $\E[P_{\rm adm}\mathcal W^2]/p^2\le10q+24qr+4q^2+14q^3$.
+\item With $T_\lambda=\sum_{y\in\Fp}\chi(y(y-1)(y-\lambda))$,
+ \begin{equation}\label{eq:record:modular-moment}
+  M_{G_5}=\frac{p-1}{p^4}\sum_{\lambda\in\Fp}\chi(\lambda)T_\lambda^2,\qquad
+  -(1-q)(2qr+q^2)\le M_{G_5}\le(1-q)(2qr-q^2),
+ \end{equation}
+ and $M_{G_{12}}=(1-5q)M_{G_5}+q^2(1-q)(1-2q)$. Consequently
+ \[
+  \frac{\E[P_{\rm adm}\mathcal W^2]}{p^2}=(5+3q)M_{G_5}+24M_{G_{10}}+5q-3q^2
+  +11q^3-13q^4\le5q+34qr+11q^3 .
+ \]
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\emph{The identity.} Expand $P_{\rm adm}$ into its $16$ products over subsets
+of the four cross pairs, and $\mathcal W^2$ into $25$ products over pairs
+$(A,A')$, with independent summation labels $z,z'$. Dividing by $p^2$, each of
+the $400$ terms is $\pm$ a moment $\E\prod\chi(\xi_v-\xi_u)$ of an oriented
+simple graph on the six vertices $x_1,x_2,x_3,x_4,z,z'$, with $z,z'$ uniform;
+all these graphs are subgraphs of the complete tripartite graph with parts
+$\{x_1,x_2\},\{x_3,x_4\},\{z,z'\}$. The moments are reduced by four exact rules,
+valid for every prime $p\equiv3\pmod4$:
+(G1) a vertex of degree one makes the moment zero, since
+$\sum_\xi\chi(\xi-\eta)=0$; (G2) an odd number of edges makes it zero, since
+$\xi\mapsto-\xi$ preserves the uniform law and multiplies the product by
+$\chi(-1)^{\#\text{edges}}$; (G3) relabelling the vertices changes the moment
+by the sign $\chi(-1)$ per reversed edge, and an automorphism reversing an odd
+number of edges forces the moment to vanish; (G4) for a vertex $v$ of degree
+two with neighbours $u,w$, $\E_{\xi_v}\chi(\xi_v-\xi_u)\chi(\xi_v-\xi_w)=
+\one[\xi_u=\xi_w]-q$ (\cref{lem:paley-triple}(b)), which removes $v$ and adds the
+graph with $u$ and $w$ identified; a repeated edge is
+$\chi(t)^2=1-\one[t=0]$ and is expanded in the same way, and a loop gives zero.
+Every step lowers the number of vertices or of vertices of degree two, so the
+reduction terminates in polynomials in $q$ and moments of graphs with all
+degrees at least three. Among the graphs that occur these are $G_5$, $G_{12}$
+and $G_{10}$, and collecting the $400$ reductions gives
+\eqref{eq:record:weighted-identity}. The bookkeeping of the $400$ terms is the
+finite symbolic computation of \cref{cert:record:weighted-identity}.
+
+\emph{The bounds for $M_{G_5}$ and $M_{G_{12}}$.} Suppose a graph $G$ has two
+disjoint edges $u_1v_1,u_2v_2$ whose four endpoints do not span a complete
+graph $K_4$. If one of $u_1v_2,u_2v_1$ is missing, let the two sides be
+$\{u_1,u_2\}$ and $\{v_1,v_2\}$; otherwise one of $u_1u_2,v_1v_2$ is missing,
+and the sides are $\{u_1,v_2\}$ and $\{v_1,u_2\}$. In either case at most three
+of the four pairs across the sides are edges, and both selected edges cross.
+Fix all other labels. Edges inside a side, and edges to fixed labels, are
+multipliers of modulus at most one on the functions of that side; the crossing
+edges are the kernel of an operator $T_{\mathcal K}$ of \cref{lem:matching:kernel}
+with $k=2$, whose diagonal pairs are the two selected edges and which has at
+most one further pair, so that its digraph is acyclic and
+$\|T_{\mathcal K}\|\le r^2=q$ by part (a) of that lemma. The fixed-label moment
+is therefore at most $q$ in absolute value, and so is $M_G$. In $G_5$ the edges
+$01$ and $23$ qualify ($12$ is missing), and in $G_{12}$ the edges $02$ and $34$
+($23$ is missing).
+
+\emph{The bound for $M_{G_{10}}$.} Translate $\xi_0=0$. The factor $\chi(\xi_1)$
+vanishes at $\xi_1=0$; for $\xi_1=c\ne0$ substitute $\xi_v=c\eta_v$ ($v\ge2$):
+each of the ten edge factors acquires $\chi(c)$, and $\chi(c)^{10}=1$. With
+$\eta_2=\beta$, $\eta_3=\gamma$,
+\[
+ M_{G_{10}}=\frac{p-1}{p^5}\sum_{\beta,\gamma}\chi(\gamma)\chi(\beta-1)
+ \chi(\gamma-\beta)\,T_\beta T_\gamma,\qquad
+ T_\beta=\sum_y\chi(y)\chi(y-1)\chi(y-\beta),
+\]
+the sums over $\eta_4$ and $\eta_5$ giving $T_\gamma$ and $T_\beta$. The matrix
+$H_{\gamma\beta}=\chi(\gamma-\beta)$ satisfies $H^{\mathsf T}H=pI-\Jall$ and
+$H\one=0$, so $\|H\|\le\sqrt p$; and $T=-Hv$ with $v_y=\chi(y)\chi(y-1)$,
+$\|v\|^2=p-2$, so $\|T\|\le p$. The double sum is $\psi'^{\mathsf T}H\psi$ with
+$\psi_\beta=\chi(\beta-1)T_\beta$ and $\psi'_\gamma=\chi(\gamma)T_\gamma$, of norms
+at most $p$; hence it is at most $p^{5/2}$ and
+$|M_{G_{10}}|\le(p-1)p^{-5/2}\le p^{-3/2}=qr$.
+
+The last assertion of (a) follows from \eqref{eq:record:weighted-identity}, the
+three bounds and $-15q^4\le0$.
+
+\emph{The modular evaluation.} (b) Translate $\xi_0=0$ in $M_{G_5}$. The factor
+$\chi(\xi_1)$ vanishes at $\xi_1=0$; for $\xi_1=c\ne0$ substitute $\xi_v=c\eta_v$
+($v=2,3,4$): each of the eight edge factors acquires $\chi(c)$, and
+$\chi(c)^8=1$. With $\lambda=\eta_2$ the edges at the vertex $3$ give
+$\chi(\eta_3)\chi(\eta_3-1)\chi(\eta_3-\lambda)$, and those at the vertex $4$ the
+same factor in $\eta_4$, so the sums over $\eta_3$ and $\eta_4$ are both
+$T_\lambda$, and the factor $\chi(\eta_2)$ of the edge $02$ is $\chi(\lambda)$; this
+is the identity of \eqref{eq:record:modular-moment}. By \cref{thm:ahlgren-ono},
+$\sum_\lambda\chi(\lambda)T_\lambda^2=-p-a(p)$ with $|a(p)|\le2p^{3/2}$; multiplying
+by $(p-1)/p^4$ gives the two bounds, since $(p-1)p^{-3}=(1-q)q^2$ and
+$2(p-1)p^{-5/2}=2(1-q)qr$.
+
+\emph{The inversion identity.} Translate $\xi_0=0$ in $M_{G_{12}}$, so that
+$M_{G_{12}}=p^{-5}\sum_{\xi_1,\dots,\xi_5}\Phi(\xi)$, where $\Phi$ is the product of
+the twelve edge factors at $\xi_0=0$. The four edges at the vertex $0$ give the
+factor $\chi(\xi_2)\chi(\xi_3)\chi(\xi_4)\chi(\xi_5)$.
+
+On the part $\xi_1\ne0$, $\Phi$ vanishes unless all five labels are nonzero;
+substitute $\xi_v=1/\eta_v$ ($1\le v\le5$). Then $\chi(\xi_v)=\chi(\eta_v)$, and for
+an edge $uw$ with $u<w$ between nonzero labels
+$\chi(\xi_w-\xi_u)=\chi\bigl((\eta_u-\eta_w)/(\eta_u\eta_w)\bigr)
+=-\chi(\eta_w-\eta_u)\chi(\eta_u)\chi(\eta_w)$. Every vertex has degree four in
+$G_{12}$, and each edge at a vertex $v\ge1$ contributes one factor $\chi(\eta_v)$,
+so these factors give $\chi(\eta_v)^4=1$; the eight edges between the vertices
+$1,\dots,5$ give the sign $(-1)^8=1$. What remains is the product of the factors
+$\chi(\eta_w-\eta_u)$ over the edges $12,13,14,15,24,25,34,35$, which form a copy
+of $G_5$ (centre $1$, parts $\{2,3\}$ and $\{4,5\}$), summed over nonzero labels.
+By inclusion and exclusion over the set of vanishing labels: the unrestricted
+sum is $p^5M_{G_5}$; prescribing one vanishing label leaves, by translation,
+$p^4M_{G_5}$; two adjacent labels cannot vanish together; the two
+nonadjacent pairs $\{2,3\}$ and $\{4,5\}$ each contribute
+$\sum_{\eta_1\ne0}\bigl(\sum_{y\ne0}\chi(y-\eta_1)\bigr)^2=p-1$, since
+$\sum_{y\ne0}\chi(y-\eta_1)=-\chi(-\eta_1)$; and no three labels are pairwise
+nonadjacent. So this part contributes $(p^5-5p^4)M_{G_5}+2(p-1)$.
+
+On the part $\xi_1=0$, the four edges at the vertex $1$ give the same factor as
+those at $0$, so the product is the indicator that $\xi_2,\dots,\xi_5$ are
+nonzero times the four factors of the complete bipartite graph between
+$\{2,3\}$ and $\{4,5\}$. For nonzero $a,b$ put
+$c(a,b)=\sum_{y\ne0}\chi(y-a)\chi(y-b)$; then $c(a,a)=p-2$ and
+$c(a,b)=-1-\chi(ab)$ for $a\ne b$, and this part is
+\[
+ \sum_{a,b\ne0}c(a,b)^2=(p-1)(p-2)^2+\sum_{a\ne b}\bigl(2+2\chi(ab)\bigr)
+ =(p-1)(p^2-2p-2),
+\]
+as $\sum_{a\ne b}\chi(ab)=-(p-1)$. Adding the two parts and dividing by $p^5$
+gives $M_{G_{12}}=(1-5q)M_{G_5}+(p-1)(p-2)/p^4$, which is the inversion identity.
+
+Substituting it in \eqref{eq:record:weighted-identity} gives the displayed
+identity of (b). By \eqref{eq:record:modular-moment}, $5+3q>0$ and
+$|M_{G_{10}}|\le qr$, its right side is at most $5q+34qr+11q^3$ minus
+$8q^2-2q^3+10q^4+4q^2r+6q^3r$, which is nonnegative.
+\end{proof}
+
+\begin{remark}[The crude second moment]\label{rem:variance:crude}
+The identity matters only for its constant. Under independent uniform labels
+only the diagonal pairs $A=A'$ survive in $\E[\mathcal W^2]$, because
+$\E_x\chi(z-x)=0$, and $\E_x\chi(z-x)\chi(z'-x)=\one[z=z']-q$; hence
+$\E[\mathcal W^2]=\sum_{|A|\in\{3,4\}}[p(1-q)^{|A|}+p(p-1)(-q)^{|A|}]\le5p$, and
+$0\le P_{\rm adm}\le16$ gives $\E[P_{\rm adm}\mathcal W^2]/p^2\le80q$. This
+already shows that the chi-square divergence of \cref{lem:record:root-marginal}
+is $O(q)$. The identity lowers the constant from $80$ to about $10$, and the
+modular evaluation of \cref{lem:record:weighted-moment}(b) to about $5$; the
+certified credits use the latter.
+\end{remark}
+
+\paragraph{The first moment of the four-root count.}
+The cut L20 of the uniform root (\cref{subsec:middle-l20}) needs the first
+moment of the same signed count, with the four labels distinct. Write
+$\mathcal W=\mathcal W_3+\mathcal W_4$, where $\mathcal W_k$ is the part of
+$\mathcal W$ with $|A|=k$, and let $D_4$ be the indicator that $x_1,\dots,x_4$
+are distinct.
+
+\begin{lemma}[The first moment of the four-root count]\label{lem:l20-star-mean}
+Let $p\equiv3\pmod4$ be prime. Then
+\begin{equation}\label{eq:l20-star-identities}
+ \frac{\E[P_{\rm adm}D_4\mathcal W_3]}p=0,\qquad
+ \frac{\E[P_{\rm adm}D_4\mathcal W_4]}p=M_{G_5}+8q^2-33q^3+25q^4 .
+\end{equation}
+Consequently, let $p>7$, so that $Z_4=(1-q)(1-3q)(1-7q)>0$, and let $\mathsf K$
+be the soft kernel of the cut L20 of \cref{subsec:middle-l20}, the product over
+the sixteen cross edges of the factors $1+(D_{20})_{ij}\chi(x'_j-x_i)$ with the
+signed cross matrix $D_{20}$ of \eqref{eq:l20-cross-matrix}, for independent
+halves $x,x'$ with the law $\lambda_{F,p}$. In the expansion of $\E\mathsf K$ over
+the sets of cross edges, the sets that form a star (all their edges at one
+label, the centre) have total mean of modulus at most
+\[
+ m_\star=\frac{4\{(1-q)(q^2+2qr)+8q^2+33q^3+25q^4\}}{Z_4}.
+\]
+Hence, if the nonstar part $T_{\rm ns}$ of the soft kernel and the collision
+correction $T_{\rm coll}$ of \cref{subsec:middle-l20} have norms at most
+$N_{\rm ns}$ and $D_{\rm col}$, and $\eps_Z=N_{\rm ns}+D_{\rm col}+m_\star<1$, then
+the normalizer $Z_0=\E\mathsf K-\ip\one{T_{\rm coll}\one}$ of the L20 cut operator
+satisfies $|Z_0-1|\le\eps_Z$, and the normalizer centred at the half-law mean may use
+$R_Z=(1-\eps_Z)^{-1}\ge Z_0^{-1}$.
+\end{lemma}
+
+\begin{proof}
+\emph{The identities.} Expand $D_4$ over the partitions $\pi$ of the four labels,
+with the M\"obius coefficients of the partition lattice:
+\begin{equation}\label{eq:partition-coefficient}
+ D_4=\sum_\pi\mu(\pi)\,\one_\pi,\qquad
+ \mu(\pi)=\prod_{C\in\pi}(-1)^{|C|-1}(|C|-1)!\,,
+\end{equation}
+where $\one_\pi$ is the indicator that $x$ is constant on every block of $\pi$;
+expand $P_{\rm adm}$ into its $16$ products over the sets of cross pairs and
+$\mathcal W_k$ into its $k$-sets $A$ with the signs $s_A$. Identifying the labels
+of each block of $\pi$ leaves $|\pi|$ independent uniform labels and costs the
+factor $q^{4-|\pi|}$. After division by $p$, each of the $16\cdot5\cdot15=1200$
+terms is therefore $s_A\mu(\pi)q^{4-|\pi|}$ times the moment of the oriented graph
+on the merged labels and the summation label $z$, with the chosen cross pairs and
+the edges from $z$ to the labels of $A$; edges reversed by the identification
+contribute their signs $\chi(-1)=-1$, and a loop makes the term zero. Each moment
+is reduced by the rules (G1)--(G4) of the proof of
+\cref{lem:record:weighted-moment}, which are exact for every prime $p\equiv3
+\pmod4$. The reduced terms with $|A|=3$ cancel, and those with $|A|=4$ add up to
+$M_{G_5}+8q^2-33q^3+25q^4$; the bookkeeping of the $1200$ reductions is the
+finite symbolic computation of \cref{cert:l20-star-mean}.
+
+\emph{The star means.} Under $\lambda_F\otimes\lambda_F$ the centre $z$ of a star
+is a coordinate of one half, uniform on $\Fp$ and independent of the other half,
+which carries the leaves; the leaves are distinct labels. By the orientation of
+the factors, a star centred in the first half has the sign $(-1)^{\#\text{leaves}}$
+in addition to the product of its entries of $D_{20}$. A one-leaf star has mean
+zero, as $\E_z\chi(z-y)=0$. A two-leaf star has mean $-q$ times the product of
+its two entries, because $\E_z\chi(z-y)\chi(z-y')=-q$ for $y\ne y'$
+(\cref{lem:paley-triple}(b)). The rows of $D_{20}$, and also its columns, are of
+two kinds (\eqref{eq:l20-cross-matrix}): four have two nonzero entries, of equal
+sign, at the labels $b_0,b_1$ of the other half; two have four nonzero entries,
+at the labels $a_0,a_1,c_0,c_1$ of the other half, with the signs
+$\pm(-1,-1,1,1)$. The products of the entries
+over the two-element subsets of the support therefore sum, over the rows and
+over the columns, to $4\cdot1+2\cdot(-2)=0$, and the two-leaf means cancel.
+Stars with three or four leaves occur only at the four centres of the second
+kind, two on each side, and their leaves are the four labels $(a_0,a_1,c_0,c_1)$
+of the other half. Under $\lambda_F$ these labels are uniform on the admissible
+ordered quadruples (distinct, with $a_i\to c_j$), since each admissible
+quadruple has exactly $(p-4)(p-5)$ completions by $(b_0,b_1)$; for independent
+uniform labels $P_{\rm adm}D_4$ is $16$ times the indicator of the admissible
+event, which has probability $p(p-1)k_p(k_p-1)/p^4=Z_4/16$. Hence
+$\E_{\lambda_F}[f]=\E[P_{\rm adm}D_4f]/Z_4$ for every function $f$ of the four labels.
+At such a centre the three-leaf stars together have the mean
+$\pm\E_{\lambda_F}[\mathcal W_3]/p$, which is zero by
+\eqref{eq:l20-star-identities}, and the four-leaf star, whose sign product is
+$+1$, has the mean $\E_{\lambda_F}[\mathcal W_4]/p
+=(M_{G_5}+8q^2-33q^3+25q^4)/Z_4$. By \eqref{eq:record:modular-moment},
+$|M_{G_5}|\le(1-q)(q^2+2qr)$, so the four centres give at most $m_\star$.
+
+The empty set of edges gives one and the nonstar sets give
+$\ip\one{T_{\rm ns}\one}$, of modulus at most $N_{\rm ns}$; the collision
+correction $\ip\one{T_{\rm coll}\one}$ has modulus at most $D_{\rm col}$. So
+$|Z_0-1|\le m_\star+N_{\rm ns}+D_{\rm col}=\eps_Z$, and $Z_0\ge1-\eps_Z>0$.
+\end{proof}
+
+With $q=r^2$, $m_\star/r^2$ is a positive increasing function of $r$ for
+$0<r<7^{-1/2}$, its numerator being $4(2r+9r^2-2r^3+32r^4+25r^6)$ and its
+denominator $Z_4$ decreasing; so the value of $m_\star$ at a threshold bounds it
+at every larger prime.
+
+\begin{certificate}[The four-root first moment]\label{cert:l20-star-mean}
+The $1200$ terms of the expansion in the proof of
+\cref{lem:l20-star-mean} add up to
+\eqref{eq:l20-star-identities}, and the signed two-leaf row and
+column sums of the cross matrix vanish; both are checked in exact
+arithmetic as follows. The script
+\path{research/continuation_2026_10_24/upper_arithmetic/l20_star_mean.py}
+writes the record
+\path{research/continuation_2026_10_24/upper_arithmetic/l20_star_mean.json}
+(status \texttt{PASS\_EXACT\_L20\_STAR\_MEAN\_IDENTITY}): it lists the $1200$ terms
+of the expansion in the proof of \cref{lem:l20-star-mean}, with the coefficient
+\eqref{eq:partition-coefficient}, the sign and the integer reduction of each by
+the rules (G1)--(G4), and checks that they add up to
+\eqref{eq:l20-star-identities}; it also checks that the signed two-leaf sums of
+the rows and of the columns of the cross matrix vanish, and the identities by
+direct finite sums at $p=7,11,19$. The record and the script are pinned by
+SHA-256 in \path{research/continuation_2026_10_24/verification/selected.json}.
+Its check \texttt{l20\_mean} (status
+\texttt{PASS\_INDEPENDENT\_L20\_VARIANCE\_MEAN\_SPECTRAL\_GATES}) runs
+\path{research/continuation_2026_10_24/upper_arithmetic/review_middle_l20_mean.py},
+which asserts the status of the record, its $1200$ terms, the vanishing of the
+part with $|A|=3$ and the two vanishing two-leaf sums; its full-tier check
+\texttt{fresh\_l20\_mean} reruns
+\path{research/continuation_2026_10_24/upper_arithmetic/middle_l20_variance_mean.py},
+which asserts the status of the record as well. The continuation record is an
+authenticated input of the later ones: \path{research/advance_2026_10_24/verify.py}
+asserts its status and re-hashes the files it pins, and the later verifiers authenticate this chain through
+\path{research/push_2026_10_25/verify.py} (\cref{cert:closing}).
+\end{certificate}
+
+\begin{lemma}[Root completion count]\label{lem:record:root-marginal}
+Let $p\equiv3\pmod4$ be prime and put
+\begin{gather*}
+ \mathfrak a_p=\frac{4q}{1-3q}\cdot\frac{(1+\upsilon_+)^2}
+ {(1-\upsilon_-)(1-\upsilon_--16q)},\qquad
+ R_p=\frac{(1+\upsilon_+)^2}{(1-\upsilon_\times)(1-\upsilon_\times-16q)
+ (1-24\mathfrak a_p)},\\
+ Z_4=(1-q)(1-3q)(1-7q),\qquad
+ \Delta_2=\Bigl(\frac{5q+34qr+11q^3}{Z_4}\Bigr)^{1/2}+30q,\\
+ \Delta_{\max}=11r+30q,\qquad
+ D_{\rm full}=(2+\Delta_{\max}+16q)\Delta_2+16q+24\mathfrak a_p(1+\Delta_{\max})^2,\\
+ L_{\rm low}=(1-\Delta_{\max})(1-\Delta_{\max}-16q)(1-24\mathfrak a_p),
+\end{gather*}
+and assume that the \emph{lower factors} $1-\upsilon_\times-16q$ and
+$1-24\mathfrak a_p$ are positive. Then $L_{\rm low}>0$ as well, since
+$\Delta_{\max}<\upsilon_\times$.
+\begin{enumerate}[label=(\roman*)]
+\item The half law $\nu_{\mathrm L,p}$ of the root at one prime satisfies
+ $R_p^{-1}\le d\nu_{\mathrm L,p}/d\lambda_{F,p}\le R_p$; moreover the
+ supremum of this density is at most $R_p$ times its infimum.
+\item $\chi_p:=\chi^2(\nu_{\mathrm L,p}\,\|\,\lambda_{F,p})\le
+ \min\bigl((R_p-1)^2/R_p,\,D_{\rm full}^2/L_{\rm low}^2\bigr)$.
+\item Let $\Blk$ be a middle block whose primes are at least $X$, with
+ $\log q_\Blk\le L$, and let $n\ge\lfloor L/\log X\rfloor$ be an integer.
+ Then hypothesis (A) holds with $M_\Blk=\prod_{p\in\Blk}R_p\le\bar R(X)^n$,
+ and
+ \[
+  \chi^2(\nu_{\mathrm L,\Blk}\,\|\,\lambda_{F,\Blk})=\prod_{p\in\Blk}(1+\chi_p)-1
+  \le\bigl(1+\bar\chi(X)\bigr)^n-1,
+ \]
+ where $\bar R(X)$ and $\bar\chi(X)$ are the right sides of (i) and (ii)
+ evaluated at $q=1/X$ and any fixed $r\ge X^{-1/2}$ for which the two lower
+ factors are positive (the notation suppresses this $r$;
+ \eqref{eq:variance:pieces} takes $r=1/\lfloor\sqrt X\rfloor$).
+\item \emph{Positive roots.} Let $\Blk$ be a middle block of one of the pieces
+ starting at $X\in\{2^{30},2^{31},2^{32},2^{34},2^{36},2^{40},2^{45}\}$, whose root is the positive root
+ $\Gamma_{\Blk,\ulaw}$ of \cref{def:positive-root}, with $\log q_\Blk\le L$ and
+ $n\ge\lfloor L/\log X\rfloor$, and let $R_\ulaw(X)$ and $d_\ulaw(X)^2$ be the
+ range ratio and the variance bound of the half marginal of $\Gamma_{p,\ulaw}$ at
+ the chamber cut $\vartheta_0$ given by
+\cref{prop:root-chamber,imp:env:coherent-parameter,imp:env:coherent-single-pin} at the endpoint
+ $X$, whose gates hold there (\cref{cert:positive-root-caps}). Then hypothesis
+ (A) holds for the half law $\nu_{\mathrm L,\Blk}$ of $\Gamma_{\Blk,\ulaw}$ with
+ $M_\Blk\le R_\ulaw(X)^n$, and
+ \[
+  \chi^2(\nu_{\mathrm L,\Blk}\,\|\,\lambda_{F,\Blk})\le
+  \bigl(1+d_\ulaw(X)^2\bigr)^n-1 .
+ \]
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Work at $\vartheta_0$, with half $H_0=\{0,1,2\}$; the half law does not depend
+on the chamber. A half configuration is $y=(y_{u,\ell})_{u\in\{0,1,2\},\,\ell\in
+\{0,1\}}$, six distinct labels with $y_{0,\ell}\to y_{2,\ell'}$. It completes to a
+root configuration by labels $y_{u,\ell}$, $u\in\{3,4,5\}$, subject to
+$y_{2,\ell}\to y_{4,\ell'}\to y_{0,\ell''}$ (even triangle) and
+$y_{1,\ell}\to y_{5,\ell'}\to y_{3,\ell''}\to y_{1,\ell'''}$ (odd triangle), for all
+layer indices, all twelve labels distinct.
+
+\emph{Odd component.} Fix $(y_{1,0},y_{1,1})$ and let $\mathcal O$ be the set
+of $(y_{5,0},y_{5,1},y_{3,0},y_{3,1})$ satisfying the odd constraints with the six
+odd labels distinct, and $\mathcal Z=|\mathcal O|$. The labels $y_{5,\ell}$ are an
+ordered distinct pair of common successors of $y_{1,0},y_{1,1}$ ($k_p(k_p-1)$
+choices), and given them the labels $y_{3,\ell}$ are an ordered distinct pair in
+the signed neighbourhood of $(y_{5,0},y_{5,1},y_{1,0},y_{1,1})$ with the signs
+$(1,1,-1,-1)$. By \cref{lem:record:signed-nbhd},
+$\mathcal Z\ge k_p(k_p-1)(p/16)^2(1-\upsilon_-)(1-\upsilon_--16q)$. The number of
+elements of $\mathcal O$ with a prescribed value of $y_{5,0}$ is at most
+$(k_p-1)(p/16)^2(1+\upsilon_+)^2$; the same bound holds for $y_{5,1}$, and,
+choosing $y_{3,0},y_{3,1}$ first as common predecessors of $y_{1,0},y_{1,1}$, for
+$y_{3,0}$ and $y_{3,1}$. So under the uniform law on $\mathcal O$ each of the four
+free odd labels takes any given value with probability at most $\mathfrak a_p$,
+since $1/k_p=4q/(1-3q)$. Finally $\mathcal Z$ does not depend on
+$(y_{1,0},y_{1,1})$: the maps $z\mapsto cz+c'$ with $\chi(c)=1$ preserve all the
+constraints and act transitively on the ordered distinct pairs with a fixed
+value of $\chi(y_{1,1}-y_{1,0})$; $\mathcal O$ depends only on the set
+$\{y_{1,0},y_{1,1}\}$, because all four lifts of each edge are present; and the
+two orders of the pair have opposite values of $\chi(y_{1,1}-y_{1,0})$, since
+$\chi(-1)=-1$.
+
+\emph{Even component.} Given $y$, the pair $(y_{4,0},y_{4,1})$ is an ordered
+distinct pair in the signed neighbourhood of $(y_{0,0},y_{0,1},y_{2,0},y_{2,1})$
+with the signs $(-1,-1,1,1)$, avoiding $y_{1,0},y_{1,1}$. By
+\cref{lem:record:signed-nbhd} the number of such pairs lies between
+$(p/16)^2(1-\upsilon_\times)(1-\upsilon_\times-16q)$ and $(p/16)^2(1+\upsilon_+)^2$.
+For each such pair, the odd
+completions that avoid the six even labels form a subset of $\mathcal O$ of
+relative size between $1-24\mathfrak a_p$ and $1$, by the union bound over four
+free odd labels and six forbidden values. Hence the number $\mathfrak N(y)$ of
+completions of $y$ satisfies
+\begin{equation}\label{eq:record:root-count}
+ (1-\upsilon_\times)(1-\upsilon_\times-16q)(1-24\mathfrak a_p)
+ \le\frac{\mathfrak N(y)}{\mathcal Z(p/16)^2}\le(1+\upsilon_+)^2 .
+\end{equation}
+
+(i) The density of $\nu_{\mathrm L,p}$ with respect to the uniform law
+$\lambda_{F,p}$ on the half configurations is $\mathfrak N(y)/
+\E_{\lambda_F}\mathfrak N$. By \eqref{eq:record:root-count} the values of
+$\mathfrak N$ lie in an interval $[c,R_pc]$, $c>0$ ($\mathcal Z$ cancels), and so
+does their mean; hence the supremum of the density is at most $R_p$ times its
+infimum, and the density lies in $[R_p^{-1},R_p]$.
+
+(ii) A density $g$ with $\E g=1$ and values in $[R^{-1},R]$ satisfies
+$\E(g-R^{-1})(R-g)\ge0$, that is, $\E g^2\le R+R^{-1}-1$; this is the first
+bound. For the second, under $\lambda_{F,p}$ the four labels
+$x=(y_{0,0},y_{0,1},y_{2,0},y_{2,1})$ are uniform on the \emph{admissible}
+ordered quadruples (distinct, with $y_{0,\ell}\to y_{2,\ell'}$), since each has
+exactly $(p-4)(p-5)$ choices of $(y_{1,0},y_{1,1})$; for independent uniform
+labels the admissible event has probability $p(p-1)k_p(k_p-1)/p^4=Z_4/16$. For
+admissible $x$ the soft count with the signs $(-1,-1,1,1)$ equals
+$p+2+\mathcal W$: the singleton sums vanish, each quadratic sum is $-1$
+by \eqref{eq:two-root}, and $\sum_{i<k}s_is_k=-2$. At each of the four labels of
+$x$ one factor of the soft count vanishes (at $z=y_{0,0}$, for instance,
+$1+\chi(y_{0,0}-y_{2,0})=1-\chi(y_{2,0}-y_{0,0})=0$), so the soft count is exactly
+$16$ times the size of the signed neighbourhood. Removing $y_{1,0},y_{1,1}$
+deletes $n_1\in\{0,1,2\}$ points, so the number of admissible labels for
+$y_{4,\ell}$ is $n=\bar n(1+\beta)$, with $\bar n=p/16$ and
+$\beta=\mathcal W/p+(2-16n_1)q$. By \cref{thm:weil},
+$|\mathcal W|\le4\cdot2\sqrt p+3\sqrt p$, so $|\beta|\le\Delta_{\max}$. Since
+$P_{\rm adm}\ge0$ everywhere and $P_{\rm adm}=16$ on the admissible event,
+\cref{lem:record:weighted-moment}(b) gives
+\[
+ \E_{\lambda_F}\Bigl(\frac{\mathcal W}p\Bigr)^2\le
+ \frac{\E[P_{\rm adm}\mathcal W^2]}{p^2Z_4}
+ \le\frac{5q+34qr+11q^3}{Z_4},
+\]
+hence $\|\beta\|_{L^2(\lambda_F)}\le\Delta_2$. Let $\Xi=n(n-1)/\bar n^2$, the
+normalized number of ordered distinct pairs for object $4$. Then
+$\Xi-1=\beta(2+\beta)-16q(1+\beta)$, so
+$\|\Xi-1\|_{L^2(\lambda_F)}\le(2+\Delta_{\max}+16q)\Delta_2+16q$, and
+$(1-\Delta_{\max})(1-\Delta_{\max}-16q)\le\Xi\le(1+\Delta_{\max})^2$, both factors on
+the left being positive. By the
+even-component step, $\varsigma:=\mathfrak N/(\mathcal Z\bar n^2)$ satisfies
+$(1-24\mathfrak a_p)\Xi\le\varsigma\le\Xi$. Therefore
+$\|\varsigma-1\|_{L^2(\lambda_F)}\le D_{\rm full}$ and $\E\varsigma\ge L_{\rm low}$.
+The density is $\varsigma/\E\varsigma$, and
+$\chi_p=\Var(\varsigma)/(\E\varsigma)^2\le\E(\varsigma-1)^2/(\E\varsigma)^2\le
+D_{\rm full}^2/L_{\rm low}^2$.
+
+(iii) At a block the root and $\lambda_F$ are products over the primes of
+$\Blk$, so the density is the product of the prime densities, and chi-square
+divergences of product laws satisfy
+$1+\chi^2(\bigotimes_p\nu_p\|\bigotimes_p\lambda_p)=\prod_p(1+\chi^2(\nu_p\|
+\lambda_p))$. Each of $\upsilon_\pm$, $\upsilon_\times$, $\mathfrak a_p$, $R_p$,
+$\Delta_2$, $\Delta_{\max}$, $D_{\rm full}$ and $1/L_{\rm low}$ is a nondecreasing
+function of $(q,r)$ on the domain where the two lower factors are
+positive (\cref{lem:majorant}); so for $p\ge X$ the hypotheses of (i) and (ii)
+hold, $R_p\le\bar R(X)$ and $\chi_p\le\bar\chi(X)$; and $\Blk$ has at most
+$\lfloor L/\log X\rfloor\le n$ primes,
+since their product is at most $e^L$ and each is at least $X$. As
+$\bar R(X)\ge1$, this proves (iii).
+
+(iv) Each selected tilt is invariant under the chamber reflections
+$u\mapsto3-u$, $u\mapsto1-u$ and their product $u\mapsto u+2$.
+For the pair laws these maps permute the three scores
+(\cref{lem:positive-root-properties}(b)); for the coherent law they
+permute its physical support dictionary with its coefficients
+(\cref{lem:imp:coherent39-law}). Thus the reweighted root retains the
+same three chamber identifications. The
+translation maps the plus half $H_0$ of $\vartheta_0$ onto the plus half $H_2$ of
+$\vartheta_2$, and $H_2$ onto the plus half $H_4$ of $\vartheta_4$, in order, and it
+maps $\lambda_F=\lambda_F^{(0)}$ to $\lambda_F^{(1)}$ and $\lambda_F^{(1)}$ to
+$\lambda_F^{(2)}$; each reflection exchanges the two halves of its chamber. Hence,
+as for the uniform root, the positive root couples at each fold chamber two
+copies of one half law, and its density with respect to $\lambda_F^{(j)}$ is the
+same function, read in the order $(2j,2j+1,2j+2)$, at $\vartheta_0$, $\vartheta_2$
+and $\vartheta_4$. At $\vartheta_0$ and one prime $p\ge X$ this density is $T_\ulaw\one$
+for the cut operator $T_\ulaw$ of $\Gamma_{p,\ulaw}$ on $L^2(\lambda_{F,p})$
+(\cref{lem:spec:cutkernel}(f)), and
+\cref{prop:root-chamber,imp:env:coherent-parameter,imp:env:coherent-single-pin}
+give $\sup T_\ulaw\one/\inf T_\ulaw\one\le R_\ulaw(X)$ and
+$\|T_\ulaw\one-\one\|^2\le d_\ulaw(X)^2$; these are the conclusions of
+\cref{lem:tilt-marginals} for the cut kernel of the uniform root, with the range
+ratio $R=R_p$ of (i) and $\delta_0=(\chi^+_p)^{1/2}$, where
+$\chi^+_p=D_{\rm full}^2/L_{\rm low}^2$ is the second bound of (ii). As
+$T_\ulaw\one$ has mean one,
+$\inf T_\ulaw\one\le1\le\sup T_\ulaw\one$, so $R_\ulaw(X)^{-1}\le T_\ulaw\one\le
+R_\ulaw(X)$. On the block the positive root and $\lambda_F$ are products over the
+primes, and the product clause of \cref{lem:tilt-marginals} gives the range
+ratio $\prod_{p\in\Blk}R_{\ulaw,p}\le R_\ulaw(X)^n$ and the chi-square
+$\prod_{p\in\Blk}(1+d_{\ulaw,p}^2)-1\le(1+d_\ulaw(X)^2)^n-1$, with
+$R_{\ulaw,p}$, $d^2_{\ulaw,p}$ the values at $p$, since $\Blk$ has at most $n$ primes
+and $R_\ulaw(X)\ge1$ (proof of (iii)). The block density has mean one, so, as
+at one prime, its range ratio gives hypothesis (A) with
+$M_\Blk\le R_\ulaw(X)^n$.
+\end{proof}
+
+\subsection{Recovering product energy on a common chamber}\label{subsec:variance:restoration}
+
+The variance saving needs a lower bound for the energy of a
+product over several blocks. At one common chamber cut this energy
+can be recovered (``restored'') from the diagonal of $\lambda$; the
+lemma makes the recovery quantitative, with the loss measured by
+the nonroot mass $h_\Blk$ of each block.
+
+\begin{lemma}[Restoration on a common chamber]\label{lem:record:restoration}
+Let $j\in\{1,2\}$ and let $X$ be a nonempty finite set of middle blocks. Let
+$h_X\ge\prod_{\Blk\in X}(1+h_\Blk)-1$, where $h_\Blk=\widetilde\mu_\Blk(1)-1$
+is the nonroot mass of $\widetilde\mu_\Blk$,
+\begin{equation}\label{eq:record:nonroot-mass}
+ h_\Blk=(3w_{\rm D}+2w_{\rm S}+v_{\rm L})r+(6w_{\rm R}+3v_{\rm D}+2v_{\rm S})r^2
+ +(2w_{\rm C}+6v_{\rm R})r^3+2v_{\rm C}r^4,
+ \qquad r=r_\Blk .
+\end{equation}
+Let $M_X\ge\prod_{\Blk\in X}M_\Blk$ with $M_\Blk$ as in \cref{hyp:variance:A},
+$\chi_X\ge\chi^2(\bigotimes_\Blk\nu_{\mathrm L,\Blk}\|\bigotimes_\Blk
+\lambda_{F,\Blk})$ and $C\ge C_X$, and put $l=1-(C-1)h_X$. Assume $0<l\le C$.
+Then, with $\Pi_X=\bigotimes_{\Blk\in X}\Pi_{F_j,\Blk}$, $Y[\Pi_X]\ge0$ and
+\[
+ Y[\Pi_X]\ge(l_0-o(1))Y,\qquad
+ l_0=\max\Bigl(\frac l{M_X},\;l-\frac C2\sqrt{\chi_X},\;
+ \frac{2l^2}{2l+C\chi_X+\sqrt{\chi_X(4l(C-l)+C^2\chi_X)}}\Bigr).
+\]
+\end{lemma}
+
+\begin{proof}
+All laws are on the labels of $X$; write $\Pi^{\rm rt}=\bigotimes_\Blk
+\Pi_{\mathrm L,\Blk}$, $\nu=\bigotimes_\Blk\nu_{\mathrm L,\Blk}$ and
+$\lambda=\bigotimes_\Blk\lambda_F^{(j)}$, so that
+$\operatorname{Diag}_{\vartheta_{2j}}(\lambda)=\Pi_X$. The fold chamber
+$\vartheta_{2j}$ is a cut of the family, so \ref{it:record:E2},
+\ref{it:record:P1} and \ref{it:record:P2} apply there with $\mu$ outside. The
+measure $\Pi_X$ is positive and diagonal at $\vartheta_{2j}$, so $Y[\Pi_X]\ge0$
+by \ref{it:record:E3} and \ref{it:record:E2}.
+
+\emph{(C) The root carries the reference.} Write $\widetilde\mu_\Blk=
+\Pi_{\mathrm L,\Blk}+\mathcal M_\Blk$, where $\mathcal M_\Blk\ge0$ is the sum of
+the other weighted components of \cref{lem:front12:reference}. Its mass is
+$h_\Blk$, which is \eqref{eq:record:nonroot-mass}: the five types
+$\rm L,D,S,R,C$ have multiplicities $1,3,2,6,2$ and degrees $0,1,1,2,3$, a
+two-layer component of type $t$ has weight $w_tr^{\deg t}$ and a one-layer
+diagonal weight $v_tr^{1+\deg t}$. Expanding $\bigotimes_{\Blk\in X}\mu_\Blk=
+\prod_\Blk(1+h_\Blk)^{-1}\bigotimes_\Blk(\Pi_{\mathrm L,\Blk}+\mathcal M_\Blk)$,
+every term other than $\Pi^{\rm rt}$ is a positive measure whose normalization
+is a product of components, with uniform one-slot marginals, and their total
+mass is $h=\prod_\Blk(1+h_\Blk)-1\le h_X$. Since $Y[\bigotimes_\Blk\mu_\Blk]=Y$,
+\ref{it:record:E1} gives $Y[\Pi^{\rm rt}]\ge(1+h-(1+o(1))hC_X)Y\ge(l-o(1))Y$.
+
+\emph{(B) Contraction and comparison.} The root $\Pi^{\rm rt}$ is a probability
+coupling at $\vartheta_{2j}$ with both half marginals $\nu$, so the contraction
+\ref{it:record:P1} gives $Y[\Pi^{\rm rt}]\le
+Y[\operatorname{Diag}_{\vartheta_{2j}}(\nu)]$; no positivity of $\Pi^{\rm rt}$ at
+the cut is used. By hypothesis (A), $\nu\le M_X\lambda$, so the density
+domination \ref{it:record:P2} gives $Y[\operatorname{Diag}_{\vartheta_{2j}}(\nu)]\le
+M_XY[\Pi_X]$. Thus $Y[\Pi_X]\ge(l/M_X-o(1))Y$.
+
+\emph{One-sided variation.} The laws $\nu$ and $\lambda$ are invariant under
+independent translations at each prime of $X$, and so are the two parts of the
+Jordan decomposition $\nu-\lambda=\kappa_+-\kappa_-$, whose masses are
+$\frac12\|\nu-\lambda\|_{\rm var}\le\frac12\sqrt{\chi_X}$ by Cauchy--Schwarz. The
+normalized diagonal copies of $\kappa_\pm$ have uniform one-slot marginals, and
+$Y[\operatorname{Diag}_{\vartheta_{2j}}(\kappa_-)]\ge0$ by \ref{it:record:E2} and
+\ref{it:record:E3}. Hence
+$Y[\operatorname{Diag}_{\vartheta_{2j}}(\nu)]-Y[\Pi_X]\le
+Y[\operatorname{Diag}_{\vartheta_{2j}}(\kappa_+)]\le(1+o(1))\frac12\sqrt{\chi_X}\,C_XY$,
+and $Y[\Pi_X]\ge(l-\frac C2\sqrt{\chi_X}-o(1))Y$.
+
+\emph{Bounded variance.} For a half-label tuple $z$ let $o_z$ be the uniform law
+on its translates $z+c$, where $c=(c_p)_p$ adds one $c_p\in\Fp$ to all labels at
+each prime $p$ of $X$, and put $\eta(z)=Y[\operatorname{Diag}_{\vartheta_{2j}}
+(o_z)]/Y$. The diagonal copy of $o_z$ is a positive normalized law with uniform
+one-slot marginals, fixed samplewise by the reflection of $\vartheta_{2j}$, so
+$0\le\eta(z)\le C':=(1+o(1))C_X$. Translation invariance gives
+$\nu=\sum_z\nu(z)o_z$ and $\lambda=\sum_z\lambda(z)o_z$, hence
+$Y[\operatorname{Diag}_{\vartheta_{2j}}(\nu)]=Y\,\E_\nu\eta$ and $Y[\Pi_X]=Y\,\bar\eta$
+with $\bar\eta=\E_\lambda\eta$. With $u=d\nu/d\lambda-1$,
+\[
+ \E_\nu\eta-\bar\eta=\E_\lambda[u(\eta-\bar\eta)]
+ \le\bigl(\chi_X\Var_\lambda(\eta)\bigr)^{1/2}
+ \le\bigl(\chi_X\bar\eta(C'-\bar\eta)\bigr)^{1/2},
+\]
+because $\eta^2\le C'\eta$. Since $\E_\nu\eta\ge Y[\Pi^{\rm rt}]/Y\ge l-o(1)$ by
+(C) and (B), and $C'\le C+o(1)$, we get
+$l-o(1)\le\bar\eta+(\chi_X\bar\eta(C-\bar\eta))^{1/2}$. If $\bar\eta<l$, squaring
+gives $(1+\chi_X)\bar\eta^2-(2l+C\chi_X)\bar\eta+l^2\le o(1)$; the discriminant of
+the left side is $\chi_X(4l(C-l)+C^2\chi_X)\ge0$, and its smaller root,
+rationalized, is the third expression in $l_0$, which is at most $l$. So
+$\bar\eta$ is at least that expression minus $o(1)$ in either case.
+\end{proof}
+
+Write $\mathcal F(C,h,M,\chi)$ for the largest of $0$ and the three expressions
+of $l_0$ formed with $l=1-(C-1)h$ if $l>0$, and $\mathcal F(C,h,M,\chi)=0$ if
+$l\le0$. As $l\le1\le C$ always and $Y[\Pi_X]\ge0$, the lemma gives
+$Y[\Pi_X]\ge(\mathcal F(C,h_X,M_X,\chi_X)-o(1))Y$ under its other hypotheses.
+In the construction the cap is a product of piece caps: if every block of the
+piece $i$ has $\log q_\Blk\le L_i$ and $a_*\ge a$, then every block of $X$ lying
+in the piece $i$ has $q_\Blk^{2a}\le C_i:=e^{2a_*L_i}$, so $C_X$ is at most the
+product $\prod_{\Blk\in X}C_{i(\Blk)}$ of the caps of the pieces of its blocks
+(\cref{lem:piece-caps}), and the lemma is applied with this product as $C$; the
+construction takes $a_*=a$ and the numbers $L_i$ of \cref{lem:piece-caps}.
+
+\begin{remark}[The three branches]\label{rem:variance:branches}
+The second expression in $l_0$ never exceeds the third: the smaller root
+$\bar\eta_*$ satisfies $l-\bar\eta_*=(\chi_X\bar\eta_*(C-\bar\eta_*))^{1/2}\le
+\frac C2\sqrt{\chi_X}$. It is kept because the certificate evaluates all three
+expressions, and zero (\cref{cert:variance:fresh}); the certificate also checks
+the condition $0\le l\le C/2$, whereas the lemma needs only $l\le C$ (at the
+final caps $l\le1<C/2$ holds automatically, every piece cap being larger than
+$2$). The pointwise expression $l/M_X$ needs neither the chi-square bound nor the
+variance arguments, and it shows the mechanism, but the final restorations rest
+on the chi-square expressions: at the final caps the bounded-variance expression
+is the largest at every piece and every pair of pieces (at the first piece about $0.98104$,
+against about $0.98075$ for the one-sided and $0.71382$ for the pointwise
+expression), and on the seven pieces with positive roots $M_i>10^7$.
+The bounded-variance expressions therefore provide the useful restoration
+on these pieces; the same exact formulas are reevaluated for their own
+marginals in \cref{cert:variance:fresh}.
+\end{remark}
+
+\subsection{Centred norms at the reserved cut}\label{subsec:variance:centred}
+
+The last step converts a lower bound for the energy of a product of eligible
+records into one for the product of its actual half marginals, by the centred
+interpolation \ref{it:record:P3} at $\iota$. It needs, for each record, the norm
+on the mean-zero space of its own Markov operator at $\iota$, in its own actual
+marginal space: for the fold records the centred norm $\kappa_F(q,r)$ of
+\cref{lem:record:old-f-marginal}(c), an admissible function of $(q,r)$ that the
+certificate evaluates at the piece start, and for the matching records the norm
+$3/(b-3)$ of the disjoint-triple operator (\cref{lem:record:paired-e-bridge}(b)
+below). For a product of records the centred norm is the largest of the prime
+centred norms, not their sum (\cref{lem:sector}(c),
+\cref{lem:record:old-f-marginal}(d)), because each prime operator fixes the
+constants of its own actual marginal on both sides; we write $\kappa_F(\Blk)$
+for the largest value of $\kappa_F(1/p,p^{-1/2})$ at the primes $p$ of $\Blk$.
+Inside $\kappa_F$, the kernel of two disjoint cross
+edges whose four endpoints do not span a complete rectangle has norm at most
+$q$ for independent uniform labels, which is case (a) of
+\cref{lem:matching:kernel}, and \cref{lem:record:projection} transfers the bound
+to the actual marginal (\cref{lem:old-f-law}(b)).
+
+\subsection{Variance savings for $E_0,E_1$ via polarization}\label{subsec:variance:matching}
+
+The records $E_0,E_1$ are matchings, not folds, and no chamber diagonal is a
+matching record. Their energies are reached from those of the two fold records
+by a polarization at the chamber cut $\vartheta_0$. For a middle block $\Blk$ let
+$G_{e,\Blk}$ and $G_{o,\Blk}$ be the images of $\lambda_E$ under the merges
+$G_e=(1,0,0,0,0,1)$ and $G_o=(0,0,1,1,0,0)$ of \cref{def:patterns} (two objects
+used); they are positive normalized laws with uniform one-slot marginals,
+diagonal at $\vartheta_0$. By the corner table of
+\cref{lem:record:fold-identification}(f) (\cref{tab:corner}), at $\vartheta_0$
+the cut matrices of $\Pi_{E_0,\Blk}$ and $G_{e,\Blk}$ live on the corner
+$\mathcal U$ of the plus-half configurations $(\beta,y,y)$, those of
+$\Pi_{E_1,\Blk}$ and $G_{o,\Blk}$ on the corner $\mathcal V$ of the configurations
+$(y,y,\beta)$, and $\Pi_{F_1,\Blk}$, $\Pi_{F_2,\Blk}$ connect the two corners; here
+$\beta$ is the label pair of the object that is not repeated. Let $f_2,h_2$ be
+the two-layer row coefficients of the piece of $\Blk$
+(\cref{lem:front12:reference}(i); the index $2$ counts the layers), put
+$\varepsilon_\Blk=(f_2+h_2)r_\Blk$, and
+$\kappa_E(\Blk)=3/(b_\Blk-3)$. For a finite set $X$ of middle blocks write
+$E_{\mathbf s}=\bigotimes_{\Blk\in X}\Pi_{E_{s_\Blk},\Blk}$, $\mathbf s\in\{0,1\}^X$,
+for the $2^{|X|}$ \emph{matching embeddings},
+$J_{\mathbf s}=\bigotimes_\Blk J_{E_{s_\Blk},\Blk}$ for their products of actual
+half marginals, and $E^X_0$, $E^X_1$ for the two \emph{aligned} embeddings, with
+$E_0$, respectively $E_1$, on every block.
+
+\begin{lemma}[Paired $E$ bridge]\label{lem:record:paired-e-bridge}
+Let $\Blk$ be a middle block.
+\begin{enumerate}[label=(\alph*)]
+\item As cut matrices at $\vartheta_0$ of laws on the labels of $\Blk$,
+ \[
+  \Pi_{E_0,\Blk}+\Pi_{E_1,\Blk}+\varepsilon_\Blk(G_{e,\Blk}+G_{o,\Blk})
+  \succeq_{\vartheta_0}\Pi_{F_1,\Blk}+\Pi_{F_2,\Blk}.
+ \]
+\item At $\iota$ the Markov operator $T_E$ of $\Pi_{E_s,\Blk}$ on
+ $L^2(m_{E_s,\Blk})$ is self-adjoint and $\|T_E-\Jproj\|\le\kappa_E(\Blk)$. More
+ generally, every matching embedding $E_{\mathbf s}$ of a finite set $X$ of
+ middle blocks is symmetric at $\iota$, and its Markov operator on $L^2$ of its
+ actual half marginal has centred norm at most $\max_{\Blk\in X}\kappa_E(\Blk)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) As in the proof of \cref{lem:front12:reference}(iii), the two-layer laws
+of $\Blk$ form a five-type datum (\cref{def:five-type-datum}) on the label
+pairs of one object: the middle law $\nu$ and the conditional references
+$\nu^\xi$ of \cref{lem:front12:reference}(i), the matching law $\lambda_E$, its
+two-object marginal, the fold law $\lambda_F$ and the root. By
+\cref{lem:front12:reference}(i) the middle object has the law $\nu$ under
+$\lambda_F$ as well as under $\lambda_E$ (this uses $p\equiv3\pmod4$), and
+$\|T^\xi_{\rm F}-\Jproj\|\le f_2r_\Blk$, $\|T^\xi_{\rm E}-\Jproj\|\le h_2r_\Blk$
+on $L^2(\nu^\xi)$ for every $\xi$. The components of this datum at
+$\vartheta_0$ are $\Pi_{F_j,\Blk}$, $\Pi_{E_s,\Blk}$, $G_{e,\Blk}$ and $G_{o,\Blk}$,
+read on the slot array through the first coordinate. So (a) is
+\cref{lem:tr:polarization}(a) with $e_{\rm F}=f_2r_\Blk$, $e_{\rm E}=h_2r_\Blk$ and
+$\varepsilon=\varepsilon_\Blk$: the form of the difference of the two sides is at
+least the average over $\xi$ of $(u_\xi-v_\xi)^2\ge0$, with $u_\xi,v_\xi$ the
+conditional means of the two corner functions. As $\nu^\xi$ gives no mass to
+$\xi$, the datum also satisfies the hypothesis of \cref{lem:tr:polarization}(b).
+
+(b) By \cref{lem:record:fold-identification}(d), $\Pi_{E_s,\Blk}$ is symmetric
+at $\iota$ and its actual half marginal is uniform on ordered triples of
+distinct labels; given the layer-zero triple, the layer-one triple is uniform
+among those disjoint from it. So $T_E$ is the tensor product over the primes of
+$\Blk$ of the disjoint-triple operators of \cref{sec:frontier:empty-triple-negative},
+which are self-adjoint, and part (c) of that lemma gives
+$\|T_E-\Jproj\|\le3/(b_\Blk-3)$. An embedding $E_{\mathbf s}$ is a product of such
+records, hence symmetric at $\iota$, and its operator is the tensor product of
+the operators of its blocks, each fixing the constants of its actual marginal
+on both sides; so \ref{it:record:P4} bounds its centred norm by the largest
+block value (\cref{lem:sector}(c)).
+\end{proof}
+
+\begin{lemma}[Matching selections]\label{lem:record:paired-e-joint}
+Let $X$ be a set of $k\ge1$ middle blocks, with $\varepsilon_\Blk$, $G_{e,\Blk}$,
+$G_{o,\Blk}$ as above, $G_{0,\Blk}=G_{e,\Blk}$, $G_{1,\Blk}=G_{o,\Blk}$ and
+$G_\Blk=G_{e,\Blk}+G_{o,\Blk}$.
+\begin{enumerate}[label=(\alph*)]
+\item At the chamber cut $\vartheta_0$,
+ \[
+  \bigotimes_{\Blk\in X}\bigl(\Pi_{E_0,\Blk}+\varepsilon_\Blk G_{e,\Blk}\bigr)
+  +\bigotimes_{\Blk\in X}\bigl(\Pi_{E_1,\Blk}+\varepsilon_\Blk G_{o,\Blk}\bigr)
+  \succeq_{\vartheta_0}\bigotimes_{\Blk\in X}\Pi_{F_1,\Blk}
+  +\bigotimes_{\Blk\in X}\Pi_{F_2,\Blk},
+ \]
+ and consequently
+ $\bigotimes_\Blk(\Pi_{E_0,\Blk}+\Pi_{E_1,\Blk}+\varepsilon_\Blk G_\Blk)
+ \succeq_{\vartheta_0}\bigotimes_\Blk\Pi_{F_1,\Blk}+\bigotimes_\Blk\Pi_{F_2,\Blk}$.
+\item Let $C\ge C_X$, $\varepsilon_X\ge\prod_\Blk(1+\varepsilon_\Blk)-1$, and
+ suppose $Y[\bigotimes_\Blk\Pi_{F_j,\Blk}]\ge(l_0-o(1))Y$ for $j=1$ and $j=2$.
+ Then
+ \begin{align*}
+  \tfrac12\bigl(Y[E^X_0]+Y[E^X_1]\bigr)&\ge(l_0-C\varepsilon_X-o(1))Y,\\
+  2^{-k}\textstyle\sum_{\mathbf s}Y[E_{\mathbf s}]
+  &\ge(2^{1-k}l_0-C\varepsilon_X-o(1))Y.
+ \end{align*}
+\item Under the hypotheses of (b), let $m^X_s$ be the actual half marginal of
+ $E^X_s$ at $\iota$. Then
+ \[
+  Y[\operatorname{Diag}_\iota(m^X_0)]+Y[\operatorname{Diag}_\iota(m^X_1)]
+  \ge2\bigl([l_0-C\varepsilon_X]_+-o(1)\bigr)Y .
+ \]
+\end{enumerate}
+By \cref{lem:record:restoration} one may take for $l_0$ the restoration bound
+of $X$: the same $h_X$, $M_X$, $\chi_X$ serve $j=1$ and $j=2$, because the
+half law of the root does not depend on the chamber (also for the positive
+roots, \cref{lem:record:root-marginal}(iv)). No lower bound is asserted for an
+individual matching embedding, nor for the diagonal of an individual aligned
+embedding.
+\end{lemma}
+
+\begin{proof}
+(a) Both orders are \cref{lem:tr:polarization}(c), applied to the two-layer
+five-type data of the blocks of $X$, which satisfy the hypotheses of
+\cref{lem:tr:polarization}(b) with the constants $\varepsilon_\Blk$ (proof of
+\cref{lem:record:paired-e-bridge}(a)). The first is the compression to the two
+aligned corners of the tensor product of the one-block brackets, the sign of
+the fold part being reversed on the corner $\mathcal V$; the second adds the
+$2^k-2$ nonaligned corner products
+$\bigotimes_\Blk(\Pi_{E_{s_\Blk},\Blk}+\varepsilon_\Blk G_{s_\Blk,\Blk})$, which are
+tensor products of positive semidefinite diagonal blocks of these brackets.
+The order is not obtained by tensoring a one-sided order with an indefinite
+factor.
+
+(b) Apply \ref{it:record:E2} at $\vartheta_0$, with $\mu$ outside, to the two
+orders of (a). In the first order, expanding
+$\bigotimes_\Blk(\Pi_{E_s,\Blk}+\varepsilon_\Blk G_{s,\Blk})$ gives $E^X_s$ and
+products that contain at least one merge law; these are positive measures with
+uniform one-slot marginals of total mass $\prod_\Blk(1+\varepsilon_\Blk)-1$, so by
+\ref{it:record:E1}
+\[
+ Y[E^X_0]+Y[E^X_1]\ge2(l_0-o(1))Y-2C\Bigl(\prod_\Blk(1+\varepsilon_\Blk)-1\Bigr)Y.
+\]
+In the second order the merge products have total mass
+$\prod_\Blk(2+2\varepsilon_\Blk)-2^k$, so
+$\sum_{\mathbf s}Y[E_{\mathbf s}]\ge2(l_0-o(1))Y-2^kC(\prod_\Blk(1+\varepsilon_\Blk)
+-1)Y$. Divide by $2$, respectively $2^k$.
+
+(c) By \cref{lem:record:paired-e-bridge}(b), $E^X_s$ is a positive law symmetric
+at $\iota$, a probability coupling of two copies of $m^X_s$; so the contraction
+\ref{it:record:P1}, applied to the whole product, gives
+$Y[E^X_s]\le Y[\operatorname{Diag}_\iota(m^X_s)]$, and no one-sided order is
+tensored with an indefinite factor. Adding the two bounds and using the first
+bound of (b) gives the claim with $l_0-C\varepsilon_X$ in place of its positive
+part; and $Y[\operatorname{Diag}_\iota(m^X_s)]\ge0$ by \ref{it:record:E3} and
+\ref{it:record:E2}.
+\end{proof}
+
+The factor $2^{1-k}$ in the second bound of (b) is a genuine loss: only the two
+aligned corners carry the restoration. The first bound has no such loss, and
+its merge correction is $2\varepsilon_X$ against $2^k\varepsilon_X$ for the second.
+For two blocks, $l_0-C\varepsilon_X$ exceeds twice $l_0/2-C\varepsilon_X$, which is why
+the aligned gain is at least twice the four-embedding gain
+(\cref{cor:var-classes}), and why the construction credits only the aligned
+matching classes. Part (c) is the diagonal-mean coupon $2[l_0-C\varepsilon_X]_+$
+of the matching diagonals of the mean credit (\cref{prop:record:mean-credit}),
+for any number of blocks.
+
+\subsection{The saving $g$: product energy at least $gC_XY$}\label{subsec:variance:gain}
+
+A \emph{selection} of the record expansion (\cref{lem:record:record-expansion})
+puts on each block of a finite set $X$ one changed record and one parity,
+symmetric or skew, with an even number of skew parities; $I_\omega$ is its
+term in $Y_\nu-Y_\lambda$ and $\pi_\omega$ its price, the product over $\Blk\in X$
+of the prices of its records with their parities. For a record assignment
+$\boldsymbol\phi=(\phi_\Blk)_{\Blk\in X}$ of eligible records put
+$\Pi_{\boldsymbol\phi}=\bigotimes_\Blk\Pi_{\phi_\Blk,\Blk}$,
+$m_{\boldsymbol\phi}=\bigotimes_\Blk m_{\phi_\Blk,\Blk}$ and
+$J_{\boldsymbol\phi}=\bigotimes_\Blk J_{\phi_\Blk,\Blk}$.
+
+\begin{lemma}[Variance gain]\label{lem:var-gain}
+Let $X$ be a nonempty finite set of middle blocks, with a parity for each
+$\Blk\in X$, an even number of them skew. Let $\mathcal R$ be a nonempty finite
+set of record assignments $\boldsymbol\phi$ of eligible records, and let
+$\omega_{\boldsymbol\phi}$ be the selection with the records $\phi_\Blk$ and the
+fixed parities. Suppose that, for every $\Blk$, the price of $\phi_\Blk$ with
+the parity of $\Blk$ is the same for all $\boldsymbol\phi\in\mathcal R$. Let
+$C\ge C_X$, $l_0\in\R$ and $0\le\kappa<1$, and assume:
+\begin{enumerate}[label=(\textup{\Roman*})]
+\item[\textup{(Res)}] $|\mathcal R|^{-1}\sum_{\boldsymbol\phi\in\mathcal R}
+ Y[\Pi_{\boldsymbol\phi}]\ge(l_0-o(1))Y$;
+\item[\textup{(Cen)}] for every $\boldsymbol\phi\in\mathcal R$, $\Pi_{\boldsymbol\phi}$
+ is symmetric at $\iota$, and its Markov operator $T_{\boldsymbol\phi}$ on
+ $L^2(m_{\boldsymbol\phi})$ satisfies $\|T_{\boldsymbol\phi}-\Jproj\|\le\kappa$.
+\end{enumerate}
+Put $\bar l=(l_0/C-\kappa)/(1-\kappa)$ and $g=[\bar l-R_{\rm err}]_+$. Then:
+\begin{enumerate}[label=(\alph*)]
+\item $|\mathcal R|^{-1}\sum_{\boldsymbol\phi}Y[J_{\boldsymbol\phi}]\ge
+ (\bar l-o(1))C_XY$;
+\item $\sum_{\boldsymbol\phi}|I_{\omega_{\boldsymbol\phi}}|\le(B-g+o(1))
+ \sum_{\boldsymbol\phi}\pi_{\omega_{\boldsymbol\phi}}Y$;
+\item if $l_0\le C$, then $0\le g\le1\le B$, so the selections
+ $\omega_{\boldsymbol\phi}$, $\boldsymbol\phi\in\mathcal R$, form a class of cost
+ $B-g$ in the sense of (CP5).
+\end{enumerate}
+Any upper bound for $R_{\rm err}$ may replace it in $g$.
+\end{lemma}
+
+\begin{proof}
+(a) Fix $\boldsymbol\phi$. By (Cen), the centred interpolation \ref{it:record:P3}
+at $\iota$, with $\mu$ outside and $\kappa_0=\kappa$, gives
+$Y[\Pi_{\boldsymbol\phi}]\le(1-\kappa)Y[J_{\boldsymbol\phi}]+
+\kappa Y[\operatorname{Diag}_\iota(m_{\boldsymbol\phi})]$, as
+$J_{\boldsymbol\phi}=J_\iota(m_{\boldsymbol\phi})$; and \ref{it:record:E1} bounds
+the last energy by $(1+o(1))C_XY$. Averaging over $\mathcal R$ and using (Res),
+$(1-\kappa)|\mathcal R|^{-1}\sum_{\boldsymbol\phi}Y[J_{\boldsymbol\phi}]\ge
+(l_0-\kappa C_X-o(1))Y$. If $\bar l\le0$, (a) holds because
+$Y[J_{\boldsymbol\phi}]\ge0$ by \ref{it:record:E2}, the cut operator of
+$J_{\boldsymbol\phi}$ being a projection. If $\bar l>0$, then $l_0>0$, so
+$l_0\ge l_0C_X/C$ and $l_0-\kappa C_X\ge(1-\kappa)\bar lC_X$.
+
+(b) For $\boldsymbol\phi\in\mathcal R$ and $\Blk\in X$, the change of $\phi_\Blk$
+with the parity of $\Blk$ has, relative to $m_{\phi_\Blk,\Blk}$, a cut operator
+$D_\Blk$ at $\iota$ that is self-adjoint or skew-adjoint, annihilates the
+constants on both sides by \eqref{eq:record:zero-marginal}, and has norm at most
+the coefficient $\tilde\pi_\Blk$ of its norm envelope (\cref{def:record:comparison-law});
+by hypothesis $\tilde\pi_\Blk$ does not depend on $\boldsymbol\phi$, and
+$\pi_{\omega_{\boldsymbol\phi}}=\prod_\Blk\tilde\pi_\Blk\,C_X$. By
+\cref{lem:record:variance-interface}(i),(ii), applied with these $D_\Blk$,
+\[
+ |I_{\omega_{\boldsymbol\phi}}|\le\prod_\Blk\tilde\pi_\Blk\bigl(
+ Y^{\Nbr}[\operatorname{Diag}_\iota(m_{\boldsymbol\phi})]-
+ Y^{\Nbr}[J_{\boldsymbol\phi}]\bigr)
+ \le\prod_\Blk\tilde\pi_\Blk\bigl((B+R_{\rm err}+o(1))C_XY
+ -Y[J_{\boldsymbol\phi}]\bigr).
+\]
+Summing over $\mathcal R$ and using (a) gives
+$\sum|I_{\omega_{\boldsymbol\phi}}|\le(B-(\bar l-R_{\rm err})+o(1))
+\sum\pi_{\omega_{\boldsymbol\phi}}Y$. If $\bar l-R_{\rm err}\le0$ use instead
+$|I_{\omega_{\boldsymbol\phi}}|\le\prod_\Blk\tilde\pi_\Blk\,
+Y^{\Nbr}[\operatorname{Diag}_\iota(m_{\boldsymbol\phi})]\le(B+o(1))
+\pi_{\omega_{\boldsymbol\phi}}Y$, valid because $Y^{\Nbr}[J_{\boldsymbol\phi}]\ge0$
+by \ref{it:record:E2}. A larger $R_{\rm err}$ only lowers $g$.
+
+(c) If $l_0\le C$ then $\bar l\le1$, so $g\le1$; and
+$B=e^{U_0}+R_{\rm err}\ge1$.
+\end{proof}
+
+The lemma uses the parities only through the evenness of the number of skew
+factors. It applies to two symmetric parities as well as to two skew ones, and
+selections with different parities, records or blocks are different monomials
+of the record expansion.
+
+\begin{corollary}[The eligible variance classes]\label{cor:var-classes}
+Let $X$ be a set of $k\ge1$ middle blocks with fixed parities as in
+\cref{lem:var-gain}, and let $C\ge C_X$. Let $h_X$, $M_X$, $\chi_X$ be as in
+\cref{lem:record:restoration}, with $0<l=1-(C-1)h_X\le C$, and let $l_0$ be the
+largest of $0$ and the three expressions of that lemma. Let
+$\kappa_F\ge\max_{\Blk\in X}\kappa_F(\Blk)$ and $\kappa_E\ge\max_{\Blk\in X}
+\kappa_E(\Blk)$ be smaller than one, and $\varepsilon_X\ge\prod_{\Blk\in X}(1+
+\varepsilon_\Blk)-1$. Assume that the two matching records of every block of $X$
+carry the same prices, as they do in the comparison law
+(\cref{subsec:variance:eligible}). Then \cref{lem:var-gain} applies to
+\begin{enumerate}[label=(\roman*)]
+\item the aligned fold assignment $(F_j)_{\Blk\in X}$, $j\in\{1,2\}$, with
+ $l_0$ and $\kappa_F$, so that $\bar l_F=(l_0/C-\kappa_F)/(1-\kappa_F)$;
+\item the two aligned matching assignments, with $l_0-C\varepsilon_X$ and
+ $\kappa_E$, so that $\bar l^{\rm al}_E=(l_0/C-\varepsilon_X-\kappa_E)/(1-\kappa_E)$;
+\item the $2^k$ matching embeddings, with $2^{1-k}l_0-C\varepsilon_X$ and
+ $\kappa_E$, so that $\bar l_E=(2^{1-k}l_0/C-\varepsilon_X-\kappa_E)/(1-\kappa_E)$.
+\end{enumerate}
+For $k=1$, (ii) and (iii) coincide; in general
+$[\bar l^{\rm al}_E-R_{\rm err}]_+\ge2^{k-1}[\bar l_E-R_{\rm err}]_+$.
+\end{corollary}
+
+\begin{proof}
+(i) (Res) is \cref{lem:record:restoration}, where the maximum with $0$ is
+allowed because $Y[\bigotimes_\Blk\Pi_{F_j,\Blk}]\ge0$; (Cen) is
+\cref{lem:record:old-f-marginal}(d). (ii), (iii) (Res) is
+\cref{lem:record:paired-e-joint}(b), with the restoration bound for $j=1$ and
+$j=2$; (Cen) is \cref{lem:record:paired-e-bridge}(b). The prices are common by
+assumption in (ii), (iii) and trivially in (i). Finally
+$2^{k-1}\bar l_E=(l_0/C-2^{k-1}(\varepsilon_X+\kappa_E))/(1-\kappa_E)\le
+\bar l^{\rm al}_E$, and $R_{\rm err}\ge0$, $2^{k-1}\ge1$ give the last claim.
+\end{proof}
+
+\begin{remark}[Repair independence]\label{rem:variance:independence}
+The numbers $l_0$, $\kappa_F$, $\kappa_E$ and $\varepsilon_X$, hence the gains,
+depend only on the reference, its records, the bracket (through $B$ and
+$R_{\rm err}$) and the cap $C$. A repair enters \cref{lem:var-gain} only through
+the zero-marginal identity \eqref{eq:record:zero-marginal} and through its
+prices. The credits therefore hold for every repair in the sense of
+\cref{def:record:eligible}, signed or not, in particular for the repairs of the
+final construction.
+\end{remark}
+
+Selections that put $F_1$ on one block and $F_2$ on another, or a fold record
+on one block and a matching record on another, receive no variance credit:
+$F_1$ and $F_2$ are diagonal at different chamber cuts, so no chamber diagonal
+is their product, and the restoration needs a common chamber. Their skew
+classes are priced by positive envelopes (\cref{thm:envelopes}).
+
+\subsection{Additional positive terms in the exterior energy}
+\label{subsec:variance:backgrounds}
+
+The gains of \cref{lem:var-gain} use the selected blocks only. Outside them the
+exterior bracket $\Nbrz$ exceeds $\mu$ by positive reserved-diagonal records
+(\cref{def:record:frame}, \cref{lem:record:gram}(i)), and the variance form may
+use the energy $Y^{\Nbrz}[J_X]$ with $\Nbrz$ outside in place of $Y[J_X]$, at the
+cost of one comparison of $\Nbr$ with $\Nbrz$
+(\cref{lem:record:variance-interface}(iii)). Among these records are the two
+matching diagonals of $E_{\rm add}$ of every middle block, which are diagonal
+copies of the actual half marginals of the two matching records. A selected
+aligned matching product therefore gains, from every set of other blocks
+carrying $E_{\rm add}$, the energy of its product of actual half marginals
+tensored with the diagonals of these blocks, and a joint restoration of the
+selected and the other blocks bounds this energy below. This subsection
+bounds these \emph{positive background} terms: on one or two other blocks of any
+pieces, with a lower bound for the weighted number of distinct choices of these
+blocks, and on three or four blocks of a pool of late pieces, where uniform
+data suffice. The bracket has one fold copy, which is a summand of $\Nbr$ and
+not of $\Nbrz$ (\cref{lem:record:gram}); so the exterior contains no fold
+diagonal, and a selected fold variance has no positive background term of this
+kind.
+
+\paragraph{Piece data.}
+The bounds are stated for \emph{piece data}: the middle blocks are grouped into
+the pieces $[X_i,Y_i)$, every block of the piece $i$ has least prime at least
+$X_i$, and numbers $h_i\ge0$, $M_i\ge1$, $\chi_i\ge0$, $\varepsilon_i\ge0$,
+$k_{F,i},k_{E,i}\in[0,1)$, $C_i\ge1$ and $\Sigma_i\ge0$ satisfy, for every block
+$\Blk$ of the piece $i$,
+\begin{gather*}
+ h_\Blk\le h_i,\qquad M_\Blk\le M_i,\qquad
+ \chi^2(\nu_{\mathrm L,\Blk}\|\lambda_{F,\Blk})\le\chi_i,\qquad
+ \varepsilon_\Blk\le\varepsilon_i,\\
+ \kappa_F(\Blk)\le k_{F,i},\qquad\kappa_E(\Blk)\le k_{E,i},\qquad
+ q_\Blk^{2a}\le C_i,
+\end{gather*}
+and $\Sigma_i\le\sum_{\Blk\subseteq[X_i,Y_i)}b_\Blk^{-1}$. For a finite multiset $m$
+of pieces, with multiplicities $m_i$ and size $|m|$, put
+\begin{gather*}
+ h_m=\prod_{i\in m}(1+h_i)-1,\quad M_m=\prod_{i\in m}M_i,\quad
+ \chi_m=\prod_{i\in m}(1+\chi_i)-1,\quad\eta_m=\prod_{i\in m}(1+\varepsilon_i)-1,\\
+ C_m=\prod_{i\in m}C_i,\qquad k_{F,m}=\max_{i\in m}k_{F,i},\qquad
+ k_{E,m}=\max_{i\in m}k_{E,i},\qquad\ell_m=\mathcal F(C_m,h_m,M_m,\chi_m),
+\end{gather*}
+the products with multiplicity, $C_\varnothing=1$, and $m+r$ the union of two
+multisets. A set $X$ of distinct middle blocks has the \emph{pattern} $m$ if
+$m_i$ of its blocks lie in the piece $i$. Then the products over $X$ of
+$1+h_\Blk$, of $M_\Blk$, of $1+\chi^2(\nu_{\mathrm L,\Blk}\|\lambda_{F,\Blk})$ and of
+$1+\varepsilon_\Blk$ are at most $1+h_m$, $M_m$, $1+\chi_m$ and $1+\eta_m$, and
+$C_X\le C_m$; so \cref{lem:record:restoration} gives
+$Y[\bigotimes_{\Blk\in X}\Pi_{F_j,\Blk}]\ge(\ell_m-o(1))Y$ for $j=1,2$, and
+\cref{cor:var-classes} applies with $C=C_m$, $\kappa_F=k_{F,m}$,
+$\kappa_E=k_{E,m}$ and $\varepsilon_X=\eta_m$ (if $1-(C_m-1)h_m\le0$, then
+$\ell_m=0$ and \cref{lem:var-gain} applies directly with $l_0=0$). Its numbers
+(i), (ii) are the \emph{margins without background blocks}
+(called selected-only margins in the data)
+\begin{equation}\label{eq:variance:margins}
+ b_F(m)=\frac{\ell_m/C_m-k_{F,m}}{1-k_{F,m}},\qquad
+ b_E(m)=\frac{\ell_m/C_m-\eta_m-k_{E,m}}{1-k_{E,m}} .
+\end{equation}
+The coefficients of the two matching diagonals of $E_{\rm add}$, divided by the
+normalizer $\widetilde\mu_\Blk(1)=1+h_\Blk$, are $v_{{\rm D}}r_\Blk^2/(1+h_\Blk)$
+(\cref{def:record:frame}(b)); in the piece $i$ they are at least
+$c_{E,i}b_\Blk^{-1}$, where
+\[
+ c_{E,i}=\frac{v_{{\rm D},i}}{1+h_i},
+\]
+with $v_{{\rm D},i}$ the completion weight of the piece.
+
+\begin{lemma}[Distinct choices]\label{lem:distinct-choice}
+Let $c=(c_i)$ be nonnegative numbers indexed by the pieces, $m$ a multiset of
+pieces, $X$ a set of distinct middle blocks of pattern $m$, and write $i(\Blk)$
+for the piece of a block $\Blk$.
+\begin{enumerate}[label=(\alph*)]
+\item For a multiset $r$ of pieces, the sum of
+ $\prod_{\Blk\in Z}c_{i(\Blk)}b_\Blk^{-1}$ over the sets $Z$ of middle blocks of
+ pattern $r$ disjoint from $X$ is at least the choice weight $W(m,r;c)$ (not the wrapping term $W$),
+ \begin{equation}\label{eq:variance:choice-weight}
+  W(m,r;c)=\prod_i\frac{c_i^{r_i}}{r_i!}\prod_{j=0}^{r_i-1}
+  \Bigl(\Sigma_i-\frac{m_i+j}{X_i}\Bigr)_+ .
+ \end{equation}
+\item Let $\mathcal P$ be a set of pieces and put
+ $\mathfrak m(c)=\sum_{i\in\mathcal P}c_i\Sigma_i$,
+ $\mathfrak u(c)=\max_{i\in\mathcal P}c_i/X_i$ and
+ $\mathfrak e_m(c)=\sum_{i\in\mathcal P}m_ic_i/X_i$. For $k\ge1$ the same sum over
+ the sets $Z$ of $k$ distinct blocks of pieces of $\mathcal P$, disjoint from $X$,
+ is at least
+ \[
+  \mathfrak w_k(c;m)=\frac1{k!}\prod_{j=0}^{k-1}
+  \bigl[\mathfrak m(c)-\mathfrak e_m(c)-j\,\mathfrak u(c)\bigr]_+ .
+ \]
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Every block of the piece $i$ has $b_\Blk^{-1}\le1/X_i$. (a) The choices in
+different pieces are independent, so it suffices to treat one piece $i$, and to
+count ordered $r_i$-tuples of distinct blocks, then divide by $r_i!$. The
+blocks of the piece outside $X$ have $\sum b_\Blk^{-1}\ge\Sigma_i-m_i/X_i$, since
+$X$ removes $m_i$ of them; after $j$ more choices the remaining blocks have
+$\sum b_\Blk^{-1}\ge\Sigma_i-(m_i+j)/X_i$. Summing successively from the last
+choice, each partial sum is at least the positive part of its bound, whatever
+the earlier choices; multiply by $c_i^{r_i}$. (b) The same argument on the
+union of the pieces of $\mathcal P$: the blocks of $\mathcal P$ outside $X$ have
+$\sum c_{i(\Blk)}b_\Blk^{-1}\ge\mathfrak m(c)-\mathfrak e_m(c)$, and each later
+choice removes a block of weight $c_{i(\Blk)}b_\Blk^{-1}\le\mathfrak u(c)$;
+divide by $k!$.
+\end{proof}
+
+\paragraph{Pooling the pieces from $2^{31}$.}
+Let $\mathcal P$ be the set of middle pieces with $X_i\ge2^{31}$, and give it the
+\emph{pool data} $h_{\mathcal P}=\max_{i\in\mathcal P}h_i$ and likewise
+$M_{\mathcal P}$, $\chi_{\mathcal P}$, $\varepsilon_{\mathcal P}$, and the cap
+$C_{\mathcal P}=\max_{i\in\mathcal P}C_i$. For a multiset $m$ and $k\ge1$ let
+$m+\mathcal P^k$ denote $m$ with $k$ additional entries carrying the pool data, so
+that $h_{m+\mathcal P^k}$, $M_{m+\mathcal P^k}$, $\chi_{m+\mathcal P^k}$,
+$\eta_{m+\mathcal P^k}$, $C_{m+\mathcal P^k}=C_mC_{\mathcal P}^k$ and
+$\ell_{m+\mathcal P^k}$ are defined as above, and write $c^{\mathcal P}$ for a
+coefficient vector $c$ restricted to $\mathcal P$ (zero off $\mathcal P$).
+
+\begin{lemma}[Terms pooled over the pieces from $2^{31}$]\label{lem:pool-coupons}
+If $X$ has pattern $m$ and $Z$ is a set of $k$ distinct blocks of pieces of
+$\mathcal P$ disjoint from $X$, then the four products over $X\cup Z$ of the
+piece-data paragraph are at most those of $m+\mathcal P^k$, and
+$C_{X\cup Z}\le C_mC_{\mathcal P}^k$; so
+$Y[\bigotimes_{\Blk\in X\cup Z}\Pi_{F_j,\Blk}]\ge(\ell_{m+\mathcal P^k}-o(1))Y$ for
+$j=1,2$, and \cref{lem:record:paired-e-joint}(b), (c) hold for $X\cup Z$ with
+$l_0=\ell_{m+\mathcal P^k}$, $C=C_mC_{\mathcal P}^k$ and
+$\varepsilon_{X\cup Z}\le\eta_{m+\mathcal P^k}$. Moreover:
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Variance.} For $|m|\le2$ and an upper bound $R_*\ge R_{\rm err}$ put
+ \[
+  P_E(m)=\sum_{k\in\{3,4\}}\mathfrak w_k(c_E^{\mathcal P};m)\,
+  \frac{[\ell_{m+\mathcal P^k}/C_m-C_{\mathcal P}^k(\eta_{m+\mathcal P^k}+k_{E,m})]_+}
+  {1-k_{E,m}}
+ \]
+ if $b_E(m)\ge R_*$, and $P_E(m)=0$ otherwise. This term may be added to the gain
+ of the aligned matching variance of \cref{prop:background-variance}, whose proof
+ shows it.
+\item \emph{Mean.} Let $k\in\{5,6\}$ and let $Z$ range over the sets of $k$
+ distinct blocks of pieces of $\mathcal P$. For coefficient vectors $d,d'$ with
+ $0\le d_i\le\rho\,d'_i$ on $\mathcal P$, for some $\rho\in[0,1]$,
+ \[
+  \sum_Z\prod_{\Blk\in Z}d_{i(\Blk)}b_\Blk^{-1}\ge\mathfrak w_k(d^{\mathcal P};\varnothing),
+  \qquad
+  \sum_Z\Bigl[\prod_{\Blk\in Z}d'_{i(\Blk)}b_\Blk^{-1}-\prod_{\Blk\in Z}
+  d_{i(\Blk)}b_\Blk^{-1}\Bigr]\ge(1-\rho^k)\,\mathfrak w_k(d'^{\mathcal P};\varnothing).
+ \]
+ With the restorations of the first assertion, these give the late-pool
+ coupons of the mean credit (\cref{prop:record:mean-credit}),
+ \begin{align*}
+  m^{\rm pool}_F&=\sum_{k\in\{5,6\}}\ell_{\mathcal P^k}\Bigl[2\mathfrak w_k(c_F^{\mathcal P};\varnothing)
+  +\mathfrak w_k\bigl((k_{\rm L}/H)^{\mathcal P};\varnothing\bigr)
+  +\mathfrak w_k\bigl((k_{\rm R}/H)^{\mathcal P};\varnothing\bigr)\Bigr],\\
+  m^{\rm pool}_Q&=\sum_{k\in\{5,6\}}2(1-\rho^k)\,
+  \mathfrak w_k\bigl((c_E+q)^{\mathcal P};\varnothing\bigr)
+  \bigl[\ell_{\mathcal P^k}-C_{\mathcal P}^k\eta_{\mathcal P^k}\bigr]_+,
+ \end{align*}
+ with $c_{F,i}=c_{E,i}/H_i$, the density factors $H_i$ of
+ \eqref{eq:variance:pieces}, the side coefficients $k_{s,i}$ of
+ \cref{prop:signed-sides}, the coefficients $q_i$ of the chosen matching
+ diagonals (\cref{subsec:matching-envelopes}) and
+ $\rho=\max_{i\in\mathcal P}c_{E,i}/(c_{E,i}+q_i)$. They occupy the degrees five
+ and six, disjoint from the degrees at most four of the other coupons.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Every block of a piece of $\mathcal P$ has data at most the pool data and
+$q_\Blk^{2a}\le C_i\le C_{\mathcal P}$, so the products are bounded as stated;
+the pool data are therefore valid hypotheses of \cref{lem:record:restoration}
+and of \cref{lem:record:paired-e-joint}(b), (c), whose conclusions follow.
+(a) The bound that justifies the term is part of the proof of
+\cref{prop:background-variance}. If $b_E(m)\ge R_*$ then
+$b_E(m)-R_*\ge0$, so after the positive part of the remaining
+gain is taken, this difference is exactly the term the
+certificate adds; the complementary term $[R_*-b_E(m)]_+$ is
+then zero. (b) The first bound is
+\cref{lem:distinct-choice}(b) with $m$ empty. For the second,
+$\prod_{\Blk\in Z}d_{i(\Blk)}\le\rho^k\prod_{\Blk\in Z}d'_{i(\Blk)}$ pointwise, so the
+bracket is at least $(1-\rho^k)\prod_{\Blk\in Z}d'_{i(\Blk)}b_\Blk^{-1}$; apply the
+first bound to $d'$. In the coupons the fold diagonals of $k$ pool blocks have,
+by the first assertion and \cref{lem:record:companion-energy}(a) (the energy bound for the
+one-layer companions $D^j_\Blk$ of the fold records, proved in
+\cref{sec:matching-mean}), applied with the set $Z$, energy at least
+$\ell_{\mathcal P^k}$ divided by the product of the $H_i$, and the two aligned
+matching diagonals have energies
+adding up to at least $2[\ell_{\mathcal P^k}-C_{\mathcal P}^k\eta_{\mathcal P^k}]_+$
+(\cref{lem:record:paired-e-joint}(c)). The coefficient per block of the polarized
+fold branch is at least $c_{E,i}b_\Blk^{-1}$ and that of a chosen side diagonal
+$k_{s,i}b_\Blk^{-1}$, which with the factors $1/H_i$ of the energies give the
+vectors $c_F$ and $k_s/H$; the nonempty-$Q$ branch (the terms in the expansion of
+$\prod_{\Blk\in Z}(c_{E,i(\Blk)}+q_{i(\Blk)})b_\Blk^{-1}$ in which the
+$q$-factor is chosen for at least one block) has the coefficient
+$\prod(c_E+q)b^{-1}-\prod c_Eb^{-1}$, to which the second bound applies with
+$d=c_E$, $d'=c_E+q$. The assembly of the branches is that of
+\cref{prop:record:mean-credit}.
+\end{proof}
+
+\begin{proposition}[Positive backgrounds in a selected variance]
+\label{prop:background-variance}
+Assume the piece data above. For multisets $m$, $r$ of pieces put
+\[
+ p_E(m,r)=\frac{[\ell_{m+r}/C_m-C_r(\eta_{m+r}+k_{E,m})]_+}{1-k_{E,m}},
+\]
+and for $|m|\in\{1,2\}$ and an upper bound $R_*\ge R_{\rm err}$
+\begin{equation}\label{eq:variance:background-gain}
+ g_E(m)=\Bigl[b_E(m)+\sum_{1\le|r|\le2}W(m,r;c_E)\,p_E(m,r)+P_E(m)-R_*\Bigr]_+,
+ \qquad g_F(m)=\bigl[b_F(m)-R_*\bigr]_+,
+\end{equation}
+with $P_E(m)$ of \cref{lem:pool-coupons}(a). Let $X$ be a set of distinct middle
+blocks of pattern $m$, with parities, an even number of them skew.
+\begin{enumerate}[label=(\alph*)]
+\item With $J_s$ the product of the actual half marginals of the aligned
+ embedding $E^X_s$,
+ \[
+  \tfrac12\bigl(Y^{\Nbrz}[J_0]+Y^{\Nbrz}[J_1]\bigr)\ge
+  \Bigl(C_m\Bigl[b_E(m)+\sum_{1\le|r|\le2}W(m,r;c_E)p_E(m,r)+P_E(m)\Bigr]-o(1)\Bigr)Y .
+ \]
+ If $g_E(m)\le1$, the class of the two aligned matching assignments
+ $(E_0)_{\Blk\in X}$, $(E_1)_{\Blk\in X}$ with these parities has the class cost
+ $B-g_E(m)$ in the sense of (CP5); in $g_E(m)$ the error $R_*$ of comparing
+ $\Nbr$ with $\Nbrz$ outside $X$ is subtracted once, for all the
+ kept terms together.
+\item For $j\in\{1,2\}$ the selection of $F_j$ on $X$ with these parities has the
+ class cost $B-g_F(m)$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) Fix $s\in\{0,1\}$ and write $D_{Z,s}=\bigotimes_{\Blk\in Z}D_{E_s,\Blk}$ for a
+set $Z$ of middle blocks disjoint from $X$, with the selected diagonals
+$D_{E_s,\Blk}=\operatorname{Diag}_\iota(m_{E_s,\Blk})$ of
+\cref{def:record:eligible}.
+
+\emph{Exterior expansion.} On a middle block $\Blk\notin X$, $(\Nbrz-\mu)_\Blk$ is a
+positive reserved-diagonal measure (\cref{lem:record:gram}(i)), and it contains
+the matching diagonal of $E_{\rm add}$ of type $s$: the normalized measure
+$(\Nbrz-\mu)_\Blk-v_{\rm D}r_\Blk^2(1+h_\Blk)^{-1}D_{E_s,\Blk}$ is again positive
+and reserved diagonal, because the half law of $\Pi^{(1)}_{E_s}$ is $m_{E_s,\Blk}$
+(\cref{def:record:frame}(b) and the paragraph after it); outside the middle
+$\Nbr_{0,\Blk}=\mu_\Blk$. Expand $\Nbr_{0,-X}=\bigotimes_{\Blk\notin X}(\mu_\Blk+(\Nbrz-\mu)_\Blk)$
+over the sets $Z$ of middle blocks outside $X$. The term of $Z$ is the energy, with
+$\mu$ outside $X\cup Z$, of $J_s\otimes(\Nbrz-\mu)_Z$, a tensor product of
+measures $\succeq_\iota0$ ($J_s$ has a projection as cut operator, the others are
+positive and reserved diagonal, \ref{it:record:E3}); by \ref{it:record:E2} it is
+nonnegative, and, since $v_{\rm D}r_\Blk^2(1+h_\Blk)^{-1}\ge c_{E,i(\Blk)}b_\Blk^{-1}$
+($r_\Blk^2=b_\Blk^{-1}$, $h_\Blk\le h_i$) and the difference of the two tensor
+products is a sum of tensor products of measures $\succeq_\iota0$, it is at least
+$\prod_{\Blk\in Z}c_{E,i(\Blk)}b_\Blk^{-1}\cdot Y[J_s\otimes D_{Z,s}]$. We keep the
+term $Z=\varnothing$, the terms with $1\le|Z|\le2$, and, if $b_E(m)\ge R_*$, the
+terms with $Z$ a set of three or four blocks of the pool; they are distinct terms
+of the expansion, and the others are dropped. The middle range has finitely
+many blocks, so the $o(1)$ below add up to $o(1)$.
+
+\emph{The selected term.} By \cref{lem:record:paired-e-bridge}(b), $E^X_s$ is
+symmetric at $\iota$ with centred norm at most $k=k_{E,m}$, so \ref{it:record:P3}
+gives $(1-k)Y[J_s]\ge Y[E^X_s]-k(1+o(1))C_XY$. Averaging over $s$, using
+\cref{lem:record:paired-e-joint}(b) with $l_0=\ell_m$, $C=C_m$, $\varepsilon_X\le\eta_m$,
+and $C_X\le C_m$, gives $\frac12\sum_sY[J_s]\ge(C_mb_E(m)-o(1))Y$.
+
+\emph{A background term.} Let $Z$ have pattern $r$. By \ref{it:record:P3b} with
+$\pi=E^X_s$ ($\kappa_0=k$) and $\pi'=E^Z_s$, whose half marginal at $\iota$ is
+$\bigotimes_{\Blk\in Z}m_{E_s,\Blk}$,
+\[
+ Y[E^{X\cup Z}_s]\le(1-k)\,Y[J_s\otimes D_{Z,s}]+k\,Y[\operatorname{Diag}_\iota(
+ m^X_s\otimes m^Z_s)]\le(1-k)\,Y[J_s\otimes D_{Z,s}]+k(1+o(1))C_{X\cup Z}Y,
+\]
+where $E^{X\cup Z}_s=E^X_s\otimes E^Z_s$ is the aligned embedding of $X\cup Z$. The
+set $X\cup Z$ has pattern $m+r$, so \cref{lem:record:paired-e-joint}(b) applies to it
+with $l_0=\ell_{m+r}$, $C=C_mC_r\ge C_{X\cup Z}$ and $\varepsilon_{X\cup Z}\le\eta_{m+r}$.
+Averaging over $s$, and using $Y[J_s\otimes D_{Z,s}]\ge0$ (\ref{it:record:E2}),
+\[
+ \tfrac12\sum_sY[J_s\otimes D_{Z,s}]\ge(C_mp_E(m,r)-o(1))Y .
+\]
+The coefficient $\prod_{\Blk\in Z}c_{E,i(\Blk)}b_\Blk^{-1}$ is the same for $s=0$ and
+$s=1$, and its sum over the sets $Z$ of pattern $r$ disjoint from $X$ is at least
+$W(m,r;c_E)$ by \cref{lem:distinct-choice}(a). For a set $Z$ of $k'\in\{3,4\}$
+blocks of the pool, the same argument with the first assertion of
+\cref{lem:pool-coupons} in place of the piece data of $X\cup Z$ gives the bound
+with
+$[\ell_{m+\mathcal P^{k'}}/C_m-C_{\mathcal P}^{k'}(\eta_{m+\mathcal P^{k'}}+k)]_+/(1-k)$,
+and the coefficients sum to at least $\mathfrak w_{k'}(c_E^{\mathcal P};m)$ by
+\cref{lem:distinct-choice}(b). Adding the kept terms gives the displayed bound.
+
+\emph{The class cost.} For $s\in\{0,1\}$ let $\omega_s$ be the selection of
+$E^X_s$ with the given parities, and $\gamma=\prod_\Blk\tilde\pi_\Blk$ the common
+coefficient of its norm envelopes (the two matching records of a block carry the
+same prices), so that $\pi_{\omega_s}=\gamma C_X$. By
+\cref{lem:record:variance-interface}(i), (ii) and the last bound of
+\ref{it:record:E1},
+$|I_{\omega_s}|\le\gamma\bigl((B+o(1))C_XY-Y^{\Nbr}[J_s]\bigr)$ and
+$Y^{\Nbr}[J_s]\ge Y^{\Nbrz}[J_s]-(R_{\rm err}+o(1))C_XY$; this is the comparison
+of $\Nbr$ with $\Nbrz$, made once for all the kept terms together. Let $\tilde b$ be
+the bracket in the displayed bound. If $\tilde b>R_*$, then $\tilde b>0$ and
+$C_m\tilde b\ge C_X\tilde b$, so summing over $s$,
+\[
+ |I_{\omega_0}|+|I_{\omega_1}|\le\bigl(B-(\tilde b-R_{\rm err})+o(1)\bigr)
+ (\pi_{\omega_0}+\pi_{\omega_1})Y\le\bigl(B-g_E(m)+o(1)\bigr)(\pi_{\omega_0}
+ +\pi_{\omega_1})Y .
+\]
+If $\tilde b\le R_*$, then $g_E(m)=0$, and $|I_{\omega_s}|\le\gamma Y^{\Nbr}[
+\operatorname{Diag}_\iota(m^X_s)]\le(B+o(1))\pi_{\omega_s}Y$ as in the proof of
+\cref{lem:var-gain}(b). Finally $0\le g_E(m)\le1\le B$.
+
+(b) The exterior contains no fold diagonal, and (b) is \cref{cor:var-classes}(i)
+with \cref{lem:var-gain}(c), $C=C_m$ and $\bar l_F=b_F(m)$.
+\end{proof}
+
+The background terms lower one selected variance; they are not separate
+selected records, and they carry no price of their own. All of them are terms
+of the one expansion of $\Nbrz$ outside the selected blocks, so the exterior error
+$R_{\rm err}$ is paid once, and the positive part is taken only after it is
+subtracted. On the two aligned assignments the background blocks carry the matching
+diagonal of the same type as the selected records, and the restoration of the
+union keeps both fold products of the aligned bridge; no assertion is made for a
+crossed matching assignment. Pooling is restricted to the pieces
+from $2^{31}$ because a uniform bound using the maxima over all
+pieces would lose the term; over those later pieces the maxima are the pool data with which
+the pooled term $P_E(m)$ of \eqref{eq:variance:background-gain} is
+formed, and that term is included at the certified piece values of
+\cref{cert:variance:fresh} when $b_E(m)\ge R_*$.
+
+\subsection{Assembly: the total saving $D_{\rm var}$}\label{subsec:variance:final}
+
+The final construction uses the credits of degrees one to four. They are
+evaluated once per middle piece and per multiset of pieces, at the piece
+starts.
+
+\paragraph{Piece values.}
+Let $[X_i,Y_i)$, $i=1,\dots,33$, be the middle pieces
+(\cref{def:record:exact-blocks}, \cref{tab:record:middle-pieces}). Every block
+of the piece $i$ has least prime at least $X_i$ and at most
+$\lfloor L/\log X_i\rfloor\le n_i$ primes (\cref{lem:record:local-domain}), where
+$L=570$ and $n_i=\lfloor L/\log_-X_i\rfloor$ with a rational lower bound
+$\log_-X_i\le\log X_i$; and every coefficient below is a nondecreasing function
+of $(q,r)$ (\cref{lem:majorant}), evaluated at $q=1/X_i$ and
+$r=1/\lfloor\sqrt{X_i}\rfloor\ge X_i^{-1/2}$, except that on the seven pieces with
+positive roots $R_\ulaw$ and $d_\ulaw$ are the endpoint bounds of
+\cref{cert:positive-root-caps}, valid at every larger prime. The \emph{piece values}
+are upper bounds
+\begin{equation}\label{eq:variance:pieces}
+\begin{gathered}
+ h_i\ge h(X_i),\qquad M_i\ge\bar R(X_i)^{n_i},\qquad
+ \chi_i\ge\bigl(1+\bar\chi(X_i)\bigr)^{n_i}-1\qquad(i\le26),\\
+ M_i\ge R_\ulaw(X_i)^{n_i},\qquad
+ \chi_i\ge\bigl(1+d_\ulaw(X_i)^2\bigr)^{n_i}-1\qquad(27\le i\le33),\\
+ k_{F,i}\ge\kappa_F\bigl(1/X_i,1/\lfloor\sqrt{X_i}\rfloor\bigr),\qquad
+ k_{E,i}=\frac3{X_i-3},\qquad
+ \varepsilon_i\ge\frac{f_2+h_2}{\lfloor\sqrt{X_i}\rfloor},\qquad
+ H_i=\Bigl(1+\frac2{X_i-4}\Bigr)^{n_i},
+\end{gathered}
+\end{equation}
+where $h(X_i)$ is \eqref{eq:record:nonroot-mass} with the completion weights of
+the piece (\cref{sec:middle-frame}), $\bar R$ and $\bar\chi$ are those of
+\cref{lem:record:root-marginal}(iii), $R_\ulaw$ and $d_\ulaw$ those of
+\cref{lem:record:root-marginal}(iv) on the seven pieces with positive roots,
+$\kappa_F$ is the centred norm of \cref{lem:record:old-f-marginal}(c),
+$f_2,h_2$ are the two-layer row coefficients of the piece, and $H_i$ is the
+density factor of the actual fold marginal used by the mean savings
+(\cref{lem:record:companion-energy}). By \cref{lem:record:root-marginal},
+\cref{lem:record:old-f-marginal}, \cref{lem:record:paired-e-bridge}(b) and
+monotonicity, every block $\Blk$ of the piece $i$ has $h_\Blk\le h_i$,
+$M_\Blk\le M_i$, $\chi^2(\nu_{\mathrm L,\Blk}\|\lambda_{F,\Blk})\le\chi_i$,
+$\kappa_F(\Blk)\le k_{F,i}$, $\kappa_E(\Blk)\le k_{E,i}$ and
+$\varepsilon_\Blk\le\varepsilon_i$. Let $\Sigma_i$ be the certified lower bound of
+\cref{lem:record:lower-start-sums} for $\sum_{\Blk\subseteq[X_i,Y_i)}b_\Blk^{-1}$.
+The piece values do not depend on $a$; they are listed in
+\cref{tab:data:piece-values}.
+
+\paragraph{The cap.}
+Let $a_0=\PushAnchor$ be the evaluation exponent at which the
+middle prices are stored in \cref{tab:data:prices},
+$t=e^{2(a-a_0)L}$ the repricing factor, and $C_i=e^{2aL_i}$ the piece caps of
+\cref{lem:piece-caps} at the anchor $a$, with the authenticated log caps
+$L_i\le L$ (the first is $L_1=9135105/16384$); every middle block of the piece $i$
+has $q_\Blk^{2a}\le C_i$, and a set of blocks of pattern $m$ has $C_X\le C_m$.
+Together with the piece values, the caps and the numbers $\Sigma_i$ are piece data
+in the sense of \cref{subsec:variance:backgrounds}. Let $B_*\ge B$ and
+$R_*\ge R_{\rm err}$ be the certified upper bounds of
+\cref{def:closing-quantities}(2) at the exponent $a$
+(\cref{cor:first-stage-repricing,cor:two-cut-series}).
+
+\paragraph{Fresh restorations and gains.}
+With these data, $\ell_m=\mathcal F(C_m,h_m,M_m,\chi_m)$ is formed for every
+multiset $m$ of pieces of size at most four, and on the pool of size at most six,
+the selected-only margins $b_F(m)$, $b_E(m)$ are those of
+\eqref{eq:variance:margins}, and the gains are
+\begin{equation}\label{eq:variance:fresh}
+ g_F(m),\ g_E(m)\ \ \text{of \eqref{eq:variance:background-gain}}\ \ (|m|\le2),
+ \qquad
+ g^{\rm sel}_T(m)=\bigl[b_T(m)-R_*\bigr]_+\ \ (T\in\{F,E\},\ |m|\le4).
+\end{equation}
+Thus $g_F=g^{\rm sel}_F$, and $g_E(m)$ adds to $g^{\rm sel}_E(m)$ the positive
+backgrounds of degrees one and two and the late-pool terms of degrees three and
+four. The restorations depend only on the reference and the caps
+(\cref{rem:variance:independence}); they are also the restorations of the mean
+coupons (\cref{lem:record:companion-energy,prop:record:mean-credit}).
+
+\paragraph{Prices.}
+For the piece $i$ let $S_{F,i}$, $S_{E,i}$ (symmetric), $A_{F,i}$, $A_{E,i}$ (full
+skew) and $A^{\rm arm}_{F,i}$, $A^{\rm arm}_{E,i}$ (raw arm) be the prices of
+\cref{def:closing-quantities}(3) (\cref{tab:data:prices}): rounded upper bounds,
+at the exponent $a_0$, for the sums over the blocks of the piece of the prices of
+the two fold and of the two matching records, and of their raw-arm auxiliary
+prices, given by \cref{lem:middle-comparison-prices}; with the degree charges
+$\bar I_{d,i}$ of the piece,
+\begin{gather*}
+ S_{F,i}=2w_{{\rm D},i}s_F(X_i)\bar I_{3,i},\qquad
+ A_{F,i}=2w_{{\rm D},i}\ell_\tlaw(X_i)\bar I_{2,i}+2w_{{\rm D},i}a_F(X_i)\bar I_{3,i},\qquad
+ A^{\rm arm}_{F,i}=2w_{{\rm D},i}\bar I_{2,i},\\
+ S_{E,i}=2w_{{\rm S},i}s_E(X_i)\bar I_{2,i},\qquad
+ A_{E,i}=2w_{{\rm S},i}a_E(X_i)\bar I_{2,i},\qquad
+ A^{\rm arm}_{E,i}=2w_{{\rm S},i}\bar I_{2,i},
+\end{gather*}
+each rounded up as in \cref{def:closing-quantities}(3). Every middle block has
+$\log q_\Blk\le L$, so at the exponent
+$a$ these prices are at most $t$ times their values
+(\cref{lem:record:repricing}). By \cref{lem:record:record-expansion}(iii) each
+piece total is distributed over the blocks of the piece in proportion to their
+prices, the two records of one kind in a block receiving the same price
+(\cref{subsec:variance:eligible}); these per-block upper prices are the prices of
+the complete polynomial.
+
+\paragraph{The credit.}
+Put, with the double sums over ordered pairs of pieces and $g(i,j)$ the gain of
+the multiset $\{i,j\}$,
+\begin{equation}\label{eq:variance:dvar}
+\begin{split}
+ D_{\rm var}={}&t\sum_i\bigl[g_F(i)S_{F,i}+g_E(i)S_{E,i}\bigr]
+ +\frac{t^2}4\sum_{i,j}\Bigl[g_F(i,j)\bigl(S_{F,i}S_{F,j}
+ +\kappa_{FF}A^{\rm arm}_{F,i}A^{\rm arm}_{F,j}\bigr)\\
+ &+g_E(i,j)S_{E,i}S_{E,j}
+ +\kappa^{\rm al}_b\,g^{\rm sel}_E(i,j)A^{\rm arm}_{E,i}A^{\rm arm}_{E,j}\Bigr]\\
+ &+\sum_{T\in\{F,E\}}\sum_{3\le|m|\le4}\frac{t^{|m|}g^{\rm sel}_T(m)}
+ {2^{|m|-1}\prod_im_i!}
+ \Bigl[\sum_\sigma\prod_{l=1}^{|m|}P^{\sigma_l}_{T,i_l}
+ +\one_{|m|=4}\,\kappa_{4,T}\prod_{l=1}^4A^{\rm arm}_{T,i_l}\Bigr],
+\end{split}
+\end{equation}
+where $i_1\le\dots\le i_{|m|}$ are the pieces of the multiset $m$, $\sigma$ runs
+over the words in $\{{\rm s},{\rm a}\}^{|m|}$ with an even number of letters ${\rm a}$,
+not all equal to ${\rm a}$, $P^{\rm s}_{T,i}=S_{T,i}$ and $P^{\rm a}_{T,i}=A_{T,i}$;
+and where $\kappa_{FF}$ is the cap of the envelope FF of the fold pairs,
+$\kappa^{\rm al}_b$ the invariant cap of the envelope EE aligned of the aligned
+matching pairs, $\kappa_{4,F}$ the cap of the envelope F4E0 of the class $(4,0)$
+and $\kappa_{4,E}$ the invariant cap of the aligned group of the envelope E4 of
+the class $(0,4)$ (\cref{thm:envelopes,lem:class-credit}; \cref{tab:data:envelopes}). The factors
+$\frac14$ and $2^{1-|m|}$ account for the two records of one kind of a block,
+which carry equal prices, of which the variance classes retain the two aligned
+assignments.
+
+\begin{corollary}[The variance credits of the final construction]
+\label{cor:variance:final}
+Assume the gates of \cref{cert:variance:fresh}. Let $m$ be a multiset of pieces,
+$X$ a set of $|m|$ distinct middle blocks of pattern $m$, and $j\in\{1,2\}$.
+\begin{enumerate}[label=(\roman*)]
+\item For $|m|\in\{1,2\}$ and symmetric parities, the selection of $F_j$ on $X$ has
+ the class cost $B-g_F(m)$, and the class of the two aligned matching
+ assignments has the class cost $B-g_E(m)$.
+\item For $|m|=2$ and skew parities, the aligned fold assignment $(F_j,F_j)$ and
+ the set of the two aligned matching assignments satisfy \cref{lem:var-gain}(a)
+ with $C=C_m$ and the numbers $b_F(m)$, $b_E(m)$, whose gains are $g_F(m)$ and
+ $g^{\rm sel}_E(m)$. \Cref{lem:class-credit} turns them into the credits
+ $\kappa_{FF}g_F(m)$ and, on the branch with $\mu$ outside and without background
+ or pool terms, $\kappa^{\rm al}_bg^{\rm sel}_E(m)$, against the envelope costs of
+ the aligned classes. Crossed matching pairs receive no variance credit.
+\item For $|m|\in\{3,4\}$ and an even number of skew parities, not all skew, the
+ selection of $F_j$ on $X$ and the class of the two aligned matching assignments
+ have the class costs $B-g^{\rm sel}_F(m)$ and $B-g^{\rm sel}_E(m)$. For $|m|=4$
+ and four skew parities, the aligned assignments of one kind receive instead,
+ inside the envelope class $(4,0)$ or $(0,4)$, the credit
+ $\kappa_{4,T}g^{\rm sel}_T(m)$ on their raw-arm prices (\cref{lem:class-credit}).
+\item At the per-block upper prices, with $B_*\ge B$ in place of $B$
+ (\cref{rem:cp:monotone}) and every repeated-block monomial of a piece multiset
+ given the gain of that multiset, these credits lower the complete polynomial of
+ \cref{lem:record:record-expansion} by at least $D_{\rm var}$
+ \eqref{eq:variance:dvar}, and every coefficient stays nonnegative.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+By the paragraphs above the piece values, the caps and the numbers $\Sigma_i$ are
+piece data; the gates of \cref{cert:variance:fresh} give $k_{F,i},k_{E,i}<1$ and
+every gain in $[0,1)$; and $R_{\rm err}\le R_*$ by the choice of $R_*$.
+
+(i) \Cref{prop:background-variance}(b) for the fold selection and
+\cref{prop:background-variance}(a) for the aligned matching class.
+
+(ii) \Cref{cor:var-classes}(i), (ii) with $C=C_m$ give \cref{lem:var-gain}(a) with
+$\bar l_F=b_F(m)$ and $\bar l^{\rm al}_E=b_E(m)$, and $[\bar l_F-R_*]_+=g_F(m)$,
+$[\bar l^{\rm al}_E-R_*]_+=g^{\rm sel}_E(m)$. These selections belong to the
+envelope classes $(2,0)$ and $(0,2)$ of \cref{cor:envelope-costs}, and the
+averaged bound of \cref{lem:var-gain}(a) is the hypothesis of
+\cref{lem:class-credit}, whose parts (a) and (b) take the fractions $\kappa_{FF}$
+and $\kappa^{\rm al}_b$ of the gains; the background terms of
+\cref{prop:background-variance} are not used for this class. The restorations
+live on the two aligned corners of the matching bridge
+(\cref{lem:record:paired-e-joint}), so no lower bound is available for a crossed
+class.
+
+(iii) By \cref{cor:var-classes}(i), (ii) with $C=C_m$ and \cref{lem:var-gain}(c)
+the stated classes have the costs $B-g^{\rm sel}_F(m)$, $B-g^{\rm sel}_E(m)$;
+they lie in no envelope class, since the classes of \cref{cor:envelope-costs}
+consist of skew factors only. For four skew factors the selection lies in the
+class $(4,0)$ or $(0,4)$, and \cref{lem:class-credit}(c) credits
+$\kappa_{4,T}g^{\rm sel}_T(m)$ on its raw-arm monomials, on its aligned words.
+
+(iv) The per-block upper price of a record of one kind with a parity is half of
+the block's share of $tS_{T,i}$ or $tA_{T,i}$, and its raw-arm price half of the
+share of $tA^{\rm arm}_{T,i}$. On the monomials of the selections of (i) and (iii)
+with a symmetric factor, \cref{lem:record:record-expansion}(iv) allows the
+coefficient $B_*-g$, because the class cost is $B-g\le B_*-g$; on the monomials
+with a repeated block of the same records, kinds and parities it allows any
+coefficient in $[0,B_*c_{\boldsymbol n}]$, and they receive the gain of their
+piece multiset, which is below $1<B_*$. On the raw-arm monomials of the classes
+of (ii) and of the pure quartics of (iii) the credits are subtracted inside the
+replaced classes, as \cref{lem:record:record-expansion}(v) allows, the residual
+coefficient being nonnegative by the gates of \cref{lem:class-credit}. It remains
+to add up the subtracted amounts.
+
+\emph{Degree one.} The symmetric prices of the two records of one kind of a block
+sum, over the blocks of the piece $i$, to $tS_{T,i}$ (the distribution of
+\cref{lem:record:record-expansion}(iii) is exact); the gains $g_F(i)$,
+$g_E(i)$ give $t\sum_i[g_F(i)S_{F,i}+g_E(i)S_{E,i}]$.
+
+\emph{Degree two.} For a fold record $F_j$, the symmetric monomials of degree two
+in its variables form $\frac12(\sum_\Blk x^{\rm s}_{\Blk,F_j})^2$, whose ordered pairs
+of blocks carry the price products $\frac{t^2}4S_{F,\Blk}S_{F,\Blk'}$, $S_{F,\Blk}$ being
+the share of the block; with the gain of the pair of pieces, summed over $j$ and
+over the blocks of each pair of pieces, this is
+$\frac{t^2}4\sum_{i,j}g_F(i,j)S_{F,i}S_{F,j}$. The same computation gives
+$\frac{t^2}4\sum_{i,j}g_E(i,j)S_{E,i}S_{E,j}$ for the aligned symmetric matching
+pairs, the crossed pairs receiving nothing, and, on the raw-arm monomials, the
+skew terms $\frac{t^2}4\kappa_{FF}\sum_{i,j}g_F(i,j)A^{\rm arm}_{F,i}A^{\rm arm}_{F,j}$ and
+$\frac{t^2}4\kappa^{\rm al}_b\sum_{i,j}g^{\rm sel}_E(i,j)A^{\rm arm}_{E,i}A^{\rm arm}_{E,j}$.
+
+\emph{Degrees three and four.} For a multiset $m$ of size $k$, the monomials of
+degree $k$ in the variables of one record of a kind whose blocks lie in the pieces
+$m$ are, by the multinomial expansion, those of
+$\prod_i(\sum_{\Blk\subseteq[X_i,Y_i)}(x^{\rm s}_\Blk+x^{\rm a}_\Blk))^{m_i}/m_i!$, restricted
+to an even number of skew factors; at the per-record prices, and summed over the
+two records of one kind, they give $2\cdot2^{-k}t^k\sum_\sigma\prod_lP^{\sigma_l}_{T,i_l}
+/\prod_im_i!$ for the words with a symmetric letter, and the same with
+$\kappa_{4,T}\prod_lA^{\rm arm}_{T,i_l}$ for the pure quartic. With the gains
+$g^{\rm sel}_T(m)$ this is the last line of \eqref{eq:variance:dvar}.
+
+The parts are disjoint: different degrees, kinds, records or parity patterns are
+different monomials; the skew credits of degree two and the pure quartic credits
+lie inside different envelope classes; and the background and late-pool terms are
+inside the gains $g_E(m)$ of the linear and symmetric pair terms only.
+\end{proof}
+
+\begin{certificate}[Restorations recomputed at the baseline exponent]\label{cert:variance:fresh}
+With the tilted laws on the seven later pieces, the restoration
+quantities $M_i$, $\chi_i$ below are formed from the tilted laws'
+own marginals (not the uniform ones), all gains lie in $[0,1)$,
+$k_{F,i},k_{E,i}<1$, and the assembled total satisfies
+$0.00995856031576667<D_{\rm var}<0.00995856031576668$. This is
+computed twice, by two independently written assemblies of the
+scalar totals in
+\path{research/improvements_2026_10_25/global/selected.py}, with
+the inputs of \path{research/push_2026_10_25/design.json}. The
+adapters in
+\path{research/improvements_2026_10_25/global/scalar_adapters.py}
+authenticate the exact per-band laws, their stored weights, the
+prime thresholds and the single-prime marginal bounds. For each of the seven
+changed roots they form, with $n_i=\lfloor570/\log_-X_i\rfloor$,
+\[
+ M_i=R_{\ulaw}(X_i)^{n_i},\qquad
+ \chi_i=(1+d_{\ulaw}(X_i)^2)^{n_i}-1,
+\]
+rounded outward. The author and independent implementations separately
+perform these products. The new marginal is used throughout the
+restoration; the fixed uniform half is only the reference measure.
+The complete \texttt{new\_root\_restoration} record is in
+\path{research/push_2026_10_25/artifacts/author.json}.
+
+The piece product caps are recomputed at anchor $a=\PushA$ from the
+exact budget-$570$ products. The selected root changes are already
+included in the corresponding native weights. All other piece data,
+common-chamber restoration formulas, background credits of degrees
+one and two, aligned matching credits, and credits of degrees three
+and four are the formulas proved above. Terms pooled over the
+pieces from $2^{31}$ are included only when $b_E(m)\ge R_*$.
+Both assemblies verify $0\le l\le C_m/2$, every gain in $[0,1)$,
+and $k_{F,i},k_{E,i}<1$, then assemble $D_{\rm var}$ using
+\eqref{eq:variance:dvar}.
+
+\path{research/push_2026_10_25/verify.py} authenticates the preceding
+full native proof and reruns both assemblies with these exact inputs.
+Their variance components, product caps, savings at the tail
+primes and total closing values are in its two stored outputs;
+their
+agreement is part of \cref{cert:closing}. In particular the outward
+interval for $D_{\rm var}$ lies inside
+\[
+ 0.00995856031576667<D_{\rm var}<0.00995856031576668.
+\]
+\end{certificate}
+
+\begin{remark}[Sizes]\label{rem:variance:sizes}
+At the baseline exponent $a=\PushA$, $D_{\rm var}$ is about $9.96\cdot10^{-3}$. The skew
+pair credits dominate: about $6.01\cdot10^{-3}$ for the aligned fold pairs and
+$3.88\cdot10^{-3}$ for the aligned matching pairs. The linear fold credit is
+about $4.8\cdot10^{-5}$, small because the symmetric parts of the signed fold
+records are of degree three; the linear matching credit is about
+$1.3\cdot10^{-5}$, the symmetric pairs give less than $6\cdot10^{-10}$, and the
+degrees three and four about $5.0\cdot10^{-6}$; the late-pool terms account for
+about $1.7\cdot10^{-9}$ of the linear and symmetric-pair credits. Degree six is credited only
+through the positive envelopes (\cref{thm:envelopes}).
+\end{remark}
+
+\begin{remark}[Robustness]\label{rem:variance:robust}
+Every lower bound of this section is an exact relation minus upper bounds of
+the kind allowed by (CP8). Step (C) of \cref{lem:record:restoration} subtracts
+the energies of the nonroot components from the identity
+$Y[\bigotimes_\Blk\mu_\Blk]=Y$; its contraction and density steps, and the
+centred interpolations of \cref{lem:var-gain} and \cref{prop:background-variance},
+are the exact relations \ref{it:record:P1}--\ref{it:record:P3} and
+\ref{it:record:P3b}; the one-sided and bounded-variance steps use the upper bound
+$C'$ for normalized energies; the bridges subtract the merge energies; and the
+background terms are kept terms of an exact expansion. If every subtracted upper
+bound is multiplied by $1+z$, the same proofs give the bounds with $(1+z)C$ in
+place of $C$, and the piece caps $(1+z)C_i$; every gain is the larger of $0$ and a
+continuous expression, so the strict gates of \cref{cert:variance:fresh} persist
+for small $z$ (\cref{lem:record:rec}). The condition $b_E(m)\ge R_*$ of the
+late-pool terms holds with room: the strict selected-only margins checked in \cref{cert:variance:fresh}
+persist under a sufficiently small perturbation as well.
+\end{remark}
+
+\paragraph{Consequences and what to read next.}
+Parts II and III: \cref{thm:weil}, \eqref{eq:two-root},
+\cref{lem:majorant,def:admissible,lem:sector}, (CP4) and (CP5)
+with the charging rule and the monotonicity of the closing
+(\cref{def:record:comparison-law,def:cp5,rem:cp:charging,rem:cp:monotone}),
+the energy toolkit \ref{it:record:E1}--\ref{it:record:E3},
+\ref{it:record:P1}--\ref{it:record:P4} and \ref{it:record:P3b}
+(\cref{lem:energy-toolkit}),
+\cref{lem:record:variance-interface,lem:record:record-expansion,lem:record:repricing,cor:first-stage-repricing,cor:two-cut-series,lem:record:rec}.
+Part IV:
+\cref{lem:paley-triple,lem:record:signed-nbhd,sec:frontier:empty-triple-negative,lem:record:projection,lem:matching:kernel,lem:spec:cutkernel,lem:tilt-marginals},
+the chamber geometry and polarization
+(\cref{lem:record:fold-identification,def:patterns,def:five-type-datum,lem:tr:polarization}).
+Appendix A: \cref{thm:ahlgren-ono}.
+Part V: the middle blocks, the piece caps, the reference and the bracket
+(\cref{def:record:exact-blocks,lem:record:local-domain,lem:record:lower-start-sums,lem:piece-caps,lem:front12:reference,def:record:frame,lem:record:gram}),
+the cut L20 of the uniform root (\cref{subsec:middle-l20}, \eqref{eq:l20-cross-matrix}),
+the positive roots
+(\cref{def:positive-root,lem:positive-root-properties,prop:root-chamber,cert:positive-root-caps}),
+the fold records (\cref{lem:old-f-law,lem:record:old-f-marginal,def:record:mixture,lem:signed-components,prop:signed-bounds})
+and the matching records (\cref{lem:record:e-law,lem:record:exact-marginal-e}); the
+prices (\cref{lem:middle-comparison-prices}); the envelope costs
+(\cref{thm:envelopes,lem:class-credit,cor:envelope-costs}); the companion
+energies, the sides and the chosen diagonals of the mean
+(\cref{lem:record:companion-energy,prop:signed-sides,subsec:matching-envelopes}); the
+closing quantities (\cref{def:closing-quantities}); and the data and certificates
+\cref{cert:record:weighted-identity,cert:l20-star-mean,cert:variance:fresh,tab:data:piece-values,tab:data:prices,tab:data:positive-roots}.
+
+\paragraph{Hypotheses verified in this section.}
+The variance part of (CP5) (\cref{tab:hypotheses}): the classes of
+\cref{cor:variance:final}(i),(iii) with their costs, the gains of
+\cref{cor:variance:final}(ii) and (iii) that \cref{lem:class-credit} consumes, and
+the total $D_{\rm var}$ of \eqref{eq:variance:dvar} that the closing uses; the
+diagonal-mean and pool coupons (\cref{lem:record:paired-e-joint}(c),
+\cref{lem:pool-coupons}(b)) that \cref{prop:record:mean-credit} uses; and the star
+normalizer of the cut L20 (\cref{lem:l20-star-mean}) that
+\cref{subsec:middle-l20} uses.

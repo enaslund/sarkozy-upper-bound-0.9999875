@@ -1,0 +1,2179 @@
+
+\section{The non-star part of the character expansion and coincident labels}\label{sec:extraction}
+
+\paragraph{What this section proves and how to read it.}
+Expanding a cut kernel in characters gives terms indexed by sets of
+cross pairs. Terms whose pairs share an endpoint (\emph{stars}) are
+handled in \cref{sec:spectral}; this section bounds the remaining
+terms and the terms where labels coincide, showing both are second
+order with explicit constants. No new cancellation is proved here:
+the work is bookkeeping to keep constants small when many subsets
+are summed. \emph{Extraction} means the following choice, made for
+each group of subsets (a \emph{class} $\mathcal C(P,A)$: pairs in
+$P$ present, pairs in $A$ absent, others free): choose two disjoint
+present pairs (\emph{witnesses}, certifying second order), choose
+sets of vertices meeting every other undecided pair (a \emph{vertex
+cover}, whose labels are conditioned on), and choose labelling
+orders. An \emph{extraction datum} records these choices (called a
+``record of a class'' in the text below, not to be confused with
+records of Part~III). Inputs: \cref{sec:cuts,sec:dl}. Output: the
+per-class bound (\cref{subsec:extraction:extraction}) used by the
+spectral criteria. A first reading should follow the class
+definition and the statement of the per-class bound; the counting
+details are reference material. Writing each cross constraint at $e=(j,k)$ as
+$\tfrac12(1+\chi(\varsigma_{jk}(x'_k-x_j)))$ gives the expansion; the non-star part
+$T_{\rm ns}$ is second order because a non-star contains two
+disjoint pairs, and the coincidence part $T_{\rm coll}$ corrects for
+half labellings sharing a label. The difficulty is the constant at
+the first prime of a range, where $2^{m_\times}$ subsets are summed;
+it is kept small by stopping at the first two disjoint pairs,
+conditioning only on a vertex cover, counting constraints met by
+each vertex, and labelling the coincident vertices (those forced
+to carry equal labels) first in the coincidence count.
+
+\subsection{The character expansion and the compressed partition}\label{subsec:extraction:partition}
+
+\paragraph{Setting.}
+Throughout this section, except in \cref{subsec:push:pinnedremainder},
+$(G,\vartheta,U^+,\mathfrak o)$ are spectral data (\cref{def:spec:data}) with the
+notation fixed there: $n=|U^+|$, the half graph $G^+$, adjacency $j\sim k$ in
+$G^+$, the degrees $d^0_k$ and $\Delta^+=\max_kd^0_k$, the cross signs
+$\varsigma_{jk}$, the neighbourhoods $N(k)=\{j:\varsigma_{jk}\ne0\}$ with
+$r_k=|N(k)|$, $d_k=d^0_k+r_k$, $\Delta=\max_kd_k$, the cross pairs $E_\times$ and
+$m_\times=|E_\times|$. We write $\operatorname{Adj}(i)=\{j\in U^+:j\sim i\}$, so
+that $|\operatorname{Adj}(i)|=d^0_i$, and $e(L)$, $e(L,L')$ for the numbers of
+edges of $G^+$ inside $L$ and between disjoint sets $L,L'$. The prime $p$ is
+odd, $r=p^{-1/2}$, $e_t(p,n')=2^t(h_tr+n'r^2)$ is the count error of
+\eqref{eq:graphs:et}, $\mathcal I^+=\operatorname{Inj}_p(G^+)$ and
+$\mu=\lambda_p(G^+)$ is the half law. For $Y\subseteq U^+$ put
+\[
+ R_Y=\prod_{i\in Y}\frac{1+e_{d^0_i}(p,n)}{1-e_{d^0_i}(p,n)},\qquad
+ R_{\rm full}=R_{U^+},\qquad \hat e=e_{\Delta^+}(p,n),
+\]
+the completion ratios of \cref{lem:graphs:vertex} for the graph $G^+$. Under
+(S1) at $p$, $e_t(p,n')<1$ for $t\le\Delta$ and $n'\le2n$; in particular
+$\hat e<1$, and every factor of every $R_Y$ is defined and at least one.
+
+The two labellings of a pair $(x,x')\in\mathcal I^+\times\mathcal I^+$ live on two
+copies $X$ and $Z$ of $U^+$; in a cross pair $(j,k)$ the $x$-endpoint $j$ is a
+vertex of $X$ and the $x'$-endpoint $k$ a vertex of $Z$. Graph quantities
+($\operatorname{Adj}$, $d^0$, $N$, $r$) of a vertex of $X$ or $Z$ are those of
+the corresponding vertex of $U^+$. The characters
+$\chi_e(x,x')=\chi(\varsigma_{jk}(x'_k-x_j))$ of the cross pairs $e=(j,k)$, their
+products $\chi_S$, the operators $T_S$ on $L^2(\mu)$ with kernel $\chi_S$ relative to
+$\mu\otimes\mu$, the stars and nonstars, $T_{\rm ns}=\sum_{S\ \rm nonstar}T_S$, and
+the collision operator $T_{\rm coll}$, whose kernel $K_{\rm coll}$ is
+$\prod_{e\in E_\times}(1+\chi_e)$ on the pairs $(x,x')$ that share a label and $0$
+elsewhere, are those of \cref{subsec:spec:perp}. By \cref{lem:spec:expansion},
+$2^{m_\times}$ times the cut kernel is
+$\one\otimes\one+\sum_{S\ \rm star}T_S+T_{\rm ns}-T_{\rm coll}$
+\eqref{eq:record:root-kernel}, and $K_{\rm coll}$ is nonnegative and symmetric; the
+constants and the stars are treated in \cref{sec:spectral}. By \cref{lem:spec:elementary},
+$(j,k)\in E_\times$ iff $(k,j)\in E_\times$; so $j\in N(k)$ iff $k\in N(j)$, and $r_j$
+is also the number of cross pairs with $x$-endpoint $j$.
+
+\paragraph{Graded errors.}
+Every statement of this section outside \cref{subsec:push:pinnedremainder}, whose
+rows carry their own error $e^{\rm pin}_d$, holds with the same proof when the
+coarse error $e_t(p,n')$ is replaced throughout (in $R_Y$, $R_{\rm full}$, $\hat e$,
+the vertex and leaf factors, $L_{\rm int}$, $\Upsilon$ and $\Upsilon_k$) by the graded
+error $e^-_t(n')$ of \eqref{eq:graphs:graded}. Indeed the proofs use three
+properties of $e_t(p,n')$: it bounds the relative error of a count of
+\cref{lem:extension} from above whatever the excluded set, and from below when at
+most $n'$ labels are excluded
+(\cref{lem:extension}\ref{it:ext:upper},\ref{it:ext:coarse}); it is nondecreasing in
+$t$ and $n'$ and a polynomial in $r$ with nonnegative coefficients
+(\ref{it:et:poly}); and the densities and completion ratios of
+\cref{lem:graphs:vertex} are formed with it. The graded error has the first two
+properties by \cref{lem:extension}\ref{it:ext:upper},\ref{it:ext:lower} with
+\ref{it:et:compare} and \ref{it:et:poly}. For the third,
+\cref{lem:graphs:vertex}\ref{it:vertex:dens}--\ref{it:vertex:tuple} hold with
+$e^-_t(n)$ in place of $e_t(p,n)$, under $e^-_\Delta(n)<1$: in their proofs
+\cref{lem:extension}\ref{it:ext:coarse} enters only through lower counts, for which
+\ref{it:ext:lower} with $z=n$ serves, and
+\cref{lem:graphs:sequential}\ref{it:seq:count},\ref{it:seq:coarse} for the coarse pair
+may be replaced by \ref{it:seq:count} for the graded pair, whose ratio
+$\prod_i(1+e^+_{t_i})/(1-e^-_{t_i}(n))$ is at most
+$\prod_i(1+e^-_{d_i}(n))/(1-e^-_{d_i}(n))$ by \ref{it:et:compare} and
+\ref{it:et:poly}, since $t_i\le d_i$. Where a proof uses the explicit form of
+$e_t(p,n')$ (\cref{cor:extraction-compressed}), it applies through
+$e^-_t(n')\le e_t(p,n')$ (\ref{it:et:compare}); in particular, under (S1),
+$e^-_t(n')<1$ for $t\le\Delta$ and $n'\le2n$. The \emph{error pair of the setting}
+is the coarse pair or the graded pair of \cref{def:graphs:error-pair}; one choice
+is made for all the errors of a bound, and the nonstar coefficients of the root cuts
+of the upper range below $2^{52}$ use the graded one.
+
+\paragraph{Classes.}
+For disjoint $P,A\subseteq E_\times$ the \emph{class}
+$\mathcal C(P,A)=\{S:P\subseteq S\subseteq E_\times\setminus A\}$ consists of the
+sets in which the pairs of $P$ are \emph{present}, those of $A$ \emph{absent}, and
+those of $F=E_\times\setminus(P\cup A)$ \emph{free}. A pair is \emph{decided} if it
+is present or absent; pairs of $X\times Z$ outside $E_\times$ count as absent. The
+\emph{mass} of a class is $2^{|F|}$, and $T_{\mathcal C}=\sum_{S\in\mathcal C}T_S$.
+An \emph{exact partition} of a family of subsets of $E_\times$ is a set of
+pairwise disjoint classes whose union is the family. If $\mathcal C$ is the
+disjoint union of $\mathcal C_1$ and $\mathcal C_2$, then
+$T_{\mathcal C}=T_{\mathcal C_1}+T_{\mathcal C_2}$. Hence bounds for the classes
+of an exact partition add up to a bound for the whole family, and for a class
+split in two the smaller of a bound for the class and the sum of bounds for its
+two parts is again a bound for the class.
+
+\begin{definition}[Witnesses and covers]\label{def:extraction:witness}
+Let $\mathcal C=\mathcal C(P,A)$ be a class with free pairs $F$, and $k\ge1$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item A \emph{witness of size $k$} consists of pairs
+ $(j_1,k_1),\dots,(j_k,k_k)\in P$ with distinct $j_i$ and distinct $k_i$ such
+ that, with $V=\{j_1,\dots,j_k\}\subseteq X$ and $W=\{k_1,\dots,k_k\}\subseteq Z$,
+ every pair of the \emph{rectangle} $E_{VW}=(V\times W)\cap E_\times$ is decided;
+ call this \textup{(W$_k$)}.
+\item The \emph{witness digraph} $D_{\mathcal C}$ has the vertex set
+ $\{1,\dots,k\}$ and an arc $i\to l$ ($i\ne l$) whenever $(j_i,k_l)\in P$. If
+ all its strongly connected components have at most two vertices,
+ $\beta(\mathcal C)$ denotes the number of components with two vertices.
+\item A \emph{cover} is a pair $C_x\subseteq X\setminus V$, $C_z\subseteq
+ Z\setminus W$ such that every pair of $P\cup F$ outside $V\times W$ has its
+ $x$-endpoint in $C_x$ or its $x'$-endpoint in $C_z$; call this
+ \textup{(VC$_k$)}. The \emph{integrated} vertices are
+ $U_x=X\setminus(V\cup C_x)$ and $U_z=Z\setminus(W\cup C_z)$. The pair
+ $(X\setminus V,Z\setminus W)$ is always a cover.
+\end{enumerate}
+\end{definition}
+
+The partition lemma concerns only the combinatorics of the cross pairs, and we
+state it for an arbitrary finite set $E_\times\subseteq X\times Z$ of pairs,
+symmetric or not (the pinned rows of \cref{subsec:push:pinnedremainder} need a
+set that is not symmetric). For such a set let $r^X_j$ and $r^Z_k$ be the numbers
+of its pairs with $x$-endpoint $j$ and with $x'$-endpoint $k$; for spectral data
+both are the cross degrees $r_j$, $r_k$. Two pairs are \emph{disjoint} if their
+$x$-endpoints differ and their $x'$-endpoints differ.
+
+\begin{lemma}[The compressed partition]\label{lem:advance:compressed-partition}
+Let $E_\times\subseteq X\times Z$ be finite, $m_\times=|E_\times|$, with a total
+order $\prec$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item A subset of $E_\times$ contains no two disjoint pairs if and only if it is
+ empty or a star. The empty set and the stars are
+ \[
+  1+m_\times+\sum_j\bigl(2^{r^X_j}-1-r^X_j\bigr)+\sum_k\bigl(2^{r^Z_k}-1-r^Z_k\bigr)
+ \]
+ subsets; so the masses of the classes of an exact partition of the nonstar
+ subsets add up to $2^{m_\times}$ minus this number.
+\item For a nonstar $S$ let $e=(a,b)$ be its first pair. Exactly one of the
+ following holds, and it defines a class $\mathcal C(S)=\mathcal C(P,A)$.
+ \begin{enumerate}[label=\textup{(\Alph*)}]
+ \item Some pair of $S$ is disjoint from $e$. Let $f=(a',b')$ be the first one,
+  let $\mathrm{Con}=\{(a,b'),(a',b)\}\cap E_\times$ be the \emph{connectors}, and
+  \[
+   P=\{e,f\}\cup(S\cap\mathrm{Con}),\qquad
+   A=\{g:g\prec e\}\cup\{g\prec f:g\text{ disjoint from }e\}\cup(\mathrm{Con}\setminus S).
+  \]
+ \item No pair of $S$ is disjoint from $e$. Then $S$ contains, besides $e$, a pair
+  with $x$-endpoint $a$ and a pair with $x'$-endpoint $b$ (the \emph{arms} of $e$).
+  Let $g_1=(a,b'')$ and $g_2=(a'',b)$ be the first arms of the two kinds, let $A_1$
+  ($A_2$) be the set of pairs $g\ne e$ with $x$-endpoint $a$ ($x'$-endpoint $b$) and
+  $g\prec g_1$ ($g\prec g_2$), and
+  \[
+   P=\{e,g_1,g_2\},\qquad
+   A=\{g:g\prec e\}\cup A_1\cup A_2\cup\{g:g\text{ disjoint from }e\}.
+  \]
+ \end{enumerate}
+ Every element of $\mathcal C(S)$ is a nonstar whose class is $\mathcal C(S)$.
+ So the distinct classes $\mathcal C(S)$ form an exact partition of the nonstar
+ subsets, the \emph{compressed partition}. In case \textup{(A)} the pairs $e,f$,
+ and in case \textup{(B)} the arms $g_1,g_2$, form a witness of size two of
+ $\mathcal C(S)$. Its witness digraph is a two-cycle if, in case \textup{(A)},
+ both connectors are present, and it is acyclic otherwise.
+\item Let $\mathcal C(P,A)$ be a class and $g$ a free pair. The \emph{children}
+ $\mathcal C(P\cup\{g\},A)$ and $\mathcal C(P,A\cup\{g\})$ partition it; so
+ replacing a class of an exact partition by its children, any number of times,
+ gives an exact partition. A witness of $\mathcal C(P,A)$ is a witness of each
+ child, with the same witness digraph, and a cover of $\mathcal C(P,A)$ is a
+ cover of each child. If $k$ pairs of $P$ have distinct $x$-endpoints and
+ distinct $x'$-endpoints, they form a witness of size $k$ of every class
+ obtained from $\mathcal C(P,A)$ by deciding, one at a time, the undecided pairs
+ of their rectangle.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) Let $S$ be nonempty without two disjoint pairs, and fix $e=(a,b)\in S$.
+Every other pair of $S$ shares $a$ or $b$ with $e$. If $S$ contained a pair
+$(a,b_1)$ with $b_1\ne b$ and a pair $(a_1,b)$ with $a_1\ne a$, these two would be
+disjoint. So all pairs of $S$ have the $x$-endpoint $a$, or all have the
+$x'$-endpoint $b$. Conversely any two pairs of a star share an endpoint. A set of
+at least two pairs is not both a row star and a column star, since two pairs with
+the same two endpoints coincide, while a single pair is both. Counting the empty
+set, the $m_\times$ single pairs, the row stars of at least two pairs inside each row
+and the column stars of at least two pairs inside each column gives the number.
+
+(b) By (a) a nonstar $S$ contains two disjoint pairs, and so it has a first pair
+$e$ and falls in exactly one of the two cases. In case (B) every pair of $S$
+shares an endpoint with $e$, and $S$ is neither contained in the row of $e$ nor
+in its column, which gives the arms; $g_1$ and $g_2$ are disjoint, and both
+follow $e$. In both cases $P\cap A=\emptyset$, $P\subseteq S$, and no pair of $A$
+lies in $S$: the pairs before $e$ by the choice of $e$, the pairs disjoint from
+$e$ before $f$ by the choice of $f$, the arms before $g_1$, $g_2$ by the choice of
+the arms, and in case (B) the pairs disjoint from $e$ by assumption. So
+$S\in\mathcal C(S)$. Let $S'\in\mathcal C(S)$. In case (A), $e\in S'$ and no pair
+before $e$ lies in $S'$, so $e$ is the first pair of $S'$; $f\in S'$ is disjoint
+from $e$ and no pair disjoint from $e$ precedes it in $S'$; and
+$S'\cap\mathrm{Con}=S\cap\mathrm{Con}$. Hence $S'$ is a nonstar in case (A) with the
+same $e$, $f$ and connectors, and $\mathcal C(S')=\mathcal C(S)$. In case (B), $e$
+is again the first pair of $S'$, no pair of $S'$ is disjoint from $e$, and $g_1$,
+$g_2$ are the first arms of $S'$; $S'$ is a nonstar because it contains the
+disjoint pairs $g_1,g_2$, and $\mathcal C(S')=\mathcal C(S)$. So two classes
+$\mathcal C(S_1)$, $\mathcal C(S_2)$ with a common element coincide, and the
+classes cover the nonstar subsets exactly once.
+
+In case (A) take $(j_1,k_1)=e$ and $(j_2,k_2)=f$, so $V=\{a,a'\}$ and
+$W=\{b,b'\}$. The rectangle consists of $e$, $f$ and the connectors, all decided;
+$D_{\mathcal C}$ has the arc $1\to2$ iff $(a,b')\in P$ and the arc $2\to1$ iff
+$(a',b)\in P$. In case (B) take $(j_1,k_1)=g_1=(a,b'')$ and $(j_2,k_2)=g_2=(a'',b)$,
+so $V=\{a,a''\}$ and $W=\{b'',b\}$. The rectangle consists of $g_1$, $g_2$, the
+present pair $e=(a,b)$, which gives the arc $1\to2$, and the pair $(a'',b'')$,
+which is disjoint from $e$ and therefore absent; there is no arc $2\to1$.
+
+(c) The children are the elements of $\mathcal C(P,A)$ that contain $g$ and those
+that do not. A child has more present and more absent pairs; the witness pairs
+stay present, the rectangle stays decided, and $P\cap(V\times W)$ does not change,
+because $g$ was free and so lies outside the rectangle. The non-absent pairs of a
+child are non-absent in the parent, so (VC$_k$) passes to the child. Deciding the
+undecided pairs of a rectangle produces classes in which the rectangle is
+decided, which is (W$_k$).
+\end{proof}
+
+\begin{remark}[Comments on the partition]\label{rem:extraction-partition}
+(1) The arm case cannot be omitted: a three-edge path whose middle pair comes
+first contains no pair disjoint from that pair. In the arm case the first pair $e$
+is a present connector of the witness, not a witness pair.
+(2) A set $J\times K$ with $|J|,|K|\ge2$ contains two disjoint pairs, so complete
+bipartite subsets lie in classes and need no separate estimate.
+(3) Refinement does not worsen the available bound: by (c) the witness and cover of a class remain valid at
+all its descendants, so the size-two bound is available for every class obtained by
+repeated refinement, and such a class may keep the smaller of its own bound
+and the sum of the bounds of its children.
+Larger witnesses are found along augmenting paths: if the present pairs contain a
+matching of size $k+1$, the symmetric difference with a matching $M$ of size $k$
+contains an augmenting path for $M$ (Berge's lemma), of length one, three or five
+when $k=2$. The search for witnesses is heuristic and lies outside the proof; a
+proposed witness is used only after \textup{(W$_k$)} and the digraph
+condition have been verified.
+(4) Summed over a refinement of the compressed partition, the bounds for the
+classes at which refinement stops (the leaves) give the
+nonstar coefficients $C_k(Q)$ of \cref{cor:extraction-leaf}(b). Every choice (the
+order, the pair to decide, the witness, when to stop, the cover and the orders)
+affects only constants. The certificates make the choices once, in
+floating point at one prime, and fix them for all primes; their builders also check
+that the masses of the classes and the number in (a) add up to $2^{m_\times}$, and
+that a refined union of classes carries the mass it replaces. These checks accompany
+the proof; they do not replace it. (In the data files, whose
+names are reproduced in \cref{app:certificates}, the classes of
+case~(B) are called type~A and those of case~(A) type~B --- the
+reverse of the letters in this text; the cases here are always
+referred to as (A) and (B).)
+\end{remark}
+
+\subsection{Bounding a class by two designated pairs}\label{subsec:extraction:kernel}
+
+Fix a class $\mathcal C(P,A)$ and its designated witness pairs
+(\cref{def:extraction:witness}). After conditioning on all other
+labels, the kernel that remains on the witness labels is a product
+of characters $\chi(\pm(y_l-x_i))$ over a set $\mathcal K$ of
+pairs. The lemma bounds such a kernel: its compressed norm is at most $2^\beta r^k$
+($k$ the number of witness labels, so second order as soon as
+$k\ge2$), provided the directed graph of the pairs has no strongly
+connected component larger than a $2\times2$ rectangle, with $\beta$ the
+number of two-vertex components. These components use the four-cycle
+bound of \cref{sec:dl}; larger components require a separate estimate.
+
+\begin{lemma}[Witness kernels]\label{lem:matching:kernel}
+Let $k\ge1$, let $\mathcal K\subseteq\{1,\dots,k\}^2$ contain the diagonal pairs
+$(i,i)$, let $\varsigma_{il}\in\{\pm1\}$ for $(i,l)\in\mathcal K$, and let
+$T_{\mathcal K}$ be the operator on $L^2(\Fp^k)$, with uniform probability, given
+by
+\[
+ (T_{\mathcal K}f)(x)=\E_{y\in\Fp^k}\Bigl[\prod_{(i,l)\in\mathcal K}
+ \chi\bigl(\varsigma_{il}(y_l-x_i)\bigr)\,f(y)\Bigr].
+\]
+Let $D_{\mathcal K}$ be the digraph on $\{1,\dots,k\}$ with an arc $i\to l$ for
+every $(i,l)\in\mathcal K$ with $i\ne l$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item If $D_{\mathcal K}$ is acyclic, then $\norm{T_{\mathcal K}}\le r^k$.
+\item Suppose that every strongly connected component of $D_{\mathcal K}$ has at
+ most two vertices and that $\beta$ of them have two. Let $P_{\rm in}$ and
+ $P_{\rm out}$ be the multiplications by the indicators of sets of tuples $y$,
+ respectively $x$, with $y_i\ne y_l$, respectively $x_i\ne x_l$, for every
+ two-vertex component $\{i,l\}$ (for instance the injective tuples). Then
+ $\norm{P_{\rm out}T_{\mathcal K}P_{\rm in}}\le2^\beta r^k$.
+\item $D_{\mathcal K}$ is acyclic if and only if the identity is the only
+ permutation $\pi$ of $\{1,\dots,k\}$ with $(i,\pi(i))\in\mathcal K$ for
+ all $i$, that is, if and only if the diagonal is the only perfect matching
+ contained in $\mathcal K$.
+\item \emph{Inserted multipliers.} Let $k=2$ and $\mathcal K=\{(1,1),(2,2)\}$, and
+ let $F_{\rm out}(x_1,x_2)$, $F_{\rm mid}(x_1,y_2)$ and $F_{\rm in}(y_1,y_2)$ be
+ bounded functions. The operator on $L^2(\Fp^2)$ with kernel
+ \[
+  \chi\bigl(\varsigma_{11}(y_1-x_1)\bigr)\,\chi\bigl(\varsigma_{22}(y_2-x_2)\bigr)\,
+  F_{\rm out}(x_1,x_2)\,F_{\rm mid}(x_1,y_2)\,F_{\rm in}(y_1,y_2)
+ \]
+ has norm at most $r^2\norm{F_{\rm out}}_\infty\norm{F_{\rm mid}}_\infty
+ \norm{F_{\rm in}}_\infty$, and so has the operator with $F_{\rm mid}(y_1,x_2)$ in
+ place of $F_{\rm mid}(x_1,y_2)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $C_1,\dots,C_{n_c}$ be the strongly connected components of $D_{\mathcal K}$,
+ordered so that every arc between two components goes from an earlier to a later
+one. Consider functions of mixed coordinates: $x_i$ for $i$ in the components
+already treated and $y_i$ for the others, with uniform probability. Step $s$
+replaces the coordinates $y_{C_s}$ by $x_{C_s}$:
+\[
+ g\longmapsto M_s\cdot B_sg,\qquad
+ B_sg=\E_{y_{C_s}}\Bigl[\prod_{(i,l)\in\mathcal K\cap C_s^2}
+ \chi\bigl(\varsigma_{il}(y_l-x_i)\bigr)\,g\Bigr],\qquad
+ M_s=\prod_{(i,l)\in\mathcal K_s}\chi\bigl(\varsigma_{il}(y_l-x_i)\bigr),
+\]
+where $\mathcal K_s$ is the set of $(i,l)\in\mathcal K$ with $i\in C_s$ and $l$ in a
+later component.
+When step $s$ is performed the coordinates $x_{C_s}$ have just been created and
+every $y_l$ with $l$ in a later component is still present, so $M_s$ is a function
+of the current coordinates. Every pair of $\mathcal K$ is used exactly once: a
+pair inside a component in its block $B_s$, and a pair between two components in
+$M_s$ for the component $C_s$ of its first index, since its second index lies in a
+later component. Hence $T_{\mathcal K}=M_{n_c}B_{n_c}\cdots M_1B_1$. Each $M_s$ is a
+multiplication by a function of modulus at most one, and $B_s$ is the operator of
+the block $C_s$ tensored with the identity in the other coordinates, which has the
+same norm.
+
+(a) If $D_{\mathcal K}$ is acyclic, every component is a single vertex $i$, and
+$B_s$ is $h\mapsto\E_y\chi(\varsigma_{ii}(y-x))h(y)=\chi(\varsigma_{ii})Ch$ in the
+coordinate $i$, with the Gauss operator $C$ of \cref{lem:spec:gauss}, of norm $r$.
+So $\norm{T_{\mathcal K}}\le r^k$.
+
+(b) For a two-vertex component $C_s=\{i,l\}$, strong connectivity gives both arcs,
+so the kernel of $B_s$ is the complete rectangle
+$\prod_{a,b\in\{i,l\}}\chi(\varsigma_{ab}(y_b-x_a))$. Let $Q_{\rm in}$ and
+$Q_{\rm out}$ be the multiplications by $\one[y_i\ne y_l]$ and by
+$\one[x_i\ne x_l]$. The steps before $s$ act on other coordinates or multiply
+pointwise, so they commute with $Q_{\rm in}$, and $Q_{\rm in}P_{\rm in}=P_{\rm in}$.
+The steps after $s$, and $M_s$, act on other coordinates or multiply pointwise, so
+they commute with $Q_{\rm out}$, and $P_{\rm out}Q_{\rm out}=P_{\rm out}$. Hence
+$Q_{\rm in}$ may be inserted immediately before $B_s$ and $Q_{\rm out}$ immediately
+after it without changing $P_{\rm out}T_{\mathcal K}P_{\rm in}$, for every
+two-vertex component. By \cref{cor:dl:normalized}(a) with $a=b=2$,
+$\norm{Q_{\rm out}B_sQ_{\rm in}}\le2/p=2r^2$, and the singleton blocks have norm
+$r$ as in (a). Multiplying, $\norm{P_{\rm out}T_{\mathcal K}P_{\rm in}}\le
+r^{k-2\beta}(2r^2)^\beta=2^\beta r^k$.
+
+(c) If $i_1\to i_2\to\dots\to i_\ell\to i_1$ is a directed cycle with distinct
+vertices, the permutation with $\pi(i_s)=i_{s+1}$ (indices modulo $\ell$) and
+$\pi(i)=i$ otherwise is a second perfect matching. Conversely, if $\pi\ne\mathrm{id}$
+is a perfect matching in $\mathcal K$, every $i$ with $\pi(i)\ne i$ gives an arc
+$i\to\pi(i)$, and following a cycle of $\pi$ gives a directed cycle.
+
+(d) Let $M_F$ be the multiplication by $F$, and let $C_\varsigma\otimes I$ and
+$I\otimes C_\varsigma$ be the Gauss operator
+$(C_\varsigma h)(a)=\E_b\chi(\varsigma(b-a))h(b)$ of \cref{lem:spec:gauss} acting in the
+first and in the second coordinate. Applied to $f(y_1,y_2)$, the operator multiplies
+by $F_{\rm in}$, replaces $y_1$ by $x_1$ through the kernel
+$\chi(\varsigma_{11}(y_1-x_1))$, multiplies by $F_{\rm mid}(x_1,y_2)$, replaces $y_2$
+by $x_2$ through $\chi(\varsigma_{22}(y_2-x_2))$, and multiplies by $F_{\rm out}$: it
+is $M_{F_{\rm out}}(I\otimes C_{\varsigma_{22}})M_{F_{\rm mid}}(C_{\varsigma_{11}}\otimes
+I)M_{F_{\rm in}}$. With $F_{\rm mid}(y_1,x_2)$ the two transforms are applied in the
+other order. Each Gauss operator has norm $r$, and each multiplication has norm at
+most the supremum of its function.
+\end{proof}
+
+\begin{remark}[The witness kernels that occur]\label{rem:extraction-kernels}
+For a witness of size two the rectangle is a matching, a three-edge path (one
+connector present) or a complete rectangle (both present). The first two are
+acyclic, so their kernels have norm at most $r^2=1/p$ for independent uniform
+labels, with no injectivity condition (the \emph{incomplete-rectangle bound}). The
+complete rectangle has norm at most $2r^2$ on distinct pairs; numerical evidence
+for the sharpness of $2$ is discussed in \cref{rem:dl:K-sharp}. A witness of size
+three or four found along an augmenting path is used only if its digraph has no
+ strongly connected component of three or more vertices in the selected
+ partition. A complete three-vertex component may instead be priced at
+ $6r^3$ by \cref{thm:cubic-resultant}, with internal distinctness on
+ both sides. This extension does not apply to an incomplete three-vertex
+ component. The original criterion holds, for instance,
+when the connectors between a new witness pair and the others all point one way:
+the new vertex then lies on no directed cycle, and the kernel factors through one
+more Gauss operator. Part~(d) keeps inside the norm a bounded multiplier that depends
+on one endpoint of each of the two pairs of a matching; a third character
+$\chi(\varsigma_{12}(y_2-x_1))$ or $\chi(\varsigma_{21}(y_1-x_2))$ has modulus at most
+one and may be absorbed into $F_{\rm mid}$, so the three-edge paths are covered too.
+In the applications the other coordinates of a larger witness are fixed first and the
+multipliers may depend on them; the score multipliers of the positive roots are of
+this form (\cref{sec:positive-roots}). No Schur-multiplier bound for a signed kernel
+is used.
+\end{remark}
+
+\subsection{A bound for each class $\mathcal C(P,A)$}\label{subsec:extraction:extraction}
+
+A class is bounded in four steps. (1)~Its character sum is written
+as the witness kernel times the nonnegative factors $1+\chi_e$ of
+the free pairs. (2)~One conditions on the labels of a vertex
+cover. (3)~The witness labels then have a bounded density, and
+their kernel is bounded by \cref{lem:matching:kernel}.
+(4)~The remaining labels are integrated one vertex at a time,
+each contributing its vertex factor $F_v$ of
+\cref{def:extraction:records}, with an
+additional second-order term when a label coincides with a fixed
+label of the other row. The definitions below record exactly the
+choices (witness, cover, orders) and the factor contributed by
+each non-witness vertex.
+
+\begin{definition}[Records of a class (extraction data)]\label{def:extraction:records}
+Let $\mathcal C=\mathcal C(P,A)$ be a class with free pairs $F$, a witness of
+size $k$ with sets $V\subseteq X$, $W\subseteq Z$, and a cover $(C_x,C_z)$ with
+integrated sets $U_x$, $U_z$ (\cref{def:extraction:witness}). Fix orders of the
+four sets $U_x$, $U_z$, $C_x$, $C_z$. Witness, cover and orders form a
+\emph{record} of $\mathcal C$ (extraction data, not a record in the sense of
+\cref{subsec:intro:glossary}). For a \emph{non-witness vertex}
+$v\in(X\setminus V)\cup(Z\setminus W)$ define $t_v$, the set $H_v$ of its \emph{free
+partners}, $h_v=|H_v|$ and $s_v=t_v+h_v$:
+\begin{itemize}
+\item $u\in U_x$: $t_u$ is the number of $G^+$-neighbours of $u$ in $V\cup C_x$
+ or earlier in $U_x$, and $H_u=\{b:(u,b)\in F\}$;
+\item $u\in U_z$: $t_u$ is the number of $G^+$-neighbours of $u$ in $W\cup C_z$
+ or earlier in $U_z$, and $H_u=\{a:(a,u)\in F\}$;
+\item $b\in C_z$: $t_b$ is the number of $G^+$-neighbours of $b$ earlier in
+ $C_z$, and $H_b=\{a:(a,b)\in F\}$ (all free pairs at $b$, also those from
+ $V$);
+\item $a\in C_x$: $t_a$ is the number of $G^+$-neighbours of $a$ earlier in
+ $C_x$, and $H_a=\{b:(a,b)\in F\}$.
+\end{itemize}
+Viewed in $U^+$, $H_v\subseteq N(v)$, by the symmetry of $N$; and by \textup{(VC$_k$)},
+$H_u\subseteq C_z$ for $u\in U_x$ and $H_u\subseteq C_x$ for $u\in U_z$. Thus
+$t_v\le d^0_v$, $h_v\le r_v$ and $s_v\le d_v\le\Delta$. Put
+$t_V=e(V)+e(V,C_x)$ and $t_W=e(W)+e(W,C_z)$, let $f_V$ and $f_W$ be the numbers
+of free pairs with $x$-endpoint in $V$ and with $x'$-endpoint in $W$, and let
+$\mathrm{ex}(\mathcal C)=t_V+t_W+f_V+f_W$ be the \emph{exponent} of the record.
+With the \emph{merge counts} (for the merged roots of
+\cref{lem:extraction-merged-count} below, not the merges of
+\cref{sec:completion-repair})
+\[
+ \mathrm{mg}(j,i)=\#\{i'\in\operatorname{Adj}(i):j\in N(i')\},\qquad
+ c^U(j,i)=\#\{u\in\operatorname{Adj}(j):u\in N(i)\}\qquad(i,j\in U^+),
+\]
+the \emph{vertex factors} of the record are, with Iverson brackets,
+\begin{align*}
+ F_u&=\frac{1+e_{s_u}(p,n)+r^22^{s_u}\sum_{b\in C_z}2^{c^U(u,b)-[b\in H_u]}}
+ {1-e_{t_u}(p,n)}&&(u\in U_x),\\
+ F_u&=\frac{1+e_{s_u}(p,n)+r^22^{s_u}\sum_{a\in C_x}2^{c^U(u,a)-[a\in H_u]}}
+ {1-e_{t_u}(p,n)}&&(u\in U_z),\\
+ F_b&=\frac{1+e_{s_b}(p,2n)+r^22^{s_b}\sum_{j\in U^+}
+ 2^{\mathrm{mg}(j,b)+c^U(j,b)-[j\in H_b]}}{1-e_{t_b}(p,n)}&&(b\in C_x\cup C_z).
+\end{align*}
+The brackets record that the free factor of a pair whose two labels coincide is
+$1+\chi(0)=1$. There are exactly $2(n-k)$ non-witness vertices, hence $2(n-k)$
+vertex factors. A class may carry several records; each choice is made once,
+independently of $p$.
+\end{definition}
+
+\begin{lemma}[Counts with merged roots]\label{lem:extraction-merged-count}
+Let $\beta_1,\dots,\beta_t\in\Fp$ be distinct, let $\gamma_1,\dots,\gamma_h\in\Fp$
+be distinct, let $s_1,\dots,s_t,s'_1,\dots,s'_h\in\{\pm1\}$, and let
+$\mathcal X\subseteq\Fp$ contain all $\beta_i$ and $\gamma_l$. Let
+$\mu_{\rm m}=\#\{(i,l):\beta_i=\gamma_l\}$, the number of \emph{merged} roots. Then
+for every $n'\ge0$
+\[
+ \sum_{\substack{y\in\Fp\setminus\mathcal X\\ \chi(y-\beta_i)=s_i\ \forall i}}
+ \ \prod_{l=1}^h\bigl(1+s'_l\chi(y-\gamma_l)\bigr)
+ \ \le\ p\,2^{-t}2^{\mu_{\rm m}}\bigl(1+e_{t+h-\mu_{\rm m}}(p,n')\bigr)
+ \ \le\ p\,2^{-t}2^{\mu_{\rm m}}\bigl(1+e_{t+h}(p,n')\bigr).
+\]
+\end{lemma}
+
+\begin{proof}
+For $y\notin\mathcal X$ every factor $1+s'_l\chi(y-\gamma_l)$ is $0$ or $2$, so the
+sum is $2^h$ times the number of $y\notin\mathcal X$ satisfying the $t+h$
+conditions $\chi(y-\beta_i)=s_i$ and $\chi(y-\gamma_l)=s'_l$. Since the $\beta_i$
+are distinct and the $\gamma_l$ are distinct, the merged roots pair one $\beta_i$
+with one $\gamma_l$. Two conditions at the same root are identical or
+incompatible; in the second case the sum is $0$. Otherwise the conditions are
+$t+h-\mu_{\rm m}$ conditions with distinct roots, all in $\mathcal X$, and by
+\cref{lem:extension}\ref{it:ext:upper} and \ref{it:et:compare} their solution set
+has at most $p2^{-(t+h-\mu_{\rm m})}(1+e_{t+h-\mu_{\rm m}}(p,n'))$ elements.
+Multiply by $2^h$; the second inequality holds because $e_t(p,n')$ is
+nondecreasing in $t$ \ref{it:et:poly}.
+\end{proof}
+
+\begin{lemma}[Cover rows]\label{lem:extraction-rows}
+Assume \textup{(S1)} at $p$. Let $C\subseteq U^+$ be a set of $x'$-vertices with an
+order, let $x\in\mathcal I^+$ and $H\subseteq\{(a,b)\in E_\times:b\in C\}$. For
+$b\in C$ let $t_b$ be the number of $G^+$-neighbours of $b$ earlier in $C$,
+$H_b=\{a:(a,b)\in H\}$, $h_b=|H_b|$, $s_b=t_b+h_b$, and let $F_b(H)$ be the
+expression of $F_b$ in \cref{def:extraction:records} with these counts and these
+sets $H_b$. Let $\mu_C$ be the law of
+$x'_C$ for $x'\sim\mu$, and
+$\kappa_C(x,c')=\sum_{b\in C}\sum_{i\in U^+}c^U(i,b)\one[c'_b=x_i]$. Then
+\[
+ \E_{c'\sim\mu_C}\Bigl[\prod_{(a,b)\in H}\bigl(1+\chi(\varsigma_{ab}(c'_b-x_a))\bigr)
+ \,2^{\kappa_C(x,c')}\Bigr]\ \le\ R_{U^+\setminus C}\prod_{b\in C}F_b(H).
+\]
+\end{lemma}
+
+\begin{proof}
+Call the integrand $\Pi(c')\ge0$.
+
+\emph{Step 1 (reference law).} Let $\lambda_C=\lambda_p(G^+[C])$. By
+\cref{lem:graphs:vertex}\ref{it:vertex:subset} the density of $\mu_C$ with respect
+to $\lambda_C$ takes values in an interval $[c_0,R_{U^+\setminus C}c_0]$; since it has
+mean one, $c_0\le1$ and the density is at most $R_{U^+\setminus C}$. So it suffices
+to show $\E_{\lambda_C}\Pi\le\prod_{b\in C}F_b(H)$.
+
+\emph{Step 2 (lower count).} By \cref{lem:graphs:sequential}\ref{it:seq:count}
+with the error pair of the setting, no anchors and the given order,
+\[
+ |\operatorname{Inj}_p(G^+[C])|\ge\prod_{b\in C}p2^{-t_b}\bigl(1-e_{t_b}(p,n)\bigr).
+\]
+Write $\Pi(c')=\prod_b\omega_b(c'_b)$ with
+\[
+ \omega_b(y)=\prod_{a\in H_b}\bigl(1+\chi(\varsigma_{ab}(y-x_a))\bigr)\cdot
+ 2^{\sum_ic^U(i,b)\one[y=x_i]}.
+\]
+
+\emph{Step 3 (merge weights).} Call $b$ \emph{coincident} if $c'_b=x_{j(b)}$ for
+some (unique) $j(b)\in U^+$. A \emph{merge at $b$} is a pair $(b',a)$ with $b'$
+earlier than $b$, $b'\sim b$, $a\in H_b$ and $c'_{b'}=x_a$; let
+$\mu_b=\mu_b(c'_{<b})$ be their number. If $(b',a)$ is a merge at $b$, then
+$b'$ is coincident with $j(b')=a$, and $b\in\operatorname{Adj}(b')$ with
+$j(b')\in N(b)$. So a fixed $b'$ causes at most $\mathrm{mg}(j(b'),b')$
+merges, and $\sum_b\mu_b\le\sum_{b'\ \text{coincident}}\mathrm{mg}(j(b'),b')$. With $\hat\omega_b(y)=\omega_b(y)2^{\mathrm{mg}(j,b)}$ if
+$y=x_j$ for some $j\in U^+$, and $\hat\omega_b(y)=\omega_b(y)$ otherwise,
+\[
+ \Pi(c')\le\prod_b\hat\omega_b(c'_b)\,2^{-\mu_b(c'_{<b})}.
+\]
+
+\emph{Step 4 (one vertex).} Fix $b$ and the earlier labels $c'_{<b}$, and let
+$\mathrm{Adm}_b$ be the set of $y$ distinct from the earlier labels that satisfy the
+$t_b$ constraints of $G^+$ with the earlier neighbours of $b$. We claim
+\begin{equation}\label{eq:extraction:onevertex}
+ \sum_{y\in\mathrm{Adm}_b}\hat\omega_b(y)\,2^{-\mu_b}\le p2^{-t_b}
+ \Bigl(1+e_{s_b}(p,2n)+r^22^{s_b}\sum_{j\in U^+}
+ 2^{\mathrm{mg}(j,b)+c^U(j,b)-[j\in H_b]}\Bigr).
+\end{equation}
+For $y\notin x(U^+)$, $\hat\omega_b(y)=\prod_{a\in H_b}(1+\chi(\varsigma_{ab}(y-x_a)))$.
+The internal roots (the labels of the earlier neighbours) are distinct, the cross
+roots $x_a$ ($a\in H_b$) are distinct, and they coincide exactly at the $\mu_b$
+merges. With $\mathcal X=x(U^+)\cup\{c'_{b'}:b'\text{ earlier}\}$,
+\cref{lem:extraction-merged-count} bounds the sum of $\hat\omega_b(y)$ over these
+values by $p2^{-t_b}2^{\mu_b}(1+e_{s_b}(p,2n))$, so their contribution to the left
+side of \eqref{eq:extraction:onevertex} is at most $p2^{-t_b}(1+e_{s_b}(p,2n))$. For $y=x_j$ the factor of $a=j$, if
+$j\in H_b$, is $1+\chi(0)=1$, the other factors are at most $2$, and $x$ is
+injective; so
+$\hat\omega_b(x_j)2^{-\mu_b}\le2^{h_b-[j\in H_b]+c^U(j,b)+\mathrm{mg}(j,b)}
+=p2^{-t_b}r^22^{s_b+\mathrm{mg}(j,b)+c^U(j,b)-[j\in H_b]}$, because $pr^2=1$.
+Summing over $j\in U^+$ proves \eqref{eq:extraction:onevertex}.
+
+\emph{Step 5 (product).} The right side of \eqref{eq:extraction:onevertex} does not
+depend on $c'_{<b}$, and $\mu_b$ depends only on $c'_{<b}$. Summing the bound of
+Step 3 over $c'\in\operatorname{Inj}_p(G^+[C])$, successively over the labels in reverse order and using the uniform
+bound \eqref{eq:extraction:onevertex} for each label given the earlier ones,
+gives $\sum_{c'}\Pi(c')\le\prod_bp2^{-t_b}(1+e_{s_b}(p,2n)+r^22^{s_b}\sum_j
+2^{\mathrm{mg}(j,b)+c^U(j,b)-[j\in H_b]})$, and dividing by the count of Step 2
+gives $\E_{\lambda_C}\Pi\le\prod_bF_b(H)$.
+\end{proof}
+
+\begin{theorem}[Grouped extraction with a witness of size $k$]\label{lem:matching:extractionk}
+Assume \textup{(S1)} at $p$. Let $\mathcal C=\mathcal C(P,A)$ be a class with a
+record (\cref{def:extraction:records}) whose witness has size $k$, and suppose that
+the kernel
+\[
+ \mathsf W(v,w)=\prod_{(a,b)\in P\cap(V\times W)}\chi\bigl(\varsigma_{ab}(w_b-v_a)\bigr)
+ \qquad(v\in\Fp^V,\ w\in\Fp^W)
+\]
+of its present rectangle pairs, compressed to injective tuples, has norm at most
+$c_{\rm ker}r^k$ for uniform probability; by \cref{lem:matching:kernel},
+$c_{\rm ker}=2^{\beta(\mathcal C)}$ when every strongly connected component of
+$D_{\mathcal C}$ has at most two vertices. For either integrated set put
+$\widetilde R_U=\prod_{u\in U}(1+e_{t_u}(p,n))/(1-e_{t_u}(p,n))$,
+where $t_u$ is its actual internal insertion degree. Then for all $f,h\in L^2(\mu)$
+\[
+ \Bigl|\sum_{S\in\mathcal C}\ip f{T_Sh}_\mu\Bigr|
+ \le c_{\rm ker}\,r^k\,2^{\mathrm{ex}(\mathcal C)/2}\,
+ \frac{\sqrt{\widetilde R_{U_x}\widetilde R_{U_z}}}{(1-\hat e)^k}
+ \prod_{v\in(X\setminus V)\cup(Z\setminus W)}F_v^{1/2}\;\norm f_\mu\norm h_\mu .
+\]
+\end{theorem}
+
+\begin{proof}
+Let $E_{VW}$ be the rectangle and $F$ the free pairs.
+
+\emph{Step 1 (grouping).} The sets of $\mathcal C$ are the sets $P\cup S'$ with
+$S'\subseteq F$, so
+$\sum_{S\in\mathcal C}\chi_S=\prod_{e\in P}\chi_e\prod_{e\in F}(1+\chi_e)
+=\prod_{e\in P\cup F}\psi_e$, with $\psi_e=\chi_e$, $|\psi_e|\le1$, for $e\in P$ and
+$\psi_e=1+\chi_e\in[0,2]$ for $e\in F$. By (W$_k$) no pair of $E_{VW}$ is free. Let
+$(a,b)$ be a non-absent pair outside $E_{VW}$. If $a\in V\cup U_x$, then
+$a\notin C_x$ and $(a,b)\notin V\times W$, so $b\in C_z$ by (VC$_k$). Hence every
+such pair lies in exactly one of the groups
+\[
+ \mathcal G_1:\ a\in V\cup U_x,\ b\in C_z;\qquad
+ \mathcal G_2:\ a\in C_x,\ b\in W\cup U_z;\qquad
+ \mathcal G_\Gamma:\ a\in C_x,\ b\in C_z,
+\]
+and $\sum_{S\in\mathcal C}\chi_S=\mathsf W(v,w)\,\Theta_1\Theta_2\Gamma$ with
+$v=x_V$, $w=x'_W$ and $\Theta_1,\Theta_2,\Gamma$ the products of $\psi_e$ over
+$\mathcal G_1,\mathcal G_2,\mathcal G_\Gamma$. Here $\Theta_1$ depends on
+$x_{V\cup U_x}$ and $x'_{C_z}$, $\Theta_2$ on $x_{C_x}$ and $x'_{W\cup U_z}$, and
+$\Gamma$ on $x_{C_x}$ and $x'_{C_z}$. Let $\Theta^+_1$ and $\Gamma^+$ be the
+products of $1+\chi_e$ over the free pairs of $\mathcal G_1$ and of
+$\mathcal G_\Gamma$; then $|\Theta_1|\le\Theta^+_1$ and $|\Gamma|\le\Gamma^+$. A free
+pair with $x$-endpoint in $V$ lies in $\mathcal G_1$, so
+$\Theta^+_1=\Theta^+_V\Theta^+_U$ with
+$\Theta^+_V=\prod_{(a,b)\in F,\,a\in V}(1+\chi_{ab})\le2^{f_V}$ and
+$\Theta^+_U=\prod_{(u,b)\in F,\,u\in U_x}(1+\chi_{ub})$.
+
+\emph{Step 2 (conditioning).} Put $c=x_{C_x}$ and $c'=x'_{C_z}$. Under
+$\mu\otimes\mu$ the labellings $x$ and $x'$ are independent, so given $(c,c')$ the
+pairs $(x_V,x_{U_x})$ and $(x'_W,x'_{U_z})$ are independent. Let $\nu_V$ and
+$\nu_W$ be the conditional laws of $x_V$ given $c$ and of $x'_W$ given $c'$ under
+$\mu$, and put
+$\mathsf a(v)=\E[f(x)\Theta_1\mid x_V=v,c,c']$ and
+$\mathsf b(w)=\E[\Theta_2h(x')\mid x'_W=w,c,c']$. The characters being real,
+\[
+ \sum_{S\in\mathcal C}\ip f{T_Sh}_\mu
+ =\E_{\mu\otimes\mu}\Bigl[\overline{f(x)}\sum_{S\in\mathcal C}\chi_S\,h(x')\Bigr]
+ =\E_{c,c'}\Bigl[\Gamma\,\E_{v\sim\nu_V,\,w\sim\nu_W}
+ \bigl[\overline{\mathsf a(v)}\,\mathsf W(v,w)\,\mathsf b(w)\bigr]\Bigr].
+\]
+
+\emph{Step 3 (density together with its cover marginal).}
+Keep the actual conditional density supremum
+$D_V(c)=\sup_v\tilde\nu_V(v\mid c)$ as a function of the cover labels.
+Write $N_C(c)$ for the number of completions on $V\sqcup U_x$,
+$N_U(v,c)$ for the number on $U_x$, and $\lambda_C$ for the uniform
+strict labelling law on $C_x$. Exact counting gives
+\[
+ \frac{D_V(c)\mu_{C_x}(c)}{\lambda_C(c)}
+ =\frac{p^k|\mathcal I_{C_x}|\max_v N_U(v,c)}{|\mathcal I^+|}.
+\]
+All cover labellings extend by (S1). Inserting $V$ after $C_x$ gives
+at least $p^k2^{-t_V}(1-\hat e)^k$ choices. The subsequent insertion
+of $U_x$ gives lower and upper products
+$\prod_up2^{-t_u}(1-e_{t_u})$ and
+$\prod_up2^{-t_u}(1+e_{t_u})$. Thus, as measures,
+\begin{equation}\label{eq:extraction:cross-density}
+ D_V\,d\mu_{C_x}\le
+ \frac{2^{t_V}\widetilde R_{U_x}}{(1-\hat e)^k}\,d\lambda_{C_x}.
+\end{equation}
+The same assertion holds for $D_W(c')$ and $C_z$.
+
+\emph{Step 4 (the witness kernel).} The functions $\mathsf a\tilde\nu_V$ and
+$\mathsf b\tilde\nu_W$ vanish off injective tuples, so the kernel hypothesis and
+$\E|\mathsf a|^2\tilde\nu_V^2\le D_V(c)\E|\mathsf a|^2\tilde\nu_V$ (expectations for
+uniform probability) give
+$|\E_{\nu_V\otimes\nu_W}[\overline{\mathsf a}\mathsf W\mathsf b]|
+=|\ip{\mathsf a\tilde\nu_V}{T_{\mathsf W}(\mathsf b\tilde\nu_W)}|
+\le c_{\rm ker}r^k\sqrt{D_V(c)D_W(c')}\norm{\mathsf a}_{\nu_V}\norm{\mathsf b}_{\nu_W}$.
+Hence
+\begin{equation}\label{eq:extraction:step4}
+ \Bigl|\sum_{S\in\mathcal C}\ip f{T_Sh}_\mu\Bigr|\le c_{\rm ker}r^k
+ \E_{c,c'}\bigl[|\Gamma|\sqrt{D_V(c)D_W(c')}\,
+       \norm{\mathsf a}_{\nu_V}\norm{\mathsf b}_{\nu_W}\bigr].
+\end{equation}
+
+\emph{Step 5 (Cauchy--Schwarz in the integrated variables).} With the weight
+$|\Theta_1|\le\Theta^+_1$,
+$|\mathsf a(v)|^2\le\E[|f|^2\Theta^+_1\mid v,c,c']\,\E[\Theta^+_1\mid v,c,c']$. Given
+$(v,c)$ the labels $x_{U_x}$ are uniform on the set $\mathcal Y(v,c)$ of completions
+of $(v,c)$ to an element of $\mathcal I^+$, so
+\[
+ \E[\Theta^+_1\mid v,c,c']=\Theta^+_V\,\mathsf m(v,c,c')\le2^{f_V}\mathsf m(v,c,c'),
+ \qquad\mathsf m(v,c,c')=\frac1{|\mathcal Y|}\sum_{y\in\mathcal Y}\Theta^+_U(y,c').
+\]
+
+\emph{Step 6 (the integrated vertices).} Label $U_x$ in its order, writing $y_u$ for
+the label of $u$. For $u\in U_x$ the free partners are $H_u=\{b:(u,b)\in F\}$; a free
+pair $(u,b)$ is not in $E_{VW}$ and $u\notin C_x$, so $H_u\subseteq C_z$ by (VC$_k$),
+and
+$\Theta^+_U=\prod_uw_u(y_u)$ with
+$w_u(y)=\prod_{b\in H_u}(1+\chi(\varsigma_{ub}(c'_b-y)))$. A \emph{merge at $u$} is a
+pair $(i,b)$ with $i\in\operatorname{Adj}(u)$ labelled before $u$ (so $i\in V\cup
+C_x$, or $i\in U_x$ earlier than $u$), $b\in H_u$, and label of $i$ equal to
+$c'_b$. Let $\kappa^f_u$ count the merges at $u$ with $i\in V\cup C_x$, which are
+determined by $(v,c,c')$, let $\kappa^r_u(y_{<u})$ count those with $i\in U_x$, and
+$\kappa^f=\sum_u\kappa^f_u$. Put $\hat w_u(y)=w_u(y)2^{c^U(u,b)}$ if $y=c'_b$ for
+some $b\in C_z$ (unique, as $c'$ is injective) and $\hat w_u(y)=w_u(y)$ otherwise.
+If $(i,b)$ is a merge at $u$ with $i\in U_x$, then $y_i=c'_b$,
+$u\in\operatorname{Adj}(i)$ and $u\in N(b)$; so an $i\in U_x$ with $y_i=c'_b$
+causes at most $c^U(i,b)$ merges, and
+$\prod_uw_u(y_u)\le\prod_u\hat w_u(y_u)2^{-\kappa^r_u(y_{<u})}$.
+
+Fix $u$ and the earlier labels, and sum over the admissible values $y$ of $y_u$
+(distinct from the labels already used, satisfying the $t_u$ constraints with the
+labelled neighbours of $u$). For the \emph{generic values}
+$y\notin\{c'_b:b\in C_z\}$, $\hat w_u(y)=w_u(y)$; the internal roots (labels of
+the labelled neighbours) and the cross roots $c'_b$ ($b\in H_u$) merge exactly at
+the $\kappa^f_u+\kappa^r_u$ merges at $u$. With $\mathcal X$ the set of labels
+already used together with $\{c'_b:b\in C_z\}$, \cref{lem:extraction-merged-count}
+bounds the sum of $\hat w_u(y)$ over these values by
+$p2^{-t_u}2^{\kappa^f_u+\kappa^r_u}(1+e_{s_u}(p,n))$.
+For the \emph{special values} $y=c'_b$, $b\in C_z$, every factor of $w_u(c'_b)$ is at
+most $2$, and that of $b$ itself, if $b\in H_u$, is $1+\chi(0)=1$; so
+$\hat w_u(c'_b)\le2^{h_u-[b\in H_u]+c^U(u,b)}=p2^{-t_u}r^22^{s_u+c^U(u,b)-[b\in H_u]}$;
+distinct $b$ give distinct values. Hence, uniformly in the earlier labels,
+\[
+ \sum_y\hat w_u(y)\,2^{-\kappa^r_u}\le p2^{-t_u}2^{\kappa^f_u}
+ \Bigl(1+e_{s_u}(p,n)+r^22^{s_u}\sum_{b\in C_z}2^{c^U(u,b)-[b\in H_u]}\Bigr).
+\]
+Summing over $y\in\mathcal Y$ with the last vertex first bounds
+$\sum_{y\in\mathcal Y}\Theta^+_U(y,c')$ by the product of these bounds. Since $(v,c)$
+is feasible, \cref{lem:graphs:sequential}\ref{it:seq:count} with the error pair of the
+setting, the anchors $V\cup C_x$ and the order of $U_x$ gives
+$|\mathcal Y|\ge\prod_{u\in U_x}p2^{-t_u}(1-e_{t_u}(p,n))$. Dividing,
+\begin{equation}\label{eq:extraction:mbound}
+ \mathsf m(v,c,c')\le2^{\kappa^f}\prod_{u\in U_x}F_u .
+\end{equation}
+Finally $\kappa^f\le\kappa_{C_z}(x,c')$ for every completion $x$ of $(v,c)$, with
+$\kappa_{C_z}$ of \cref{lem:extraction-rows}: a pair $(i,b)$ with $x_i=c'_b$ is a
+merge at most at the $c^U(i,b)$ vertices of $\operatorname{Adj}(i)\cap N(b)$.
+
+\emph{Step 7 (the cover rows).} Apply Cauchy--Schwarz to
+\eqref{eq:extraction:step4}, placing $D_W(c')$ with
+$\norm{\mathsf a}_{\nu_V}^2$ and $D_V(c)$ with
+$\norm{\mathsf b}_{\nu_W}^2$. By Steps 5 and 6, since $\Gamma^+$ depends only on
+$(c,c')$,
+$|\Gamma|\,|\mathsf a(v)|^2\le2^{f_V}\prod_{u\in U_x}F_u\,
+\E[|f(x)|^2\Theta^+_1\Gamma^+2^{\kappa_{C_z}(x,c')}\mid v,c,c']$. Integrating over
+$v\sim\nu_V$ and over $(c,c')\sim\mu_{C_x}\otimes\mu_{C_z}$, under which $x\sim\mu$
+and $c'\sim\mu_{C_z}$ are independent,
+\[
+ \E_{c,c'}\bigl[|\Gamma|D_W(c')\norm{\mathsf a}^2_{\nu_V}\bigr]\le2^{f_V}\prod_{u\in U_x}F_u\;
+ \E_{x\sim\mu}\Bigl[|f(x)|^2\,\E_{c'\sim\mu_{C_z}}
+ \bigl[D_W(c')\Theta^+_1\Gamma^+2^{\kappa_{C_z}(x,c')}\bigr]\Bigr].
+\]
+The product $\Theta^+_1\Gamma^+=\Theta^+_V\Theta^+_U\Gamma^+$ runs over exactly the
+free pairs with $x'$-endpoint in $C_z$, their $x$-endpoints lying in $V$, $U_x$ or
+$C_x$. \Cref{lem:extraction-rows} with $C=C_z$ in its order and
+$H=\{(a,b)\in F:b\in C_z\}$, whose counts and sets $H_b$ are those of
+\cref{def:extraction:records}, is applied after
+\eqref{eq:extraction:cross-density} has replaced
+$D_W\,d\mu_{C_z}$ by its multiple of $d\lambda_{C_z}$.
+Only Steps 2--5 of that row lemma are then needed; its separate
+marginal comparison is omitted. The inner expectation is at most
+$2^{t_W}\widetilde R_{U_z}(1-\hat e)^{-k}\prod_{b\in C_z}F_b$.
+Consequently
+\[
+ \E_{c,c'}[|\Gamma|D_W\norm{\mathsf a}^2_{\nu_V}]
+ \le\frac{2^{f_V+t_W}\widetilde R_{U_z}}{(1-\hat e)^k}
+ \prod_{u\in U_x}F_u\prod_{b\in C_z}F_b\,\norm f_\mu^2.
+\]
+
+\emph{Step 8 (the other side, and conclusion).} The map $(x,x')\mapsto(x',x)$
+preserves $\mu\otimes\mu$, and
+$\chi_{(a,b)}(x,x')=\chi(\varsigma_{ab}(x'_b-x_a))=\chi(\varsigma_{ba}(x_a-x'_b))
+=\chi_{(b,a)}(x',x)$ by \cref{lem:spec:elementary}. With the two labellings
+exchanged, $\mathsf b$ is therefore the function $\mathsf a$ of the transposed class
+$\mathcal C(P^{\mathsf T},A^{\mathsf T})$, $P^{\mathsf T}=\{(b,a):(a,b)\in P\}$, of the
+same spectral data, with $h$ in place of $f$; its record is the transposed
+witness with the same cover and orders, $(W,C_z,U_z)$ playing the role of
+$(V,C_x,U_x)$. Since both labellings carry the half graph $G^+$ and $N$ is
+symmetric, the counts and factors of the transposed record are those defined in
+\cref{def:extraction:records} for $U_z$ and $C_x$. Steps 5--7 for the transposed
+class give
+$\E_{c,c'}[|\Gamma|D_V\norm{\mathsf b}^2_{\nu_W}]$ bounded by
+$2^{f_W+t_V}\widetilde R_{U_x}(1-\hat e)^{-k}
+\prod_{u\in U_z}F_u\prod_{a\in C_x}F_a\,\norm h_\mu^2$.
+The cross-weighted Cauchy--Schwarz inequality of Step 7 gives
+\[
+ \Bigl|\sum_{S\in\mathcal C}\ip f{T_Sh}_\mu\Bigr|
+ \le c_{\rm ker}r^k\,2^{\mathrm{ex}(\mathcal C)/2}
+ \frac{\sqrt{\widetilde R_{U_x}\widetilde R_{U_z}}}{(1-\hat e)^k}
+ \prod_{v\in(X\setminus V)\sqcup(Z\setminus W)}F_v^{1/2}
+ \norm f_\mu\norm h_\mu .
+\]
+Here $\mathrm{ex}=t_V+t_W+f_V+f_W$. The vertex factors left are those of
+$U_x\sqcup C_z\sqcup U_z\sqcup C_x=(X\setminus V)\sqcup(Z\setminus W)$. This is the
+claim. Since each insertion degree is at most its full internal degree,
+$\sqrt{\widetilde R_{U_x}\widetilde R_{U_z}}\le R_{\rm full}$.
+In particular the earlier, coarser factor $R_{\rm full}^2$ remains valid
+for the retained leaf and histogram certificates below.
+\end{proof}
+
+\begin{remark}[What the proof uses]\label{rem:extraction-proof}
+(1) Only Steps 3 and 4 see the size $k$ of the witness, through the density of the
+witness labels and the norm of the witness kernel; the other steps use only the
+cover condition and the counts $s_v=t_v+h_v$. So witnesses of size three and four
+need no hypothesis beyond \cref{lem:matching:kernel}.
+(2) The cover may be chosen for each class. With $C_x=X\setminus V$ and
+$C_z=Z\setminus W$ no vertex is integrated. Integrated vertices may carry free
+pairs; only their coincidences with fixed labels of the other row produce the weight
+$2^{\kappa^f}$, which the cover rows absorb at the second-order cost
+$r^22^{s_b}\sum_j2^{\mathrm{mg}(j,b)+c^U(j,b)-[j\in H_b]}$. Each merge costs one factor $2$,
+moved to the coincident vertex that caused it, so the bound factorizes over the
+coincidence patterns.
+(3) The count $h_b$ of a cover vertex must include its free pairs to the witness set
+$V$: their factors occur in Step 7 a second time, inside the product integrated by
+\cref{lem:extraction-rows}, after the first copy was bounded by $2^{f_V}$ in Step 5.
+A vertex $u\in U_x$ has no free pair to $W$, by (VC$_k$), so $h_u$ is its full free
+degree.
+(4) Step 8 is the only use of the symmetry of $N$. Without it the transposed class
+has its own counts, taken in the column neighbourhoods
+(\cref{subsec:push:pinnedremainder}).
+\end{remark}
+
+The certificates evaluate two consequences of
+\cref{lem:matching:extractionk}. The first keeps the leaf-specific counts $s_v$,
+bounds each special sum by its largest value over the vertices and the free
+partners that the count $s_v$ allows, and bounds the denominators uniformly; the
+second averages the labelling orders and is linear in the logarithm. For
+$0\le s\le\Delta$ and $i\in U^+$ put $h^0_i(s)=\max(0,s-d^0_i)$,
+$w^{\rm m}_{ij}=2^{c^U(i,j)}$ and $w^\varrho_{ij}=2^{\mathrm{mg}(j,i)+c^U(j,i)}$
+($j\in U^+$), and let $\sigma^{\rm m}_i(s)$ and $\sigma^\varrho_i(s)$ be the sums of
+the $h^0_i(s)$ smallest of the numbers $w^{\rm m}_{ij}$, respectively
+$w^\varrho_{ij}$, over $j\in N(i)$; if $d_i\ge s$, then $h^0_i(s)\le r_i$. Put
+\begin{equation}\label{eq:leaf-factors}
+\begin{gathered}
+ \mathsf S_{\rm m}(s)=\max_{i\in U^+,\ d_i\ge s}\Bigl(\sum_{j\in U^+}w^{\rm m}_{ij}
+ -\tfrac12\sigma^{\rm m}_i(s)\Bigr),\\
+ \mathsf S_\varrho(s)=\max_{i\in U^+,\ d_i\ge s}\Bigl(\sum_{j\in U^+}w^\varrho_{ij}
+ -\tfrac12\sigma^\varrho_i(s)\Bigr),\\
+ \mathsf f_{\rm m}(s)=\frac{1+e_s(p,n)+r^22^s\mathsf S_{\rm m}(s)}{1-\hat e},\qquad
+ \mathsf f_\varrho(s)=\frac{1+e_s(p,2n)+r^22^s\mathsf S_\varrho(s)}{1-\hat e}.
+\end{gathered}
+\end{equation}
+The maxima are over nonempty sets, since $\Delta=\max_id_i$. The constants
+$\mathsf S_{\rm m}(s)$ and $\mathsf S_\varrho(s)$ are at most
+$\max_i\sum_jw^{\rm m}_{ij}$ and $\max_i\sum_jw^\varrho_{ij}$, the values that bound
+the special sums when every factor at a special value is bounded by $2$. The
+subtracted terms are exact maxima: for a set $H\subseteq N(i)$ of at least
+$h^0_i(s)$ free partners,
+$\sum_jw_{ij}2^{-[j\in H]}=\sum_jw_{ij}-\frac12\sum_{j\in H}w_{ij}$, which is
+largest when $H$ consists of $h^0_i(s)$ elements of smallest weight.
+
+\begin{corollary}[Leaf bound and nonstar coefficients]\label{cor:extraction-leaf}
+\leavevmode
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item In \cref{lem:matching:extractionk} with $c_{\rm ker}=2^{\beta(\mathcal C)}$ put
+ $\mathrm{ex}^\star(\mathcal C)=\mathrm{ex}(\mathcal C)+2\beta(\mathcal C)$. Then
+ \[
+  \norm{T_{\mathcal C}}\le r^k\,2^{\mathrm{ex}^\star(\mathcal C)/2}\,
+  \frac{R_{\rm full}^2}{(1-\hat e)^k}\prod_{u\in U_x\cup U_z}\mathsf f_{\rm m}(s_u)^{1/2}
+  \prod_{b\in C_x\cup C_z}\mathsf f_\varrho(s_b)^{1/2}.
+ \]
+ If moreover the \emph{monotone-factor condition} (on the
+ factor functions $\mathsf S_{\rm m},\mathsf S_\varrho$ of
+ \eqref{eq:leaf-factors})
+ \begin{equation}\label{eq:monotone-signature}
+  2^{s+1}\mathsf S_{\rm m}(s+1)\ge2^s\mathsf S_{\rm m}(s),\qquad
+  2^{s+1}\mathsf S_\varrho(s+1)\ge2^s\mathsf S_\varrho(s)\qquad(0\le s<\Delta)
+ \end{equation}
+ holds, then $\mathsf f_{\rm m}$ and $\mathsf f_\varrho$ are nondecreasing on
+ $\{0,\dots,\Delta\}$, and the bound holds with each $s_v$ replaced by any $s'_v$ with
+ $s_v\le s'_v\le\Delta$.
+\item Let $\mathfrak P$ be an exact partition of the nonstar subsets of $E_\times$
+ into classes with fixed records whose witness digraphs have strongly connected
+ components of at most two vertices, the witness sizes lying in a finite set
+ $\mathcal K_{\rm w}$; for instance a refinement of the compressed partition
+ (\cref{lem:advance:compressed-partition}). Let \textup{(S1)} hold at a real
+ $Q>1$, and let $C_k(Q)$ be the sum over the classes of $\mathfrak P$ with witness
+ size $k$ of
+ $2^{\mathrm{ex}^\star(\mathcal C)/2}R_{\rm full}^2(1-\hat e)^{-k}\prod_u\mathsf
+ f_{\rm m}(s_u)^{1/2}\prod_b\mathsf f_\varrho(s_b)^{1/2}$, evaluated at $r=Q^{-1/2}$.
+ Then for every prime $p\ge Q$
+ \[
+  \norm{T_{\rm ns}}_{L^2(\mu)}\le\sum_{k\in\mathcal K_{\rm w}}C_k(Q)\,p^{-k/2}.
+ \]
+ Under the condition \eqref{eq:monotone-signature} the same holds when $C_k(Q)$ is
+ computed from stored numbers $s'_v$ with $s_v\le s'_v\le\Delta$.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+(a) Since $t_v\le d^0_v\le\Delta^+$ and $e_t(p,n)$ is nondecreasing in $t$,
+$1-e_{t_v}(p,n)\ge1-\hat e$. Let $u\in U_x$. As $H_u\subseteq C_z$, the special sum
+of $F_u$ is
+\[
+ \sum_{b\in C_z}2^{c^U(u,b)-[b\in H_u]}
+ =\sum_{b\in C_z}w^{\rm m}_{ub}-\frac12\sum_{b\in H_u}w^{\rm m}_{ub}
+ \le\sum_{b\in U^+}w^{\rm m}_{ub}-\frac12\sum_{b\in H_u}w^{\rm m}_{ub}.
+\]
+The set $H_u\subseteq N(u)$ has $h_u=s_u-t_u\ge s_u-d^0_u$ elements, hence at least
+$h^0_u(s_u)$, so its weights add up to at least $\sigma^{\rm m}_u(s_u)$; and
+$d_u\ge s_u$. So the special sum is at most $\mathsf S_{\rm m}(s_u)$, and
+$F_u\le\mathsf f_{\rm m}(s_u)$. For $u\in U_z$ the same argument applies with $C_x$,
+and for a cover vertex $b$ with the weights $w^\varrho_{bj}$ and $H_b\subseteq N(b)$,
+$|H_b|=s_b-t_b\ge h^0_b(s_b)$; this gives $F_b\le\mathsf f_\varrho(s_b)$. Finally
+$2^\beta=2^{2\beta/2}$. Under this condition the numerators of $\mathsf f_{\rm m}(s)$ and
+$\mathsf f_\varrho(s)$ are nondecreasing in $s$, since $e_s(p,n)$ and $e_s(p,2n)$ are
+(\ref{it:et:poly}) and $r^22^s\mathsf S(s)$ is by \eqref{eq:monotone-signature}, while
+the denominator does not depend on $s$; so $\mathsf f(s_v)\le\mathsf f(s'_v)$.
+
+(b) (S1) at $Q$ implies (S1) at every prime $p\ge Q$ (\cref{def:spec:data}). By the
+triangle inequality over $\mathfrak P$ and (a), $\norm{T_{\rm ns}}\le\sum_{\mathcal
+C\in\mathfrak P}r^{k_{\mathcal C}}\varphi_{\mathcal C}(r)$, where
+$\varphi_{\mathcal C}(r)$ is the coefficient of $r^{k_{\mathcal C}}$ in (a) as a
+function of $r$. The count errors $e_s(p,n)$, $e_s(p,2n)$ and $r^2$ are polynomials
+in $r$ with nonnegative coefficients, and on $(0,Q^{-1/2}]$ every $e_t(p,n')$ with
+$t\le\Delta$, $n'\le2n$ is below one; so $\varphi_{\mathcal C}$ is admissible by
+\cref{lem:majorant}(i),(ii) (quotients $1/(1-\varphi)$ and
+$(1+\varphi)/(1-\varphi)$, products and square roots). Since the records are fixed,
+$\varphi_{\mathcal C}(p^{-1/2})\le\varphi_{\mathcal C}(Q^{-1/2})$ by
+\cref{lem:majorant}(a), and summing over the classes of each witness size gives
+the claim. With stored numbers $s'_v$ every class bound of (a) only grows, and the
+same argument applies.
+\end{proof}
+
+For a fixed partition with fixed records, the coefficients $C_k(P)$ between
+two evaluation points $P_0<P_1$ are bounded by log-convexity in $\log P$. The leaf factors have a common factor;
+after it is divided out, the rest is a positive combination of square roots of
+positive sums of exponentials in $\log p$.
+
+\begin{lemma}[Log-convex nonstar coefficients]\label{lem:logconvex-coefficients}
+Fix $\mathfrak P$ and its records as in \cref{cor:extraction-leaf}(b), and one error
+pair of the setting. For real $P>1$ at which \textup{(S1)} holds let $C_k(P)$ be the
+coefficients of \cref{cor:extraction-leaf}(b), and put
+$M(P)=R_{\rm full}(P)^2(1-\hat e(P))^{-n}$, both evaluated at $r=P^{-1/2}$. Then
+$C_k=M D_k$, where $D_k$ is a finite positive sum of products of square roots of the
+numerators of $\mathsf f_{\rm m}$ and $\mathsf f_\varrho$, and $M$, $D_k$ and $C_k$ are
+nonincreasing functions of $P$ and log-convex functions of $\log P$. Consequently, if
+$P_0<P_1$, \textup{(S1)} holds at $P_0$, $c_i\ge C_k(P_i)$ for $i=0,1$,
+$P_0\le Q\le P_1$ and $\theta=\log(Q/P_0)/\log(P_1/P_0)$, then
+\[
+ C_k(Q)\le M(Q)\Bigl(\frac{c_0}{M(P_0)}\Bigr)^{1-\theta}
+ \Bigl(\frac{c_1}{M(P_1)}\Bigr)^{\theta}\le c_0^{1-\theta}c_1^{\theta}.
+\]
+\end{lemma}
+
+\begin{proof}
+A class of witness size $k$ contributes to $C_k$ the term
+$2^{\mathrm{ex}^\star/2}R_{\rm full}^2(1-\hat e)^{-k}\prod_v\mathsf f(s_v)^{1/2}$ over its
+$2(n-k)$ non-witness vertices, and every $\mathsf f(s_v)$ is a numerator divided by
+$1-\hat e$. So the powers of $1-\hat e$ add up to $-k-(n-k)=-n$, and the term is $M$
+times $2^{\mathrm{ex}^\star/2}$ times the product of the square roots of the
+numerators; this gives $C_k=MD_k$.
+
+Put $u=\log P$, so that $r=e^{-u/2}$. Every count error of \eqref{eq:graphs:et} or
+\eqref{eq:graphs:graded}, and every $r^22^s\mathsf S(s)$, is a nonnegative combination of
+$e^{-u/2}$ and $e^{-u}$. A positive function of $u$ is log-convex if its logarithm is
+convex; the functions $e^{cu}$ are log-convex, and products, positive powers and
+positive sums of log-convex functions are log-convex, the last by H\"older's
+inequality. So every numerator $1+e_s+r^22^s\mathsf S(s)$, every factor $1+e_{d^0_i}$
+and $D_k$ are log-convex. If $\varepsilon$ is a nonnegative combination of decreasing
+exponentials of $u$ with $\varepsilon<1$, then $(1-\varepsilon)^{-1}$ is log-convex,
+since
+\[
+ \frac{d^2}{du^2}\bigl(-\log(1-\varepsilon)\bigr)
+ =\frac{\varepsilon''}{1-\varepsilon}+\frac{(\varepsilon')^2}{(1-\varepsilon)^2}\ge0,
+\]
+as $\varepsilon''\ge0$. Hence $M$ and $C_k=MD_k$ are log-convex. Every exponential
+$e^{-u/2}$, $e^{-u}$ decreases in $u$, so all these functions are nonincreasing in
+$P$. On $[P_0,P_1]$ all denominators are positive, as (S1) at $P_0$ gives (S1) at every
+$P\ge P_0$ (\cref{def:spec:data}).
+
+Write $\log Q=(1-\theta)\log P_0+\theta\log P_1$. Log-convexity of $D_k$ gives
+$D_k(Q)\le D_k(P_0)^{1-\theta}D_k(P_1)^\theta$, and $D_k(P_i)=C_k(P_i)/M(P_i)\le
+c_i/M(P_i)$; multiplying by $M(Q)$ gives the first inequality. The second is the
+log-convexity of $M$, $M(Q)\le M(P_0)^{1-\theta}M(P_1)^\theta$.
+\end{proof}
+
+At an evaluation point the certificates bound $C_k(P_i)$ by rounding every square
+root of a vertex factor upward to a multiple of $2^{-48}$ and summing the stored
+histogram exactly. The lemma is applied to the unrounded functions $C_k$, with these
+upper bounds as $c_i$, so the rounded values need not be log-convex.
+
+\begin{lemma}[An order with a bounded weighted extension sum]\label{lem:cover:order}
+For an integer $g\ge0$ put $\mathrm{av}(g)=(2^{g+1}-1)/(g+1)$. If a vertex has $g$
+neighbours in a uniformly ordered vertex set containing it, then the expected value
+of $2^t$, where $t$ counts its earlier neighbours, is $\mathrm{av}(g)$. Consequently,
+for any fixed nonnegative weights $\omega_v$ on the vertices, some deterministic
+order has $\sum_v\omega_v2^{t_v}\le\sum_v\omega_v\mathrm{av}(g_v)$, where $g_v$ is
+the number of neighbours of $v$ in the set.
+\end{lemma}
+
+\begin{proof}
+The vertex has uniform rank among itself and its $g$ neighbours, so $t$ is uniform
+on $\{0,\dots,g\}$, and $\E2^t=\frac1{g+1}\sum_{t=0}^g2^t=\mathrm{av}(g)$. By
+linearity the weighted sum has expectation $\sum_v\omega_v\mathrm{av}(g_v)$, and a
+finite average is at least its minimum.
+\end{proof}
+
+\begin{corollary}[Compressed classes, log-linear form]\label{cor:extraction-compressed}
+Assume \textup{(S1)} at $p$. Let $\mathcal C$ be a class with a witness of size two
+and a cover, and let $c_{\rm ker}(\mathcal C)\in\{1,2\}$ be its kernel constant
+($2$ for the complete rectangle). For a non-witness vertex $i$ let $h_i$ be the
+number of free pairs at $i$, and put
+\[
+\begin{aligned}
+ \mathrm{oc}(\mathcal C)={}&\sum_{i\in C_x}2^{h_i}\,\mathrm{av}(|\operatorname{Adj}(i)\cap C_x|)
+ +\sum_{i\in U_x}2^{h_i+d^0_i-|\operatorname{Adj}(i)\cap U_x|}\,
+ \mathrm{av}(|\operatorname{Adj}(i)\cap U_x|)\\
+ &+\sum_{i\in C_z}2^{h_i}\,\mathrm{av}(|\operatorname{Adj}(i)\cap C_z|)\\
+ &+\sum_{i\in U_z}2^{h_i+d^0_i-|\operatorname{Adj}(i)\cap U_z|}\,
+ \mathrm{av}(|\operatorname{Adj}(i)\cap U_z|),
+\end{aligned}
+\]
+$\gamma_{\rm cmp}=nr^2+\frac\Delta4r$,
+$J_{\rm sp}=\sum_{i,j\in U^+}2^{d_i+|\operatorname{Adj}(i)\cap N(j)|
++|\operatorname{Adj}(j)\cap N(i)|}$ and
+\[
+ \Lambda_0=\frac{R_{\rm full}^2\exp(r^2J_{\rm sp})}
+ {(1-\hat e)^2\prod_{i\in U^+}(1-e_{d^0_i}(p,n))}.
+\]
+Then
+$\norm{T_{\mathcal C}}\le c_{\rm ker}(\mathcal C)\,r^2\,2^{\mathrm{ex}(\mathcal C)/2}
+\Lambda_0\exp(\gamma_{\rm cmp}\,\mathrm{oc}(\mathcal C))$.
+Consequently, group the classes into \emph{buckets} indexed by
+integers $\mathfrak b$: if every class of an exact partition of
+the nonstar subsets is assigned a bucket index
+$\mathfrak b\ge\mathrm{oc}(\mathcal C)2^{-\mathfrak q}$, for a
+fixed integer
+$\mathfrak q\ge0$, and
+$\mathsf a_{\mathfrak b}+\mathsf b_{\mathfrak b}\sqrt2=\sum_{\mathcal C\mapsto\mathfrak b}
+c_{\rm ker}(\mathcal C)2^{\mathrm{ex}(\mathcal C)/2}$ with
+$\mathsf a_{\mathfrak b},\mathsf b_{\mathfrak b}\in\Z_{\ge0}$, then
+\[
+ \norm{T_{\rm ns}}\le r^2\Lambda_0\sum_{\mathfrak b}
+ \bigl(\mathsf a_{\mathfrak b}+\mathsf b_{\mathfrak b}\sqrt2\bigr)
+ \exp\bigl(\gamma_{\rm cmp}\,\mathfrak b\,2^{\mathfrak q}\bigr).
+\]
+For fixed classes and a fixed assignment of each class to an integer
+$\mathfrak b$ (its bucket) as above, this right side divided by $r^2$ is
+admissible
+(\cref{lem:majorant}) as a function of $r$ on the range where \textup{(S1)} holds.
+\end{corollary}
+
+\begin{proof}
+We choose the orders of the record and apply \cref{lem:matching:extractionk} with
+$k=2$. For $i\in C_x$ the number $t_i$ counts the neighbours of $i$ earlier in
+$C_x$; for $i\in U_x$ it counts the $d^0_i-|\operatorname{Adj}(i)\cap U_x|$
+neighbours outside $U_x$ and the neighbours earlier in $U_x$. By
+\cref{lem:cover:order}, applied to each of the four sets with the weights
+$2^{h_i}$ (multiplied by $2^{d^0_i-|\operatorname{Adj}(i)\cap U_x|}$ on $U_x$, and
+likewise on $U_z$), there are orders with $\sum_v2^{s_v}\le\mathrm{oc}(\mathcal C)$.
+Since $s\le\Delta$, \ref{it:et:mono} gives
+$e_s(p,n)\le e_s(p,2n)\le2^s(\frac\Delta2r+2nr^2)=2^s\cdot2\gamma_{\rm cmp}$. By the
+symmetry of $N$, $\mathrm{mg}(j,i)=|\operatorname{Adj}(i)\cap N(j)|$ and
+$c^U(j,i)=|\operatorname{Adj}(j)\cap N(i)|$, so $c^U(u,b)=\mathrm{mg}(b,u)$. Put
+$\mathrm{sp}_v=\sum_{j\in U^+}2^{d_v+\mathrm{mg}(j,v)+c^U(j,v)}$. As $s_v\le d_v$, the
+special sum of an integrated vertex $u$ is at most
+$r^2\sum_b2^{s_u+\mathrm{mg}(b,u)}\le r^2\mathrm{sp}_u$, and that of a cover vertex
+is at most $r^2\mathrm{sp}_b$; with $t_v\le d^0_v$, every vertex factor satisfies
+\[
+ F_v\le\frac{1+2\gamma_{\rm cmp}2^{s_v}+r^2\mathrm{sp}_v}{1-e_{d^0_v}(p,n)}
+ \le\frac{\exp(2\gamma_{\rm cmp}2^{s_v}+r^2\mathrm{sp}_v)}{1-e_{d^0_v}(p,n)}.
+\]
+Each $i\in U^+$ occurs at most twice among the $2(n-2)$ non-witness vertices (once
+in $X\setminus V$, once in $Z\setminus W$), and $J_{\rm sp}=\sum_i\mathrm{sp}_i$.
+Hence $\prod_vF_v^{1/2}\le\exp(\gamma_{\rm cmp}\,\mathrm{oc}(\mathcal C)+r^2J_{\rm sp})
+\prod_{i\in U^+}(1-e_{d^0_i}(p,n))^{-1}$, every factor $(1-e)^{-1}$ being at least
+one, and \cref{lem:matching:extractionk} gives the class bound. The sum follows from
+the triangle inequality, since $\mathrm{oc}(\mathcal C)\le\mathfrak b2^{\mathfrak q}$.
+Finally $\gamma_{\rm cmp}$ and $r^2J_{\rm sp}$ are polynomials in $r$ with nonnegative
+coefficients, and $\Lambda_0$ is built from them and from the count errors, which are
+such polynomials and are below one where (S1) holds, by products, exponentials and the
+quotients $1/(1-\varphi)$ and $(1+\varphi)/(1-\varphi)$; so \cref{lem:majorant}(i),(ii)
+give the admissibility.
+\end{proof}
+
+\subsection{Ordered coincidences}\label{subsec:extraction:coincidences}
+
+The collision part $T_{\rm coll}$ of \eqref{eq:record:root-kernel} lives on the
+pairs of half labellings that share a label. Such a pair has an \emph{exact
+coincidence matching}: the set $I$ of the $x'$-vertices whose labels are labels of
+$x$, and the injective map $\phi\colon I\to U^+$ with $x'_i=x_{\phi(i)}$. For fixed
+$x$ and $(I,\phi)$ the set of $x'$ with exact coincidence matching
+$(I,\phi)$, called a \emph{stratum} below, is counted by labelling the
+coincident vertices first;
+a coincident vertex costs a factor $r^2=1/p$, and the remaining vertices are
+counted sequentially in an order chosen for the stratum type.
+
+\begin{lemma}[Ordered coincidence bound]\label{lem:oct24-collision}
+Let spectral data satisfy $e_\Delta(p,2n)<1$. Put
+\[
+\begin{gathered}
+ L_{\rm int}=\prod_{i\in U^+}\bigl(1-e_{d^0_i}(p,n)\bigr),\qquad
+ \Upsilon=\prod_{i\in U^+}\bigl(1+e_{d_i}(p,2n)\bigr),\\
+ a_{ij}=2^{r_i-[j\in N(i)]+\mathrm{mg}(j,i)}\quad(i,j\in U^+),\qquad
+ \Xi=2^{\Delta^+/2}p^{-1}\sum_{i,j\in U^+}a_{ij},
+\end{gathered}
+\]
+and write $T_{\rm coll}=T_{\rm coll,1}+T_{\rm coll,\ge2}$ for the parts of
+$T_{\rm coll}$ on the pairs with exactly one and with at least two common labels.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item \emph{Exactly one coincidence.} For each $(i,j)\in U^+\times U^+$ choose an
+ order of $U^+\setminus\{i\}$, and for $\ell\ne i$ let
+ \[
+  t^{ij}_\ell=r_\ell+[\ell\sim i]-[\ell\sim i\text{ and }j\in N(\ell)]
+  +|\operatorname{Adj}(\ell)\cap\{\text{vertices before }\ell\}|.
+ \]
+ Then
+ $\norm{T_{\rm coll,1}}\le D_1:=\dfrac1{pL_{\rm int}}\sum_{i,j\in U^+}a_{ij}
+ \prod_{\ell\ne i}\bigl(1+e_{t^{ij}_\ell}(p,2n)\bigr)$.
+\item \emph{At least two coincidences.} For each $k\ge2$ choose an order $\pi_k$
+ of $U^+$, independently of the coincidence matching; let $b_i(\pi_k)$ be the
+ number of $G^+$-neighbours of $i$ preceding $i$ in $\pi_k$,
+ $t^{(k)}_i=\min\bigl(r_i+d^0_i,\ r_i+b_i(\pi_k)+k\bigr)$ and
+ $\Upsilon_k=\prod_i(1+e_{t^{(k)}_i}(p,2n))$. Then
+ \begin{equation}\label{eq:oct24-collision}
+  \norm{T_{\rm coll,\ge2}}\le D_{\ge2}:=L_{\rm int}^{-1}\sum_{k=2}^n\Upsilon_k\,
+  \frac{\Xi^k}{k!}.
+ \end{equation}
+\item \emph{Series tail in $k$.} $\Upsilon_k=\Upsilon$ for
+ $k\ge\Delta^+$. Put
+ $k_0=\max(2,\Delta^+)$. If $\Xi<k_0+1$, then
+ \[
+  \frac1{L_{\rm int}}\sum_{k\ge k_0}\Upsilon_k\frac{\Xi^k}{k!}\le
+  \frac\Upsilon{L_{\rm int}}\,\frac{\Xi^{k_0}}{k_0!}\Bigl(1-\frac\Xi{k_0+1}\Bigr)^{-1}.
+ \]
+\item \emph{Coarse forms.} For all orders,
+ $D_1\le\Upsilon L_{\rm int}^{-1}p^{-1}\sum_{i,j}a_{ij}$ and
+ $D_{\ge2}\le\Upsilon L_{\rm int}^{-1}(e^\Xi-1-\Xi)$. In particular
+ \begin{equation}\label{eq:collision-natural}
+  \norm{T_{\rm coll}}\le D_{\rm nat}:=\frac\Upsilon{L_{\rm int}}
+  \Bigl[p^{-1}\sum_{i,j\in U^+}a_{ij}+e^\Xi-1-\Xi\Bigr],
+ \end{equation}
+ the \emph{natural bound}.
+\item \emph{Minima and endpoint monotonicity.} Put
+ $D_{\rm ord}=D_1+\Upsilon L_{\rm int}^{-1}(e^\Xi-1-\Xi)$, the ordered
+ single-coincidence bound. The minimum of any finitely many valid bounds for
+ $\norm{T_{\rm coll}}$ --- in particular of $D_1+D_{\ge2}$ (with the tail of
+ \textup{(c)} for $k\ge k_0$), of $D_{\rm ord}$ and of the natural bound
+ $D_{\rm nat}$, for any choices of the orders --- is again a bound for
+ $\norm{T_{\rm coll}}$. If the orders are fixed and $e_\Delta(P,2n)<1$ at a real
+ $P>1$, then at every prime $p\ge P$ the quantities $D_1/r^2$, $D_{\ge2}/r^4$,
+ $D_{\rm ord}/r^2$ and $D_{\rm nat}/r^2$ are at most their values at $P$, and so is
+ the tail of \textup{(c)} divided by $r^4$ if $\Xi<k_0+1$ at $P$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The kernel $K_{\rm coll}$ is nonnegative and symmetric (\cref{lem:spec:expansion}),
+and the number of common labels is symmetric too; so both parts have nonnegative
+symmetric kernels, and by Schur's test their norms are
+at most the supremum over $x$ of their row sums $\E_{x'\sim\mu}[\cdot]$. Fix
+$x\in\mathcal I^+$. By \cref{lem:graphs:sequential}\ref{it:seq:count} with the error
+pair of the setting and any order, $|\mathcal I^+|\ge p^n2^{-|E(G^+)|}L_{\rm int}$, using
+$1-e_{t}(p,n)\ge1-e_{d^0_i}(p,n)$ for $t\le d^0_i$. In a stratum $(I,\phi)$ the
+cross factors at an $x'$-vertex $i$ are $w_i(x'_i)$ with
+$w_i(y)=\prod_{j\in N(i)}(1+\chi(\varsigma_{ji}(y-x_j)))$; at a coincident vertex,
+$x'_i=x_{\phi(i)}$, the factor of $j=\phi(i)$, if $\phi(i)\in N(i)$, is $1+\chi(0)=1$
+and the others are at most $2$, so $w_i(x_{\phi(i)})\le2^{r_i-[\phi(i)\in N(i)]}$.
+We drop the internal constraints among coincident vertices, which only increases
+the sums. The stratum is summed by labelling the vertices of $x'$ one at a time;
+the sum of $w_i$ over the admissible labels of $i$, given the earlier labels, is
+the \emph{one-step sum} at $i$, and the stratum sum is at most the product of
+bounds for the one-step sums that are uniform in the earlier labels (sum the
+last vertex first).
+
+(a) Let $I=\{i\}$ and $\phi(i)=j$. Label $i$ first and the other vertices in the
+chosen order. A vertex $\ell\ne i$ has label outside $x(U^+)$, so its cross roots
+$x_{j'}$ ($j'\in N(\ell)$) and its internal roots (the labels of its labelled
+neighbours: $x_j$ if $\ell\sim i$, and labels outside $x(U^+)$ otherwise) merge
+exactly when $\ell\sim i$ and $j\in N(\ell)$. With $\mathcal X=x(U^+)\cup\{$labels
+of $x'$ already chosen$\}$, \cref{lem:extraction-merged-count} bounds its one-step sum by
+$p2^{-t^0_\ell}2^{\mu_\ell}(1+e_{t^{ij}_\ell}(p,2n))$, where $t^0_\ell$ is its number
+of labelled neighbours, $\mu_\ell=[\ell\sim i\text{ and }j\in N(\ell)]$, and
+$t^{ij}_\ell=r_\ell+t^0_\ell-\mu_\ell$ is its number of distinct roots. Every edge of
+$G^+$ is counted in $t^0_\ell$ at its later endpoint, so $\sum_{\ell\ne
+i}t^0_\ell=|E(G^+)|$, and $\sum_{\ell\ne i}\mu_\ell=\mathrm{mg}(j,i)$. The stratum sum
+is therefore at most
+$p^{n-1}2^{-|E(G^+)|}a_{ij}\prod_{\ell\ne i}(1+e_{t^{ij}_\ell}(p,2n))$, and dividing by
+$|\mathcal I^+|$ and summing over $(i,j)$ bounds the row sum by $D_1$.
+
+(b) Fix a stratum $(I,\phi)$ with $|I|=k\ge2$, label $I$ first and the other vertices
+in the restriction of $\pi_k$. A vertex $i\notin I$ has $r_i$ distinct cross roots
+and $t^0_i$ internal roots, the labels of its labelled neighbours, where
+$t^0_i\le\min(d^0_i,b_i(\pi_k)+k)$: the labelled neighbours are at most $k$
+coincident ones and the neighbours preceding $i$ in $\pi_k$. A cross root $x_j$ equals
+an internal root exactly when a coincident neighbour $l\in I$ has $\phi(l)=j\in N(i)$;
+let $\mu_i$ be the number of such $l$. As $r_i+t^0_i-\mu_i\le t^{(k)}_i$,
+\cref{lem:extraction-merged-count} bounds the one-step sum at $i$ by
+$p2^{-t^0_i}2^{\mu_i}(1+e_{t^{(k)}_i}(p,2n))$, whatever the earlier labels. Each
+merge counted in $\mu_i$ is caused by some $l\in I$ with $i\in\operatorname{Adj}(l)$
+and $\phi(l)\in N(i)$, so
+$\sum_{i\notin I}\mu_i\le\sum_{l\in I}\mathrm{mg}(\phi(l),l)$. Every edge of $G^+$
+not inside $I$ is counted in $t^0$ of its later endpoint, which lies outside $I$;
+so $\sum_{i\notin I}t^0_i=|E(G^+)|-e(I)$. Inserting the factors of $\Upsilon_k$ at
+the coincident vertices, each at least one, the stratum sum is at most
+$p^{n-k}2^{-|E(G^+)|+e(I)}\prod_{l\in I}a_{l,\phi(l)}\Upsilon_k$, and after division by
+$|\mathcal I^+|$ at most $L_{\rm int}^{-1}\Upsilon_kp^{-k}2^{e(I)}\prod_{l\in
+I}a_{l,\phi(l)}$. Now $2^{e(I)}\le2^{k\Delta^+/2}$, and expanding
+$(\sum_{i,j}a_{ij})^k$ counts every pair $(I,\phi)$ with $|I|=k$ exactly $k!$ times,
+besides other nonnegative terms. Summing over the strata with $|I|=k$ and over
+$k\ge2$ bounds the row sum by $D_{\ge2}$.
+
+(c) For $k\ge\Delta^+$, $b_i(\pi_k)+k\ge d^0_i$, so $t^{(k)}_i=r_i+d^0_i=d_i$. The
+ratio of consecutive terms of $\sum_{k\ge k_0}\Xi^k/k!$ is at most $\Xi/(k_0+1)<1$,
+which gives the geometric bound.
+
+(d) Always $t^{ij}_\ell\le r_\ell+d^0_\ell=d_\ell$ and $t^{(k)}_i\le d_i$, so every
+product is at most $\Upsilon$, and $\sum_{k\ge2}\Xi^k/k!\le e^\Xi-1-\Xi$.
+
+(e) Each listed quantity bounds the same norm, so their minimum does; no error
+bound is subtracted. For the endpoints write $r=p^{-1/2}$. Every count error is a
+polynomial in $r$ with nonnegative coefficients, $L_{\rm int}^{-1}$ is a product of
+factors $1/(1-\varphi)$ with $\varphi<1$ on $(0,P^{-1/2}]$, and $\Xi=r^2\Xi_0$ with a
+constant $\Xi_0$. Hence $D_1/r^2$, $D_{\ge2}/r^4=L_{\rm int}^{-1}\sum_k\Upsilon_k\Xi_0^k
+r^{2k-4}/k!$, $(e^\Xi-1-\Xi)/r^2=\sum_{k\ge2}\Xi_0^kr^{2k-2}/k!$, and so
+$D_{\rm ord}/r^2$ and $D_{\rm nat}/r^2$, and the tail divided by $r^4$ are admissible
+in the sense of \cref{lem:majorant}, and \cref{lem:majorant}(a) gives the claim.
+\end{proof}
+
+\begin{remark}[Why the coincident vertices are labelled first]\label{rem:collision-fixed-order}
+With one fixed order of all vertices for every stratum, a coincident vertex $i$
+pays $2^{t^0_i}\le2^{d^0_i}$ for its earlier neighbours, that is, the charge
+$r^22^{d_i-[j\in N(i)]+\mathrm{mg}(j,i)}=2^{d^0_i}r^2a_{ij}$ instead of $r^2a_{ij}$.
+Labelling the coincident vertices first moves these factors into the single factor
+$2^{e(I)}$, which is $1$ for one coincidence. This factor cannot be dropped: the
+internal constraint between two coincident vertices is not counted, although the
+normalization $|\mathcal I^+|$ contains a factor $\frac12$ for it. The
+cardinality-sensitive orders of (b) refine the count of the vertices outside $I$
+once more: a vertex has at most $k$ coincident neighbours, so in a stratum with
+few coincidences its internal degree is effectively that of the order $\pi_k$.
+\end{remark}
+
+\paragraph{Soft factors and incident weights.}
+The dense comparisons of the upper range (\cref{prop:dense-comparison}) use
+kernels whose cross factors are
+$1+D_e\chi_e$ with $|D_e|\le1$, and the L20 cut of the middle root (\cref{prop:l20-collisions}) needs the
+coincidence bound with the actual cross factors of the coincident vertices. Both
+follow from the proofs above.
+
+\begin{corollary}[Soft cross factors]\label{cor:soft-kernels}
+Let numbers $D_e\in[-1,1]$ be given for $e\in E_\times$, put
+$D_S=\prod_{e\in S}D_e$, and consider the \emph{soft kernel}
+$K^D_0(x,x')=\one\{x(U^+)\cap x'(U^+)=\emptyset\}\prod_{e\in E_\times}(1+D_e\chi_e(x,x'))$,
+its nonstar part $T^D_{\rm ns}=\sum_{S\ \rm nonstar}D_ST_S$, and its collision part
+$T^D_{\rm coll}$, the operator with kernel
+$\one\{x(U^+)\cap x'(U^+)\ne\emptyset\}\prod_{e\in E_\times}(1+D_e\chi_e)$; as in
+\cref{lem:spec:expansion},
+$K^D_0=\one\otimes\one+\sum_{S\ \rm star}D_ST_S+T^D_{\rm ns}-T^D_{\rm coll}$ on
+$\mathcal I^+\times\mathcal I^+$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item For a class $\mathcal C$ with a record, $T^D_{\mathcal C}=\sum_{S\in\mathcal C}D_ST_S$
+ satisfies the bounds of \cref{lem:matching:extractionk}, \cref{cor:extraction-leaf}(a)
+ and \cref{cor:extraction-compressed}; hence $T^D_{\rm ns}$ satisfies those of
+ \cref{cor:extraction-leaf}(b) and \cref{cor:extraction-compressed}, with the
+ partitions, records and constants computed for $E_\times$.
+\item $T^D_{\rm coll}$, and its parts on the pairs with exactly one and with at least
+ two common labels, satisfy the bounds of \cref{lem:oct24-collision}.
+\item The same holds for the pinned rows of \cref{subsec:push:pinnedremainder}: the
+ bounds of \cref{prop:pinned-extraction,prop:pinned-collision} hold when the cross
+ factors are $1+D_{ij}\chi_{ij}$ with $|D_{ij}|\le1$.
+\end{enumerate}
+In particular, let $E'\supseteq\{e\in E_\times:D_e\ne0\}$ be the set of cross pairs of
+spectral data with the same half graph $G^+$. As $D_e\chi(\varsigma_ey)=D'_e\chi(\varsigma'_ey)$
+with $D'_e=\pm D_e$ for any two signs $\varsigma_e,\varsigma'_e$, the soft kernel is a soft
+kernel of $E'$ (with the signs of $E'$ and $D'_e=0$ off the support of $D$). So the
+bounds computed for the Boolean kernel of $E'$, all of whose coefficients are one,
+bound its nonstar and collision parts, and bounds certified at a threshold $p_0$ hold
+at every prime $p\ge p_0$ (\cref{cor:extraction-leaf}(b), \cref{lem:oct24-collision}(e)).
+\end{corollary}
+
+\begin{proof}
+The expansion is $\prod_e(1+D_e\chi_e)=\sum_SD_S\chi_S$, and the identity follows as in
+\cref{lem:spec:expansion}. The proofs of the cited statements use the cross factors
+only in four ways, and each survives the soft factors. (1) The class sum is
+$\sum_{S\in\mathcal C}D_S\chi_S=\prod_{e\in P}D_e\chi_e\prod_{e\in F}(1+D_e\chi_e)$: a
+present pair contributes a factor of modulus at most one, so the witness kernel is
+multiplied by a constant of modulus at most one, and a free pair contributes a factor
+in $[0,2]$. (2) Every bound for a sum over one label of a product of free factors is
+uniform in the prescribed signs: $1+b\chi=\frac{1+b}2(1+\chi)+\frac{1-b}2(1-\chi)$ is a
+convex combination of the two orientations, so a product of such factors is a convex
+combination of products of factors $1\pm\chi(\cdot)$, each of which
+\cref{lem:extraction-merged-count} bounds by the same quantity, whatever the signs. No
+free factor is squared: the Cauchy--Schwarz steps use the free factors as weights (Step
+5 of \cref{lem:matching:extractionk}). (3) At a special value or at a coincidence the
+factor of the coincident pair is $1+b\chi(0)=1$, and every other factor is at most
+$1+|b|\le2$. (4) The collision kernel is nonnegative. It need not be symmetric, and
+Schur's test is then applied with its row sums and its column sums; the column sums are
+the row sums of the soft kernel with the coefficient $D_{(j,k)}$ at the pair $(k,j)$,
+which is a soft kernel of the same spectral data (as in the proof of
+\cref{lem:spec:expansion}), so the same bound holds for both. The pinned rows are
+covered by the same four remarks; their collision bound already uses row and column
+sums. Only absolute values enter: every term of the expansion is bounded, and no
+monotonicity of a signed norm under the deletion of pairs is used.
+\end{proof}
+
+\begin{corollary}[Incident weights at coincident vertices]\label{cor:incident-weights}
+In \cref{lem:oct24-collision}, with hard or soft cross factors
+(\cref{cor:soft-kernels}), fix $x\in\mathcal I^+$. For an $x'$-vertex $i$ let
+$w_i(y)=\prod_{l\in N(i)}\bigl(1+D_{(l,i)}\chi(\varsigma_{li}(y-x_l))\bigr)$ be its cross
+factor at the label $y$ ($D\equiv1$ for the hard kernel), and put
+$\alpha_{ij}(x)=w_i(x_j)2^{\mathrm{mg}(j,i)}$ and
+$\rho_i(x)=r^2\sum_{j\in U^+}\alpha_{ij}(x)$. Then $\alpha_{ij}(x)\le a_{ij}$, and with the
+orders of \cref{lem:oct24-collision}(a),(b) the row sums at $x$ of $T_{\rm coll,1}$
+and of $T_{\rm coll,\ge2}$ are at most
+\[
+ \frac1{L_{\rm int}}\sum_{i,j\in U^+}r^2\alpha_{ij}(x)
+ \prod_{\ell\ne i}\bigl(1+e_{t^{ij}_\ell}(p,2n)\bigr)
+ \quad\text{and}\quad
+ \frac1{L_{\rm int}}\sum_{k=2}^n\Upsilon_k\sum_{I\subseteq U^+,\,|I|=k}2^{e(I)}
+ \prod_{i\in I}\rho_i(x).
+\]
+If the kernel is symmetric, the norms of $T_{\rm coll,1}$ and $T_{\rm coll,\ge2}$ are
+at most the suprema over $x$ of these bounds; in general they are at most the
+geometric means of these suprema and of the same suprema for the transposed
+coefficients. A stratum $(I,\phi)$ with $\alpha_{i\phi(i)}(x)=0$ for some $i\in I$
+contributes nothing, and any relation among the numbers $\alpha_{ij}(x)$ that holds for
+every $x$ (vanishing weights, disjoint supports, a bound for the number of nonzero
+ones) may be used to bound these sums before the supremum is taken.
+\end{corollary}
+
+\begin{proof}
+In the proof of \cref{lem:oct24-collision} keep, at a coincident vertex $i$ with
+label $x_{\phi(i)}$, its cross factor $w_i(x_{\phi(i)})$ instead of its bound
+$2^{r_i-[\phi(i)\in N(i)]}$; that bound is $w_i(x_j)\le2^{r_i-[j\in N(i)]}$, the factor
+of $l=j$ being $1+D_{(j,i)}\chi(0)=1$ and every other factor at most $2$, which gives
+$\alpha_{ij}\le a_{ij}$. The one-step sums at the vertices outside $I$ are bounded as there
+(\cref{cor:soft-kernels}). In (a) the stratum $(\{i\},j)$ then has sum at most
+$p^{n-1}2^{-|E(G^+)|}\alpha_{ij}(x)\prod_{\ell\ne i}(1+e_{t^{ij}_\ell}(p,2n))$. In (b)
+the stratum $(I,\phi)$ has, after division by $|\mathcal I^+|$, sum at most
+$L_{\rm int}^{-1}\Upsilon_k2^{e(I)}\prod_{l\in I}r^2\alpha_{l\phi(l)}(x)$, and the sum
+over the injective maps $\phi\colon I\to U^+$ is at most the sum over all maps, which
+is $\prod_{l\in I}\rho_l(x)$. These bounds hold pointwise in $x$, which gives the last
+assertion, and Schur's test is applied as in \cref{lem:oct24-collision}, with the
+column sums of \cref{cor:soft-kernels} for a nonsymmetric kernel. The balanced
+coincidence bound of the L20 cut is this corollary (\cref{prop:l20-collisions}).
+\end{proof}
+
+\begin{lemma}[Sign-incompatible collision strata]\label{lem:signed-collisions}
+Suppose $p\equiv3\pmod4$ and the two half graphs have the same signed
+adjacency $A_{ij}=\one[i\to j]-\one[j\to i]$. Write the hard cross
+kernel as $\prod_{k,i}(1+D_{ki}\chi(y_i-x_k))$, omitting zero
+coefficients, with $D_{ki}\in\{-1,0,1\}$. Define
+\[
+ \gamma_{ij}=\one[A_{kj}D_{ki}\ne-1\text{ for all }k,\quad
+                       A_{i\ell}D_{j\ell}\ne-1\text{ for all }\ell].
+\]
+Every collision stratum containing $y_i=x_j$ vanishes when
+$\gamma_{ij}=0$. Consequently in the nonnegative collision sums of
+\cref{lem:oct24-collision}, with the notation of that lemma, one may replace the old pin weights by
+\[
+ \widetilde a_{ij}=\gamma_{ij}
+       2^{r_i-\one[j\in N(i)]+\mathrm{mg}(j,i)},\qquad
+ s_i=\sum_j\widetilde a_{ij}.
+\]
+In particular, for the same fixed insertion orders, the single- and
+multiple-collision row bounds become
+\begin{align*}
+ D_1^\#&=\frac q{L_{\rm int}}\sum_{i,j}\widetilde a_{ij}
+                      \prod_{\ell\ne i}(1+e_{t^{ij}_\ell}(p,2n)),\\
+ D_{\ge2}^\#&=\frac1{L_{\rm int}}\sum_{k=2}^n q^k\Upsilon_k
+                  \sum_{|I|=k}2^{e(I)}\prod_{i\in I}s_i.
+\end{align*}
+The transposed argument supplies the column bounds.
+\end{lemma}
+\begin{proof}
+On the pin $y_i=x_j$, an internal plus constraint fixes
+$\chi(x_j-x_k)=A_{kj}$. If its product with $D_{ki}$ is $-1$,
+the corresponding cross factor is zero. The second test uses the
+internal minus constraint
+$\chi(y_\ell-y_i)=A_{i\ell}$ in exactly the same way.
+Within-half injectivity guarantees that these differences are nonzero.
+Adding further cross coincidences cannot remove the vanishing factor.
+Delete these zero strata before applying the positive extension bounds.
+For multiple collisions, sum first over injective compatible target
+maps, then enlarge to all compatible maps; the latter sum factors
+as $\prod_{i\in I}s_i$. The internal pinned-edge cost $2^{e(I)}$
+remains. This proves both bounds.
+\end{proof}
+
+The second sign test is a property of the entire stratum; it is not
+an upper bound for an isolated incident factor. Nor does it apply to
+a softened factor $1+b\chi$ with $|b|<1$. These distinctions matter
+when the same graph is used for different comparison laws.
+
+\subsection{Conditional laws given fixed labels}\label{subsec:push:pinnedremainder}
+
+The conditional rows of the upper range (\cref{subsec:advance:product-rows}) are
+labellings of $n$ labels that avoid $z$ fixed labels and satisfy a few square-class
+constraints against fixed labels; there are no edges inside a row, and the cross
+constraints between two rows need not be symmetric. The pins play the role of the
+half graph: a fixed root never coincides with a free root, so there are no merge
+charges, while every count gains the pins and the fixed labels as exclusions. Before
+the rows are made injective their labels are independent, each uniform on its allowed
+set; so the star part of a row factors through one coefficient matrix, as the stars of
+an invariant law do in \cref{cor:star-matrix} (\cref{prop:conditional-star}), and the
+fold and matching rows of one coordinate, which have the same allowed sets, are
+bounded jointly on one chart (\cref{lem:joint-rows}).
+
+\paragraph{Setting.}
+Let $n\ge2$, $z\ge0$, and let $\mathcal M\subset\Fp$ be a set of $z$ fixed labels.
+Every coordinate $i\in[n]$ carries a set of $\varpi_i\le\varpi$ \emph{pins}
+$(\beta,\epsilon)\in\mathcal M\times\{\pm1\}$ with distinct roots $\beta$, the same
+for both copies. Let $\mathcal I_{\rm pin}$ be the set of injective
+$x\in(\Fp\setminus\mathcal M)^n$ with $\epsilon(x_i-\beta)\in\Qsq$ for every pin
+$(\beta,\epsilon)$ of every $i$, and let $\mu$ be the uniform law on
+$\mathcal I_{\rm pin}$. The \emph{allowed set} of a coordinate $i$ consists of the
+$t\in\Fp\setminus\mathcal M$ with $\epsilon(t-\beta)\in\Qsq$ for every pin
+$(\beta,\epsilon)$ of $i$; with $\lambda_i$ the uniform law on it and
+$\lambda=\bigotimes_i\lambda_i$, the law $\mu$ is $\lambda$ conditioned on
+injectivity. Let
+$E_\times\subseteq[n]\times[n]$ carry signs $\varsigma_{ij}\in\{\pm1\}$, and put
+$N_X(i)=\{j:(i,j)\in E_\times\}$ and $N_Y(j)=\{i:(i,j)\in E_\times\}$; no symmetry
+is assumed. The rows are the copies $X$ (labels $x$) and $Y$ (labels $y$) of $[n]$;
+$\chi_{ij}(x,y)=\chi(\varsigma_{ij}(y_j-x_i))$, and $T_S$, classes, witnesses and
+covers are as in \cref{subsec:extraction:partition}, with $y$ in place of $x'$. For a
+non-witness vertex $v$ let $h_v$ be its number of free pairs, counted in $N_X$ on
+the row side and in $N_Y$ on the column side. Put
+\[
+\begin{gathered}
+ e^{\rm pin}_d=2^d\Bigl((2n+z)r^2+\frac d2\,r\Bigr),\qquad
+ \Delta_{\rm pin}=\varpi+\max_{i\in[n]}\max\bigl(|N_X(i)|,|N_Y(i)|\bigr),\\
+ \gamma_{\rm pin}=\frac{2n+z}2\,r^2+\frac{\Delta_{\rm pin}}4\,r,\qquad
+ R_{\rm pin}=\Bigl(\frac{1+e^{\rm pin}_\varpi}{1-e^{\rm pin}_\varpi}\Bigr)^n,\qquad
+ \Lambda^{\rm pin}_0=\frac{R_{\rm pin}^2\exp(r^2n^22^{\Delta_{\rm pin}})}
+ {(1-e^{\rm pin}_\varpi)^{n+2}}.
+\end{gathered}
+\]
+By \ref{it:et:mono}, $e_d(p,n')\le e^{\rm pin}_d$ for $n'\le2n+z$; so by
+\cref{lem:extension}\ref{it:ext:upper},\ref{it:ext:coarse} every set $\Phi$ of
+\cref{lem:extension} with $d$ roots and at most $2n+z$ excluded labels has between
+$p2^{-d}(1-e^{\rm pin}_d)$ and $p2^{-d}(1+e^{\rm pin}_d)$ elements, and the upper
+bound needs no condition on the exclusions.
+
+\begin{proposition}[Pinned compressed classes]\label{prop:pinned-extraction}
+Assume $e^{\rm pin}_\varpi<\frac12$. Let $\mathcal C$ be a class of nonstar subsets of
+$E_\times$ with a witness of size two whose kernel, compressed to injective pairs,
+has norm at most $c_{\rm ker}(\mathcal C)r^2$, $c_{\rm ker}(\mathcal C)\in\{1,2\}$,
+and with a cover; put $\mathrm{ex}^{\mathrm{pin}}(\mathcal C)=f_V+f_W$ (the pinned analogues of $\mathrm{ex}$ and $\mathrm{oc}$ in \cref{cor:extraction-compressed}, with different definitions) and
+$\mathrm{oc}^{\mathrm{pin}}(\mathcal C)=\sum_v2^{h_v}$ over the $2(n-2)$ non-witness vertices. Then
+\begin{equation}\label{eq:push:pinnedclass}
+ \norm{T_{\mathcal C}}_{L^2(\mu)\to L^2(\mu)}
+ \le c_{\rm ker}(\mathcal C)\,r^2\,2^{\mathrm{ex}^{\mathrm{pin}}(\mathcal C)/2+2\varpi}\,
+ \Lambda^{\rm pin}_0\exp\bigl(\gamma_{\rm pin}2^\varpi\,\mathrm{oc}^{\mathrm{pin}}(\mathcal C)\bigr).
+\end{equation}
+Consequently, for an exact partition of the nonstar subsets of $E_\times$ into such
+classes (for instance the compressed partition of
+\cref{lem:advance:compressed-partition}(b), with $c_{\rm ker}$ from
+\cref{lem:matching:kernel}), grouped by integers
+$\mathfrak b\ge\mathrm{oc}^{\mathrm{pin}}(\mathcal C)2^{-\mathfrak q}$ with
+$\mathsf a_{\mathfrak b}+\mathsf b_{\mathfrak b}\sqrt2=\sum_{\mathcal C\mapsto\mathfrak b}
+c_{\rm ker}(\mathcal C)2^{\mathrm{ex}^{\mathrm{pin}}(\mathcal C)/2}$, the nonstar part is bounded by
+\[
+ N^{\rm pin}=r^2\Lambda^{\rm pin}_0\,2^{2\varpi}\sum_{\mathfrak b}
+ \bigl(\mathsf a_{\mathfrak b}+\mathsf b_{\mathfrak b}\sqrt2\bigr)
+ \exp\bigl(\gamma_{\rm pin}2^\varpi\,\mathfrak b\,2^{\mathfrak q}\bigr).
+\]
+\end{proposition}
+
+\begin{proof}
+We follow the proof of \cref{lem:matching:extractionk} for $\mathcal C$, with
+$k=2$, the pinned law $\mu$ on both rows, and any orders; only the counts change.
+Every count below is that of a set $\Phi$ of \cref{lem:extension} with at most
+$2n+z$ excluded labels.
+
+Steps 1, 2 and 5 use only the product form of the weights, the cover condition
+and the independence of the two rows under $\mu\otimes\mu$, and hold verbatim.
+
+\emph{Step 3.} Given the cover labels $c=x_{C_x}$, a label of $U_x$ meets only its
+$\varpi_u\le\varpi$ pins, whose roots lie in $\mathcal M$ and so are distinct, and
+avoids $\mathcal M$ and the labels already used. So the number of completions of
+$(c,v)$ on $U_x$ lies in $\prod_{u\in U_x}p2^{-\varpi_u}[1-e^{\rm pin}_\varpi,
+1+e^{\rm pin}_\varpi]$, a ratio at most $R_{\rm pin}$; in particular every admissible
+$(c,v)$ has a completion, as $e^{\rm pin}_\varpi<1$. Labelling the two witness
+labels in turn, there are at least $p^22^{-\varpi_{j_1}-\varpi_{j_2}}
+(1-e^{\rm pin}_\varpi)^2$ admissible pairs $v$. Hence $\nu_V$ is supported on
+injective pairs and has density at most $D_V=2^{2\varpi}R_{\rm pin}
+(1-e^{\rm pin}_\varpi)^{-2}$ with respect to uniform probability on $\Fp^2$, and
+likewise $D_W$. This replaces $2^{t_V}R_{U_x}(1-\hat e)^{-2}$: each witness label
+contributes the factor $2^{\varpi}$ of its pins.
+
+\emph{Step 4} holds verbatim: the kernel bound for uniform probability, compressed to
+injective pairs, applies to the zero extensions of $\mathsf a\tilde\nu_V$ and
+$\mathsf b\tilde\nu_W$.
+
+\emph{Step 6.} An integrated vertex $u\in U_x$ meets $\varpi_u$ pins and the $h_u$
+cross roots $c'_b$ ($b\in H_u\subseteq C_z$). The cross roots are labels of the other
+row and avoid $\mathcal M$, so no root merges, and there are no internal edges. For the
+generic values $y\notin c'(C_z)$, \cref{lem:extraction-merged-count} with the pins as
+the conditions $\chi(y-\beta_i)=s_i$ bounds the contribution by
+$p2^{-\varpi_u}(1+e^{\rm pin}_{\varpi_u+h_u})$; the at most $n$ special values
+$y=c'_b$ contribute at most $2^{h_u}=p2^{-\varpi_u}r^22^{\varpi_u+h_u}$ each. The lower
+count is $|\mathcal Y|\ge\prod_up2^{-\varpi_u}(1-e^{\rm pin}_\varpi)$. So
+$\mathsf m\le\prod_{u\in U_x}F^{\rm pin}_u$ with
+$F^{\rm pin}_v=(1+e^{\rm pin}_{\varpi_v+h_v}+r^2n2^{\varpi_v+h_v})/(1-e^{\rm pin}_\varpi)$.
+
+\emph{Step 7.} The cover rows are bounded as in \cref{lem:extraction-rows}, without
+merge weights: the marginal of $\mu$ on $C_z$ has density at most $R_{\rm pin}$ with
+respect to the uniform law on the pinned injective labellings of $C_z$, which has at
+least $\prod_{b\in C_z}p2^{-\varpi_b}(1-e^{\rm pin}_\varpi)$ elements; a value
+$y\notin x([n])$ of $b$ contributes as a generic value above, and the at most $n$
+values $y=x_j$ at most $2^{h_b}=p2^{-\varpi_b}r^22^{\varpi_b+h_b}$ each. So the cover
+row of $b$ costs $F^{\rm pin}_b$, with $h_b$ the number of free pairs at $b$ (in $N_Y$).
+
+\emph{Step 8.} The transposed class is a class of the same kind for the support
+$\{(j,i):(i,j)\in E_\times\}$, whose row and column neighbourhoods are $N_Y$ and
+$N_X$, with the same pinned law on both rows. Steps 5--7 apply to it with its own
+counts, which are the counts $h_v$ of the statement on $U_z$ and $C_x$. The symmetry
+of the support is never used.
+
+\emph{Conclusion.} As in Step 8 of \cref{lem:matching:extractionk},
+$\norm{T_{\mathcal C}}\le c_{\rm ker}r^2\sqrt{D_VD_W}\,2^{(f_V+f_W)/2}R_{\rm pin}
+\prod_vF^{\rm pin}_v{}^{1/2}$. Since $\varpi_v+h_v\le\Delta_{\rm pin}$ and
+$e^{\rm pin}_d$ is nondecreasing in $d$,
+$e^{\rm pin}_{\varpi_v+h_v}\le e^{\rm pin}_{\varpi+h_v}\le2^\varpi2^{h_v}\cdot2\gamma_{\rm pin}$
+and $r^2n2^{\varpi_v+h_v}\le r^2n2^{\Delta_{\rm pin}}$. With $1+x\le e^x$ and the
+$2(n-2)\le2n$ factors,
+$\prod_vF^{\rm pin}_v{}^{1/2}\le\exp(\gamma_{\rm pin}2^\varpi\,\mathrm{oc}^{\mathrm{pin}}(\mathcal C)
++r^2n^22^{\Delta_{\rm pin}})(1-e^{\rm pin}_\varpi)^{-n}$, and
+$\sqrt{D_VD_W}=2^{2\varpi}R_{\rm pin}(1-e^{\rm pin}_\varpi)^{-2}$. Collecting the
+factors gives \eqref{eq:push:pinnedclass}, and the sum follows as in
+\cref{cor:extraction-compressed}.
+\end{proof}
+
+\begin{proposition}[Pinned coincidences]\label{prop:pinned-collision}
+In the setting of this subsection assume $e^{\rm pin}_\varpi<1$, and let
+$T^{\rm pin}_{\rm coll}$ be the operator on $L^2(\mu)$ with kernel
+$\one\{x([n])\cap y([n])\ne\emptyset\}\prod_{(i,j)\in E_\times}(1+\chi_{ij}(x,y))$
+relative to $\mu\otimes\mu$. Put
+\[
+\begin{gathered}
+ U_Y=r^2\sum_{j,i\in[n]}2^{\varpi+|N_Y(j)|-[i\in N_Y(j)]},\qquad
+ \Upsilon_Y=\prod_{j\in[n]}\bigl(1+e^{\rm pin}_{\varpi+|N_Y(j)|}\bigr),\\
+ D_Y=\frac{\Upsilon_Y}{(1-e^{\rm pin}_\varpi)^n}\bigl(e^{U_Y}-1\bigr),
+\end{gathered}
+\]
+and let $U_X$, $\Upsilon_X$, $D_X$ be the same with $N_X$ in place of $N_Y$. Then
+$\norm{T^{\rm pin}_{\rm coll}}\le(D_XD_Y)^{1/2}\le\max(D_X,D_Y)$. If the multisets
+$\{|N_X(i)|\}_i$ and $\{|N_Y(j)|\}_j$ coincide, then $D_X=D_Y$. For fixed data,
+$D_X/r^2$, $D_Y/r^2$ and $N^{\rm pin}/r^2$ of \cref{prop:pinned-extraction} are
+admissible (\cref{lem:majorant}) as functions of $r$ on the range where
+$e^{\rm pin}_\varpi<1$.
+\end{proposition}
+
+\begin{proof}
+The kernel is nonnegative, so by Schur's test its norm is at most the geometric mean
+of the suprema of its row sums $\E_{y\sim\mu}[\cdot]$ and its column sums
+$\E_{x\sim\mu}[\cdot]$. Fix $x\in\mathcal I_{\rm pin}$ and a coincidence pattern: a
+nonempty set $I$ of $y$-vertices and a map $\phi\colon I\to[n]$ with $y_j=x_{\phi(j)}$
+for $j\in I$ and $y_j\notin x([n])$ otherwise. The cross factors at $j$ are
+$\prod_{i\in N_Y(j)}(1+\chi(\varsigma_{ij}(y_j-x_i)))$. A coincident vertex $j$ has
+weight at most $2^{|N_Y(j)|-[\phi(j)\in N_Y(j)]}=p2^{-\varpi_j}\,r^2
+2^{\varpi_j+|N_Y(j)|-[\phi(j)\in N_Y(j)]}$. A free vertex $j$ meets its pins and the
+$|N_Y(j)|$ cross roots $x_i$, which avoid $\mathcal M$; with no internal edges no root
+merges, and \cref{lem:extraction-merged-count} bounds its weight by
+$p2^{-\varpi_j}(1+e^{\rm pin}_{\varpi+|N_Y(j)|})$, whatever the order. Dividing by
+$|\mathcal I_{\rm pin}|\ge\prod_jp2^{-\varpi_j}(1-e^{\rm pin}_\varpi)$, the stratum
+contributes at most
+$(1-e^{\rm pin}_\varpi)^{-n}\prod_{j\in I}u_{j,\phi(j)}\prod_{j\notin I}
+(1+e^{\rm pin}_{\varpi+|N_Y(j)|})$, where $u_{j,i}=r^22^{\varpi+|N_Y(j)|-[i\in N_Y(j)]}$.
+Summing over all nonempty $I$ and all maps $\phi$ (an upper bound), and with
+$u_j=\sum_iu_{j,i}$, the row sum is at most
+$\Upsilon_Y(1-e^{\rm pin}_\varpi)^{-n}(\prod_j(1+u_j)-1)$, and
+$\prod_j(1+u_j)-1\le e^{U_Y}-1$. So every row sum is at most $D_Y$.
+Exchanging the two rows exchanges $N_X$ and $N_Y$ and leaves the pinned law
+unchanged, so every column sum is at most $D_X$. Next, $\Upsilon_Y$ and
+$U_Y=r^2\sum_j2^{\varpi+|N_Y(j)|}(n-\frac12|N_Y(j)|)$ depend only on the multiset of
+the column degrees, and $\Upsilon_X$, $U_X$ in the same way on the row degrees.
+Finally $U_Y/r^2$ is a constant, so $(e^{U_Y}-1)/r^2$ is a power series in $r$ with
+nonnegative coefficients; $e^{\rm pin}_d$, $\gamma_{\rm pin}$ and
+$r^2n^22^{\Delta_{\rm pin}}$ are polynomials in $r$ with nonnegative coefficients; and
+$\Upsilon_Y(1-e^{\rm pin}_\varpi)^{-n}$ and $\Lambda^{\rm pin}_0$ are built from them
+by products, exponentials and the quotients $1/(1-\varphi)$ and
+$(1+\varphi)/(1-\varphi)$. So \cref{lem:majorant}(i),(ii) give the admissibility.
+\end{proof}
+
+\paragraph{Star matrices.}
+The star part of a pinned row is of first order, and the extraction does not touch
+it. Under a product of coordinate laws the leaves supported on
+disjoint exact supports (a leaf has \emph{exact support} $S$ if
+it depends exactly on the coordinates in $S$ and has mean zero in
+each of them) are orthogonal, and the complete star part factors
+through one coefficient matrix; the
+leaves are centred in their own laws, and their means, bounded by
+$\beta_\chi$ in \cref{prop:conditional-star}(b), contribute the separate term
+$T_{\rm mean}$ there.
+
+\begin{proposition}[Star matrix under pinned product laws]\label{prop:conditional-star}
+Let $p\equiv3\pmod4$, let $\mathcal H=L^2_0(\Fp)$ for the uniform law, and let
+$\Phat=C/r$ be the normalized Paley operator, so that $\Phat\one=0$, $\Phat^*=-\Phat$
+and $\Phat^2=-I$ on $\mathcal H$ (\cref{lem:spec:gauss}). Let $X$ and $Y$ be finite
+sets, let $\nu_X=\bigotimes_{i\in X}\nu_i$ and $\nu_Y=\bigotimes_{j\in Y}\nu'_j$ be
+product laws on $\Fp^X$ and $\Fp^Y$ whose coordinate laws have densities at most
+$\kappa$ relative to the uniform law and are supported in a set $\Omega\subseteq\Fp$,
+and let $D\in\{0,\pm1\}^{X\times Y}$, $N_X(i)=\{j:D_{ij}\ne0\}$ and
+$N_Y(j)=\{i:D_{ij}\ne0\}$. In the expansion of the kernel
+$\prod_{i,j}(1+D_{ij}\chi(y_j-x_i))$ the \emph{star part} consists of the single pairs
+$D_{ij}\chi(y_j-x_i)$, the \emph{row stars} $\prod_{j\in T}D_{ij}\chi(y_j-x_i)$ with
+centre $i$ and leaves $T$, and the \emph{column stars}
+$\prod_{i\in S}D_{ij}\chi(y_j-x_i)$ with centre $j$ and leaves $S$ ($|T|,|S|\ge2$);
+let $T_\star\colon L^2_0(\nu_Y)\to L^2_0(\nu_X)$ be its operator relative to
+$\nu_X\otimes\nu_Y$, compressed to the mean-zero functions on both sides. (For a
+pinned row at $p\equiv3\pmod4$, $D_{ij}=\varsigma_{ij}$ for
+$(i,j)\in E_\times$, since $\chi(\varsigma_{ij})=\varsigma_{ij}$, and
+$D_{ij}=0$ off $E_\times$.)
+For sets $T\subseteq Y$ and $S\subseteq X$ with at least two elements put
+$A_{iT}=(-1)^{|T|}\prod_{j\in T}D_{ij}$ and $B_{jS}=\prod_{i\in S}D_{ij}$, and let
+$M(\Phat)$ be the block operator matrix with rows indexed by $X$ and the sets $S$ and
+columns indexed by $Y$ and the sets $T$, with the singleton block $D\otimes\Phat$, the
+blocks $A\otimes I_{\mathcal H}$ (rows $i$, columns $T$) and $B^*\otimes I_{\mathcal H}$
+(rows $S$, columns $j$), and zero between sets, as in \cref{cor:star-matrix}; let
+$M(i)=\begin{psmallmatrix}iD&A\\B^*&0\end{psmallmatrix}$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item For $\mathsf k>0$, $\norm{M(i)}\le\mathsf k$ if and only if
+ \begin{equation}\label{eq:conditional-star-gate}
+  \begin{pmatrix}\mathsf k^2I-AA^*&\mathsf kD\\ \mathsf kD^*&\mathsf k^2I-BB^*\end{pmatrix}
+  \succeq0 .
+ \end{equation}
+\item Let $\beta_\chi$ bound $|\E_{\nu_i}\chi(t-x_i)|$ and $|\E_{\nu'_j}\chi(t-y_j)|$ for
+ all $i$, $j$ and $t\in\Omega$. Let $\mathsf d_{\rm L}$ and $\mathsf d_{\rm R}$ be the
+ square roots of the largest row sum times the largest column sum of the nonnegative
+ $X\times Y$ matrices with the entries $(1+\beta_\chi)^{|N_X(i)|-1}-1$, respectively
+ $(1+\beta_\chi)^{|N_Y(j)|-1}-1$, where $D_{ij}\ne0$, and zero elsewhere, and
+ $\mathsf d_1=\mathsf d_{\rm L}+\mathsf d_{\rm R}$; with $m_{ii'}=|N_X(i)\cap N_X(i')|$ put
+ \[
+  \mathsf e_{\rm L}^2=\max_{i\in X}\sum_{i'\in X}\sum_{s=2}^{m_{ii'}}\binom{m_{ii'}}s
+  \bigl((1+\beta_\chi)^{|N_X(i)|-s}-1\bigr)\bigl((1+\beta_\chi)^{|N_X(i')|-s}-1\bigr),
+ \]
+ let $\mathsf e_{\rm R}$ be defined likewise with $N_Y$, and put
+ $\mathsf e=\max(\mathsf e_{\rm L},\mathsf e_{\rm R})$ and
+ $\mathsf e_\star=\frac12\bigl(\mathsf d_1+\sqrt{\mathsf d_1^2+4\mathsf e^2}\bigr)$. Then
+ $T_\star=\kappa r\,\mathcal F_XM(\Phat)\mathcal F_Y^*+T_{\rm mean}$, with contractions
+ $\mathcal F_X\colon\mathcal H^X\oplus\mathcal H^{\mathcal S_X}\to L^2_0(\nu_X)$,
+ where $\mathcal S_X=\{S\subseteq X:|S|\ge2\}$, and $\mathcal F_Y$ likewise
+ with $Y$ in place of $X$, built from $\nu_X$, respectively $\nu_Y$, alone
+ (defined in the proof) and $\norm{T_{\rm mean}}\le\kappa r\mathsf e_\star$. Hence
+ $\norm{T_\star}\le\kappa r(\norm{M(i)}+\mathsf e_\star)$, and under (a)
+ $\norm{T_\star}\le\kappa r(\mathsf k+\mathsf e_\star)$. No invariance of the coordinate
+ laws is used.
+\item \emph{Decay.} Let $\kappa_0\ge\kappa$ and $0<\omega_s\le1$ ($s\ge2$) satisfy
+ $\kappa_0\omega_s^2\ge\min\{\kappa_0,1+\nu_\chi^s/r^2\}$, where $\nu_\chi$ bounds
+ $|\operatorname{Cov}_\nu(\chi(t-x),\chi(t'-x))|$ for every coordinate law $\nu$ and
+ all distinct $t,t'\in\Omega$ (if $\omega_s=1$ for every $s\ge2$ no bound on
+ $\nu_\chi$ is needed; an individual $s$ with $\omega_s<1$ uses the bound at
+ that $s$). Let
+ $A_\omega$, $B_\omega$ be $A$, $B$ with every column of a set $T$, respectively $S$,
+ multiplied by $\omega_{|T|}$, respectively $\omega_{|S|}$, and let $M_\omega$ be built
+ from them. Then (b) holds with $\kappa_0$, $M_\omega$ and contractions
+ $\mathcal F^\omega_X$, $\mathcal F^\omega_Y$ in place of $\kappa$, $M$, $\mathcal F_X$,
+ $\mathcal F_Y$; so \eqref{eq:conditional-star-gate} for $A_\omega$, $B_\omega$ gives
+ $\norm{T_\star}\le\kappa_0r(\mathsf k+\mathsf e_\star)$. If $\kappa$ and $\nu_\chi/r$
+ are admissible functions of $r$ (\cref{lem:majorant}) and rational $\kappa_0$,
+ $\omega_s$ satisfy these conditions at a threshold $p_0$, they satisfy them at every
+ prime $p\ge p_0$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\emph{Centred feature maps.} (The maps $U_\nu$ and $W_S$ below
+are the \emph{feature maps}; $\mathcal F_X,\mathcal F_Y$ are
+assembled from them.) For a coordinate law $\nu$ on $\Fp$ with
+density $\rho\le\kappa$ let
+$\iota_\nu\colon L^2(\Fp)\to L^2(\nu)$ be the evaluation $f\mapsto f$; then
+$\norm{\iota_\nu f}^2_\nu=\E\rho |f|^2\le\kappa\norm f^2$ and $\iota_\nu^*g=\rho g$. The
+\emph{centred evaluation} $U_\nu=P_0\iota_\nu|_{\mathcal H}\colon\mathcal H\to L^2_0(\nu)$
+has norm at most $\sqrt\kappa$; since $P_0\iota_\nu\one=0$,
+$P_0\iota_\nu=U_\nu P_{\mathcal H}$, with $P_{\mathcal H}$ the projection of $L^2(\Fp)$
+onto $\mathcal H$; and for $g\in L^2_0(\nu)$, $U_\nu^*g=\rho g$ is a mean-zero function
+supported in $\supp\nu\subseteq\Omega$. Put $m_\nu(t)=\E_{x\sim\nu}\chi(t-x)$ and
+$\phi_\nu(t,x)=\chi(t-x)-m_\nu(t)$, so that $\E_{x\sim\nu}\phi_\nu(t,x)=0$. For
+$S\subseteq X$ with $|S|\ge2$ let $W_S\colon L^2(\Fp)\to L^2(\nu_X)$,
+$(W_Sf)(x)=\E_tf(t)\prod_{i\in S}\phi_{\nu_i}(t,x_i)$, and define $W'_T$ for
+$T\subseteq Y$ likewise with the laws $\nu'_j$. Write $U_i=U_{\nu_i}$ and
+$U'_j=U_{\nu'_j}$, their outputs read as functions of $x_i$ and of $y_j$.
+
+\emph{Step 1 (the contractions $\mathcal F_X,\mathcal F_Y$).} The product law gives the orthogonal decomposition
+$L^2(\nu_X)=\bigoplus_{R\subseteq X}H_R$, where $H_R$ consists of the functions of
+$x_R$ whose conditional mean in every coordinate of $R$ vanishes; $U_i$ maps into
+$H_{\{i\}}$ and $W_S$ into $H_S$. By independence,
+$\ip{W_Sf}{W_Sf'}=\E_{t,t'}\overline{f(t)}f'(t')\prod_{i\in S}\Gamma_i(t,t')$ with
+$\Gamma_i(t,t')=\E_{x\sim\nu_i}\phi_{\nu_i}(t,x)\phi_{\nu_i}(t',x)$. Each $\Gamma_i$ is a
+positive semidefinite kernel with $\Gamma_i(t,t)\le1$, and as an operator relative to
+the uniform law it is $V_i^*V_i$ with
+$V_if=\E_t\phi_{\nu_i}(t,\cdot)f(t)=P_0\iota_{\nu_i}Cf$, so $0\preceq\Gamma_i\preceq\kappa
+r^2I$. For $i_1\in S$, the pointwise product of the $\Gamma_i$ with $i\ne i_1$ is a
+positive semidefinite kernel with diagonal at most one (Schur product theorem), so by
+\cref{lem:swapped-rectangle}(b) the kernel $\prod_{i\in S}\Gamma_i$ defines an operator
+between $0$ and $\kappa r^2I$, and $\norm{W_S}\le\sqrt\kappa\,r$ on all of $L^2(\Fp)$.
+As the ranges are orthogonal,
+\[
+ \mathcal F_X\bigl((f_i)_{i\in X},(g_S)_S\bigr)=\sum_{i\in X}\frac{U_if_i}{\sqrt\kappa}
+ +\sum_S\frac{W_Sg_S}{\sqrt\kappa\,r}
+\]
+is a contraction from $\mathcal H^X\oplus\mathcal H^{\mathcal S_X}$ into $L^2_0(\nu_X)$,
+$\mathcal S_X$ the set of the $S\subseteq X$ with $|S|\ge2$; $\mathcal F_Y$ is built in
+the same way from the $U'_j$ and the $W'_T$.
+
+\emph{Step 2 (exact supports).} Let $g\in L^2_0(\nu_Y)$, and let $\bar g_j$ be its
+component in $H_{\{j\}}$. A kernel has \emph{exact support} $R$ in $y$ if, for
+fixed $x$, it depends only on $y_R$ and has conditional mean zero in each
+coordinate of $R$. Such a kernel sees only the component of $g$ in $H_R$. \emph{Single pairs:}
+$\E_y\chi(y_j-x_i)g(y)=\E_b\chi(b-x_i)\rho'_j(b)\bar g_j(b)=(CU'^*_j\bar g_j)(x_i)$, with
+$U'^*_j\bar g_j\in\mathcal H$; after the output is centred, the pair $(i,j)$ gives
+$rD_{ij}U_i\Phat U'^*_j$. \emph{Row stars:} since $\chi(-1)=-1$,
+$\prod_{j\in T}D_{ij}\chi(y_j-x_i)=A_{iT}\prod_{j\in T}\bigl(m_{\nu'_j}(x_i)
++\phi_{\nu'_j}(x_i,y_j)\bigr)$. In the expansion, the term with all factors $\phi$ has
+exact support $T$ and gives, after centring,
+$A_{iT}P_0\iota_{\nu_i}W'^*_T=A_{iT}U_iP_{\mathcal H}W'^*_T=A_{iT}U_i(W'_T|_{\mathcal H})^*$;
+the term without a factor $\phi$ is a function of $x_i$ and vanishes on mean-zero $g$;
+the others, with exact supports $\emptyset\ne T'\subsetneq T$, carry the
+\emph{complementary means} $\prod_{j\in T\setminus T'}m_{\nu'_j}(x_i)$. \emph{Column
+stars:} $\prod_{i\in S}D_{ij}\chi(y_j-x_i)=B_{jS}\prod_{i\in S}\bigl(m_{\nu_i}(y_j)
++\phi_{\nu_i}(y_j,x_i)\bigr)$; the term with all factors $\phi$ gives
+$B_{jS}W_SU'^*_j$, the term without a factor $\phi$ has a constant image, which the
+centring removes, and the others carry complementary means. So
+$T_\star=T_{\rm pure}+T_{\rm mean}$, where $T_{\rm mean}$ collects the terms with
+complementary means and
+\[
+ T_{\rm pure}=\sum_{i,j}rD_{ij}U_i\Phat U'^*_j+\sum_{i,T}A_{iT}U_i(W'_T|_{\mathcal H})^*
+ +\sum_{j,S}B_{jS}W_SU'^*_j=\kappa r\,\mathcal F_XM(\Phat)\mathcal F_Y^*,
+\]
+as one checks block by block.
+
+\emph{Step 3 (the pure part).} By \cref{lem:spec:gauss},
+$\mathcal H=\mathcal H_+\oplus\mathcal H_-$ with $\Phat=\pm iI$ on $\mathcal H_\pm$, and
+$M(\Phat)$ acts on the two parts as $M(i)\otimes I$ and as $\overline{M(i)}\otimes I$;
+so $\norm{M(\Phat)}=\norm{M(i)}$ and $\norm{T_{\rm pure}}\le\kappa r\norm{M(i)}$. The
+matrix is decomposed before the contractions are applied, so no commutation of $\Phat$
+with the features is used.
+
+\emph{Step 4 (the gate).} For $\mathsf k>0$, $\norm{M(i)}\le\mathsf k$ if and only if
+the Hermitian dilation $\begin{psmallmatrix}\mathsf kI&M(i)\\M(i)^*&\mathsf kI
+\end{psmallmatrix}$ is positive semidefinite. Order its index set as
+$(X,\mathcal S_X,Y,\mathcal T_Y)$, $\mathcal T_Y$ the sets $T$, and take the Schur
+complement of its diagonal block $\mathsf kI$ on $(\mathcal S_X,\mathcal T_Y)$: the
+dilation is positive semidefinite if and only if, by
+\cref{lem:block-completion}(a),
+\[
+ \begin{pmatrix}\mathsf kI-\mathsf k^{-1}AA^*&iD\\-iD^*&\mathsf kI-\mathsf k^{-1}BB^*
+ \end{pmatrix}\succeq0 .
+\]
+Multiplying by $\mathsf k$ and conjugating with the unitary $\diag(I,-iI)$ gives
+\eqref{eq:conditional-star-gate}. This proves (a).
+
+\emph{Step 5 (complementary means).} Fix a row centre $i$ and an exact support
+$T'\ne\emptyset$. The terms of the row stars at $i$ with this support add up to
+$(-1)^{|T'|}\prod_{j\in T'}D_{ij}\,c(x_i)\prod_{j\in T'}\phi_{\nu'_j}(x_i,y_j)$, where
+$c(t)=\prod_{l\in N_X(i)\setminus T'}(1-D_{il}m_{\nu'_l}(t))-1$ satisfies
+$|c|\le(1+\beta_\chi)^{|N_X(i)|-|T'|}-1$ on $\Omega$. Their operator maps
+$H_{T'}(\nu_Y)$ into $H_{\{i\}}(\nu_X)$: for $|T'|\ge2$ it is
+$g\mapsto\pm P_0[c\cdot\iota_{\nu_i}W'^*_{T'}g]$, of norm at most $\kappa r\norm c_\infty$
+by Step 1, and for $T'=\{j\}$ it is $g\mapsto\pm P_0[c\cdot\iota_{\nu_i}C^*U'^*_j\bar
+g_j]$, with the same bound, since
+$\E_{y_j}\phi_{\nu'_j}(t,y_j)\bar g_j(y_j)=(C^*U'^*_j\bar g_j)(t)$. Likewise the column
+stars at $j$ with exact support $S'$ give an operator from $H_{\{j\}}(\nu_Y)$ into
+$H_{S'}(\nu_X)$, namely $g\mapsto W_{S'}\iota_{\nu'_j}^*(b\,\bar g_j)$ with
+$|b|\le(1+\beta_\chi)^{|N_Y(j)|-|S'|}-1$ on $\Omega$, and for $S'=\{i\}$ the same with
+$P_0\iota_{\nu_i}C$ in place of $W_{S'}$; its norm is at most $\kappa r\norm b_\infty$.
+Write $L^2_0(\nu_X)=\mathcal V_X\oplus\mathcal W_X$ with
+$\mathcal V_X=\bigoplus_iH_{\{i\}}$ and $\mathcal W_X=\bigoplus_{|S|\ge2}H_S$, and likewise
+for $Y$. The norm of an operator matrix between orthogonal sums is at most the norm of
+the matrix of the norms of its entries. The block $\mathcal V_X\leftarrow\mathcal V_Y$
+of $T_{\rm mean}$ has entries $H_{\{i\}}\leftarrow H_{\{j\}}$ of norm at most $\kappa r$
+times the sum of the entries of the two matrices of (b), so its norm is at most
+$\kappa r(\mathsf d_{\rm L}+\mathsf d_{\rm R})$ by Schur's test. The block
+$\mathcal V_X\leftarrow\mathcal W_Y$ has entries $H_{\{i\}}\leftarrow H_{T'}$ of norm at
+most $\kappa re_{iT'}$, with $e_{iT'}=(1+\beta_\chi)^{|N_X(i)|-|T'|}-1$ for
+$T'\subseteq N_X(i)$ and zero otherwise; the squared norm of the matrix $(e_{iT'})$ is
+the norm of its Gram matrix $(\sum_{T'}e_{iT'}e_{i'T'})_{i,i'}$, at most its largest row
+sum $\mathsf e_{\rm L}^2$. Likewise the block $\mathcal W_X\leftarrow\mathcal V_Y$ has
+norm at most $\kappa r\mathsf e_{\rm R}$, and the block $\mathcal W_X\leftarrow\mathcal W_Y$
+vanishes, since every star has a singleton centre. So
+$\norm{T_{\rm mean}}\le\kappa r\norm{\begin{psmallmatrix}\mathsf d_1&\mathsf e\\
+\mathsf e&0\end{psmallmatrix}}=\kappa r\mathsf e_\star$, which with Step 3 proves (b).
+
+\emph{Step 6 (decay).} The Gram kernel of $W_S\one_\Omega$ is
+$\one_\Omega(t)\one_\Omega(t')\prod_{i\in S}\Gamma_i(t,t')$, with diagonal at most one and
+off-diagonal entries of modulus at most $\nu_\chi^{|S|}$; its absolute row sums relative
+to the uniform law are at most $r^2+\nu_\chi^{|S|}$, and Schur's test gives
+$\norm{W_S\one_\Omega}^2\le r^2+\nu_\chi^{|S|}$. Since $U'^*_j$ has mean-zero range
+supported in $\Omega$, $W_SU'^*_j=W_S\one_\Omega P_{\mathcal H}U'^*_j$, the two
+projections being applied in this order; and since $\iota_{\nu_i}$ sees only $\Omega$,
+$U_iP_{\mathcal H}W'^*_T=U_iP_{\mathcal H}\one_\Omega W'^*_T=U_i(W'_T\one_\Omega
+P_{\mathcal H})^*$. By the choice of $\omega_s$,
+$\norm{W_S\one_\Omega P_{\mathcal H}}\le\sqrt{\kappa_0}\,r\omega_{|S|}$: if
+$\omega_{|S|}<1$, then $\kappa_0\omega_{|S|}^2\ge1+\nu_\chi^{|S|}/r^2$, and otherwise
+Step 1 applies. So the maps of Step 1 with $\sqrt{\kappa_0}$ in place of $\sqrt\kappa$
+and $W_S\one_\Omega P_{\mathcal H}/(\sqrt{\kappa_0}\,r\omega_{|S|})$ in place of
+$W_S/(\sqrt\kappa\,r)$, and likewise for $Y$, are contractions $\mathcal F^\omega_X$,
+$\mathcal F^\omega_Y$, and $T_{\rm pure}=\kappa_0r\,\mathcal F^\omega_XM_\omega(\Phat)
+\mathcal F^{\omega*}_Y$, while $\norm{T_{\rm mean}}\le\kappa r\mathsf e_\star\le\kappa_0r
+\mathsf e_\star$. At a prime $p\ge p_0$, $\kappa(p)\le\kappa(p_0)\le\kappa_0$, and
+$1+\nu_\chi^s/r^2=1+(\nu_\chi/r)^sr^{s-2}$ ($s\ge2$) is at most its value at $p_0$, by
+admissibility; the gate does not depend on $p$.
+\end{proof}
+
+For an invariant law the same matrix appears in \cref{cor:star-matrix}; under a
+product law the leaves are centred in their own laws and their means are paid by
+$\mathsf e_\star$. In the conditional rows of the upper range
+(\cref{subsec:push:layer72product,subsec:advance:product-rows}) the coordinate laws
+are the allowed-set laws, $\Omega$ is the complement of the middle labels,
+$\kappa=2^\varpi/(1-e^-_\varpi(z))$, $\beta_\chi$ is the one-character mean bound and $\nu_\chi$
+the covariance bound (display (PR3) in
+\cref{subsec:advance:product-rows}); in the bands the bound
+$\min\{C_\star,
+\kappa_0r(\mathsf k+\mathsf e_\star)\}$ takes the place of the scalar majorant $C_\star$
+of \eqref{eq:row-anova-stars} in the correlation bound \eqref{eq:row-anova-actual}.
+
+\paragraph{Joint fold and matching rows.}
+The completion of an upper coordinate bounds its fold row and its matching row
+jointly, relative to one chart (\cref{lem:five-type}(f)). The two rows have the same
+allowed sets, so their star parts factor through the same contractions, and the joint
+bound is one more matrix test.
+
+\begin{lemma}[Joint fold and matching rows]\label{lem:joint-rows}
+Let $p\equiv3\pmod4$, and in the setting of this subsection let $\kappa$ bound the
+densities of the allowed-set laws $\lambda_i$ relative to the uniform law and
+$I_0\le\lambda(\mathcal I_{\rm pin})$. Let two sets of signed cross pairs be given, the
+\emph{fold} row $\rm F$ and the \emph{matching} row $\rm E$, with signed incidence
+matrices $D_{\rm F},D_{\rm E}\in\{0,\pm1\}^{n\times n}$ ($D_\bullet(i,j)=\varsigma_{ij}$ on
+the pairs of the row and zero elsewhere) and $D_{\rm E}^{\mathsf T}=-D_{\rm E}$. For
+$\bullet\in\{{\rm F},{\rm E}\}$ let $K_\bullet$ be the raw kernel relative to
+$\mu\otimes\mu$ (the indicator that $x([n])\cap y([n])=\emptyset$, times the product over
+the pairs of $1+\chi_{ij}$), $Z_\bullet=\ip\one{K_\bullet\one}_\mu$ and
+$\pi_\bullet=K_\bullet\,\mu\otimes\mu/Z_\bullet$. Let $\nu$ be the marginal of
+$\pi_{\rm E}$, and suppose $d\nu/d\mu\ge e^{-\ell_{\rm E}}$. Relative to $\nu\otimes\nu$
+let $T_{\rm F}$ and $T_{\rm E}$ be the densities of $\pi_{\rm F}$ and $\pi_{\rm E}$, and
+$u_{\rm L}$, $u_{\rm R}$ the densities of the two marginals of
+$\pi_{\rm F}$ relative to $\nu$, and put
+$C_{\rm F}=T_{\rm F}-u_{\rm L}\otimes u_{\rm R}$ and $C_{\rm E}=T_{\rm E}-\Jproj$, as
+operators on $L^2(\nu)$. With $\kappa_0$ and $\omega_s$ as in
+\cref{prop:conditional-star}(c) for the laws $\lambda_i$ and
+$\Omega=\Fp\setminus\mathcal M$, put, for $D=D_{\rm F},D_{\rm E}$ and all
+$S\subseteq[n]$ with $|S|\ge2$,
+\[
+ A_D(i,S)=(-1)^{|S|}\omega_{|S|}\prod_{j\in S}D(i,j),\qquad
+ B_D(i,S)=\omega_{|S|}\prod_{j\in S}D(j,i),
+\]
+and
+\[
+ \mathcal Z=\begin{pmatrix}D_{\rm E}&D_{\rm F}\\-D_{\rm F}^{\mathsf T}&D_{\rm E}\end{pmatrix},
+ \qquad
+ \mathcal A=\begin{pmatrix}A_{D_{\rm E}}&A_{D_{\rm F}}\\B_{D_{\rm F}}&A_{D_{\rm E}}\end{pmatrix},
+ \qquad\mathcal G=\mathcal A\mathcal A^*.
+\]
+Then $C_{\rm F}$ and $C_{\rm E}$ annihilate the constants on both sides,
+$C_{\rm E}=C_{\rm E}^*$, and $A_{D_{\rm E}}=B_{D_{\rm E}}$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item Let $\mathsf k>0$ satisfy
+ \begin{equation}\label{eq:joint-gate}
+  \mathsf k^2I+i\mathsf k\mathcal Z-\mathcal G\succeq0,
+ \end{equation}
+ a Hermitian test of size $2n$, rational of size $4n$ in real form
+ (\cref{rem:realified-gates}). For each row $\bullet$ let $e_\bullet$ bound the norm of
+ the complementary-mean operator $T^\bullet_{\rm mean}$ of
+ \cref{prop:conditional-star}(b) for $D_\bullet$ on $L^2_0(\lambda)$, where
+ $\lambda$ is the product of the allowed-set laws, divided by $\kappa_0r$
+ (for instance $\mathsf e_\star$ of \cref{prop:conditional-star}(b) for
+ $D_\bullet$); let $S^\star_\bullet\ge\norm{P_0K^{\rm st}_\bullet P_0}$ for the star part
+ $K^{\rm st}_\bullet$ of $K_\bullet$, $N_\bullet\ge\norm{T^\bullet_{\rm ns}}
+ +\norm{T^\bullet_{\rm coll}}$ for its nonstar and collision parts,
+ $\eps_\bullet\ge|Z_\bullet-1|$ with $\eps_\bullet<1$, and
+ $m_\bullet\ge\norm{P_0K_\bullet\one},\norm{P_0K_\bullet^*\one}$, all on $L^2(\mu)$. Then
+ \[
+  \begin{pmatrix}C_{\rm E}&C_{\rm F}\\C_{\rm F}^*&C_{\rm E}\end{pmatrix}
+  \succeq-\mathfrak k_pI\quad\text{on }L^2(\nu)\oplus L^2(\nu),\qquad
+  \mathfrak k_p=e^{\ell_{\rm E}}\Bigl[\frac{\kappa_0r(\mathsf k+e_{\rm F}+e_{\rm E})}{I_0}
+  +\mathfrak c_{\rm F}+\mathfrak c_{\rm E}\Bigr],
+ \]
+ where $\mathfrak c_\bullet=(\eps_\bullet S^\star_\bullet+N_\bullet)/(1-\eps_\bullet)
+ +m_\bullet^2/(1-\eps_\bullet)^2$.
+\item Let $\Blk$ be a finite set of primes and, for $p\in\Blk$, let $C_{{\rm F},p}$ and
+ $C_{{\rm E},p}=C_{{\rm E},p}^*$ be operators on $L^2(\nu_p)$ that annihilate the
+ constants on both sides, for instance those of (a) at $p$. Put
+ $C_\Blk=\bigotimes_p(\Jproj_p+C_{{\rm F},p})-\Jproj_\Blk$ and
+ $E_\Blk=\bigotimes_p(\Jproj_p+C_{{\rm E},p})-\Jproj_\Blk$ on $L^2(\bigotimes_p\nu_p)$.
+ They act on each exact prime-support sector
+ $\bigotimes_{p\in S}L^2_0(\nu_p)\otimes\one$ ($\emptyset\ne S\subseteq\Blk$) as
+ $\bigotimes_{p\in S}C_{{\rm F},p}$ and $\bigotimes_{p\in S}C_{{\rm E},p}$, so the joint
+ block of $(E_\Blk,C_\Blk)$ is the direct sum of the joint blocks of the sectors. If
+ $\norm{C_{{\rm F},p}}\le c<1$ and $\norm{C_{{\rm E},p}}\le h<1$ for every $p$, the
+ joint block of every sector with at least two primes is $\succeq-(c^2+h^2)I$; so the
+ joint block of $(E_\Blk,C_\Blk)$ is $\succeq-\max(c^2+h^2,\max_p\mathfrak k'_p)I$
+ whenever the joint block at each prime $p$ is $\succeq-\mathfrak k'_pI$.
+\item If moreover $C_{{\rm F},p}=T_{{\rm F},p}-u_{{\rm L},p}\otimes u_{{\rm R},p}$ for a
+ kernel $T_{{\rm F},p}$ of mass one with marginal densities $u_{{\rm L},p}$,
+ $u_{{\rm R},p}$ relative to $\nu_p$, and $U_{\rm L}=\bigotimes_pu_{{\rm L},p}$,
+ $U_{\rm R}=\bigotimes_pu_{{\rm R},p}$ satisfy
+ $\norm{U_{\rm L}-\one},\norm{U_{\rm R}-\one}\le\upsilon$, then
+ $T_{{\rm F},\Blk}=\bigotimes_pT_{{\rm F},p}$ satisfies
+ \[
+  \norm{T_{{\rm F},\Blk}-U_{\rm L}\otimes U_{\rm R}-C_\Blk}\le(2\upsilon+\upsilon^2)
+  \Bigl[\prod_{p\in\Blk}\bigl(1+\norm{C_{{\rm F},p}}\bigr)-1\Bigr],
+ \]
+ which is at most $(2\upsilon+\upsilon^2)(e^{Nc}-1)$ if $\Blk$ has at most $N$
+ primes, for an integer $N\ge|\Blk|$, and $\norm{C_{{\rm F},p}}\le c$ for
+ every $p\in\Blk$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\emph{Preliminaries.} At $p\equiv3\pmod4$ the factor of a pair is
+$1+\varsigma_{ij}\chi(y_j-x_i)$. The factor of $(i,j)$ in $K_{\rm E}(y,x)$ is
+$1+\varsigma_{ij}\chi(x_j-y_i)=1+D_{\rm E}(j,i)\chi(y_i-x_j)$, the factor of $(j,i)$ in
+$K_{\rm E}(x,y)$; so $K_{\rm E}$ is symmetric, $\pi_{\rm E}$ has two equal marginals
+$\nu$, and $T_{\rm E}$ is a symmetric kernel with marginal densities one; hence
+$C_{\rm E}=C_{\rm E}^*$ annihilates the constants. As $T_{\rm F}\one=u_{\rm L}$ and
+$\E_\nu u_{\rm R}=1$, $C_{\rm F}\one=0$, and likewise $C_{\rm F}^*\one=0$. Finally
+$B_{D_{\rm E}}(i,S)=\omega_{|S|}\prod_{j\in S}(-D_{\rm E}(i,j))=A_{D_{\rm E}}(i,S)$.
+
+(a) \emph{The actual chart.} Let $g=d\nu/d\mu=K_{\rm E}\one/Z_{\rm E}$,
+$g_{\rm L}=K_{\rm F}\one/Z_{\rm F}$ and $g_{\rm R}=K_{\rm F}^*\one/Z_{\rm F}$. Then
+$T_{\rm F}(x,y)=K_{\rm F}(x,y)/(Z_{\rm F}g(x)g(y))$, $u_{\rm L}=g_{\rm L}/g$ and
+$u_{\rm R}=g_{\rm R}/g$, so for $f,h\in L^2(\nu)$
+\[
+ \ip f{C_{\rm F}h}_\nu=\E_{\pi_{\rm F}}[\overline{f(x)}h(y)]-\E_\nu[\overline f u_{\rm L}]\,\E_\nu[u_{\rm R}h]
+ =\ip f{(K_{\rm F}/Z_{\rm F}-g_{\rm L}\otimes g_{\rm R})h}_\mu,
+\]
+and likewise $\ip f{C_{\rm E}h}_\nu=\ip f{(K_{\rm E}/Z_{\rm E}-g\otimes g)h}_\mu$. So the
+quadratic form of the joint block at $(f,h)$ is that of the self-adjoint operator
+$\mathbb K$ on $L^2(\mu)^2$ with the diagonal entries $K_{\rm E}/Z_{\rm E}-g\otimes g$
+and the off-diagonal entries $K_{\rm F}/Z_{\rm F}-g_{\rm L}\otimes g_{\rm R}$ and its
+adjoint, and $\norm f^2_\mu=\E_\nu[|f|^2/g]\le e^{\ell_{\rm E}}\norm f^2_\nu$. Hence
+$\mathbb K\succeq-cI$ with $c\ge0$ gives the joint block $\succeq-ce^{\ell_{\rm E}}I$. A
+block operator $\begin{psmallmatrix}X&Y\\Y^*&X\end{psmallmatrix}$ has norm at most
+$\norm X+\norm Y$, which bounds every error term below.
+
+\emph{Centring and normalization.} For a kernel $K$ with $Z=\ip\one{K\one}$ and
+marginal densities $g_1=K\one/Z$, $g_2=K^*\one/Z$ the exact identity
+$K/Z-g_1\otimes g_2=P_0KP_0/Z-(g_1-\one)\otimes(g_2-\one)$ holds, and for $K=K_\bullet$
+the rank-one term has norm at most $m_\bullet^2/(1-\eps_\bullet)^2$. On
+$\mathcal I_{\rm pin}\times\mathcal I_{\rm pin}$,
+$K_\bullet=\one\otimes\one+K^{\rm st}_\bullet+T^\bullet_{\rm ns}-T^\bullet_{\rm coll}$,
+the expansion of \cref{lem:spec:expansion} with the collision part of
+\cref{prop:pinned-collision}; so
+$P_0K_\bullet P_0/Z_\bullet=P_0K^{\rm st}_\bullet P_0+(Z_\bullet^{-1}-1)P_0K^{\rm st}_\bullet
+P_0+Z_\bullet^{-1}P_0(T^\bullet_{\rm ns}-T^\bullet_{\rm coll})P_0$, and the last two terms
+have norm at most $(\eps_\bullet S^\star_\bullet+N_\bullet)/(1-\eps_\bullet)$. Hence
+$\mathbb K\succeq\mathbb K^{\rm st}-(\mathfrak c_{\rm F}+\mathfrak c_{\rm E})I$, where
+$\mathbb K^{\rm st}$ is the joint block of the operators $P_0K^{\rm st}_\bullet P_0$.
+
+\emph{Restriction.} Both rows have the law $\mu=\lambda(\cdot\mid\mathcal I_{\rm pin})$,
+and $P=\lambda(\mathcal I_{\rm pin})\ge I_0$. By \cref{lem:restriction}(a), with the
+isometry $\iota f=\one_{\mathcal I_{\rm pin}}f/\sqrt P$, which preserves centring,
+$\ip F{\mathbb K^{\rm st}F}=\ip{\iota F}{\mathbb T\iota F}/P$ for $F\in L^2_0(\mu)^2$,
+where $\mathbb T$ is the joint block, on $L^2_0(\lambda)^2$, of the operators
+$T^\bullet_\star$ of \cref{prop:conditional-star} for $\nu_X=\nu_Y=\lambda$ and
+$D=D_\bullet$; and $\mathbb K^{\rm st}$ vanishes on the constants. So
+$\mathbb T\succeq-c'I$ gives $\mathbb K^{\rm st}\succeq-(c'/I_0)I$.
+
+\emph{Pure stars.} By \cref{prop:conditional-star}(b),(c),
+$T^\bullet_\star=\kappa_0r\,\mathcal FM_\bullet(\Phat)\mathcal F^*+T^\bullet_{\rm mean}$,
+with one contraction $\mathcal F=\mathcal F^\omega_X=\mathcal F^\omega_Y$ for both rows and
+both laws (it depends only on $\lambda$; take all sets $S\subseteq[n]$, $|S|\ge2$),
+with $M_\bullet$ built from $D_\bullet$, $A_{D_\bullet}$ and $B_{D_\bullet}$, and with
+$\norm{T^\bullet_{\rm mean}}\le\kappa_0re_\bullet$. So
+$\mathbb T=\kappa_0r(\mathcal F\oplus\mathcal F)\mathbb M(\mathcal F\oplus\mathcal F)^*
++\mathbb T_{\rm mean}$ with $\norm{\mathbb T_{\rm mean}}\le\kappa_0r(e_{\rm E}+e_{\rm F})$,
+where $\mathbb M$ has the diagonal entries $M_{\rm E}(\Phat)$ and the off-diagonal entries
+$M_{\rm F}(\Phat)$ and $M_{\rm F}(\Phat)^*$. As $\Phat^*=-\Phat$, $M_{\rm F}(\Phat)^*$ has the
+singleton block $-D_{\rm F}^{\mathsf T}\otimes\Phat$, the block $B_{D_{\rm F}}\otimes I$
+from the sets to the singletons and $A_{D_{\rm F}}^*\otimes I$ from the singletons to the
+sets; and $D_{\rm E}^{\mathsf T}=-D_{\rm E}$, $A_{D_{\rm E}}=B_{D_{\rm E}}$ give
+$M_{\rm E}(\Phat)^*=M_{\rm E}(\Phat)$. Grouping the singletons of the two copies and the
+sets of the two copies,
+\[
+ \mathbb M=\begin{pmatrix}\mathcal Z\otimes\Phat&\mathcal A\otimes I\\
+ \mathcal A^*\otimes I&0\end{pmatrix}.
+\]
+On $\mathcal H_\pm$ it acts as $\begin{psmallmatrix}\pm i\mathcal Z&\mathcal A\\
+\mathcal A^*&0\end{psmallmatrix}\otimes I$; these are complex conjugate Hermitian
+matrices, $\mathcal Z$ being real and antisymmetric. By
+\cref{lem:block-completion}(a), eliminating the block $\mathsf kI$, the one with $+i$ is $\succeq-\mathsf kI$ if and only if
+$\mathsf kI+i\mathcal Z-\mathsf k^{-1}\mathcal G\succeq0$, which is \eqref{eq:joint-gate}.
+So $\mathbb M\succeq-\mathsf kI$ and
+$\mathbb T\succeq-\kappa_0r(\mathsf k+e_{\rm F}+e_{\rm E})I$, and the three steps give
+$\mathfrak k_p$.
+
+(b) As $C_{{\rm F},p}$ annihilates the constants on both sides,
+$\bigotimes_p(\Jproj_p+C_{{\rm F},p})=\sum_{S\subseteq\Blk}\bigotimes_{p\in S}C_{{\rm F},p}
+\otimes\bigotimes_{p\notin S}\Jproj_p$, the term of $S$ acting on the sector of $S$ and
+vanishing on the others; the same holds for $E_\Blk$. On a sector with $|S|\ge2$ the
+joint block is
+$\succeq-(\norm{\bigotimes_{p\in S}C_{{\rm E},p}}+\norm{\bigotimes_{p\in S}C_{{\rm F},p}})I
+\succeq-(h^{|S|}+c^{|S|})I\succeq-(h^2+c^2)I$; on a singleton sector it is the joint
+block at the prime.
+
+(c) Expand $T_{{\rm F},\Blk}=\bigotimes_p(u_{{\rm L},p}\otimes u_{{\rm R},p}+C_{{\rm F},p})$
+over the sets $S\subseteq\Blk$ of the primes at which the factor $C_{{\rm F},p}$ is taken.
+The term of $S=\emptyset$ is $U_{\rm L}\otimes U_{\rm R}$, and $C_\Blk$ is the sum of the
+other terms with the marginal rank
+$\bigotimes_{p\notin S}u_{{\rm L},p}\otimes u_{{\rm R},p}=a\otimes b$ of the inactive
+primes replaced by $\Jproj=\one\otimes\one$. Since $\E u_{{\rm L},p}=1$,
+$\norm{\bigotimes_{p\in A}u_{{\rm L},p}-\one}^2=\prod_{p\in A}\norm{u_{{\rm L},p}}^2-1$ is
+nondecreasing in $A$, so $\norm{a-\one}\le\upsilon$, and likewise $\norm{b-\one}\le\upsilon$;
+hence $a\otimes b-\one\otimes\one=(a-\one)\otimes b+\one\otimes(b-\one)$ has norm at most
+$\upsilon(1+\upsilon)+\upsilon$. Summing $\prod_{p\in S}\norm{C_{{\rm F},p}}$ times this over
+$S\ne\emptyset$ gives the bound, and $1+x\le e^x$ the last one.
+\end{proof}
+
+\begin{corollary}[The joint fluctuation in a positive row]\label{cor:joint-row-split}
+In \cref{lem:joint-rows}(b) let $h\ge0$ and $\mathsf k_\Blk\ge h$ satisfy
+$E_\Blk\succeq-hI$ and $\begin{psmallmatrix}E_\Blk&C_\Blk\\C_\Blk^*&E_\Blk\end{psmallmatrix}
+\succeq-\mathsf k_\Blk I$ (a bound $\mathsf k$ of the joint block with $\mathsf k<h$ is
+replaced by $h$). If $0\le m\le H$ and $a_{\rm S}\ge Ha_{\rm D}\ge0$, then
+\[
+ \begin{pmatrix}a_{\rm S}E_\Blk&ma_{\rm D}C_\Blk\\ma_{\rm D}C_\Blk^*&a_{\rm S}E_\Blk
+ \end{pmatrix}\succeq-\bigl(ha_{\rm S}+Ha_{\rm D}(\mathsf k_\Blk-h)\bigr)I .
+\]
+With $T_{{\rm F},\Blk}-U_{\rm L}\otimes U_{\rm R}$ in place of $C_\Blk$ the bound decreases
+by at most $Ha_{\rm D}(2\upsilon+\upsilon^2)[\prod_p(1+\norm{C_{{\rm F},p}})-1]$, by
+\cref{lem:joint-rows}(c); the $S=\emptyset$ term
+$U_{\rm L}\otimes U_{\rm R}$ of \cref{lem:joint-rows}(c) is not counted in
+this fluctuation bound; it is instead absorbed by the mean allowance term
+in \cref{lem:five-type}(f),
+where $m$ is the fold mass $m_b$ and $a_{\rm S}$, $a_{\rm D}$ are the five-type weights.
+\end{corollary}
+
+\begin{proof}
+The matrix is the sum of $ma_{\rm D}$ copies of the joint block and of
+$a_{\rm S}-ma_{\rm D}$ copies of $\diag(E_\Blk,E_\Blk)$, both coefficients being
+nonnegative as $m\le H$ and $a_{\rm S}\ge Ha_{\rm D}$. Its lower bound is
+$-(ma_{\rm D}\mathsf k_\Blk+(a_{\rm S}-ma_{\rm D})h)=-(ha_{\rm S}+ma_{\rm D}(\mathsf
+k_\Blk-h))$, and $m\le H$ is used only after $\mathsf k_\Blk-h\ge0$. The last assertion
+is \cref{lem:joint-rows}(c), multiplied by $ma_{\rm D}\le Ha_{\rm D}$ in the off-diagonal
+blocks.
+\end{proof}
+
+When the pins of a row make some allowed sets disjoint, the coordinates whose allowed
+sets contain a given label lie in one member of the family $\mathcal S$ of
+the lemma, and the density bound $\kappa_0$ then enters through the
+principal submatrices on the members of $\mathcal S$.
+
+\begin{lemma}[Positive potentials]\label{lem:joint-potential}
+In \cref{lem:joint-rows}(a) let $\rho_i$ be the density of $\lambda_i$ relative to the
+uniform law, and let $\mathcal S$ be a family of sets of coordinates $(c,i)$ of
+$\mathcal Z$ ($c\in\{1,2\}$ the copy, $i\in[n]$) such that for every $t\in\Fp$ the
+coordinates with $\rho_i(t)>0$ lie in one member of $\mathcal S$. Let $T$ be a real
+symmetric $2n\times2n$ matrix with $T\pm i\mathcal Z\succeq0$, for instance
+$T=|\mathcal Z|=(-\mathcal Z^2)^{1/2}$. If $\mathsf k>0$ and
+\begin{equation}\label{eq:joint-potential-gate}
+ \mathsf k^2I_S-\mathsf k\kappa_0T_S-\kappa_0^2\mathcal G_S\succeq0\qquad(S\in\mathcal S),
+\end{equation}
+where $X_S$ denotes the principal submatrix of $X$ on $S$, then the conclusion of
+\cref{lem:joint-rows}(a) holds without \eqref{eq:joint-gate} and with $r\mathsf k/I_0$
+in place of $\kappa_0r\mathsf k/I_0$ in $\mathfrak k_p$; all other terms are kept.
+For rational $T$ and rational gate parameters, both
+$T\pm i\mathcal Z\succeq0$ and \eqref{eq:joint-potential-gate} are rational tests in real
+form (\cref{rem:realified-gates}).
+\end{lemma}
+
+\begin{proof}
+In the proof of \cref{lem:joint-rows}(a) only the bound of the pure part
+$\mathbb P=\kappa_0r(\mathcal F\oplus\mathcal F)\mathbb M(\mathcal F\oplus\mathcal F)^*$
+changes. Let $\Psi_i\colon L^2(\lambda_i)\to L^2(\Fp)$, $g\mapsto\sqrt{\rho_i}\,g$, an
+isometry onto the functions supported in the allowed set of $i$; then
+$\Psi_i\iota_{\lambda_i}$ is the multiplication by $\sqrt{\rho_i}$, and
+$U_{\lambda_i}=\Psi_i^*\Pi_i\sqrt{\rho_i}\,|_{\mathcal H}$, where $\Pi_i=\Psi_iP_0\Psi_i^*$ is
+an orthogonal projection. Let $D_\rho$ be the multiplication by $\sqrt{\rho_i}$ on the
+copy of $L^2(\Fp)$ of the coordinate $(c,i)$, extend $\Phat$ by zero to the constants,
+and let $\mathcal W$ be the higher part of $\mathcal F\oplus\mathcal F$, a contraction.
+Since the singleton part of $\mathcal F$ is $U_{\lambda_i}/\sqrt{\kappa_0}$, $\mathbb P$
+is the compression, by $\Pi$ on the singleton coordinates (followed by $\Psi^*$), of
+\[
+ \mathbb S=\begin{pmatrix}rD_\rho(\mathcal Z\otimes\Phat)D_\rho&
+ \sqrt{\kappa_0}\,rD_\rho(\mathcal A\otimes I)\mathcal W^*\\
+ \sqrt{\kappa_0}\,r\mathcal W(\mathcal A^*\otimes I)D_\rho&0\end{pmatrix},
+\]
+and compressions keep lower bounds; so it suffices that $\mathbb S\succeq-r\mathsf kI$. By
+\cref{lem:block-completion}(a) on the block $r\mathsf kI$ and
+$\mathcal W^*\mathcal W\preceq I$,
+this follows from $r\mathsf kI+rD_\rho(\mathcal Z\otimes\Phat)D_\rho-(\kappa_0r/\mathsf
+k)D_\rho(\mathcal G\otimes I)D_\rho\succeq0$. On the eigenspaces of $\Phat$ for $i$, $-i$
+and $0$ the operator $T\otimes I+\mathcal Z\otimes\Phat$ is $T+i\mathcal Z$, $T-i\mathcal Z$
+and $T$, all positive semidefinite (the last by averaging the first two); so
+$D_\rho(\mathcal Z\otimes\Phat)D_\rho\succeq-D_\rho(T\otimes I)D_\rho$, and it suffices that
+$\mathsf k^2I-D_\rho((\mathsf kT+\kappa_0\mathcal G)\otimes I)D_\rho\succeq0$. This operator
+is the multiplication by the matrix function $t\mapsto\mathsf k^2I-D(t)(\mathsf kT
++\kappa_0\mathcal G)D(t)$, $D(t)=\diag(\sqrt{\rho_i(t)})$. At each $t$, $D(t)$ vanishes
+outside a set $S\in\mathcal S$ and $0\preceq D(t)\preceq\sqrt{\kappa_0}I$; as
+$\mathsf kT+\kappa_0\mathcal G\succeq0$, the matrix $D(t)(\mathsf kT+\kappa_0\mathcal G)D(t)$
+is at most $\kappa_0\lambda_{\max}((\mathsf kT+\kappa_0\mathcal G)_S)I\preceq\mathsf k^2I$,
+by \eqref{eq:joint-potential-gate}. For $T=|\mathcal Z|$, $T\pm i\mathcal Z\succeq0$ because
+$i\mathcal Z$ is Hermitian with $|i\mathcal Z|=|\mathcal Z|$.
+\end{proof}
+
+\begin{remark}[The pinned rows of the construction]\label{rem:pinned-instances}
+The conditional rows of \cref{subsec:advance:product-rows} come in six geometries
+(the other type L, F or E, with one or two layers), each for the two laws F and E.
+In all twelve there are no edges inside a row, $n=z\in\{3,6,12\}$, and the pin bound
+is $\varpi\in\{0,1,2,4\}$; in the two geometries with other type F the actual pin
+numbers are mixed ($\{0,1\}$ and $\{0,2\}$) and are majorized by $\varpi$. The classes are those of
+the compressed partition, grouped with $\mathfrak q=0$: the integer
+$\mathfrak b=\mathrm{oc}(\mathcal C)$, at most $1280$, is used exactly, and for the
+classes of case (A) of \cref{lem:advance:compressed-partition}(b) the better of two
+covers is taken class by class (a class may carry several records,
+\cref{def:extraction:records}). The E law of the E geometries has no cross pairs, so
+its nonstar part vanishes; the other ten rows have $7164$ classes, counted with their
+kernel constants $c_{\rm ker}(\mathcal C)$. In all twelve the multisets of row and
+column degrees coincide. Hence $\Delta_{\rm pin}=\varpi+\max_i|N_X(i)|$ and
+$D_X=D_Y$, and the evaluator, which computes
+$\Upsilon_X(1-e^{\rm pin}_\varpi)^{-n}(e^{U_Y}-1)$, returns this common value. These
+facts are read off the row geometry and the stored partitions
+(\path{research/advance_2026_10_17/sparse/product_rows_all.py} and
+\path{product_rows_all_parts.json}; the exact grouping is
+\path{research/advance_2026_10_24/upper/conditional_fine_parts.json}, checked by
+\path{check_conditional_fine_buckets.py} of the same directory into
+\path{conditional_fine_parts_review.json}). Rows with internal edges, which would need
+the merge charges of \cref{lem:matching:extractionk}, do not occur. The fold and
+matching rows of one geometry have the same pins, which is the hypothesis of
+\cref{lem:joint-rows}.
+\end{remark}
+
+\paragraph{The forms that the certificates evaluate.}
+\emph{Nonstar bounds.} For the two root cuts of the upper range ($n=36$,
+$\Delta^+=10$, $\Delta=20$) the partition is a refinement of the compressed
+partition with witnesses of sizes $2$, $3$ and $4$, and the nonstar bound is
+\cref{cor:extraction-leaf}(b) with the graded errors, the free partners of the
+records (\cref{def:extraction:records}) and the constants of \eqref{eq:leaf-factors},
+under the monotone-factor condition \eqref{eq:monotone-signature}. For the direct
+Route~B criterion (\cref{lem:record:direct-star-inputs}), from $\Pthree$ to
+$2^{52}$, the coefficients are evaluated at the nineteen points $2^{47},\dots,2^{52}$,
+$167\cdot2^{40}$ and $j2^{42}$, $j\in\{40,42,43,44,46,48,50,52,56,60,80,96\}$, and
+between consecutive ones bounded by \cref{lem:logconvex-coefficients}. The
+Route~A criterion from $2^{52}$ on uses the tables $C_k(Q)$ at
+$Q=2^{50},2^{52},\dots,2^{60}$, each prime using the table of the largest $Q\le p$;
+these tables are computed with the coarse errors and the constants
+$\max_i\sum_jw^{\rm m}_{ij}$, $\max_i\sum_jw^\varrho_{ij}$, which dominate the factors of
+\eqref{eq:leaf-factors}.
+The classes are stored as a histogram of signatures (the witness size,
+$\mathrm{ex}^\star$, and the multiset of the pairs (kind, $s_v$), the kind being
+$\mathsf f_{\rm m}$ on $U_x\cup U_z$ and $\mathsf f_\varrho$ on $C_x\cup C_z$) with integer
+multiplicities, $30\,645\,955$ distinct signature rows in all ($17\,286\,284$ for LL20 and $13\,359\,671$
+for LL22); every square root of a vertex factor is rounded upward to a multiple of
+$2^{-48}$, and the integer sums over the histogram are exact. The nonroot caps
+\ref{it:record:upper-F6} and the route-A twelve-label caps (\cref{sec:middle-reference})
+use \cref{cor:extraction-compressed} with $\mathfrak q=0$ on the compressed partition,
+each vertex summand of $\mathrm{oc}(\mathcal C)$ rounded upward at $2^{-20}$. The
+conditional rows \ref{it:record:upper-F3} of the bands use
+\cref{prop:pinned-extraction} with $\mathfrak q=0$ (\cref{rem:pinned-instances}),
+\cref{prop:pinned-collision} and the star matrices of
+\cref{prop:conditional-star}(a)--(c), and their joint fold and matching bounds
+\cref{lem:joint-rows} (for the $\rm L$ rows with \cref{lem:joint-potential}); those of
+the tail datum
+(\cref{def:record:upper-bands}) are computed with $\mathfrak q=20$ and the scalar
+majorant \eqref{eq:row-anova-stars}.
+Soft kernels (\cref{cor:soft-kernels}) are evaluated with every
+coefficient $D_e$ replaced by $|D_e|$ on its support
+$\{e:D_e\ne0\}$ (its \emph{Boolean support}), or on a larger set
+of pairs containing that support whose admissibility is checked
+in \cref{app:certificates} (a \emph{certified Boolean
+supergraph}).
+\emph{Coincidence bounds.} For the root cuts the Route~B criterion takes
+the minimum in \cref{lem:oct24-collision}(e) of $D_1+D_{\ge2}$ (with one order for
+each pair $(i,j)$, one order $\pi_k$ for each $k=2,\dots,9$ chosen at each of the
+points $2^{47},\dots,2^{52}$, and the tail (c) from $k_0=10$), $D_{\rm ord}$ and
+$D_{\rm nat}$; a band evaluates this minimum at its start $X$, with the orders chosen
+at the evaluation point of its band (\cref{cert:upper-root-caps}). The Route~A criterion takes
+$\min(D_{\rm ord},D_{\rm nat})$. The nonroot caps and the route-A twelve-label caps use
+$D_{\rm nat}$ of \eqref{eq:collision-natural}, the L20 cut of the middle root the
+balanced bound of \cref{prop:l20-collisions} (\cref{cor:incident-weights}),
+sharpened, for the rows in which the principal (root) law is the
+uniform law, by the protected-subspace compression of
+\cref{imp:local:collision-gap}, and the
+product rows \cref{prop:pinned-collision}.
+
+\paragraph{Consequences and what to read next.}
+This section uses the labellings and the extension count with its coarse
+and graded errors
+(\cref{lem:extension}, \eqref{eq:graphs:et}, \eqref{eq:graphs:graded},
+\ref{it:et:mono}--\ref{it:et:poly}); one-step error pairs, sequential counts, vertex
+densities and marginal ratios
+(\cref{def:graphs:error-pair,lem:graphs:sequential,lem:graphs:vertex}); spectral data,
+their elementary symmetries and the cut kernel
+(\cref{def:spec:data,lem:spec:elementary,lem:spec:cutkernel}); the positive Schur
+order (\cref{lem:swapped-rectangle}(b)) and the restriction to an injectivity event
+(\cref{lem:restriction}(a)); the character expansion, the Gauss operator and the real
+form of the phase gates (\cref{lem:spec:expansion,lem:spec:gauss,rem:realified-gates}); the
+four-cycle kernel for uniform probability (\cref{cor:dl:normalized}); and admissible
+majorants (\cref{lem:majorant}). Three standard facts are used without statement: the
+Schur product theorem, Schur's test for the norm of a kernel or a matrix, and
+H\"older's inequality.

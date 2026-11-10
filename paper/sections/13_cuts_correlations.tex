@@ -1,0 +1,1671 @@
+
+\section{Cuts of graph laws: the cut operator and correlations after pinning}\label{sec:cuts}
+
+\paragraph{What this section proves and how to read it.}
+This section defines the cut operator $A_p$ of a graph law (the
+operator representing dependence across a mirror symmetry), shows
+how bounds at one prime extend to blocks, and bounds correlations
+remaining after some labels are fixed (\emph{pinned}). It then
+proves conversion lemmas between the true one-half distributions
+(\emph{actual marginals}) and product reference measures. Here
+\emph{block} in ``block operator'' means a matrix block, not a
+prime block; a \emph{row} is a conditional law of outer labels given
+a middle label (defined at first use below). Inputs:
+\cref{sec:labellings,sec:positivity}. Outputs: the setting for the
+spectral criteria of \cref{sec:spectral}. A first reading should
+follow the definition of $A_p$ and the statements of the pinning
+bounds; the reference-measure conversions can be consulted as
+needed; each Part~V section cites the lemma it uses. Statements
+concern one prime or one block, with hypotheses in $r=p^{-1/2}$
+verified at a threshold and extended by \cref{lem:majorant}.
+
+\subsection{A graph with an involution, and its cut operator}\label{subsec:cuts:data}
+
+Throughout this section $p$ is an odd prime, and $q$, $r$, $\chi$, $\Qsq$ and
+$\Ap=\one_{\Qsq}$ are as in \cref{subsec:notation:symbols}. Oriented graphs, the
+sets $\operatorname{Inj}_p(H)$ and the graph laws $\lambda_p(H)$ are those of
+\cref{def:graphs:labeling}, and $e_t(p,n')$ is the coarse count error of
+\eqref{eq:graphs:et}, nondecreasing in $t$, $n'$ and $r$ (\ref{it:et:poly}).
+Inner products and norms $\ip FH_\nu$, $\norm F_\nu$ are those of $L^2(\nu)$
+(the index is dropped when the law is clear), and maximal correlations are
+those of \cref{def:prelim:maxcorr}.
+
+\begin{definition}[Spectral data]\label{def:spec:data}
+\emph{Spectral data} $(G,\vartheta,U^+,\mathfrak o)$ consist of
+\begin{enumerate}[label=\textup{(S0)},leftmargin=*]
+\item an oriented graph $G=(U,E)$, an involutive automorphism $\vartheta$ of
+  $G$ that preserves orientations ($(u,w)\in E$ iff
+  $(\vartheta u,\vartheta w)\in E$), and a set $U^+\subseteq U$ with
+  $\vartheta(U^+)=U\setminus U^+=:U^-$;
+\end{enumerate}
+and an ordering $\mathfrak o=(v_1,\dots,v_n)$ of $U^+$, called
+the \emph{deletion order} because labels are chosen by
+successively deleting $v_1,v_2,\dots$. Thus
+$(G,U^+,\vartheta)$ is a \emph{reflection cut}; its \emph{cross edges} are the
+edges with one end in each half. We use the following notation.
+\begin{itemize}
+\item $n=|U^+|$, so $|U|=2n$; $G^+=G[U^+]$; for $j,k\in U^+$ we write
+  $j\sim k$ if $jk$ is an edge of $G^+$ (either orientation); $d^0_k$ is the
+  degree of $k$ in $G^+$ and $\Delta^+=\max_kd^0_k$; for $L\subseteq U^+$,
+  $e(L)$ is the number of edges of $G^+$ inside $L$.
+\item The \emph{cross signs} $\varsigma_{jk}$ ($j,k\in U^+$):
+  $\varsigma_{jk}=+1$ if $(j,\vartheta k)\in E$, $\varsigma_{jk}=-1$ if
+  $(\vartheta k,j)\in E$, and $\varsigma_{jk}=0$ otherwise.
+  $N(k)=\{j\in U^+:\varsigma_{jk}\ne0\}$, $r_k=|N(k)|$ (a degree,
+  not $r=p^{-1/2}$), $d_k=d^0_k+r_k$,
+  $\Delta=\max_kd_k$; $E_\times=\{(j,k)\in U^+\times U^+:\varsigma_{jk}\ne0\}$
+  is the set of \emph{cross pairs} and $m_\times=|E_\times|$. In a pair $(j,k)$,
+  $j$ is the \emph{$x$-endpoint} and $k$ the \emph{$x'$-endpoint}.
+\item The \emph{deletion degrees} $t_i$ ($1\le i\le n$): $t_i$ is the number of
+  $G$-neighbours of $v_i$ in $U\setminus\{v_1,\dots,v_{i-1}\}$ (the vertices of
+  $U^-$ are never deleted). The \emph{row ratio}, an upper bound for the ratio between the largest and smallest numbers of extensions of a half labelling, is
+  \begin{equation}\label{eq:spec:Rcut}
+    \Rcut(p)=\prod_{i=1}^n\frac{1+e_{t_i}(p,2n)}{1-e_{t_i}(p,2n)} .
+  \end{equation}
+\end{itemize}
+Let $p_0>0$ be real and $r_0=p_0^{-1/2}$, with $e_\Delta(p_0,2n)$ denoting the polynomial in $r_0$ of \eqref{eq:graphs:et}. The data satisfy the \emph{threshold
+hypothesis at $p_0$} if
+\begin{enumerate}[label=\textup{(S1)},leftmargin=*]
+\item $e_\Delta(p_0,2n)<1$ and $p_0>4n^2$.
+\end{enumerate}
+\end{definition}
+
+Since $e_\Delta(\cdot,2n)$ is a polynomial in $r$ with nonnegative
+coefficients, (S1) at $p_0$ implies (S1) at every prime $p\ge p_0$; this is the
+simplest instance of the monotone-majorant principle (\cref{lem:majorant}) by
+which one exact check at a threshold covers all larger primes. The pinned
+correlations of the half graph $G^+$ are governed by the influence conditions
+\eqref{eq:spec:S2} of \cref{subsec:cuts:influence}, which are not part of the
+definition.
+
+\begin{lemma}[Elementary facts]\label{lem:spec:elementary}
+Under \textup{(S0)}: $\varsigma$ is well defined, $\varsigma_{kj}=-\varsigma_{jk}$
+and $\varsigma_{kk}=0$; hence $(j,k)\in E_\times$ iff $(k,j)\in E_\times$, and
+$\#\{k:\varsigma_{jk}\ne0\}=r_j$. The map $(j,k)\mapsto$ (the edge of $G$
+between $j$ and $\vartheta k$) is a bijection from $E_\times$ onto the set of
+cross edges. Every vertex $k\in U^+$ and its image $\vartheta k$ have degree
+$d_k$ in $G$, so $\Delta$ is the maximum degree of $G$. Finally $\vartheta$
+maps $G^+$ isomorphically, with orientations, onto $G[U^-]$.
+\end{lemma}
+
+\begin{proof}
+$\varsigma_{jk}$ is well defined because $G$ contains at most one
+of the two opposite directed edges on each unordered pair.
+Applying
+$\vartheta$ (an orientation-preserving involution) gives $(k,\vartheta j)\in E$
+iff $(\vartheta k,j)\in E$, so $\varsigma_{kj}=+1$ iff $\varsigma_{jk}=-1$, and
+likewise with the signs exchanged. An edge $(k,\vartheta k)$ would give the
+opposite edge $(\vartheta k,k)$; hence $\varsigma_{kk}=0$. Every cross edge
+joins some $j\in U^+$ to some $\vartheta k$, $k\in U^+$, in one orientation,
+which is the bijection. The degree of $k$ is $d^0_k$ plus the number of $k'$
+with $\varsigma_{kk'}\ne0$, which is $r_k$ by antisymmetry; $\vartheta$ is an
+automorphism, so $\vartheta k$ has the same degree. The last claim is the
+automorphism property restricted to $U^+$.
+\end{proof}
+
+Fix a prime $p$. Put $\mathcal I^+=\operatorname{Inj}_p(G^+)$,
+$\mu=\mu_p=\lambda_p(G^+)$ (uniform on $\mathcal I^+$; the
+\emph{half law}) and $\lambda=\lambda_p(G)$ (throughout this
+section $\mu,\lambda$ are these local graph laws, not the
+reference and first-stage laws of Part~III). For $y\in\Fp^U$ write $x=y|_{U^+}$ ($x_k=y_k$) and
+$x'=(y\circ\vartheta)|_{U^+}$ ($x'_k=y_{\vartheta k}$). For $(j,k)\in E_\times$
+the cross constraint of the edge between $j$ and $\vartheta k$ reads
+$\varsigma_{jk}(x'_k-x_j)\in\Qsq$. The identification of a labelling $y$ of the
+whole graph with the pair $(x,x')$ of labellings of $G^+$, and this form of the
+cross constraints, are what the whole spectral method rests on.
+
+\begin{lemma}[Cut kernel]\label{lem:spec:cutkernel}
+Let spectral data satisfy $e_\Delta(p,2n)<1$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item $\operatorname{Inj}_p(G)$ and $\mathcal I^+$ are nonempty, and
+  $y\mapsto(x,x')$ is a bijection of $\operatorname{Inj}_p(G)$ onto
+  $\{(x,x')\in\mathcal I^+\times\mathcal I^+:K(x,x')=1\}$, where
+  \begin{equation}\label{eq:spec:K}
+    K(x,x')=\one\{x(U^+)\cap x'(U^+)=\emptyset\}\prod_{(j,k)\in E_\times}
+    \Ap\big(\varsigma_{jk}(x'_k-x_j)\big).
+  \end{equation}
+  Moreover $K(x,x')=K(x',x)$.
+\item Under $\lambda$ the pair $(x,x')$ has law $\mu\otimes\mu\cdot K/Z$ with
+  $Z=Z_p=\E_{\mu\otimes\mu}K>0$, and $x$, $x'$ have the same law $m_p$, the
+  \emph{actual half marginal}. The \emph{normalized cut operator} $\Op$ (the operator $A_p$ of the roadmaps) on
+  $L^2(\mu)$, $(\Op H)(x)=\E_{x'\sim\mu}[K(x,x')H(x')]/Z$, is self-adjoint,
+  $\E_\lambda[F(x)H(x')]=\ip F{\Op H}_\mu$ for real $F,H$, and
+  $\Op\one=\varrho:=dm_p/d\mu$.
+\item For $x\in\mathcal I^+$ let $N(x)=\#\{x'\in\mathcal I^+:K(x,x')=1\}$. Then
+  $N_-\le N(x)\le N_+$ for every $x$, with
+  $N_\pm=\prod_{i=1}^np2^{-t_i}\big(1\pm e_{t_i}(p,2n)\big)$ and
+  $N_+/N_-=\Rcut(p)$. Hence $\Rcut(p)^{-1}\le\varrho\le\Rcut(p)$ on
+  $\mathcal I^+$, and $2^{-m_\times}\Rcut(p)^{-1}\le Z\le2^{-m_\times}\Rcut(p)$.
+\item $\lambda$, $\mu$ and $m_p$ are invariant under the diagonal maps
+  $z\mapsto(az_u+c)_u$ ($a\in\Qsq$, $c\in\Fp$), every one-vertex marginal of
+  $\lambda$, $\mu$ and $m_p$ is uniform on $\Fp$, and $\lambda$ is invariant
+  under $(x,x')\mapsto(x',x)$.
+\item Let $B$ be a finite set of odd primes with $e_\Delta(p,2n)<1$ for
+  $p\in B$, $X=\prod_{p\in B}\Fp$, $\lambda_B(G)=\bigotimes_p\lambda_p(G)$,
+  $\mu_B=\bigotimes_p\mu_p$ and $\mathsf A_B=\bigotimes_{p\in B}\Op$ on
+  $L^2(\mu_B)=\bigotimes_pL^2(\mu_p)$. Then for all real
+  $F,H:X^{U^+}\to\R$, $\E_{y\sim\lambda_B(G)}[F(x)H(x')]=\ip F{\mathsf
+  A_BH}_{\mu_B}$.
+\item \emph{(Positive reweightings.)} Let $w\ge0$ be a function on
+  $\operatorname{Inj}_p(G)$ with $\E_\lambda w>0$, write $w(x,x')$ for its value
+  at the labelling with halves $(x,x')$ (and put $w(x,x')K(x,x')=0$ where
+  $K(x,x')=0$), and let $\lambda^w=w\lambda/\E_\lambda w$. Under $\lambda^w$ the
+  pair $(x,x')$ has law $\mu\otimes\mu\cdot wK/(Z\E_\lambda w)$. The operator
+  $\Op^w$ on $L^2(\mu)$ with kernel $wK/(Z\E_\lambda w)$ relative to
+  $\mu\otimes\mu$ satisfies $\E_{\lambda^w}[F(x)H(x')]=\ip F{\Op^wH}_\mu$ for
+  real $F,H$, and $\Op^w\one=dm^w_p/d\mu$, where $m^w_p$ is the law of $x$ under
+  $\lambda^w$; $\Op^w$ is self-adjoint if $w(x,x')=w(x',x)$. For a block $B$ as
+  in (e) and $w_B=\prod_{p\in B}w_p$, the identity of (e) holds for
+  $\lambda_B(G)^{w_B}=\bigotimes_p\lambda_p(G)^{w_p}$ with
+  $\bigotimes_p\Op^{w_p}$ in place of $\mathsf A_B$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) $G$ has $2n$ vertices and maximum degree $\Delta$
+(\cref{lem:spec:elementary}), so $\operatorname{Inj}_p(G)\ne\emptyset$ by
+\cref{lem:graphs:sequential}, and restriction gives $\mathcal
+I^+\ne\emptyset$. Since $\vartheta$ is a bijection, $y$ is determined by
+$(x,x')$. The constraints defining $\operatorname{Inj}_p(G)$ are: the edges
+inside $U^+$ and injectivity on $U^+$, which say $x\in\mathcal I^+$; the edges
+inside $U^-$ and injectivity on $U^-$, which say $x'\in\mathcal I^+$, because
+$\vartheta$ maps $G^+$ onto $G[U^-]$ with orientations; the cross edges, which
+are the factors of \eqref{eq:spec:K} by \cref{lem:spec:elementary}; and
+injectivity across the cut, the first factor. The map $y\mapsto y\circ\vartheta$
+is a bijection of $\operatorname{Inj}_p(G)$ (an automorphism preserves
+injectivity and the constraints), and it maps $(x,x')$ to $(x',x)$; hence the
+image set is symmetric, and $K$, its indicator, is symmetric.
+
+(b) $\lambda$ is uniform, so the law of $(x,x')$ is the uniform law on
+$\{K=1\}$, which is $\mu\otimes\mu\cdot K/Z$ with
+$Z=|\operatorname{Inj}_p(G)|/|\mathcal I^+|^2>0$. The swap symmetry of (a)
+shows that $x$ and $x'$ have the same law. $\Op$ has a real symmetric kernel,
+so it is self-adjoint, and $\ip F{\Op H}_\mu$ equals
+$\E_{\mu\otimes\mu}[F(x)K(x,x')H(x')]/Z=\E_\lambda[F(x)H(x')]$. Finally
+$m_p(x)=N(x)/|\operatorname{Inj}_p(G)|$ and $\mu(x)=1/|\mathcal I^+|$, so
+$(\Op\one)(x)=N(x)/(Z|\mathcal I^+|)=m_p(x)/\mu(x)$.
+
+(c) By the automorphism $\vartheta$, $N(x)$ is the number of labellings of
+$U^+$ that extend the labelling $x\circ\vartheta$ of $U^-$ to an element of
+$\operatorname{Inj}_p(G)$. Label $U^+$ in the order $v_n,v_{n-1},\dots,v_1$.
+When $v_i$ is labelled, its labelled neighbours are its $t_i$ neighbours in
+$U\setminus\{v_1,\dots,v_i\}$, their labels are distinct, and fewer than $2n$
+labels are in use. By \cref{lem:extension} (with the used labels as excluded
+set) the number of choices lies in
+$p2^{-t_i}[1-e_{t_i}(p,2n),1+e_{t_i}(p,2n)]$, whatever the earlier choices;
+here $e_{t_i}(p,2n)\le e_\Delta(p,2n)<1$. Multiplying gives $N_-\le N(x)\le
+N_+$, and $N_+/N_-=\Rcut(p)$ by \eqref{eq:spec:Rcut}. By (b),
+$\varrho=N|\mathcal I^+|/|\operatorname{Inj}_p(G)|=N/\E_\mu N$, so it lies in
+$[N_-/N_+,N_+/N_-]$. For $Z$, label $U^+$
+alone in the same order: $v_i$ then has $t^0_i\le t_i$ labelled neighbours
+(those in $G^+$) and fewer than $n$ labels are in use, so
+$|\mathcal I^+|\in\prod_ip2^{-t^0_i}[1-e_{t^0_i}(p,n),1+e_{t^0_i}(p,n)]$ with
+$e_{t^0_i}(p,n)\le e_{t_i}(p,2n)$. Since $\sum_it_i=e(U^+)+m_\times$ (each edge
+inside $U^+$ is counted at its earlier-deleted endpoint, each cross edge at its
+end in $U^+$, and there are $m_\times$ cross edges by
+\cref{lem:spec:elementary}) and $\sum_it^0_i=e(U^+)$, comparing the two
+products factor by factor shows that the quotient
+$Z=|\operatorname{Inj}_p(G)|/|\mathcal I^+|^2=\E_\mu N/|\mathcal I^+|$ lies in
+$2^{-m_\times}[\Rcut^{-1},\Rcut]$.
+
+(d) $\lambda$ and $\mu$ are uniform laws on injective strict-square
+labellings, hence square-affine invariant, and $m_p$ is the image of $\lambda$
+under the coordinate map $y\mapsto x$; so all three are invariant and have
+uniform one-vertex marginals by \cref{lem:marginals}(1),(2). The swap
+invariance is (a).
+
+(e) All laws and kernels are products over $p\in B$, and the identity follows
+from (b) for product functions and then for all $F,H$ by bilinearity, since
+product functions span $\bigotimes_pL^2(\mu_p)$.
+
+(f) Through the bijection of (a), $\lambda^w$ has the density
+$w/\E_\lambda w$ relative to $\lambda$, so by (b) the pair $(x,x')$ has the law
+$\mu\otimes\mu\cdot wK/(Z\E_\lambda w)$ under $\lambda^w$. Hence
+\[
+  \ip F{\Op^wH}_\mu=\frac{\E_{\mu\otimes\mu}[F(x)\,(wK)(x,x')\,H(x')]}{Z\E_\lambda w}
+  =\E_{\lambda^w}[F(x)H(x')],
+\]
+and $(\Op^w\one)(x)$ is the density of the law of $x$ under $\lambda^w$ relative
+to $\mu$. The kernel is real, and it is symmetric
+when $w$ is, because $K$ is symmetric. For a block,
+$\E_{\lambda_B(G)}w_B=\prod_p\E_{\lambda_p(G)}w_p$, so $\lambda_B(G)^{w_B}$ is the
+product of the laws $\lambda_p(G)^{w_p}$, and the identity follows from the
+prime identity for product functions and bilinearity, as in (e).
+\end{proof}
+
+Thus the full labelling law is the product of two copies of the half law
+reweighted by the cross kernel; every cut-operator estimate starts from this
+identity, and parts (a)--(c) use the reflection only to identify the two
+halves. Part (f) is the form in which the positive roots of the late middle
+pieces are measured (\cref{sec:positive-roots}): the reference stays the half
+law $\mu$, and the reweighting enters only the kernel and the constant image
+$\Op^w\one$. The factor $2^{-m_\times}$ in (c) is the expected mass of the cross
+constraints; normalizing by the exact mass $Z$ instead is what makes the
+later estimates relative. The norm matters too: $\Op$ acts on $L^2$ of the
+half law $\mu$, not of the actual half marginal $m_p$, and by (c) the two norms
+differ by a factor in $[\Rcut^{-1/2},\Rcut^{1/2}]$. The comparison records of
+Part~V are measured in the actual marginals
+(\cref{subsec:cuts:actual,subsec:cuts:recentering}).
+
+We write $Q(F)=\ip F{\Op F}_\mu=\E_\lambda[F(x)F(x')]$ for real $F$, and
+$\mathcal B(F,H)=\E_\lambda[F(x)H(x')]$ for the symmetric bilinear form
+(symmetric by the swap invariance). For a set $S\subseteq U^+$ and a value $s$
+with $\mu(x_S=s)>0$ (a \emph{feasible pinning}) the conditional law is
+$\mu(\cdot\mid x_S=s)$.
+
+\begin{lemma}[Transport along isomorphisms]\label{lem:cut-transport}
+Let $(G,\vartheta,U^+)$ and $(G',\vartheta',U'^+)$ satisfy \textup{(S0)}, and
+let $\phi\colon U\to U'$ be an isomorphism of oriented graphs with
+$\phi(U^+)=U'^+$ and $\phi\circ\vartheta=\vartheta'\circ\phi$. Then
+$y\mapsto y\circ\phi^{-1}$ is a bijection
+$\operatorname{Inj}_p(G)\to\operatorname{Inj}_p(G')$ which maps the halves
+$(x,x')$ of $y$ to the halves $(x\circ\phi^{-1},x'\circ\phi^{-1})$ of
+$y\circ\phi^{-1}$. Consequently $\Phi F(\xi)=F(\xi\circ\phi)$ defines a
+unitary operator $L^2(\mu_p)\to L^2(\mu'_p)$ with $\Phi\Op\Phi^*=\Op'$ and
+$\Phi\varrho=\varrho'$; $\Phi$ maps the functions of the labels of
+$A\subseteq U^+$ onto the functions of the labels of $\phi(A)$, so the
+compressions of $\Op$ and $\Op'$ to corresponding subspaces are unitarily
+equivalent; the same holds over a block of primes with $\bigotimes_p\Phi$; and
+if $\phi$ maps $\mathfrak o$ to a deletion order $\mathfrak o'$, the row ratios
+agree. In particular, if $\phi$ is an automorphism of $G$, the cut operators of
+$\lambda_p(G)$ at the cuts $(U^+,\vartheta)$ and
+$(\phi(U^+),\phi\vartheta\phi^{-1})$ are unitarily equivalent.
+\end{lemma}
+
+\begin{proof}
+$\phi$ maps edges to edges with orientations, and
+$(y\circ\phi^{-1})(\phi w)-(y\circ\phi^{-1})(\phi u)=y(w)-y(u)$, so
+$y\circ\phi^{-1}\in\operatorname{Inj}_p(G')$ iff $y\in\operatorname{Inj}_p(G)$.
+The new halves are $(y\circ\phi^{-1})|_{U'^+}=x\circ\phi^{-1}$ and
+$(y\circ\phi^{-1}\circ\vartheta')|_{U'^+}=(y\circ\vartheta\circ\phi^{-1})|_{U'^+}
+=x'\circ\phi^{-1}$, using $\phi^{-1}\circ\vartheta'=\vartheta\circ\phi^{-1}$.
+Since $\phi$ maps $G^+$ onto $G'^+$, the half law $\mu'_p$ is the image of
+$\mu_p$ under $x\mapsto x\circ\phi^{-1}$, so $\Phi$ is unitary, and
+\[
+  \ip{\Phi F}{\Op'\Phi H}_{\mu'_p}=\E_{\lambda_p(G')}\big[(\Phi F)(x\circ\phi^{-1})
+  (\Phi H)(x'\circ\phi^{-1})\big]=\E_{\lambda_p(G)}[F(x)H(x')]=\ip F{\Op H}_{\mu_p}
+\]
+by \cref{lem:spec:cutkernel}(b). The actual half marginals correspond in the
+same way, which gives $\Phi\varrho=\varrho'$. The statements on functions of a
+vertex set and on blocks are immediate, and the deletion degrees are preserved
+because $\phi$ preserves adjacency.
+\end{proof}
+
+\subsection{From mean-zero bounds to operator bounds}\label{subsec:cuts:blocks}
+
+Several facts turn a spectral bound for one normalized operator at one prime
+into the bounds the construction uses. An upper bound on the mean-zero
+compression, together with a small constant image, gives a positive envelope
+$1+O(1/p)$ (\cref{prop:matching:positive}); a lower bound on the compression
+gives the matching lower envelope; and for an operator commuting with
+translations the centred bound may be split between the translation-invariant
+functions and their complement. The envelopes at the primes of a block
+tensorize, the upper envelopes contributing the factor $\prod_p(1+c^+/p)\le\exp(c^+\sum_p1/p)$ (\cref{lem:spec:tensorcomp}). The operators $\Op$ act on
+the reference half law and are not Markov: their upper spectrum exceeds $1$ by
+about $c^+/p$, and that excess is the source of the inflation factor. Markov operators of
+couplings, taken in their actual marginals, pay only the maximum of their
+factors under tensor products (\cref{lem:sector}(c)); this is one reason why the
+comparison records of Part~V keep their actual marginals. Two more tools
+bound syntheses of many feature maps: weighted frames (finite
+families of feature maps with a positive weight vector, bounded
+through the largest eigenvalue of a symmetric majorant matrix;
+\cref{lem:weighted-frame}), and
+swapped rectangular kernels, whose nonzero eigenvalues are, up to sign,
+products of two singular values of the rectangle (\cref{lem:swapped-rectangle}). The
+projections $\Jproj$ and $P_0=I-\Jproj$ are those of
+\cref{subsec:notation:conventions}.
+
+The following identity is the common reason that eliminating one diagonal block loses at most the square of the coupling norm divided by the lower bound of that block. It will be used both for the
+constant direction of a normalized kernel and for smaller compressions in
+Part~V.
+
+\begin{lemma}[Block completion]\label{lem:block-completion}
+Let $T=\begin{psmallmatrix}A&B^*\\B&D\end{psmallmatrix}$ be self-adjoint on
+a finite-dimensional orthogonal sum $\mathcal H_1\oplus\mathcal H_2$, and put
+$b=\norm B$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item If $A\succeq sI$ with $s>0$, then
+  \[
+    \ip{(x,y)}{T(x,y)}
+    =\norm{A^{1/2}x+A^{-1/2}B^*y}^2
+      +\ip y{(D-BA^{-1}B^*)y}.
+  \]
+  Consequently $T\succeq0$ if and only if
+  $D-BA^{-1}B^*\succeq0$, and
+  $D-BA^{-1}B^*\succeq D-(b^2/s)I$.
+\item If $A\succeq aI$, $D\succeq dI$ and $a>d$, then
+  \[
+    T\succeq\left(d-\frac{b^2}{a-d}\right)I.
+  \]
+  Dually, if $A\preceq aI$, $D\preceq dI$ and $a>d$, then
+  $T\preceq\left(a+\frac{b^2}{a-d}\right)I$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Expanding the square gives (a); choosing $x=-A^{-1}B^*y$ proves the
+necessity of its positivity criterion, and $A^{-1}\preceq s^{-1}I$ gives
+the residual bound. For (b), put $\lambda=d-b^2/(a-d)$. The first diagonal
+block of $T-\lambda I$ is at least $(a-d)I$, and the second is at least
+$b^2/(a-d)I$, so (a) gives $T-\lambda I\succeq0$.
+Apply this lower bound to $-T$ with the two summands interchanged to obtain
+the upper bound.
+\end{proof}
+
+\begin{proposition}[Positive envelope from the mean-zero compression]\label{prop:matching:positive}
+Let $(\Omega,\nu)$ be a finite probability space with full support and $A$ a
+self-adjoint operator on $L^2(\nu)$ with $\ip\one{A\one}=1$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item If $\norm{P_0A\one}\le e$ and $P_0AP_0\preceq\beta P_0$ with $\beta<1$,
+  then $A\preceq\big(1+\frac{e^2}{1-\beta}\big)I$.
+\item[\textup{(a$'$)}] \emph{(Lower envelope.)} If $\norm{P_0A\one}\le e$ and
+  $P_0AP_0\succeq-gP_0$ with $g\ge0$, then
+  $A\succeq-\big(g+\frac{e^2}{1+g}\big)I$.
+\item[\textup{(a$''$)}] \emph{(Translation sectors.)} Let a finite group act on
+  $\Omega$ preserving $\nu$, let $A$ commute with the induced unitary operators
+  $f\mapsto f\circ\gamma^{-1}$, and let $\mathcal I\ni\one$ be the space of
+  invariant functions. Then $A$ preserves $\mathcal I$ and $\mathcal I^\perp$,
+  and $u=P_0A\one\in\mathcal I$. If $\norm{A|_{\mathcal I^\perp}}\le C$,
+  $\norm{P_0AP_0|_{\mathcal I}}\le H<1$ and $\norm u^2\le\vartheta_u$, then
+  \[
+    -\max(C,H+\vartheta_u)\,I\preceq A\preceq\max\Big(C,\,1+\frac{\vartheta_u}{1-H}\Big)I .
+  \]
+\item[\textup{(b)}] \emph{(Normalized kernels.)} Let $K\ge0$ be a symmetric kernel on
+  $\Omega\times\Omega$ with operator $T_Kf(x)=\E_{y\sim\nu}K(x,y)f(y)$, and
+  suppose that $\norm{T_K-k\Jproj}\le k\eps$ for some $k>0$ and $0\le\eps<1$. Put
+  $z=\ip\one{T_K\one}/k$, $A=T_K/(kz)$ and $\hat\eps=\eps/(1-\eps)$. Then
+  $|z-1|\le\eps$, $\ip\one{A\one}=1$, $\norm{P_0A\one}\le\hat\eps$,
+  $\norm{P_0AP_0}\le\hat\eps$ and $A\succeq-\hat\eps I$; if $\hat\eps<1$, then
+  $A\preceq(1+\hat\eps^2/(1-\hat\eps))I$.
+\item[\textup{(c)}] \emph{(All primes above a threshold.)} Suppose that for every prime
+  $p\ge p_0$ an operator $A=A_p$ as above satisfies (a) with $e=e(r)$ and
+  $\beta=gr$, where $e(r)/r$ is nondecreasing in $r=p^{-1/2}$ and $gr_0<1$,
+  $r_0=p_0^{-1/2}$. Then $A_p\preceq(1+B^+/p)I$ for every prime $p\ge p_0$,
+  with $B^+=p_0\,e(r_0)^2/(1-gr_0)$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a), (a$'$) Relative to $\langle\one\rangle\oplus\one^\perp$, the operator
+has diagonal blocks $1$ and $P_0AP_0$, and coupling vector $P_0A\one$ of
+norm at most $e$. Apply the upper and lower bounds of
+\cref{lem:block-completion}(b), respectively, with diagonal bounds
+$(1,\beta)$ and $(1,-g)$.
+
+(a$''$) For a group element $\gamma$ the operator $U_\gamma f=f\circ\gamma^{-1}$
+is unitary on $L^2(\nu)$ and fixes $\one$, so it commutes with $\Jproj$ and
+$P_0$. If $f\in\mathcal I$, then $U_\gamma Af=AU_\gamma f=Af$ for every
+$\gamma$; so $A$ preserves $\mathcal I$, and, being self-adjoint, also
+$\mathcal I^\perp$. Hence $A\one\in\mathcal I$, $u=P_0A\one$ lies in
+$\mathcal I_0=\mathcal I\cap\one^\perp$, and $D_{\mathcal I}=P_0AP_0|_{\mathcal I_0}$
+is a self-adjoint operator on $\mathcal I_0$ with $\norm{D_{\mathcal I}}\le H$. As
+$L^2(\nu)=\mathcal I\oplus\mathcal I^\perp$ and $A$ preserves both summands, it
+suffices to bound $A$ on each; on $\mathcal I^\perp$, $-CI\preceq A\preceq CI$.
+On $\mathcal I$, parts (a) and (a$'$), with $e^2=\vartheta_u$ and
+$\beta=g=H$, give the upper bound $1+\vartheta_u/(1-H)$ and the lower bound
+$-H-\vartheta_u/(1+H)\ge-H-\vartheta_u$. Combining these with the bounds on
+$\mathcal I^\perp$ proves the claim.
+
+(b) Write $T_K=k\Jproj+D$ with $\norm D\le k\eps$. Then
+$kz=\ip\one{T_K\one}=k+\ip\one{D\one}$, so $|z-1|\le\eps$, and clearly
+$\ip\one{A\one}=1$. Since $P_0\Jproj=\Jproj P_0=0$, $P_0A\one=P_0D\one/(kz)$ and
+$P_0AP_0=P_0DP_0/(kz)$ have norms at most $\eps/z\le\hat\eps$. Next
+$A=\Jproj/z+D/(kz)\succeq D/(kz)\succeq-(\eps/z)I\succeq-\hat\eps I$. Finally
+$P_0AP_0\preceq\hat\eps P_0$, and (a) with $e=\beta=\hat\eps$ gives the upper
+bound.
+
+(c) For $p\ge p_0$, $r\le r_0$, and
+$e(r)^2/(1-gr)=r^2(e(r)/r)^2/(1-gr)\le r^2(e(r_0)/r_0)^2/(1-gr_0)=B^+/p$.
+Insert this in (a).
+\end{proof}
+
+Part (a) is the positive envelope of both spectral criteria: with
+$e=\eps_\varrho$ (the bound on $\norm{P_0\Op\one}$ of
+\ref{it:centre:inputs}) and $\beta=gr$ it gives
+$A\preceq(1+\eps_\varrho^2/(1-gr))I$ at one
+prime, which (c) turns into the threshold bound $1+B^+/p$ of
+\cref{thm:spectral-criterion}, and with $\beta=g_{\rm root}r$ it gives that of
+\cref{thm:record:direct-star}. It also covers an
+operator written as $A=\ip{w}{\cdot}\,w+R$ with $w$ real, $\ip\one w=1$,
+$\norm{w-\one}\le v$, and $R=P_0RP_0$ self-adjoint with $\norm R\le d$: then
+$\ip\one{A\one}=1$,
+$P_0A\one=w-\one$ and $P_0AP_0\preceq(d+v^2)P_0$, so
+$A\preceq\big(1+v^2/(1-d-v^2)\big)I$ when $d+v^2<1$.
+
+With (a), parts (a$'$) and (a$''$) give the two-sided caps
+$-gp^{-1/2}I\preceq T_p\preceq(1+c^+/p)I$ of the cuts whose centred blocks are
+bounded directly: (a$''$) gives the upper cap of the cut L20 of the uniform root
+(\cref{subsec:middle-l20}); (a) and (a$'$) give both caps of the chamber cut of a
+positive root on one of the seven middle intervals with least prime at least $2^{30}$ (\cref{prop:root-chamber}), and (a) the
+upper cap of its layer cut (\cref{prop:root-layer}); and (a$'$) gives the lower
+caps of the merge and constant compressions of the upper range
+(\cref{prop:observed-caps}). At the cut L20 the
+group of (a$''$) is the group of simultaneous translations of all labels: it
+preserves the half law (\cref{lem:spec:cutkernel}(d)) and commutes with the cut
+operator, because the kernel \eqref{eq:spec:K} depends only on differences of
+labels.
+
+\begin{lemma}[Tensor products of compressions]\label{lem:spec:tensorcomp}
+\leavevmode
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item \emph{(Tensor spectrum, \cref{lem:sector}(g).)} If $C_1,\dots,C_k$ are
+  self-adjoint operators on finite-dimensional Hilbert spaces with spectra in
+  $[-g_i,1+b_i]$, where $b_i\ge0$ and $0\le g_i\le1+b_i$, then
+  $\bigotimes_iC_i\succeq-\max_i\big(g_i\prod_{j\ne i}(1+b_j)\big)I
+  \succeq-(\max_ig_i)\exp(\sum_ib_i)I$.
+\item Let $B$ be a finite set of odd primes, $b=\min B$, and for $p\in B$ let
+  $T_p$ be a self-adjoint operator on a finite-dimensional Hilbert space with
+  \[
+    -gp^{-1/2}I\preceq T_p\preceq(1+c^+/p)I,\qquad gp^{-1/2}<1,
+  \]
+  where $g,c^+\ge0$. Then
+  \[
+    \bigotimes_{p\in B}T_p\succeq-\frac g{\sqrt b}\prod_{p\in B}\Big(1+\frac{c^+}p\Big)I
+    \succeq-\frac g{\sqrt b}\exp\Big(c^+\sum_{p\in B}\frac1p\Big)I,
+  \]
+  and if $B=\{p\}$ the bound is $-gp^{-1/2}I$. In particular, let spectral data
+  be given with $e_\Delta(p,2n)<1$ for $p\in B$, and for $p\in B$ let
+  $\mathcal V_p\subseteq L^2(\mu_p)$ be a subspace with
+  \[
+    -gp^{-1/2}\norm F^2\le\ip F{\Op F}_{\mu_p}\le(1+c^+/p)\norm F^2\qquad
+    (F\in\mathcal V_p),
+  \]
+  with $g,c^+\ge0$ and $gp^{-1/2}<1$ as above.
+  Then for every $F\in\bigotimes_{p\in B}\mathcal V_p$
+  \[
+    \ip F{\mathsf A_BF}_{\mu_B}\ge-\frac g{\sqrt b}\prod_{p\in B}\Big(1+\frac{c^+}p\Big)
+    \norm F^2_{\mu_B}\ge-\frac g{\sqrt b}\exp\Big(c^+\sum_{p\in B}\frac1p\Big)
+    \norm F^2_{\mu_B},
+  \]
+  and if $B=\{p\}$ the bound is $-gp^{-1/2}\norm F^2$. For $A\subseteq U^+$ the
+  functions of $x_A$ in $L^2(\mu_B)$ form the subspace $\bigotimes_p\mathcal
+  V_{A,p}$, where $\mathcal V_{A,p}$ is the space of functions of $x_{A,p}$ in
+  $L^2(\mu_p)$; so (b) applies to the compression to the functions of the
+  labels of a vertex set.
+\item If $\log\prod_{p\in B}p\le L$, then $|B|\le L/\log b$ and
+  $\sum_{p\in B}1/p\le L/(b\log b)$.
+\end{enumerate}
+The lower and the upper bound in (b) may come from different arguments. The
+upper bound for $\mathcal V_p=L^2(\mu_p)$, which bounds every compression, is
+supplied by \cref{prop:matching:positive}(c), with $c^+=B^+$.
+\end{lemma}
+
+\begin{proof}
+(a) is \cref{lem:sector}(g) with $c_i=g_i$. (b) Apply (a) to the operators
+$T_p$, with $g_p=gp^{-1/2}\le gb^{-1/2}$ and $b_p=c^+/p$; the condition
+$g_p\le1+b_p$ holds since $gp^{-1/2}<1$, and
+$g_p\prod_{p'\ne p}(1+b_{p'})\le gb^{-1/2}\prod_{p'\in B}(1+b_{p'})$. For a single
+prime the product over $p'\ne p$ is empty. For spectral data let $P_p$ be the
+orthogonal projection of $L^2(\mu_p)$ onto $\mathcal V_p$ and
+$C_p=P_p\Op P_p|_{\mathcal V_p}$, a self-adjoint operator on $\mathcal V_p$
+whose spectrum lies in its numerical range, hence in
+$[-gp^{-1/2},1+c^+/p]$. On $\bigotimes_p\mathcal V_p\subseteq L^2(\mu_B)$,
+$(\bigotimes_pP_p)(\bigotimes_p\Op)(\bigotimes_pP_p)=\bigotimes_pC_p$, so
+$\ip F{\mathsf A_BF}=\ip F{(\bigotimes_pC_p)F}$ for $F\in\bigotimes_p\mathcal
+V_p$, and the first statement applies with $T_p=C_p$. The last statement holds
+because $\mu_B$ is a product and $x_A=(x_{A,p})_{p\in B}$, so the functions of
+$x_A$ are spanned by the products $\prod_pf_p(x_{A,p})$. (c) is
+\cref{lem:majorant}(c) with $X=b$, since $q_B=\prod_{p\in B}p\le e^L$.
+\end{proof}
+
+By (c), a block of logarithmic length at most $L$ whose least prime $b$ is at
+least $X$ has $\sum_{p\in B}1/p\le L/(b\log b)\le L/(X\log X)$. So if the caps of
+(b) hold with the same $g,c^+$ at every prime $p\ge X$, then
+\[
+  \bigotimes_{p\in B}T_p\succeq-g\exp\Big(\frac{c^+L}{X\log X}\Big)\,b^{-1/2}I :
+\]
+so the displayed lower bound, with the number $g\exp(c^+L/(X\log X))$ in place of $g$, holds for every such block. Part (b) uses only the two caps of each $T_p$, so it applies as well
+to the cut operators of positive reweightings (\cref{lem:spec:cutkernel}(f)) and
+to their compressions to subspaces.
+
+\paragraph{Weighted frames.}
+Many estimates of Part~V bound a sum of feature maps whose ranges are not
+orthogonal, through a matrix of bounds for their pairwise overlaps. The next
+lemma is the general form of that step; its part (c) reduces the largest
+eigenvalue of a symmetric majorant to a small matrix when the majorant has
+symmetries.
+
+\begin{lemma}[Weighted frames]\label{lem:weighted-frame}
+Let $V_i\colon\mathcal H_i\to\mathcal H$ ($i\in I$, $I$ finite) be operators
+between finite-dimensional Hilbert spaces, and let $G=(G_{ij})_{i,j\in I}$ be a
+symmetric matrix with nonnegative entries such that $\norm{V_i^*V_j}\le G_{ij}$
+for all $i,j$ (for isometries one may take $G_{ii}=1$).
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item For $d_i\ge0$ and $D=\operatorname{diag}(d_i)$,
+  \[
+    \Big\|\sum_id_iV_iV_i^*\Big\|\le\lambda_{\max}(D^{1/2}GD^{1/2})
+    \le\max_i\sum_jG_{ij}d_j ;
+  \]
+  equivalently, the synthesis map $(z_i)_i\mapsto\sum_i\sqrt{d_i}V_iz_i$ from
+  $\bigoplus_i\mathcal H_i$ to $\mathcal H$ has squared norm at most these
+  numbers. In particular $\norm{\sum_iV_iV_i^*}\le\lambda_{\max}(G)$.
+\item For finitely many such families $(V^{(k)}_i)_{i\in I_k}$ with matrices
+  $G^{(k)}$, the tensor products $\bigotimes_kV^{(k)}_{i_k}$, indexed by
+  $\prod_kI_k$, satisfy the hypothesis with the Kronecker product
+  $\bigotimes_kG^{(k)}$.
+\item \emph{(Perron gate.)} Let $G$ be any symmetric matrix with nonnegative
+  entries indexed by $I$, preserved by a group of permutations of $I$
+  ($G_{\sigma i,\sigma j}=G_{ij}$) with orbits $O_1,\dots,O_m$, and put
+  $\bar G_{ab}=(|O_a||O_b|)^{-1/2}\sum_{i\in O_a,\,j\in O_b}G_{ij}$. Then
+  $\lambda_{\max}(G)=\lambda_{\max}(\bar G)$. Hence $\lambda_{\max}(G)\le\lambda$
+  as soon as $\lambda I-\bar G\succeq0$, which may be verified by eliminating
+  positive diagonal entries (Schur complements).
+\end{enumerate}
+In applications of (a), any smaller bound for $\lambda_{\max}(G)$ may replace the row-sum bound.
+\end{lemma}
+
+\begin{proof}
+(a) The synthesis map $S(z_i)_i=\sum_i\sqrt{d_i}V_iz_i$ has the adjoint
+$S^*h=(\sqrt{d_i}V_i^*h)_i$, so $SS^*=\sum_id_iV_iV_i^*$ and
+$\norm{\sum_id_iV_iV_i^*}=\norm{S^*S}$. For $z=(z_i)_i$ put $w_i=\norm{z_i}$; then
+\[
+  \ip z{S^*Sz}=\sum_{i,j}\sqrt{d_id_j}\ip{z_i}{V_i^*V_jz_j}
+  \le\sum_{i,j}\sqrt{d_id_j}\,G_{ij}w_iw_j=\ip w{D^{1/2}GD^{1/2}w},
+\]
+which is at most $\lambda_{\max}(D^{1/2}GD^{1/2})\norm z^2$,
+since $\norm w=\norm z$, and $S^*S\succeq0$ has norm equal to the supremum of
+this form over unit vectors. Deleting the indices with $d_i=0$ removes a zero
+block of $D^{1/2}GD^{1/2}$ and does not increase the row sums; for $d_i>0$ the
+matrix $D^{1/2}GD^{1/2}=D^{1/2}(GD)D^{-1/2}$ is similar to $GD$, whose
+eigenvalues are at most its largest row sum $\max_i\sum_jG_{ij}d_j$ in modulus,
+because its entries are nonnegative.
+
+(b) For multi-indices $(i_k)$, $(j_k)$,
+$(\bigotimes_kV^{(k)}_{i_k})^*(\bigotimes_kV^{(k)}_{j_k})=\bigotimes_kV^{(k)*}_{i_k}V^{(k)}_{j_k}$,
+whose norm is the product of the norms of the factors, at most
+$\prod_kG^{(k)}_{i_kj_k}$, the entry of the Kronecker product; this matrix is
+symmetric with nonnegative entries.
+
+(c) Let $v$ be a real unit eigenvector of $G$ for $\lambda_1=\lambda_{\max}(G)$,
+and let $|v|$ be its entrywise modulus. Since the entries of $G$ are
+nonnegative, $\ip{|v|}{G|v|}\ge\ip v{Gv}=\lambda_1$, so $|v|$ maximizes the
+Rayleigh quotient and is an eigenvector for $\lambda_1$. The permutation
+matrices of the group commute with $G$, so the average $\bar v$ of the images
+of $|v|$ under the group is again an eigenvector for $\lambda_1$; it is
+nonzero, since it is nonnegative with the same positive entry sum as $|v|$,
+and it is invariant. The invariant vectors are those constant on every orbit,
+with the orthonormal basis $e_a=\one_{O_a}/|O_a|^{1/2}$; $G$ maps them to
+invariant vectors, and $\ip{e_a}{Ge_b}=\bar G_{ab}$. So $\bar G$ is the matrix
+of the restriction of $G$ to the invariant vectors, a compression of $G$, which
+gives $\lambda_{\max}(\bar G)\le\lambda_1$; and $\bar v$ is an eigenvector of
+that restriction for $\lambda_1$, which gives the reverse inequality.
+\end{proof}
+
+When $G$ has unit diagonal, $\lambda_{\max}(G)=1+\lambda_{\max}(G-I)$, and (c)
+may be applied to the off-diagonal part $G-I$. For example, for
+arbitrary nonnegative numbers $\varrho_{01},\varrho_{02},
+\varrho_{03},\varrho_{34}$, five features with the off-diagonal
+bounds $G_{01}=G_{12}=\varrho_{01}$, $G_{02}=\varrho_{02}$,
+$G_{03}=G_{24}=\varrho_{03}$, $G_{34}=\varrho_{34}$ (and zero elsewhere), as
+the fold features of \cref{lem:oct24:feature-block}, admit the symmetry that
+exchanges $0\leftrightarrow2$ and $3\leftrightarrow4$; its orbits are
+$\{0,2\}$, $\{3,4\}$ and $\{1\}$, and the Perron block of the off-diagonal part
+is
+\[
+  \begin{pmatrix}\varrho_{02}&\varrho_{03}&\sqrt2\,\varrho_{01}\\
+  \varrho_{03}&\varrho_{34}&0\\ \sqrt2\,\varrho_{01}&0&0\end{pmatrix}.
+\]
+Eliminating its last two diagonal entries shows that the synthesis map of the
+five features has squared norm at most $1+\lambda$ for every $\lambda$ with
+\[
+  \lambda>\varrho_{34},\qquad
+  \lambda-\varrho_{02}-\frac{\varrho_{03}^2}{\lambda-\varrho_{34}}
+  -\frac{2\varrho_{01}^2}\lambda\ge0 .
+\]
+The lemma also gives the diagonal caps of the positive envelopes
+(\cref{thm:envelopes}) and the frames of the complete actual stars
+(\cref{subsec:spec:actual-stars}).
+
+\paragraph{Swapped rectangular kernels.}
+At a root cut whose half factors into two independent parts, the soft kernel is
+a product of one rectangular kernel with its own transpose, the second coordinates of the two halves being exchanged. Its spectrum is then read off from the singular
+values of the rectangle, and products with kernel factors depending on a common auxiliary label
+factor through the same exchange.
+
+\begin{lemma}[Swapped rectangular kernels]\label{lem:swapped-rectangle}
+Let $(X,\alpha)$ and $(Y,\beta)$ be finite probability spaces with full
+support, let $A\colon L^2(\beta)\to L^2(\alpha)$ have the real kernel $A(x;y)$,
+$(Ah)(x)=\E_{y\sim\beta}A(x;y)h(y)$, and let $T[A,A]$ be the operator on
+$L^2(\alpha\otimes\beta)$ whose kernel relative to $\alpha\otimes\beta$ is
+$A(x;y')A(x';y)$ at $((x,y),(x',y'))$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item $T[A,A](f\otimes g)=Ag\otimes A^*f$, that is,
+  $T[A,A]=(A\otimes A^*)\operatorname{Swap}$ with
+  $\operatorname{Swap}(f\otimes g)=g\otimes f$. Let $(u_i)$ and $(v_j)$ be
+  orthonormal bases of $L^2(\alpha)$ and $L^2(\beta)$, and $\sigma_i\ge0$, with
+  $Av_i=\sigma_iu_i$ and $A^*u_i=\sigma_iv_i$ for $i\le k=\min(|X|,|Y|)$, and
+  $Av_j=0$, $A^*u_i=0$ for $j>k$, $i>k$ (a singular value decomposition). Then
+  $T[A,A](u_i\otimes v_j)=\sigma_i\sigma_j\,u_j\otimes v_i$ for $i,j\le k$, and
+  $T[A,A](u_i\otimes v_j)=0$ otherwise. So $T[A,A]$ is self-adjoint, its
+  eigenvalues are the $\sigma_i^2$, the numbers $\pm\sigma_i\sigma_j$
+  ($i<j\le k$) and zero, and $\norm{T[A,A]}=\norm A^2$. If
+  $A=\sigma_0u_0\ip{v_0}{\cdot}+A'$ with unit vectors $u_0,v_0$, $\sigma_0\ge0$,
+  $A'v_0=0$, $A'^*u_0=0$ and $\norm{A'}\le c$, and if $s\ge\max(\sigma_0,c)$,
+  then $T[A,A]\succeq-sc\,I$, and $\norm{T[A,A]h}\le sc\norm h$ for every $h$
+  orthogonal to $u_0\otimes v_0$.
+\item \emph{(Products with a bounded row.)} Let $(Z,\gamma)$, $(S,\pi)$ and
+  $(S',\pi')$ be finite probability spaces with full support, let
+  $P\colon L^2(\pi)\to L^2(\gamma)$ have the real kernel $P(z;s)$, and let
+  $R(z;t)$ be a real kernel on $Z\times S'$ with
+  $\sup_z\norm{R(z;\cdot)}_{L^2(\pi')}\le\xi$. The product synthesis
+  $(P\cdot R)F(z)=\E_{s\sim\pi,\,t\sim\pi'}P(z;s)R(z;t)F(s,t)$ has norm at most
+  $\xi\norm P$ from $L^2(\pi\otimes\pi')$ to $L^2(\gamma)$. More generally, let
+  $\Gamma$ be a real positive semidefinite kernel on $Z$ (the matrix
+  $(\Gamma(z,z'))$ is positive semidefinite) with $\Gamma(z,z)\le c$, let $W$ be
+  an operator on $L^2(\gamma)$ with $0\preceq W\preceq aI$, and let
+  $\Gamma\circ W$ be the operator whose kernel relative to $\gamma\otimes\gamma$
+  is the pointwise product of $\Gamma$ with the kernel of $W$. Then
+  $0\preceq\Gamma\circ W\preceq caI$.
+\item \emph{(Entangled swap.)} Let $\mathcal H=L^2_0(\Fp)$ for the uniform law
+  on $\Fp$ and $e_0(a,s)=(p\one_{a=s}-1)/\sqrt{p-1}$. Then $e_0$ is a unit vector
+  of $\mathcal H\otimes\mathcal H$, and if $e_0\otimes I\colon\mathcal H\to
+  \mathcal H^{\otimes3}$ maps $h$ to $e_0\otimes h$ and
+  $\operatorname{Swap}_{13}$ exchanges the first and the third factor, then
+  $(e_0\otimes I)^*\operatorname{Swap}_{13}(e_0\otimes I)=I/(p-1)$ on
+  $\mathcal H$.
+\item \emph{(Common auxiliary label.)} Let $(S,\pi)$ be a finite probability space with
+  full support, let $x\mapsto\phi_x$ and $x\mapsto\phi'_x$ be maps from $X$ to
+  real functions in $L^2(\pi)$, put $M(x,x')=\ip{\phi_x}{\phi'_{x'}}_\pi$, and
+  let $\mathcal Y,\mathcal Y'\colon L^2(\beta\otimes\pi)\to L^2(\alpha)$ have the
+  kernels $A(x;y)\phi_x(s)$ and $A(x;y)\phi'_x(s)$. Let $T[A,A]\circ M$ be the
+  operator with kernel $A(x;y')A(x';y)M(x,x')$. Then
+  \[
+    T[A,A]\circ M=(\mathcal Y\otimes I_\beta)\operatorname{Swap}_{\beta\beta}
+    (\mathcal Y'^*\otimes I_\beta),
+  \]
+  where $\operatorname{Swap}_{\beta\beta}$ exchanges the two $Y$-labels of
+  $L^2(\beta\otimes\pi\otimes\beta)$ and the auxiliary label $s$ is shared. So
+  $\norm{T[A,A]\circ M}\le\norm{\mathcal Y}\norm{\mathcal Y'}$, and
+  $\norm{\mathcal Y}\le\norm\Phi\sup_x\norm{A(x;\cdot)}_{L^2(\beta)}$ by (b),
+  where $\Phi\colon L^2(\pi)\to L^2(\alpha)$ has the kernel $\phi_x(s)$; likewise
+  for $\mathcal Y'$. If $\phi_x=\phi^1_x+\phi^2_x$ and
+  $\phi'_x=\phi'^1_x+\phi'^2_x$ for all $x$, with $\phi^1_x,\phi'^1_x\in E$ and
+  $\phi^2_x,\phi'^2_x\in E^\perp$ for one subspace $E\subseteq L^2(\pi)$, then
+  $T[A,A]\circ M=T[A,A]\circ M^{11}+T[A,A]\circ M^{22}$ with
+  $M^{kk}(x,x')=\ip{\phi^k_x}{\phi'^k_{x'}}$: there are no cross terms.
+\end{enumerate}
+All of this holds with the two factors exchanged, since $T[A,A]$ is
+$T[A^*,A^*]$ written on $L^2(\beta\otimes\alpha)$; multipliers $M(y,y')$ of the
+$Y$-labels factor through $A^*$.
+\end{lemma}
+
+\begin{proof}
+(a) For $f\in L^2(\alpha)$ and $g\in L^2(\beta)$,
+\[
+  \big(T[A,A](f\otimes g)\big)(x,y)=\E_{x',y'}A(x;y')A(x';y)f(x')g(y')
+  =(Ag)(x)\,(A^*f)(y),
+\]
+which is the first identity. Hence $T[A,A](u_i\otimes v_j)=Av_j\otimes A^*u_i$,
+which is $\sigma_j\sigma_i\,u_j\otimes v_i$ for $i,j\le k$ and zero otherwise.
+In the orthonormal basis $(u_i\otimes v_j)$ the operator therefore has the
+eigenvectors $u_i\otimes v_i$ ($i\le k$, eigenvalue $\sigma_i^2$),
+$u_i\otimes v_j\pm u_j\otimes v_i$ ($i<j\le k$, eigenvalues $\pm\sigma_i\sigma_j$)
+and the remaining basis vectors (eigenvalue zero); it is self-adjoint, and its
+norm is $\max_i\sigma_i^2=\norm A^2$. In the last statement $Av_0=\sigma_0u_0$
+and $A^*u_0=\sigma_0v_0$, and $A=A'$ maps $v_0^\perp$ into $u_0^\perp$; so a
+singular value decomposition may be chosen in which $(\sigma_0,u_0,v_0)$ is one
+of the triples, with index $0$ say, and all other singular values are at most
+$\norm{A'}\le c$. Every negative eigenvalue is some $-\sigma_i\sigma_j$ with
+$i\ne j$: it is at most $\sigma_0c$ in modulus if $0\in\{i,j\}$ and at most $c^2$
+otherwise, and both numbers are at most $sc$. The orthogonal complement of the
+eigenvector $u_0\otimes v_0$ is spanned by the other eigenvectors, whose
+eigenvalues are $\sigma_i^2$ ($i\ne0$), $\pm\sigma_0\sigma_j$ ($j\ne0$) and
+$\pm\sigma_i\sigma_j$ ($i,j\ne0$), all at most $\max(c^2,\sigma_0c)\le sc$ in
+modulus.
+
+(b) Write $F_t=F(\cdot,t)$. By the Cauchy--Schwarz inequality in $t$,
+\[
+  |(P\cdot R)F(z)|^2=\Big|\E_tR(z;t)\,(PF_t)(z)\Big|^2\le\xi^2\,\E_t|(PF_t)(z)|^2,
+\]
+and averaging over $z$ gives
+$\norm{(P\cdot R)F}^2\le\xi^2\E_t\norm{PF_t}^2\le\xi^2\norm P^2\norm F^2$. For
+the general statement write $W(z,z')$ for the kernel of $W$. Since
+$\ip f{Wf}_\gamma=\sum_{z,z'}\gamma(z)f(z)\,W(z,z')\,\gamma(z')f(z')$, the
+operator $W$ is positive semidefinite exactly when the matrix $(W(z,z'))$ is,
+and the identity has the kernel $\one_{z=z'}/\gamma(z)$. By the Schur product
+theorem the matrices $(\Gamma(z,z')W(z,z'))$ and
+$(\Gamma(z,z')(a\one_{z=z'}/\gamma(z)-W(z,z')))$ are positive semidefinite, and
+the operator with kernel $a\Gamma(z,z)\one_{z=z'}/\gamma(z)$ is multiplication
+by $a\Gamma(z,z)\le ca$. The first statement is also the case
+$\Gamma(z,z')=\ip{R(z;\cdot)}{R(z';\cdot)}_{\pi'}$, $W=PP^*$ of the second,
+because the Gram operator $(P\cdot R)(P\cdot R)^*$ has the kernel
+$\E_sP(z;s)P(z';s)\cdot\E_tR(z;t)R(z';t)$.
+
+(c) The kernel of the identity of $L^2(\Fp)$ relative to the uniform law is
+$p\one_{a=s}=\sum_if_i(a)f_i(s)$ for every real orthonormal basis $(f_i)_{0\le
+i<p}$ with $f_0=\one$; so $\sqrt{p-1}\,e_0=\sum_{i\ge1}f_i\otimes f_i$, an element
+of $\mathcal H\otimes\mathcal H$ of squared norm $p-1$. For $h=f_k$ ($k\ge1$),
+$\operatorname{Swap}_{13}(e_0\otimes f_k)=(p-1)^{-1/2}\sum_{i\ge1}f_k\otimes
+f_i\otimes f_i$, and since $\ip{e_0}{f_k\otimes f_i}=(p-1)^{-1/2}\one_{i=k}$,
+contracting the first two factors with $e_0$ leaves $f_k/(p-1)$.
+
+(d) The kernel of $T[A,A]\circ M$ is
+$\E_{s\sim\pi}[A(x;y')\phi_x(s)][A(x';y)\phi'_{x'}(s)]$. For
+$F\in L^2(\alpha\otimes\beta)$, $(\mathcal Y'^*\otimes I_\beta)F$ is the function
+$(y_1,s,y_2)\mapsto\E_{x'}A(x';y_1)\phi'_{x'}(s)F(x',y_2)$; the swap exchanges
+$y_1$ and $y_2$, and $\mathcal Y\otimes I_\beta$ then integrates
+$A(x;y_1)\phi_x(s)$ against the variables $(y_1,s)$. Renaming $y_1=y'$ and
+$y_2=y$ gives $\E_{x',y',s}A(x;y')\phi_x(s)A(x';y)\phi'_{x'}(s)F(x',y')$, the
+action of $T[A,A]\circ M$. The swap is unitary, which gives the norm bound, and
+$\mathcal Y$ is the product synthesis of (b) with $P=\Phi$ and $R=A$, up to the
+order of the variables. Finally $M=\sum_{k,l}M^{kl}$ with
+$M^{kl}(x,x')=\ip{\phi^k_x}{\phi'^l_{x'}}$, and $M^{12}=M^{21}=0$ because
+$E\perp E^\perp$; the map $M\mapsto T[A,A]\circ M$ is linear. For the last
+statement, the kernel of $T[A^*,A^*]$ at $((y,x),(y',x'))$ is
+$A^*(y;x')A^*(y';x)=A(x';y)A(x;y')$, the kernel of $T[A,A]$ at
+$((x,y),(x',y'))$.
+\end{proof}
+
+If a score has the form $\eta(x,x')=r^{-1}\ip{\psi_x}{\psi'_{x'}}$, its square
+is the multiplier $q^{-1}M$ of (d) with the rows $\phi_x=\psi_x\otimes\psi_x$ and
+$\phi'_x=\psi'_x\otimes\psi'_x$. Splitting these rows along the diagonal unit
+vector $d$ of \cref{cor:raw-pair-maps}(b) ($E=\C d$), parts (b) and (d) give the
+square identities of the positive roots (\cref{lem:root-square}), and part (c)
+evaluates the leading terms of their linear traces (\cref{lem:root-linear}).
+At the cut L20 of the uniform root the distinguished vector of (a) is
+$u_0\otimes v_0$ with $v_0=\one$ and $u_0$ the normalised
+row-sum function of the rectangle (as in
+\cref{prop:l20-rectangular}); it is invariant under simultaneous
+translations, so on the
+independent half chart (a) bounds the negative part of the soft kernel and its
+norm on the nontrivial translation sectors. After the compression to the actual
+half and the collision and normalizer corrections, these bounds give the
+constant $C$ of \cref{prop:matching:positive}(a$''$) at that cut
+(\cref{subsec:middle-l20}).
+
+\subsection{Correlations after fixing coordinates}\label{subsec:cuts:influence}
+
+The pinned influence theorem turns a local count into a bound for all
+conditional correlations of a graph law at once. Pin every vertex but two: the
+two free labels then range over explicit sets of sizes about $p2^{-d_i}$ and $p2^{-d_j}$ ($d_i,d_j$ the degrees of the two vertices), coupled
+by one square constraint or by injectivity alone, and their maximal
+correlation is of order $r$ or $r^2$ (\cref{lem:mid:pinpair}). Correlations
+under coarser pinnings are reached by releasing one vertex at a time. In the
+language of subspaces, passing to a coarser pinning intersects the coordinate subspaces with $V_k$ (\cref{lem:mid:subspaces}), and Kassabov's inequality bounds the new angles by the
+old ones through exactly the formula by which one step of Gaussian elimination
+in the normalized matrix $I-\mathcal E$ produces the next Schur complement. So
+the matrix $\mathcal E$ of fully pinned correlations bounds every partially
+pinned correlation through $(I-\mathcal E)^{-1}$
+(\cref{lem:mid:allpin}), and Peyre's tensorization
+(\cref{thm:peyre-finite}) passes from pairs of vertices to pairs of disjoint
+sets of vertices (\cref{prop:middle-negative}).
+
+\begin{definition}[Influence data]\label{def:mid:influence}
+Let $G=(U,E)$ be an oriented graph with $n=|U|$ vertices, $d_i$ the degree of
+$i\in U$ in $G$, and $\mu=\lambda_p(G)$ (so $\operatorname{Inj}_p(G)\ne\emptyset$),
+with coordinates $y=(y_u)_{u\in U}$. A \emph{pinning} $(S,s)$, $S\subseteq U$,
+$s\in\Fp^S$, is \emph{feasible} if $\mu(y_S=s)>0$; then
+$\mu_{S,s}=\mu(\cdot\mid y_S=s)$ is uniform on the set $\Omega_{S,s}$ of
+completions, $F=U\setminus S$ is the set of \emph{free} vertices, and
+$\Delta_F=\max_{i\in F}d_i$. A pinning $(S',s')$ \emph{extends} $(S,s)$ if
+$S'\supseteq S$ and $s'|_S=s$.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \emph{Count errors.} Numbers $w,w^{\rm conn}\in[0,1)$ are \emph{count
+  errors for $(G,F)$ at $p$} if for all distinct $a_1,\dots,a_t\in\Fp$, all
+  signs $\epsilon_1,\dots,\epsilon_t$ and every $E'\supseteq\{a_1,\dots,a_t\}$,
+  the number
+  $N=\#\{x\in\Fp\setminus E':\epsilon_i(x-a_i)\in\Qsq\ (1\le i\le t)\}$
+  satisfies
+  \begin{equation}\label{eq:mid:standing}
+    \frac{2^tN}p\ge1-w\quad\text{if }t\le\Delta_F,\ |E'|\le n,\qquad
+    \frac{2^tN}p\ge1-w^{\rm conn}\quad\text{if }t\le\Delta_F+1,\ |E'|\le2n .
+  \end{equation}
+  By \cref{lem:extension}(d) and \ref{it:et:compare}, the coarse errors
+  $w=w_{\Delta_F}(p,n)$ and $w^{\rm conn}=w_{\Delta_F+1}(p,2n)$ of
+  \eqref{eq:graphs:et} are count errors whenever they are below one; by
+  \cref{lem:extension}(c) and \ref{it:et:poly}, so are the graded errors
+  $w=e^-_{\Delta_F}(n)$ and $w^{\rm conn}=e^-_{\Delta_F+1}(2n)$ of
+  \eqref{eq:graphs:graded}. The two numbers are separate choices: one may be
+  coarse and the other graded.
+\item \emph{Influence entries.} With $H_w=(1+w)/(1-w)^2$, for distinct
+  $i,j\in F$
+  \begin{equation}\label{eq:mid:epsij}
+    \eps_{ij}=\begin{cases}H_w\,2^{(d_i+d_j-2)/2}(r+r^2),&ij\text{ an edge
+    (either orientation)},\\ H_w\,2^{(d_i+d_j)/2}r^2,&\text{otherwise},\end{cases}
+  \end{equation}
+  and $\eps_{ii}=0$. The \emph{influence matrix} is
+  $\mathcal E=(\eps_{ij})_{i,j\in F}$.
+\end{enumerate}
+\end{definition}
+
+Only the free vertices are indexed, but their degrees $d_i$ include the edges
+to pinned vertices; the degrees of pinned vertices do not enter. The matrix
+$\mathcal E$ is symmetric with nonnegative entries, so $\norm{\mathcal E}$ is at
+most its maximal row sum. For either choice of count errors in (i), the
+numbers $w$, $w^{\rm conn}$, $H_w$ and $\eps_{ij}/r$ are admissible functions of
+$r$ in the sense of \cref{lem:majorant} (polynomials with nonnegative
+coefficients, and $x\mapsto1/(1-x)$ of them). The proof below gives
+\eqref{eq:mid:epsij} with $1/(1-w)$ in place of $H_w$
+(\cref{lem:mid:pinpair}); we state \eqref{eq:mid:epsij} with $H_w$, the constant the certificates evaluate (\cref{tab:cert:finite}).
+
+\begin{definition}[Influence conditions]
+An oriented graph with $n$ vertices and maximum degree $\Delta$ satisfies the
+\emph{influence conditions at $p_0$} if
+\begin{equation}\label{eq:spec:S2}
+  w_\Delta(p_0,n)<\frac12,\qquad w_{\Delta+1}(p_0,2n)<1,\qquad e<\frac14,
+\end{equation}
+with $w_\Delta$ as in \eqref{eq:graphs:et}, where $e$ is the maximal row sum,
+at $r=p_0^{-1/2}$, of the influence matrix of the empty pinning ($F=U$) with
+$w=w_\Delta(p_0,n)$.
+\end{definition}
+
+The three quantities are admissible functions of $r$, so the conditions at
+$p_0$ hold at every prime $p\ge p_0$, and there they give the hypotheses of
+\cref{prop:middle-negative} for the empty pinning ($\operatorname{Inj}_p(G)\ne
+\emptyset$ by \cref{lem:graphs:sequential}, since $e_\Delta(p,n)\le
+w_\Delta(p,n)<1$). For spectral data, the certificates assert
+\eqref{eq:spec:S2} for the half graph $G^+$ at every threshold at which
+\cref{thm:spectral-criterion} is applied (\cref{tab:cert:finite}); no theorem of this paper assumes \eqref{eq:spec:S2}.
+
+\begin{lemma}[Fully pinned pairs]\label{lem:mid:pinpair}
+In the setting of \cref{def:mid:influence}, let $w$ satisfy the first
+inequality of \eqref{eq:mid:standing}. Let $i,j\in F$ be distinct and let $z$ be
+a feasible value of $y_{U\setminus\{i,j\}}$ that extends $s$. Then
+$\rho(y_i;y_j\mid y_{U\setminus\{i,j\}}=z)\le\eps_{ij}$.
+\end{lemma}
+
+\begin{proof}
+Let $S_i$ be the set of $x\in\Fp\setminus z(U\setminus\{i,j\})$ satisfying the
+constraints between $i$ and the pinned vertices, and similarly $S_j$. Let $t_i$
+be the number of pinned neighbours of $i$: $t_i=d_i-1$ if $ij$ is an edge and
+$t_i=d_i$ otherwise; similarly $t_j$. Given the pinning, $(y_i,y_j)$ is uniform
+on $\{(x,x')\in S_i\times S_j:K(x,x')=1\}$, where $K(x,x')=\Ap(\pm(x'-x))$ (sign
+by the orientation) if $ij$ is an edge, and $K(x,x')=\one\{x\ne x'\}$
+otherwise. Let $a(x)=\sum_{x'\in S_j}K(x,x')$ and $b(x')=\sum_{x\in
+S_i}K(x,x')$. If $ij$ is an edge, $a(x)$ counts the labels of $j$ outside the
+$n-1$ values $z(U\setminus\{i,j\})\cup\{x\}$ that satisfy $t_j+1=d_j\le\Delta_F$
+constraints with distinct roots (the pinned neighbours of $j$ and
+$x\notin z(U\setminus\{i,j\})$), so $a(x)\ge p2^{-d_j}(1-w)=\frac12p2^{-t_j}(1-w)$
+by \eqref{eq:mid:standing}; if not, $a(x)$ counts the labels outside the same
+$n-1$ values that satisfy the $t_j=d_j$ constraints of $j$, so
+$a(x)\ge p2^{-t_j}(1-w)$. The same holds for $b$ with $i$ in place of $j$. Put
+$k=\frac12$ for an edge and $k=1$ otherwise; then
+$\min a\cdot\min b\ge k^2p^22^{-t_i-t_j}(1-w)^2$.
+
+The conditional expectation operator from $L^2(y_j)$ to $L^2(y_i)$ is unitarily
+equivalent to the matrix $\widetilde K=D_a^{-1/2}KD_b^{-1/2}\colon\ell^2(S_j)\to
+\ell^2(S_i)$; its top singular value is $1$, with singular vectors
+$\sqrt b,\sqrt a$, and the maximal correlation is its second singular value
+$s_2(\widetilde K)$. Since $D_a^{-1/2}(k\Jall)D_b^{-1/2}$ has rank one ($\Jall$
+the all-ones matrix),
+\[
+  s_2(\widetilde K)\le\big\|D_a^{-1/2}(K-k\Jall)D_b^{-1/2}\big\|\le
+  \frac{\|K-k\Jall\|_{\ell^2(S_j)\to\ell^2(S_i)}}{\sqrt{\min a\cdot\min b}} .
+\]
+For an edge, $K-k\Jall$ is a submatrix of the $\Fp\times\Fp$ matrix
+$(\Ap(\pm(x'-x))-\frac12)$, whose norm is at most $\frac{\sqrt p+1}2$ by
+\cref{lem:square-shift}(a), for either orientation. For a non-edge,
+$K-\Jall$ is minus a partial identity, of norm at most $1$. Hence, for an edge,
+$\rho\le2^{(t_i+t_j)/2}\frac{\sqrt p+1}{p(1-w)}=2^{(d_i+d_j-2)/2}\frac{r+r^2}{1-w}$,
+and for a non-edge $\rho\le2^{(d_i+d_j)/2}\frac{r^2}{1-w}$. These are
+$\eps_{ij}/(H_w(1-w))\le\eps_{ij}$, since $H_w(1-w)=(1+w)/(1-w)\ge1$.
+\end{proof}
+
+\begin{lemma}[Connectivity of pinned state spaces]\label{lem:mid:connect}
+In the setting of \cref{def:mid:influence}, let $w^{\rm conn}$ satisfy the
+second inequality of \eqref{eq:mid:standing}. For every feasible pinning
+$(S',s')$ that extends $(S,s)$, any two elements of $\Omega_{S',s'}$ are joined
+by a sequence of elements of $\Omega_{S',s'}$ in which consecutive elements
+differ in exactly one free coordinate.
+\end{lemma}
+
+\begin{proof}
+Every free vertex of $(S',s')$ is free for $(S,s)$, so it has degree at most
+$\Delta_F$. By \eqref{eq:mid:standing}, for every $t\le\Delta_F+1$ and every
+set of at most $2n$ excluded values containing the roots, a vertex with $t$
+root constraints at distinct roots has at least $p2^{-t}(1-w^{\rm conn})>0$
+admissible labels. Let $x,y\in\Omega_{S',s'}$ and let $T=y(U\setminus S')$ be
+the set of target labels; $|T|\le n$.
+
+\emph{Phase 1.} For each free vertex in turn, change its label to a value
+outside $T$ and outside all labels currently in use that satisfies its
+constraints with all its (currently labelled) neighbours: at most $\Delta_F$
+distinct roots and at most $2n$ exclusions, so this is possible. Each step stays
+in $\Omega_{S',s'}$. Afterwards no free vertex carries a target label.
+
+\emph{Phase 2.} Process the free vertices $i$ one by one. Call a free vertex
+\emph{placed} once it carries its target label. Invariant: placed vertices carry
+their targets; unplaced free vertices carry labels outside $T$. Before placing
+$i$, change each unplaced neighbour $j\ne i$ of $i$ to a value that satisfies
+all constraints of $j$ with its current neighbours (including the current label
+of $i$), satisfies the constraint of the edge between $j$ and $i$ for the
+prospective label $y_i$, and avoids $T$ and all labels in use. The prospective
+root $y_i$ differs from every current label: pinned and placed vertices carry
+target labels $\ne y_i$ (injectivity of $y$), and unplaced vertices carry labels
+outside $T$. So there are at most $\Delta_F+1$ distinct roots and at most $2n$
+exclusions, and the move is possible; the invariant is kept. Now change $i$ to
+$y_i$: its constraints with pinned and placed neighbours hold because $y$ is
+feasible, those with unplaced neighbours hold by construction, and $y_i$ is not
+in use. Later moves only touch unplaced vertices and respect the constraints
+with all current labels. When all free vertices are placed we have reached $y$.
+\end{proof}
+
+\begin{lemma}[Coordinate subspaces]\label{lem:mid:subspaces}
+In the setting of \cref{lem:mid:connect}, fix a feasible pinning $(S',s')$ that
+extends $(S,s)$, with free set $F'$. In $L^2(\mu_{S',s'})$ let $V_i$ ($i\in F'$)
+be the subspace of functions of $y_{F'\setminus\{i\}}$, and put
+$V_A=\bigcap_{i\in A}V_i$ for $A\subseteq F'$ ($V_\emptyset=L^2(\mu_{S',s'})$).
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item $V_A$ is the space of functions of $y_{F'\setminus A}$; in particular
+  $V_{F'}$ is the space of constants. Moreover $V_A\cap V_{A'}=V_{A\cup A'}$.
+\item Let $\beta,\beta'\subseteq F'$ be disjoint and nonempty, and let
+  $\bar\eps\ge0$ be such that
+  $\rho(y_\beta;y_{\beta'}\mid y_{U\setminus(\beta\cup\beta')}=z)\le\bar\eps$ for every
+  feasible value $z$ of $y_{U\setminus(\beta\cup\beta')}$ that extends $s'$.
+  Then $\cos\angle(V_\beta,V_{\beta'})\le\bar\eps$. In particular, if $w$
+  satisfies the first inequality of \eqref{eq:mid:standing}, then
+  $\cos\angle(V_i,V_j)\le\eps_{ij}$ for distinct $i,j\in F'$.
+\item For disjoint nonempty $\beta,\beta'\subseteq F'$,
+  $\cos\angle(V_{F'\setminus\beta'},V_{F'\setminus\beta})=\rho(y_\beta;y_{\beta'}\mid
+  y_{S'}=s')$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) Functions of $y_{F'\setminus A}$ lie in $V_A$. Conversely let $f\in V_A$, so
+$f$ is unchanged by any change of one coordinate in $A$ that stays in
+$\Omega_{S',s'}$. For a value $u$ of $y_{F'\setminus A}$, the completions with
+$y_{F'\setminus A}=u$ form $\Omega_{S'\cup(F'\setminus A),(s',u)}$, which is
+connected by single-coordinate moves in $A$ (\cref{lem:mid:connect}, applied to
+this pinning, which extends $(S,s)$). So $f$ is constant there. The last
+statement is the definition of $V_A$.
+
+(ii) By (i), $V_\beta\cap V_{\beta'}=V_{\beta\cup\beta'}$ consists of the
+functions of $u=y_{F'\setminus(\beta\cup\beta')}$. Let $f\in V_\beta\ominus
+V_{\beta\cup\beta'}$ and $g\in V_{\beta'}\ominus V_{\beta\cup\beta'}$: $f$ is a
+function of $(y_{\beta'},u)$ with $\E[f\mid u]=0$, and $g$ a function of
+$(y_\beta,u)$ with $\E[g\mid u]=0$. Conditionally on $u$ the law is
+$\mu(\cdot\mid y_{U\setminus(\beta\cup\beta')}=(s',u))$, a full pinning of
+$U\setminus(\beta\cup\beta')$ that extends $s'$, under which $f$ is a centred
+function of $y_{\beta'}$ and $g$ a centred function of $y_\beta$. So
+$|\E[fg\mid u]|\le\bar\eps\,\E[f^2\mid u]^{1/2}\E[g^2\mid u]^{1/2}$, and
+averaging over $u$ with Cauchy--Schwarz gives $|\ip fg|\le\bar\eps\norm f\norm g$
+(\cref{cor:cond-decorrelation}). For single vertices,
+\cref{lem:mid:pinpair} supplies $\bar\eps=\eps_{ij}$.
+
+(iii) By (i), $V_{F'\setminus\beta'}$ and $V_{F'\setminus\beta}$ are the
+functions of $y_{\beta'}$ and of $y_\beta$, and their intersection is $V_{F'}$,
+the constants, since $\beta\cap\beta'=\emptyset$. So the Friedrichs cosine
+(\cref{def:prelim:angle}) is the supremum over centred functions, which is the
+maximal correlation (\cref{def:prelim:maxcorr}).
+\end{proof}
+
+\begin{lemma}[All partial pinnings: Kassabov--Schur elimination]\label{lem:mid:allpin}
+In the setting of \cref{lem:mid:subspaces}, let $\mathcal P$ be a partition of
+$F'$ into nonempty parts and $\bar E=(\bar E_{\beta\beta'})_{\beta,\beta'\in\mathcal
+P}$ a symmetric matrix with nonnegative entries, zero diagonal and $\norm{\bar
+E}<1$, such that $\cos\angle(V_\beta,V_{\beta'})\le\bar E_{\beta\beta'}$ for all
+distinct $\beta,\beta'\in\mathcal P$ (for instance, by
+\cref{lem:mid:subspaces}(ii), if every fully pinned correlation
+$\rho(y_\beta;y_{\beta'}\mid y_{U\setminus(\beta\cup\beta')}=z)$ is at most $\bar
+E_{\beta\beta'}$). Then for all distinct $\beta,\beta'\in\mathcal P$
+\[
+  \rho(y_\beta;y_{\beta'}\mid y_{S'}=s')\le\big[(I-\bar E)^{-1}\big]_{\beta\beta'} .
+\]
+In particular, if $w$ satisfies the first inequality of \eqref{eq:mid:standing}
+and $\norm{\mathcal E}<1$, then for distinct $i,j\in F'$
+\[
+  \rho(y_i;y_j\mid y_{S'}=s')\le\big[(I-\mathcal E_{F'F'})^{-1}\big]_{ij}\le
+  \big[(I-\mathcal E)^{-1}\big]_{ij}.
+\]
+\end{lemma}
+
+\begin{proof}
+For $\mathcal Y\subseteq\mathcal P$ put $V[\mathcal Y]=V_{\cup\mathcal Y}$; by
+\cref{lem:mid:subspaces}(i) it is the space of functions of
+$y_{F'\setminus\cup\mathcal Y}$, and $V[\mathcal Y]\cap V[\mathcal
+Y']=V[\mathcal Y\cup\mathcal Y']$. Let $M=I-\bar E$, positive definite since
+$\norm{\bar E}<1$. For $\mathcal Y\subseteq\mathcal P$ and distinct
+$\beta,\beta'\in\mathcal P\setminus\mathcal Y$ put
+$c_{\mathcal Y}(\beta,\beta')=\cos\angle(V[\mathcal Y\cup\{\beta\}],V[\mathcal
+Y\cup\{\beta'\}])$. Let $M^{(\mathcal Y)}$ be the Schur complement of
+$M_{\mathcal Y\mathcal Y}$ in $M$, a positive definite matrix on $\mathcal
+P\setminus\mathcal Y$, let $N^{(\mathcal Y)}$ be its normalization
+$N^{(\mathcal Y)}_{\beta\beta'}=M^{(\mathcal Y)}_{\beta\beta'}/(M^{(\mathcal
+Y)}_{\beta\beta}M^{(\mathcal Y)}_{\beta'\beta'})^{1/2}$, and put $e_{\mathcal
+Y}(\beta,\beta')=-N^{(\mathcal Y)}_{\beta\beta'}$.
+
+\emph{Claim: $0\le e_{\mathcal Y}(\beta,\beta')<1$ and $c_{\mathcal
+Y}(\beta,\beta')\le e_{\mathcal Y}(\beta,\beta')$.} For $\mathcal Y=\emptyset$,
+$e_\emptyset(\beta,\beta')=\bar E_{\beta\beta'}$, and the claim is the
+hypothesis. Since $N^{(\mathcal Y)}$ is positive definite with unit diagonal,
+its off-diagonal entries have modulus $<1$. Let $\mathcal Y'=\mathcal
+Y\cup\{\gamma\}$. Eliminating $\gamma$ from $N^{(\mathcal Y)}$ (Schur
+complements are transitive, and conjugating by a positive diagonal matrix
+commutes with taking Schur complements and with normalizing) gives
+\[
+  e_{\mathcal Y'}(\beta,\beta')=\frac{e_{\mathcal Y}(\beta,\beta')+e_{\mathcal
+  Y}(\beta,\gamma)e_{\mathcal Y}(\beta',\gamma)}{\sqrt{(1-e_{\mathcal
+  Y}(\beta,\gamma)^2)(1-e_{\mathcal Y}(\beta',\gamma)^2)}}\ \ge0 .
+\]
+On the other hand, Kassabov's inequality (\cref{thm:kassabov}) with
+$V_1=V[\mathcal Y\cup\{\beta\}]$, $V_2=V[\mathcal Y\cup\{\beta'\}]$,
+$V_3=V[\mathcal Y\cup\{\gamma\}]$, for which $V_1\cap V_3=V[\mathcal
+Y'\cup\{\beta\}]$ and $V_2\cap V_3=V[\mathcal Y'\cup\{\beta'\}]$, gives
+\[
+  c_{\mathcal Y'}(\beta,\beta')\le\frac{c_{\mathcal Y}(\beta,\beta')+c_{\mathcal
+  Y}(\beta,\gamma)c_{\mathcal Y}(\beta',\gamma)}{\sqrt{(1-c_{\mathcal
+  Y}(\beta,\gamma)^2)(1-c_{\mathcal Y}(\beta',\gamma)^2)}} ,
+\]
+the denominators being positive by induction. The right side is nondecreasing
+in each of its three arguments on $[0,1)$; by induction on $|\mathcal Y|$,
+$c_{\mathcal Y}\le e_{\mathcal Y}$ entrywise, which proves the claim. Thus the
+cosines of the coordinate subspaces are bounded by the recursion of Gaussian elimination in $I-\bar E$.
+
+Take $\mathcal Y=\mathcal P\setminus\{\beta,\beta'\}$. By
+\cref{lem:mid:subspaces}(iii), $c_{\mathcal
+Y}(\beta,\beta')=\rho(y_\beta;y_{\beta'}\mid y_{S'}=s')$. The Schur complement
+of $M_{\mathcal Y\mathcal Y}$ is the inverse of the $\{\beta,\beta'\}$ block of
+$\mathcal Q=M^{-1}$, so $e_{\mathcal Y}(\beta,\beta')=\mathcal
+Q_{\beta\beta'}/\sqrt{\mathcal Q_{\beta\beta}\mathcal Q_{\beta'\beta'}}$. The
+Neumann series $\mathcal Q=\sum_{k\ge0}\bar E^k$ has nonnegative entries and
+$\mathcal Q_{\beta\beta}\ge1$; hence $e_{\mathcal Y}(\beta,\beta')\le\mathcal
+Q_{\beta\beta'}$. For the second statement take the partition of $F'$ into
+singletons and $\bar E=\mathcal E_{F'F'}$, which is admissible by
+\cref{lem:mid:subspaces}(ii) and has $\norm{\mathcal E_{F'F'}}\le\norm{\mathcal
+E}<1$; finally $(\mathcal E_{F'F'}^k)_{ij}\le(\mathcal E^k)_{ij}$ entrywise.
+\end{proof}
+
+\begin{proposition}[Pinned influence theorem]\label{prop:middle-negative}
+Let $G$ be an oriented graph with $n$ vertices, $p$ an odd prime,
+$\mu=\lambda_p(G)$, $(S,s)$ a feasible pinning with free set $F$, $w$ and
+$w^{\rm conn}$ count errors for $(G,F)$ at $p$ \eqref{eq:mid:standing}, and
+$\mathcal E$ the influence matrix \eqref{eq:mid:epsij}, with $\norm{\mathcal
+E}\le e<1$. Let $(S',s')$ be a feasible pinning that extends $(S,s)$, with free
+set $F'$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item For distinct $i,j\in F'$,
+  \[
+    \rho(y_i;y_j\mid y_{S'}=s')\le\big[(I-\mathcal E_{F'F'})^{-1}\big]_{ij}\le
+    \big[(I-\mathcal E)^{-1}\big]_{ij}\le\eps_{ij}+\frac{e^2}{1-e} .
+  \]
+\item For disjoint nonempty $X,Y\subseteq F'$,
+  \[
+    \rho(y_X;y_Y\mid y_{S'}=s')\le\min\Big\{1,\ \norm{\mathcal
+    E_{XY}}+\frac{e^2}{1-e}\Big\},\qquad \mathcal E_{XY}=(\eps_{uv})_{u\in X,\,v\in Y}.
+  \]
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) The first two inequalities are \cref{lem:mid:allpin}. Next
+$(I-\mathcal E)^{-1}=I+\mathcal E+\mathcal E^2(I-\mathcal E)^{-1}$, and the
+last matrix is symmetric with spectrum in $\{\lambda^2/(1-\lambda):|\lambda|\le
+e\}\subseteq[0,e^2/(1-e)]$; so its norm, and with it every entry and the norm of
+every submatrix, is at most $e^2/(1-e)$. For $i\ne j$ the identity contributes
+nothing.
+
+(b) Apply \cref{thm:peyre-finite} (first statement) in the probability space
+$(\Omega_{S',s'},\mu_{S',s'})$ to the families $(y_u)_{u\in X}$ and $(y_v)_{v\in
+Y}$, with $\eps'_{uv}=[(I-\mathcal E)^{-1}]_{uv}\ge0$. Its hypothesis asks for
+$\rho(y_u;y_v\mid y_{S''}=s'')\le\eps'_{uv}$ in this space, for
+$S''\subseteq(X\cup Y)\setminus\{u,v\}$ and every value $s''$ of positive
+probability; this is $\rho(y_u;y_v\mid y_{S'\cup S''}=(s',s''))$ under $\mu$, a
+feasible pinning that extends $(S,s)$, so (a) supplies it. The theorem gives
+$\rho\le\min\{1,\opnorm{([(I-\mathcal E)^{-1}]_{uv})_{u\in X,v\in Y}}\}$. Since
+$X\cap Y=\emptyset$, this matrix is $\mathcal E_{XY}$ plus a submatrix of
+$\mathcal E^2(I-\mathcal E)^{-1}$, so its norm is at most $\norm{\mathcal
+E_{XY}}+e^2/(1-e)$.
+\end{proof}
+
+The certificates evaluate the following form, which is weaker
+only through the harmless factor $\sqrt{|X||Y|}\ge1$ inserted in
+its proof, with the Schur test for the cross block.
+
+\begin{corollary}[Schur-test form]\label{cor:influence-schur}
+In the setting of \cref{prop:middle-negative}, without its assumption on
+$\norm{\mathcal E}$, put $c_{ij}=\eps_{ij}/r$, let
+$q_{\rm inf}\ge\max_{i\in F}\sum_{j\in F}c_{ij}$ with $rq_{\rm inf}<1$, and for
+disjoint nonempty $X,Y\subseteq F'$ let
+\[
+  c_\times^2=\Big(\max_{u\in X}\sum_{v\in Y}c_{uv}\Big)\Big(\max_{v\in
+  Y}\sum_{u\in X}c_{uv}\Big).
+\]
+Then
+\[
+  \rho(y_X;y_Y\mid y_{S'}=s')\le r\Big(c_\times+\sqrt{|X||Y|}\,\frac{rq_{\rm inf}^2}{1-rq_{\rm inf}}\Big).
+\]
+\end{corollary}
+
+\begin{proof}
+$\mathcal E=r(c_{ij})$ is symmetric and nonnegative, so $\norm{\mathcal E}\le
+rq_{\rm inf}<1$, and \cref{prop:middle-negative} applies with $e=rq_{\rm inf}$,
+for which $e^2/(1-e)=r\cdot rq_{\rm inf}^2/(1-rq_{\rm inf})$. The Schur test gives
+$\norm{\mathcal E_{XY}}\le rc_\times$. So \cref{prop:middle-negative}(b) gives the
+bound without the factor $\sqrt{|X||Y|}$, which is at least one.
+\end{proof}
+
+\begin{remark}[Uses and the certified forms]\label{rem:influence-uses}
+(1) The conditional influence bound \ref{it:record:upper-F2} and the row
+correlations $\rho_F,\rho_E$ of the twelve-label reference
+(\cref{lem:front12:reference}) are the bound of \cref{cor:influence-schur} with
+the graded count errors $w=e^-_{\Delta_F}(n)$, $w^{\rm conn}=e^-_{\Delta_F+1}(2n)$,
+and with $\Delta_F$, $q_{\rm inf}$ taken over the free vertices: for the rows,
+$X$ and $Y$ are the labels of the two outer objects and the middle object is
+pinned; for the layer repairs, $X$ and $Y$ are the layer halves and nothing is
+pinned. The certificates assert $w<\frac12$, $w^{\rm conn}<1$, $rq_{\rm inf}<1$
+and that the bound is below one; the bound without $\sqrt{|X||Y|}$ is not used.
+(2) The frame of the upper joint stars (\cref{lem:upper-stars}) uses
+\cref{prop:middle-negative}(a), and (b) for disjoint vertex sets, for the empty
+pinning of an induced half graph, with $w=w_\Delta(p,n)$ and
+$w^{\rm conn}=e^-_{\Delta+1}(2n)$. (3) \emph{Monotonicity.} For fixed $G$,
+pinning pattern and $X,Y$, the quantities $q_{\rm inf}$, $c_\times$ and $rq_{\rm inf}^2/(1-rq_{\rm inf})$ of \cref{cor:influence-schur} are admissible functions of $r$ (\cref{lem:majorant}); so hypotheses verified
+at $p_0$ hold at every prime $p\ge p_0$, and the bound at $p$ is at most $r_p$
+times its value divided by $r$ at $p_0$. (4) For a reflection cut with halves
+$U^\pm$ and the empty pinning, \cref{prop:middle-negative}(b) bounds
+$\rho(y_{U^+};y_{U^-})$, the centred norm of the cut coupling in its actual half
+marginal.
+\end{remark}
+
+\subsection{Recentring: from reference means to actual marginal means}\label{subsec:cuts:recentering}
+
+A coupling given by a kernel on a product of reference laws is centred in the
+reference, but its correlation must be measured in its own marginals. The
+exact identity (a) below separates the two: the cross term of the actual
+centring is a product of two marginal defects. It is used with a normalized
+kernel (part (b): the exact-support row correlations and the spectral bound for
+the replaced records of the one-way repairs), with an additive repair (the exact
+marginal cancellation \cref{lem:record:additive-cancellation}), and for
+differences of normalized marginals (part (c)).
+
+\begin{lemma}[Recentering]\label{lem:recentering}
+Let $(X,\mu_X)$ and $(Y,\mu_Y)$ be finite probability spaces with full support,
+and let $P_0$ denote the projections onto the mean-zero functions.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item Let $\mathfrak b$ be a bilinear form on real functions on $X$ times real
+  functions on $Y$ with $\mathfrak b(\one,\one)=1$, and define $\varrho_L,\varrho_R$ by
+  $\mathfrak b(f,\one)=\ip f{\varrho_L}_{\mu_X}$ and $\mathfrak
+  b(\one,h)=\ip{\varrho_R}h_{\mu_Y}$. If $\ip f{\varrho_L}_{\mu_X}=0$ and
+  $\ip{\varrho_R}h_{\mu_Y}=0$, then
+  \[
+    \mathfrak b(f,h)=\mathfrak b(P_0f,P_0h)-\ip{\varrho_L-\one}{P_0f}_{\mu_X}
+    \ip{\varrho_R-\one}{P_0h}_{\mu_Y}.
+  \]
+\item Let $K\ge0$ be a kernel on $X\times Y$ relative to $\mu_X\otimes\mu_Y$
+  (operator $(Kh)(x)=\E_{y\sim\mu_Y}K(x,y)h(y)$), $z=\ip\one{K\one}>0$, and
+  $\pi=(K/z)\,\mu_X\otimes\mu_Y$, with marginals $\varrho_L\mu_X$ and
+  $\varrho_R\mu_Y$, so that $\varrho_L-\one=P_0K\one/z$ and
+  $\varrho_R-\one=P_0K^*\one/z$. Suppose $|z-1|\le\eps<1$,
+  $\norm{P_0K\one}\le M_L$, $\norm{P_0K^*\one}\le M_R$, $\norm{P_0KP_0}\le c$,
+  $\varrho_L\ge e^{-l_L}$ and $\varrho_R\ge e^{-l_R}$. Then for $f,h$ centred
+  under the marginals of $\pi$,
+  \[
+    \frac{\ip f{Kh}}z=\frac{\ip f{P_0KP_0h}}z-\ip{\varrho_L-\one}f\ip{\varrho_R-\one}h,
+  \]
+  and the maximal correlation of $\pi$ is at most
+  \[
+    e^{(l_L+l_R)/2}\Big(\frac c{1-\eps}+\frac{M_LM_R}{(1-\eps)^2}\Big);\qquad
+    \text{for }l_L=l_R=l,\ M_L=M_R=M:\quad e^l\Big(\frac c{1-\eps}+\frac{M^2}{(1-\eps)^2}\Big).
+  \]
+\item For two kernels $K_1,K_2$ as in (b), with $z_k=\ip\one{K_k\one}$,
+  $m_k=P_0K_k\one$ and left marginal densities $\varrho_k=K_k\one/z_k$,
+  \[
+    \varrho_1-\varrho_2=\frac{m_1-m_2}{z_1}-\frac{(z_1-z_2)\,m_2}{z_1z_2};
+  \]
+  hence if $|z_k-1|\le\eps_k<1$, $\norm{m_1-m_2}\le M_D$, $|z_1-z_2|\le\Delta_z$
+  and $\norm{m_2}\le M_2$, then $\norm{\varrho_1-\varrho_2}\le
+  (M_D+\Delta_zM_2/(1-\eps_2))/(1-\eps_1)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) Write $f=f_0+a$ and $h=h_0+b$ with $f_0=P_0f$, $h_0=P_0h$ and constants
+$a,b$. Since $\ip\one{\varrho_L}=\mathfrak b(\one,\one)=1$ and $f_0\perp\one$,
+$0=\ip f{\varrho_L}=\ip{f_0}{\varrho_L-\one}+a$, so $a=-\ip{f_0}{\varrho_L-\one}$
+and $\mathfrak b(f_0,\one)=\ip{f_0}{\varrho_L}=-a$; likewise
+$b=-\ip{\varrho_R-\one}{h_0}$ and $\mathfrak b(\one,h_0)=-b$. Hence
+$\mathfrak b(f,h)=\mathfrak b(f_0,h_0)+b\,\mathfrak b(f_0,\one)+a\,\mathfrak
+b(\one,h_0)+ab=\mathfrak b(f_0,h_0)-ab$.
+
+(b) Apply (a) to $\mathfrak b(f,h)=\ip f{Kh}/z$: then $\mathfrak b(\one,\one)=1$,
+$\mathfrak b(f,\one)=\ip f{K\one}/z$, so $\varrho_L=K\one/z$ and
+$\varrho_L-\one=P_0K\one/z$ (because $\E_{\mu_X}K\one=z$), and $\mathfrak
+b(P_0f,P_0h)=\ip f{P_0KP_0h}/z$; moreover $\ip{\varrho_L-\one}{P_0f}=
+\ip{\varrho_L-\one}f$. The centring conditions of (a) are the centring of $f$,
+$h$ under the marginals of $\pi$. With $z\ge1-\eps$,
+$\norm{\varrho_L-\one}\le M_L/(1-\eps)$ and $\norm{\varrho_R-\one}\le
+M_R/(1-\eps)$, so $|\int f(x)h(y)\,d\pi|=|\mathfrak b(f,h)|\le\big(\frac
+c{1-\eps}+\frac{M_LM_R}{(1-\eps)^2}\big)\norm f_{\mu_X}\norm h_{\mu_Y}$. Finally
+$\norm f^2_{\mu_X}\le e^{l_L}\E_{\mu_X}[\varrho_Lf^2]$, the squared norm of $f$
+under the left marginal of $\pi$, and likewise for $h$.
+
+(c) $\varrho_k=\one+m_k/z_k$ by (b), and
+$m_1/z_1-m_2/z_2=(m_1-m_2)/z_1+m_2(z_2-z_1)/(z_1z_2)$.
+\end{proof}
+
+\begin{remark}[Instances]\label{rem:recentering-uses}
+(1) The exact-support correlation bound of
+\cref{subsec:row-anova-correlation} is (b) verbatim, with $c$ the bound of the
+centred strict compression and $M$ the bound of the constant images. (2) A
+normalized cut operator $A$ is self-adjoint with $\ip\one{A\one}=1$, so it is (b)
+with $z=1$, $\eps=0$ and $M_L=M_R$; if $\norm{P_0AP_0}\le gr$ and
+$\norm{A\one-\one}^2\le B^+r^2$ (for instance with $B^+\ge p\eps_\varrho^2/(1-gr)$
+when $\norm{P_0A\one}\le\eps_\varrho$), and the actual half marginal has density
+at least $e^{-l}$, its correlation relative to the actual marginal is at most
+$e^l(gr+B^+r^2)$. This is the spectral bound for the replaced records of the
+one-way repairs (\ref{it:record:upper-F7}). (3) For an
+additive repair $d\tilde\nu=(1+f(x)+g(y))\,d\nu$ of a coupling $\nu$ of
+$\nu_X,\nu_Y$, apply (a) with the references $\nu_X,\nu_Y$ and $\mathfrak
+b(h,k)=\int hk\,d\tilde\nu$: for $h,k$ centred under the marginals
+$(1+u)\nu_X$, $(1+v)\nu_Y$ of $\tilde\nu$,
+$\int hk\,d\tilde\nu=\int h_0k_0(1+f+g)\,d\nu-\ip u{h_0}\ip v{k_0}$, which is
+the identity behind \cref{lem:record:additive-cancellation}. (4) Part (c) is
+the normalizer comparison for the upper product rows (display
+(PR13) in \cref{subsec:advance:product-rows}).
+\end{remark}
+
+\subsection{Marginals of the law itself (actual marginals)}\label{subsec:cuts:actual}
+
+Bounds are often proved in a convenient reference probability
+measure, while prices require norms in the marginals of the law
+itself---its \emph{actual marginals}. The next lemma moves between
+the two when the actual marginals differ from the reference by a
+density factor between $1-\eta$ and $1+\eta$ (the reference is
+called $\nu$ inside the lemma; this is a local notation, not the
+comparison law of Part~III). Part~(a) bounds a correlation
+computed in the actual marginals by one computed in the reference;
+part~(b) says that the operator of a difference of two records
+with the same actual marginal $m$ is, after the unitary change of
+measure, the same operator computed relative to the reference,
+with norm increased by at most $1/(1-\eta)$.
+
+\begin{lemma}[Actual marginals]\label{lem:record:actual-correlation}
+Let $\nu$ be a probability measure on a finite set $X$ with full support, let
+$0\le\eta<1$, and let $\mathcal H$ be a space of real functions on $X$ that
+contains the constants. Write $\Pi f=f-\E_\nu f$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item Let $K\ge0$ be the density, relative to $\nu\otimes\nu$, of a probability
+  measure on $X\times X$ with marginals $m_L=(1+\delta_L)\nu$ and
+  $m_R=(1+\delta_R)\nu$, where $|\delta_L|,|\delta_R|\le\eta$. Suppose that
+  $|\ip{\Pi f}{K\Pi g}_\nu|\le\kappa\norm{\Pi f}_\nu\norm{\Pi g}_\nu$ for all
+  $f,g\in\mathcal H$. Then for all $f,g\in\mathcal H$ with
+  $\E_{m_L}f=\E_{m_R}g=0$,
+  \[
+    \Big|\int f(x)g(y)K(x,y)\,d\nu(x)\,d\nu(y)\Big|\le\frac{\kappa+\eta^2}{1-\eta}
+    \,\norm f_{L^2(m_L)}\norm g_{L^2(m_R)} .
+  \]
+\item \emph{(Density transport.)} Let $m=\psi\nu$ be a probability measure with
+  $\psi\ge1-\eta$, let $t$ be a real function on $X\times X$, let $T$ be the
+  operator on $L^2(\nu)$ with kernel $t$ relative to $\nu\otimes\nu$, and let
+  $T_m$ be the operator on $L^2(m)$ with
+  $\ip f{T_mh}_m=\int f(x)t(x,y)h(y)\,d\nu(x)\,d\nu(y)$. Let $W\colon L^2(m)\to
+  L^2(\nu)$, $Wf=\psi^{1/2}f$, and let $M_\psi$ be multiplication by $\psi$.
+  Then $W$ is unitary and $T_m=W^*M_\psi^{-1/2}TM_\psi^{-1/2}W$; hence
+  $\norm{T_m}\le\norm T/\min\psi\le\norm T/(1-\eta)$, the transposed kernel
+  gives $T_m^*$, and the symmetric and skew parts of $T_m$ are those of $T$
+  transported in the same way, with the same bound.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) Apply \cref{lem:recentering}(a) to
+$\mathfrak b(f,g)=\int f(x)g(y)K(x,y)\,d\nu(x)\,d\nu(y)$:
+\[
+ \mathfrak b(f,g)=\ip{\Pi f}{K\Pi g}_\nu
+ -\ip{\delta_L}{\Pi f}_\nu\ip{\delta_R}{\Pi g}_\nu.
+\]
+Since $\mathcal H$ contains the constants, $\Pi f,\Pi g\in\mathcal H$.
+The first term is bounded by the hypothesis, and the second by
+$\eta^2\norm{\Pi f}_\nu\norm{\Pi g}_\nu$. Finally
+$\norm{\Pi f}_\nu\le\norm f_\nu\le(1-\eta)^{-1/2}\norm f_{m_L}$,
+and likewise for $g$.
+
+(b) $\ip{Wf}{Wh}_\nu=\E_\nu[\psi fh]=\ip fh_m$, and $W$ is onto since $\psi>0$.
+For $f,h\in L^2(m)$,
+$\ip f{T_mh}_m=\ip f{Th}_\nu=\ip{M_\psi^{-1/2}Wf}{TM_\psi^{-1/2}Wh}_\nu$, which
+is the identity, and $\norm{M_\psi^{-1/2}}^2=1/\min\psi$. The adjoint
+statement is the symmetry of the defining formula.
+\end{proof}
+
+Part (a) is the exactly normalized case of the recentering
+\cref{lem:recentering}(b) ($z=1$, $\eps=0$, $M_L,M_R\le\eta$,
+$e^{l}=1/(1-\eta)$), restricted to a space $\mathcal H$. It bounds the centred
+norm of a coupling in its actual marginals when only its centred norm in a
+nearby reference is known.
+
+\paragraph{Positive quadratic tilts.}
+A positive reweighting of a symmetric kernel by a square changes its marginal.
+The next lemma bounds the new mass, the centred part of the new marginal and
+its pointwise range in terms of a few operator norms of the pointwise products
+of the kernel with the scores, where $\eta_j$ are arbitrary real functions on $X\times X$.
+
+\begin{lemma}[Marginals of a positive quadratic tilt]\label{lem:tilt-marginals}
+Let $(X,\nu)$ be a finite probability space with full support and $K\ge0$ a
+symmetric kernel on $X\times X$ with $\E_{\nu\otimes\nu}K=1$, marginal density
+$m=K\one>0$, $\sup m/\inf m\le R$ and $\norm{m-\one}_\nu\le\delta_0$. Let
+$\eta_0,\eta_1,\eta_2$ be real functions on $X\times X$ that are permuted among themselves by
+$(x,x')\mapsto(x',x)$, let $\bar\eta=\frac13\sum_j\eta_j$, and let
+$V=\frac13\sum_j\eta_j^2$ or $V=\bar\eta^2$. Write $K_{\bar\eta}=K\circ\bar\eta$ and
+$K_V=K\circ V$ for the pointwise products, and use the same letters for their
+operators on $L^2(\nu)$. For constants $c_V,e,\ell,h,c,b\ge0$ suppose
+\[
+  \norm{K_V-c_VK}\le e,\quad\norm{P_0K_{\bar\eta}\one}_\nu\le\ell,\quad
+  |\ip\one{K_{\bar\eta}\one}_\nu|\le h,\quad|K_{\bar\eta}\one|\le c\,K\one,\quad
+  |\eta_j|\le b\ \text{on}\ \{K>0\}.
+\]
+For $\ulaw\ge0$ put $s=1+c_V\ulaw^2$, and assume $\ulaw c<1$ and
+$z=s-2\ulaw h-\ulaw^2e>0$. Then $T=(K+2\ulaw K_{\bar\eta}+\ulaw^2K_V)/Z$, with
+$Z$ the $\nu\otimes\nu$-mass of the numerator, is a symmetric nonnegative kernel
+of mass one, and
+\[
+  Z\ge z,\qquad\norm{T\one-\one}_\nu\le\frac{s\delta_0+2\ulaw\ell+\ulaw^2e}z,
+  \qquad\frac{\sup T\one}{\inf T\one}\le R\,\frac{(1+\ulaw b)^2}{(1-\ulaw c)^2}.
+\]
+If $T_1,\dots,T_n$ are symmetric nonnegative kernels of mass one on finite
+probability spaces $(X_i,\nu_i)$ with $\norm{T_i\one-\one}\le\delta_i$ and
+$\sup T_i\one/\inf T_i\one\le R_i$, then $T=\bigotimes_iT_i$ has range ratio at
+most $\prod_iR_i$ and marginal chi-square
+$\norm{T\one-\one}^2\le\prod_i(1+\delta_i^2)-1$.
+\end{lemma}
+
+\begin{proof}
+Put $w=1+2\ulaw\bar\eta+\ulaw^2V$, so that the numerator is $K\circ w$. In both
+cases $V\ge\bar\eta^2$ (for the mean of the squares by the Cauchy--Schwarz
+inequality), so $w\ge(1+\ulaw\bar\eta)^2\ge0$; the kernel $T$ is nonnegative,
+and it is symmetric because $K$, $\bar\eta$ and $V$ are.
+
+\emph{Mass.} $Z=\ip\one{K\one}+2\ulaw\ip\one{K_{\bar\eta}\one}
++\ulaw^2\ip\one{K_V\one}$, with $\ip\one{K\one}=1$,
+$\ip\one{K_{\bar\eta}\one}\ge-h$, and $\ip\one{K_V\one}\ge c_V-e$ because
+$\ip\one{(K_V-c_VK)\one}\ge-e$. So $Z\ge s-2\ulaw h-\ulaw^2e=z>0$.
+
+\emph{Centred marginal.} $T\one$ has mean one, so
+\[
+  T\one-\one=\frac1Z\,P_0\big(sK\one+2\ulaw K_{\bar\eta}\one
+  +\ulaw^2(K_V-c_VK)\one\big),
+\]
+with $\norm{P_0K\one}=\norm{m-\one}\le\delta_0$, $\norm{P_0K_{\bar\eta}\one}\le\ell$
+and $\norm{P_0(K_V-c_VK)\one}\le\norm{K_V-c_VK}\le e$, since $P_0$ is a
+contraction and $\norm\one=1$.
+
+\emph{Range.} $(T\one)(x)=m(x)\,\E_K[w\mid x]/Z$, where $\E_K[\cdot\mid x]$ is
+the average in $x'$ against the probability $K(x,x')\,d\nu(x')/m(x)$; thus
+$K_{\bar\eta}\one=m\,\E_K[\bar\eta\mid x]$ and $|\E_K[\bar\eta\mid x]|\le c$. By
+conditional Jensen,
+\[
+  \E_K[w\mid x]\ge\E_K[(1+\ulaw\bar\eta)^2\mid x]
+  \ge\big(1+\ulaw\E_K[\bar\eta\mid x]\big)^2\ge(1-\ulaw c)^2,
+\]
+and on $\{K>0\}$, $w\le(1+\ulaw b)^2$ in both cases (for the mean of the
+squares, $w=\frac13\sum_j(1+\ulaw\eta_j)^2$). The common factor $1/Z$ cancels
+from the ratio.
+
+\emph{Products.} The marginal density of $\bigotimes_iT_i$ is
+$\bigotimes_iT_i\one$, so its range ratio is the product of the ratios, and,
+every $T_i\one$ having mean one, its chi-square is
+$\prod_i(1+\norm{T_i\one-\one}^2)-1$ (\cref{lem:sector}(f)).
+\end{proof}
+
+\Cref{prop:root-chamber} applies the lemma to the positive roots of the late
+middle pieces (\cref{def:positive-root}), with $\eta_j=\Hs j$ and
+$c_V=1$ for the mean of the individual squares, and the parameters of the
+selected laws. The square-of-the-mean option is a second instance of the same
+identity. In addition,
+\cref{lem:record:root-marginal}(iv) uses its product clause for the range ratio
+and the marginal chi-square of a block of such primes.
+
+\subsection{Restriction to an injectivity event}\label{subsec:cuts:restriction}
+
+Conditional row laws are first computed against a product of laws on the allowed label sets,
+in which the labels of one row are independent, and then restricted to the
+event that they are distinct. The next lemma transfers the three numbers that
+the spectral and correlation estimates need (the centred compression, the
+constant image and the total mass) through such a restriction.
+
+\begin{lemma}[Restriction to an injectivity event]\label{lem:restriction}
+Let $(X,\lambda_X)$ and $(Y,\lambda_Y)$ be finite probability spaces with full
+support, $I_X\subseteq X$ and $I_Y\subseteq Y$ nonempty events,
+$P_X=\lambda_X(I_X)$, $P_Y=\lambda_Y(I_Y)$, and $\mu_X=\lambda_X(\cdot\mid
+I_X)$, $\mu_Y=\lambda_Y(\cdot\mid I_Y)$. For a kernel $S$ on $X\times Y$ let
+$T_S\colon L^2(\lambda_Y)\to L^2(\lambda_X)$, $T_Sh(x)=\E_{y\sim\lambda_Y}S(x,y)h(y)$,
+and let $S_\mu\colon L^2(\mu_Y)\to L^2(\mu_X)$ be the operator with kernel
+$S|_{I_X\times I_Y}$ relative to $\mu_X\otimes\mu_Y$. Let
+$\iota_Xf=\one_{I_X}f/\sqrt{P_X}$ ($f$ extended by zero) and
+similarly $\iota_Y$ (these $\iota_X,\iota_Y$ are embeddings, not
+the reserved cut $\iota$).
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item $\iota_X\colon L^2(\mu_X)\to L^2(\lambda_X)$ is an isometry that maps
+  $\mu_X$-centred functions to $\lambda_X$-centred functions,
+  $\iota_X^*g=\sqrt{P_X}\,g|_{I_X}$, and $\iota_X\one=\sqrt{P_X}\one+v_X$ with
+  $v_X$ centred and $\norm{v_X}=\sqrt{1-P_X}$; likewise for $Y$. Moreover
+  $S_\mu=\iota_X^*T_S\iota_Y/\sqrt{P_XP_Y}$.
+\item With $P_0$ the projections onto mean-zero functions,
+  $\norm{S_\mu}\le\norm{T_S}/\sqrt{P_XP_Y}$ and
+  $\norm{P_0S_\mu P_0}\le\norm{P_0T_SP_0}/\sqrt{P_XP_Y}$. Let $M'_X$ be the
+  supremum of $|\ip{\iota_Xf}{T_S\one}|$ over $\mu_X$-centred $f$ of norm one;
+  thus $M'_X\le\norm{P_0T_S\one}$. Then
+  \[
+    \norm{P_0S_\mu\one}\le\frac{M'_X}{\sqrt{P_X}}+\norm{P_0T_SP_0}
+    \sqrt{\frac{1-P_Y}{P_XP_Y}},
+  \]
+  the same holds with $X,Y$ exchanged for $S_\mu^*$, and
+  \[
+    \big|\ip\one{S_\mu\one}-\ip\one{T_S\one}\big|\le\norm{P_0T_S^*\one}
+    \sqrt{\frac{1-P_Y}{P_Y}}+\norm{P_0T_S\one}\sqrt{\frac{1-P_X}{P_X}}
+    +\norm{P_0T_SP_0}\sqrt{\frac{(1-P_X)(1-P_Y)}{P_XP_Y}} .
+  \]
+\item In particular, if $P_X,P_Y\ge I_0>0$ and $C$ bounds
+  $\norm{P_0T_S\one}$, $\norm{P_0T_S^*\one}$ and $\norm{P_0T_SP_0}$ (for
+  instance $C\ge\norm{T_{S-a}}$ for some constant kernel $a$), then
+  $\norm{P_0S_\mu P_0}\le\norm{P_0T_SP_0}/I_0$,
+  $\norm{P_0S_\mu\one}\le M'_X/\sqrt{I_0}+C\sqrt{1-I_0}/I_0\le(M+C\sqrt{1-I_0})/I_0$
+  for every $M\ge M'_X$, and
+  \[
+    \big|\ip\one{S_\mu\one}-a_0\big|\le\frac{Z+C\big(2\sqrt{1-I_0}+1-I_0\big)}{I_0}
+    \qquad\text{whenever }\big|\ip\one{T_S\one}-a_0\big|\le Z .
+  \]
+\item If $\lambda_X$ is a product of laws on $\Fp$ indexed by an $m$-element
+  set, each with density at most $\kappa$ relative to the uniform law, and
+  $I_X$ is the event that the $m$ coordinates are distinct, then
+  $P_X\ge1-\binom m2\kappa/p$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) $\norm{\iota_Xf}^2_{\lambda_X}=\E_{\lambda_X}[\one_{I_X}f^2]/P_X=\E_{\mu_X}f^2$
+and $\E_{\lambda_X}\iota_Xf=\sqrt{P_X}\E_{\mu_X}f$. For the adjoint,
+$\ip{\iota_Xf}g_{\lambda_X}=\E_{\lambda_X}[\one_{I_X}fg]/\sqrt{P_X}=\sqrt{P_X}\,\E_{\mu_X}[fg]$.
+Put $v_X=\one_{I_X}/\sqrt{P_X}-\sqrt{P_X}\one$; then $\E v_X=0$ and
+$\norm{v_X}^2=1-2P_X+P_X=1-P_X$. Finally
+$\ip f{S_\mu h}_{\mu_X}=\E_{\lambda_X\otimes\lambda_Y}[\one_{I_X}f\,S\,\one_{I_Y}h]/(P_XP_Y)
+=\ip{\iota_Xf}{T_S\iota_Yh}/\sqrt{P_XP_Y}$.
+
+(b) The first two bounds follow from (a), since $\iota_X,\iota_Y$ are isometries
+preserving centring and $\ip{\iota_Xf}{T_S\iota_Yh}=\ip{\iota_Xf}{P_0T_SP_0\iota_Yh}$
+for centred $f,h$. For a centred unit $f$,
+\[
+  \ip f{S_\mu\one}=\frac{\ip{\iota_Xf}{T_S(\sqrt{P_Y}\one+v_Y)}}{\sqrt{P_XP_Y}}
+  =\frac{\ip{\iota_Xf}{T_S\one}}{\sqrt{P_X}}+\frac{\ip{\iota_Xf}{P_0T_SP_0v_Y}}{\sqrt{P_XP_Y}},
+\]
+and $|\ip{\iota_Xf}{T_S\one}|=|\ip{\iota_Xf}{P_0T_S\one}|\le\norm{P_0T_S\one}$.
+Expanding $\ip{\iota_X\one}{T_S\iota_Y\one}/\sqrt{P_XP_Y}$ in the same way gives
+$\ip\one{S_\mu\one}=\ip\one{T_S\one}+\ip{P_0T_S^*\one}{v_Y}/\sqrt{P_Y}
++\ip{v_X}{P_0T_S\one}/\sqrt{P_X}+\ip{v_X}{P_0T_SP_0v_Y}/\sqrt{P_XP_Y}$.
+
+(c) Insert $P_X,P_Y\ge I_0$, $\sqrt{1-P}\le\sqrt{1-I_0}$ and $1/\sqrt{I_0}\le1/I_0$
+in (b): the last display of (b) is at most
+$C(2\sqrt{1-I_0}/\sqrt{I_0}+(1-I_0)/I_0)\le C(2\sqrt{1-I_0}+1-I_0)/I_0$, and
+$|\ip\one{T_S\one}-a_0|\le Z\le Z/I_0$. The three compressions do not change
+when a constant kernel is added to $S$, since $T_a\one=a\one$ and $T_aP_0=0$.
+
+(d) Two independent coordinates with laws $\lambda_i,\lambda_j$ of density at
+most $\kappa$ coincide with probability
+$\sum_x\lambda_i(x)\lambda_j(x)\le\max_x\lambda_j(x)\le\kappa/p$. Take a union
+bound over the $\binom m2$ pairs.
+\end{proof}
+
+In the upper product rows the lemma is applied to the star part of a
+conditional kernel, with $a_0=0$ for its mean (the normalizer errors and the
+centred constant images of \cref{subsec:push:layer72product}), and to the
+difference of the $F$ and $E$ star parts, with $C$ the sum of their
+full-operator bounds (display (PR12) in
+\cref{subsec:advance:product-rows}); in the
+exact-support row correlations of \cref{subsec:row-anova-correlation}, part (b)
+gives the bound of the centred strict compression.
+
+\subsection{Kernels depending on few coordinates}\label{subsec:cuts:projection}
+
+Many kernels below depend on only a few of the labels. The next
+lemma says their operator norm can then be computed using those
+labels alone, up to explicit factors comparing the true marginals
+with the uniform ones.
+
+\begin{lemma}[Projected kernels]\label{lem:record:projection}
+Let $\nu$ be a probability measure on a finite product
+$\Omega=\prod_{i\in\Lambda}\Omega_i$; for $I\subseteq\Lambda$ let $\nu_I$ be the
+law of $x_I=(x_i)_{i\in I}$ under $\nu$, $\upsilon_I$ the uniform law on
+$\Omega_I=\prod_{i\in I}\Omega_i$, and $\varrho_I\ge\max d\nu_I/d\upsilon_I$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item Let $I,J\subseteq\Lambda$ be nonempty and let $\kappa$ be a function of
+  $(x_I,y_J)$ only. The norm of the operator with kernel $\kappa$ on $L^2(\nu)$
+  (relative to $\nu\otimes\nu$) equals the norm of the operator with kernel
+  $\kappa$ from $L^2(\nu_J)$ to $L^2(\nu_I)$ (relative to $\nu_I\otimes\nu_J$), and
+  is at most $(\varrho_I\varrho_J)^{1/2}$ times the norm of $\kappa$ from
+  $L^2(\upsilon_J)$ to $L^2(\upsilon_I)$. In particular, if a probability $\lambda$ on
+  $\Omega$ has density at most $H$ relative to the uniform law, every kernel has
+  norm on $L^2(\lambda)$ at most $H$ times its norm for independent uniform
+  labels.
+\item Let $\Omega=\Fp^{\{0,1,2\}}$. For the uniform law $\nu_F$ on ordered
+  triples of distinct labels with $x_2-x_0\in\Qsq$ (the law $\lambda_p$ of the
+  graph on $\{0,1,2\}$ with the single edge $0\to2$) one may take $\varrho_I=1$
+  for one label, $\varrho_{\{0,2\}}=2/(1-q)$,
+  $\varrho_{\{0,1\}}=\varrho_{\{1,2\}}=1/(1-2q)$ and
+  $\varrho_{\{0,1,2\}}=2/((1-q)(1-2q))$. For the uniform law $\nu_E$ on ordered
+  triples of distinct labels one may take $\varrho_I=1$ for one label,
+  $\varrho_I=1/(1-q)$ for two labels and $\varrho_{\{0,1,2\}}=1/((1-q)(1-2q))$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) The operator factors as $\iota_I\widetilde\kappa\,\iota_J^*$, where
+$\iota_I\colon L^2(\nu_I)\to L^2(\nu)$ is the isometric embedding of functions
+of $x_I$, $\iota_J^*$ is the conditional expectation onto functions of $x_J$,
+and $\widetilde\kappa$ is the operator with kernel $\kappa$ from $L^2(\nu_J)$ to
+$L^2(\nu_I)$; since $\iota_I$ is isometric and $\iota_J^*\iota_J$ is the
+identity, the norms agree. If $\psi_I$ is the
+density of $\nu_I$, then
+$\ip\varphi{\widetilde\kappa\phi}=\E_{\upsilon_I\otimes\upsilon_J}[\varphi\psi_I\,
+\kappa\,\phi\psi_J]$, and $\E_{\upsilon_I}[\varphi^2\psi_I^2]\le\varrho_I
+\norm\varphi_{\nu_I}^2$. The last statement is the case $I=J=\Lambda$.
+
+(b) Every coordinate of $\nu_F$ and of $\nu_E$ is uniform, by translation
+invariance. $\nu_F$ has $p(p-1)(p-2)/2$ equally likely triples, so its density
+is $2p^2/((p-1)(p-2))$. The pair $(x_0,x_2)$ is uniform on the $p(p-1)/2$
+directed pairs, of density $2p/(p-1)$. Given distinct $x_0,x_1$ there are at
+most $(p-1)/2$ completions $x_2$, and given distinct $x_1,x_2$ at most
+$(p-1)/2$ completions $x_0$, which gives the density bound $p/(p-2)$. Under
+$\nu_E$ every pair is uniform on distinct pairs, of density $p/(p-1)$, and the
+triple has density $p^2/((p-1)(p-2))$.
+\end{proof}
+
+With (a), a kernel norm computed for independent uniform labels, for instance
+by the kernel bound of \cref{lem:matching:kernel},
+transfers to every such law at the cost of the displayed density factors.
+
+\subsection{Conditional laws given the middle label, under a change of reference}\label{subsec:cuts:rows}
+
+The five-type completions (\cref{lem:five-type}) need, at each label of the
+middle object, a bound for the fold and matching row operators relative to one
+common reference law of the outer rows. The fold row law has its own
+marginals; the next lemma bounds the effect of the change of reference.
+
+\begin{lemma}[Row comparison]\label{lem:row-comparison}
+Let $\nu$ be a probability measure on a finite set $X$ with full support,
+$\pi$ a probability measure on $X\times X$ with marginals $\pi_L=r_L\nu$ and
+$\pi_R=r_R\nu$ and maximal correlation $\rho_\pi$, and $T$ the operator on
+$L^2(\nu)$ with kernel $d\pi/d(\nu\otimes\nu)$. Let $H_L\ge\max r_L$,
+$H_R\ge\max r_R$, $v_L\ge\norm{r_L-\one}_\nu$ and $v_R\ge\norm{r_R-\one}_\nu$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item For real $f,h\in L^2(\nu)$ with $\nu$-means $a,b$ and centred parts
+  $f_0,h_0$,
+  \begin{align*}
+    \ip f{(T-\Jproj)h}_\nu&=\operatorname{Cov}_\pi(f(x),h(y))+(\E_{\pi_L}f-a)\E_{\pi_R}h
+    +a(\E_{\pi_R}h-b)\\
+    &=a\ip{r_R-\one}{h_0}+b\ip{r_L-\one}{f_0}+\ip{f_0}{Th_0},
+  \end{align*}
+  so the two mean terms are at most $v_R|a|\norm{h_0}$ and $v_L|b|\norm{f_0}$, and
+  the fluctuation term satisfies
+  $|\ip{f_0}{Th_0}|\le(\sqrt{H_LH_R}\,\rho_\pi+v_Lv_R)\norm{f_0}\norm{h_0}$. Hence
+  \[
+    \norm{T-\Jproj}\le\sqrt{H_LH_R}\,\rho_\pi+v_L\min\{\sqrt{H_R},1+v_R\}+v_R\le
+    \sqrt{H_LH_R}\,\rho_\pi+v_L+v_R+v_Lv_R .
+  \]
+\item If $H_0\ge1$ and $m\ge0$ satisfies $m\le H_0$ and
+  $|m-1|\le H_0-1$ (for instance
+  $m\in[1/H_0,H_0]$), then
+  $\norm{mT-\Jproj}\le H_0(\sqrt{H_LH_R}\,\rho_\pi+v_L+v_R+v_Lv_R)+H_0-1$.
+\item Let $X=\prod_{p\in B}X_p$, $\nu=\bigotimes_p\nu_p$ and $\pi=\bigotimes_p\pi_p$.
+  Then $r_L=\prod_pr_{L,p}$, $1+\norm{r_L-\one}^2=\prod_p(1+\norm{r_{L,p}-\one}^2)$,
+  likewise for $r_R$, and $\rho_\pi=\max_p\rho_{\pi_p}$. A
+  density $\rho$ with $\E_\nu\rho=1$ and values in $[l,u]$ has
+  $\norm{\rho-\one}^2\le(u-1)(1-l)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) $\ip f{Th}_\nu=\E_\pi[f(x)h(y)]$ and $\ip f{\Jproj h}_\nu=ab$, which gives
+the first expression. For the second,
+$\E_\pi[f(x)h(y)]=ab+a\E_{\pi_R}h_0+b\E_{\pi_L}f_0+\E_\pi[f_0(x)h_0(y)]$, with
+$\E_{\pi_R}h_0=\ip{r_R}{h_0}=\ip{r_R-\one}{h_0}$ and likewise for $f_0$. Next
+$\E_\pi[f_0(x)h_0(y)]=\operatorname{Cov}_\pi(f_0,h_0)+\E_{\pi_L}f_0\,\E_{\pi_R}h_0$;
+the covariance is at most $\rho_\pi\norm{f_0}_{\pi_L}\norm{h_0}_{\pi_R}\le
+\rho_\pi\sqrt{H_LH_R}\norm{f_0}_\nu\norm{h_0}_\nu$, and the product of the means
+at most $v_Lv_R\norm{f_0}\norm{h_0}$. For the norm bound (the kernel is real, so
+real $f,h$ suffice) use the first expression: the covariance term is bounded in
+the same way, with $f,h$ in place
+of $f_0,h_0$; $|\E_{\pi_L}f-a|=|\ip{r_L-\one}f|\le v_L\norm f$,
+$|\E_{\pi_R}h|\le\min\{\norm h_{\pi_R},\norm{r_R}\norm h\}\le
+\min\{\sqrt{H_R},1+v_R\}\norm h$ (as $\norm{r_R}^2=1+\norm{r_R-\one}^2$),
+$|a|\le\norm f$ and $|\E_{\pi_R}h-b|\le v_R\norm h$.
+
+(b) $\norm{mT-\Jproj}\le m\norm{T-\Jproj}+|m-1|\norm\Jproj$.
+
+(c) The marginal densities of a product are products, and the identity for
+$\norm{r_L-\one}^2$ is \cref{lem:sector}(f). Maximal correlations of product
+couplings are maxima over the factors by \cref{lem:sector}(c). Finally
+$(u-r)(r-l)\ge0$ gives $\E r^2\le(u+l)\E r-ul=u+l-ul$, so
+$\E(r-1)^2\le(u-1)(1-l)$.
+\end{proof}
+
+\begin{remark}[Instances]\label{rem:row-comparison-uses}
+In the applications $\nu$ is the common conditional reference of the outer rows
+at a fixed middle label, $\pi$ the conditional fold row law, $\rho_\pi\le\rho_F$
+a bound for its maximal correlation (\cref{cor:influence-schur}, or in the upper
+rows its minimum with \eqref{eq:row-anova-actual}), and $m$ the density of the
+fold middle law relative to the common middle law at that label. (1) On a block
+of $n_B$ primes with per-prime marginal densities in $[R^{-1},R]$ and $m=1$, (c)
+gives $H_L,H_R\le R^{n_B}$ and $v^2\le\exp(n_B(R-1)^2)-1$, whence the row
+coefficient $fr=R^{n_B}\rho_F+2v+v^2$ of the twelve-label reference, with $R$ the
+density-ratio bound $R_j$ of \cref{lem:record:class-three}(iii)
+(\cref{lem:front12:reference}); a matching row has exact marginals, so
+$hr=\rho_E$. (2) With pointwise log-ratio bounds
+$|\log r_L|,|\log r_R|\le\ell_{\rm mar}$ and $|\log m|\le\ell_{\rm mid}$, (a)
+and (b) give $e^{\ell_{\rm mid}}(e^{\ell_{\rm mar}}\rho_F+e^{2\ell_{\rm mar}})-1$,
+the common-reference fold row bound of the two-layer rows. (3) With middle ratio
+$H$, pointwise marginal inflation $R_{\rm m}$ and chi-square defect $\upsilon$,
+(b) gives the full-norm coefficient
+$f=[H(R_{\rm m}\rho_F+2\upsilon+\upsilon^2)+H-1]/r$ of the rows
+at large primes (\cref{lem:tail-prices}), the alternative to their
+Schur coefficient (\ref{it:record:upper-F5}(b)).
+(4) With $|r_L-1|,|r_R-1|\le c_0$
+pointwise, the first bound of (a) gives $\rho_\pi(1+c_0)+c_0\sqrt{1+c_0}+c_0$.
+(5) In the rows of the upper bands the fold and matching rows are bounded
+jointly on the actual matching chart (\cref{lem:joint-rows,cor:joint-row-split})
+and enter the completions through \cref{lem:five-type}(f); part (b) is not used
+there.
+\end{remark}
+
+\paragraph{Consequences and what to read next.}
+The labellings, the count errors and the sequential counts
+(\cref{def:graphs:labeling}, \eqref{eq:graphs:et}, \eqref{eq:graphs:graded},
+\cref{lem:extension}, \cref{lem:graphs:sequential}); maximal correlation,
+Friedrichs angles, Kassabov's angle inequality, Peyre's tensorization (first
+statement) and conditional decorrelation
+(\cref{def:prelim:maxcorr,def:prelim:angle,thm:kassabov,thm:peyre-finite,cor:cond-decorrelation});
+the norm of the square-shift matrices (\cref{lem:square-shift}(a));
+square-affine invariance and uniform marginals (\cref{lem:marginals}); the
+Markov tensor maximum, product densities and the tensor spectrum
+(\cref{lem:sector}(c),(f),(g)); and admissible majorants and block budgets
+(\cref{lem:majorant}). Three standard facts are used without statement: the
+Schur product theorem, conditional Jensen, and the Rayleigh quotient
+characterization of the largest eigenvalue.

@@ -1,0 +1,276 @@
+\subsection{Allocating the full positive mean jointly with the comparison}
+\label{subsec:joint-mean}
+
+The closing inequality contains the comparison energy with coefficient
+$63/64$ and the mean energy with coefficient $-1/64$. A positive
+diagonal occurring in both can therefore reduce the closing bound:
+subtract its mean coefficient from $63$ times its comparison coefficient,
+then apply an upper bound to the remaining nonnegative energy.
+This is the joint allocation of \cref{cor:joint-closing}.
+We apply it to the positive expansion in Step~2 of
+\cref{prop:record:mean-credit}. Of the lower bounds retained there
+(called mean credits), only those supported on one block are used
+separately here. The following argument replaces the credits on
+two or more blocks.
+
+For a middle block write
+\[
+ \alpha_B=\frac{w_{{\rm D},B}r_B^2}{1+h_B},\qquad
+ T_B=E_{{\rm add},B}+H_B
+     =\beta_B(D_{E_0,B}+D_{E_1,B}),\qquad
+ \mathsf E_B=E_{{\rm add},B}+G_B.
+\]
+The measures $E_{{\rm add},B},G_B,H_B$, the fold diagonals $D_{F_j,B}$,
+and the matching diagonals $D_{E_j,B}$ are those defined in
+\cref{subsec:record:positive_means}; $K_{s,B}$ is the added diagonal
+on side $s\in\{{\rm L},{\rm R}\}$ of the matching bracket
+(\cref{prop:record:matching}). Here $\beta_B$ is a local coefficient.
+The actual chosen diagonals satisfy
+\begin{equation}\label{eq:joint-resources}
+ \begin{aligned}
+ 2\le\beta_B/\alpha_B&\le R=2.004317,\qquad\sigma=0.3842,\\
+ Q_{E,B}&\succeq_\iota\alpha_B(D_{E_0,B}+D_{E_1,B}),\\
+ K_{s,B}&\succeq_\iota\sigma\alpha_B(D_{F_1,B}+D_{F_2,B}).
+ \end{aligned}
+\end{equation}
+The density of an actual fold marginal relative to its normalized
+companion is at most $H_*=1.000003310$. Thus its companion diagonal
+dominates $H_*^{-1}D_{F_j,B}$.
+These assertions use the same $33$ physical pieces and chosen sides
+as \cref{prop:record:matching}. Explicitly, on a piece starting at $X$,
+\[
+ \frac{\beta_B}{\alpha_B}
+ \le\frac{v_{\rm D}}{w_{\rm D}}
+       +\frac{6}{\lfloor\sqrt X\rfloor(1-3/X)}\le R,
+ \qquad
+ \frac{\min(k_{{\rm L},i},k_{{\rm R},i})}{w_{{\rm D},i}H_i}\ge\sigma.
+\]
+The matching coefficient $q_i\ge w_{{\rm D},i}/(1+h_i)$ and
+$H_i\le H_*$ complete the checks. Both independent assemblies verify
+these inequalities piece by piece.
+
+\begin{lemma}[Multiaffine allocation constants]\label{lem:joint-multiaffine}
+Put $l=1/R$, $u=1/2$, and, for $0\le k\le n$, put
+\[
+ P_{n,k}=(1+l)^k(1+u)^{n-k},\quad
+ E_{1,n,k}=kl+(n-k)u,\quad
+ E_{2,n,k}=\binom k2l^2+k(n-k)lu+\binom{n-k}2u^2.
+\]
+Define
+\[
+ \eta_n=\min_{0\le k\le n}\frac{P_{n,k}-1}{E_{2,n,k}} (2\le n\le10),
+ \qquad
+ \zeta_n=\min_{0\le k\le n}\frac{P_{n,k}}{E_{1,n,k}} (1\le n\le9).
+\]
+Write $e_1(z)=\sum_i z_i$ and $e_2(z)=\sum_{i<j}z_iz_j$.
+For $z_i\in[l,u]$,
+$\prod_i(1+z_i)-1\ge\eta_n e_2(z)$ and
+$\prod_i(1+z_i)\ge\zeta_n e_1(z)$ in the stated degree ranges.
+In every degree the corresponding constants
+$\eta_0=211/80$ and $\zeta_0=9/4$ are valid.
+\end{lemma}
+
+\begin{proof}
+For a fixed trial constant each residual is multiaffine, so its minimum
+on the box is attained at a vertex. The displayed formulas are precisely
+its vertex tests, grouped by the number of lower coordinates.
+For the uniform bounds enlarge the box to $[0,1/2]^n$.
+At a vertex with $k$ nonzero coordinates the ratios are
+$4((3/2)^k-1)/\binom k2$ and $2(3/2)^k/k$.
+The first is minimized at $k=5$: its adjacent difference has the sign
+of $(k-5)(3/2)^k+4$. The second is minimized at $k=2,3$,
+as its adjacent difference has the sign of $k-2$.
+The minima are $211/80$ and $9/4$.
+\end{proof}
+
+Use the normalized price assignments of
+\cref{lem:four-routes-normalized}, repriced to the selected exponent $a$.
+Let $x=A^{\rm arm}_F=A^{\rm arm}_E$ be the common raw-arm total of
+\cref{def:closing-quantities}(3): the sum of the arm coefficients
+before multiplying by their leading operator norms. Set $y=\sigma x$.
+For this subsection abbreviate
+$U=tU_0^{\prime\rm new}$ and $V=t{\Uinv}^{\rm new}$, where
+$t=e^{2(a-a_0)570}$. These are the total first-stage price and the
+portion assigned to invariant factors, respectively; $0\le V\le U$.
+An outside factor means a factor on a block other than the selected
+fold or matching blocks. Define
+\begin{align*}
+ F_\eta&=\eta_0e^U+\sum_{j=0}^8(\eta_{j+2}-\eta_0)V^j/j!,\\
+ F_\zeta&=\zeta_0e^U+\sum_{j=0}^8(\zeta_{j+1}-\zeta_0)V^j/j!,\\
+ B_\rho&=e^U+\sum_{j=1}^{10}(\rho^j-1)V^j/j!,\qquad \rho=1+1/R,\\
+ w&=\frac{U}{1+\rho_H},\qquad
+ \rho_H=\frac{3}{\lfloor\sqrt{Q_3}\rfloor(1-3/Q_3)}.
+\end{align*}
+
+\begin{proposition}[Four disjoint middle allocations]\label{prop:joint-middle-mean}
+In the joint closing of \cref{cor:joint-closing}, the middle mean
+decreases the closing number, in addition to its one-block mean
+credits, by $\Delta_\alpha+\Delta_M+\Delta_O+\Delta_K$, where
+\begin{align}
+ \Delta_\alpha&=\frac{x^2}{16H_*^2}
+                 \frac{e^w-1-w}{w^2},\label{eq:joint-alpha}\\
+ \Delta_M&=\frac{x^2}{128}F_\eta,\qquad
+ \Delta_O=\frac{x}{64}\left(y+\frac{y^3}{6}+\frac{y^5}{120}\right)F_\zeta,
+ \qquad
+ \Delta_K=\frac1{64}\left(\frac{y^2}{2}+\frac{y^4}{24}+\frac{y^6}{720}\right)B_\rho.
+ \label{eq:joint-middle}
+\end{align}
+These are corrections to the combined comparison and mean bound;
+they are not separate lower bounds obtained by substituting upper
+prices in a mean energy.
+\end{proposition}
+
+\begin{proof}
+After paying $R_{\rm err}e^{T_K+T_{QE}}$, the available positive product is
+\[
+ \bigotimes_B(\mu_B+E_{{\rm add},B}+G_B+H_B+K_{s,B}+Q_{E,B}).
+\]
+A tag specifies the summand chosen at a block in this tensor product.
+Partition the retained terms first by their exact sets of $K_s$ tags
+and then by their $Q_E$ tags. The four families are:
+\begin{enumerate}[label=(\roman*)]
+\item no $K_s$ or $Q_E$; at least two $\mathsf E$ tags, with reference
+factors elsewhere;
+\item no $K_s$; a nonempty $Q_E$ set and at least two positions carrying
+$T$ or $Q_E$, with $\mu$ or $G$ at the remaining positions;
+\item exactly $1,3,5$ $K_s$ tags; at least one further position carrying
+$T$ or $Q_E$, with $\mu$ or $G$ at the remaining positions;
+\item exactly $2,4,6$ $K_s$ tags, with arbitrary $\mu,T,Q_E,G$ outside.
+\end{enumerate}
+They are disjoint and correspond, in order, to
+$\Delta_\alpha,\Delta_M,\Delta_O,\Delta_K$.
+Each has support on at least two blocks, so none consumes a one-block
+mean credit.
+
+For the first family use
+$\mathsf E_B\pm F_{{\rm fold},B}\succeq_{\vartheta_0}0$ on a selected pair.
+The other $\mathsf E$ factors and reference factors are positive at
+the same cut. The two companions dominate
+$2\alpha_B(D_{F_1,B}+D_{F_2,B})/H_*$ after returning to the reserved
+diagonal. Average the pair selection over the $\binom n2$ pairs of
+an $n$-tag term. With raw coordinate $x_B=2\alpha_B$ this gives
+coefficient $4/(H_*^2\binom n2)$ on the selected pair.
+Consequently its exponential completion, after division by $64$, is
+$x^2\sum_{j\ge0}w^j/(16H_*^2(j+2)!)$.
+
+Here the $\mathsf E$ and $H$ assignments must be made together.
+The physical bound $H_B\le\rho_H\mathsf E_B$ in positive mass allows
+their total $U$ to be filled with an $\mathsf E$ assignment at least
+$U/(1+\rho_H)$: first assign the genuine $H$ mass and put the remaining
+slack into $\mathsf E$. The invariant and generic parts can be filled
+with their original separate nonnegative slacks. This preserves $U$
+and an invariant assignment $V_{\rm full}\ge V$. The completed
+comparison cost is nonincreasing in $V_{\rm full}$, while the mean
+corrections are nondecreasing in it, so replacing it by $V$ is safe.
+No lower bound for the physical $\mathsf E$ mass is inferred from $U$.
+
+For the second family factor out the $T$ coefficient at each matching
+position and put $z_B=\alpha_B/\beta_B\in[1/R,1/2]$.
+The nonempty-$Q_E$ sum dominates
+$\prod T_B(\prod(1+z_B)-1)$.
+The first inequality of \cref{lem:joint-multiaffine} allocates it
+simultaneously over selected pairs; the factor $1/2$ in the unordered
+pair completion gives $\Delta_M$.
+For odd $K_s$ degree select one matching position instead and use the
+second inequality. For even $K_s$ degree keep the whole outside
+expansion and use $T_B+Q_{E,B}\succeq_\iota\rho T_B$ on a pure
+invariant background. These give $\Delta_O$ and $\Delta_K$.
+The uniform constants apply also to backgrounds containing $G$;
+the finite improvements are used only on pure invariant backgrounds.
+The multiaffine inequalities allocate a term among its eligible
+positions; they never spend it separately in full on every position.
+
+It remains to justify completion of the combined expression. For a
+labelled diagonal energy $Z$, combine its comparison coefficient $c$
+and retained mean coefficient $b$ as $(63c-b)Z$ first. The finite
+checks below show $63c-b\ge0$, including the already retained variance
+credits. Thus \cref{lem:record:record-expansion} applies to the residual
+positive series. In particular, allowing repeated block labels enlarges
+the sum over distinct blocks and gives the displayed exponential
+series; this step is legitimate because the residual coefficients
+are nonnegative. Its value is precisely
+the former comparison bound minus the four displayed corrections.
+This proves the proposition without asserting a lower bound for any
+isolated upper-priced mean term.
+\end{proof}
+
+\paragraph{Residual coefficients.}
+The sixteen classes and their invariant norm caps $\kappa_b$ are
+those of \cref{cor:envelope-costs}. In the table below $F$ denotes a
+selected fold arm and $E$ a selected matching arm. The outside degree
+$j$ counts additional invariant factors. Check $j=0,\ldots,10$
+separately, and use one further category for $j\ge11$.
+The new mean coefficient is the sum of the applicable entries
+\[
+\begin{array}{c|c}
+\text{selected class}&\text{mean coefficient}\\ \hline
+F^2&4/H_*^2\\
+E^2&\eta_{j+2}\ (j\le8),\quad\eta_0\ \text{otherwise}\\
+F^nE,\ n=1,3,5&\sigma^n\zeta_{j+1}\ (j\le8),\quad\sigma^n\zeta_0\ \text{otherwise}\\
+F^n,\ n=2,4,6&\sigma^n\rho^j\ (j\le10),\quad\sigma^n\ \text{in the tail}.
+\end{array}
+\]
+The $F^2$ entries are added. Every selected block cap is at least $2$.
+The restoration formulas therefore bound a selected-pair gain by $1/4$;
+the same bound holds coefficientwise on each matching background.
+Subtract at most $\kappa_b/4$ for $F^2$ and aligned $E^2$,
+$\kappa_b/32$ for $F^4$, and the aligned $E^4$ cap divided by $32$.
+All $16\cdot12=192$ residuals $63(\kappa_b-\text{variance})-
+\text{mean}$ are positive; the minimum exceeds $23.66$.
+The gates also hold before averaging over the record words. For the pure
+fold classes $F^n$, $n=2,4,6$, the cap $\kappa_n$ is common to every word:
+the chart reflection is independent of the word, and the extra reflection
+acts trivially when there is no matching coordinate. In addition to the
+class gates, check
+\[
+ 63\bigl(1-\tfrac14\one_{n\in\{2,4\}}\bigr)\kappa_n
+ -\frac4{H_*^2}\one_{n=2}-\sigma^n\rho^j>0
+ \qquad(0\le j\le10),
+\]
+and the same inequality with $\rho^j$ replaced by $1$ for the tail.
+These $36$ gates allow the full conservative variance credit on an
+aligned quartic word, before its weight $1/8$ in the class is taken.
+Each matching-pair class has a common cap; the pure matching quartics
+have no new mean subtraction and retain their existing variance gates.
+For the mixed words the chosen unframed caps are at least $1/4$,
+and $63/4-\sigma^n\zeta_{j+1}>0$ for $n=1,3,5$, $0\le j\le8$.
+The exact rational lists and their independent reconstruction are
+part of \cref{cert:four-routes-closing}.
+
+\begin{proposition}[Mean terms with a nonempty upper support]\label{prop:joint-upper-mean}
+Let $S_u,A_u$ denote just the finite upper comparison assignments,
+excluding prefix and tail padding. Set
+\[
+ C_E=e^{S_u}\cosh A_u-1,\qquad C_O=e^{S_u}\sinh A_u.
+\]
+The further joint correction is $\Delta_u-\mathcal R_u$, where
+\begin{align*}
+ \Delta_u={}&\frac1{64}\left\{
+ C_E\bigl(\cosh(y)B_\rho+x\sinh(y)F_\zeta\bigr)
+ +C_O\bigl(\sinh(y)B_\rho+x\cosh(y)F_\zeta\bigr)\right\},\\
+ \mathcal R_u={}&\frac{R_{\rm err}e^{T_K+T_{QE}}}{64}
+                   (e^{S_u+A_u}-1).
+\end{align*}
+\end{proposition}
+
+\begin{proof}
+On each finite upper block both matching brackets are $\mu_B+Q_B$,
+with the same positive reserved-diagonal norm envelope $Q_B$.
+The nonempty-$Q$ part of their tensor product is disjoint from all
+middle-only terms used above. Fix its skew parity and the exact middle
+$K_s$ set. If the parities agree, retain the full $T/Q_E/G$ background;
+otherwise select one additional matching position. The same multiaffine
+allocation gives the displayed even and odd exponential sums.
+The new first-stage error is bounded by $\mathcal R_u$, obtained by
+summing over the entire nonempty upper support, including discarded
+branches. Every such term has positive upper degree, so it belongs to
+none of the sixteen exceptional middle classes or their variance credits.
+After splitting each full middle skew price into its raw arm and
+positive remainder, the residual gates are
+$63-\sigma^n\rho^j>0$ and $63-\sigma^n\zeta_{j+1}>0$, with the same
+finite ranges and uniform tails. Since $\sigma<1$, $n=0$ is the worst
+case, and the stated rational constants satisfy these gates.
+Complete this positive residual series as above. The finite upper
+assignments are used jointly in its positive cost and mean term;
+they are not lower bounds for the mass of $Q_B$.
+\end{proof}

@@ -1,0 +1,313 @@
+\section{Improved closing: $\Theta<\FourRoutesTheta$ with $\vartheta=\FourRoutesDensity$}
+\label{sec:four-routes-closing}
+
+This section verifies the price hypotheses of
+\cref{thm:density:induction} at
+$a=\FourRoutesA$, $K=\FourRoutesK$,
+$\vartheta=\FourRoutesDensity$, and thereby proves
+\cref{thm:main}. We first account for the normalizing factors of
+the positive reference laws, then assemble the improved local bounds,
+and finally evaluate the joint comparison and mean inequality.
+The quantities $L_0,S,A,D,\mathcal E,T,R_I,J,W$ have the meanings
+given in \cref{def:closing-quantities}; their assigned numerical
+bounds are collected in a table below.
+
+Two points govern the assembly. First, a middle reference law is
+divided by its total mass $Z_i(r)>1$. Its comparison prices carry
+this reciprocal, whereas the two positive matching additions retain
+their full prices. \Cref{lem:four-routes-normalized} accounts for
+both through a common assignment and the reserve $R_Q$. Second,
+the higher mean contributions are used inside the joint bound of
+\cref{cor:joint-closing}, through the corrections proved in
+\cref{subsec:joint-mean}. Their subtraction is justified before
+replacing energies by numerical upper bounds.
+The density induction uses the wrapping factor
+$(R_I/2)K^{-1+\vartheta/36}$.
+Appendices~D and~E record the baseline data; the assignments selected
+for the final theorem are specified here.
+
+\subsection{Accounting for the normalizing factor $Z_i^{-1}$}
+
+On each middle piece the reference is defined as a sum of records
+divided by its total mass $Z_i(r)>1$. The baseline prices of
+\cref{def:closing-quantities} were partly stated for the
+unnormalized sums; wherever the comparison uses the normalized
+laws, the correct price is the baseline price multiplied by
+$Z_i(r)^{-1}<1$. This subsection defines an explicit rational
+upper bound $c_i$ for $Z_i(r)^{-1}$ on the whole piece, using only
+integer floor and ceiling operations, and the following lemma
+states the consistent reassignment of all affected prices.
+For a prime $b$ with $X_i\le b<Y_i$, put $r=b^{-1/2}$. The mass of the
+unnormalized positive reference is
+\begin{align*}
+ Z_i(r)={}&1+(3w_{{\rm D},i}+2w_{{\rm S},i}+v_{{\rm L},i})r
+ +(6w_{{\rm R},i}+3v_{{\rm D},i}+2v_{{\rm S},i})r^2\\
+ &+(2w_{{\rm C},i}+6v_{{\rm R},i})r^3+2v_{{\rm C},i}r^4.
+\end{align*}
+All coefficients are nonnegative. The following explicit rational numbers
+therefore provide simultaneous majorants on the entire piece:
+\begin{equation}\label{eq:four-routes-normalizer}
+ r_i^-={\left\lfloor\sqrt{\lfloor10^{120}/Y_i\rfloor}\right\rfloor\over10^{60}},
+ \qquad c_i=10^{-30}\left\lceil {10^{30}\over Z_i(r_i^-)}\right\rceil,
+ \qquad Z_i(r)^{-1}\le c_i<1.
+\end{equation}
+The floor and ceiling are integer operations. In particular no numerical
+square-root approximation is needed to define $c_i$.
+
+\begin{lemma}[Consistent normalized prices]\label{lem:four-routes-normalized}
+Define new assigned prices from those of \cref{def:closing-quantities} as follows.
+Every norm price and raw-arm price in the middle row
+\eqref{eq:middle-piece-prices} is multiplied by $c_i$. For each first-stage
+total $T\in\{U_0',P',D',V'\}$, let $t_i$ be its exact certified upper
+charge in piece $i$, and replace $T$ by
+\begin{equation}\label{eq:four-routes-first}
+ T^{\rm new}=\left(T-\sum_i t_i\right)+\sum_i c_i t_i.
+\end{equation}
+The first parenthesis is its retained nonnegative rounding slack.
+Replace the invariant-background assignment by
+${\Uinv}^{\rm new}=\sum_i c_i\Uinv_i$ and the one-tag symmetric
+assignment by $s^{\rm new}=\sum_i c_i s_i$, where $s_i$ is the assigned
+symmetric folded-tag price in that piece. Use
+\[
+ \delta_{\rm s}^{\rm new}=D^{\prime\rm new}/2-s^{\rm new}
+\]
+in every orbit saving, and recompute the full tagged series and every
+class polynomial from these assignments.
+
+Keep the chosen $F$ matching-side price $T_K$ unchanged. If
+$S_{E,i}^{\rm old}$ and $A_{E,i}^{\rm old}$ are the unnormalized
+assigned matching prices, use
+\begin{equation}\label{eq:four-routes-q-reserve}
+ T_{QE}=t\sum_i(S_{E,i}^{\rm old}+A_{E,i}^{\rm old})
+       =S_E^{\rm new}+A_E^{\rm new}+R_Q,
+ \quad
+ R_Q=t\sum_i(1-c_i)(S_{E,i}^{\rm old}+A_{E,i}^{\rm old}),
+\end{equation}
+where $a$ is the target exponent, $a_0$ is the middle anchor exponent, and $t=e^{2(a-a_0)570}$. Thus $R_Q$ is added to the closing quantity $T$ of \cref{def:closing-quantities} and to the exponent in the mean-error factor $R_{\rm err}e^{T_K+T_{QE}}$. These assignments preserve all
+comparison, class and matching inequalities.
+\end{lemma}
+
+\begin{proof}
+Each middle comparison difference, each of its arm coefficients, and
+each first-stage record has the common physical factor $Z_i(r)^{-1}$.
+Its former assigned price omitted this factor. Equation
+\eqref{eq:four-routes-normalizer} consequently bounds every term after
+multiplication by $c_i$. This is a simultaneous coefficientwise bound
+on the full positive majorant polynomial; the leading, remainder and
+full arm prices are changed together. The assigned slack in
+\eqref{eq:four-routes-first} is nonnegative and remains available.
+The two folded tags have equal coefficients, and retain equal sharp
+and variation prices after this operation.
+
+The invariant and generic pieces of the first-stage bracket are changed
+with the same factors. The exact checks below give
+$0\le{\Uinv}^{\rm new}\le U_0^{\prime\rm new}$ and
+$0\le s^{\rm new}\le D^{\prime\rm new}/2$. Consequently the
+invariant-background and one-delta reductions are the same algebraic
+reductions of this new positive majorant as in
+\cref{def:closing-quantities}(6),(7). Keeping their former, larger
+coupons while lowering only the generic total would not justify the
+subtraction; the simultaneous assignments avoid that error.
+
+The physical reference and its actual half marginals are unchanged, as are the quantities entering restoration, namely the likelihood and chi-square bounds, the piece product bounds and the chosen matching-side coefficients. In particular, the chosen $K_{\rm L},K_{\rm R}$
+and $Q_E$ of \cref{sec:matching-mean} are unnormalized positive
+additions. Their former prices remain valid. Equation
+\eqref{eq:four-routes-q-reserve} charges the entire old $Q_E$ price
+while using the smaller comparison price elsewhere. The old direct
+$F$ matching price and its positive increments are also retained.
+This proves the matching and mean-error assertions. All restoration
+and class gains are then evaluated using the same new price assignment,
+so no term is counted using incompatible generic and discounted prices.
+\end{proof}
+
+\begin{lemma}[Upper-band normalization]\label{lem:four-routes-upper-normalized}
+For a band $[X_i,Y_i)$, let $P_{\mu,i}$ be the positive mass polynomial
+of \cref{def:upper-reference}. Write
+$d_{\rm L},d_{\rm D},d_{\rm S},d_{\rm R},d_{\rm C}=0,1,1,2,3$ and
+$m_{\rm L},m_{\rm D},m_{\rm S},m_{\rm R},m_{\rm C}=1,3,2,6,2$.
+Thus, for the $25$ ordered states $uv$ with $u,v\in\{\mathrm L,\mathrm D,\mathrm S,\mathrm R,\mathrm C\}$,
+\[
+ P_{\mu,i}(r)=\sum_{u,v}m_um_v
+       \bigl(w_{uv}r^{d_u+d_v}+v_{uv}r^{d_u+d_v+1}\bigr).
+\]
+Define
+\[
+ r_i^-=\frac{\left\lfloor\sqrt{\lfloor10^{200}/Y_i\rfloor}\right\rfloor}{10^{100}},
+ \qquad c_i^{\rm u}=10^{-30}\left\lceil\frac{10^{30}}{P_{\mu,i}(r_i^-)}\right\rceil.
+\]
+Then $P_{\mu,i}(b^{-1/2})^{-1}\le c_i^{\rm u}\le1$.
+Multiplying each band's assigned symmetric and skew prices by
+$c_i^{\rm u}$ also gives valid, simultaneously smaller generic matching
+prices. The tail prices and chosen middle matching diagonals are unchanged.
+\end{lemma}
+
+\begin{proof}
+The reference polynomial has constant term one and nonnegative
+coefficients. The same monotonicity argument as in
+\eqref{eq:four-routes-normalizer} proves the stated bound. In the proof
+of \cref{prop:record:upper}, every repair, deletion and skew envelope
+is divided by this common polynomial before that denominator is
+discarded in the displayed prices. Retaining its reciprocal upper
+bound is therefore valid for every positive coefficient of the three
+comparison polynomials. The upper generic matching envelope is dominated by the sum of their symmetric and skew masses. The same finite upper diagonal assignments are used in the joint mean
+allocation of \cref{prop:joint-upper-mean}. This normalization uses the
+weights already selected in \cref{subsec:upper-cross-weighted};
+it does not make any further change of reference law. The common
+factor cancels in the packet mixture gates.
+\end{proof}
+
+\subsection{The selected laws and common assignments}
+
+Fix
+\[
+ a=\FourRoutesA,\qquad \vartheta=\FourRoutesDensity,\qquad
+ K=\FourRoutesK,\qquad
+ \eps=\frac{a}{72-\vartheta}=\FourRoutesExponent.
+\]
+The $72$ slots, six queries, $33$ middle pieces, cutoff $Q_3=19951586$,
+upper endpoint $P_3=167\cdot2^{40}$, $310$ finite upper bands,
+local coefficient bound $585$, block budget $570$, and external depth
+$64$ remain as specified in the construction. The complete middle
+portfolio is the one specified in
+\cref{sec:middle-reference,sec:positive-roots}.
+
+Use the independent-draw prefix of \cref{thm:density:iid-prefix}, the
+accepting middle constants and merges of
+\cref{lem:merge-repair,lem:record:accepting-c2}, and the new finite upper
+comparisons of \cref{subsec:upper-six-refinements}, with the complete
+upper reference reweighting of \cref{subsec:upper-cross-weighted}.
+Each component keeps its original target marginals. The density-moment
+bounds apply componentwise and hence to these positive mixtures.
+The finite upper changes preserve acceptance of all six queries.
+
+The middle charge anchor is $a_0=\FourRoutesAnchor$. Its exact
+histograms and analytic prime-counting cells give charges of degrees
+$2,3,4$. Reprice every middle charge by
+$t=e^{2(a-a_0)570}$; this uses the certified maximum block product,
+not an average length. Each upper term retains its own certified
+product-log bound and anchor. Multiply the middle and upper
+assignments by their normalizing factors, using the new full upper
+reference polynomial, as in
+\cref{lem:four-routes-normalized,lem:four-routes-upper-normalized}.
+For each affected upper state replace its entire symmetric and skew
+coefficient by the corresponding aggregate cap in
+\cref{prop:upper-soft-nine,prop:upper-ss-six,prop:upper-constant-six};
+for LR and RL subtract exactly the rebates in
+\cref{prop:upper-observed-dense}. Every affected charge is then
+resummed. The other upper coefficients retain
+\cref{lem:upper:neumann-refinement}. This changes $S,A,T$ and all
+uses of those totals together.
+
+Every restoration is recomputed at $a$ with the density-valid bound
+\begin{equation}\label{eq:four-routes-restoration}
+ \mathcal F_2(C,h,M,\chi)=
+ \max\left\{0,\frac{\ell}{M},
+ \frac{\ell-\sqrt{\chi((1+\chi)C^2-\ell^2)}}{1+\chi}\right\},
+ \qquad \ell=\max\{0,1-(C-1)h\},
+\end{equation}
+proved in \cref{sec:density-upgrade}. This includes the selected,
+background and pooled variance gains. All sixteen middle envelope
+classes, their invariant refinements, and their orbit coupons use
+the same normalized raw-arm and outside assignments.
+
+For the mean keep only the terms supported on one block in
+\cref{prop:record:mean-credit}, whose sum is denoted $m_{\rm nat,1}$.
+Replace that proposition's higher-degree mean credits by
+\cref{prop:joint-middle-mean,prop:joint-upper-mean}, whose four
+middle families and nonempty upper family are disjoint. Set
+\[
+ m_1=1+m_{\rm nat,1}-R_{\rm err}e^{T_K+T_{QE}},\qquad
+ \Delta_{\rm mid}=\Delta_\alpha+\Delta_M+\Delta_O+\Delta_K.
+\]
+The separate chosen-$Q_E$ reserve of
+\eqref{eq:four-routes-q-reserve} is included in both $T$ and the mean
+error exponent. The upper-triggered allocation uses only the finite
+upper assignments; all prefix and tail padding remains in the positive
+costs, matching and wrap.
+
+\subsection{The joint closing number}
+
+The finite conductor moment is evaluated at the selected $(a,K)$
+using \cref{prop:imp:padic-price,cor:imp:padic-majorant}. Put
+\begin{align*}
+ \mathcal E&=B(e^S\cosh A-1)-D,&
+ J&=Be^T(R_I/2)^6,\\
+ W&=Be^{S+A}\bigl[(1+(R_I/2)K^{-1+\vartheta/36})^6-1\bigr].
+\end{align*}
+The joint comparison and mean bound proved above gives
+\begin{equation}\label{eq:final-joint-closing}
+ \Theta=\frac{63}{64}(L_0+\mathcal E)+J+W+
+ \frac{1-m_1}{64}-\Delta_{\rm mid}-\Delta_u+\mathcal R_u.
+\end{equation}
+The two negative allocations are justified inside the common
+positive completion. They are not additional independent instances
+of (CP7). This is the joint criterion of \cref{cor:joint-closing}.
+
+\input{four_routes_ledger}
+
+\begin{certificate}[The final joint closing]\label{cert:four-routes-closing}
+The construction just specified has
+\[
+ \Theta<\FourRoutesTheta<1,\qquad
+ 1-\Theta>2.29\cdot10^{-7}.
+\]
+The reproducible entry point is
+\path{research/epsilon_2026_10_29/verify.py}.
+Its author assembly and independent complete assembly give intersecting
+outward enclosures with value
+$0.9999997708753344\ldots$.
+The independent assembly reconstructs all $33$ middle price rows,
+$310$ upper normalizers and comparison polynomials, all restoration
+calls, the chosen-matching reserve, the finite conductor moment,
+the physical resource ratios, and the $192$ shared residual gates.
+It computes \eqref{eq:final-joint-closing} directly. Both assemblies
+use the same completed reference reweighting; its independent local
+review checks $602$ root bounds and $32\,550$ completion inequalities.
+
+The new local checks independently reconstruct all sixteen soft
+comparison graphs and complete character partitions, their exact
+leading matrices, scalar masses, count orders, repairs and tensor
+gates; all fourteen dense law/mixture matrix tests and emission
+rebates; and the complete SS and LC/CL scalar proofs. The exact
+analytic, prefix and density gates hold on $0<a\le91/100000$.
+The local and global records, with source hashes, are in the
+\path{certificates/} and \path{verification/} subdirectories of
+\path{research/epsilon_2026_10_29/}. Numerical verification establishes these finite
+assertions; the positive-energy allocation and operator reductions
+are the proofs in the preceding sections.
+\end{certificate}
+
+\begin{proof}[Completion of the proof of \cref{thm:main}]
+The actual reference and its retained marginals satisfy the moment
+catalogue and packet bounds of \cref{sec:density-upgrade} at
+$\vartheta=\FourRoutesDensity$. The new accepting upper laws are
+repaired to those same marginals, so their positive diagonal
+reductions use the same catalogue. All generic selected packets
+have the required unit mixed moment; the stronger weighted
+restoration moments are checked for the actual middle fold laws.
+The first-stage assignments, chosen matching prices, and complete
+upper comparisons are compatible by the preceding construction.
+
+The joint mean proof has strictly positive residual coefficients.
+Consequently its completed positive series has the same robust
+inflation and the same two analytic error types as the original
+closing proof. The induction of \cref{thm:density:induction}, in
+its joint form, therefore applies. Its extended analytic domain is
+valid: the relative-error margin at $a=91/100000$ is
+$943271/3284710000>0$, and the prefix plus tail is below the assigned
+$10^{-12}$ in every channel. The strict closing is
+\cref{cert:four-routes-closing}.
+
+Initialization at the finitely many small scales and continuity in
+the inflation parameter give, for every square-difference-free
+$A\subseteq[\Kint\Lsc]$ of density $\alpha$,
+\[
+ Y(\Lsc,A)\le C\Lsc^{-a}\alpha^\vartheta.
+\]
+Reflection positivity gives $\alpha^{72}\le Y(\Lsc,A)$; for $\alpha>0$,
+division and the $(72-\vartheta)$th root yield
+$\alpha\le C'\Lsc^{-a/(72-\vartheta)}$.
+The fixed relation $N=K\Lsc$ and interval rounding change only the
+absolute constant. Hence $s(N)\le C''N^{1-\FourRoutesExponent}$
+for every $N\ge1$.
+\end{proof}

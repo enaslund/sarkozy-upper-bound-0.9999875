@@ -1,0 +1,605 @@
+\providecommand{\PushK}{890666}
+\providecommand{\PushTheta}{0.99999999997327}
+
+\section{The whole argument with one query}
+\label{sec:mechanism}
+
+\paragraph{What this section proves and how to read it.}
+This section proves nothing new; it assembles, with one query instead
+of six, the four facts on which the whole proof rests, in the form
+\cref{prop:mech:one-query}: at a least counterexample,
+$1\le\mathcal E+BR_I/2+W_1+o(1)$, where
+$W_1=BR_I/(2\Kint^{35/36})$ is the one-query wrapping term. The
+four facts are: (1) a
+reflection-positive law gives $\alpha^{72}\le Y$ for the $72$-fold
+Fourier average $Y$ (\cref{subsec:mech:chessboard}); (2) at a least
+counterexample every change of the law is bounded by its price times
+$Y$, because fixing labels restricts to shorter square-step
+progressions (\cref{subsec:mech:prices}); (3) small primes enter
+through an external index coupling the two ends of the query
+(\cref{subsec:mech:index}); (4) coupled terms in which the query is
+accepted and intervals do not wrap are negligible by the kernel
+estimate (\cref{subsec:mech:kernel}). Inputs: the definitions of
+Part~II, quoted by label. Output: the one-query inequality, whose
+six-query form is Theorem~C (\cref{thm:comparison}); Part~V applies
+it with six queries. A first reading should follow the statements and
+the sketch after \cref{prop:mech:one-query} and skip the quoted
+hypothesis checks; nothing here is a premise of a later section.
+\Cref{subsec:mech:budget} explains why one query cannot give
+$\Theta<1$, and \cref{subsec:mech:crude} why conditioning independent
+labels does not work, which motivates \cref{sec:design-walk}.
+
+\subsection{The $72$-fold average and reflection positivity}\label{subsec:mech:chessboard}
+
+Let $N$ be large (in particular so large that the prime ranges
+below are nonempty as stated), let $A\subseteq[N]$ be square-difference-free, and let
+$\alpha=|A|/N$. The labels of the proof live in the finite group
+$G_N=\prod_p\Z/p^{e_p}\Z$, a product over three kinds of primes
+(\cref{def:record:functional}): the primes $p\equiv1\pmod4$ below
+$\Pfour=2^{512}$, with $e_p=2\mcl$ and $\mcl=8192$; the primes
+$p\equiv3\pmod4$ in $[Q_3,\Pfour)$, $Q_3=19951586$; and all primes in
+$[\Pfour,N^{1/20}]$, the last two kinds with $e_p=1$. The prime $2$ and the
+primes $p\equiv3\pmod4$ below $Q_3$ are not coordinates of $G_N$; they enter
+in \cref{subsec:mech:index}. The \emph{lift} of $A$ is
+\[
+ F_A(z)=\sum_{q(\xi)\le N^{1/20}}\widehat{\one_A}(\xi)\,e(z\cdot\xi),
+ \qquad\widehat{\one_A}(\xi)=\frac1N\sum_{n\in A}e(-n\xi),
+\]
+the sum over the characters $\xi$ of $G_N$ whose conductor $q(\xi)$ is at
+most $N^{1/20}$. It is real, and its mean over the uniform law on $G_N$ is the
+coefficient of the trivial
+character: $\E F_A=\alpha$.
+
+\paragraph{Slots, cuts and reflection positivity.}
+Let $V$ be a finite set of \emph{slots}, $d=|V|$. For a finite signed
+measure $\kappa$ on the labellings $z=(z_v)_{v\in V}\in G_N^V$ and real
+functions $g_v$ on $G_N$ put
+\[
+ \Lambda_\kappa\bigl((g_v)_{v\in V}\bigr)=\int\prod_{v\in V}g_v(z_v)\,d\kappa(z),
+ \qquad\Lambda_\kappa(g)=\Lambda_\kappa\bigl((g)_{v\in V}\bigr).
+\]
+The average of the proof is $Y=\Lambda_\mu(F_A)$ for one fixed probability
+measure $\mu$, the \emph{reference}. A \emph{cut} is a fixed-point-free
+involution $\vartheta$ of $V$ with a decomposition $V=V_+\sqcup V_-$,
+$V_-=\vartheta V_+$. The \emph{cut matrix} of $\kappa$ at $\vartheta$ is
+$C_\vartheta(\kappa)_{x,y}=\kappa(z_{V_+}=x,\ z_{\vartheta V_+}=y)$, indexed by
+$x,y\in G_N^{V_+}$, and its \emph{cut form} is
+$Q_\kappa(X,X')=\ip X{C_\vartheta(\kappa)X'}$ for \emph{half-functions}
+$X,X'\colon G_N^{V_+}\to\R$. If $X$ and $X'$ are products of functions of the
+single labels, $Q_\kappa(X,X')$ is the average $\Lambda_\kappa$ in which the
+factors of $X$ sit on $V_+$ and those of $X'$ are carried to $V_-$ by
+$\vartheta$ \eqref{eq:cc:bilinear}. The measure $\kappa$ is \emph{reflection
+positive} at $\vartheta$ if $C_\vartheta(\kappa)$ is symmetric and positive
+semidefinite (\cref{def:rp,def:cc:order}). Reflection positivity at a cut is
+preserved by sums, positive multiples and tensor products
+\eqref{eq:cc:kron}.
+
+\paragraph{One cut, and folding repeatedly until all slots agree.}
+Let $\phi_+$ be the map of $V$ that fixes $V_+$ and sends $v\in V_-$ to
+$\vartheta v$, and $\phi_-$ the map that fixes $V_-$ and sends $v\in V_+$ to
+$\vartheta v$. If $\kappa$ is reflection positive at $\vartheta$, the
+Cauchy--Schwarz inequality for its cut form gives, for every assignment
+$h\colon V\to\R^{G_N}$ of functions to slots (\cref{lem:holder:one-cut}),
+\begin{equation}\label{eq:mech:one-cut}
+ \bigl|\Lambda_\kappa(h)\bigr|^2\le\Lambda_\kappa(h\circ\phi_+)\,
+ \Lambda_\kappa(h\circ\phi_-),\qquad\Lambda_\kappa(h\circ\phi_\pm)\ge0,
+\end{equation}
+where $\Lambda_\kappa(h)=\Lambda_\kappa((h(v))_v)$: a mixed average is at most the
+geometric mean of the two averages in which one half has been copied onto
+the other. A sequence of cuts $\vartheta^1,\dots,\vartheta^T$ with signs
+$s_t\in\{\pm\}$ is \emph{sorting} if the composition
+$\phi^{\vartheta^T}_{s_T}\circ\dots\circ\phi^{\vartheta^1}_{s_1}$ of its folds is
+constant (\cref{def:sorting}).
+
+\begin{theorem*}[Signed H\"older inequality]
+If $\kappa$ is reflection positive at every cut of a sorting sequence, then
+for all real functions $g$, $g_v$ on $G_N$ \textup{(\cref{thm:holder})}
+\[
+ \Lambda_\kappa(g)\ge0\qquad\text{and}\qquad
+ \bigl|\Lambda_\kappa\bigl((g_v)_{v\in V}\bigr)\bigr|
+ \le\prod_{v\in V}\Lambda_\kappa(g_v)^{1/d}.
+\]
+\end{theorem*}
+
+\emph{Sketch.} Fix finitely many functions $f_1,\dots,f_k$, and let $M$ be the
+largest value of $|\Lambda_\kappa(h)|$ over the assignments $h$ with values in
+$\{f_i\}$. If $h$ attains $M$, both folded assignments $h\circ\phi_\pm$ again
+take values in $\{f_i\}$. By \eqref{eq:mech:one-cut} they are nonnegative,
+at most $M$, and their product is at least $M^2$, so both equal $M$: folds of
+maximizers are maximizers. Folding along the whole sorting sequence
+produces a constant maximizer, so $M=\max_i\Lambda_\kappa(f_i)$. Applied to
+$f_v=g_v/(\Lambda_\kappa(g_v)+\epsilon)^{1/d}$, $\epsilon>0$, multilinearity gives
+the inequality as $\epsilon\to0$. This is the chessboard estimate of statistical mechanics in
+finite form. Consequently $\|g\|_\kappa=\Lambda_\kappa(g)^{1/d}$ is a seminorm, and
+if every one-slot marginal of $\kappa$ is uniform, then $|\E g|\le\|g\|_\kappa$,
+by the inequality with $g$ at one slot and $1$ at the others
+(\cref{cor:seminorm}). With $g=F_A$ this is $\alpha^d\le\Lambda_\kappa(F_A)$. The
+inequality says more: every average of the same shape, with arbitrary real
+functions at the slots, is controlled by the diagonal averages of its
+inputs. This is what makes the prices of \cref{subsec:mech:prices} possible.
+
+\paragraph{The slot array.}
+The slots form $V=\Zsix\times\Zsix\times\{0,1\}$, $d=72$, with slots
+$(u_0,u_1,\ell)$ (\cref{def:slot-array}). On each chamber coordinate $\Zsix$
+there are the chamber reflections $\vartheta_a(j)=2a-1-j$ with plus halves
+$H_a=\{a,a+1,a+2\}$, and $\vartheta_{c,a}$ is $\vartheta_a$ acting on $u_c$. The
+layer carries the reserved cut $\iota(u_0,u_1,\ell)=(u_0,u_1,1-\ell)$, with plus
+half $V_+=\{\ell=0\}$. The plus folds of $\vartheta_0$ and $\vartheta_4$ are
+$f_0=(0,1,2,2,1,0)$ and $f_4=(0,0,5,4,4,5)$ (values at $0,\dots,5$), and
+$f_0\circ f_4\circ f_0$ is constant. Folds of different coordinates commute,
+so the seven-step sequence
+$\vartheta_{0,0},\vartheta_{0,4},\vartheta_{0,0},\vartheta_{1,0},\vartheta_{1,4},
+\vartheta_{1,0},\iota$, all with sign $+$, maps every slot to $(0,0,0)$
+(\cref{lem:slot-array}(ii),(iii)). The family $\mathfrak F$ of the chamber
+cuts and $\iota$ consists of seven involutions. The reference is a product
+$\mu=\bigotimes_\Blk\mu_\Blk$ over the \emph{atoms} $\Blk$ of $G_N$ (the single
+primes of the prefix, blocks of the primes $p\equiv3\pmod4$ in
+$[Q_3,\Pfour)$, and the single tail primes) of probability measures that are
+reflection positive at every cut of $\mathfrak F$ and invariant under the maps
+$z_{v,p}\mapsto r_pz_{v,p}+t_p$, $r_p$ a square unit, chosen independently at
+each prime; in particular their one-slot marginals are uniform
+(\cref{hyp:record:reference}). Hence (\cref{lem:record:holder})
+\begin{equation}\label{eq:mech:density}
+ \alpha^{72}\le\Yf(\Lsc,A)=\Lambda_\mu(F_A)=Y .
+\end{equation}
+Positivity turns density into size; the proof shows, conversely, that
+$Y\le C\Lsc^{-a}\alpha$ at the scale $\Lsc$ in the decomposition
+$N=\Kint\Lsc$ of \cref{subsec:mech:prices} (the next subsection).
+
+\paragraph{The six distinguished slot pairs (queries).}
+The proof uses the six queries $e=(u_e,v_e)=((0,j,0),(2,\rot j,1))$,
+$j\in\Zsix$, of the family $\mathcal E_6$, where $\rot j=j+2$ for even $j$ and
+$\rot j=j-2$ for odd $j$. Their twelve
+endpoints are distinct, the sources lie in $V_+$, the targets in $V_-$, and
+the reflected targets $\iota v_e=(2,\rot j,0)$ in $V_+$
+(\cref{lem:slot-array}(iv)). Each query crosses the reserved cut. In this
+section one query $e$ is enough.
+
+\subsection{Rescaling by square steps: the price of changing a local law}\label{subsec:mech:prices}
+
+\paragraph{The induction.}
+Write $N=\Kint\Lsc$ with a fixed integer $\Kint\ge2$ (in the
+baseline $\Kint=\PushK$; the improved stage uses
+$\Kint=\FourRoutesK$), and fix a price exponent $a$ with
+$0<a<\sigma=1/825$,
+where $\sigma$ is the error exponent of the analytic stage
+(\cref{def:record:analytic-stage}). The proof shows that for a suitable
+$C_0\ge1$
+\[
+ \Yf(\Lsc,A)\le C_0\Lsc^{-a}\alpha
+\]
+for every $\Lsc$ and every square-difference-free $A\subseteq[\Kint\Lsc]$. With
+\eqref{eq:mech:density} this gives $\alpha^{71}\le C_0\Lsc^{-a}$, that is
+$|A|\le CN^{1-a/71}$: the baseline saving is $\eps=a/71$
+(\cref{thm:record:lineardensity}). If the bound fails, let $\Lsc$ be the least
+scale at which it fails, for some $A$. Then $(\Lsc,A)$ is a \emph{least
+normalized counterexample} (\cref{def:record:counterexample}):
+$Y=\Yf(\Lsc,A)>C_0\Lsc^{-a}\alpha$, while
+$\Yf(\Lsc',A')\le C_0(\Lsc')^{-a}\alpha_{A'}$ for every scale
+$\Lsc'<\Lsc$ and every square-difference-free $A'\subseteq[\Kint\Lsc']$,
+$\alpha_{A'}$ its density. Every argument of the proof takes place at such a
+pair, and its aim is a contradiction once $\Lsc$ is large. Throughout,
+$o(1)$ is a quantity that tends to zero as $\Lsc\to\infty$, uniformly in $A$.
+
+\paragraph{Fixing labels is rescaling.}
+Let $\Blk$ be an atom of primes with $e_p=1$, and $q_\Blk=\prod_{p\in\Blk}p$.
+Fixing, for one slot, its block label
+$z_\Blk\in X_\Blk=\prod_{p\in\Blk}\Fp$ fixes for that slot a residue
+class $\mathfrak a$ modulo $q_\Blk$ (the argument below is applied
+slot by slot through the signed H\"older inequality): by the Chinese remainder theorem the specialized
+lift $F_A(z_\Blk,\cdot)$ is, at every character $\xi$ of the other coordinates
+with $q(\xi)q_\Blk\le N^{1/20}$, the lift of $q_\Blk\one_{A\cap(\mathfrak a+q_\Blk\Z)}$
+(\cref{lem:record:fibre-scale}(a)). Split the class into the $q_\Blk$
+progressions with the square step $q_\Blk^2$. Since $q_\Blk^2k^2=(q_\Blk k)^2$, the
+set $A$ meets each progression $\{q_\Blk^2n'+c\}$ in a rescaled copy
+$A'_c=\{n':q_\Blk^2n'+c\in A\}$, which is again square-difference-free and lives
+at the scale $N/q_\Blk^2$. So, up to the characters of large conductor, whose
+contribution is an error linear in $\alpha$ (\cref{lem:record:density-dc}),
+$F_A(z_\Blk,\cdot)$ is an average of lifts of square-difference-free sets at a
+shorter scale, composed with square-affine maps, which preserve $\mu$
+(\cref{lem:record:fibre-scale}(b),(c)). By the triangle inequality for the
+seminorm $\Lambda_\mu(\cdot)^{1/72}$ and the induction hypothesis at the shorter
+scale, the specialized input has $\Lambda_\mu$ at most
+$(1+o(1))(q_\Blk^2)^a(\alpha_{\rm f}/\alpha)Y$, $\alpha_{\rm f}$ the density of $A$ in the
+class; the average over the progressions introduces no further
+factor: by the triangle inequality for the seminorm
+$\Lambda_\mu(\cdot)^{1/72}$ its seminorm is at most the weighted
+average of the progression seminorms (the weights sum to one), and
+concavity of $t\mapsto t^{1/72}$ moves that average inside the
+power.
+A change of the law at $\Blk$ changes all $72$ slots, and the signed H\"older
+inequality multiplies the $72$ slot factors $(q_\Blk^2)^{a/72}$, while the
+fibre densities average to $\alpha$ under labels with uniform one-slot
+marginals.
+
+\paragraph{The price of a change: total variation times $q_{\Blk}^{2a}$.}
+The \emph{price} of a finite signed measure $\zeta$ on $X_\Blk^V$ is
+$\|\zeta\|_{\rm var}\,q_\Blk^{2a}$ (\cref{def:price}; at a prefix prime the
+factor is $p^{e_pa}$). The structured-energy estimate
+(\cref{prop:record:density-structured}) states that, at a least normalized
+counterexample, the \emph{energy} $\Lambda_{\zeta\otimes\mu_{-\Blk}}(F_A)$ of $\zeta$, in
+which the factor $\mu_\Blk$ of the reference is replaced by $\zeta$, has absolute
+value at most $(1+o(1))\|\zeta\|_{\rm var}\,q_\Blk^{2a}\,Y$, provided the variation of $\zeta$ has
+uniform one-slot marginals; changes at several atoms multiply their prices.
+Inputs restricted to intervals and residue classes are priced in the same
+way. An input that sees only an interval of length $\Lsc=N/\Kint$ and a
+residue class modulo an integer $D_0$ (the inputs $g^{I,D_0,s}$ of
+\cref{subsec:mech:index}) is a lift at a scale shorter by the factor
+$\Kint\sq(D_0)$, where $\sq(D_0)$ is the least square divisible by $D_0$ (for
+instance $\sq(24)=144$). Its slot costs $(\Kint\sq(D_0))^{a/72}$, and a fixed
+interval adds the factor $\Kint^{1/72}$, because the density of $A$ on an
+interval of length $N/\Kint$ is at most $\Kint\alpha$
+(\cref{def:record:structured-energy}). The product of these factors is the
+\emph{coarse price} of the energy.
+
+\paragraph{The only use of the induction hypothesis.}
+Every comparison between laws in the proof is reduced to energies of this
+kind, and the induction hypothesis enters only through the rescaling
+above. Everything else is an exact identity at one scale, an estimate of a
+finite local law, or one of two analytic remainders: the cancellation of
+\cref{subsec:mech:kernel}, and the selections of atoms with a large product
+(\cref{lem:record:density-can,lem:record:density-lp}). Both remainders are
+$O(\Lsc^{-\sigma}\alpha)$, linear in the density. At a counterexample
+$Y>C_0\Lsc^{-a}\alpha$, so such a remainder is at most
+$(C/C_0)\Lsc^{a-\sigma}Y=o(1)Y$. This is why $a<\sigma$ is required, and why
+the induction can keep the full density factor $\alpha$ on the right: the
+density exponent $\theta=1$ of \cref{thm:record:lineardensity}.
+
+\subsection{One query and its external index $(b,s)$}\label{subsec:mech:index}
+
+The prime $2$ and the primes $p\equiv3\pmod4$ below $Q_3$ form the fixed
+external modulus
+$\Mzero=2^{129}\prod_{3\le p<Q_3,\,p\equiv3\,(4)}p^{128}$.
+They are not coordinates of $G_N$; their conductor depths are revealed
+by an external random index attached to each query.
+
+\paragraph{Intervals, inputs and the index.}
+Split $[N]$ into the $\Kint$ consecutive intervals $I_b=((b-1)\Lsc,b\Lsc]\cap\Z$,
+$b\in\Z/\Kint\Z$ (identified with $\{1,\dots,\Kint\}$). For an interval $I$, a
+divisor $D_0$ of $\Mzero$ and $s\in\Z/D_0\Z$, the \emph{input} $g^{I,D_0,s}$ is
+the lift of $D_0\one_{n\equiv s\,(D_0)}\one_A$ restricted to $I$, with
+coefficients normalized by $|I|$ (\cref{def:record:functional}(f)); its mean
+is the relative density $D_0\#\{n\in A\cap I:n\equiv s\ (D_0)\}/|I|$ of $A$ in
+the class. Fix one query $e=(u_e,v_e)$. Its \emph{index} is $\omega=(b,s)$,
+uniform on $\Z/\Kint\Z\times\Z/\Mzero\Z$, and its \emph{coupled index} is
+$\omega'=(b+1,s+r)$, with $r$ independent of $\omega$ and distributed
+as the square of a uniform residue conditioned on root valuation less than
+$64$ in each prime-power coordinate. Thus $r$ is a nonvanishing square
+class (\cref{def:nonvanishing-square-class,lem:imp:padic-envelope}). The
+\emph{half-functions} $X_\omega$ and $Y_\omega$ carry the input $g^{I_b,\Mzero,s}$ at
+the source $u_e$, respectively at the reflected target $\iota v_e$, and $F_A$
+at the other slots of $V_+$ (\cref{def:hyb:coupled}; the half-function
+$Y_\omega$ is unrelated to the average $Y$).
+
+\paragraph{The mean identity.}
+The lift is linear, the intervals $I_b$ partition $[N]$, and the residue
+classes partition $\Z$; so averaging an input over a uniform index returns
+the lift of $A$ (\cref{lem:twointerval}):
+\begin{equation}\label{eq:mech:mean}
+ \E_{b,s}\,g^{I_b,\Mzero,s}=F_A .
+\end{equation}
+Hence $\E_\omega X_\omega=\E_\omega Y_\omega=\bar X$, the half-function carrying $F_A$ at
+every slot of $V_+$, and $Q_\kappa(\bar X,\bar X)=\Lambda_\kappa(F_A)=:Y_\kappa$ for every
+measure $\kappa$; in particular $Y_\mu=Y$.
+
+\paragraph{Coupling the two ends, and the signed combination $2P-T$.}
+From now on cut forms are taken at the reserved cut $\iota$. Let $T$ be the
+Markov operator $(Tf)(b,s)=\E_rf(b+1,s+r)$ on functions of the index
+(this $T$ is an operator, not the dominator price $T$ of
+Theorem~C), and $P$
+the average over the whole index. For a finite signed measure $\kappa$ put
+\[
+ I_\kappa=\E_\omega Q_\kappa\bigl(X_\omega,(TY)_\omega\bigr),\qquad
+ J_\kappa=\E_\omega Q_\kappa\bigl(X_\omega,((2P-T)Y)_\omega\bigr),
+\]
+the operators acting on the index of $Y_\omega$. Since $\iota(\iota v_e)=v_e$,
+the \emph{coupled form} $I_\kappa$ is the average of $\Lambda_\kappa$ with
+$g^{I_b,\Mzero,s}$ at $u_e$, $g^{I_{b+1},\Mzero,s+r}$ at $v_e$ and $F_A$ at the
+other slots: it places the two ends of the query on the residue classes $s$
+and $s+r$ of the adjacent intervals $I_b$ and $I_{b+1}$. By
+\eqref{eq:mech:mean}, $(PY)_\omega=\bar X$, so the \emph{signed index form} is
+\begin{equation}\label{eq:mech:signed}
+ J_\kappa=2Y_\kappa-I_\kappa ,
+\end{equation}
+the case of one query of \eqref{eq:record:expansion}.
+
+\paragraph{Decomposition by exact conductor.}
+The Chinese remainder theorem splits the index into its interval coordinate
+and prime-power coordinates. In the $p$-coordinate, conditional expectation
+onto residues modulo $p^j$ gives a nested filtration; its orthogonal
+differences are the exact-conductor sectors. Write $\delta_{p,j}$ for the
+decreasing envelope on the norm of the shift at conductor $p^j$ proved in
+\cref{lem:imp:padic-envelope}. Independently at the different primes choose
+$J_p$ with $\Pr(J_p\ge j)=\delta_{p,j}$, and always reveal the interval.
+On a nonconstant product sector of depths $\mathbf j$, both $T$ and $2P-T$
+have norm at most $\prod_p\delta_{p,j_p}$, with the interval factor $1$.
+Both operators fix constants. The coefficient $2$ used in the comparison
+comes instead from the expansion $2P-T$: its fully averaged term is $2P$,
+while the remaining term is the coupled form that cancels. There
+is no contradiction in the two numbers: $1$ is the eigenvalue of
+both operators on constant index functions, while $2$ is the
+coefficient of the fully averaged term $Y_\kappa$ in the expansion
+\eqref{eq:mech:signed}.
+
+Let $\Jc=(J_p)_p$ and $D_\Jc=\prod_{p\mid\Mzero}p^{J_p}$. Conditional
+expectation gives $X^\Jc=\E[X\mid b,s\bmod D_\Jc]$ and,
+for any bracket matrix $M$ at the reserved cut (introduced
+in the next paragraph),
+$V_M(X)=\E_\Jc\E_\omega Q_M(X^\Jc_\omega,X^\Jc_\omega)$, and
+likewise for $Y$.
+The conditioned input is $g^{I_b,D_\Jc,s\bmod D_\Jc}$
+(\cref{lem:twointerval}). The one affected slot in $X^\Jc$ and the one in
+$Y^\Jc$ each contribute the slot factor
+$(\Kint\sq(D_\Jc))^{a/72}$, hence $(\Kint\sq(D_\Jc))^{a/36}$
+jointly after averaging their densities. Consequently
+\begin{equation}\label{eq:mech:RI}
+ R_I=\E_\Jc(\Kint\sq(D_\Jc))^{a/36}
+ =M_{\rm pad}(\Kint)<1.247139907407.
+\end{equation}
+The numerical bound in \eqref{eq:mech:RI} is at the baseline
+values $a=\PushA$ and $\Kint=\PushK$. The finite product formula
+and its exact relation to the single-level square-shift moment are
+proved in \cref{lem:hyb:moment,prop:imp:padic-price}.
+Only the conditioning used to bound an energy has the random modulus
+$D_\Jc$; the kernel cancellation itself always uses inputs at the
+full modulus $\Mzero$.
+
+\paragraph{The index-support lemma.}
+Let $\bigl(\begin{smallmatrix}M_{\rm L}&\Gamma\\ \Gamma^{\mathsf T}&M_{\rm R}
+\end{smallmatrix}\bigr)\succeq0$ be a \emph{bracket} of real matrices indexed by
+$G_N^{V_+}$, and let $\mathcal T$ be an operator on functions of the index that
+maps every exact-conductor sector into itself, is the identity on constants
+and has norm at most $\prod_p\delta_{p,j_p}$ on the sector of depths
+$\mathbf j$. Then \cref{lem:record:common-mean} gives
+\begin{equation}\label{eq:mech:index-support}
+ \bigl|\E_\omega\ip{X_\omega}{\Gamma(\mathcal TY)_\omega}\bigr|
+ \le V_{\rm L}^{1/2}V_{\rm R}^{1/2},
+\end{equation}
+where $V_{\rm L}$ and $V_{\rm R}$ are the depth-conditioned energies under
+$M_{\rm L}$ and $M_{\rm R}$. The probability that every $J_p\ge j_p$ equals
+$\prod_p\delta_{p,j_p}$, exactly the weight of that sector in these energies.
+The same lemma keeps the constant component exactly. With
+$M_{\rm L}=M_{\rm R}=\Gamma\succeq0$ and $\mathcal T=T$ this is the plain
+coupling inequality in the finite-depth form.
+
+\subsection{Where square-difference-freeness enters}\label{subsec:mech:kernel}
+
+In this one-query section a nonnegative law $\nu$ \emph{accepts}
+the query $e$ if, $\nu$-almost surely, $z_{v_e}-z_{u_e}$ is a
+nonzero square at every prime of $G_N$ with $e_p=1$, and (this is
+the almost-sure condition alone; in Part~III \emph{accepts} also
+includes the marginal requirements of (CP4), as in the glossary)
+at every prime of the prefix it is nonzero, of even valuation $2j<e_p$, with
+a square unit part (\cref{def:record:comparison-law}(a)). Consider the part
+of the coupled form $I_\nu$ with $b\ne\Kint$. The two ends of the query carry
+$g^{I_b,\Mzero,s}$ and $g^{I_{b+1},\Mzero,s+r}$. Every integer in the support
+of the first, $A\cap I_b\cap(s+\Mzero\Z)$, is smaller than every integer in the
+support of the second; their residues differ by $r$, a nonvanishing square class
+modulo $\Mzero$; and at every prime of $G_N$ the law forces the labels of the
+two ends to differ by a nonzero square. Fixing the labels at the primes
+below $\Pfive=2^{65536}$ places the two ends in residue classes whose
+difference is a square class of the kind the kernel admits
+(\cref{lem:record:fibre-scale}(a)); at the primes $p\ge\Pfive$ the endpoint
+pair is uniform on the strict-square pairs $\Om$, by the
+\ref{it:record:R4} clause included in
+\cref{def:record:comparison-law}(a) and not by the square condition
+alone, and integrating it turns the average
+into a Fourier pairing with the multiplier
+$g(\xi)=\varphi(q(\xi))^{-1}\sum_{m\in(\Z/q(\xi)\Z)^\times}e(\xi m^2)$, the average
+of $e(\xi m^2)$ over the units modulo $q(\xi)$ (\cref{lem:square-shift}(d)).
+
+Three of the hypotheses of the actual-square kernel
+(\cref{prop:record:kernel20}(iii)) are the form in which square-difference-freeness
+is used: the two functions $F_1$ and $F_2$ are supported in single residue
+classes $a_1$ and $a_2$ modulo $D$, with $a_2-a_1$ a nonvanishing square class;
+every $x\in\supp F_1$ is smaller than every $y\in\supp F_2$; and no difference
+$y-x$ is the square of a positive integer. Here $F_1$ and $F_2$ are built
+from the square-difference-free set $A$, which is what makes the third
+hypothesis true. Under these hypotheses the kernel bounds the Fourier
+pairing $D\sum_{\xi\in\Xi_{H,D}}g(\xi)\widehat F_1(-\xi)\widehat F_2(\xi)$, truncated to
+the frequencies $\Xi_{H,D}$ of squarefree conductor at most $H=N^{1/40}$ prime
+to $D$, by $CH^{-1/3}\|F_1\|_{\ell^2}\|F_2\|_{\ell^2}/N$, where
+$H^{-1/3}=N^{-1/120}$. In the proof
+(\cref{app:kernel20}) this pairing is rewritten using a signed kernel whose
+support consists of positive integer squares; the third hypothesis makes
+that kernel's contribution exactly zero, and the factor $H^{-1/3}$ bounds
+the remainder of the rewriting. With conductor decay at the large primes and
+moment bounds for the other $70$ slots, the part of $I_\nu$ with $b\ne\Kint$ is
+$O(\Lsc^{-\sigma}\alpha)=o(1)Y$ (\cref{lem:record:density-can}). This is the
+only place where the absence of square differences yields a gain; the
+rescaling of \cref{subsec:mech:prices} uses only that the property is
+preserved.
+
+If $b=\Kint$, the interval $I_\Kint$ is followed, cyclically, by $I_1$, and the
+two ends are not ordered. This \emph{wrap} has probability $1/\Kint$; its term
+is bounded by energies, and it becomes the term $W$ of the closing.
+
+\subsection{One query: $1\le\mathcal E+BR_I/2+W_1+o(1)$ at a least counterexample}\label{subsec:mech:one-query}
+
+This proposition is the whole mechanism with one query in place of
+six: if the reference law is reflection positive, a comparison law
+accepts the query and is dominated by a $2\times2$ block with energy
+factor $B$, then a least counterexample would force
+$1\le\mathcal E+BR_I/2+W_1+o(1)$. Its proof is
+\cref{rem:cp:one-query}, the case $k=1$ of Theorem~C.
+
+\begin{proposition}[One query]\label{prop:mech:one-query}
+Consider the frame data of (CP0) (\cref{def:cp0}) with the index law of
+\cref{subsec:mech:index} and a single query $e\in\mathcal E_6$, so $k=1$. Let
+$0<a<\sigma$, let $(\Lsc,A)$ be a least normalized counterexample for
+$(a,1,C_0)$ (\cref{def:record:counterexample}), and $Y=\Yf(\Lsc,A)$. Let the
+reference $\mu$ satisfy (CP1) (\cref{def:cp1}): a product over the atoms of
+probability measures, each reflection positive at the seven cuts of
+$\mathfrak F$, square-affine invariant and mixing at the primes
+$p\ge\Pfive$. Let $\nu=\bigotimes_\Blk\nu_\Blk$ be a product of nonnegative
+measures, of total mass bounded independently of the scale, that accepts
+$e$ in the sense of (CP4)(a) (\cref{def:record:comparison-law}; in particular
+every one-slot marginal of $\nu_\Blk$ is a multiple of the uniform law).
+Suppose that
+\begin{enumerate}[label=\textup{(H\arabic*)}]
+\item $Y_\nu\ge(1-\mathcal E-o(1))Y$ for a number $\mathcal E$; and
+\item there are nonnegative measures $M_\Blk$ on $X_\Blk^V$ with
+ $\bigl(\begin{smallmatrix}M_\Blk&\nu_\Blk\\ \nu_\Blk^*&M_\Blk\end{smallmatrix}\bigr)
+ \succeq_\iota0$ for every atom, and a number $B$, such that the energy
+ $\E_\omega\Lambda_M((g^{I_v,D_{0,v},s_v})_v)$ of every structured slot datum
+ (\cref{def:record:structured-energy}(c); the expectation is
+ over the index vector $\omega=(I_v,s_v)_v$ under the law
+ $\mathbf P$ of that datum) under $M=\bigotimes_\Blk M_\Blk$ is at most
+ $(B+o(1))$ times its coarse price times $Y$.
+\end{enumerate}
+Then, with the conductor moment $R_I$ of \eqref{eq:mech:RI},
+\[
+ 1\le\mathcal E+\frac{BR_I}2+W_1+o(1),\qquad W_1=\frac{BR_I}{2\Kint^{35/36}} .
+\]
+\end{proposition}
+
+\emph{Sketch of the proof.} By \eqref{eq:mech:signed}, $2Y_\nu=J_\nu+I_\nu$. The
+brackets of (H2) tensorize over the atoms (\cref{lem:record:block-gram}), and
+\eqref{eq:mech:index-support}, with $\Gamma$ the cut matrix of $\nu$ at $\iota$ and
+$\mathcal T=2P-T$, gives $|J_\nu|\le V_{\rm L}^{1/2}V_{\rm R}^{1/2}$. By (H2) and the
+slot prices of \cref{subsec:mech:index}, each of the depth-conditioned energies
+$V_{\rm L}$ and $V_{\rm R}$ (the energies after conditioning on
+the random conductor depths $\Jc$) is at most $(BR_I+o(1))Y$, the conductors being held fixed and averaged over $\Jc$
+only at the end. In $I_\nu$ the part with $b\ne\Kint$ is $o(1)Y$ by the kernel
+(\cref{subsec:mech:kernel}). The wrap $b=\Kint$ has probability $1/\Kint$, and
+\eqref{eq:mech:index-support} on the residue coordinates bounds it by energies
+at the fixed intervals $I_\Kint$ and $I_1$, which cost the density factor
+$\Kint^{1/72}$ at each of the two changed slots: its term is at most
+$(BR_I\Kint^{1/36}/\Kint+o(1))Y=(2W_1+o(1))Y$. With (H1),
+$2(1-\mathcal E-o(1))Y\le2Y_\nu\le(BR_I+2W_1+o(1))Y$; divide by $2Y>0$. The
+complete proof is \cref{rem:cp:one-query}, which checks the hypotheses of the
+lemmas used in the frame of Part~III.
+
+\emph{Keeping the common mean.} Part~(a) of \cref{lem:record:common-mean}
+keeps exactly the component supported on no query and no conductor
+coordinate (the \emph{empty-support}, that is constant, component):
+that of $J_\nu$ is $Y_\nu$, and
+that of each energy is the mean energy $e_M=Q_M(\bar X,\bar X)$ of the bracket
+measure. It gives $J_\nu\le Y_\nu+(BR_I+o(1))Y-e_M$, and if
+$e_M\ge(m-o(1))Y$, the conclusion becomes
+\[
+ 1\le\tfrac12\mathcal E+\frac{BR_I}2+W_1+\frac{1-m}2+o(1):
+\]
+keeping the common mean halves the coefficient of $\mathcal E$, and a
+mean constant $m>1$ lowers the right-hand side further through
+$(1-m)/2$. This is the case $k=1$ of
+\cref{thm:comparison} without a first stage ($L_0=0$), with the one energy
+factor $B$ of (H2) in place of both $Be^T$ in $J$ and $Be^{S+A}$ in $W$.
+
+\begin{remark}[A positive comparison law]\label{rem:mech:positive}
+If every factor $\nu_\Blk$ were reflection positive at $\iota$, the bracket of
+(H2) would hold with $M_\Blk=\nu_\Blk$, since
+$\bigl(\begin{smallmatrix}C&C\\ C&C\end{smallmatrix}\bigr)=
+\bigl(\begin{smallmatrix}1&1\\ 1&1\end{smallmatrix}\bigr)\otimes C\succeq0$ for
+$C=C_\iota(\nu_\Blk)\succeq0$, and part (a) of the index-support lemma with
+$\mathcal T=T$ would be the plain coupling inequality
+$2Y_\nu-\bar V_\nu\le I_\nu$ of \cref{lem:hyb:coupling}, where
+$\bar V_\nu=\frac12(V_\nu(X)+V_\nu(Y))$ is a scalar (not the slot
+set $V$). The comparison laws of the
+construction accept the queries but are not reflection positive at $\iota$
+(\cref{subsec:walk:bracket} explains why); the signed index form and the
+bracket are what replace positivity there. In the middle range the
+comparison laws are signed measures: a fold record of the comparison law
+is a signed combination of three nonnegative accepting laws with exact
+marginals (\cref{def:record:mixture}). The cancellation of
+\cref{subsec:mech:kernel} is applied to each nonnegative product component,
+and the variation of the signed laws multiplies only the constant of a
+vanishing remainder (\cref{def:cp4,lem:record:wrap-expansion}). The bracket asks less than
+positivity: $M$ has to dominate $\nu$ only at the one cut $\iota$, and it need
+not accept anything.
+\end{remark}
+
+\subsection{Why the sum of error bounds must be $<1$, and why one query fails}
+\label{subsec:mech:budget}
+
+\Cref{prop:mech:one-query} says that a least counterexample forces
+$\mathcal E+BR_I/2+W_1\ge1-o(1)$. Hence if $\mathcal E$ and $B$ do
+not depend on the scale and $\mathcal E+BR_I/2+W_1<1$, no least
+normalized counterexample exists at large scales; once every $o(1)$
+is shown to come only from structured energies and the two analytic
+remainders (\cref{lem:record:rec}), the induction of
+\cref{thm:record:lineardensity} gives $s(N)\le CN^{1-a/71}$. Each
+term has a direct meaning. The left side is the constant coefficient $2$ of $2P-T$, divided by
+$2$: in \eqref{eq:mech:signed} the term without an active index is $2Y_\nu$,
+while the coupled form, in which the index is active, cancels by the kernel
+except for the wrap. The conductor moment $R_I\ge1$ is the price of
+revealing the index: the squared slot price of an input restricted to an
+interval and to the residues kept by the inclusion law, averaged over the
+inclusions. And $B$ is the energy factor of the bracket, the price of
+controlling by a positive measure a law that is not reflection positive at
+$\iota$; in the comparison theorem $B=e^{U_0}+R_{\rm err}\ge1$.
+
+With one query the coupled term $BR_I/2$ is at least $R_I/2$, about
+$0.623$ at the baseline $R_I$, so even with $B=1$ the comparison
+price $\mathcal E$ would have to be below about $0.377$; at the
+baseline energy factor $B<2.332628665480$ it is about $1.454>1$, so
+one query cannot give $\Theta<1$. Using $k$ queries with disjoint
+endpoints and independent indices, the operator
+$\bigotimes_e(2P_e-T_e)$ has constant coefficient $2^k$, while the
+energies factor over the queries, each contributing $R_I$
+(\cref{lem:envelope-energy}). The coupled term becomes
+\[
+ J=Be^T\Bigl(\frac{R_I}2\Bigr)^k,
+\]
+where $T$ is the total price of the dominators for $\nu$ in (CP6)
+(\cref{def:cp6}). For $k=6$, $(R_I/2)^6<0.0588$ at the baseline
+$R_I$, and $J<0.25177$ at the baseline $B$ and $T<0.60760$
+(baseline values; the improved values are in
+\cref{sec:four-routes-closing}). Why six queries are used, and
+why these six, is explained in \cref{subsec:walk:queries}.
+
+Theorem~C is \cref{prop:mech:one-query} for $k$ queries with two
+refinements: a first-stage law $\lambda$ with total price $L_0$
+between $\mu$ and $\nu$, dominated at $\iota$ with energy factor $B$,
+against which the symmetric and skew parts of $\nu-\lambda$ are
+priced separately; and retention of the common mean, which lowers
+the coefficient of $L_0+\mathcal E$ to $1-2^{-k}$. Its comparison
+law may be, at a set of atoms whose number is bounded
+independently of the scale (the middle blocks), a real combination
+of
+nonnegative accepting laws (\cref{def:cp4},
+\cref{rem:mech:positive}). It gives $1\le\Theta+o(1)$ with
+$\Theta=(1-2^{-k})(L_0+\mathcal E)+J+W+(1-m)/2^k$ at a least
+counterexample. Part~V constructs $\nu$ with baseline
+$\Theta<\PushTheta$ (\cref{sec:closing,tab:intro:values}); the
+improved value $\Theta<\FourRoutesTheta$ is proved later by the
+separate $\vartheta>1$ induction.
+
+\subsection{Why conditioning independent labels on a square difference does not work}\label{subsec:mech:crude}
+
+Which law should accept the query? The obvious candidate starts from the
+law $\mu_0$ of independent uniform labels, whose cut matrices have rank one
+and which is reflection positive at every cut, and conditions it on
+$z_{v_e}-z_{u_e}\in\Qsq$ at every prime $p$ of $G_N$ with $e_p=1$ (and on the
+corresponding event at the prefix primes). At one prime this replaces the
+uniform law of the pair $(z_{u_e},z_{v_e})$ by the uniform law on the
+strict-square pairs $\Om$. The uniform law puts the mass $(p+1)/(2p)$
+outside $\Om$, and conditioning moves all of it onto $\Om$; so the change
+$\nu_p-\mu_{0,p}$ has total variation norm
+$\|\nu_p-\mu_{0,p}\|_{\rm var}=(p+1)/p>1$ (twice the moved mass),
+and its price exceeds
+$p^{2a}>1$. In the expansion of
+$\nu=\bigotimes_p(\mu_{0,p}+(\nu_p-\mu_{0,p}))$ the prices of the primes
+multiply, and their total grows with the number of primes of $G_N$: it is
+not bounded independently of the scale, so $\mathcal E$ cannot be
+bounded. Even a change of size about $1/p$ at every prime is too
+large, since $\sum_pp^{2a-1}$ over the primes of $G_N$ is unbounded.
+
+Two ingredients are missing. First, reference laws whose records
+already give a square difference on most of their mass, so that an
+accepting law changes only a small part at each prime. Second, a way
+to bound many primes jointly: a change on a whole block of primes
+should be bounded by about its worst prime, with one factor
+$q_{\Blk}^{2a}$ for the block. \Cref{sec:design-walk} explains both
+(\cref{subsec:walk:graph-laws,subsec:walk:completions} and
+\cref{subsec:walk:blocks} respectively).
+
+\paragraph{Consequences and what to read next.}
+This section quotes, by their labels, statements of Part~II (the square
+shift \cref{lem:square-shift}, \cref{sec:positivity}, the functional and the
+kernel of \cref{def:record:functional,prop:record:kernel20}, and
+\cref{sec:scale-comparison}) and of Part~III
+(\cref{sec:comparison-theorem,sec:comparison-lemmas,sec:comparison-proof}), the
+comparison law of the middle range (\cref{def:record:mixture}), and
+the final values of \cref{sec:closing}; its only new statement,
+\cref{prop:mech:one-query}, is proved in \cref{rem:cp:one-query}.

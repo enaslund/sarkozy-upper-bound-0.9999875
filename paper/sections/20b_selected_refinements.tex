@@ -1,0 +1,1773 @@
+\subsection{Isolating collision terms on two explicit subspaces}
+\label{imp:local:protected-section}
+
+The remaining subsections of this section are finite calculations
+at one prime $p\equiv3\pmod4$, used only to evaluate the caps
+tabulated in \cref{subsec:positive-root-caps}. They do two things.
+First, they sharpen the collision part of the L20 bound for the
+uniform principal law, by computing it exactly on two explicit
+subspaces. Second, they construct and bound the coherent tilted
+law of the last interval $[2^{45},P_3)$: its score is an explicit
+linear combination of the trace functions
+$\E_s\prod_{i\in D}\chi(s-x_i)$ over a list of $39$ supports
+$D$ (subsets of the twelve label positions), symmetrised so that
+one law serves at every sorting cut. Its matrix bounds are first
+proved at the endpoint parameter $t_*=12/5$ and then transferred
+by convexity to the parameter $t=67/40$ used in the construction.
+In this part of the paper a support or a law is called
+\emph{physical} when it is described in the original twelve
+labels, as opposed to coordinates of a chosen half chart; a
+\emph{gate} is one finite matrix or positivity inequality checked
+exactly (\cref{app:certificates}). A reader who accepts the caps of
+\cref{cert:positive-root-caps} can skip to
+\cref{sec:middle-frame}. Local words in this part: a \emph{pin}
+is a label fixed by conditioning (core pins $C_i$, private pins
+$b_l$); a \emph{mask} is a subset of the edge set of the small
+graph under discussion, determining one character product; an
+\emph{arm} is one synthesis factor (feature map) in a product of
+two stars, and a \emph{free leaf} is a label coordinate occurring
+in no other factor; a \emph{spike} is an exceptional large value
+of a trace or score at special configurations (in particular at
+equal score pairs), always bounded separately; a \emph{hole
+term} is a term in which the common auxiliary label equals one of
+the fixed labels; an argument is \emph{rooted} when it keeps the
+common auxiliary summation label $s$ unintegrated, and
+\emph{unrooted} when $s$ is integrated out first; a star factor
+is \emph{passive} when it carries none of the displayed
+characters; the \emph{realification} of a complex feature space
+is the real span of the real and imaginary parts of its
+functions; an \emph{endpoint} $X$ is the lower endpoint of an
+interval, at which bounds are evaluated; and \emph{physical}
+(as defined above) is opposed to \emph{soft}: the physical
+kernel is the actual kernel $K_0$ in the original labels, the
+soft kernel its expansion without distinctness.
+
+We begin with the uniform law, before any tilt. The collision
+part of its L20 kernel---the terms where labels of the two halves
+coincide---is split according as the test function lies in one of
+two explicit subspaces or in their orthogonal complement; on the
+two subspaces it is computed exactly below.
+In the following local calculations write $A=\mathsf R$, $a=\mathfrak r$
+for the rectangle and its private mean in \cref{prop:l20-rectangular},
+$C_0=A-a\otimes1$, and $Z=\boldsymbol z$, with the other normalized
+star features $v,w,e$ as in \cref{prop:l20-rank4}. All spaces have
+probability normalization, $q=p^{-1}$ and $r=\sqrt q$.
+The letter $a$ in these local formulas denotes a function on the core;
+the scalar exponent does not enter this calculation. Likewise $t$
+below denotes the root parameter $\ulaw$, not scalar repricing.
+Write $Q=I-J$ for ordinary centering (subtracting the mean). Put $a_2=\|a\|_2$, $P_a=aa^*/a_2^2$ and
+\[
+ P_{\rm c}=I_{\rm core}\otimes J_{\rm pair},\qquad
+ P_{\rm p}=P_a\otimes Q_{\rm pair},\qquad
+ P=P_{\rm c}+P_{\rm p},\qquad R=Q_a\otimes Q_{\rm pair}.
+\]
+The core labels are $C=(a_0,a_1,c_0,c_1)=(C_0,C_1,C_2,C_3)$, with $a_i\to c_j$,
+and the private pair is $b=(b_0,b_1)$. Set
+\[
+ K_C(s)=\prod_i(1-\chi(s-a_i))\prod_j(1+\chi(s-c_j)),
+ \qquad\kappa_C=\E_sK_C(s),\qquad
+ Z_C=(K_C-\kappa_C)/(\sqrt{15}r).
+\]
+The six-distinct induced half is obtained by conditioning the
+independent core and distinct private pair on the six labels being pairwise distinct.
+
+\begin{lemma}[Compression of the constant kernels at pinned labels]
+\label{imp:local:pin-projections}
+For $h\in H=L^2_0(\mathbb F_p)$, let $\sigma=(-1,-1,1,1)$, $V_i h=h(C_i)$,
+$B_lh=h(b_l)$, $w=\sum_iV_i/2$, $u=(V_0+V_1-V_2-V_3)/2$,
+$v=(B_0+B_1)/\sqrt2$, and
+\[
+ W h(b)=\mathbb E_s\chi(s-b_0)\chi(s-b_1)h(s),\quad e=W/r,
+ \quad R_lh(b)=\mathbb E_s\chi(b_l-s)h(s).
+\]
+On $H$, for $\epsilon\in\{-1,1\}$, define
+\[
+ F_i^\epsilon h=\prod_{l=0}^1(1+\epsilon\chi(b_l-C_i))h(C_i),
+ \qquad G_lh=K_C(b_l)h(b_l),
+\]
+and set $k=\mathbb E a/a_2$, $k'=\mathbb E(a\kappa)/a_2$,
+where $\kappa$ denotes the function $C\mapsto\kappa_C$ and the
+expectations are under the core law (uniform on core
+configurations).
+The sixteen core-pin constant kernels and the four private-pin
+constant kernels have auxiliary-mean-zero parts
+\[
+ K_c=q\sum_{i,j}F_i^{\sigma_j}(F_j^{\sigma_i})^*,
+ \qquad K_b=q(G_0+G_1)(G_0+G_1)^*.
+\]
+Their protected blocks are
+\begin{equation}\label{eq:merge-local-I-14}
+\begin{array}{c|c|c|c}
+ &P_{\rm c}KP_{\rm c}&P_{\rm p}KP_{\rm p}&P_{\rm c}KP_{\rm p}\\ \hline
+K_c&4q(1-q)^2ww^*&16q^2k^2ee^*
+ &4q(1-q)k[-2u(R_0+R_1)^*+2wW^*]\\
+K_b&60q^2ZZ^*&2q(k')^2vv^*&2\sqrt{30}qrk'Zv^*
+\end{array}
+\end{equation}
+The full auxiliary constant-label pieces contribute, respectively,
+$16q(1-q)^2J$ and $4q\kappa\otimes\kappa$ on $P_{\rm c}$, and zero
+other protected blocks.
+\end{lemma}
+
+\begin{proof}
+Uniformity of the private pair and affine invariance of the actual
+core give exactly
+\[
+ P_{\rm c}F_i^\epsilon=(1-q)V_i,\quad
+ P_{\rm p}F_i^\epsilon=k[\epsilon(R_0+R_1)+W],\quad
+ P_{\rm c}G_l=\sqrt{15}rZ,\quad P_{\rm p}G_l=k'B_l.
+\]
+Indeed $\mathbb E[a\mid C_i=s]=\mathbb E a$ and
+$\mathbb E_C[aK_C(s)]=\mathbb E(a\kappa)$, independently of $s$.
+Summing uses $\sum\sigma_i=0$, $\sum V_i=2w$, and
+$\sum\sigma_iV_i=-2u$, proving \eqref{eq:merge-local-I-14}.  On the constant label,
+$P_{\rm c}F_i^\epsilon1=(1-q)1$, $P_{\rm p}F_i^\epsilon1=0$,
+$P_{\rm c}G_l1=\kappa$, and $P_{\rm p}G_l1=0$, which proves the last assertion.
+\end{proof}
+
+\subsection{A finite collision bound for the uniform law}
+\label{imp:local:finite-collision-section}
+
+This result is a finite bound for the uniform (untilted) L20 root in the original twelve labels.
+Its positive coefficient, marginal range, variance and layer data
+are consequently unchanged. Retain the independent-half rectangle
+$A=a\otimes1+C_0$ and the certified bounds for the rectangle
+and its domain gap from \cref{prop:l20-rectangular} and
+\cref{prop:l20-pair-gap}: numbers again called $a_2,c$ with
+$a_2\ge\|a\|_2$, $c\ge\|C_0\|$, $z_2\ge\|Z\|^2$ (here $a_2,c$
+are upper bounds, although the same letters denoted the exact
+norms above).
+Put
+\[
+ \theta=(1-q)(1-3q)(1-7q),\quad h_-=(1-4q)(1-5q),
+ \quad \eta=11r+2q,
+\]
+\begin{equation}\label{eq:merge-local-I-15}
+ \begin{aligned}
+ d_\kappa&=\sqrt{\frac{5q+34qr+11q^3}{\theta}}+2q,\qquad
+ d_a=\frac{(2+\eta+16q)d_\kappa+15q}{1-q},\\
+ a_-&=(1-\eta)(1-\eta-16q),\qquad \omega=d_a/a_-.
+ \end{aligned}
+\end{equation}
+From the rectangle estimates of \cref{sec:middle-reference} we
+retain the bounds $|\kappa-1|\le\eta$, $\|a-1\|_2\le d_a$ and
+$a\ge a_-$.
+
+\begin{proposition}[Finite bound for the collision term on the two protected subspaces]
+\label{imp:local:collision-gap}
+Define
+\[
+ \delta_c=\frac{4(4r+92q)}{\sqrt{\theta(1-q)}},
+ \qquad \delta_b=\frac{4\sqrt{15}\,r}{\sqrt{\theta(1-q)}},
+\]
+\begin{equation}\label{eq:merge-local-I-16}
+ E_{\rm pin}=256q(2\delta_c+\delta_c^2)
+              +1024q(2\delta_b+\delta_b^2),\qquad
+ E_{\rm mult}=\frac{24903680q^2}{1-q},
+\end{equation}
+and
+\begin{equation}\label{eq:merge-local-I-17}
+ \begin{aligned}
+ b_B&=64q(2+\eta),\\
+ A_0&=4q+60q^2z_2,\qquad
+ A_1=2q(1+\eta)^2+16q^2,\\
+ X&=8qr\bigl(\sqrt{2/(1-q)}+1\bigr)
+                +2\sqrt{30}qr(1+\eta)\sqrt{z_2},\\
+ \alpha&=\max(A_0,A_1)+X+16q\omega^2+4q(\eta+\omega)^2,\\
+ E_S&=\frac{b_B^2}{a_-^2-b_B},\qquad
+ G=a_2c+\alpha,\qquad D=c^2+b_B .
+ \end{aligned}
+\end{equation}
+For $p\equiv3\pmod4$ satisfying $a_-^2>b_B$ and $G>D$, the old mass-one root operator
+on its fixed induced half satisfies
+\begin{equation}\label{eq:merge-local-I-18}
+ T_{\rm old}\succeq-g_{\rm pin}rI,\qquad
+ g_{\rm pin}=
+ \frac{E_S+G+b_B^2/(G-D)+E_{\rm pin}+E_{\rm mult}}
+      {h_-(1-\varepsilon_Z)r}.
+\end{equation}
+Here $\varepsilon_Z$ is the normalizer error of the uniform
+(untilted) law from \cref{prop:l20-completion}. Exact rational endpoint evaluation is valid uniformly
+for every prime above the endpoint. For example, the endpoint $19951586$ gives
+$g_{\rm pin}<5.481634404$, compared with the retained
+$5.500057067029$.
+\end{proposition}
+
+\begin{proof}
+Let $B$ be the sum of the twenty full-label constant pin-incidence
+kernels in Lemma~\ref{imp:local:pin-projections}. For a core pin
+$C_i=C'_j=t$, where $C'$ denotes the core labels of the second half, its incident factors are two half multipliers bounded
+by four. After removing them, the cross polynomial is a swapped
+product of two $3$-by-$2$ rectangles. Given one core coordinate,
+the remaining three have density $16/\theta$ relative to the
+three-label cube; the private distinct-pair density is $1/(1-q)$.
+
+The six-edge rectangle has seventeen nonempty stars and
+forty-six other masks (edge subsets that are not stars). Group the stars on the full independent cube.
+Every raw star has norm at most $r$, because its Gram is a Schur
+product of Paley Grams with diagonal at most one and norm at most
+$q$. Distinct output supports are orthogonal ANOVA spaces.
+On nonzero translation sectors, the three singleton and four
+higher output supports, and the two singleton and one pair input
+supports, give a seven-by-three matrix. Collapsing the two equal
+singleton columns gives Gram
+\[
+ \begin{pmatrix}14&\pm i\sqrt2\\\mp i\sqrt2&3\end{pmatrix},
+\]
+whose largest eigenvalue is below sixteen: the three retained
+core signs sum to $\pm1$. On zero translation frequency the
+blocks are $2\sum_{|S|\ge2}\sigma_Sm_S\otimes1$, of norm at most
+$4r$, and $3\,1\otimes m_{\rm pair}$, of norm at most $3r$.
+Their input and output spaces are orthogonal. This retains the
+full auxiliary constant sector and proves that the seventeen stars together have norm at most $4r$.
+Every other mask contains two disjoint edges whose induced
+subkernel is a matching, a path, or a restricted $K_{2,2}$, of
+norm at most $2q$.
+Fixing the third output coordinate inserts only one-variable input
+multipliers and separate output exclusions. Distinctness of the
+selected input and output pairs stays inside the restricted
+kernel. Density congruence gives $\|A_i-J\|\le\delta_c$.
+
+For a private pin the two incident factors are bounded by sixteen.
+The remaining rectangle is $K_C(s)$ with $s$ uniform outside the
+pinned label. Its fifteen nonempty output supports are orthogonal
+on the full four-label cube, giving norm $\sqrt{15}r$ before the
+same density congruence. Its defect from $J$ is at most $\delta_b$.
+A swapped product of two $J+$defect rectangles differs from $J$
+by at most $2\delta+\delta^2$. Equality of two uniform coordinates
+disintegrates exactly as $q\mathbb E_t$; conditional
+Cauchy--Schwarz recovers the original half norms. The sixteen
+core pins and four private pins therefore give
+$\|D_{\rm sum}-B\|\le E_{\rm pin}$, where $D_{\rm sum}$ is the
+sum of those twenty pin terms, with multipliers
+$16\cdot4^2$ and $4\cdot16^2$. The condition that the labels involved are distinct is retained
+inside every norm estimated above.
+
+The sixteen core/private equalities vanish because $K_C$ is zero
+at every core label. Of the other twenty events, compatible
+double equalities form matchings on two six-distinct halves.
+Every two-coordinate input marginal has point mass at most
+$2q^2/(1-q)$: this is attained by a directed core pair; same-side
+and private pairs have mass $q^2/(1-q)$, and core/private pairs
+have mass $q^2$. The soft density is at most $65536$.
+For multiplicity $m$, $m-1\le\binom m2$. Counting even all
+$\binom{20}{2}=190$ pairs bounds the positive overlap correction
+by $E_{\rm mult}$. Conditioning on the input half contributes the single factor
+$h_-^{-1}$ in \eqref{eq:merge-local-I-18}, which also covers every higher coincidence.
+
+With $f_\epsilon(s)=\prod_l(1+\epsilon\chi(b_l-s))$ the
+private factor in $F_i^\epsilon$, the exact second moment
+$\mathbb E f_\epsilon^2=4(1-2q)$ gives
+$\|F_i^\epsilon\|^2=4(1-2q)$, while
+$\|G_l\|^2=16\mathbb E\kappa\le16(1+\eta)$.
+Hence $\|B\|\le b_B$. In \eqref{eq:merge-local-I-14}, use
+$\|w\|,\|v\|,\|e\|\le1$, $\|u\|\le(1-q)^{-1/2}$,
+$k\le1$ and $k'\le1+\eta$. The nonconstant protected blocks
+are bounded by $A_0,A_1,X$. On the core space orthogonal to
+$a$, the constant-label blocks cost at most $16q\omega^2$
+and $4q(\eta+\omega)^2$. Thus $P_-BP_-$ (with $P_-$ as defined in the next paragraph) has norm at most
+$\alpha$; no auxiliary constant mode is omitted.
+
+Let $S=\operatorname{span}(a\otimes1)$ and $P_-=P\ominus S$.
+The old rectangle reduces $S$, $P_-$ and $R$. Its lower diagonal bounds are
+$\|a\|_2^2$, $-\|a\|_2\|C_0\|$, and $-\|C_0\|^2$.
+After subtracting $B$, the $S$ block is at least $a_-^2-b_B$;
+its off-diagonal norm is at most $b_B$. The positive-block elimination in \cref{lem:block-completion}(a)
+costs at most $E_S$ times the remaining identity. The other
+two blocks have lower bounds $-G,-D$ and off-diagonal norm
+at most $b_B$. Since $G>D$, \cref{lem:block-completion}(b) gives their lower bound
+$-G-b_B^2/(G-D)$. Adding the two pin errors, compressing to
+the physical half and dividing by the old normalizer proves
+\eqref{eq:merge-local-I-18}.
+
+For uniform endpoint evaluation, retain certified endpoint
+upper bounds on $a_2,c/r,z_2,\varepsilon_Z$. All normalized
+numerators are positive increasing in $q,r$, and the lower
+denominators are positive decreasing on the gates. Before the
+last Schur step replace $G/r,D/r,b_B/r$ by endpoint majorants
+$G_0,D_0,B_0$. The lower block matrix with these fixed entries
+is valid at every larger prime; use
+$G_0+B_0^2/(G_0-D_0)$ after checking $G_0>D_0$.
+No monotonicity of a moving gap denominator is assumed.
+\end{proof}
+
+\subsection{Allocating the pair-square remainder across a spectral gap}
+\label{imp:env:gap-section}
+
+All spaces in this subsection carry probability measures; its $C$ is the rectangle $C_0$ above.  Let $U$ be
+the uniform directed $K_{2,2}$ core, with ordered side pairs $a(u),c(u)$,
+and let $V$ be the uniform ordered distinct-pair space.  Put
+\begin{align*}
+ A(u;b)&=K_u(b_0)K_u(b_1),\quad a=A1,\quad C=A-a\otimes1,\\
+ a_2&=\|a\|_2,\quad a_\infty=\|a\|_\infty,\quad c=\|C\|.
+\end{align*}
+Here $K_u$ is the function $K_C$ above with core $C=u$.
+The rectangle identities used in
+Proposition~\ref{prop:root-chamber} give
+$C1=C^*1=C^*a=0$.  Write $M^2=\sup_u\int|C(u;b)|^2\,db$;
+the exact row square $256a(u)-a(u)^2$ permits $M^2\le256a_\infty$.
+The column square is constant.  Indeed square-affine changes and
+private-pair exchange act transitively on $V$ and preserve $C$.
+If $F_a,F_c:L^2(V)\to L^2(U)$ are the side-pair pullbacks, the same
+symmetry proves
+\begin{equation}\label{imp:env:conditional-square}
+ F_a^*M_{a^2}F_a=F_c^*M_{a^2}F_c=a_2^2I.
+\end{equation}
+
+For real kernels $X,Y:V\to U$, define
+\[
+ T[X,Y]((u,b),(u',b'))=X(u;b')Y(u';b).
+\]
+Set
+\[
+ P_{\rm c}=I_U\otimes J_V,\quad P_{\rm p}=P_a\otimes Q_V,\quad
+ P=P_{\rm c}+P_{\rm p},\quad R=Q_a\otimes Q_V,\quad P_a=aa^*/a_2^2.
+\]
+Put $K=T[A,A]$; expanding $A=a\otimes1+C$ shows that $P,R$ reduce $K$ exactly.
+The $R$ block is $T[C,C]$, of norm at most $c^2$.
+On $P$, the positive rank-one term $aa^*\otimes J$ and the two adjoint
+blocks $a_2C,C^*a_2$ give a lower bound $-a_2c$.
+
+\begin{lemma}[The pair-square residual]
+\label{imp:env:pair-residual}
+Put $q=p^{-1}$, $r=\sqrt q$, and
+$H(b,d)=r^{-1}\mathbb E_s\chi(s-b_0)\chi(s-b_1)
+\chi(s-d_0)\chi(s-d_1)$.  Then
+\begin{align*}
+ \sigma&=(1-2q)^2+\frac{q(1-3q)^2}{1-q},\qquad
+ L=H^{\circ2}-\sigma J,\\
+ 0&\preceq L\preceq\rho I,\quad L1=0,
+ \quad\rho=q\left(\frac4{1-q}+2q\right).
+\end{align*}
+For
+\begin{align*}
+ E_c&=\tfrac12K\circ\{L(a(u),c(u'))+L(c(u),a(u'))\},\\
+ E_b&=K\circ L(b,b'),\qquad E=(2E_c+E_b)/3,
+\end{align*}
+one has
+\[
+ PEP\succeq-\alpha P,\quad\|REP\|\le b,\quad
+ \|RER\|\le\gamma,
+\]
+where
+\[
+ \alpha=\frac{2\rho}{3}\max(a_2^2,c^2),\quad
+ \gamma=\rho M^2,\quad
+ b=\frac{\rho M}{3}
+ \sqrt{(2a_2+c)^2+(a_2+2a_\infty c/a_2)^2}.
+\]
+The separate $R\leftarrow P_{\rm c}$ bound (the norm of the block $REP_{\rm c}$) is
+$b_0=\rho M(2a_2+c)/3$.
+\end{lemma}
+
+\begin{proof}
+For the raw pair map $W$ with kernel
+$\chi(s-b_0)\chi(s-b_1)$, the exact Paley Gram is
+$W^*W=qg_eQ+q^2J$, where $g_e=(1-2q-q^2)/(1-q)$.
+This gives the constant row sum
+$\sigma=(1-q)g_e^2+q^3$.
+The auxiliary constant diagonal contributes $(1-2q)^2J$ to
+$H^{\circ2}$; the part of $H^{\circ2}$ orthogonal to that contribution is positive with norm at
+most $\rho$, by the distinct-pair $K_{2,2}$ bound and the
+mean-zero diagonal bound.  Removing its constant eigenvalue proves
+the asserted bounds on $L$.
+
+Consider first the unaveraged core placement $L(a(u),c(u'))$.
+Its rank/rank term (the part $a\otimes1$ in both factors; the rank/centered and centered/centered terms below are analogous) is supported on $P_{\rm c}$ and costs at most
+$\rho a_2^2$, by \eqref{imp:env:conditional-square}.
+The rank/centered terms have zero $P$ compression: use $C1=0$
+on $P_{\rm c}$, and \eqref{imp:env:conditional-square} followed by
+$L1=0$ on $P_{\rm p}$.  Their $R\leftrightarrow P_{\rm c}$ norm is at most
+$a_2\rho M$.  To see the normalization explicitly, their squared
+Gram is bounded by
+$a_2^2\rho^2(CC^*)\circ(F_aF_a^*)$; the last operator is a direct
+integral over pair fibers, each with trace at most $M^2$.
+
+The centered/centered term kills $P_{\rm c}$.  Its $P_{\rm p}$ compression is
+$B_a^*LB_c/a_2^2$, where $M_a$ is multiplication by the
+function $a$, $B_a=F_a^*M_aC$, and $B_c=F_c^*M_aC$.
+Equation~\eqref{imp:env:conditional-square} gives
+$\|B_a\|,\|B_c\|\le a_2c$, so this compression costs $\rho c^2$.
+The full image of $a\otimes g/a_2$ is
+\[
+ (Cg)(u)(LF_c^*M_aC)(a(u);b)/a_2.
+\]
+The second factor has constant squared row norm, at most
+$\rho^2a_\infty^2M^2$, giving the $R\leftarrow P_{\rm p}$ bound
+$\rho a_\infty Mc/a_2$.
+Factoring $L$ into two square roots, retaining the same auxiliary
+label in the two product maps and the private-coordinate swap,
+gives the whole centered/centered norm at most $\rho M^2$.
+
+For the private placement, the rank/rank term is $aa^*\otimes L$
+and is positive on $P_{\rm p}$.  The rank/centered term couples $P_{\rm p},R$
+with norm at most $a_2\rho M$: its squared Gram is bounded by
+$\rho^2(C^*C)\circ I$, whose diagonal is the constant column square.
+The centered/centered term kills $P_{\rm p}$, has positive $P_{\rm c}$
+compression $CLC^*$, and has $R\leftarrow P_{\rm c}$ norm at most
+$\rho Mc$.  The same square-root factorization bounds its full
+norm by $\rho M^2$.
+Thus the two columns of $REP$ cost respectively
+$\rho M(2a_2+c)/3$ and
+$\rho M(a_2+2a_\infty c/a_2)/3$.
+Their squared sum proves the result.  These are product-operator
+bounds, not an arbitrary-kernel Schur-multiplier assertion.
+\end{proof}
+
+\begin{proposition}[Finite chamber-cut price for the pair-square law, with the gap bound]
+\label{imp:env:finite-gap-chamber}
+Use the retained finite constants of
+Proposition~\ref{prop:root-chamber}. In its notation (the
+following ten aliases are used only in this proposition; in
+particular $N,\Gamma,h,\varepsilon,e$ do not have their earlier
+meanings here),
+$N=N_A$, $\Gamma=\Gamma_{20}$, $E_L=\eps_{\rm lin}$,
+$\ell_0=\mathfrak l_0$, $h=h'_p$, $D_{\rm old}=D_{\rm bal}$,
+$P_{\rm spike}=\mathfrak s$, $\varepsilon=\eps_Z$,
+$h_{\rm mean}=h_0$ and $e=\eps_{\rm sq}$.
+Use
+$a_-\le a$, $a_+\ge\|a\|_\infty$, $d\ge\|a-1\|_2$,
+$\delta=d/\sqrt{1-q}$, and
+\[
+ \|QL_{\rm soft}Q-rM_{\rm pair}\|\le E_L,\qquad
+ \|QL_{\rm soft}1\|\le\ell_0r+E_L,
+\]
+where $L_{\rm soft}=K\circ\Hbar$ is the soft kernel multiplied by the mean score and
+$M_{\rm pair}$ the leading pair matrix of
+\cref{prop:root-chamber}.
+Let $c$ be an upper bound for $\|C\|$, namely the retained rectangular-domain-gap bound, and assume
+$c<a_-$.  Put $d_a=d/a_-$,
+\begin{align*}
+ E_{0P}&=2rd(\sqrt{30\Gamma}+2)+2a_2N,
+ \quad E_{\rm rank}=r(2\delta+\delta^2),\\
+ s_+&=1+t^2+2tqr,\qquad s_-=1+t^2(1-4q).
+\end{align*}
+For a fixed rational $0<\Lambda\le15$ with $k=2t/\Lambda\le s_-$,
+let $g(\Lambda)$ be the unique root $>\sqrt{26}$ of
+$3g^3+\Lambda g^2-90g-26\Lambda=0$ (the cubic is negative at
+$\sqrt{26}$ and strictly increasing beyond it). Define
+\begin{align*}
+ G&=(s_+-k)a_2c+k\{g(\Lambda)r\Gamma+E_{0P}\}
+       +2tE_{\rm rank}+\tfrac{4t}{3}rc^2+t^2\alpha,\\
+ d_L&=E_L+rd_a^2/3+qrc^2,\\
+ b_L&=E_L+rd_a/3+d_a(\ell_0r+E_L),\\
+ h_L&=\ell_0r+E_L(1+d_a),\\
+ D&=s_+c^2+2td_L+t^2\gamma+
+       \frac{(2th_L+t^2b_0)^2}{s_-a_-^2},
+ \qquad B=2tb_L+t^2b.
+\end{align*}
+Here the residual constants are those of
+Lemma~\ref{imp:env:pair-residual}, with $M=16\sqrt{a_+}$ and
+$a_2$ in denominators replaced by the smaller bound $a_-$, which only enlarges the constants.
+If $G>D$, the independent-half weighted rectangle satisfies
+\[
+ K\circ\frac13\sum_{j=0}^2(1+t\Hs j)^2
+ \succeq-\left(G+\frac{B^2}{G-D}\right)I.
+\]
+For the actual normalized root, the following number $g$ is
+valid in the bound $T\succeq-grI$ for its chamber operator $T$
+in the fixed half chart (a \emph{full fixed-half negative
+coefficient}):
+\begin{equation}\label{imp:env:physical-gap}
+ \begin{gathered}
+ \frac{h^{-1}[G+B^2/(G-D)]+C_w}{(1-\varepsilon)zr},\\
+ C_w=(1+2tB_H+t^2B_H^2)D_{\rm old}
+       +\left(\frac{2t}{hr}+\frac{t^2}{hq}\right)P_{\rm spike}.
+ \end{gathered}
+\end{equation}
+Here $B_H=2+r$, $h$, $D_{\rm old}$, $P_{\rm spike}$,
+$\varepsilon$, and $z=1+t^2-2t h_{\rm mean}-t^2e$ are the
+retained conditioning, collision, spike, normalizer and moment bounds.
+The upper bounds for the norm, variance and range of that same
+law at the same parameter, proved in
+\cref{prop:root-chamber}, remain valid.
+\end{proposition}
+
+\begin{proof}
+Let $S$ project onto $(a/a_2)\otimes1$, and set $P_-=P-S$.
+The exact scalar pair mean is $qr$.  With
+$L_0=K\circ\frac13\sum_j(H_j-qr)$,
+the weighted rectangle is $sK+2tL_0+t^2E$, where
+$s=1+2tqr+t^2\sigma\in[s_-,s_+]$.
+Conditional identity \eqref{imp:env:conditional-square} and
+the centered pair kernels imply
+$SL_0S=SES=SL_0P_-=SEP_-=0$.
+The positive $S$ block is therefore $sa_2^2$.
+
+On $P_-$, the exact old bound is $-a_2c$.
+In comparing $K$ with its leading stars, $T[C,C]$ has zero
+$P$ compression, so only the rank/centered remainder $E_{0P}$
+is charged.  The inherited eighteen-feature Gram bound $\Gamma$
+also applies on the independent half: cross-factor Grams vanish,
+and within-core and within-private conditional counts dominate
+the smaller counts used in its original proof.
+The finite leading matrix has negative norm $g(\Lambda)$;
+its remaining blocks cost at most
+$\max(2,\Lambda/3)\le5<g(\Lambda)$.
+The exact positive-coefficient splitting
+\[
+ sK+2trM_{\rm pair}=(s-k)K+k(K+\Lambda rM_{\rm pair})
+\]
+therefore incurs the error $E_{0P}$ only in the second summand.
+The weighted rank error is $E_{\rm rank}$.
+The other core $P_{\rm p}$ linear block costs at most $2rc^2/3$;
+the private $P_{\rm c}$ block is positive.  This proves the stated $G$.
+
+The angle of $P_-$ to the ordinary constant is at most $d_a$.
+Splitting through $Q$ gives $b_L$; the private leading pair term
+has coefficient $1/3$, while core terms have private-constant output
+and vanish against $R$.  The same split gives $d_L$, with $qrc^2$
+paying the removed raw mean.  For the $S$ column, the leading pair
+matrix sends $Q((a/a_2)\otimes1)$ into $U\otimes1$, which $R$
+annihilates; this gives the sharper $h_L$.
+Eliminating the positive $S$ block costs only
+$(2th_L+t^2b_0)^2/(s_-a_-^2)$ on $R$.
+The remaining two-block bound is $G+B^2/(G-D)$ by
+\cref{lem:block-completion}(b).
+It is already a full-space bound, so no second constant-block
+penalty is added after compression.
+
+Actual-half compression costs $h^{-1}$.
+Outside the configurations where the two label pairs of a score
+are equal as unordered sets, the weight is at most
+$1+2tB_H+t^2B_H^2$; the equal-pair strata are paid by the
+two explicit spike terms in \eqref{imp:env:physical-gap}.
+The retained raw mass is at least $(1-\varepsilon)z$.
+These facts prove the bound in the original twelve labels, in
+the fixed half chart, without passing to the tilted half marginal.
+
+For a uniform endpoint price, majorize $G/r,D/r,B/r$ first by
+fixed endpoint values $G_0,D_0,B_0$ and check $G_0>D_0$.
+Use $G_0+B_0^2/(G_0-D_0)$ at every larger prime.
+All constituent normalized numerators increase in $q,r$, and
+all positive lower denominators decrease.  This order of operations
+avoids assuming monotonicity of a quotient with a moving gap.
+The fixed $\Lambda$ remains feasible: at the endpoint $X$ (the
+lower endpoint of the interval) $k\le s_-(X)$, and $s_-(p)$ is
+nondecreasing in $p$, so $k\le s_-(p)$ for all $p\ge X$.
+\end{proof}
+
+\begin{corollary}[Interpolation after physical normalization]
+\label{imp:env:physical-interpolation}
+Let $g_0r$ be any full negative price for the mass-one unchanged
+physical root $\Gamma_0$.  Fix $0<\tau\le1$.  In
+Proposition~\ref{imp:env:finite-gap-chamber}, replace
+\[
+ s_+=\tau+t^2+2tqr,\qquad s_-=\tau+t^2(1-4q),
+\]
+and replace the constant $1$ in the collision coefficient
+$1+2tB_H+t^2B_H^2$ by $\tau$.  Keep all linear and square
+coefficients $2t,t^2$, and check the same positive-block and gap
+conditions. After these replacements, choose endpoint majorants
+$G_0,D_0,B_0$ for $G/r,D/r,B/r$, respectively, with $G_0>D_0$, as
+in the final paragraph of the proposition's proof, and set
+\[
+ C_{\rm soft}=G_0+\frac{B_0^2}{G_0-D_0}.
+\]
+This is the raw soft coefficient, before half-conditioning, scalar
+normalization and collision corrections. If $C_{w,\tau}$ is the
+corresponding collision price in \eqref{imp:env:physical-gap}, then
+\[
+ g_{\rm int}=
+ \frac{(1-\tau)g_0+
+       [C_{\rm soft}/h+C_{w,\tau}/r]/(1-\varepsilon)}{z}
+\]
+is a full negative coefficient, in the sense above
+($T\succeq-g_{\rm int}rI$), for the original individual-square
+(pair-score) law. Here $h$, $\varepsilon$ and $z$ are those of the proposition at the same $t$.
+Its marginal and layer data remain those at the original parameter $t$.
+\end{corollary}
+
+\begin{proof}
+Before normalizing the new tilt, split its exact physical operator as
+\[
+ (1-\tau)\Gamma_0+
+ \Gamma_0\left(\tau+2t\,\frac13\sum_jH_j
+                       +t^2\,\frac13\sum_jH_j^2\right).
+\]
+The first summand has lower price $(1-\tau)g_0r$ in the mass-one
+physical convention.  The second summand can have signed entries;
+the three-block argument requires only its positive $S$ block and
+the stated gap gates.  Its raw scalar normalization alone costs
+$(1-\varepsilon)^{-1}$.  Absolute collision weights are bounded by
+$\tau+2tB_H+t^2B_H^2$, with the same exceptional-pair terms.
+Add these two lower prices and divide once by the common new mass
+lower bound $z$.  No second old-normalizer or half-conditioning
+factor belongs to the first summand.
+\end{proof}
+
+\subsection{Retaining the constant coefficient at the layer cut}
+\label{imp:env:layer-section}
+
+\begin{proposition}[Layer-cut remainder, summed without expanding all monomials]
+\label{imp:env:layer-resummation}
+For the individual-square law in Proposition~\ref{prop:root-layer}, put
+\begin{align*}
+ d_\mu&=\frac8{1-q^2},\quad M_\Phi=d_\mu(1+q)^3,
+ \quad b_*=6+51d_\mu,\\
+ n&=r\{\kappa(1+5r)+b_*r\},\quad
+ \kappa=(\sqrt3+\sqrt7)/2,\quad B_H=2+r.
+\end{align*}
+Replace its remainder coefficients by
+\begin{align*}
+ C_{\rm nn}&=(n/r)^2+3969\cdot16(2tB_H+t^2B_H^2),\\
+ C_0&=128M_\Phi+8d_\mu^2(1+q)^5,\\
+ C_{\rm sc}&=C_0+127(20tr+16t^2q+2t^2).
+\end{align*}
+Keep $C_{\rm cr},C_{\rm in}$ and both mass lower bounds unchanged,
+and substitute $C_{\rm nn}+C_{\rm sc}+C_{\rm cr}$ in its negative,
+centered and marginal formulas.  The resulting prices hold for
+the same positive law, with no change to its support or parameter.
+\end{proposition}
+
+\begin{proof}
+Write the probability-normalized triangle operator of \cref{prop:root-layer} as $\Phi=J+N$,
+where $\|N\|\le n$.  In the score-independent coefficient retain
+the full $N\otimes N$, of norm at most $n^2$, instead of expanding
+its $63^2$ nonempty monomials.  The score-containing terms retain
+their specified four-label mask, with all labels distinct, and the two-Paley
+price, giving $C_{\rm nn}$.
+
+Delete the removed constant mask from the whole positive
+$\Phi_1\Phi_2$ of the two triangle operators.  Among its four specified equalities, two twins
+cost $64M_\Phi q$ each and two cross-component pins cost
+$4d_\mu^2(1+q)^5q$ each.  Their positive union bound gives $C_0$,
+including all intersections.  For terms containing a score, single
+coincidences in the specified single strata have
+$|H|\le2r$ for the pair score $H$ of
+\cref{def:positive-root}, and equal unordered pairs
+have $|H|\le1/r$; the unchanged mass bounds $4q,2q^2$ and
+absolute base density $127$ give the remaining terms of $C_{\rm sc}$.
+In particular no mask is deleted through a signed $N\otimes N$
+kernel.  Its row contribution is bounded by its full norm, so the
+same replacement is valid in the marginal estimate.
+The input-half conditioning factor from \cref{prop:root-layer} remains an upper bound here.
+
+The saving in the remainder coefficient is exactly
+\[
+ 3969\cdot16-(n/r)^2+127(4+2q)-C_0,
+\]
+whose limit is $62476-\kappa^2>62471$.
+After cancellation of $r$, every displayed endpoint expression has
+positive increasing numerators and decreasing positive lower
+denominators.  The explicit mass, centered-gap and tensor-domain
+gates (\cref{app:certificates}) therefore certify uniform prices above the endpoint.
+They must still be combined with a chamber price for the same $t$,
+fresh native completion, and the corresponding marginal restoration.
+\end{proof}
+
+
+\subsection{Supports of the $39$-trace law}
+
+The tilted law of the last interval has weight
+$\eta+(1+tH)^2$, where each trace in $H$ uses the same auxiliary
+summation label on its two halves. Squaring introduces two auxiliary
+labels; their diagonal must be retained. The following lemma
+bounds the product synthesis on one half, including this diagonal,
+before it is contracted with the other half.
+\begin{lemma}[Higher-star products]
+\label{imp:local:star-product}
+Let $H=L^2_0(\mathbb F_p)$ and
+$U_S=(\psi_S-\mathbb E\psi_S)/r:H\to L^2(C)$, where
+$\psi_S(s)=\prod_{i\in S}\chi(s-C_i)$.
+For subsets $S,T$ of the four core coordinates with $S$ nonempty and
+$|T|\ge2$, let $U_S\cdot U_T:H\otimes H\to L^2(C)$ be the
+pointwise product synthesis, defined on simple tensors by
+$(U_S\cdot U_T)(f\otimes g)=(U_Sf)(U_Tg)$.
+It has the decomposition
+\begin{equation}\label{eq:merge-local-I-4}
+ \begin{aligned}
+ U_S\cdot U_T&=h e_0^*+R,\quad Re_0=0,\quad \|R\|=O(1),\\
+ h&=1_{S=T}/r+O(1)\ \text{pointwise},\qquad
+ e_0(s,u)=\frac{p1_{s=u}-1}{\sqrt{p-1}}.
+ \end{aligned}
+\end{equation}
+Here $h$ is a function on core configurations and the $O(1)$
+constants are absolute, uniformly in $p$ and in the labels. The
+same conclusion holds for fixed linear combinations, with the
+coefficient of $1/r$ equal to their coefficient-vector inner product.
+A coordinate evaluation times a higher star has product norm bounded by an absolute constant.
+The assertion does not include a shared singleton--singleton support.
+\end{lemma}
+
+\begin{proof}
+For $Df(s,u)=\sqrt p1_{s=u}f(s)$, its projection $D_H$ to
+$H\otimes H$ obeys
+\begin{equation}\label{eq:merge-local-I-5}
+ D_H^*D_H=(1-2q)P_H+(1-q)J.
+\end{equation}
+On the orthogonal complement of its range, auxiliary functions vanish
+on $s=u$ and all auxiliary centering terms disappear.  If $S\ne T$,
+choose two output coordinates whose incidence with $s,u$ is a
+matching or a three-edge path.  Such coordinates exist also when one
+support contains the other.  Two Paley transforms give norm $q$,
+with a bounded middle multiplication for the path.  If $S=T$, choose
+two common coordinates and use the restricted $K_{2,2}$ estimate
+$2q$, retaining distinctness of both output and auxiliary pairs.
+After fixing all other core coordinates, their characters are bounded
+auxiliary multipliers.  Exclusions of fixed coordinates are separate
+output restrictions.  The actual core density is
+$16/\theta$, $\theta=(1-q)(1-3q)(1-7q)$, so output compression costs
+at most $4/\sqrt\theta$.  Division by $r^2=q$ proves the off-diagonal
+bound without deleting a coupled injectivity mask.
+
+On the mean-zero part of $D_H$, repeated-root cancellation gives
+$U_{S\triangle T}$, or zero if $S\triangle T$ is empty, plus at most
+four evaluation terms of size $q/r=r$.  Terms containing an auxiliary
+mean are bounded by the degree-four character estimate (\cref{thm:weil}).  Equation
+\eqref{eq:merge-local-I-5} gives a bounded diagonal inverse.  Finally the $e_0$ image is
+\[
+ \frac{\mathbb E_s[(\psi_S-m_S)(\psi_T-m_T)]}
+      {r\sqrt{1-q}},\qquad m_S=\mathbb E_s\psi_S.
+\]
+Its numerator is $1+O(q)$ when $S=T$ and $O(r)$ otherwise.
+For evaluation times a higher star, fix the evaluated coordinate;
+one other leaf supplies a Paley factor $r$, canceling the star's
+normalization. Passing from the product law to the actual law
+changes the bound only by the density factor $\prod_jD_j$ of
+\cref{lem:l20-star-matrix}, an absolute constant.
+\end{proof}
+
+\subsection{The $39$-trace law at every sorting cut}
+\label{imp:local:filtered-coherent}
+
+We now define the list of supports. A symmetrised list
+$\mathcal D_{51}$ of $51$ supports is defined first, and the
+action of its score and of its square on the soft kernel (the
+kernel without the distinctness indicator) is computed, keeping
+every mean term of a star, including the functions invariant under
+simultaneous translation of all labels. Removing the twelve
+supports with fewer than three labels in one layer then leaves
+the list $\mathcal D_{39}$ used in the law, and explicit finite
+matrix bounds at the endpoint parameter $t_*=12/5$ follow.
+
+The twelve vertices are grouped into six bases, numbered
+$0,\ldots,5$, each carrying two labels $(j,\ell)$,
+$\ell\in\{0,1\}$, in the two layers (the ``twins'' $(j,0),(j,1)$).
+The directed edges between the bases are
+\begin{equation}\label{eq:merge-local-I-19}
+ 0\longrightarrow2\longrightarrow4\longrightarrow0,\qquad
+ 1\longrightarrow5\longrightarrow3\longrightarrow1.
+\end{equation}
+At the first chamber cut, with the two halves identified by the
+reflection (the reflected chart), the halves are
+$(a,b,c)=(0,1,2)$ and $(a',b',c')=(5,4,3)$.
+On each four-label core retain the four cubic supports and the
+quartic support. Give a support $S$ sign $(-1)^{|S\cap a|}$.
+Form the twenty-five products of pairs of supports, one from
+each core, divide their coefficients by five, and average over
+\begin{equation}\label{eq:merge-local-I-20}
+ j\mapsto j,\ j+2,\ j+4,\ 1-j,\ 3-j,\ 5-j\pmod6.
+\end{equation}
+After collecting equal physical supports this gives seventy-five
+nonzero coefficients, each $\pm1/15$.
+
+Retain a support if, at every chamber cut, either its
+intersections with the core labels of both halves have size at
+least two, or its intersections with the private labels of both
+halves have size two. Denote this fifty-one-element
+dictionary by $\mathcal D_{51}$, retaining the collected
+coefficients $c_D$. Put
+\begin{equation}\label{eq:merge-local-I-21}
+ H_{\mathcal D}
+   =\frac1r\sum_{D\in\mathcal D}c_D\,
+                \mathbb E_s\prod_{i\in D}\chi(s-x_i),
+ \qquad \sigma_{\mathcal D}=\sum_D c_D^2 .
+\end{equation}
+Here $x=(x_i)$ is the configuration of the twelve labels.
+This definition uses physical labels and is independent of a
+chosen cut. In particular $\sigma_{51}=17/75$ and
+$\sum|c_D|=17/5$.
+We give the complete argument keeping the common auxiliary
+label $s$ (the root) unintegrated, since integrating it out
+first and using only moment orthogonality would not suffice. Write
+$K_{\rm soft}=T[A,A]$, with $A$ the exact swapped rectangle of \cref{prop:l20-rectangular}, and
+\begin{equation}\label{eq:merge-local-I-23}
+ A=a\otimes1+r(\sqrt{30}\,Zv^*+2we^*)+E,\qquad
+ \|E\|=O(q),\quad a=1+O(r).
+\end{equation}
+Both row and column squared norms of $A$ are at most
+$256a_\infty$ (with $a_\infty=\|a\|_\infty$). For two trace supports, retain their common
+auxiliary labels $s,t$ and split $s=t$ from $s\ne t$.
+If two nonempty raw supports have union of size at least two,
+their off-diagonal two-auxiliary map has norm $O(q)$.
+Distinct supports use a matching or three-edge path; equal
+supports use the restricted $K_{2,2}$ estimate. Output and
+auxiliary distinctness are both retained.
+
+If the two maps obtained from the core part of $A$ have the
+property of the preceding paragraph (norm $O(r)$ after one free
+transform) on both halves, write the modulated rectangles
+(rectangles $A$ with left and right multiplication operators
+$M_f,M_g$ by the displayed private multiplier functions $f,g$
+and their reflected counterparts $\tilde f,\tilde g$) as
+$B_{st}=M_fAM_g$ and
+$D_{st}=M_{\tilde f}AM_{\tilde g}$. The private multipliers have
+modulus at most one, so positive Gram Schur order gives
+\begin{equation}\label{eq:merge-local-I-24}
+ \left\|\mathbb E_{s\ne t}B_{st}B_{st}^*\right\|
+ \le256a_\infty\|F_{\rm core}\|^2=O(q^2),
+\end{equation}
+where $F_{\rm core}$ is the core synthesis operator of
+\eqref{eq:merge-local-I-23}; and the same for $D$. Operator Cauchy--Schwarz bounds
+$\mathbb E B_{st}\otimes D_{st}^*$ by $O(q^2)$, with the private
+swap unchanged. Division by the score-square normalization $q$
+gives $O(q)$. If both private maps instead have the property,
+use the input Grams and the column bound. Exact support
+enumeration covers all $51^2$ ordered pairs: 2537 use core output
+Grams and 64 use private input Grams.
+
+On $s=t$, cancel repeated roots. The identical-support term is
+$K_{\rm soft}+O(q)$. Other terms are raw traces on the symmetric
+difference, with at most twelve hole terms (terms where the
+common auxiliary label equals a fixed label) of size $q$.
+A raw trace with nonempty supports on both halves costs $O(q)$
+after multiplication by $K_{\rm soft}$. For core/core or
+private/private placement, use the one-auxiliary form of
+\eqref{eq:merge-local-I-24}, with two raw norms $O(r)$. Pure core/private placement
+reduces to $A$ times a raw-star cross-kernel; expand \eqref{eq:merge-local-I-23}.
+Rank and remainder terms cost $O(q)$. Every leading edge has
+a coordinate evaluation at one endpoint. The higher/raw
+product has a bounded exceptional $e_0$ image and an $O(r)$
+remainder, whereas the evaluation/raw image is
+\begin{equation}\label{eq:merge-local-I-25}
+ \frac{\psi_S(x_i)-\mathbb E\psi_S}{\sqrt{p-1}}=O(r).
+\end{equation}
+The old factor $r$ makes these terms $O(q)$. A shared singleton
+pair gives $1_{x_i=y_j}-q$, whose positive equality mass is
+$O(q)$. One-sided differences give invariant functions of size
+$O(r)$; their leading one-sided ranks vanish under ordinary
+centering, and multiplication by $K_{\rm soft}-J=O(r)$ costs
+$O(q)$. Thus
+\begin{equation}\label{eq:merge-local-I-26}
+ Q(K_{\rm soft}\odot H^2)Q=\sigma QK_{\rm soft}Q+O(q).
+\end{equation}
+
+The corresponding linear calculation gives
+\begin{equation}\label{eq:merge-local-I-27}
+ Q(K_{\rm soft}\odot H)Q=QHQ+O(q),\qquad
+ \|K_{\rm soft}\odot H\|=O(r).
+\end{equation}
+Here are the exceptional shared-label cases. Rank/star terms
+have a free raw core and private transform, each $O(r)$.
+For the product of two stars, the two arms (synthesis factors)
+from the untilted law are $(Z,v)$ and $(w,e)$.
+The cross pairing has a free leaf at its $(w,v)$ endpoint,
+since each half score uses at least three labels.
+For equal $(Z,v)$ pairings, two private leaves again give a free
+transform. Otherwise the private support is a singleton and
+the core support has at least two labels. Split its higher/raw
+product into the constant exceptional image plus an $O(r)$
+remainder. The two exceptional images contract against the
+swapped private evaluations; the delta terms vanish by
+$\chi(0)=0$ and the remaining probability operator is
+$qQ/(p-1)$. It is $O(q^2)$, not an omitted order-$r$ block.
+The equal $(w,e)$ case exchanges core and private. Every
+single remainder costs $O(q)$. An $E$/star term applies $E$
+fiberwise between two bounded product maps with the shared
+label retained. The $E$/rank term has free raw transforms;
+$E$/$E$ costs $O(\|E\|^2/r)$. These prove \eqref{eq:merge-local-I-27}.
+
+For a half support $S$ (a support contained in one half), extending the notation of \cref{imp:local:star-product}, let
+$U_S=(\psi_S-m_S)/r$ on
+mean-zero auxiliary labels and $M_S=m_S/r$. With $C$ the
+symmetric matrix, indexed by the half supports, whose entries
+are the collected coefficients $c_D$ of
+\eqref{eq:merge-local-I-21}, and $U$ the row of operators
+$(U_S)_S$,
+\begin{equation}\label{eq:merge-local-I-28}
+ H=rUCU^*+rMCM^* .
+\end{equation}
+The two terms occupy respectively nontrivial translation sectors
+and the invariant sector. To specify the finite matrix gate
+without ambiguity, index all nonempty half supports by $S$.
+Let $D_{ij}$ be $+1$ or $-1$ according to the directed cross
+edge between coordinate $i$ and the reflected coordinate $j$,
+and zero if it is absent. The old matrix has singleton block
+$iD$, higher/singleton entry $\prod_{i\in S}D_{ij}$, its
+adjoint entry, and zero higher/higher block.
+
+The Gram matrix of the core raw mean functions $M_S$ is at most $16+O(r)$, by cube orthogonality
+and the core density. Group mixed means by their private singleton
+or pair support. Their raw Gram is at most
+$q[1+q/(1-q)+2qr/(1-q)]I$; for each fixed injective core the
+character supports have Gram $I+O(r)$. Conditional synthesis gives
+mixed mean Gram $I+O(r)$. The Gram matrix of the common actual stars is likewise
+$I+O(r)$ on nonconstant auxiliary labels. These estimates will price
+the invariant sector as well as the nonzero translation sectors.
+
+\paragraph{Physical completion.}
+Each half support has at least three labels. Complete character
+cancellation therefore requires at least three cross identifications, of positive row/column mass $O(q^3)$.
+Everywhere each single-support trace factor in \eqref{eq:merge-local-I-21}, before its coefficient, is at most $1/r$ in absolute value, so even at the configurations where
+a trace takes an exceptional value (the spikes), its square
+contributes $O(q^2)$ after the normalizations. Other collisions have mass $O(q)$ and bounded
+score by the repeated-root Weil bound (\cref{thm:weil}). This controls all
+physical deletions and their intersections.
+
+The positive constant $\eta=1/100$ added in the weight (its
+floor) and the Weil bound on the strict support (distinct
+labels) give uniformly
+positive bounded new marginal densities. The full identities for the new half-marginal density $g$
+with respect to the fixed half law give $\|g-1\|_2=O(r)$. For each normalized star, the weighted
+affine Gram with weight $(g^{-1/2}-1)^2$ is real symmetric
+and a scalar multiple of the identity on mean-zero labels,
+with scalar its trace divided by $p-1$; this shows that multiplying the finite feature synthesis by
+$g^{-1/2}-1$ changes its norm by $O(r)$. Thus the leading
+$r$ operator changes by $O(q)$ under actual-marginal
+congruence. The finitely many invariant mean arms are pointwise
+bounded; their multiplication by $g^{-1/2}-1$ likewise has norm
+$O(r)$ by its $L^2$ bound, covering the second term of \eqref{eq:merge-local-I-28}.
+Finally, writing $T$ for the chamber operator of the tilted law
+on the induced half,
+\begin{equation}\label{eq:merge-local-I-29}
+ T=g\otimes g+QTQ-(g-1)\otimes(g-1)
+\end{equation}
+keeps the constant rank positive and charges only $O(q)$.
+This proves that the leading bound transfers from the fixed half chart to the actual half marginal at every chamber cut.
+
+Remove from $\mathcal D_{51}$ the twelve supports containing
+fewer than three labels in one layer. Call the remaining
+dictionary $\mathcal D_{39}$. It has twelve supports of degree
+six, twenty-four of degree seven, and three of degree eight.
+Consequently
+\begin{equation}\label{eq:merge-local-I-30}
+ \sigma_{39}=13/75,\quad \sum|c_D|=13/5,\quad
+ |H_{\mathcal D_{39}}|\le14+r
+ \quad\hbox{on strict physical support}.
+\end{equation}
+The last bound uses $(k-2)r+q$ for even degree $k$ and
+$(k-1)r$ for odd degree, before dividing by $r$.
+
+\begin{lemma}[Admissibility of the coherent root]
+\label{lem:imp:coherent39-law}
+For every rational $t\ge0$ and every $\eta>0$, normalize
+$\eta+(1+tH_{\mathcal D_{39}})^2$ against the old physical root at the prime $p\equiv3\pmod4$ fixed above.
+The resulting probability law has exactly the old root's support
+and accepts the six queries. It is invariant under the three
+chamber reflections $j\mapsto2a-1-j$, $a=0,1,2$, the rotation
+$j\mapsto j+2$, the simultaneous layer interchange, and the
+square-affine maps of the labels. Every slot is uniform.
+These assertions also hold for the primewise product on a block.
+In particular they hold at the selected parameter $t=67/40$ and
+floor $\eta=1/100$.
+\end{lemma}
+
+\begin{proof}
+The initial average in \eqref{eq:merge-local-I-20} makes the signed
+support dictionary invariant under the chamber reflections and
+the rotation. Simultaneous layer interchange permutes the four
+cubic supports and fixes the quartic support in each core; it
+preserves their signs and the twenty-five corresponding products.
+The filter defining $\mathcal D_{51}$ is imposed at every chamber
+and is unchanged by these permutations. The subsequent filter
+requiring at least three labels in each layer is also unchanged.
+Thus each of these permutations preserves the collected
+coefficients of $\mathcal D_{39}$ and fixes its score.
+
+Under $x_i\mapsto\alpha x_i+\beta$, with $\chi(\alpha)=1$,
+the substitution $s=\alpha s'+\beta$ fixes every character
+product in \eqref{eq:merge-local-I-21}, in both odd and even
+degrees. All the stated maps preserve the old physical root,
+so they preserve its tilted weight and normalizer. Since the
+weight is at least $\eta>0$, normalization is defined and the
+support is unchanged; query acceptance follows from that of
+the old root. Translations act transitively on the labels,
+so every slot is uniform. Tensor products give the block
+assertions. Only the simultaneous layer interchange is needed;
+independent flips of individual twins are not asserted.
+\end{proof}
+
+\begin{proposition}[Thirty-nine coherent traces at every sorting cut: the leading coefficients]
+\label{imp:local:coherent-39}
+Let $\Gamma$ be the coherent law at the endpoint parameter
+$t_*=12/5$, that is, the uniform law reweighted by
+$1/100+(1+(12/5)H_{\mathcal D_{39}})^2$ and normalized. It is
+invariant under the chamber reflections
+$j\mapsto2a-1-j$, $a=0,1,2$, and under the simultaneous
+interchange of the two layers $(j,\ell)\mapsto(j,1-\ell)$; these
+are the reflections occurring in the sorting sequences.
+(Independent flips of single twins are not symmetries and are not
+used.) There are absolute constants $C$ and $P_0$ such that for every
+prime $p\equiv3\pmod4$ with $p\ge P_0$ the Markov operators
+of $\Gamma$ at its cuts, on its actual marginals, obey
+\begin{equation}\label{eq:merge-local-I-31}
+ T_{\rm chamber}\succeq-(5.413r+Cq)I,\qquad
+ T_{\rm layer}\succeq-(2.19r+Cq)I,
+\end{equation}
+the first at all three chamber cuts. This proposition identifies
+only the leading coefficients $5.413$ and $2.19$; by itself it
+gives no bound at any specified prime. The explicit bounds used
+in the construction, with every remainder evaluated, are
+\cref{imp:local:finite-coherent-layer,imp:env:finite-coherent-chamber}.
+\end{proposition}
+
+\begin{proof}
+The chamber calculation for $\mathcal D_{51}$ above applies to the retained dictionary $\mathcal D_{39}$.
+There are 1493 core-output and 28 private-input covariance
+cases. Its strength is
+$\lambda=2t/(1+\eta+t^2\sigma)=12000/5021$.
+Exact rational gates (\cref{app:certificates}) give chamber coefficient $5413/1000$,
+core mean coefficient $7/100$ and mixed mean coefficient
+$21/100$. The invariant chamber price is below
+$\lambda(16\cdot7/100+21/100)<16/5$.
+
+At the layer cut a half is initially two independent directed
+cyclic triangles, on bases $\mathcal A=\{0,2,4\}$ and
+$\mathcal B=\{1,3,5\}$. The actual half conditions their six
+labels to be distinct, at cost $1+O(q)$. Each component has
+\begin{equation}\label{eq:merge-local-I-32}
+ \Phi=J+rFM_0F^*+E,\quad \|E\|=O(q),\qquad
+ M_0=\begin{pmatrix}iD_0&-I_3\\-I_3&0\end{pmatrix},
+\end{equation}
+where $F$ is the synthesis operator assembled from the six
+feature maps of the preceding paragraph. Its arms (factors) are
+the three evaluations and three pair stars.
+The six omitted pair means give $+6qJ$, included in $E$.
+There is no higher/higher edge.
+
+For every retained trace each half support meets both
+triangles in one or two coordinates and has size at least
+three. In the quadratic product use
+$q^{-1}\mathbb E_{s\ne t}B_{st}\otimes D_{st}$.
+Operator Cauchy--Schwarz now uses $BB^*$ and $D^*D$:
+the small raw maps must be output $\mathcal A$ and input
+$\mathcal B$, or input $\mathcal A$ and output $\mathcal B$.
+The exact enumeration gives 1437 cases of the first kind and 84
+of the second. Each raw map is $O(q)$; the component density
+$8/(1-q^2)$ and bounded row/column squares of $\Phi$ give
+the full $O(q)$ off-diagonal contribution.
+
+On the auxiliary diagonal, supports in opposite components
+use the one-label crossed argument with two $O(r)$ maps.
+If both lie in the same component, expand \eqref{eq:merge-local-I-32}.
+The rank and remainder terms cost $O(q)$; each star has an
+evaluation endpoint, so \eqref{eq:merge-local-I-25} controls the exceptional
+image. Two singleton supports instead give an equality
+kernel of bounded-density mass $O(q)$.
+For this particular dictionary, collecting all one-sided
+symmetric differences gives thirty pair supports of total
+absolute coefficient mass $8/25$. After conditioning the
+half to be six-distinct, every such raw trace is exactly
+$-q$. Therefore at either cut the full covariance, in the
+fixed induced-half chart, is, writing $K$ for the tensor square
+of the layer-cut kernel,
+\begin{equation}\label{eq:merge-local-I-33}
+ K\odot H^2=\sigma K+O(q).
+\end{equation}
+This full-norm identity is not asserted on the independent
+triangle chart before conditioning.
+
+For the layer linear term expand the two copies of \eqref{eq:merge-local-I-32}.
+One star term and one rank term have, on both sides, free raw
+star factors carrying none of the displayed characters (passive
+factors). For two stars, the scalar is $r^2/r=r$.
+A coordinate/coordinate endpoint has a free leaf because
+the score uses at least three coordinates. Every
+higher/higher endpoint is opposite one of this type.
+The remaining coordinate/higher against higher/coordinate
+case either has a free leaf or has two identical pair-star
+exceptional images. The latter is the same shared-label
+$qQ/(p-1)$ contraction used above; all single remainders
+have norm $O(r)$. An $E$/star term is a fiberwise $E$
+between bounded product maps; $E$/rank has free raw
+transforms and $E$/$E$ costs $O(\|E\|^2/r)$.
+Hence $K\odot H=H+O(q)$ on the induced half.
+
+The real vector space spanned by the real and imaginary parts
+of the layer feature functions that occur (the active layer
+realification) has dimension $54$; rational
+elimination proves coefficient $219/100$. Its raw-mean
+coefficient matrix is bounded below by $-21/100$.
+Group mean arms by the singleton or pair in one triangle.
+The normalized six-arm nonconstant Gram is $I+O(r)$;
+the three pair constant images add only $3q^2J$ before
+normalization. Fixed opposite-triangle character Grams
+are $I+O(r)$, so the complete mean frame is $I+O(r)$.
+Its invariant negative coefficient is below
+$\lambda(21/100)<1$. Thus no invariant sector is omitted.
+Physical collision deletion, positivity and actual-marginal
+transport follow exactly as in the physical-completion argument above:
+all retained half supports still have size at least three.
+The dictionary, all 1521 crossed cases, chamber and layer
+matrix gates and separate mean gates are reconstructed by
+\texttt{check\_coherent\_39\_all\_cuts.py} (\cref{app:certificates}).
+\end{proof}
+
+\subsection{One parameter $\ulaw$ for both cuts of the $39$-trace law}
+
+The matrix bounds above were proved at the endpoint parameter
+$t_*=12/5$, because the finite checks are cleanest there. The law
+used in the construction has the smaller parameter $t=67/40$. The
+following proposition transfers the endpoint bounds to every
+$0\le t\le t_*$ by convexity---the leading matrix is affine in an
+explicit interpolation parameter $\alpha(t)$---at both the
+chamber cut and the layer cut simultaneously; all remaining terms
+are then evaluated directly at $t=67/40$.
+
+\begin{proposition}[The common coherent parameter interval]
+\label{imp:local:coherent-parameter}
+\label{imp:env:coherent-parameter}
+Keep $\eta=1/100$, $\sigma=13/75$ and the 39-trace score, and let
+$0\le t\le t_*=12/5$. Set
+\begin{equation}\label{eq:merge-local-I-43}
+ z(t)=1+\eta+\sigma t^2,\qquad
+ \lambda(t)=\frac{2t}{z(t)},\qquad
+ \alpha(t)=\frac{\lambda(t)}{12000/5021}.
+\end{equation}
+Then $0\le\alpha(t)\le1$. In the leading matrices of the normalized
+coherent law, valid negative coefficients are
+\[
+ g_{\rm ch}(t)=(1-\alpha(t))\sqrt{30}
+                   +\alpha(t)\frac{5413}{1000},\qquad
+ g_{\rm lay}(t)=\frac{219}{100}.
+\]
+The invariant mean branches obey the same displayed bounds.
+Each estimate in \cref{imp:local:finite-coherent-layer,imp:env:finite-coherent-chamber}
+below applies to the physical weight
+$\eta+(1+tH)^2$ by using this $t$, its scalar leading mass $z(t)$,
+and the corresponding leading coefficient. The error terms in the linear and covariance identities for
+the score itself do not change with $t$. A separately certified matrix bound
+at a specified parameter may improve its leading coefficient, provided
+the separate invariant-mean price remains below it. This changes neither
+the law nor its other prices.
+\end{proposition}
+
+\begin{proof}
+The exact factorization
+\begin{equation}\label{eq:merge-local-I-44}
+ t_*z(t)-tz(t_*)=(t_*-t)(1+\eta-\sigma tt_*),\qquad
+ 1+\eta-\sigma t_*^2=29/2500
+\end{equation}
+gives $0\le\alpha\le1$. At either cut, with $M_{\rm old}$ and $C$ denoting the untilted leading matrix and the score coefficient matrix at that cut, the leading coefficient matrix is
+\[
+ M_{\rm old}+\lambda(t)C
+ =(1-\alpha)M_{\rm old}
+       +\alpha\bigl(M_{\rm old}+(12000/5021)C\bigr).
+\]
+The endpoint orders are those proved in
+\cref{imp:local:coherent-39}. The old chamber coefficient is $\sqrt{30}$;
+the old layer coefficient $(\sqrt3+\sqrt7)/2$ is less than $219/100$.
+Convexity gives the stated bounds. The old invariant centered leading
+operator is zero, so the separate invariant branches interpolate as well.
+
+For the finite calculation, expand the raw weight before normalizing.
+The old-root, linear and covariance terms have coefficients
+$z(t),2t,t^2$, respectively; the regular and exceptional collision
+weights are their explicit positive quadratic polynomials. Each
+primitive error is bounded separately below. Substituting these
+coefficients therefore prices the same physical law at both cuts.
+The $10q$ allowance for centering the layer mean arms is bounded at
+$t_*$ and remains valid for smaller $t$ (see the proof of \cref{imp:local:finite-coherent-layer}). For each fixed $t$, the
+positive endpoint majorants give uniformity in $p$; no monotonicity
+of the final price in $t$ is needed.
+\end{proof}
+
+\subsection{An explicit layer price for the coherent law}
+\label{imp:local:finite-coherent-layer-section}
+
+We now evaluate the layer-cut bound for the same $39$-trace law
+numerically. All norms in this subsection are taken in $L^2$ of
+the fixed uniform half law (the fixed chart), not in the tilted
+law's own marginal; the passage from the chart to the actual
+marginal was already bounded in the transport estimates above, so
+no extra factor for that change of measure is charged here.
+Fix $0\le t\le12/5$ and keep $\eta=1/100$, $L=13/5$,
+$\sigma=13/75$ and $z=z(t)=1+\eta+t^2\sigma$ from
+\cref{imp:local:coherent-parameter}.
+For $p\ge2^{32}$ set
+\begin{equation}\label{eq:merge-local-I-34}
+ \begin{aligned}
+ h&=1-9q,& d&=\frac8{1-q^2},&
+ M&=d(1+q)^3,& \Gamma&=1+1000r,\\
+ B_H&=14+r,& W&=\eta+(1+tB_H)^2 .
+ \end{aligned}
+\end{equation}
+Define positive coefficients
+\begin{equation}\label{eq:merge-local-I-35}
+ \begin{aligned}
+ C_{\rm soft}
+   &=\frac{1100z+2tL\cdot100000+t^2\cdot200000+10}{h},\\
+ C_\times&=\frac W h[384M+72d^2(1+q)^5],\\
+ C_{\rm exc}
+   &=\frac{9830400d^2}{h}
+          [(1+\eta)q^2+2tLqr+t^2L^2q],\qquad
+ C=C_{\rm soft}+C_\times+C_{\rm exc}.
+ \end{aligned}
+\end{equation}
+Here $C$ is a finite coefficient, not an unspecified asymptotic
+constant. Put
+\begin{equation}\label{eq:merge-local-I-36}
+ m=z-Cq,\qquad
+ \delta=\frac{Cq}{m},\qquad
+ c=\frac{4z\Gamma r+Cq}{m}.
+\end{equation}
+
+\begin{proposition}[Finite layer-cut bound for the coherent law in the fixed half chart]
+\label{imp:local:finite-coherent-layer}
+With $p\ge2^{32}$ and $0\le t\le12/5$ as fixed above, on the explicit gates $m>0$ and $c<1$, the normalized physical
+layer operator of the law in \cref{lem:imp:coherent39-law},
+represented on the fixed uniform six-distinct induced half and
+written $T$, satisfies
+\begin{equation}\label{eq:merge-local-I-37}
+ -g_{21}rI\preceq T\preceq(1+B_{21}q)I,
+\end{equation}
+where
+\begin{equation}\label{eq:merge-local-I-38}
+ g_{21}=\frac{z(219/100)\Gamma+Cr}{m}
+                  +\frac{C^2qr}{m^2},\qquad
+ B_{21}=\frac{C^2q}{m^2(1-c)}.
+\end{equation}
+Its marginal defect (the difference between its actual half
+marginal and the fixed chart marginal, as a density minus $1$)
+has $L^2$ norm at most $\delta$, hence variance at most
+$\delta^2$. Its pointwise marginal range ratio is at
+most the old range ratio multiplied by $W/\eta$.
+Evaluation of these positive majorants at the endpoint $p=X$
+(the lower endpoint of the interval) is valid uniformly for every
+prime $p\ge X$. The separate chamber inequalities and the
+completion inequalities for the law itself (not a converted one)
+remain to be checked.
+\end{proposition}
+
+\begin{proof}
+We first justify every finite constant. A cyclic triangle has
+density $d=8/(1-q^2)$ relative to its three-label cube and
+exactly $(p+1)/4$ completions of a directed pair. The inherited
+six-cycle expansion gives \eqref{eq:merge-local-I-32} with
+\begin{equation}\label{eq:merge-local-I-39}
+ \|E\|\le(6+51d)q<500q,\qquad
+ \|rFM_0F^*\|\le\kappa(1+5r)r,\quad
+ \kappa=(\sqrt3+\sqrt7)/2 .
+\end{equation}
+The twelve star entries are six evaluation/evaluation and six
+evaluation/pair entries. The positive row and column bound
+is $M$, and $0\le\Phi\le64$, so their squared norms are at
+most $64M<600$; also $\|\Phi\|<2$.
+Consequently the old two-component root equals its constant
+plus leading star operator with remainder at most $1100q$,
+since $1000+[\kappa(1+5r)+500r]^2<1100$.
+
+For completeness the finite product bounds used next hold
+also when a raw symmetric-difference support is the full
+triangle. If $|S|=2$ and $1\le|T|\le3$, the normalized pair
+star times $\psi_T$ has decomposition $h_{ST}e_0^*+R_{ST}$.
+The exact diagonal image is
+$(\mathbb E\psi_S\psi_T-m_Sm_T)/\sqrt{1-q}$.
+Off the auxiliary diagonal, a matching/path or restricted
+$K_{2,2}$ map costs at most $2\sqrt d\,r<6r$.
+The mean-zero diagonal part is below $2r$, using
+$D_H^*D_H=(1-2q)P_H+(1-q)J$ and the at-most-three removed
+roots. The constant-input part is at most $2r$.
+Thus $\|R_{ST}\|\le10r$, $|h_{ST}|\le2$, and
+$S\ne T$ gives $|h_{ST}|\le3r$. A raw singleton gives a
+whole product at most $13r$. A coordinate times a raw pair
+or triple has norm at most $\sqrt d\,r<3r$, by fixing that
+coordinate and retaining a free Paley transform.
+Every whole product has norm at most two.
+The coarser constants $100r,4r,2$ will suffice.
+
+There are 24 one-component leading terms in the linear
+rooted expansion. Each costs at most $4q$. Of the 144
+two-component terms, 126 have a free evaluated leaf and cost
+at most $10q$ each; fixing that coordinate leaves conditional
+density at most $4/(1+q)<4$. The 18 exceptional
+evaluation/pair against pair/evaluation terms have residual
+at most $400r+10000q+8q^2<500r$ before their old factor $r$.
+This includes the exact double-$e_0$ contraction. The 24
+remainder/star placements cost at most $24\cdot4\cdot500q$;
+the two remainder/rank terms cost $1000rq$, and the
+remainder/remainder term costs $250000rq$. Their sum is
+below $100000q$ per trace. Summing the absolute coefficient
+mass $L$ proves the linear price used in \eqref{eq:merge-local-I-35}.
+
+For the quadratic term, each of the 1521 valid crossed
+factorizations has two raw two-label maps at most $6q$.
+Its positive Gram CS bound is at most
+$600\cdot9\cdot4q=21600q$. The diagonal two-sided raw-trace
+bound is at most $6100q$: opposite components use two raw
+transforms of norm at most $2r$, giving $2400q$, while a
+common component uses its rank,
+twelve star entries and $500q$ remainder, followed by
+the other component of norm less than two.
+The evaluation endpoint controls its exceptional diagonal
+image. Holes cost at most $32L^2q$.
+Collect the one-sided pair terms only after conditioning
+both halves to be distinct; then they are exactly $-q$
+and have absolute coefficient mass $8/25$.
+Thus the full induced-half covariance error is at most
+\begin{equation}\label{eq:merge-local-I-40}
+ \frac qh\{(21600+6100+32)L^2+4(8/25)\}
+ <200000q/h.
+\end{equation}
+Before conditioning a pair spanning the two triangles may
+have trace $1_{x_i=x_j}-q$, so no unconditioned full-norm
+claim is used here.
+
+For collisions in the actual kernel, twelve equalities between
+labels at different bases make the untilted (old) root kernel
+vanish. The six remaining twin events
+have positive total price $384Mq/h$; the eighteen
+cross-component events cost $72d^2(1+q)^5q/h$.
+Multiply their union by $W$. Partial root repetitions
+still satisfy the even/odd degree bound in \eqref{eq:merge-local-I-30}.
+Complete cancellation requires a three-matching between
+the halves. There are at most
+$\binom63^2\,3!=2400$ such matchings. The input-half cube
+density is at most $d^2/h$, the root kernel at most 4096,
+and each matching has mass $q^3$. The unrestricted score
+bound $L/r$ therefore gives exactly $qC_{\rm exc}$.
+Positive unions include all further collisions and
+intersections; no coupled mask was removed inside a norm.
+
+The finite actual-star Gram is at most $1+182r$.
+Indeed every conditional vertex has at least $(p-11)/4$
+choices, and the common actual-star identities give
+off-diagonal Gram entries at most $7r$ among 27 active arms.
+The fifteen mean arms have Gram at most
+\begin{equation}\label{eq:merge-local-I-41}
+ \frac{(1+5r)(1+10r+5q)}{1-9q}\le1+16r:
+\end{equation}
+grouping by singleton/pair support in one triangle, using its
+raw six-arm frame, and then using the pointwise character Gram of
+the other triangle. Both are bounded by $\Gamma$.
+
+Each mean arm has expectation at most $100q/h$.
+Before half conditioning its raw mean is zero when the support
+meets the two triangles in $1$ and $2$ labels, and $q^2$ when it meets them in $2$ and $2$ labels. Removing nine equalities
+costs $27qr$, except complete two-pair cancellation of
+probability at most $18q^2$; division by $r h$ gives
+$(27+19r)q/h<100q/h$. With mean synthesis norm at most two,
+coefficient norm at most $\sqrt\sigma<1/2$, and fifteen
+arms, centering the raw-mean contribution to $2tH$ costs
+less than $10q$. Nonconstant auxiliary arms already kill
+constants by translation invariance.
+
+We have therefore proved the exact decomposition
+$T_{\rm raw}=zJ+L_{\rm cen}+R$ with
+\begin{equation}\label{eq:merge-local-I-42}
+ L_{\rm cen}1=0,\quad
+ \|R\|\le Cq,\quad
+ L_{\rm cen}\succeq-z(219/100)\Gamma rI,\quad
+ \|L_{\rm cen}\|\le4z\Gamma r .
+\end{equation}
+The lower order uses the 54-dimensional rational gate, the
+separate invariant mean gate and \cref{imp:local:coherent-parameter}; the upper norm follows
+from $\kappa+\lambda\sqrt\sigma<4$.
+The actual raw scalar mass is at least $m$.
+After normalization the constant entry is exactly one,
+the off-diagonal vector has norm at most $\delta$, and
+the centered block has norm at most $c$.
+By \cref{lem:block-completion}, the positive constant square costs
+at most $\delta^2$ below, and the separated upper blocks cost
+$\delta^2/(1-c)$. These are precisely \eqref{eq:merge-local-I-38}.
+The pointwise weight bounds $\eta\le w\le W$ prove the
+range assertion without a pointwise closeness claim.
+
+Finally every numerator after its indicated power of $q$
+or $r$ is removed has nonnegative coefficients and
+increases with $q,r$; $h,m,1-c$ decrease on their positive
+gates. Rational outward endpoint evaluation is uniform.
+The independent checker rebuilds the 39-support dictionary,
+both collected diagonals and 136 scalar quantities at
+eight endpoints, authenticating the separate matrix and
+triangle-product certificates. Its parameter replay checks 72
+endpoint/parameter cases and 1296 rational quantities, recovering
+the values at the fixed parameter $t=t_*$. At $X=2^{45}$ the selected
+$t=67/40$ gives $g_{21}<2.869198$ and $B_{21}<0.460808$, compared
+with $g_{21}<3.163793$ and $B_{21}<0.947552$ at $t=t_*$.
+\end{proof}
+
+At the selected exact parameter $t=67/40$, the chamber strength is
+$\lambda=402000/179557$ and a rational matrix gate improves the
+convex chamber coefficient to $5.41674864$.
+The checker \texttt{check\_coherent\_39\_selected\_matrix.py}
+reconstructs the physical dictionary and directed reflected matrix,
+proves all 56 rational LDL pivots positive, and verifies all 1596
+exact reconstruction identities. The invariant mean order remains
+below $3.2$. The parameter interval above is used for the finite
+remainder and layer estimates; this stronger matrix gate is used
+only at its stated exact parameter.
+\subsection{A finite chamber price for the coherent law}
+\label{imp:env:finite-coherent-section}
+
+This is the corresponding numerical evaluation at the chamber
+cut, for the same law \cref{lem:imp:coherent39-law} and with the
+same convention: all norms are in $L^2$ of the fixed uniform
+chamber half law, and no extra change-of-measure factor is
+charged here. Throughout this subsection
+\begin{gather*}
+ q=p^{-1},\quad r=\sqrt q,\quad p\equiv3\pmod4,
+ \quad p\ge2^{40},\\
+ 0\le t\le\frac{12}{5},\quad\eta=\frac1{100},\quad
+ \sigma=\frac{13}{75},\quad s=z(t)=1+\eta+t^2\sigma.
+\end{gather*}
+The weight of the law (before normalization) is
+$w=\eta+(1+tH)^2$. Recall that the $39$ coefficients in $H$ are
+$\pm1/15$, of total absolute mass $\ell=13/5$ (denoted $L$ in the preceding subsection). The degree count
+and Weil estimate in \eqref{eq:merge-local-I-30} give
+\begin{equation}
+ |H|\le B_H:=14+r
+ \label{imp:env:coherent-score-bound}
+\end{equation}
+on the support of the uniform law.
+
+Use the exact rectangle of the uniform law
+(\cref{prop:l20-rectangular}) and its probability-normalized
+decomposition
+\[
+ A=a\otimes1+r(\sqrt{30}Zv^*+2we^*)+E,
+ \qquad \|E\|\le N_0,
+\]
+with $N_0$ the nonstar bound of
+\cref{imp:env:finite-coherent-chamber}, and where the repeated
+letter $w$ in this rectangle denotes its
+four-coordinate feature function, not the weight $w$ above.
+Write $a_+$ for a pointwise upper bound on $a$, $a_2$ for its
+$L^2$ bound, and put
+\[
+ \theta=(1-q)(1-3q)(1-7q),\qquad
+ h=(1-4q)(1-5q),\qquad D_6=\frac{16}{\theta h}.
+\]
+The row and column squared norms of $A$ are at most $256a_+$.
+Let $K_\nu$ be its swapped product after compression to the old
+six-distinct induced half.  A norm-bounded independent-half remainder
+costs at most $1/h$; an unchanged leading feature has its original
+coefficient after compression.
+
+\begin{lemma}[Full coherent covariance]
+\label{imp:env:coherent-full-covariance}
+One has
+\[
+ \|K_\nu\odot H^2-\sigma K_\nu\|\le E_2/h,
+\]
+where
+\begin{align}
+ E_2=q\biggl[256a_+\biggl\{
+       \frac{20992}{225\theta}+\frac{2108}{225(1-q)}\biggr\}
+   +\biggl(\frac{32}{225}+\frac8{25}+\frac{2028}{25}\biggr)a_2^2
+      \biggr]<26400q.\label{imp:env:coherent-E2}
+\end{align}
+This is a full operator estimate, including its constant sector.
+\end{lemma}
+
+\begin{proof}
+For each ordered pair of score supports, keep their common auxiliary
+labels and split the diagonal from its complement.  On the complement,
+use the cheaper of the two valid whole-rectangle Cauchy--Schwarz
+factorizations.  A different-support core product costs
+$4q/\sqrt\theta$ and an equal-support product twice that; the
+private costs are $q/\sqrt{1-q}$ and twice that.  The exact ordered counts of support pairs, by
+core and private product coefficient, are
+\[
+ \begin{array}{c|rrr}
+ \text{core product coefficient}&16&32&64\\
+ \text{number}&804&56&41\\ \hline
+ \text{private product coefficient}&1&2&4\\
+ \text{number}&184&240&196.
+ \end{array}
+\]
+Multiplying by the rectangle row or column square and by $1/225$
+gives
+\[
+ 256a_+q\left\{\frac{17280}{225\theta}
+                  +\frac{1448}{225(1-q)}\right\}.
+\]
+The operator Cauchy--Schwarz uses the two output Grams for the
+swapped rectangle, or the two input Grams in its private version.
+It does not introduce a second copy of either auxiliary label.
+
+On the auxiliary diagonal, collect equal symmetric differences before
+taking absolute values.  Every nonzero one-sided difference has size
+two.  Its trace in the induced half is exactly $-q$; the absolute
+coefficient mass is $4/25$ on each side.  For the two-sided differences,
+the private raw-star maps give weighted cost $44/15$, and the remaining
+core maps give $3712/225$.  A core singleton has norm $r$; a higher
+raw core star has norm at most $4r/\sqrt\theta$.  The only unmatched
+terms are sixteen core-singleton/private-singleton terms of total
+mass $32/225$.  Their raw trace is $1_{x=y}-q$, and the accepting
+rectangle vanishes at $x=y$, so their operator is exactly $-qK_\nu$.
+Finally the repeated-root holes cost at most
+$12\ell^2q\|K_\nu\|$.
+These are precisely the remaining terms in
+\eqref{imp:env:coherent-E2}.
+The one-sided identities are asserted after induced-half conditioning;
+before conditioning a core/private pair may coincide.  The other
+remainder estimates are compressed with the single factor $1/h$.
+\end{proof}
+
+\begin{lemma}[Finite coherent linear error]
+\label{imp:env:coherent-linear-finite}
+With $E_1=12500q$,
+\[
+ \|Q(K_\nu\odot H-H)Q\|\le E_1/h,
+ \qquad \|K_\nu\odot H\|\le(12r+E_1)/h.
+\]
+\end{lemma}
+
+\begin{proof}
+Here are explicit rounded product bounds sufficient for the assertion.
+The inherited positive endpoint majorants give
+\[
+ N\le282q,\qquad \|a-1\|_2\le4.5r,
+ \qquad a_+,a_2,\|Z\|<1.001,
+ \qquad \|K_\nu-J\|<15r.
+\]
+For higher core supports $S,T$, split the normalized product map by
+the constant diagonal vector
+$e_0=(p1_{u=v}-1)/\sqrt{p-1}$, its mean-zero diagonal, and its
+off-diagonal complement.  Set
+\begin{gather*}
+ b_1=0,\quad b_2=q,\quad b_3=2r,\quad b_4=2r+q,\\
+ D_2=\frac2{1-q},\quad
+ D_3=\frac4{(1-q)(1-3q)},\quad D_4=\frac{16}{\theta}.
+\end{gather*}
+For $S\ne T$, writing $c=|S\cap T|$ and $d=|S\triangle T|$,
+the three pieces are bounded respectively by
+\[
+ \sqrt{D_{|S\cup T|}},\qquad
+ \frac{1+cr+b_{|S|}+b_{|T|}}{\sqrt{1-2q}},\qquad
+ \frac{b_d+cq+b_{|S|}b_{|T|}}{r\sqrt{1-q}}.
+\]
+For $S=T$ double the first bound, omit the last, and remove the
+constant image $1/[r\sqrt{1-q}]$.  Its remaining variation is at
+most $(|T|q+b_{|T|}^2)/[r\sqrt{1-q}]$.  These bounds follow from
+the two-Paley matching/path extraction or the restricted $K_{2,2}$
+bound, and the exact Gram of the projected auxiliary diagonal.
+Their orthogonal-input square sum, the eleven-star expression for
+$Z$, and its singleton correction give residual bound 22 and
+exceptional coefficient at most $.259/r$.  The four-singleton aggregate
+has product bound 9.  Each expression is a positive endpoint majorant;
+the displayed rational constants hold already at $p=2^{40}$.
+
+There are thirteen pure-core terms (whose supports at this cut lie in the core labels of the halves).  For each, the rectangle expansion
+prices the three rank and star classes, the three classes containing
+a nonstar remainder, and the raw invariant means by the following
+coefficients of $q$:
+\[
+ 9.1,\quad278,\quad400,\quad565,\quad801,\quad1,\quad61.
+\]
+For clarity the nontrivial rounded expressions are
+\begin{align*}
+ 278&>2(1+4.5r)(22\sqrt{30}+18),\\
+ 400&>30r\,22^2+60(.259)22
+       +\frac{30(.259)^2r}{1-q}
+       +4\sqrt{30}r\,22\cdot9
+       +4\sqrt{30}(.259)9+4r\,9^2,\\
+ 801&>2\cdot282\{\sqrt{30}(.259+22r)+18r\}.
+\end{align*}
+The factor $1+4.5r$ is the invariant weighted-star correction from
+$a-1$.  The large constant output of a pure-core rank/star term is
+killed by $Q$ on that half; its nonconstant variation was included
+in the residual bound 22.  The retained uncentered rank/star norm, after
+weighting all thirteen terms, is below $6r$.  The mean contribution
+uses $(2+r)^2\|K_\nu-J\|r<61q$.  The sum of these seven prices is
+below 2300.
+
+The other twenty-six terms are mixed.  Weighted raw-star synthesis
+gives a rank/rank cost of at most $91q$.
+The free core and private transforms give a rank/star cost of $61q$.
+For the two cross-arm star/star
+terms, the $w,v$ triple map has a free Paley leaf and norm below $6r$,
+while $Z,e$ has norm below 1.001; their price is 132.  Equal $Z,v$
+arms have exceptional amplitude at most $.259$ and residual $24r$;
+equal $w,e$ arms have amplitude at most $.501$ and residual $6r$.
+The double exceptional contractions are exactly $qQ/(p-1)$, not
+products of their separate norms.  These prices are 375 and 26.
+The nonstar/star chain applies the input product, then $E$ fiberwise,
+then the output product, keeping both shared labels.  Their norms
+are at most 1.04 and 1.001, so both placements cost less than
+\[
+ 2(\sqrt{30}+2)(1.04)(1.001)282q<4500q.
+\]
+Nonstar/rank and nonstar/nonstar cost 566 and 1.  Thus the mixed
+price is below 6000.  The total is bounded by
+$(13\cdot2300+26\cdot6000)q/15<12500q$.
+
+For the full-norm assertion, the raw score coefficient matrix has
+absolute row sum at most $1/3$.  Cube star ranges are orthogonal,
+so compression gives $\|H\|\le D_6r/3<5.334r$.
+Adding the retained rank/star norm below $6r$ and the error just
+proved gives the stated $12r+E_1$ bound, with its compression price.
+\end{proof}
+
+We state the final finite scalar interface explicitly.  Let $N_0,D,
+\epsilon,\chi$ be the authenticated old raw nonstar, positive collision,
+scalar-normalizer and normalized marginal-variance bounds:
+$N_0=N_{\rm ns}$, $D=D_{\rm bal}$, $\epsilon=\eps_Z$ and
+$\chi=\chi_p^+$ in the notation of
+\cref{prop:l20-completion,prop:l20-collisions}. Put
+\begin{align}
+ P_*&=144\cdot65536D_6q^3,\nonumber\\
+ C_w&=[\eta+(1+tB_H)^2]D
+       +P_*[\eta+1+2t\ell/r+t^2\ell^2/q],\nonumber\\
+ L&=\frac{(12r+E_1)/h+B_HD+\ell P_*/r}{1-\epsilon},\nonumber\\
+ V&=\frac{E_2/h+(B_H^2+\sigma)D+(\ell^2/q+\sigma)P_*}
+                  {1-\epsilon},\nonumber\\
+ z&=s-2tL-t^2V,\qquad
+ \delta=\frac{s\sqrt\chi+2tL+t^2V}{z}.
+ \label{imp:env:coherent-normalization}
+\end{align}
+(From here $z$ denotes the proved lower bound $s-2tL-t^2V$ for the scalar mass whose leading value was called $z(t)$ above; the letter $L$ in $z$ is the linear error term of the display, not the block budget.) Let $\Gamma=1+434r$. Let $g_*$ be any number such that both the
+nontrivial and invariant branches at the specified $t$ have
+leading negative coefficient at most $g_*$; the value
+$g_{\rm ch}(t)$ of \cref{imp:env:coherent-parameter} may be
+used, or a sharper certified coefficient
+at the specified $t$. In particular the selected
+$t=67/40$ uses $g_*=5.41674864$. Define
+\begin{align}
+ E_*&=sN_0+2tE_1/h+t^2E_2/h+C_w,\nonumber\\
+ G&=\frac{s g_*\Gamma r+E_*}{(1-\epsilon)z},\qquad
+ c=\frac{s\sqrt{30}\Gamma r+2tD_6r/3+E_*}{(1-\epsilon)z}.
+ \label{imp:env:coherent-final-prices}
+\end{align}
+
+\begin{proposition}[Finite chamber-cut bound and marginal data for the coherent law]
+\label{imp:env:finite-coherent-chamber}
+The explicit gates $z>0$, $c<1$, and $\delta<1$ hold on the stated
+domain.  The normalized physical operator of
+\cref{lem:imp:coherent39-law}, on the fixed old induced half and written $T$, satisfies
+\[
+ -(G+\delta^2)I\preceq T
+ \preceq\left(1+\frac{\delta^2}{1-c}\right)I.
+\]
+Its marginal variance is at most $\delta^2$, and its marginal range
+ratio is at most the old ratio times
+$[\eta+(1+tB_H)^2]/\eta$.  Every endpoint price is uniform for all
+primes $p\equiv3\pmod4$ above the endpoint.
+\end{proposition}
+
+\begin{proof}
+Complete character-root cancellation needs three cross identifications
+for each of the twelve degree-six traces, or four for each of the
+three degree-eight traces.  There are at most
+$12\cdot3!+3\cdot4!=144$ matchings.  The raw root is bounded by 65536
+and the input half has cube density at most $D_6$, giving the positive
+exceptional row/column mass $P_*$.  Outside it, cancellation only
+reduces the Weil price in \eqref{imp:env:coherent-score-bound}; everywhere
+$|H|\le\ell/r$.  Thus $C_w$ bounds the difference between the soft kernel and
+the kernel with the distinctness conditions imposed, including all intersections.  The same argument and the two lemmas give the full
+normalized-old prices $L$ and $V$.  The new scalar mass is at least $z$,
+and its centered row has norm at most $\delta$.
+
+The general actual-star Gram bound applies to all 63 nonempty supports.
+Every distinct-feature entry is at most $7r$, giving $\Gamma$.
+The exact matrix inequality of
+\cref{imp:env:coherent-parameter} (its certified gate) gives
+the nontrivial negative leading price $s g_*\Gamma r$. In the
+invariant sector the bound from the core mean features
+price is $16/(\theta h)$, and the mixed price is at most
+\[
+ \frac{[1+q/(1-q)+2qr/(1-q)](1+45r+60q)}h.
+\]
+The latter follows by enlarging the core character list to all 15
+nonempty supports: each distinct-support entry is at most $3r+4q$,
+so its row sum is at most $1+42r+56q$.  The respective negative
+coefficient orders $-7/100$ and $-21/100$ keep this invariant branch
+strictly below the nontrivial branch.  The full positive centered
+price follows from $\|M_{\rm old}\|=\sqrt{30}$ and
+$\|H\|\le D_6r/3$.  This proves the centered bounds $-G$ and $c$.
+The constant-block bounds of \cref{lem:block-completion} cost at most
+$\delta^2$ below and $\delta^2/(1-c)$ above.  The pointwise multiplier lies between
+$\eta$ and $\eta+(1+tB_H)^2$, proving the range statement.
+
+After substituting $q=r^2$, all new normalized numerator majorants
+are positive increasing functions of $r$, while $z$ and $1-c$ decrease.
+For example the three exceptional terms in $C_w/r$ have powers
+$r^5,r^4,r^3$.  The inherited majorants have the same endpoint
+property.  Thus the gates and orders extend uniformly above the
+endpoint.  Exact coefficient collection, finite product gates and
+an independently assembled scalar replay accompany the proof (\cref{app:certificates}).
+For the endpoint parameter $t=t_*$ at $2^{45}$, with $g_{20}$
+the negative coefficient in $T\succeq-g_{20}rI$ and $B_{20}$ the
+excess in $T\preceq(1+B_{20}q)I$ (both formed from $G,\delta,c$
+by the formulas above, as $g_{21},B_{21}$ are for the layer cut),
+the values are $g_{20}<5.441282211737$ and
+$B_{20}<1100.871034665$.
+These are local interfaces; the layer price, native completion and
+full scalar comparison are checked separately.
+\end{proof}
+
+\begin{proposition}[The coherent score on a single collision]
+\label{imp:env:coherent-single-pin}
+For the same $39$-trace coherent law, put
+\[
+ B_c=\frac{64}5+\frac85r,\qquad
+ B_s=10+\frac{11}5r,\qquad
+ B_x=\frac{26}3+\frac{31}{15}r,\qquad B=14+r.
+\]
+Let $A_c,A_p,A_m$ be the positive collision bounds
+\[
+\begin{split}
+ e_2&=r+48q,\quad e_3=5r+96q,\quad e_4=17r+192q,\\
+ \Lambda_c&=(1-r-24q)^4(1-6q)^2,\\
+ A_c&=\frac{32q(1+e_3)^2(1+e_4)^3}{\Lambda_c},\\
+ A_p&=\frac{32q(1+e_2)(1+e_3)^2(1+e_4)^2}{\Lambda_c},\\
+ A_m&=\frac{(1+e_4)^6}{\Lambda_c}
+ (3712q^2+81920q^3+1245184q^4+12582912q^5+67108864q^6).
+\end{split}
+\]
+With $w(x)=\eta+(1+tx)^2$, replace only $C_w$ in the negative
+price of Proposition~\ref{imp:env:finite-coherent-chamber} by
+\[
+ C_{\rm pin}=A_cw(B_c)+A_p[w(B_s)+w(B_x)]+A_mw(B)
+ +P_*[\eta+1+2t\ell/r+t^2\ell^2/q].
+\]
+Retain the previous $z,\delta,c$ and all positive, variance and range
+prices. The resulting lower coefficient is uniformly valid for
+$p\ge2^{40}$ and each fixed parameter $t$ for which the leading matrix bound has been certified.
+\end{proposition}
+
+\begin{proof}
+At the chosen chamber cut, numbering the label $(j,\ell)$ by $2j+\ell$, the coordinate sets are
+\[
+ \text{cores: }\{0,1,4,5\},\ \{6,7,10,11\};
+ \qquad \text{private pairs: }\{2,3\},\ \{8,9\}.
+\]
+Only their sixteen core/core and four
+private/private coincidences survive the soft accepting kernel.
+For exactly one equality $x_a=x_b=u$, use
+$\chi(v-u)^2=1-1_{\{v=u\}}$ in every score monomial and collect the
+remaining supports.  In the score divided by $r$, the deleted
+evaluation contributes at most $r$ times its absolute coefficient.
+No remaining support has fewer than four labels.  For a remaining support of degree $d$, the even-degree
+character price is $d-2+r$ and the odd-degree price is $d-1$.
+Exact collection gives eight pins with bound $B_c$, six with $B_s$,
+and six with $B_x$.
+
+The eight $B_c$ pins join the output $a$ pair to the input $a$ pair,
+or output $c$ to input $c$.  The other two classes are
+\[
+\begin{array}{c|l}
+ B_s&(0,6),(1,7),(4,10),(5,11),(2,8),(3,9)\\
+ B_x&(0,7),(1,6),(4,11),(5,10),(2,9),(3,8).
+\end{array}
+\]
+For $p\ge2^{40}$, $B_c$ dominates the other two prices, so the original
+mutually exclusive core orientations retain their total incident
+charge $32q$. For each output private coordinate, the two input
+private pins have the same incident cyclic-extension weight, at
+most $16$, and one belongs to each of the $B_s,B_x$ classes.
+Their row charges are therefore $32q$ each. The counts of
+extensions of a pinned pair to full labellings (the extension
+histograms) are unchanged within the two groups and give
+$A_c,A_p$; transposition
+gives the same column bounds.
+
+The strata with exactly one coincidence are disjoint from the set with at least two coincidences, already bounded by $A_m$.
+Keep the original $A_m$ with the generic score bound $B$, and the entire
+exceptional mass $P_*$ with the worst score $\ell/r$.
+Schur's test gives the displayed collision price.
+Recompute the numerator of $G$ in \eqref{imp:env:coherent-final-prices}, with $C_{\rm pin}$ in place of $C_w$ in $E_*$, using only positive terms, retaining
+the old denominator and constant-block charge.  This proves the
+same-law substitution without subtracting monotone majorants.
+All normalized numerator prices increase with $q$ and $r$, and the previous
+denominators decrease on their gates, proving endpoint uniformity.
+The independent replay verifies the 20 support collections,
+180 finite identities and all 35 endpoint/parameter cases.
+At $p=2^{45}$ and the rational parameter $t=3337/2048$ (a
+rational below the endpoint $t_*=12/5$ at which this refined
+check is run; the selected construction uses $t=67/40$ with the
+coefficient above), the refined coefficient is
+$g_{20}<5.434524687965$, with the positive and marginal prices unchanged.
+\end{proof}

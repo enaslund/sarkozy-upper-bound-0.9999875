@@ -1,0 +1,601 @@
+\section{Overview of the construction verifying (CP0)--(CP8)}\label{sec:design}
+
+\paragraph{What this section proves and how to read it.}
+Part~V exhibits laws satisfying (CP0)--(CP8) with baseline
+$\Theta<\PushTheta<1$. This section specifies the construction once:
+parameters, queries, prime ranges, and which graph law is used in
+each range. Later sections verify the hypotheses range by range;
+each ends by naming the rows of \cref{tab:hypotheses} it proves.
+Inputs: Theorem~C and Part~IV. Output: the standing data
+\cref{def:record:parameters} for the baseline. The improved
+($\vartheta>1$) parameters differ and are specified in
+\crefrange{sec:density:moments-prefix}{sec:four-routes-closing};
+do not use baseline numbers there. ``Admissible'' in Part~V has
+three qualified senses, distinguished in
+\cref{subsec:design-admissibility}: admissible for the energy
+estimates (\cref{def:admissible}), admissible tuples (local degree
+conditions), and admissible price bounds $c_{\mathcal C}$ (allowed
+(CP5) scalars). Where a sum is computed at a smaller evaluation
+exponent and converted to $a$ (repricing),
+\cref{lem:record:repricing,cor:first-stage-repricing} justify the step
+and require $a\ge a_0$.
+
+The prime ranges are: prefix $p\equiv1\pmod4$, $p<2^{512}$
+(\cref{sec:frontier:iidprefix}); middle $p\equiv3\pmod4$ in
+$[Q_3,P_3)$ (\crefrange{sec:middle-reference}{sec:matching-mean});
+upper $p\equiv3\pmod4$ in $[P_3,2^{512})$
+(\cref{sec:upper-reference,sec:upper-comparison}); large primes
+$p\ge2^{512}$ and the external index (\cref{sec:tail-index}); closing
+(\cref{sec:closing}). Baseline totals are
+$L_0,S,A,D,\mathcal E,T,R_I,J,W,m$ as in
+\cref{subsec:intro:inequality,tab:intro:values}.
+
+\subsection{The baseline numerical parameters}\label{subsec:design-parameters}
+
+The construction is now fixed completely: exponents, number of
+intervals, prime ranges, and which law is used in each range.
+These are the baseline values ($\theta=\vartheta=1$); the improved
+closing changes only the values named in
+\cref{sec:four-routes-closing}.
+
+\begin{definition}[Parameters]\label{def:record:parameters}
+The construction has the following data.
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Exponents.} The price exponent $a=\PushA$, the density exponent
+ $\theta=1$, and the exponent of the baseline theorem
+ $\eps=a/(72-\theta)=a/71=\PushExponent$.
+\item \emph{Slots, queries and intervals.} The slot array
+ $V=(\Zsix)^2\times\{0,1\}$ with its family $\mathfrak F$ of cuts and its
+ reserved cut $\iota$ (\cref{def:slot-array}); the six queries $\mathcal E_6$
+ (\cref{subsec:front6:construction}); and $\Kint=\PushK$ intervals.
+\item \emph{Prime ranges.}
+ \begin{itemize}
+ \item \emph{Prefix:} the primes $p\equiv1\pmod4$ below $\Pfour=2^{512}$. Each
+  is an atom $\{p\}$ with label group $\Z/p^{e_p}\Z$, $e_p=2\mcl$, $\mcl=8192$ digit pairs, carrying the
+  square-clique law of \cref{def:clique-law}.
+ \item \emph{Small modulus:} $\Mzero=2^{2m_{\rm ext}+1}\prod_{3\le p<Q_3,\
+  p\equiv3\ (4)}p^{2m_{\rm ext}}$, $m_{\rm ext}=64$, $Q_3=\FurtherQ$. Its primes are not coordinates of the
+  label group; they enter only through the index (\cref{def:hyb:coupled}).
+ \item \emph{Middle range:} the primes $p\equiv3\pmod4$ in $[Q_3,\Pthree)$,
+  $\Pthree=\FurtherPthree$, in $33$ pieces $[X_i,X_{i+1})$
+  (\cref{tab:record:middle-pieces}), each partitioned into exact blocks
+  (\cref{def:record:exact-blocks}); the seven tilted pieces start at $2^{30}$, $2^{31}$, $2^{32}$,
+  $2^{34}$, $2^{36}$, $2^{40}$ and $2^{45}$.
+ \item \emph{Upper range:} the primes $p\equiv3\pmod4$ in $[\Pthree,\Pfour)$, in
+  $310$ bands, each partitioned into blocks (\cref{def:record:upper-bands}):
+  $45$ bands in $[\Pthree,2^{48})$, namely $[167\cdot2^{40},168\cdot2^{40})$
+  and the $44$ bands $[j2^{41},(j+1)2^{41})$, $84\le j<128$; $64$ equal bands
+  in each octave $[2^b,2^{b+1})$, $48\le b\le51$; and the nine bands
+  $[2^b,2^{b+1})$, $52\le b\le57$, $[2^{58},2^{60})$, $[2^{60},2^{64})$ and
+  $[2^{64},\Pfour)$.
+ \item \emph{Tail:} every prime $p\ge\Pfour$, an atom $\{p\}$ with $e_p=1$; the
+  threshold in the mixing condition \ref{it:record:R4}
+ (\cref{lem:record:tail-mixing}) is $\Pfive=2^{65536}$.
+ \end{itemize}
+ Every other prime ($2$, and the primes $p\equiv3\pmod4$ below $Q_3$) divides
+ $\Mzero$.
+\item \emph{Block budgets.} Every middle block has $\log q_{\Blk}\le L=570$, so
+ that its selection factor is at most $e^{2aL}$, with
+ $2aL=1236349836/1220703125<1.013$. The local laws of the middle range are
+ evaluated for blocks of logarithmic length at most the local cap
+ $L_{\rm loc}=585$, at which their constants are computed
+ (\cref{lem:record:local-domain}). Every upper block has $\log q_{\Blk}$ at
+ most the recorded budget $L_{\rm band}$ of its band, an integer between $550$
+ and $886$ (\cref{def:record:upper-bands}), at which the local data of the band
+ are evaluated; the completed-root caps of the bands from $2^{52}$ and the
+ local data of the tail law (\cref{lem:tail-law}) are evaluated for the larger block length
+ $L_{\rm u}=50000/27$.
+\item \emph{Fold records.} In the comparison law the two-layer fold records
+ $F_1,F_2$ of the middle blocks are replaced by the signed whole-block fold
+ records with parameter $\tlaw=\FurtherT$ (\cref{def:record:mixture}).
+\item \emph{Roots.} On a middle piece starting below $2^{30}$ the
+ two-layer root is the uniform strict-square labelling law
+ $\lambda_{\Blk}(G_{\rm L,2})$. The other seven pieces use the positive
+ reweightings proved in \cref{sec:positive-roots}:
+ \begin{center}
+ \begin{tabular}{lll}
+ piece start & multiplier & $\ulaw$\\ \hline
+ $2^{30}$ & $\frac13\sum_j(1+\ulaw\Hs j)^2$ & $711/4096$\\
+ $2^{31}$ & same & $1021/4096$\\
+ $2^{32}$ & same & $1455/4096$\\
+ $2^{34}$ & same & $833/1024$\\
+ $2^{36}$ & same & $3851/4096$\\
+ $2^{40}$ & same & $4049/4096$\\
+ $2^{45}$ & $1/100+(1+\ulaw H_{39})^2$ & $67/40$
+ \end{tabular}
+ \end{center}
+ Each multiplier is normalized at every prime; $H_{39}=H_{\mathcal D_{39}}$ is the collected signed trace sum with coefficients
+ $\pm1/15$ specified in \cref{sec:positive-roots}.
+ The one-layer root remains $\lambda_{\Blk}(G_{\rm L,1})$ (the graph
+ $G_{\rm L,1}$ of \cref{subsec:push:layer12spectral}) on every piece.
+\item \emph{First stage and bracket.} The one-layer folded copies of the fold records are fully
+ polarized (polarized fraction one, i.e.\ the whole of $F_{\rm fold}$ is
+ subtracted in forming $\rho$; \cref{def:construction}(c)); the folded
+ matching records use the
+ one-stage repair of \cref{lem:record:one-stage-folded-e}, whose record
+ differences, of the two types $E_0$ and $E_1$, form the two tags of (CP2)(b)
+ (\cref{def:record:frame}(e)); the dominator $\Nbr$ of (CP3)
+ carries one folded copy of each fold record
+ (\cref{def:record:frame}(d)).
+\item \emph{Closing constants.} The common-mean coefficient $63/64=1-2^{-6}$
+ (\cref{thm:comparison} with $k=6$), and the side weight
+ $\tside=31/32$ for the auxiliary sides of the joint Gram block
+ (\cref{def:side-function}); every numerical side bound of
+ the matching envelopes is at least the corresponding auxiliary side
+ bound (\cref{prop:signed-sides}).
+\item \emph{Credits.} Variance credits of degrees one to four, with positive
+ backgrounds of degrees one and two (\cref{sec:variance}); mean savings of all
+ degrees up to four (\cref{prop:record:mean-credit}); on the pieces starting at
+ or above $2^{31}$, pooling over those pieces adds background
+ degrees three and four and mean degrees five and six
+ (\cref{lem:pool-coupons}); every restoration, i.e.\ every recovery of
+ product energy as in \cref{subsec:variance:restoration}, is
+ formed at the exponent $a$ with the piece product caps of \cref{lem:piece-caps}.
+\item \emph{Analytic stage} (\cref{def:record:analytic-stage}). $\beta=1/20$,
+ the major-arc exponent $\eta=17/100$, $\gamma=255/1024$, $\tau=1/201$,
+ $t_{\rm an}=1/60$, $\sigma=1/825$, and the moment losses $\delta=10^{-10}$ and
+ $\ell_0=10^{-8}$.
+\end{enumerate}
+\end{definition}
+
+The completion weights of the $33$ middle pieces and of the $310$ upper bands,
+and the other finite data of the construction, are listed or referenced in
+\cref{app:data}; the finite consequences of these choices that the frame uses
+(the tiling of $[Q_3,\Pthree)$ by the pieces, the completion inequalities and
+the protection inequality \eqref{eq:protection} in every piece, the
+one-stage gates, the band starts and the
+prefix gate) are collected in \cref{cert:record:frame-data}
+(\cref{app:certificates}). The price exponent is below the error exponent of
+the analytic stage, $\sigma-a=65195254/201416015625>0$
+(\cref{cert:record:frame-data}(a)); the strict inequalities (S1)--(S7) of the
+analytic stage hold (\cref{cert:record:analytic-stage}), and the gates of the
+analytic transfer that depend on $a$ hold on the whole interval
+$0<a\le9/10000$, for every fixed $\Kint\ge2$
+(\path{research/advance_2026_10_24/global/analytic_domain.py}; the baseline
+verifier asserts $0<a\le9/10000$). The larger parameter domain used for
+the main theorem is verified in \cref{sec:four-routes-closing}.
+All data are fixed integers or rationals,
+independent of the scale; the analysis of Part~II applies with constants that
+depend on them (\cref{rem:fixed-parameters}). The certificate computes the
+prices of the middle range at the anchor $a_0=\PushAnchor<a$ and reprices them by
+the factor $t=e^{2(a-a_0)L}$, about $1.0000000616512$; it computes the prices of the
+upper bands at the anchor $a_{\rm u}=883/10^6<a$ and reprices them band by band
+with the logarithmic-product cap of each band
+(\cref{lem:record:repricing,cor:first-stage-repricing}). The numbers $a_0$ and
+$a_{\rm u}$ are points of evaluation of the certificate, not parameters of the
+construction.
+
+\subsection{The six queries $\mathcal E_6$ and the twelve pairs in projections}\label{subsec:front6:construction}
+
+The comparison law accepts the six queries
+$e^{(j)}=((0,j,0),(\rot0,\rot j,1))=((0,j,0),(2,\rot j,1))$, $j\in\Zsix$, of
+\cref{def:slot-array}(e), the family $\mathcal E_6$. By \cref{lem:slot-array}(iv)
+their twelve endpoints are distinct, every source lies in $V_+=\{\ell=0\}$ and
+every reflected target $\iota(2,\rot j,1)=(2,\rot j,0)$ lies in $V_+$; so
+$\mathcal E_6$ is a family of $k=6$ queries in the sense of \cref{def:cp0}(c).
+Each query crosses the reserved cut from layer $0$ to layer $1$ and applies
+$\rot$ to both chamber coordinates.
+
+All six queries have the same first-coordinate pair $(0,\rot0)=(0,2)$; they
+differ only in the second chamber coordinate, on which they act by the
+permutation $\rot$. A law that ignores the second coordinate therefore sees
+one query. The middle laws are such laws: they live on one chamber coordinate
+and the layer, and the pullback reads every query of $\mathcal E_6$ through
+the single pair $((0,0),(2,1))$ (\cref{lem:slot-array}(v)). In the middle
+records the six queries thus impose one directed edge between the layers: the
+two-layer root and the aligned fold $F_0$ accept it (on the pieces from
+$2^{30}$ the root is the positive root of \cref{def:positive-root}, which has
+the accepting support of the uniform root), the two-layer fold records
+$F_1,F_2$ and matching records $E_0,E_1$ need one added cross edge each, and
+the folded matching records one edge between their two private labels (the two labels not shared
+between its halves; \cref{cert:record:middle-geometry}). The square-clique law of the prefix
+ignores the layer as well, and sees the six queries as one coincidence event
+of two labels (\cref{lem:frontier:iidlocal}(v)). This is why the six queries
+impose on the middle range the same single edge condition as one query,
+while the matching term of the closing
+carries the sixth power $(R_I/2)^6$ (\cref{thm:comparison}).
+
+\begin{remark}[The twelve-query superset]\label{subsec:front12:construction}
+The family
+\[
+ \mathcal E_{12}=\bigl\{\bigl((u,j,0),(\rot u,\rot j,1)\bigr):u\in\{0,5\},\
+ j\in\Zsix\bigr\}
+\]
+consists of twelve queries with twenty-four distinct endpoints, each running
+from layer~$0$ to layer~$1$. Its first-coordinate pairs are $(0,2)$ and
+$(5,\rot5)=(5,3)$, and $\mathcal E_6$ is its part with $u=0$. Some parts of the
+construction accept all twelve queries: the one-way repairs of
+the upper range, whose ledger was built for $\mathcal E_{12}$
+(\cref{sec:frontier:upper-oneway}), the dense comparison of the two EL records (field type ${\rm E}$ in one
+chamber coordinate and ${\rm L}$ in the other; \cref{def:dense-comparison},
+and \cref{subsec:push:layer72spectral} for the codes), and the tail law with its one-way repairs
+(\cref{lem:tail-prices}). Others accept $\mathcal E_6$ but not all of
+$\mathcal E_{12}$: the mirror merge repairs and accepting two-layer
+constants (\cref{lem:merge-repair,lem:record:accepting-c2}),
+the signed fold records of the middle (\cref{def:record:mixture}), the positive mixture of the six LE records (the field types
+${\rm L}$ and ${\rm E}$ exchanged; \cref{prop:le-mixture}), and the upper records $G_{01}L$, $G_{10}L$ with their
+reserved one-layer companions, which accept $\mathcal E_6$ and are retained
+(\cref{lem:six-query-retention}). So $\mathcal E_{12}$ is only an acceptance set
+of parts of the construction: the comparison theorem is applied with
+$\mathcal E_6$, $k=6$ (what twelve queries would need is in
+\cref{subsec:obs:twelve}). In the density-linear baseline (density exponent $\theta=1$), the exception of the clique prefix is
+charged with the two-pair mass $\eta_{\mcl}=2^{1-\mcl}-2^{-2\mcl}$, its exact
+mass for $\mathcal E_{12}$ and an upper bound for $\mathcal E_6$
+(\cref{lem:frontier:iidlocal}(v)).
+\end{remark}
+
+\subsection{Which graph law is used in each prime range}\label{subsec:design-laws}
+
+The construction is one set of comparison data in the sense of Part~III. Its
+objects are built in the sections named below; here they are listed together.
+
+\begin{definition}[The construction]\label{def:construction}
+The comparison data of Part~V, at the parameters of
+\cref{def:record:parameters}, are the following.
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Frame data} (\cref{def:cp0}). The slot array $V$ with $\mathfrak F$
+ and $\iota$. At scale $N$ the atoms of \cref{def:record:functional}: the
+ prefix atoms, the blocks of the $33$ middle pieces and of the $310$ upper
+ bands, and a tail atom $\{p\}$ for every prime $\Pfour\le p\le N^{\beta}$. The
+ queries $\mathcal E_6$. The index law: independent indices
+ $\omega_e=(b_e,s_e)\in\Z/\Kint\Z\times\Z/\Mzero\Z$, $e\in\mathcal E_6$, with
+ coupled index $(b_e+1,s_e+r_e)$, where each prime-power component of
+ $r_e$ is the square of a uniform residue conditioned so that the residue
+ itself has $p$-adic valuation less than $64$. The independent depths $J_p$ have tails
+ $\Pr(J_p\ge j)=\delta_{p,j}$ of \cref{lem:imp:padic-envelope}; the interval
+ coordinate $b_e$ is always revealed (conditioned on, not averaged over;
+ \cref{def:hyb:coupled,prop:imp:padic-price}).
+\item \emph{Reference} $\mu=\bigotimes_{\Blk}\mu_{\Blk}$ (\cref{def:cp1}): at a
+ prefix atom the square-clique law (\cref{def:clique-law}); on a middle block
+ the twelve-label five-type completion of \cref{lem:front12:reference}, a law
+ on one chamber coordinate and the layer pulled back to $V$, whose two-layer
+ root is the uniform labelling law on the pieces below $2^{30}$ and the
+ positive root of \cref{def:positive-root} on the seven pieces from $2^{30}$;
+ on an upper block the $25$-state five-type completion of the two-layer graph
+ law, with independent one-layer fold weights (\cref{def:record:upper-bands},
+ \cref{lem:upper-reference-rp}); at a tail atom the tail law of
+ \cref{def:tail-law} at the single prime.
+\item \emph{First stage and bracket} (\cref{def:cp2,def:cp3}). The first-stage
+ atoms are the middle blocks. There the records $F_{\rm fold}$ (the two
+ nonaccepting one-layer fold components on the reserved diagonal), $E_{\rm fold}$ (the two
+ reserved-folded matching components), $E_{\rm add}$, the polarization
+ correction $G$, the reserved half diagonals $H$, and the one-stage repair
+ $E_{\rm new}$ of $E_{\rm fold}+E_{\rm add}$ give, with $\rho$ the intermediate law obtained from $\mu$ by polarization before the one-stage repair, and $\Nbrz$ the auxiliary dominator of \cref{def:cp3},
+ \begin{gather*}
+  \rho=\mu-F_{\rm fold}+E_{\rm add}+G,\qquad
+  \lambda=\rho+\delta_E,\qquad \delta_E=E_{\rm new}-E_{\rm fold}-E_{\rm add},\\
+  \Nbr=\lambda+F_{\rm fold}+H,\qquad \Nbrz=\mu+E_{\rm add}+G+H
+ \end{gather*}
+ (\cref{def:record:frame}). The record differences of $\delta_E$ of type $E_0$, whose
+ sharp (O2) bound is at their first-coordinate cut $\vartheta_1$, form one of
+ the two tags of (CP2)(b), and those of type $E_1$, whose sharp bound is at
+ $\vartheta_2$, the other. Off the middle blocks,
+ $\lambda_{\Blk}=\Nbr_{\Blk}=\mu_{\Blk}$.
+\item \emph{Comparison law} $\nu=\bigotimes_{\Blk}\nu_{\Blk}$ (\cref{def:cp4}),
+ with the normalizing masses of $\mu$, as described in the next paragraph. On a
+ middle block $\nu_{\Blk}$ is a finite real combination of nonnegative measures
+ that accept the queries, each of the two signed fold records contributing
+ three product components (\cref{def:record:mixture,lem:middle-comparison-prices});
+ every other $\nu_{\Blk}$ is nonnegative. As the middle blocks are finitely
+ many, the variation factor of \cref{def:cp4} is a fixed finite number.
+\item \emph{Classes, envelopes and the mean credit}
+ (\cref{def:cp5,def:cp6,def:cp7}). The variance classes of degrees one to four
+ with their gains and positive backgrounds (\cref{sec:variance}); the positive
+ joint envelope classes with $n\ge1$ fold factors and $m$ matching
+ factors in the tensor product over distinct middle blocks defining the class,
+ $n+m\in\{2,4,6\}$, the aligned and crossed matching pairs and the matching
+ classes of degrees four and six, with the class bounds of
+ \cref{cor:envelope-costs} in the auxiliary prices of
+ \cref{lem:middle-comparison-prices}, the invariant background at its assigned
+ tag price $\Uinv$ (\cref{lem:oct24:invariant-background}) and the envelope
+ portfolio of \cref{tab:data:envelopes}
+ (\cref{thm:envelopes,lem:class-credit,lem:orbit-coupon});
+ matching envelopes whose sides are the larger of the signed direct-Gram side
+ and the auxiliary side, rounded up, with chosen side diagonals
+ (\cref{prop:record:matching,prop:signed-sides}); and the mean credit
+ (\cref{prop:record:mean-credit}).
+\end{enumerate}
+\end{definition}
+
+\paragraph{The comparison law in words.}
+On a middle block the comparison law keeps the two-layer root and the aligned
+fold $F_0$, which accept the queries. It replaces the two other two-layer fold
+records $F_1,F_2$ by the signed whole-block law: on the block, the combination
+$\bigotimes_pP_{++,p}+(\tlaw/2)\bigotimes_pP_{-+,p}-(\tlaw/2)\bigotimes_pP_{--,p}$
+of three positive accepting product laws, each of which is at every prime the
+joint law (Markov coupling) of two nonnegative kernels, both
+forcing the extra cross edge, whose two marginals are the actual
+half marginals of the reference fold record (an \emph{accepting
+Markov coupling})
+(\cref{def:record:mixture,lem:signed-components}). The combination is taken
+after the block products, so its total variation is at most $1+\tlaw$ whatever
+the number of primes; $F_2$ is the reflected transpose of $F_1$, and the case
+$\tlaw=0$ is the mirror pairing of \cref{lem:mirror}. It replaces the two
+two-layer matching records by the exact-marginal law $K_1$
+(\cref{lem:record:exact-marginal-e}), repairs every two-layer merge record
+by its actual-marginal mirror law (\cref{lem:merge-repair}), replaces
+the two-layer constants by the accepting edge law
+(\cref{lem:record:accepting-c2}), and, relative to the first-stage law
+$\lambda$, deletes the folded merge and constant
+records and the polarization correction $G$,
+and keeps $E_{\rm new}$ unchanged. On an upper block it keeps every record that accepts
+the six queries, among them the records $G_{01}L$, $G_{10}L$ (the two EL records of state
+$RL$) and their reserved
+one-layer companions (\cref{lem:six-query-retention}); it replaces the six
+degree-two LE records by the positive mixture of four separately repaired
+six-query laws (\cref{prop:le-mixture}), the two remaining degree-two EL records
+by the dense positive comparison
+(\cref{def:dense-comparison,prop:dense-comparison}), each of the other $84$
+nonaccepting two-layer records of degrees two and three by its one-way repair,
+and deletes every other nonaccepting record (\cref{def:upper-comparison}); the
+tail atoms use the one-way replacements of the tail law at single primes, with
+the all-prime caps (\cref{lem:tail-prices}). At each prefix prime it deletes
+the exception of \cref{lem:frontier:iidlocal}. Every change is either a repair
+with the same actual half marginals at $\iota$ as the record it replaces, or
+the deletion of a positive record. Every component of the comparison law is
+nonnegative and accepts the six queries, and only the middle blocks carry
+signed combinations. The comparison law is not reflection positive; it is
+compared with the first stage only at $\iota$, through the bracket $\Nbr$ and
+the norm envelopes of its changes, with the symmetric and skew parts priced
+separately.
+
+\paragraph{One recipe per range.}
+\Cref{tab:ranges} lists, for each range of primes, the reference law and the
+reason for its positivity, the change made by the comparison law, and where
+the range enters the closing number $\Theta$.
+
+{\small
+\setlength{\LTpre}{6pt}\setlength{\LTpost}{6pt}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{2.55cm}%
+>{\raggedright\arraybackslash}p{4.55cm}%
+>{\raggedright\arraybackslash}p{3.3cm}%
+>{\raggedright\arraybackslash}p{4.25cm}@{}}
+\caption{The ranges of primes.}\label{tab:ranges}\\
+\toprule
+Range & Reference law and its positivity & Comparison change & Contribution to $\Theta$\\
+\midrule
+\endfirsthead
+\toprule
+Range & Reference law and its positivity & Comparison change & Contribution to $\Theta$\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+Small modulus: $2^{129}$ and $p^{128}$ for $3\le p<Q_3$, $p\equiv3\ (4)$ (not atoms)
+& no law; an external index per query, with coupled index $(b+1,s+r)$;
+ doubly stochastic kernels, no positivity needed
+& none
+& the conductor moment $R_I=M_{\rm pad}(\Kint)$ in $J$ and $W$, at $\Kint=\PushK$
+ (\cref{prop:oct24-index-cost,lem:index-moments})\\
+\addlinespace
+Prefix: $p\equiv1\ (4)$, $p<\Pfour$; atoms $\{p\}$, $e_p=2\mcl$
+& independent draws from a random square clique; at the chamber
+ cuts of the first coordinate the square of a conditional mean,
+ the other cuts fix it samplewise
+ (\cref{lem:frontier:iidlocal})
+& delete the zero-difference exception
+& mass at most $\eta_{\mcl}$; total price below $2^{513-\mcl+1024\mcl a}$, in
+ $S$ and $T$ only, inside the allowance $10^{-12}$
+ (\cref{lem:frontier:iidenergy})\\
+\addlinespace
+Middle: $p\equiv3\ (4)$ in $[Q_3,\Pthree)$; $33$ pieces, blocks with
+ $\log q_{\Blk}\le L$
+& twelve-label five-type completion on one chamber coordinate and the layer
+ (\cref{lem:front12:reference}), its root uniform, or positive on the seven
+ pieces from $2^{30}$ (\cref{def:positive-root}); chamber cuts by the
+ completion lemma with the caps of the root
+ (\cref{lem:layer12-caps,prop:l20-collisions,prop:root-chamber,prop:root-layer})
+ and the rows, the layer flip by fold pairing (\cref{lem:five-type})
+& first stage: polarized folds, one-stage repair $E_{\rm new}$ in two tags;
+ comparison: signed whole-block $F_1,F_2$, exact-marginal $E$, mirror
+ merges, accepting two-layer constants, folded deletions
+& $L_0$ and the energy factor $B$ through the tagged series
+(\cref{sec:middle-frame}); the direct
+ prices of the middle records in $S$, $A$, and the auxiliary prices of the
+ fold and matching records in the class bounds
+ (\cref{lem:middle-comparison-prices}); variance and envelope credits in
+ $\mathcal E$ (\cref{sec:variance}, \cref{cor:envelope-costs}); the prices of
+ the matching and other records and the side excess $T_K$
+(\cref{prop:signed-sides}(iii)) of the matching
+ envelopes in the total $T$, the mean savings in $m$ (\cref{sec:matching-mean})\\
+\addlinespace
+Upper: $p\equiv3\ (4)$ in $[\Pthree,\Pfour)$; $310$ bands
+& $25$-state two-layer five-type completion with independent reserved fold
+ weights and observed reserved caps
+ (\cref{lem:upper-reference-rp,prop:observed-caps}); root caps by the direct
+ Route~B criterion below $2^{52}$, with graded counts and interpolated
+ coefficients, and by the Route~A criterion from $2^{52}$
+ (\cref{thm:record:direct-star,thm:spectral-criterion}); joint fold and
+ matching rows (\cref{lem:five-type})
+& one-way repairs of $84$ records, a dense comparison of two EL records, a
+ positive mixture of the six LE records; deletion of the other nonaccepting
+ records
+& $S_{\rm u}(a)$, $A_{\rm u}(a)$ in $S$, $A$ and $T$, the band ledger repriced
+ band by band (\cref{prop:record:upper})\\
+\addlinespace
+Tail: every $p\ge\Pfour$; atoms $\{p\}$, $e_p=1$
+& the tail law at one prime (\cref{def:tail-law}), at class-one primes with
+ the all-prime caps; mixing \ref{it:record:R4} for $p\ge\Pfive$
+ (\cref{lem:tail-law,lem:record:tail-mixing})
+& one-way repairs of the $94$ records that do not accept the twelve queries,
+ with the all-prime caps; deletion of the other nonaccepting records
+& per prime at most $Cp^{-3/2+2a}$ with the absolute constant $C$
+  of \cref{lem:tail-prices}, inside $S_{\rm u}(a)$ and
+  $A_{\rm u}(a)$
+ (\cref{lem:tail-prices})\\
+\end{longtable}
+}
+
+\subsection{Three uses of ``admissible'', and why each holds}\label{subsec:design-admissibility}
+
+The energy estimates of Part~II apply to the energies of the comparison when
+the laws and the reductions are admissible (\cref{def:admissible}), and (CP8)(a)
+asks this of every law of the construction. Each construction lemma of
+\cref{sec:frontier:iidprefix} and of the sections after it states the
+admissibility of its laws; \cref{tab:admissibility} collects them, with the two
+facts that give (O1) and (O2) for each.
+
+{\small
+\setlength{\LTpre}{6pt}\setlength{\LTpost}{6pt}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{3.45cm}%
+>{\raggedright\arraybackslash}p{4.4cm}%
+>{\raggedright\arraybackslash}p{3.65cm}%
+>{\raggedright\arraybackslash}p{3.15cm}@{}}
+\caption{The laws of the construction and their admissibility.}\label{tab:admissibility}\\
+\toprule
+Law & Sign; one-slot marginals (O1) & Sharp bounds (O2) & Proved in\\
+\midrule
+\endfirsthead
+\toprule
+Law & Sign; one-slot marginals (O1) & Sharp bounds (O2) & Proved in\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+prefix: $\lambda_p$, the exception $\lambda^{\rm ex}_p$, $\lambda_p-\lambda^{\rm ex}_p$
+& nonnegative; invariant under $\mathfrak G_p$
+& none; the exception is charged by its mass
+& \cref{lem:frontier:iidlocal}(vi)\\
+middle and upper references $\mu_{\Blk}$
+& nonnegative; invariant under the maps of \ref{it:record:R3}
+& none
+& \cref{lem:front12:reference}, \cref{lem:positive-root-properties,lem:imp:coherent39-law},
+ \cref{lem:upper-reference-rp}\\
+first-stage and bracket records $F_{\rm fold}$, $E_{\rm fold}$, $E_{\rm add}$,
+ $G$, $H$; $\Nbrz-\mu=E_{\rm add}+G+H$
+& nonnegative, reserved diagonal; images of invariant laws under vertex maps,
+ then diagonal copies
+& none; variation and mass prices
+& \cref{def:record:frame}, \cref{lem:record:gram}\\
+one-stage repair $E_{\rm new}$
+& nonnegative, reserved diagonal; invariant
+& $k_{\rm new}(X)b^{-1/2}$, and $s_{\rm fold}(X)/b$ for the symmetric part, for
+ every value of the shared label, where $X$ is the piece start and $b$ the
+least prime of the block
+& \cref{lem:record:one-stage-folded-e}\\
+middle comparison records: the three product components of each signed fold
+ record, the law $K_1$, merge and two-layer constant repairs
+& nonnegative; invariant under the maps of \ref{it:record:R3}, independently
+ at the primes of the block; the actual half marginals of the replaced record
+& operator norms between actual half spaces at $\iota$, nothing conditioned
+& \cref{lem:signed-components}, \cref{prop:signed-bounds},
+ \cref{lem:record:exact-marginal-e}, \cref{lem:merge-repair,lem:record:accepting-c2};
+ \cref{lem:middle-comparison-prices}\\
+upper and tail comparison laws: one-way repairs, the dense EL comparison, the
+ components of the LE mixture
+& nonnegative; the actual half marginals of the replaced record, each mixture
+ component repaired to them before mixing
+& as for the middle records
+& \cref{prop:record:upper}, \cref{prop:dense-comparison},
+ \cref{prop:le-mixture}, \cref{lem:tail-prices}\\
+deleted records (middle, upper, tail)
+& records of the reference
+& none; charged by mass (\cref{rem:cp:charging})
+& \cref{lem:middle-comparison-prices}, \cref{prop:record:upper},
+ \cref{lem:tail-prices}\\
+tail law $\mu_p$, $p\ge\Pfour$
+& as the upper references, at one prime
+& none
+& \cref{lem:tail-law}\\
+selected laws of the variance credits
+& positive; invariant under independent translations at the primes of their
+ blocks
+& $d=1$ for a probability coupling; centred norms of a record's own operator at
+ $\iota$
+& \cref{def:record:eligible}, \cref{lem:var-gain}\\
+couplings of the positive joint envelopes
+& normalized positive couplings, among them the singleton couplings
+ $M_{ij}=V_iV_j^*$ (a uniform label and independent conditioned halves);
+ invariant under translations at each prime
+& none (the envelope bounds are brackets at $\iota$ between actual half spaces)
+& \cref{thm:envelopes}(iv), \cref{lem:oct24:mask-schur}\\
+matching-envelope diagonals $M_{s,\Blk}-\Nbr_{\Blk}$
+& positive, reserved diagonal (norm envelopes and chosen side diagonals);
+ normalizations with uniform one-slot marginals
+& block Grams at $\iota$ between actual half spaces
+& \cref{prop:record:matching}, \cref{prop:signed-sides}\\
+companions of the mean credit
+& positive normalized laws fixed by $\iota$, uniform one-slot marginals
+& none
+& \cref{lem:record:companion-energy}\\
+\end{longtable}
+}
+
+\paragraph{How the table is read.}
+For (O1), every law of the table is nonnegative (a signed fold record of the
+middle enters only through its three nonnegative product components, each of
+which is such a law), and its one-slot marginals are uniform for one of two
+reasons named in the table: it is invariant under the translations, or all
+square-affine maps, at the primes of its atom, so that
+\cref{lem:marginals}\ref{it:marg:one} applies; or it is nonnegative with the
+actual half marginals of such an invariant law, whose one-slot marginals it
+therefore shares. Invariance passes to every law that the reductions of
+Part~III produce from these: to variations, normalizations, restrictions to
+invariant events, half marginals and their diagonal copies, images under folds
+and pullbacks, products over disjoint atoms and mixtures
+(\cref{lem:marginals}\ref{it:marg:closure}). Every law of the table is a law of
+the field labels of its atoms, and the index is external (\cref{def:cp0}(d)); so
+no law depends on the interval index $b_e$, the residue $s_e$, or the
+inclusion indices of \cref{def:hyb:coupled}, which is the last
+clause of (O1). For (O2), the third column says why every sharp bound applied
+to the law holds uniformly in the shared labels: either it is an operator norm
+between actual half spaces with nothing conditioned, or it is proved for every
+value of the shared label. The remaining two obligations concern the
+reductions, not the laws. (O3): the index-support projections are taken before
+the field folds and the inclusion conductors are averaged last, in the
+reductions of Part~III (\cref{lem:record:common-mean,lem:record:wrap-expansion,lem:envelope-energy}),
+and no section of Part~V changes this order. (O4): every chamber fold commutes
+with $\iota$ on the slot array (\cref{lem:slot-array}(iii)).
+
+\subsection{Where the hypotheses are verified (guide to Part~V)}\label{subsec:design-table}
+
+\Cref{tab:hypotheses} lists each hypothesis of \cref{thm:comparison}, what
+Part~V shows for the construction of \cref{def:construction}, and the statements
+that show it. The frame data (CP0) are verified by the parameters above, by the
+slot array (\cref{lem:slot-array}) and by the index law
+(\cref{prop:oct24-index-cost,lem:index-moments}); the hypotheses (CP1)--(CP7)
+range by range in the following sections; the admissibility clause (CP8)(a) by
+\cref{tab:admissibility}; and the summability clause (CP8)(c) because only the
+tail atoms are infinitely many and their prices are summable
+(\cref{lem:tail-prices}(iv)), while the auxiliary prices of (CP5) are nonzero
+only at the finitely many middle atoms. The robustness clause (CP8)(b) follows
+from \cref{lem:record:rec}(i) (\cref{rem:cp:robust-final}):
+under the inflation of \cref{def:robust} (multiplying structured
+energy bounds by $1+z$ and adding remainders at most $zY$), every
+certified inequality (gate) whose left side changes is strict,
+except two: the orbit saving of
+\cref{lem:orbit-coupon}, which is a nonnegativity condition on a
+coefficient that only grows under inflation, and the hypothesis
+$\chi<1$ selecting the branch of the restoration function
+\eqref{eq:density:restoration}, which inflation preserves. The
+remaining non-strict gates concern fixed numbers of the
+construction. Only the
+finitely many middle blocks carry signed comparison laws
+(\cref{def:construction}(d)), so the variation factor of \cref{def:cp4} is
+finite and independent of the scale.
+
+\paragraph{Consequences and what to read next.}
+This section uses the slot array and its queries (\cref{def:slot-array},
+\cref{lem:slot-array}(iii),
+(iv), (v)); the comparison data and the hypotheses (CP0)--(CP8)
+(\cref{def:cp0,def:cp1,def:cp2,def:cp3,def:cp4,def:cp5,def:cp6,def:cp7,def:cp8});
+admissibility and its closure under the operations of the reductions
+(\cref{def:admissible}, \cref{lem:marginals}); the functional, the analytic stage
+and the repricing (\cref{def:record:functional}, \cref{def:record:analytic-stage},
+\cref{cert:record:analytic-stage}, \cref{lem:record:repricing},
+\cref{cor:first-stage-repricing}); and, as pointers, the construction lemmas named
+in \cref{tab:ranges,tab:admissibility}.
+
+\paragraph{Hypotheses verified in this section (\cref{tab:hypotheses}).}
+(CP0)(b) for the construction: the atoms and exponents of
+\cref{def:record:parameters}, with $a<\sigma$, the stage inequalities (S1)--(S7)
+and the analytic gates on $0<a\le9/10000$ (\cref{cert:record:analytic-stage});
+(CP0)(c): the six queries have disjoint endpoints, with sources and reflected
+targets in $V_+$ (\cref{subsec:front6:construction}, \cref{lem:slot-array}(iv));
+for (CP4), that only the finitely many middle blocks carry signed combinations,
+so that the variation factor is finite and independent of the scale
+(\cref{def:construction}(d)); and the summary of (CP8)(a) in
+\cref{tab:admissibility}. These are the rows ``(CP0)(b)'', ``(CP0)(c)'' and
+``(CP8)(a)'' of \cref{tab:hypotheses}, and the finiteness of the variation
+factor in the row ``(CP4) middle $F$'', whose variation $1+\tlaw$ per block is
+that of the signed fold record (\cref{def:record:mixture}(c)).

@@ -1,0 +1,330 @@
+\section{Primes $p\equiv1\pmod4$: independent labels from a random square clique}
+\label{sec:frontier:iidprefix}
+
+\paragraph{What this section proves and how to read it.}
+At $p\equiv1\pmod4$, $-1$ is a square, so ``differs by a nonzero
+square'' is symmetric and independent labels can force it. This
+section constructs, for $p\equiv1\pmod4$ below $2^{512}$, a
+reflection-positive law (CP1) with negligible comparison price: draw
+labels independently from a random \emph{square clique} (a set of
+residues pairwise differing by a square, defined below), so every
+query difference is a square except on the probability-$2^{-\mcl}$
+event that its ends coincide (the \emph{deleted coincidence event},
+called ``the exception'' below); at the baseline exponent, deleting that
+event gives total price below $8\cdot10^{-69}$. At $p\equiv3\pmod4$ no exchangeable law
+(one invariant under permuting the slots) can force a directed square
+difference, which is why middle and
+upper ranges need oriented graph laws. Output: (CP1), (R5) and the
+prefix parts of (CP4),(CP6). Large primes $p\ge2^{512}$ of both
+classes are in \cref{sec:tail-index}.
+
+\subsection{The square-clique law}\label{subsec:clique-law}
+
+At primes $p\equiv1\pmod4$ the relation $x\to y$ defined by
+$\chi(y-x)=1$ is symmetric, not a tournament as in
+\cref{subsec:middle-pairs}, so the
+reference law is built differently: labels are drawn independently
+from one random set of residues modulo $p^{2\mcl}$, the square
+clique, which is built digit by digit from strict-square pairs so
+that its elements have square differences. The definition makes
+this precise.
+
+\begin{definition}[The square-clique law]\label{def:clique-law}
+Let $p\equiv1\pmod4$ be prime and $\mcl\ge1$ an integer. Represent $\Fp$ by
+$\{0,\dots,p-1\}$. Choose independently, for $0\le j<\mcl$, a uniform ordered
+strict-square pair
+$(a_j,b_j)\in\Om:=\{(a,b)\in\Fp^2:\chi(b-a)=1\}$
+(\cref{def:strict-square-class}) and two uniform digits
+$k_j,k'_j\in\{0,\dots,p-1\}$, and put
+\[
+ A_j=a_j+pk_j,\qquad B_j=b_j+pk'_j,\qquad
+ \mathcal C_p=\Bigl\{\sum_{j=0}^{\mcl-1}p^{2j}x_j:\ x_j\in\{A_j,B_j\}\Bigr\}
+ \subseteq\Z/p^{2\mcl}\Z .
+\]
+Conditionally on these data, choose six labels $y_0,\dots,y_5$, one for each
+chamber of the first coordinate, independently and uniformly from
+$\mathcal C_p$, and a uniform square-affine map $g(x)=sx+c$ of
+$\Z/p^{2\mcl}\Z$ ($s$ a uniform unit square, $c$ uniform), independent of
+the clique data and of $y_0,\dots,y_5$. The
+\emph{square-clique law} $\lambda_p$ is the law of the labelling
+\[
+ z_{(u_0,u_1,\ell)}=g(y_{u_0})\qquad\bigl((u_0,u_1,\ell)\in V\bigr)
+\]
+of the slot array by $\Z/p^{2\mcl}\Z$: the pullback of the six labels
+$(g(y_i))_{i\in\Zsix}$ along the first chamber coordinate
+(\cref{lem:slot-array}(v)). We call $\mathcal C_p$ the \emph{random square
+clique}.
+\end{definition}
+
+In the construction (\cref{def:record:parameters}(c)) every prime
+$p\equiv1\pmod4$ below $\Pfour$ is an atom $\{p\}$ with label group
+$\Z/p^{e_p}\Z$, $e_p=2\mcl=16384$, and reference law $\mu_p=\lambda_p$ with
+$\mcl=8192$. The prefix is a fixed finite modulus
+$Q_{\rm cl}=\prod_{p<\Pfour,\,p\equiv1\ (4)}p^{e_p}$, and its analytic interface is in Part~II
+(\cref{rem:fixed-parameters} lists where it enters: the lift retains every
+prefix character below the conductor cutoff, and the actual-square kernel
+divides out an even $p$-adic valuation with square unit part and keeps
+every prefix prime in the modulus,
+\cref{prop:record:kernel20}(ii)). Here only the local law is needed.
+
+\subsection{Reflection positivity and forcing except for coincidences}\label{subsec:clique-local}
+
+For a pair of slots $(u,v)$, its \emph{first-coordinate pair} is
+$(u_0,v_0)$, the pair of their first chamber coordinates.
+
+\begin{lemma}[The square-clique law]\label{lem:frontier:iidlocal}
+Let $p\equiv1\pmod4$ be prime, $\mcl\ge1$, $\lambda_p$ the law of
+\cref{def:clique-law}, and $\mathfrak G_p$ the group of the maps
+$x\mapsto sx+c$ of $\Z/p^{2\mcl}\Z$ with $s$ a unit square
+(\cref{def:map:invariance}).
+\begin{enumerate}[label=(\roman*)]
+\item $\lambda_p$ is a probability measure on $(\Z/p^{2\mcl}\Z)^V$, reflection
+ positive at every cut of the family $\mathfrak F$: at the chamber cuts of both
+ chamber coordinates and at $\iota$.
+\item $\lambda_p$ is invariant under the simultaneous maps $z\mapsto(h(z_v))_v$,
+ $h\in\mathfrak G_p$; in particular its one-slot marginals are uniform.
+\item The random square clique has exactly $2^{\mcl}$ elements, and every
+ nonzero difference $z_v-z_w$ of two labels of a labelling in the support of
+ $\lambda_p$ is $p^{2j}u$ with $0\le j<\mcl$ and $u$ a unit square modulo
+ $p^{2\mcl-2j}$.
+\item Let $\mathcal Q$ be a family of ordered pairs of slots with
+ first-coordinate pairs $(u_0,v_0)$, $u_0\ne v_0$, and let $\lambda^{\rm ex}_p$,
+ the \emph{exception} of $\mathcal Q$, be the restriction of $\lambda_p$ to the
+ event $\mathsf E$ that $z_u=z_v$ for some $(u,v)\in\mathcal Q$. Then
+ $\lambda^{\rm ex}_p$ is a nonnegative measure, supported on labellings $z$
+with $z_{\iota v}=z_v$ for all $v$ (fixed samplewise by $\iota$) and
+ invariant as in (ii), so that its one-slot marginals are $\lambda^{\rm ex}_p(1)$
+ times the uniform law; and $\lambda_p-\lambda^{\rm ex}_p$ accepts every pair of
+ $\mathcal Q$: its difference $z_v-z_u$ is nonzero, of even valuation
+ $2j<2\mcl$, with a square unit part. If the first-coordinate pairs of
+ $\mathcal Q$ form $n$ distinct unordered pairs, then
+ $\lambda^{\rm ex}_p(1)\le n2^{-\mcl}$, and
+ $\lambda^{\rm ex}_p(1)=1-(1-2^{-\mcl})^n$ if these pairs are pairwise disjoint.
+\item For the six queries $\mathcal E_6$, $\lambda^{\rm ex}_p(1)=2^{-\mcl}$, so
+ $\lambda_p-\lambda^{\rm ex}_p$ has mass $1-2^{-\mcl}>0$; for the twelve queries
+ of \cref{subsec:front12:construction},
+ $\lambda^{\rm ex}_p(1)=\eta_{\mcl}=2^{1-\mcl}-2^{-2\mcl}$. In both cases
+ $\lambda^{\rm ex}_p(1)\le\eta_{\mcl}$.
+\item The measures $\lambda_p$, $\lambda^{\rm ex}_p$ and $\lambda_p-\lambda^{\rm ex}_p$
+ are admissible (\cref{def:admissible}). Thus $\mu_p=\lambda_p$ satisfies
+ \ref{it:record:R1}--\ref{it:record:R3} of \cref{hyp:record:reference}, with
+ \ref{it:record:R2} at every cut of $\mathfrak F$, and the accepted part of
+ $\lambda_p-\lambda^{\rm ex}_p$ for $\mathcal Q=\mathcal E_6$ satisfies
+ \ref{it:record:R5}.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\emph{The clique.} Since $A_j\equiv a_j$ and $B_j\equiv b_j\pmod p$ and
+$b_j-a_j$ is a nonzero square in $\Fp$ by the definition of $\Om$, $A_j\ne B_j$. Let $x=\sum_jp^{2j}x_j$ and $x'=\sum_jp^{2j}x'_j$
+be given by two different choices, and let $j$ be the least index with
+$x_j\ne x'_j$, so that $\{x_j,x'_j\}=\{A_j,B_j\}$. Then $x-x'=p^{2j}u$ with
+$u=(x_j-x'_j)+p^2w$ for an integer $w$, and $u\equiv\pm(b_j-a_j)\pmod p$. As
+$p\equiv1\pmod4$, $-1$ is a square modulo $p$, so $u$ is a nonzero square
+modulo $p$, and since $p$ is odd, Hensel's lemma makes $u$ the square of a unit
+modulo $p^{2\mcl-2j}$ (the remark after \cref{def:strict-square-class}). As
+$2j<2\mcl$, $x\ne x'$: the $2^{\mcl}$ choices give $2^{\mcl}$ distinct elements,
+any two of which differ by $p^{2j}$ times a unit square. A map
+$g\in\mathfrak G_p$ multiplies differences by the unit square $s$, so the same
+holds in $g(\mathcal C_p)$; and two labels $z_v=g(y_{v_0})$, $z_w=g(y_{w_0})$
+are equal or two distinct elements of $g(\mathcal C_p)$. This is (iii).
+
+\emph{Invariance.} The map $g$ is uniform on the group $\mathfrak G_p$ and
+independent of the clique and of the $y_i$. For fixed $h\in\mathfrak G_p$,
+$h\circ g$ has the same properties, so $(h(g(y_i)))_i$ has the law of
+$(g(y_i))_i$, and the pullback $\lambda_p$ is invariant under
+$z\mapsto(h(z_v))_v$ (\cref{lem:slot-array}(v)(d)). The translations act
+transitively, so the one-slot marginals are uniform
+(\cref{lem:marginals}\ref{it:marg:one}). This is (ii).
+
+\emph{Positivity.} Let $\omega$ be the clique data together with $g$.
+Conditionally on $\omega$ the six labels $Y_i=g(y_i)$, $i\in\Zsix$, are
+independent and uniform on $g(\mathcal C_p)$, and $z_v=Y_{v_0}$. A chamber cut
+$\vartheta_{1,a}$ of the second coordinate and the cut $\iota$ do not change the
+first coordinate, so they fix every labelling in the support: the cut matrix of
+$\lambda_p$ there is nonnegative and diagonal, and $\lambda_p$ is reflection
+positive (\cref{lem:slot-array}(v)(a), \cref{lem:commoncut}(i)). Consider a
+chamber cut $\vartheta_{0,a}$ of the first coordinate, with reflection
+$\vartheta_a$ and plus half $W_a=\{v:v_0\in H_a\}$. The family $(Y_i)_i$ is
+conditionally exchangeable, so $\lambda_p$ is invariant under the reflection. A
+real function $F$ of the labels on $W_a$ has the form
+$F(z_{W_a})=\Phi((Y_i)_{i\in H_a})$, and then
+$F((z_{\vartheta_{0,a}v})_{v\in W_a})=\Phi((Y_{\vartheta_ai})_{i\in H_a})$. As
+$\vartheta_a$ maps $H_a$ onto $\Zsix\setminus H_a$, the families
+$(Y_i)_{i\in H_a}$ and $(Y_{\vartheta_ai})_{i\in H_a}$ are conditionally
+independent and identically distributed, so
+\[
+ \int F(z_{W_a})\,F\bigl((z_{\vartheta_{0,a}v})_{v\in W_a}\bigr)\,d\lambda_p(z)
+ =\E_\omega\Bigl[\Bigl(\E\bigl[\Phi\bigl((Y_i)_{i\in H_a}\bigr)\bigm|\omega\bigr]\Bigr)^2\Bigr]\ge0 ,
+\]
+which is reflection positivity at $\vartheta_{0,a}$ (\cref{def:rp}). This is (i).
+
+\emph{The exception.} The event $\mathsf E$ depends only on the first-coordinate
+labels and is preserved by every bijection $h\in\mathfrak G_p$; so
+$\lambda^{\rm ex}_p=\one_{\mathsf E}\lambda_p$ is invariant and its one-slot
+marginals are $\lambda^{\rm ex}_p(1)$ times the uniform law
+(\cref{lem:marginals}\ref{it:marg:closure}, \ref{it:marg:one}). Like
+$\lambda_p$, it is supported on labellings fixed by $\iota$. Off $\mathsf E$
+every pair of $\mathcal Q$ has a nonzero difference, of the form stated by
+(iii). Conditionally on $\omega$ the $Y_i$ are independent and uniform on
+$2^{\mcl}$ elements, so $\Pr(Y_i=Y_{i'}\mid\omega)=2^{-\mcl}$ for $i\ne i'$; the
+union bound gives $\lambda^{\rm ex}_p(1)\le n2^{-\mcl}$, and if the $n$ pairs
+are disjoint the $n$ coincidence events involve disjoint sets of conditionally
+independent labels, so that $\Pr(\mathsf E^c\mid\omega)=(1-2^{-\mcl})^n$.
+
+(v) Every query of $\mathcal E_6$ has the first-coordinate pair $(0,\rot0)=(0,2)$
+(\cref{def:slot-array}(e)), so $n=1$. The twelve queries have the disjoint
+first-coordinate pairs $\{0,2\}$ and $\{5,\rot5\}=\{5,3\}$, so
+$\lambda^{\rm ex}_p(1)=1-(1-2^{-\mcl})^2=\eta_{\mcl}$; and
+$\eta_{\mcl}-2^{-\mcl}=2^{-\mcl}-2^{-2\mcl}\ge0$.
+
+(vi) The three measures are nonnegative, invariant under $\mathfrak G_p$, so that
+their one-slot marginals and those of their variations are multiples of the
+uniform law (\cref{lem:marginals}), and they are measures of the field labels
+of $\{p\}$ only, so they do not depend on the interval, residue or inclusion
+indices: this is (O1). No sharp operator bound is applied to them (the
+exception is charged by its mass, \cref{lem:frontier:iidenergy}), so (O2) holds.
+The law does not depend on the scale; with (i) and (ii) this gives
+\ref{it:record:R1}--\ref{it:record:R3}, and \ref{it:record:R5} at a clique prime
+is (iv) for $\mathcal E_6$, with $2\mcl=e_p$.
+\end{proof}
+
+Outside its own atoms, the prefix enters the estimates of
+Part~V only through parts (i) and (ii) of
+\cref{lem:frontier:iidlocal}, as an unchanged tensor factor
+(a spectator) at other atoms.
+
+\subsection{Price of deleting coincident labels}\label{subsec:clique-price}
+
+Selecting a prefix atom fixes the full group $\Z/p^{e_p}\Z$ at every slot, so
+the price of a deletion is its mass times $p^{e_pa}$. With $\mcl$ digit pairs
+the mass is $2^{-\mcl}$, while the price factor grows only like $p^{2\mcl a}$.
+
+\begin{lemma}[The price of the prefix]\label{lem:frontier:iidenergy}
+Let $a>0$, $\mcl\ge1$ and $P\ge2$. Let every prime $p\equiv1\pmod4$ below $P$
+be a prefix atom $\{p\}$ with $e_p=2\mcl$ and reference law $\lambda_p$, and let
+the comparison law at $p$ be $\nu_p=\lambda_p-\lambda^{\rm ex}_p$, where
+$\lambda^{\rm ex}_p$ is the exception of a family of queries with
+$\lambda^{\rm ex}_p(1)\le\eta_{\mcl}$ (\cref{lem:frontier:iidlocal}(iv),(v)).
+\begin{enumerate}[label=(\roman*)]
+\item The selection factor of $\{p\}$ is $p^{e_pa}=p^{2\mcl a}$: in every
+ structured energy in which $\{p\}$ is selected it contributes the factor
+ $p^{2\mcl a}$ to the price, density factors included; an unselected prefix
+ atom contributes nothing.
+\item The change $\nu_p-\lambda_p=-\lambda^{\rm ex}_p$ is symmetric at $\iota$,
+ and (CP4)(b) holds for it with $\zeta^{\rm s}=-\lambda^{\rm ex}_p$,
+ $\zeta^{\rm a}=0$, $D^{\rm s}=\lambda^{\rm ex}_p/\lambda^{\rm ex}_p(1)$ and
+ $\tilde\pi^{\rm s}=\lambda^{\rm ex}_p(1)$: the deletion is charged to the
+ symmetric part only, at the price
+ $\lambda^{\rm ex}_p(1)p^{2\mcl a}\le\eta_{\mcl}p^{2\mcl a}$. Its norm envelope
+ is $\lambda^{\rm ex}_p$, and (CP6) holds at $p$ with
+ $M_{\rm L}=M_{\rm R}=\lambda_p+\lambda^{\rm ex}_p$, at the same price.
+ If $\lambda^{\rm ex}_p(1)=0$, omit the normalized record and take
+ $\zeta^{\rm s}=\zeta^{\rm a}=0$ and price zero.
+\item The total price of the deletions is at most
+ \[
+  H_{\rm iid}=\eta_{\mcl}\sum_{\substack{p<P\\p\equiv1\ (4)}}p^{2\mcl a}
+  \le\eta_{\mcl}P^{1+2\mcl a}<2P\Bigl(\frac{P^{2a}}2\Bigr)^{\mcl} .
+ \]
+\item For the baseline construction, $P=\Pfour=2^{512}$, $\mcl=8192$ and
+ $a=\PushA$:
+ \[
+  H_{\rm iid}<2^{513-\mcl+1024\mcl a}=2^{-1380939795479/6103515625}
+  <8\cdot10^{-69}.
+ \]
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) Selecting $\{p\}$ fixes the residues modulo $p^{e_p}$ of the inputs at every
+slot and multiplies the square step of every slot by $p^{e_p}$, a square since
+$e_p$ is even (\eqref{eq:square-step}, \cref{lem:record:fibre-scale}). So each slot
+price $\xi_v$ of \cref{def:record:structured-energy} contains $p^{e_p}$, and the
+main price $\prod_{v\in V}\xi_v^{a/72}$ contains $(p^{e_p})^{72\cdot a/72}=p^{e_pa}$,
+the selection factor of \cref{def:price}; the density factors depend on the
+index law only. The structured energies use two properties of the prefix
+laws, both from \cref{lem:frontier:iidlocal}(ii): a selected law at $p$ (here
+$\lambda^{\rm ex}_p$ and its normalization) has a variation with uniform
+one-slot marginals, as \cref{def:record:structured-energy}(b) requires; and an
+unselected prefix law is preserved by the square-unit dilation of the
+rescaling (\ref{it:record:R3}).
+
+(ii) If the exception has mass zero it is the zero measure and the claims
+follow directly. Otherwise $\lambda^{\rm ex}_p$ is nonnegative and fixed samplewise by $\iota$, so its
+cut matrix at $\iota$ is nonnegative and diagonal (\cref{lem:commoncut}(i)), in
+particular symmetric. Its normalization
+$\kappa=\lambda^{\rm ex}_p/\lambda^{\rm ex}_p(1)$ is a probability measure on
+labellings fixed by $\iota$, hence $\kappa=\operatorname{Diag}_\iota(m_\kappa)$
+for its half marginal $m_\kappa$, with uniform one-slot marginals; so
+\cref{rem:cp:charging}(i), applied to the deleted record
+$\lambda^{\rm ex}_p=\lambda^{\rm ex}_p(1)\kappa$, gives (CP4)(b) with the stated
+data, and the price is $\tilde\pi^{\rm s}$ times the factor of (i). For (CP6):
+$\Nbr_p=\lambda_p$, a prefix atom not being a first-stage atom, and $\nu_p$ is
+symmetric at $\iota$, so it suffices that $M\pm\nu_p\succeq_\iota0$ for
+$M=\lambda_p+\lambda^{\rm ex}_p$ (\cref{def:cp:records}); indeed
+$M+\nu_p=2\lambda_p$ and $M-\nu_p=2\lambda^{\rm ex}_p$ are nonnegative measures
+on labellings fixed by $\iota$ (\cref{lem:commoncut}(i)). The difference
+$M-\Nbr_p=\lambda^{\rm ex}_p$ is a positive reserved-diagonal record with
+uniform one-slot marginals that does not depend on the index
+(\cref{lem:frontier:iidlocal}(vi)); this is the matching envelope of
+\cref{prop:record:matching}(i) at a prefix atom.
+
+(iii) There are fewer than $P$ primes below $P$, and $p^{2\mcl a}<P^{2\mcl a}$
+for each; and $\eta_{\mcl}<2^{1-\mcl}$, with
+$2^{1-\mcl}P^{1+2\mcl a}=2P(P^{2a}/2)^{\mcl}$.
+
+(iv) By (iii), $H_{\rm iid}<2^{1-\mcl}2^{512(1+2\mcl a)}=2^{513-\mcl+1024\mcl a}$.
+At $\mcl=8192$ and $a=\PushA$ the exponent is
+$-1380939795479/6103515625=-226.25\ldots$. The decimal bound follows from
+$513-\mcl+1024\mcl a<-905/4$ and the integer inequality
+$10^{276}<2^{917}$. The broader domain check is
+\cref{cert:record:frame-data}(f).
+\end{proof}
+
+\begin{remark}[The allowance and the number of digit pairs]\label{rem:prefix-digits}
+The finite check behind (iv) is item (f) of \cref{cert:record:frame-data}: the
+domain audit \path{research/advance_2026_10_24/global/analytic_domain.py}
+bounds the price of the deleted prefix exception together with the tail prices
+beyond $\Pfour$, which the upper totals $S_{\rm u}(a)$ and $A_{\rm u}(a)$ of
+\cref{prop:record:upper} also contain, by less
+than $1.2332\cdot10^{-39}$ at $a=9/10000$ (prefix exponent $-80783/625$), hence
+at every $0<a\le9/10000$, both prices increasing with $a$; this is inside the
+allowance $10^{-12}$ that the closing adds to $S$, to $A$ and to the matching
+exponent $T$ (\cref{def:closing-quantities}). By
+\cref{lem:frontier:iidenergy}(ii) the prefix enters only
+$S$ and $T$, so this is conservative, and so is the use of the two-pair mass
+$\eta_{\mcl}$, exact for the twelve queries, in place of the mass $2^{-\mcl}$
+of the deletion for $\mathcal E_6$ (which would replace $513$ by $512$ in the
+exponent). At the baseline exponent the exponent $513-\mcl(1-1024a)$ of (iv) is
+negative only for $\mcl\ge5685$; with $\mcl=8192$ it is negative for every
+$a<7679/8388608$, about $0.000915$, an interval that contains the analytic
+baseline domain $a\le9/10000$, at the cost of a larger fixed modulus $Q_{\rm cl}$, which
+affects only constants and the starting scale (\cref{rem:fixed-parameters}).
+Why this layout of the prefix needs many digit pairs, and where it stops
+working, is the subject of \cref{rem:record:prefix-walls}.
+\end{remark}
+
+\paragraph{Consequences and what to read next.}
+The slot array and the cylinder pullback (\cref{def:slot-array},
+\cref{lem:slot-array}(v)); reflection positivity and diagonal measures
+(\cref{def:rp}, \cref{lem:commoncut}); square-affine invariance
+(\cref{def:map:invariance}, \cref{lem:marginals}); Hensel's lemma
+(\cref{def:strict-square-class}); structured energies, the square step and
+prices (\cref{def:record:structured-energy}, \eqref{eq:square-step},
+\cref{lem:record:fibre-scale}, \cref{def:price}); the charging of deleted records
+and the brackets of (CP4) and (CP6) (\cref{rem:cp:charging}, \cref{def:cp:records},
+\cref{def:record:comparison-law}, \cref{def:cp6}); admissibility
+(\cref{def:admissible}); and \cref{cert:record:frame-data}(f).
+
+\paragraph{Hypotheses verified in this section (\cref{tab:hypotheses}).}
+At the prefix atoms: (CP1), that is, \ref{it:record:R1}--\ref{it:record:R3}
+with \ref{it:record:R2} at every cut of $\mathfrak F$, by parts (i), (ii) and
+(vi) of \cref{lem:frontier:iidlocal}; \ref{it:record:R5} and the acceptance
+part of (CP4)(a), by its parts (iii)--(v); the prefix parts of (CP4)(b) and of
+(CP6), the deletion of the exception charged to $S$ only, by part (ii) of
+\cref{lem:frontier:iidenergy}, with baseline total price below $8\cdot10^{-69}$ by
+its part (iv) and \cref{cert:record:frame-data}(f); and (CP8)(a) for the prefix
+laws, by part (vi) of \cref{lem:frontier:iidlocal}. The prefix atoms are
+finitely many, so they do not affect the summability (CP8)(c). These are the
+rows ``(CP1) prefix'', ``(R5), (CP4)(a)'' (at the prefix) and ``(CP4) prefix''
+of \cref{tab:hypotheses}.

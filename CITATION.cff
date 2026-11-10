@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "Please cite the accompanying paper when using this work, and this repository when using the partial Lean formalization."
+type: software
+title: "An Upper Bound Exponent of 0.9999873 for Square-Difference-Free Sets"
+authors:
+  - family-names: Naslund
+    given-names: Eric
+    email: naslund.math@gmail.com
+repository-code: https://github.com/enaslund/sarkozy-upper-bound-0.9999875
+license: Apache-2.0
+abstract: >-
+  The manuscript proves an explicit power-saving upper bound for
+  square-difference-free subsets of the integers. The companion Lean
+  development proves a conditional bound with exponent 0.99999; it is
+  not a complete formalization of the manuscript's theorem.

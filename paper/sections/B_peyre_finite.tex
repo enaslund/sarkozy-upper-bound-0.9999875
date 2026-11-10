@@ -1,0 +1,515 @@
+
+\section{Peyre's tensorization in finite form}\label{app:peyre}
+
+\paragraph{What this appendix proves and how to read it.}
+This appendix proves \cref{thm:peyre-finite}, the case of Peyre's
+tensorization theorem \cite[Theorem~3.3.1]{Peyre} that the local-law
+estimates use: finitely many random variables with finitely many values. If
+each variable of one family and each variable of a disjoint
+family have conditional maximal correlation at most
+$\eps_{ij}<1$ (the numbers in the matrix $\mathcal E$ below),
+given any values of any of the other variables, then the two
+families have maximal correlation at most the
+operator norm of the matrix of these bounds. The paper applies the theorem
+in the pinned influence theorem (\cref{prop:middle-negative}), which passes
+from the conditional correlations of pairs of vertices of a strict-square
+graph law to those of disjoint sets of vertices, and through it in the
+correlation bounds of the construction, among them the row correlations of
+the twelve-label middle reference and the conditional influence bound of the
+upper range. The conditional decorrelation inequality stated with the
+theorem (\cref{cor:cond-decorrelation}) is part (b) of \cref{lem:peyre:basic}
+below, and the corollary for independent pairs (\cref{cor:peyre-independent})
+is the diagonal case (\cref{rem:peyre:sharp}(i)). Only the first statement of
+the theorem is used; the second, the prefix form, needs no additional argument, because the
+proof starts from it.
+
+The argument is Peyre's \cite[\S3.3.a]{Peyre}. In the finite setting no
+approximation argument is needed. We replace the inductive bookkeeping of
+\cite[Lemma~3.3.7]{Peyre} by a monotone potential, and the Perron--Frobenius
+step \cite[Lemma~3.8.1]{Peyre} by an explicit Neumann series. We also record,
+following \cite[\S3.4.a]{Peyre}, that only conditionings on initial segments
+of two fixed orderings are used. \Cref{rem:peyre:source} compares the proof
+with the source. The proof supplies the finite theorem used in this paper,
+independently of the publication status of the source.
+
+For a real matrix $\mathcal E=(\eps_{ij})_{i\in A,\,j\in B}$,
+$\opnorm{\mathcal E}$ is its norm as an operator $\ell^2(B)\to\ell^2(A)$
+(Euclidean norms, as in \cref{def:prelim:operators}), i.e.\ its largest
+singular value. Permuting rows or columns does not change it. As in Peyre's
+paper, all letters in this appendix are local to it; in particular $A$ and
+$B$ are index sets, and $N$ and $M$ are their cardinalities.
+
+\begin{theorem*}[\Cref{thm:peyre-finite}, restated: tensorization, including the prefix form]
+Let $A,B$ be disjoint nonempty finite sets, and let $(X_v)_{v\in A\cup B}$
+be random variables on a common probability space, each taking finitely many
+values. Let $\eps_{ij}\ge0$ for $i\in A$, $j\in B$, and
+$\mathcal E=(\eps_{ij})$. Suppose that for all $i\in A$, $j\in B$, every
+$S\subseteq(A\cup B)\setminus\{i,j\}$ and every value $s$ of
+$X_S=(X_v)_{v\in S}$ with $\Pr(X_S=s)>0$,
+\begin{equation}\tag{\ref*{eq:peyre:hyp}}
+  \rho(X_i;X_j\mid X_S=s)\le\eps_{ij}.
+\end{equation}
+Then
+\begin{equation}\tag{\ref*{eq:peyre:concl}}
+  \rho\big((X_a)_{a\in A};(X_b)_{b\in B}\big)\le\min\{1,\opnorm{\mathcal E}\}.
+\end{equation}
+More precisely, \eqref{eq:peyre:concl} holds as soon as there are
+enumerations $A=\{a_1,\dots,a_N\}$ and $B=\{b_1,\dots,b_M\}$ such that
+\eqref{eq:peyre:hyp} holds for $i=a_k$, $j=b_l$ and the single set
+$S=\{a_1,\dots,a_{k-1}\}\cup\{b_1,\dots,b_{l-1}\}$, for all $1\le k\le N$
+and $1\le l\le M$.
+\end{theorem*}
+
+The second statement has a weaker hypothesis, because the sets $S$ it uses
+are among those allowed in the first: they avoid $a_k$ and $b_l$.
+
+\subsection{Conventions}\label{sec:peyre:conv}
+
+\emph{Reduction to a finite space.} Every quantity in the theorem is a
+function of the joint law of the finite tuple $(X_v)_{v\in A\cup B}$.
+Indeed, square-integrable functions of the $X_v$ are functions on the finite
+set of values of the tuple, and conditional laws are taken only given events
+of positive probability. We may therefore replace the probability space by
+the finite set $\Omega$ of values of the tuple that have positive
+probability, with the induced law, and each $X_v$ by the corresponding
+coordinate function on $\Omega$. \emph{Throughout this appendix,
+$(\Omega,\Pr)$ is a finite probability space with $\Pr(\{\omega\})>0$ for
+every $\omega\in\Omega$}, and all functions are real valued. Then
+$L^2(\Pr)=\R^\Omega$, with $\ip fg=\E[fg]$ and $\norm f=\E[f^2]^{1/2}$.
+
+\emph{Spaces of functions of variables.} For a random variable $Z$ on
+$\Omega$, with values in any set, $L^2(Z)$ is the space of functions of the
+form $\omega\mapsto\varphi(Z(\omega))$. Equivalently, it is the space of
+functions that are constant on each level set $\{Z=z\}$. For finitely many
+variables $Z_1,\dots,Z_k$ we write $L^2(Z_1,\dots,Z_k)=L^2((Z_1,\dots,Z_k))$;
+for the empty list this is the space of constants. We write $\E[f\mid Z]$ for
+the orthogonal projection of $f$ onto $L^2(Z)$. Explicitly,
+$\E[f\mid Z](\omega)=\E[f\one_{\{Z=Z(\omega)\}}]/\Pr(Z=Z(\omega))$ is the
+average of $f$ over the level set of $Z$ containing $\omega$. For the empty
+list, $\E[f\mid\,\cdot\,]=\E f$. We use the following standard facts.
+\begin{enumerate}[label=(P\arabic*)]
+\item\label{P:tower} If $L^2(Z)\subseteq L^2(W)$, then
+  $\E[\E[f\mid W]\mid Z]=\E[f\mid Z]$ and
+  $\E[\E[f\mid Z]\mid W]=\E[f\mid Z]$. In particular $\E[h\mid W]=h$ for
+  $h\in L^2(W)$.
+\item\label{P:pyth} $\norm f^2=\norm{\E[f\mid Z]}^2+\norm{f-\E[f\mid Z]}^2$,
+  and $f-\E[f\mid Z]\perp L^2(Z)$. Moreover
+  $\norm{f-\E[f\mid Z]}\le\norm{f-h}$ for every $h\in L^2(Z)$. In particular
+  $\norm{f-\E[f\mid Z]}\le\norm f$, and
+  $\norm{f-\E[f\mid Z]}\le\norm{f-\E f}$ since constants lie in $L^2(Z)$.
+\item\label{P:restrict} Let $W$ be a random variable and $w$ a value with
+  $\Pr(W=w)>0$. Put $\Omega_w=\{W=w\}$, with the conditional law
+  $\Pr_w=\Pr(\,\cdot\mid W=w)$ and expectation $\E_w$. Then for every random
+  variable $Z$ and every $f$, the restriction of $\E[f\mid Z,W]$ to
+  $\Omega_w$ equals $\E_w[f|_{\Omega_w}\mid Z|_{\Omega_w}]$. This holds
+  because the level sets of $Z|_{\Omega_w}$ in $\Omega_w$ are exactly the
+  level sets of $(Z,W)$ contained in $\Omega_w$, and on each of them both
+  functions are the average of $f$ for the same (proportional) weights.
+\end{enumerate}
+
+\emph{Maximal correlation.} Maximal and conditional maximal correlations are
+those of \cref{def:prelim:maxcorr}. In the present notation, with
+$L^2_0(X)=\{f\in L^2(X):\E f=0\}$, $\rho(X;Y)$ is the supremum of
+$|\E[fg]|$ over $f\in L^2_0(X)$ and $g\in L^2_0(Y)$ with
+$\norm f=\norm g=1$, and $\rho(X;Y)=0$ if $X$ or $Y$ is constant; by
+Cauchy--Schwarz, $\rho(X;Y)\le1$. For an event $E$ with $\Pr(E)>0$,
+$\rho(X;Y\mid E)$ is the same quantity computed in the finite probability
+space $(E,\Pr(\,\cdot\mid E))$ for the restrictions of $X$ and $Y$ to $E$,
+and $\rho(X;Y\mid Z=z)=\rho(X;Y\mid\{Z=z\})$.
+
+\emph{Orderings.} For random variables $X_1,\dots,X_N$ and $0\le i\le N$ we
+write $X_{\le i}=(X_1,\dots,X_i)$ and $X_{<i}=X_{\le i-1}$. The list
+$X_{\le0}$ is empty, so $L^2(X_{\le0})$ consists of the constants and
+conditioning on $X_{<1}$ is no conditioning.
+
+\subsection{Elementary facts}
+
+Three elementary consequences of the definition of maximal
+correlation are used repeatedly; part~(b) is the conditional
+decorrelation inequality applied in the main text.
+
+\begin{lemma}[Projection consequences of maximal correlation]\label{lem:peyre:basic}
+Let $X,Y,Z$ be random variables on $\Omega$.
+\begin{enumerate}[label=(\alph*)]
+\item If $f\in L^2_0(X)$ and $g\in L^2(Y)$, then
+  $|\E[fg]|\le\rho(X;Y)\,\norm f\,\norm{g-\E g}$. In particular
+  $\norm{\E[f\mid Y]}\le\rho(X;Y)\norm f$ for $f\in L^2_0(X)$.
+\item Let $\eps\ge0$, and assume $\rho(X;Y\mid Z=z)\le\eps$ for every $z$
+  with $\Pr(Z=z)>0$. If $f\in L^2(X,Z)$ satisfies $\E[f\mid Z]=0$ and
+  $g\in L^2(Y,Z)$, then
+  $|\E[fg]|\le\eps\,\norm f\,\norm{g-\E[g\mid Z]}\le\eps\norm f\norm g$.
+\item If $\lambda\ge0$ and $\norm{\E[f\mid Y]}^2\le\lambda\norm f^2$ for every
+  $f\in L^2_0(X)$, then $\rho(X;Y)\le\sqrt\lambda$.
+\end{enumerate}
+\end{lemma}
+
+\noindent Part (b), the \emph{conditional decorrelation} inequality, is the
+statement of \cref{cor:cond-decorrelation}; the proof below is complete in
+itself and does not use that corollary.
+
+\begin{proof}
+(a) Since $\E f=0$, $\E[fg]=\E[f(g-\E g)]$, and $g-\E g\in L^2_0(Y)$. If $f=0$
+or $g=\E g$ there is nothing to prove. Otherwise $f/\norm f$ and
+$(g-\E g)/\norm{g-\E g}$ are admissible in the definition of $\rho(X;Y)$,
+which gives the inequality. For the second claim put
+$h=\E[f\mid Y]\in L^2(Y)$. Then $\E h=\E f=0$ by \ref{P:tower}, and
+$\norm h^2=\E[hf]$ because $f-h\perp L^2(Y)$ by \ref{P:pyth}. By the first
+claim with $g=h$, $\norm h^2\le\rho(X;Y)\norm f\norm h$.
+
+(b) Let $z$ be a value with $\Pr(Z=z)>0$, and put $\Omega_z=\{Z=z\}$,
+$\Pr_z=\Pr(\,\cdot\mid Z=z)$, with expectation $\E_z$ and norm
+$\norm\cdot_z$. Write $f=F(X,Z)$ and $g=G(Y,Z)$ for some functions $F,G$. On
+$\Omega_z$ we have $f=F(X,z)$, a function of $X$, and $g=G(Y,z)$, a function
+of $Y$. Moreover $\E_z f$ is the value of $\E[f\mid Z]=0$ on $\Omega_z$, and
+$\E_z g$ is the value of $\E[g\mid Z]$ on $\Omega_z$. Part (a) in the space
+$(\Omega_z,\Pr_z)$ gives
+\[
+  |\E_z[fg]|\le\eps\,\norm f_z\,\norm{g-\E[g\mid Z]}_z .
+\]
+Since $\E[u]=\sum_z\Pr(Z=z)\E_z[u]$ for every function $u$, Cauchy--Schwarz
+for the sum over $z$ gives
+\begin{align*}
+  |\E[fg]|&\le\eps\sum_z\Pr(Z=z)\norm f_z\norm{g-\E[g\mid Z]}_z\\
+  &\le\eps\Big(\sum_z\Pr(Z=z)\norm f_z^2\Big)^{1/2}
+  \Big(\sum_z\Pr(Z=z)\norm{g-\E[g\mid Z]}_z^2\Big)^{1/2},
+\end{align*}
+and the right side equals $\eps\norm f\norm{g-\E[g\mid Z]}$. Finally
+$\norm{g-\E[g\mid Z]}\le\norm g$ by \ref{P:pyth}.
+
+(c) Let $f\in L^2_0(X)$ and $g\in L^2_0(Y)$ have norm $1$. Since
+$g\in L^2(Y)$ and $f-\E[f\mid Y]\perp L^2(Y)$,
+$|\E[fg]|=|\E[\E[f\mid Y]\,g]|\le\norm{\E[f\mid Y]}\le\sqrt\lambda$.
+\end{proof}
+
+\subsection{One variable against a list}
+
+The next lemma is \cite[Lemma~3.3.3]{Peyre}, with its proof
+\cite[Claims~3.3.4 and 3.3.5]{Peyre}.
+
+\begin{lemma}[One new variable and martingale differences]\label{lem:peyre:one}
+Let $X_1,\dots,X_N,Y$ be random variables on $\Omega$ and
+$\eps_1,\dots,\eps_N\ge0$. Assume that for every $1\le i\le N$ and every
+value $x$ of $X_{<i}$ with $\Pr(X_{<i}=x)>0$,
+\begin{equation}\label{eq:peyre:one-hyp}
+  \rho(X_i;Y\mid X_{<i}=x)\le\eps_i
+\end{equation}
+(for $i=1$ this reads $\rho(X_1;Y)\le\eps_1$). Let $f\in L^2(X_{\le N})$, and
+for $1\le i\le N$ put
+\[
+  f_i=\E[f\mid X_{\le i}]-\E[f\mid X_{<i}],\qquad
+  f_i^*=\E[f\mid X_{\le i},Y]-\E[f\mid X_{<i},Y].
+\]
+These successive differences of conditional expectations are
+\emph{martingale differences}. Put $w_i=\norm{f_i}^2$ and
+$w_i^*=\norm{f_i^*}^2$. Then for every $1\le i\le N$,
+\begin{equation}\label{eq:peyre:one}
+  w_i^*\ \ge\ (1-\eps_i^2)\,w_i-2\eps_i\sqrt{w_i}\sum_{k=i+1}^N\eps_k\sqrt{w_k}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+For $0\le i\le N$ put $r_i=f-\E[f\mid X_{\le i}]$ and
+$r_i^*=f-\E[f\mid X_{\le i},Y]$. Since
+$f\in L^2(X_{\le N})\subseteq L^2(X_{\le N},Y)$, \ref{P:tower} gives
+$r_N=r_N^*=0$. For $1\le i\le N$,
+\[
+  r_{i-1}=f_i+r_i,\qquad r_{i-1}^*=f_i^*+r_i^* .
+\]
+Here $f_i\in L^2(X_{\le i})$ and $r_i\perp L^2(X_{\le i})$ by \ref{P:pyth},
+so $\norm{r_{i-1}}^2=w_i+\norm{r_i}^2$. Likewise
+$f_i^*\in L^2(X_{\le i},Y)$ and $r_i^*\perp L^2(X_{\le i},Y)$, so
+$\norm{r_{i-1}^*}^2=w_i^*+\norm{r_i^*}^2$. Put
+$D_i=\norm{r_i}^2-\norm{r_i^*}^2$ for $0\le i\le N$. Subtracting the two
+identities,
+\begin{equation}\label{eq:peyre:wdiff}
+  w_i-w_i^*=D_{i-1}-D_i\qquad(1\le i\le N),\qquad D_N=0 .
+\end{equation}
+
+\emph{Step 1: $r_i-r_i^*=\E[r_i\mid X_{\le i},Y]$, and hence
+$D_i=\norm{\E[r_i\mid X_{\le i},Y]}^2\ge0$.} Indeed
+$\E[f\mid X_{\le i}]\in L^2(X_{\le i})\subseteq L^2(X_{\le i},Y)$, so by
+\ref{P:tower}
+\[
+  r_i-r_i^*=\E[f\mid X_{\le i},Y]-\E[f\mid X_{\le i}]
+  =\E\big[f-\E[f\mid X_{\le i}]\,\big|\,X_{\le i},Y\big]
+  =\E[r_i\mid X_{\le i},Y].
+\]
+Hence $r_i^*=r_i-\E[r_i\mid X_{\le i},Y]$, and \ref{P:pyth} gives
+$\norm{r_i}^2=\norm{\E[r_i\mid X_{\le i},Y]}^2+\norm{r_i^*}^2$.
+
+\emph{Step 2: $\sqrt{D_{i-1}}\le\eps_i\sqrt{w_i}+\sqrt{D_i}$ for
+$1\le i\le N$.} Let $h=\E[r_{i-1}\mid X_{<i},Y]$. By Step~1 (with $i-1$) and
+\ref{P:pyth}, $D_{i-1}=\norm h^2=\E[r_{i-1}h]$, and
+\[
+  \E[r_{i-1}h]=\E[f_ih]+\E[r_ih].
+\]
+For the first term, $f_i\in L^2(X_i,X_{<i})$, $h\in L^2(Y,X_{<i})$, and
+$\E[f_i\mid X_{<i}]=\E[f\mid X_{<i}]-\E[f\mid X_{<i}]=0$ by \ref{P:tower}.
+By \eqref{eq:peyre:one-hyp}, \cref{lem:peyre:basic}(b) applies with $X=X_i$,
+$Z=X_{<i}$ and $\eps=\eps_i$, and gives
+$|\E[f_ih]|\le\eps_i\sqrt{w_i}\,\norm h$. For the second term,
+$h\in L^2(X_{<i},Y)\subseteq L^2(X_{\le i},Y)$, so by \ref{P:pyth} and
+Step~1
+\[
+  |\E[r_ih]|=|\E[\E[r_i\mid X_{\le i},Y]\,h]|\le
+  \norm{\E[r_i\mid X_{\le i},Y]}\,\norm h=\sqrt{D_i}\,\norm h .
+\]
+Thus $\norm h^2\le(\eps_i\sqrt{w_i}+\sqrt{D_i})\norm h$, which gives Step~2
+(trivially if $h=0$).
+
+\emph{Step 3: $\sqrt{D_i}\le\sum_{k>i}\eps_k\sqrt{w_k}$ for $0\le i\le N$.}
+This holds for $i=N$ because $D_N=0$, and Step~2 carries it from $i$ to
+$i-1$.
+
+\emph{Step 4.} By \eqref{eq:peyre:wdiff}, Step~2 and Step~3,
+\[
+  w_i-w_i^*=D_{i-1}-D_i\le\big(\eps_i\sqrt{w_i}+\sqrt{D_i}\big)^2-D_i
+  =\eps_i^2w_i+2\eps_i\sqrt{w_i}\sqrt{D_i}
+  \le\eps_i^2w_i+2\eps_i\sqrt{w_i}\sum_{k>i}\eps_k\sqrt{w_k},
+\]
+which is \eqref{eq:peyre:one}.
+\end{proof}
+
+In words: the deficit $D_i$ is the squared norm of the part of the residual
+$r_i$ that $Y$ explains beyond $X_{\le i}$. It vanishes at $i=N$, its square
+root grows by
+at most $\eps_i\sqrt{w_i}$ from $i$ to $i-1$ because $f_i$ is conditionally
+decorrelated from $Y$ given $X_{<i}$, and its increments are the losses
+$w_i-w_i^*$.
+
+\subsection{Positive weights}
+
+The proof weights the $N$ variables of one family by a positive
+vector $\alpha$ with $K\alpha\le\lambda\alpha$, where $K$ is built
+from the correlation bounds. Such a vector is supplied explicitly
+by a Neumann series, with no appeal to Perron--Frobenius theory.
+
+\begin{lemma}[Positive weights from a Neumann series]\label{lem:peyre:weights}
+Let $K$ be an $N\times N$ matrix with nonnegative entries and
+$\lambda>\opnorm K$. Then the series
+$\alpha=\sum_{m\ge0}\lambda^{-m-1}K^m\one$, where
+$\one=(1,\dots,1)^{\mathsf T}$, converges. Its entries satisfy
+$\alpha_i\ge\lambda^{-1}>0$, and $K\alpha\le\lambda\alpha$ entrywise.
+\end{lemma}
+
+\begin{proof}
+The terms satisfy
+$\norm{\lambda^{-m-1}K^m\one}\le\lambda^{-1}(\opnorm K/\lambda)^m\sqrt N$, so
+the series converges. All terms have nonnegative entries, and the term $m=0$
+is $\lambda^{-1}\one$, so $\alpha_i\ge\lambda^{-1}$. Finally
+$K\alpha=\sum_{m\ge0}\lambda^{-m-1}K^{m+1}\one=\lambda(\alpha-\lambda^{-1}\one)
+=\lambda\alpha-\one\le\lambda\alpha$.
+\end{proof}
+
+\begin{lemma}[A monotone potential for nonnegative losses]\label{lem:peyre:potential}
+Let $w^0,\ldots,w^M\in[0,\infty)^N$ and let $T_1,\ldots,T_M$ be matrices
+with nonnegative entries. Suppose $w^l\ge w^{l-1}-T_lw^{l-1}$ entrywise.
+Write $c_k^{(l)}=\sum_i(T_l)_{ik}$ for the column sums. If
+$\sum_lc_k^{(l)}\le\lambda<1$ for every $k$, then
+\[
+ \sum_kw_k^M\ge(1-\lambda)\sum_kw_k^0.
+\]
+\end{lemma}
+
+\begin{proof}
+For $0\le l\le M$, put $C_l=\sum_{m=l+1}^M c^{(m)}$ and
+$\Phi_l=\sum_k(1-(C_l)_k)w_k^l$. Then $C_M=0$, $C_{l-1}=C_l+c^{(l)}$, and
+$0\le C_l\le\lambda<1$ entrywise. The coefficients in $\Phi_l$ are positive,
+so
+\begin{align*}
+ \Phi_l
+ &\ge\sum_k(1-(C_l)_k)(w^{l-1}-T_lw^{l-1})_k\\
+ &=\Phi_{l-1}+\sum_k(C_l)_k(T_lw^{l-1})_k
+ \ge\Phi_{l-1}.
+\end{align*}
+Consequently $\sum_kw_k^M=\Phi_M\ge\Phi_0\ge(1-\lambda)\sum_kw_k^0$.
+\end{proof}
+
+\noindent The equality in the display uses
+$\sum_k(T_lw^{l-1})_k=\sum_kc_k^{(l)}w_k^{l-1}$ and $C_{l-1}=C_l+c^{(l)}$.
+No coordinate of $w^l$ is assumed to be monotone in $l$; the potential
+$\Phi_l$, which weights each coordinate by one minus the column sums still to
+come, is.
+
+\subsection{Proof of the tensorization theorem}
+
+The proof fixes the two enumerations, conditions successively on
+initial segments, and shows that a weighted energy cannot lose
+more than the factor allowed by $\opnorm{\mathcal E}$.
+
+\begin{proof}[Proof of \cref{thm:peyre-finite}]
+\emph{Reduction.} The first hypothesis implies the second one for any
+enumerations of $A$ and $B$, as noted after the statement. So fix
+enumerations $A=\{a_1,\dots,a_N\}$ and $B=\{b_1,\dots,b_M\}$ for which the
+second hypothesis holds. Write $X_k:=X_{a_k}$, $Y_l:=X_{b_l}$,
+$\eps_{kl}:=\eps_{a_kb_l}$, $\mathbf X=X_{\le N}$ and $\mathbf Y=Y_{\le M}$.
+Since $\{X_S=s\}=\{X_{<k}=x,\ Y_{<l}=y\}$ for
+$S=\{a_1,\dots,a_{k-1}\}\cup\{b_1,\dots,b_{l-1}\}$ and $s=(x,y)$, the
+hypothesis reads: for $1\le k\le N$, $1\le l\le M$, and every $(x,y)$ with
+$\Pr(X_{<k}=x,Y_{<l}=y)>0$,
+\begin{equation}\label{eq:peyre:H}
+  \rho(X_k;Y_l\mid X_{<k}=x,\ Y_{<l}=y)\le\eps_{kl}.
+\end{equation}
+We must show $\rho(\mathbf X;\mathbf Y)\le\min\{1,\opnorm{\mathcal E}\}$,
+where now $\mathcal E=(\eps_{kl})$ is an $N\times M$ matrix. As explained in
+\cref{sec:peyre:conv}, we may assume that $\Omega$ is finite and that all
+its points have positive probability. Since $\rho\le1$, we may assume
+$\opnorm{\mathcal E}<1$. Fix $\lambda$ with $\opnorm{\mathcal E}^2<\lambda<1$.
+The matrix $K=\mathcal E\mathcal E^{\mathsf T}$ has nonnegative entries and
+$\opnorm K=\opnorm{\mathcal E}^2<\lambda$. By \cref{lem:peyre:weights} there
+is $\alpha\in(0,\infty)^N$ with
+\begin{equation}\label{eq:peyre:alpha}
+  \sum_{l=1}^M\eps_{kl}\sum_{i=1}^N\eps_{il}\alpha_i
+  =(\mathcal E\mathcal E^{\mathsf T}\alpha)_k\le\lambda\alpha_k
+  \qquad(1\le k\le N).
+\end{equation}
+Fix $f\in L^2_0(\mathbf X)$. By \cref{lem:peyre:basic}(c) it suffices to
+prove
+\begin{equation}\label{eq:peyre:goal}
+  \norm{\E[f\mid\mathbf Y]}^2\le\lambda\norm f^2 ;
+\end{equation}
+letting $\lambda$ decrease to $\opnorm{\mathcal E}^2$ then gives
+$\rho(\mathbf X;\mathbf Y)\le\opnorm{\mathcal E}$.
+
+\emph{Step 1: a double martingale decomposition.} For $0\le l\le M$ and
+$1\le i\le N$ put
+\[
+  f_i^l=\E[f\mid X_{\le i},Y_{\le l}]-\E[f\mid X_{<i},Y_{\le l}],\qquad
+  w_i^l=\norm{f_i^l}^2 ,
+\]
+and let $w^l=(w_1^l,\dots,w_N^l)^{\mathsf T}\in[0,\infty)^N$. For fixed $l$
+the sum over $i$ telescopes. Since $f\in L^2(X_{\le N},Y_{\le l})$,
+\ref{P:tower} gives $\sum_{i=1}^Nf_i^l=f-\E[f\mid Y_{\le l}]$. The summands
+are pairwise orthogonal: for $i<k$,
+$f_i^l\in L^2(X_{\le i},Y_{\le l})\subseteq L^2(X_{<k},Y_{\le l})$, while
+$f_k^l\perp L^2(X_{<k},Y_{\le l})$. The latter holds because $f_k^l$ is the
+difference of $f-\E[f\mid X_{<k},Y_{\le l}]$ and
+$f-\E[f\mid X_{\le k},Y_{\le l}]$, and both are orthogonal to
+$L^2(X_{<k},Y_{\le l})$ by \ref{P:pyth}. Hence
+\begin{equation}\label{eq:peyre:sum}
+  \sum_{i=1}^Nw_i^l=\norm{f-\E[f\mid Y_{\le l}]}^2\qquad(0\le l\le M).
+\end{equation}
+For $l=0$ this is $\norm{f-\E f}^2=\norm f^2$. For $l=M$ it is
+$\norm{f-\E[f\mid\mathbf Y]}^2=\norm f^2-\norm{\E[f\mid\mathbf Y]}^2$, by
+\ref{P:pyth}.
+
+\emph{Step 2: the recursive inequality.} We claim that for $1\le l\le M$ and
+$1\le i\le N$,
+\begin{equation}\label{eq:peyre:rec}
+  w_i^l\ \ge\ (1-\eps_{il}^2)\,w_i^{l-1}
+  -\sum_{k=i+1}^N\eps_{il}\eps_{kl}\Big(\frac{\alpha_k}{\alpha_i}\,w_i^{l-1}
+  +\frac{\alpha_i}{\alpha_k}\,w_k^{l-1}\Big).
+\end{equation}
+Fix $l$, and a value $y$ of $Y_{<l}$ with $\Pr(Y_{<l}=y)>0$ (for $l=1$ there
+is only the empty value, and $\Omega_y=\Omega$). Put $\Omega_y=\{Y_{<l}=y\}$
+and $\Pr_y=\Pr(\,\cdot\mid Y_{<l}=y)$, with expectation $\E_y$. We apply
+\cref{lem:peyre:one} in the finite probability space $(\Omega_y,\Pr_y)$, all
+of whose points have positive mass. We use the restrictions of
+$X_1,\dots,X_N$ and of $Y:=Y_l$, the numbers $\eps_{1l},\dots,\eps_{Nl}$, and
+the restriction $\varphi=f|_{\Omega_y}$. Since $f$ is a function of
+$\mathbf X$, $\varphi\in L^2(X_{\le N})$ on $\Omega_y$. Hypothesis
+\eqref{eq:peyre:one-hyp} holds: if $\Pr_y(X_{<i}=x)>0$, then
+$\Pr_y(\,\cdot\mid X_{<i}=x)=\Pr(\,\cdot\mid X_{<i}=x,\,Y_{<l}=y)$, and
+\eqref{eq:peyre:H} applies. By \ref{P:restrict} with $W=Y_{<l}$, for every
+$0\le i\le N$ the restrictions to $\Omega_y$ satisfy
+\[
+  \E_y[\varphi\mid X_{\le i}]=\E[f\mid X_{\le i},Y_{<l}]\big|_{\Omega_y},\qquad
+  \E_y[\varphi\mid X_{\le i},Y_l]=\E[f\mid X_{\le i},Y_{\le l}]\big|_{\Omega_y}.
+\]
+Therefore the functions $\varphi_i$, $\varphi_i^*$ of \cref{lem:peyre:one}
+are $f_i^{l-1}|_{\Omega_y}$ and $f_i^l|_{\Omega_y}$. Writing
+$v_i(y)=\E_y[(f_i^{l-1})^2]$ and $v_i^*(y)=\E_y[(f_i^l)^2]$,
+\eqref{eq:peyre:one} gives
+\begin{align*}
+  v_i^*(y)&\ge(1-\eps_{il}^2)v_i(y)
+  -\sum_{k>i}\eps_{il}\eps_{kl}\,2\sqrt{v_i(y)v_k(y)}\\
+  &\ge(1-\eps_{il}^2)v_i(y)-\sum_{k>i}\eps_{il}\eps_{kl}
+  \Big(\frac{\alpha_k}{\alpha_i}v_i(y)+\frac{\alpha_i}{\alpha_k}v_k(y)\Big).
+\end{align*}
+The second inequality is $2\sqrt{st}\le cs+t/c$ for $s,t\ge0$, $c>0$, with
+$c=\alpha_k/\alpha_i$. Multiply by $\Pr(Y_{<l}=y)$ and sum over $y$. Since
+$\sum_y\Pr(Y_{<l}=y)\E_y[u^2]=\E[u^2]$ for every $u$, this gives
+\eqref{eq:peyre:rec}.
+
+\emph{Step 3: matrix form.} Let $T_l$ be the $N\times N$ matrix with entries
+\[
+  (T_l)_{ii}=\eps_{il}^2+\sum_{k>i}\eps_{il}\eps_{kl}\frac{\alpha_k}{\alpha_i},
+  \qquad
+  (T_l)_{ik}=\eps_{il}\eps_{kl}\frac{\alpha_i}{\alpha_k}\ (k>i),\qquad
+  (T_l)_{ik}=0\ (k<i).
+\]
+Its entries are nonnegative, and \eqref{eq:peyre:rec} says
+$w^l\ge w^{l-1}-T_lw^{l-1}$ entrywise. The column sums of $T_l$ are
+\[
+  c_k^{(l)}:=\sum_{i=1}^N(T_l)_{ik}
+  =\eps_{kl}^2+\sum_{i>k}\eps_{kl}\eps_{il}\frac{\alpha_i}{\alpha_k}
+  +\sum_{i<k}\eps_{il}\eps_{kl}\frac{\alpha_i}{\alpha_k}
+  =\frac{\eps_{kl}}{\alpha_k}\sum_{i=1}^N\eps_{il}\alpha_i\ \ge0,
+\]
+so that $\sum_{i}(T_lu)_i=\sum_kc_k^{(l)}u_k$ for every $u\in\R^N$. By
+\eqref{eq:peyre:alpha}, $\sum_{l=1}^Mc_k^{(l)}\le\lambda$ for every $k$.
+
+\emph{Step 4: apply the potential estimate.} The vectors and matrices from
+Steps~1--3 satisfy the hypotheses of \cref{lem:peyre:potential}. Therefore,
+by \eqref{eq:peyre:sum},
+\[
+ \norm f^2-\norm{\E[f\mid\mathbf Y]}^2
+ =\sum_kw_k^M\ge(1-\lambda)\sum_kw_k^0
+ =(1-\lambda)\norm f^2.
+\]
+This is \eqref{eq:peyre:goal}. Letting $\lambda$ decrease to
+$\opnorm{\mathcal E}^2$ proves the theorem.
+\end{proof}
+
+The role of the weights is visible in Step~3: the symmetrization of the
+cross terms by $2\sqrt{st}\le cs+t/c$ is chosen so that each column sum of
+$T_l$ becomes $(\eps_{kl}/\alpha_k)\sum_i\eps_{il}\alpha_i$, and the
+Perron-type inequality $\mathcal E\mathcal E^{\mathsf T}\alpha\le\lambda\alpha$
+bounds the sum of these column sums over $l$ by $\lambda$, uniformly in $k$.
+Without the weights ($\alpha=\one$) the same argument gives only
+$\rho(\mathbf X;\mathbf Y)^2\le\max_k(\mathcal E\mathcal E^{\mathsf
+T}\one)_k$, the largest row sum of $\mathcal E\mathcal E^{\mathsf T}$, which
+can exceed $\opnorm{\mathcal E}^2$.
+
+\subsection{Remarks}
+
+Two remarks close the appendix: how the proof compares with
+Peyre's original argument, and why the conditional form of the
+hypothesis cannot be weakened.
+
+\begin{remark}[Comparison with the source]\label{rem:peyre:source}
+\Cref{lem:peyre:one} is \cite[Lemma~3.3.3]{Peyre}: its Steps~1 and 2 are
+Claims~3.3.4 and 3.3.5 there, and Steps~3--4 are (GO)--(GP). Step~2 of the
+proof of the theorem is the passage (HB)--(HF) of \cite{Peyre}, with the
+identification (HC)--(HD) of the functions used there. Step~4 replaces the
+induction on $M$ in the proof of \cite[Lemma~3.3.7]{Peyre}, and
+\cref{lem:peyre:weights} replaces \cite[Lemma~3.8.1]{Peyre}, of which only
+the easy inequality ``$\le$'' is needed. That only the conditionings in
+\eqref{eq:peyre:H} are used is observed in \cite[\S3.4.a]{Peyre}.
+\end{remark}
+
+\begin{remark}[Sharpness and the role of conditioning]\label{rem:peyre:sharp}
+(i) The bound can be attained. If the pairs $(X_{a_k},X_{b_k})$,
+$1\le k\le N=M$, are independent of each other, then every conditional
+correlation in \eqref{eq:peyre:hyp} with $i=a_k$, $j=b_l$ equals
+$\rho(X_{a_k};X_{b_k})$ if $k=l$ and $0$ otherwise. So the best choice of
+$\mathcal E$ is diagonal and $\opnorm{\mathcal E}=\max_k\rho(X_{a_k};X_{b_k})$.
+This is also the value of $\rho(X_A;X_B)$, by the classical tensorization for
+independent pairs \cite[Theorem~1.1.19]{Peyre}, which is
+\cref{cor:peyre-independent}; its proof also checks the two facts just used.
+
+(ii) The conditional hypothesis cannot be replaced by bounds on unconditional
+pairwise correlations. Let $X_1,X_2$ be independent uniform bits and
+$Y=X_1+X_2\bmod2$. Then $\rho(X_1;Y)=\rho(X_2;Y)=0$, but $Y$ is a nonconstant
+function of $(X_1,X_2)$, so $\rho((X_1,X_2);Y)=1$. Accordingly,
+$\rho(X_2;Y\mid X_1=x)=1$, since given $X_1$ the variable $Y$ determines
+$X_2$.
+\end{remark}
+
+\paragraph{Consequences and what to read next.}
+The proof uses only linear algebra in $L^2$ of a finite probability space: orthogonal
+projections and the facts \ref{P:tower}--\ref{P:restrict}, the
+Cauchy--Schwarz and arithmetic-geometric mean inequalities and a Neumann
+series; from the rest of the paper, the definitions of maximal correlation
+(\cref{def:prelim:maxcorr}) and of the matrix norm
+(\cref{def:prelim:operators}).

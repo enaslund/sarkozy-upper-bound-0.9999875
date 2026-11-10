@@ -1,0 +1,989 @@
+
+\section{Reflection positivity and a H\"older inequality for signed laws}
+\label{sec:positivity}
+
+\paragraph{What this section proves and how to read it.}
+This section proves that a signed $72$-fold average can still be
+bounded below by $\alpha^{72}$ and above by diagonal averages,
+provided the averaging law is positive across mirror symmetries.
+Precisely, it defines cuts and reflection positivity, proves that
+domination by a positive $2\times2$ block at one cut permits
+Cauchy--Schwarz for signed laws, iterates this over seven cuts to
+obtain the signed H\"older inequality, and constructs the $72$ slots
+with their seven cuts and six queries. Signed laws appear because
+the comparison law $\nu$ of Part~III cannot be reflection positive;
+the block domination is what replaces positivity for $\nu$. Inputs:
+only finite linear algebra. Outputs: \cref{thm:holder} (hence
+$\alpha^{72}\le Y$) and the block-domination calculus used in
+Part~III. A first reading should follow the definitions,
+\cref{thm:holder}, and the slot construction in
+\cref{subsec:slot-array}; the detailed one-cut lemmas can be treated
+as reference. Until \cref{subsec:slot-array}, $V$ is an arbitrary
+finite slot set; from there on $V=(\Z/6\Z)^2\times\{0,1\}$.
+
+\paragraph{Notation.}
+Throughout, $V$ is a finite set of \emph{slots}, $d=|V|$, and $\mathcal X$ is
+a finite set of labels. For a finite signed measure $\nu$ on $\mathcal X^V$ and
+real functions $g_v$ on $\mathcal X$ we write
+\[
+ \Lambda_\nu\big((g_v)_{v\in V}\big)=\int\prod_{v\in V}g_v(z_v)\,d\nu(z),
+ \qquad
+ \Lambda_\nu(g)=\Lambda_\nu\big((g)_{v\in V}\big).
+\]
+A map $h\colon V\to\R^{\mathcal X}$ is an \emph{assignment}, and
+$\Lambda_\nu(h)=\Lambda_\nu((h(v))_{v\in V})$. For a map $\Psi$ between finite
+sets, $\Psi_*\kappa$ is the image of a measure $\kappa$; for a permutation
+$\sigma$ of $V$ we write $\sigma_*\kappa$ for the image of $\kappa$ under the
+map $z\mapsto z\circ\sigma=(z_{\sigma v})_{v\in V}$ of $\mathcal X^V$.
+
+\subsection{Cuts and cut matrices}\label{subsec:pos:cuts}
+
+Laws obtained by restricting a law to an event, by repair, or as
+comparison laws are in general not reflection positive. Two facts replace positivity at a single cut: measures that the cut
+fixes samplewise are ordered in the Loewner order at that cut
+(\cref{lem:commoncut}), and a measure bracketed at one cut by a reflection
+positive law inherits that law's mixed H\"older bound
+(\cref{lem:record:block-gram}, \cref{rem:cc:mixed}). This subsection fixes the
+language.
+
+\begin{definition}[Cuts and reflection positivity]\label{def:rp}
+A \emph{cut} of $V$ is a fixed-point-free involution $\vartheta$ of $V$ together
+with a decomposition $V=V_+\sqcup V_-$ with $V_-=\vartheta V_+$; $V_+$ is its
+\emph{plus half}. We name a cut by its involution when the plus half is
+understood. A finite signed measure $\nu$ on $\mathcal X^V$ is
+\emph{reflection positive} (RP) at $\vartheta$ if it is invariant under
+$(z_v)_v\mapsto(z_{\vartheta v})_v$ and
+\[
+ \int F\big(z_{V_+}\big)\,F\big((z_{\vartheta u})_{u\in V_+}\big)\,d\nu(z)\ \ge\ 0
+ \qquad\text{for every }F\colon\mathcal X^{V_+}\to\R .
+\]
+Equivalently (\cref{def:cc:order}), its cut matrix
+$\big(\nu(z_{V_+}=x,\ z_{\vartheta V_+}=y)\big)_{x,y\in\mathcal X^{V_+}}$ is
+symmetric and positive semidefinite.
+\end{definition}
+
+Positive multiples and sums of measures that are RP at $\vartheta$ are RP at
+$\vartheta$, and so are tensor products of such measures \eqref{eq:cc:kron}.
+Since $|V|=2|V_+|$, a slot set with a cut has an even number of slots.
+
+\begin{definition}[Cut matrix, cut order and cut form]\label{def:cc:order}
+Fix a cut $\vartheta$ with halves $V_\pm$. For a finite signed measure $\nu$
+on $\mathcal X^V$ its \emph{cut matrix} at $\vartheta$ is
+\[
+ C_\vartheta(\nu)_{x,y}=\nu\big(z_{V_+}=x,\ z_{\vartheta V_+}=y\big)
+ \qquad(x,y\in\mathcal X^{V_+}),
+\]
+where $z_{V_+}=x$ means $z_u=x_u$ and $z_{\vartheta V_+}=y$ means
+$z_{\vartheta u}=y_u$ for all $u\in V_+$. For real symmetric matrices,
+$A\preceq B$ means that $B-A$ is positive semidefinite (the Loewner order of
+\cref{def:prelim:operators}). For finite signed
+measures $\kappa,\kappa'$ on $\mathcal X^V$ we write $\kappa\succeq_\vartheta\kappa'$,
+or $\kappa'\preceq_\vartheta\kappa$, if $C_\vartheta(\kappa-\kappa')$ is
+symmetric and positive semidefinite; thus $\nu$ is RP at $\vartheta$ if and
+only if $\nu\succeq_\vartheta0$. The \emph{cut form} of $\kappa$ at $\vartheta$
+is the bilinear form
+\[
+ Q_\kappa(X,Y)=\ip{X}{C_\vartheta(\kappa)Y}
+ =\int X\big(z_{V_+}\big)\,Y\big((z_{\vartheta u})_{u\in V_+}\big)\,d\kappa(z)
+\]
+on real functions $X,Y$ on $\mathcal X^{V_+}$ (\emph{half-functions}), with the
+Euclidean inner product of $\R^{\mathcal X^{V_+}}$.
+\end{definition}
+
+The map $z\mapsto\big(z_{V_+},(z_{\vartheta u})_{u\in V_+}\big)$ is a bijection
+of $\mathcal X^V$ onto $\mathcal X^{V_+}\times\mathcal X^{V_+}$, so a measure is
+determined by its cut matrix at any one cut. The cut form $Q_\kappa(X,Y)$ is
+bilinear in $(X,Y)$ and linear in $\kappa$; if $\kappa\succeq_\vartheta0$ it is
+a symmetric positive semidefinite form, and $\kappa\preceq_\vartheta\kappa'$
+implies $Q_\kappa(X,X)\le Q_{\kappa'}(X,X)$ for every $X$.
+
+\emph{The bilinear identity.} For real $g_v$ on $\mathcal X$ put
+$F(x)=\prod_{u\in V_+}g_u(x_u)$ and $G(y)=\prod_{u\in V_+}g_{\vartheta u}(y_u)$.
+Since $V=V_+\sqcup\vartheta V_+$,
+\begin{equation}\label{eq:cc:bilinear}
+ \Lambda_\nu\big((g_v)_{v\in V}\big)=\sum_{x,y}F(x)\,C_\vartheta(\nu)_{x,y}\,G(y)
+ =\ip{F}{C_\vartheta(\nu)G}=Q_\nu(F,G).
+\end{equation}
+When every $g_v$ equals $g$, both $F$ and $G$ are the half-function
+$F_g(x)=\prod_{u\in V_+}g(x_u)$ carrying $g$ at every slot of the plus half; so
+$\Lambda_\nu(g)=Q_\nu(F_g,F_g)$, at every cut of $V$.
+
+\emph{Products.} If $\nu_1$, $\nu_2$ are finite signed measures on
+$\mathcal X_1^V$, $\mathcal X_2^V$, we write $\nu_1\otimes\nu_2$ for the image of
+the product measure under $(z^1,z^2)\mapsto((z^1_v,z^2_v))_{v\in V}$, a measure
+on $(\mathcal X_1\times\mathcal X_2)^V$. Under the
+identification $(\mathcal X_1\times\mathcal X_2)^{V_+}=\mathcal X_1^{V_+}\times
+\mathcal X_2^{V_+}$,
+\begin{equation}\label{eq:cc:kron}
+ C_\vartheta(\nu_1\otimes\nu_2)=C_\vartheta(\nu_1)\otimes C_\vartheta(\nu_2)
+ \qquad\text{(Kronecker product)},
+\end{equation}
+because the entry at $((x^1,x^2),(y^1,y^2))$ factors. A Kronecker product of
+symmetric positive semidefinite matrices is symmetric positive semidefinite
+(its eigenvalues are the products of those of the factors). Hence
+$\kappa_i\succeq_\vartheta0$ for all $i$ implies
+$\bigotimes_i\kappa_i\succeq_\vartheta0$.
+
+\begin{remark}[Reflections, halves and permutations]\label{rem:cut-symmetries}
+Let $\kappa$ be a finite signed measure on $\mathcal X^V$ and $\vartheta$ a cut.
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Reflection.} $C_\vartheta(\vartheta_*\kappa)=C_\vartheta(\kappa)^{\mathsf T}$,
+ since $\vartheta_*\kappa(z_{V_+}=x,\ z_{\vartheta V_+}=y)
+ =\kappa(z_{\vartheta V_+}=x,\ z_{V_+}=y)$. As $\kappa$ is determined by its cut
+ matrix, $\kappa$ is invariant under the reflection if and only if
+ $C_\vartheta(\kappa)$ is symmetric. The \emph{symmetric} and \emph{skew parts}
+ $\frac12(\kappa\pm\vartheta_*\kappa)$ have the symmetric and the antisymmetric
+ part of $C_\vartheta(\kappa)$ as cut matrices. The diagonal cut form of a
+ measure with antisymmetric cut matrix vanishes, and so does that of its
+ product with any measure with symmetric cut matrix \eqref{eq:cc:kron}.
+\item \emph{Halves.} $(\vartheta,V_-)$ is again a cut. Identify
+ $\mathcal X^{V_-}$ with $\mathcal X^{V_+}$ by $x\mapsto(x_{\vartheta u})_{u\in V_+}$;
+ then the cut matrix at $(\vartheta,V_-)$ is the transpose of the cut matrix
+ at $(\vartheta,V_+)$. Hence $\kappa\succeq\kappa'$ at one choice of the plus
+ half if and only if at the other; in particular reflection positivity does
+ not depend on the choice of the plus half.
+\item \emph{Permutations.} For a permutation $\sigma$ of $V$, the involution
+ $\sigma^{-1}\vartheta\sigma$ with plus half $\sigma^{-1}V_+$ is a cut, and
+ $s(x)=(x_{\sigma u})_{u\in\sigma^{-1}V_+}$ is a bijection
+ $\mathcal X^{V_+}\to\mathcal X^{\sigma^{-1}V_+}$ with
+ \[
+  C_{\sigma^{-1}\vartheta\sigma}(\sigma_*\kappa)_{s(x),s(y)}=C_\vartheta(\kappa)_{x,y}.
+ \]
+ Indeed, for $w=z\circ\sigma$ we have $w_{\sigma^{-1}V_+}=s(z_{V_+})$ and
+ $(w_{\sigma^{-1}\vartheta\sigma u})_{u\in\sigma^{-1}V_+}=s((z_{\vartheta v})_{v\in V_+})$.
+ Hence $\kappa\succeq_\vartheta\kappa'$ if and only if
+ $\sigma_*\kappa\succeq_{\sigma^{-1}\vartheta\sigma}\sigma_*\kappa'$.
+\end{enumerate}
+\end{remark}
+
+\begin{lemma}[Common-cut order]\label{lem:commoncut}
+Let $\vartheta$ be a cut of $V$ with halves $V_\pm$, and let
+$\operatorname{Fix}(\vartheta)=\{z\in\mathcal X^V:z_{\vartheta v}=z_v\ \text{for
+all }v\in V\}$.
+\begin{enumerate}[label=(\roman*)]
+\item \emph{Diagonal measures.} Let $\kappa$ be a nonnegative measure on
+ $\mathcal X^V$ supported on $\operatorname{Fix}(\vartheta)$; we say that
+ $\kappa$ is \emph{diagonal at $\vartheta$}, or \emph{fixed samplewise by
+ $\vartheta$}. Then $C_\vartheta(\kappa)$ is diagonal with entries
+ $\kappa(z_{V_+}=x)\ge0$; in particular $\kappa\succeq_\vartheta0$, and $\kappa$
+ is RP at $\vartheta$. Every nonnegative measure whose support lies in that of
+ $\kappa$ is again diagonal at $\vartheta$: a restriction of $\kappa$ to an
+ event, a nonnegative reweighting of $\kappa$, and, if $\kappa=Z_*\pi$ for a
+ finite set $\Omega$ with weights $\pi\ge0$ and a map
+ $Z\colon\Omega\to\mathcal X^V$ (a \emph{latent representation}), every
+ $Z_*(w\pi)$ with $w\ge0$ on $\Omega$ (a restriction to latent events if $w$ is
+ an indicator). For a finite nonnegative measure $m$ on $\mathcal X^{V_+}$,
+ the \emph{diagonal copy} $\operatorname{Diag}_\vartheta(m)$, the image of $m$
+ under the map $x\mapsto z$ with $z_{V_+}=x$ and $z_{\vartheta u}=x_u$ for
+ $u\in V_+$ (for a probability measure $m$: the law of $z$ with $z_{V_+}\sim m$
+ and $z_{\vartheta u}=z_u$), is diagonal at $\vartheta$ with cut matrix
+ $\operatorname{diag}(m)$.
+\item \emph{Order.} If $\kappa,\kappa_1,\dots,\kappa_k$ are diagonal at
+ $\vartheta$ and $\kappa\le\sum_i\kappa_i$, then
+ $0\preceq_\vartheta\kappa\preceq_\vartheta\sum_i\kappa_i$.
+\item \emph{Adjoining a factor.} If $\kappa\preceq_\vartheta\kappa'$ on
+ $\mathcal X^V$ and $\rho$ is a finite signed measure on $\mathcal Y^V$ with
+ $\rho\succeq_\vartheta0$, then $\kappa\otimes\rho\preceq_\vartheta\kappa'\otimes\rho$
+ on $(\mathcal X\times\mathcal Y)^V$. In particular (ii) persists after
+ adjoining $\rho$.
+\item \emph{Diagonal functionals.} Consequently, in the situation of (ii) and
+ (iii), $0\le\Lambda_{\kappa\otimes\rho}(g)\le\sum_i\Lambda_{\kappa_i\otimes\rho}(g)$
+ for every real function $g$ on $\mathcal X\times\mathcal Y$.
+\item \emph{One kernel on both halves.} Let $\vartheta'$ be a cut of a finite
+ set $W$ with halves $W_\pm$, $\mathcal Y$ a finite set, and $P$ a Markov
+ kernel from $\mathcal X^{V_+}$ to $\mathcal Y^{W_+}$ (a nonnegative matrix with
+ unit row sums). For a finite signed measure $\kappa$ on $\mathcal X^V$ let
+ $\kappa^P$ be the measure on $\mathcal Y^W$ obtained by applying $P$
+ independently to $z_{V_+}$ and to the reflected minus half
+ $(z_{\vartheta u})_{u\in V_+}$, and placing the results on $W_+$ and, through
+ $\vartheta'$, on $W_-$:
+ \[
+  \kappa^P(w)=\sum_{z}\kappa(z)\,P\big(z_{V_+},w_{W_+}\big)\,
+  P\big((z_{\vartheta u})_{u\in V_+},(w_{\vartheta'u'})_{u'\in W_+}\big).
+ \]
+ Then $C_{\vartheta'}(\kappa^P)=P^{\mathsf T}C_\vartheta(\kappa)P$; so
+ $\kappa\succeq_\vartheta\kappa'$ implies $\kappa^P\succeq_{\vartheta'}\kappa'^P$.
+ The measure $\kappa^P$ is nonnegative if $\kappa$ is, has the mass of
+ $\kappa$, and has plus-half marginal $mP$ if $\kappa$ has plus-half marginal
+ $m$. For a finite nonnegative measure $m$ on $\mathcal X^{V_+}$,
+ $P^{\mathsf T}\operatorname{diag}(m)P\preceq\operatorname{diag}(mP)$; hence
+ $\pi+k\operatorname{Diag}_\vartheta(m)\succeq_\vartheta0$ with $k\ge0$ implies
+ $\pi^P+k\operatorname{Diag}_{\vartheta'}(mP)\succeq_{\vartheta'}0$. If $P$ is
+ deterministic, $P(x,\cdot)=\delta_{\phi(x)}$, then $\kappa^P=\Phi_*\kappa$ for
+ the \emph{half-local} map $\Phi\colon\mathcal X^V\to\mathcal Y^W$ with
+ \[
+  \Phi(z)_{W_+}=\phi(z_{V_+}),\qquad
+  \big(\Phi(z)_{\vartheta'u'}\big)_{u'\in W_+}=\phi\big((z_{\vartheta u})_{u\in V_+}\big);
+ \]
+ the map $\Phi$ intertwines the two reflections, it maps
+ $\operatorname{Fix}(\vartheta)$ into $\operatorname{Fix}(\vartheta')$, and
+ $\Phi_*\operatorname{Diag}_\vartheta(m)=\operatorname{Diag}_{\vartheta'}(\phi_*m)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) $C_\vartheta(\kappa)_{x,y}=\kappa(z_{V_+}=x,\ z_{\vartheta V_+}=y)$. On
+$\operatorname{Fix}(\vartheta)$ we have $(z_{\vartheta u})_{u\in V_+}=z_{V_+}$, so
+the entry vanishes unless $y=x$, and the diagonal entries are
+$\kappa(z_{V_+}=x)\ge0$. A nonnegative diagonal matrix is symmetric and
+positive semidefinite. The support of $Z_*(w\pi)$ is contained in
+$Z(\{\pi>0\})$, which is the support of $\kappa$. The diagonal copy is
+supported on $\operatorname{Fix}(\vartheta)$, with diagonal entries $m(x)$.
+
+(ii) $\sum_i\kappa_i-\kappa$ is a nonnegative measure supported in
+$\bigcup_i\operatorname{supp}\kappa_i\subseteq\operatorname{Fix}(\vartheta)$. By
+linearity of $C_\vartheta$ and (i), $C_\vartheta(\sum_i\kappa_i)-C_\vartheta(\kappa)$
+is nonnegative diagonal, and $C_\vartheta(\kappa)\succeq0$ by (i).
+
+(iii) By \eqref{eq:cc:kron}, $C_\vartheta(\kappa'\otimes\rho)-C_\vartheta(\kappa\otimes\rho)
+=C_\vartheta(\kappa'-\kappa)\otimes C_\vartheta(\rho)$, a Kronecker product of two
+symmetric positive semidefinite matrices.
+
+(iv) Apply \eqref{eq:cc:bilinear} with the same real vector $F_g$ on both sides
+of the inequalities of (ii) and (iii).
+
+(v) For $x',y'\in\mathcal Y^{W_+}$,
+\[
+ C_{\vartheta'}(\kappa^P)_{x',y'}
+ =\sum_z\kappa(z)P\big(z_{V_+},x'\big)P\big((z_{\vartheta u})_u,y'\big)
+ =\sum_{x,y}C_\vartheta(\kappa)_{x,y}P(x,x')P(y,y'),
+\]
+which is the matrix identity. Thus
+$\ip{G}{C_{\vartheta'}(\kappa^P)G}=\ip{PG}{C_\vartheta(\kappa)PG}$ for every real
+$G$, and $P^{\mathsf T}CP$ is symmetric when $C$ is; this gives the order
+statement. Nonnegativity, the mass and the marginal follow from the unit row
+sums. For the diagonal, by Jensen's inequality for each row of $P$,
+\[
+ \ip{G}{P^{\mathsf T}\operatorname{diag}(m)PG}=\sum_xm(x)\,(PG)(x)^2
+ \le\sum_xm(x)\,(PG^2)(x)=\ip{G}{\operatorname{diag}(mP)G},
+\]
+so $C_{\vartheta'}(\pi^P)+k\operatorname{diag}(mP)\succeq
+P^{\mathsf T}\big(C_\vartheta(\pi)+k\operatorname{diag}(m)\big)P\succeq0$, and
+the left side is symmetric. If $P$ is deterministic, the defining sum
+collapses to $\Phi_*\kappa$. Since $(z\circ\vartheta)_{V_+}=(z_{\vartheta u})_u$
+and $((z\circ\vartheta)_{\vartheta u})_u=z_{V_+}$, we get
+$\Phi(z\circ\vartheta)=\Phi(z)\circ\vartheta'$; for
+$z\in\operatorname{Fix}(\vartheta)$ both halves of $\Phi(z)$ are $\phi(z_{V_+})$,
+so $\Phi(z)\in\operatorname{Fix}(\vartheta')$. Finally
+$P^{\mathsf T}\operatorname{diag}(m)P=\operatorname{diag}(\phi_*m)$, and two
+measures with the same cut matrix coincide.
+\end{proof}
+
+\begin{remark}[Limits of the common-cut order]\label{rem:cc:limits}
+\begin{enumerate}[label=(\alph*)]
+\item Part (iv) is a union bound in the cone of positive semidefinite cut
+ matrices, not a pointwise inequality for the integrand: a product of Fourier
+ lifts can be negative. A Boolean cover $\one_B\le\sum_F\one_{I_F}$ of events of
+ a latent representation therefore becomes the inequality
+ $0\le\Lambda_{Z_*(\one_B\pi)\otimes\rho}(g)\le\sum_F\Lambda_{Z_*(\one_{I_F}\pi)\otimes\rho}(g)$
+ of diagonal functionals.
+\item The samplewise hypothesis is essential. Being supported on
+ $\operatorname{Fix}(\vartheta)$ is a property of the samples; invariance of a
+ measure under the reflection does not imply it, and reflection positivity of
+ a measure at every cut does not make its restrictions to events positive
+ semidefinite at a chosen cut without an additional argument. This is one
+ reason why the residues modulo the small modulus and the position of an
+ integer among the intervals are external indices of the comparison
+ (\cref{def:hyb:coupled}) and not coordinates of the labels: a reference law
+ carrying correlated residues would have to be restricted to events of the
+ residues, and such restrictions need not remain positive semidefinite at the
+ cuts where positivity is required.
+\end{enumerate}
+\end{remark}
+
+\subsection{Controlling a law that is not reflection positive by two reflection-positive laws ($2\times2$ blocks)}\label{subsec:pos:brackets}
+
+If a block matrix of two positive semidefinite diagonal blocks is positive
+semidefinite, its off-diagonal block is bounded by the diagonal ones. Such a
+\emph{bracket} controls a measure that is not reflection positive at a cut by
+two positive ones, and brackets tensorize. This is how the comparison law,
+which is not reflection positive, is controlled at the reserved cut.
+
+\begin{lemma}[Block-Gram calculus]\label{lem:record:block-gram}
+Let $\mathcal H,\mathcal H',\mathcal H_1,\dots,\mathcal H_n$ be finite-dimensional
+Hilbert spaces.
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Brackets.} For operators $M$ on $\mathcal H$, $M'$ on $\mathcal H'$
+ and $K\colon\mathcal H'\to\mathcal H$, the block operator
+ $\bigl(\begin{smallmatrix}M&K\\ K^*&M'\end{smallmatrix}\bigr)$ on
+ $\mathcal H\oplus\mathcal H'$ is positive semidefinite if and only if
+ $M\succeq0$, $M'\succeq0$ and $K=M^{1/2}CM'^{1/2}$ for an operator $C$ with
+ $\|C\|\le1$. Then $|\ip{x}{Ky}|\le\ip{x}{Mx}^{1/2}\ip{y}{M'y}^{1/2}$.
+\item \emph{Tensorization.} If
+ $\bigl(\begin{smallmatrix}M_i&K_i\\ K_i^*&M_i'\end{smallmatrix}\bigr)\succeq0$
+ on $\mathcal H_i\oplus\mathcal H_i$ for each $i$, then the same holds for
+ $M=\bigotimes_iM_i$, $M'=\bigotimes_iM_i'$ and $K=\bigotimes_iK_i$, and
+ $|\ip{x}{Ky}|\le\ip{x}{Mx}^{1/2}\ip{y}{M'y}^{1/2}$.
+\item \emph{Modulus.} Every operator $T$ on a finite-dimensional Hilbert space
+ satisfies
+ \[
+  \begin{pmatrix}|T^*|&T\\ T^*&|T|\end{pmatrix}\succeq0,
+  \qquad |T|=(T^*T)^{1/2},\quad |T^*|=(TT^*)^{1/2}.
+ \]
+\item \emph{Symmetric brackets.} For self-adjoint $M$, $K$,
+ $\bigl(\begin{smallmatrix}M&K\\ K&M\end{smallmatrix}\bigr)\succeq0$ if and only
+ if $M\pm K\succeq0$. If $A_i$, $B_i$ are self-adjoint with $A_i\pm B_i\succeq0$
+ for every $i$, then $\bigotimes_iA_i\pm\bigotimes_iB_i\succeq0$; for two
+ factors, explicitly,
+ \[
+  2\,(A\otimes N\pm D\otimes G)=(A\pm D)\otimes(N+G)+(A\mp D)\otimes(N-G).
+ \]
+ In particular $0\preceq A_i\preceq A_i'$ for every $i$ implies
+ $\bigotimes_iA_i\preceq\bigotimes_iA_i'$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) The diagonal blocks of a positive semidefinite block operator are positive
+semidefinite. If $K=M^{1/2}CM'^{1/2}$ with $\|C\|\le1$, the form of the block
+operator at $(x,y)$ is at least
+$\|M^{1/2}x\|^2-2\|M^{1/2}x\|\,\|M'^{1/2}y\|+\|M'^{1/2}y\|^2\ge0$. Conversely,
+for $\epsilon>0$ conjugate the block operator plus $\epsilon$ by
+$\operatorname{diag}((M+\epsilon)^{-1/2},(M'+\epsilon)^{-1/2})$: the result
+$\bigl(\begin{smallmatrix}I&C_\epsilon\\ C_\epsilon^*&I\end{smallmatrix}\bigr)$,
+$C_\epsilon=(M+\epsilon)^{-1/2}K(M'+\epsilon)^{-1/2}$, is positive definite,
+and its form at $(x,-C_\epsilon^*x)$ is $\|x\|^2-\|C_\epsilon^*x\|^2$, so
+$\|C_\epsilon\|\le1$. Since $K=(M+\epsilon)^{1/2}C_\epsilon(M'+\epsilon)^{1/2}$
+for every $\epsilon$, any limit point $C$ of $C_\epsilon$ as $\epsilon\to0$ is a
+contraction with $K=M^{1/2}CM'^{1/2}$, by continuity of the square root. The
+inequality is Cauchy--Schwarz: $|\ip{x}{Ky}|=|\ip{M^{1/2}x}{CM'^{1/2}y}|$.
+
+(b) Write $K_i=M_i^{1/2}C_iM_i'^{1/2}$ by (a). The square root of a tensor
+product of positive semidefinite operators is the tensor product of the square
+roots, so $K=M^{1/2}\big(\bigotimes_iC_i\big)M'^{1/2}$, and
+$\|\bigotimes_iC_i\|=\prod_i\|C_i\|\le1$; apply (a).
+
+(c) Let $T=U|T|$ with $U$ unitary. Then $|T^*|=U|T|U^*$, and the block operator
+equals $X|T|X^*$, where $X$ is the column operator $h\mapsto(Uh,h)$ into
+$\mathcal H\oplus\mathcal H$; indeed $X^*(a,b)=U^*a+b$, $U|T|=T$ and
+$|T|U^*=T^*$.
+
+(d) Conjugation by the unitary
+$\frac1{\sqrt2}\bigl(\begin{smallmatrix}I&I\\ I&-I\end{smallmatrix}\bigr)$ turns
+$\bigl(\begin{smallmatrix}M&K\\ K&M\end{smallmatrix}\bigr)$ into
+$\bigl(\begin{smallmatrix}M+K&0\\ 0&M-K\end{smallmatrix}\bigr)$. If
+$A_i\pm B_i\succeq0$, the first part gives the brackets
+$\bigl(\begin{smallmatrix}A_i&B_i\\ B_i&A_i\end{smallmatrix}\bigr)\succeq0$, (b)
+tensorizes them, $\bigotimes_iB_i$ is self-adjoint, and the first part applies
+again. The two-factor identity is expanded directly, and each summand on its
+right is a tensor product of positive semidefinite operators. Finally
+$0\preceq A_i\preceq A_i'$ gives $A_i'\pm A_i\succeq0$.
+\end{proof}
+
+\emph{Brackets of measures.} For finite signed measures $\kappa,\kappa',\zeta$
+on $\mathcal X^V$ and a cut $\vartheta$ we write
+$\bigl(\begin{smallmatrix}\kappa&\zeta\\ \zeta^*&\kappa'\end{smallmatrix}\bigr)\succeq_\vartheta0$,
+a \emph{bracket at $\vartheta$}, if the block matrix with blocks
+$C_\vartheta(\kappa)$, $C_\vartheta(\zeta)$, $C_\vartheta(\zeta)^{\mathsf T}$ (the block denoted $\zeta^*$; $\zeta^*$ is not a separate measure),
+$C_\vartheta(\kappa')$ is positive semidefinite. By (a),
+$|Q_\zeta(X,Y)|\le Q_\kappa(X,X)^{1/2}Q_{\kappa'}(Y,Y)^{1/2}$ for all
+half-functions; by (b) and \eqref{eq:cc:kron}, brackets of the factors of
+product measures tensorize to a bracket of the products; and by (d), if
+$C_\vartheta(\zeta)$ is symmetric, then
+$\bigl(\begin{smallmatrix}\kappa&\zeta\\ \zeta&\kappa\end{smallmatrix}\bigr)\succeq_\vartheta0$
+if and only if $\kappa\pm\zeta\succeq_\vartheta0$.
+
+\subsection{From one cut to all slots: the H\"older inequality}\label{subsec:pos:holder}
+
+Reflection positivity turns a quadratic-form inequality at one cut into a
+mixed inequality across all slots. We first prove the single-cut
+Cauchy--Schwarz step, then explain why a sorting sequence gives the signed
+H\"older inequality. The method comes from infrared and chessboard estimates in
+statistical mechanics
+\cite{FrohlichSimonSpencer76,DysonLiebSimon78,FrohlichLieb,FILS,GlimmJaffe87};
+the same positive semidefinite formalism appears in graph-density inequalities
+and flag algebras
+\cite{ConlonLee,HatamiNorine11,Razborov07,LovaszGraphLimits12,BorgsChayesLovaszSosVesztergombi08}.
+We use only the finite cut-matrix form proved below.
+
+\begin{definition}[Folds; sorting sequences]\label{def:sorting}
+For a cut $\vartheta$ define $\phi^\vartheta_\pm\colon V\to V$ by
+$\phi^\vartheta_+(v)=v$ for $v\in V_+$ and $\phi^\vartheta_+(v)=\vartheta v$ for
+$v\in V_-$; and $\phi^\vartheta_-(v)=\vartheta v$ for $v\in V_+$ and
+$\phi^\vartheta_-(v)=v$ for $v\in V_-$. A finite sequence of cuts
+$\vartheta^1,\dots,\vartheta^T$ with chosen signs $s_t\in\{\pm\}$ is
+\emph{sorting} if
+$\phi^{\vartheta^T}_{s_T}\circ\dots\circ\phi^{\vartheta^1}_{s_1}$ is constant on
+$V$.
+\end{definition}
+
+\begin{lemma}[Cauchy--Schwarz at one cut]\label{lem:holder:one-cut}
+Suppose $\nu$ is reflection positive at $\vartheta$. Then for every assignment
+$h\colon V\to\R^{\mathcal X}$,
+\begin{equation}\label{eq:cs-cut}
+ |\Lambda_\nu(h)|^2\le\Lambda_\nu(h\circ\phi^\vartheta_+)\,
+ \Lambda_\nu(h\circ\phi^\vartheta_-),\qquad
+ \Lambda_\nu(h\circ\phi^\vartheta_\pm)\ge0 .
+\end{equation}
+In particular $\Lambda_\nu(g)\ge0$ for a constant assignment.
+\end{lemma}
+
+\begin{proof}
+Put $F(x)=\prod_{u\in V_+}h(u)(x_u)$ and $G(x)=\prod_{u\in V_+}h(\vartheta u)(x_u)$
+for $x\in\mathcal X^{V_+}$. By \eqref{eq:cc:bilinear}, $\Lambda_\nu(h)$ is the
+cut form of $\nu$ at $(F,G)$, and its values at $(F,F)$ and $(G,G)$ are
+$\Lambda_\nu(h\circ\phi^\vartheta_+)$ and $\Lambda_\nu(h\circ\phi^\vartheta_-)$:
+the first folded assignment puts $h(u)$ at $u$ and at $\vartheta u$, the second
+puts $h(\vartheta u)$ at both ($u\in V_+$). Cauchy--Schwarz for the positive
+semidefinite form of $C_\vartheta(\nu)$ gives \eqref{eq:cs-cut}. For a constant
+assignment $F=G$.
+\end{proof}
+
+\begin{theorem}[Signed H\"older inequality]\label{thm:holder}
+Let $\nu$ be a finite signed measure on $\mathcal X^V$ that is RP at every cut
+of a sorting sequence. Then for all real functions $g$, $g_v$ on $\mathcal X$,
+\[
+ \Lambda_\nu(g)\ge0\qquad\text{and}\qquad
+ \big|\Lambda_\nu\big((g_v)_{v\in V}\big)\big|\le\prod_{v\in V}\Lambda_\nu(g_v)^{1/d}.
+\]
+\end{theorem}
+
+\begin{proof}
+By \cref{lem:holder:one-cut}, diagonal values are nonnegative. Fix real
+functions $f_1,\dots,f_k$ and let $M=\max_h|\Lambda_\nu(h)|$ over the
+assignments $h\colon V\to\{f_1,\dots,f_k\}$. If $M>0$, let $h$ attain it. Both
+folded assignments again take values in $\{f_i\}$, so by \eqref{eq:cs-cut}
+they are nonnegative, at most $M$, and have product at least $M^2$. Hence both
+equal $M$: folds of maximisers are maximisers. Applying the folds in the order
+$\vartheta^T,\vartheta^{T-1},\dots,\vartheta^1$ turns $h$ into
+$h\circ\phi^{\vartheta^T}_{s_T}\circ\dots\circ\phi^{\vartheta^1}_{s_1}$, which is a
+constant maximiser. Therefore $M=\max_i\Lambda_\nu(f_i)$, which also holds when
+$M=0$. For $\epsilon>0$ apply this to
+$f_v=g_v/(\Lambda_\nu(g_v)+\epsilon)^{1/d}$, which satisfy $\Lambda_\nu(f_v)\le1$.
+Multilinearity gives
+$|\Lambda_\nu((g_v))|\le\prod_v(\Lambda_\nu(g_v)+\epsilon)^{1/d}$; let
+$\epsilon\downarrow0$.
+\end{proof}
+
+The proof uses only reflection positivity at the cuts of the sequence; it does
+not use that $\nu$ is nonnegative or normalized. Recall that a
+\emph{seminorm} is a nonnegative, absolutely homogeneous function satisfying
+the triangle inequality; it may vanish on nonzero vectors.
+
+\begin{corollary}[Seminorm]\label{cor:seminorm}
+Under the hypotheses of \cref{thm:holder}, $\|g\|_\nu=\Lambda_\nu(g)^{1/d}$ is a
+seminorm on $\R^{\mathcal X}$. If every one-slot marginal of $\nu$ is the
+uniform probability measure on $\mathcal X$, then
+$|\E_{x\in\mathcal X}g(x)|\le\|g\|_\nu$.
+\end{corollary}
+
+\begin{proof}
+Homogeneity holds because $d$ is even. For the triangle inequality, expand
+$\Lambda_\nu(g_1+g_2)$ into $2^d$ mixed terms and bound each by
+\cref{thm:holder}:
+\[
+ 0\le\Lambda_\nu(g_1+g_2)\le\sum_{S\subseteq V}\|g_1\|_\nu^{|S|}\|g_2\|_\nu^{d-|S|}
+ =(\|g_1\|_\nu+\|g_2\|_\nu)^d .
+\]
+For the mean, put $g$ in one slot and $1$ in the others; then $\Lambda_\nu(1)=1$
+and the uniform marginal give
+$|\E g|=|\Lambda_\nu(g,1,\dots,1)|\le\|g\|_\nu\|1\|_\nu^{d-1}=\|g\|_\nu$.
+\end{proof}
+
+\begin{remark}[Domination at one cut]\label{rem:cc:mixed}
+Let $\mu$ satisfy the hypotheses of \cref{thm:holder}, let $\vartheta$ be a cut
+at which $\mu$ is RP (it need not belong to the sorting sequence), and let $D$
+be a finite signed measure with a bracket
+$\bigl(\begin{smallmatrix}\mu&D\\ D^*&\mu\end{smallmatrix}\bigr)\succeq_\vartheta0$,
+for instance $0\preceq_\vartheta D\preceq_\vartheta\mu$
+(\cref{lem:record:block-gram}(d)). With $F,G$ as in \eqref{eq:cc:bilinear},
+\cref{lem:record:block-gram}(a) and \cref{thm:holder} for the two folded
+assignments, in which each $g_u$ with $u\in V_+$, respectively $u\in V_-$,
+occurs twice, give
+\[
+ |\Lambda_D((g_v)_v)|\le Q_\mu(F,F)^{1/2}Q_\mu(G,G)^{1/2}
+ \le\prod_{v\in V}\Lambda_\mu(g_v)^{1/d}.
+\]
+The measure $D$ need not be positive, RP at any other cut, a product, or
+normalized, and no seminorm is attached to it; only the dominating law
+carries the H\"older inequality. Normalizing $D$ by its mass would in general
+destroy the domination, and we never do it.
+\end{remark}
+
+\subsection{The $72$ slots $(\Z/6\Z)^2\times\{0,1\}$, their symmetries, and the six queries}\label{subsec:slot-array}
+
+The slots of the functional are indexed by a product of reflection
+coordinates: two six-chamber coordinates and a two-point layer. A product of
+coordinates, each with its own cuts and its own sorting sequence, is sorted by
+the concatenation of the sequences, because folds of different coordinates
+commute; this is the reason for working with products. A chamber coordinate
+carries the rotation $\rot$, the relation $\Rel$ and the group $\mathcal G_6$ of chamber automorphisms defined below, which transport
+positivity from one chamber cut to the others.
+
+\begin{definition}[Reflection coordinates; the slot array]\label{def:slot-array}
+\leavevmode
+\begin{enumerate}[label=(\alph*)]
+\item A \emph{reflection coordinate} is a finite set with a family of cuts that
+ contains a sorting sequence. For reflection coordinates $V^{(i)}$,
+ $i\in\mathcal C$ (a finite index set), a cut $\vartheta$ of $V^{(i)}$ with plus
+ half $V^{(i)}_+$ induces the cut $\vartheta^{[i]}$ of $V=\prod_{i\in\mathcal C}V^{(i)}$
+ that applies $\vartheta$ to the coordinate $v_i$ and fixes the other
+ coordinates, with plus half $\{v:v_i\in V^{(i)}_+\}$; these are the \emph{cuts
+ of the coordinate $i$}.
+\item The \emph{chamber coordinate} is $\Zsix$, whose elements are
+ \emph{chambers}, with the \emph{rotation} $\rot(j)=j+2$ for even $j$ and
+ $\rot(j)=j-2$ for odd $j$, the relation
+ $\Rel(x,y)\Leftrightarrow y\in\{x,x+1,x-1,\rot(x)\}$, and, for $a\in\Zsix$,
+ the \emph{chamber reflection} $\vartheta_a(j)=2a-1-j$ with plus half
+ $H_a=\{a,a+1,a+2\}$; its family of cuts consists of the six \emph{chamber
+ cuts} $(\vartheta_a,H_a)$, $a\in\Zsix$ (they are cuts by
+ \cref{lem:slot-array}(i) and contain a sorting sequence by
+ \cref{lem:slot-array}(ii)). A pair $(j,\rot j)$ is a \emph{$\rot$-step}. The
+ plus fold of $\vartheta_a$ is $f_a$: $f_a(j)=j$ for $j\in H_a$ and
+ $f_a(j)=\vartheta_a(j)$ otherwise.
+\item The \emph{layer} is $\{0,1\}$ with the single cut $\ell\mapsto1-\ell$ and
+ plus half $\{0\}$; its plus fold $\ell\mapsto0$ is constant, so this cut is a
+ sorting sequence.
+\item The \emph{slot array} is $V=\Zsix\times\Zsix\times\{0,1\}$, $d=|V|=72$,
+ with slots $v=(u_0,u_1,\ell)$; the coordinates $0$ and $1$ are the
+ \emph{chamber coordinates} and the coordinate $2$, with value $\ell$, is the
+ \emph{layer}. The \emph{chamber cut} $\vartheta_{c,a}$ ($c\in\{0,1\}$,
+ $a\in\Zsix$) is the cut of the coordinate $c$ induced by $\vartheta_a$. The
+ \emph{reserved cut} is the cut of the layer,
+ \[
+  \iota(u_0,u_1,\ell)=(u_0,u_1,1-\ell),\qquad V_+=\{\ell=0\},\qquad V_-=\iota V_+ .
+ \]
+ The \emph{family of cuts} of $V$ is
+ $\mathfrak F=\{\vartheta_{c,a}:c\in\{0,1\},\ a\in\Zsix\}\cup\{\iota\}$: thirteen cuts, with seven distinct
+ involutions, since $\vartheta_{a+3}=\vartheta_a$ with complementary halves
+ (three involutions in each chamber coordinate, and $\iota$). At
+ $\iota$ we write $C_\iota$, $\succeq_\iota$ and $Q_\kappa$ for the cut matrix,
+ the cut order and the cut form (\cref{def:cc:order}).
+\item The \emph{queries} are the six ordered pairs of slots
+ \[
+  e^{(j)}=\big((0,j,0),\,(\rot0,\rot j,1)\big)=\big((0,j,0),\,(2,\rot j,1)\big),
+  \qquad j\in\Zsix,
+ \]
+ forming the family $\mathcal E_6$. For $e=(u_e,v_e)\in\mathcal E_6$, $u_e$ is
+ the \emph{source} and $v_e$ the \emph{target}.
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}[The slot array]\label{lem:slot-array}
+\leavevmode
+\begin{enumerate}[label=(\roman*)]
+\item \emph{Chamber geometry and transport.} Each $\vartheta_a$ is a
+ fixed-point-free involution of $\Zsix$ commuting with $\rot$, with
+ $\vartheta_a(H_a)=\Zsix\setminus H_a$; moreover $\vartheta_{a+3}=\vartheta_a$
+ and $H_{a+3}=\Zsix\setminus H_a$, so $\vartheta_{c,a+3}$ is $\vartheta_{c,a}$
+ with its halves exchanged. The \emph{chamber automorphisms}, the
+ permutations $\alpha$ of $\Zsix$ with $\alpha\circ\rot=\rot\circ\alpha$ and
+ $\Rel(\alpha x,\alpha y)\Leftrightarrow\Rel(x,y)$, form a group $\mathcal G_6$
+ of order $6$: the translations $j\mapsto j+2k$ ($k=0,1,2$) and the
+ reflections $\vartheta_0,\vartheta_1,\vartheta_2$. For $a\in\Zsix$ the element
+ $\alpha_a\in\mathcal G_6$ given by $\alpha_a(j)=j-a$ for even $a$ and
+ $\alpha_a(j)=a+2-j$ for odd $a$ satisfies $\alpha_a(H_a)=H_0$ and
+ $\alpha_a\vartheta_a\alpha_a^{-1}=\vartheta_0$. There is exactly one bijection
+ $H_a\to H_0$ that preserves $\Rel$ (the \emph{half isomorphism} of $H_a$); it
+ is the restriction of every $\alpha\in\mathcal G_6$ with $\alpha(H_a)=H_0$, and
+ it maps the unique $\rot$-step inside $H_a$ to $(0,2)$. \emph{Transport:} let
+ $V=\prod_{i\in\mathcal C}V^{(i)}$ be a product of reflection coordinates whose
+ coordinate $c$ is a chamber coordinate (for instance $\Zsix$ itself,
+ $\Zsix\times\{0,1\}$, or the slot array with $c\in\{0,1\}$), write
+ $\vartheta_{c,a}$ for the cut of the coordinate $c$ induced by $\vartheta_a$, and
+ for $\alpha\in\mathcal G_6$ let $\alpha^{(c)}$ be the permutation of $V$ that
+ applies $\alpha$ to the coordinate $c$. If a finite signed measure $\kappa$ on
+ $\mathcal X^V$ is invariant under $\alpha_a^{(c)}$, then
+ $C_{\vartheta_{c,a}}(\kappa)=S_aC_{\vartheta_{c,0}}(\kappa)S_a^{\mathsf T}$
+ for the permutation matrix $S_a$ of the bijection
+ $x\mapsto(x_{\alpha_a^{(c)}u})_u$ of half-labellings; so a lower bound
+ $C_{\vartheta_{c,0}}(\kappa)\succeq Q$ gives
+ $C_{\vartheta_{c,a}}(\kappa)\succeq S_aQS_a^{\mathsf T}$, and
+ $\kappa\succeq_{\vartheta_{c,0}}\kappa'$ implies
+ $\kappa\succeq_{\vartheta_{c,a}}(\alpha_a^{(c)})_*\kappa'$. In particular a
+ measure invariant under $\mathcal G_6$ acting on the coordinate $c$ that is RP
+ at $\vartheta_{c,0}$ is RP at every chamber cut of the coordinate $c$; and on
+ the slot array a measure invariant under $\mathcal G_6$ acting on each chamber
+ coordinate that is RP at $\vartheta_{0,0}$, $\vartheta_{1,0}$ and $\iota$ is RP
+ at every cut of $\mathfrak F$.
+\item \emph{Folds.} $f_0=(0,1,2,2,1,0)$ and $f_4=(0,0,5,4,4,5)$ (values at
+ $0,\dots,5$), and $f_0\circ f_4\circ f_0$ is the constant map $0$; so
+ $(\vartheta_0,\vartheta_4,\vartheta_0)$, all with sign $+$, is a sorting
+ sequence of $\Zsix$. The minus fold of $\vartheta_a$ is $f_{a+3}$; in
+ particular $f_4$ is the plus fold of $\vartheta_4$, the involution
+ $\vartheta_1=\vartheta_4$ with plus half $H_4=\{4,5,0\}$.
+\item \emph{Products and sorting.} In a product $V=\prod_{i\in\mathcal C}V^{(i)}$
+ of reflection coordinates every induced cut is a cut; its folds act on its
+ own coordinate by the folds of the factor and fix the other coordinates;
+ reflections and folds of cuts of different coordinates commute; and every
+ interleaving of sorting sequences of the factors that keeps the order within
+ each factor is a sorting sequence of $V$. For the slot array, $\iota$ is a
+ cut, every chamber reflection and chamber fold commutes with $\iota$ and its
+ folds, the seven-step sequence
+ \[
+  \vartheta_{0,0},\ \vartheta_{0,4},\ \vartheta_{0,0},\ \vartheta_{1,0},\
+  \vartheta_{1,4},\ \vartheta_{1,0},\ \iota,
+ \]
+ all with sign $+$, maps every slot to $(0,0,0)$, and $\mathfrak F$ consists
+ of seven distinct involutions. Consequently a finite signed measure $\nu$ on
+ $\mathcal X^V$ that is RP at the cuts of this sequence satisfies
+ \cref{thm:holder,cor:seminorm} with $d=72$; if its one-slot marginals are
+ uniform probabilities, $(\E g)^{72}\le\Lambda_\nu(g)$ whenever $\E g\ge0$,
+ which is $\alpha^{72}\le Y$ for the functional (\cref{lem:record:holder}(e)).
+\item \emph{Queries.} The twelve endpoints of the six queries are distinct;
+ every source lies in $V_+$ and every target in $V_-$; the reflected targets
+ $\iota v_e=(2,\rot j,0)$ lie in $V_+$; and the twelve slots $u_e$, $\iota v_e$
+ ($e\in\mathcal E_6$) of $V_+$ are distinct. Each query applies $\rot$ to both
+ chamber coordinates and flips the layer.
+\item \emph{Cylinder pullback.} Let $V=\prod_{i\in\mathcal C}V^{(i)}$ be a product
+ of reflection coordinates, $\emptyset\ne\mathcal C'\subseteq\mathcal C$ a set
+ of \emph{active} coordinates, $W=\prod_{i\in\mathcal C'}V^{(i)}$ with the
+ induced cuts, and $\pi\colon V\to W$ the projection. The \emph{pullback}
+ $\rho^*$ of a finite signed measure $\rho$ on $\mathcal X^W$ is its image under
+ $\zeta\mapsto\zeta\circ\pi$: the slot $v$ receives the label of $\pi(v)$.
+ \begin{enumerate}[label=(\alph*)]
+ \item \emph{Inactive cuts.} If $\vartheta$ is a cut of a coordinate
+  $i\notin\mathcal C'$, every $\zeta\circ\pi$ lies in
+  $\operatorname{Fix}(\vartheta^{[i]})$; so every nonnegative measure supported
+  on such labellings, for instance the pullback of any nonnegative measure on
+  $\mathcal X^W$, is diagonal at $\vartheta^{[i]}$ and has a nonnegative
+  diagonal cut matrix there (\cref{lem:commoncut}(i)).
+ \item \emph{Active cuts.} If $\vartheta$ is a cut of a coordinate
+  $i\in\mathcal C'$, then $\zeta\mapsto\zeta\circ\pi$ is half-local for the cuts
+  induced by $\vartheta$ on $W$ and on $V$ (\cref{lem:commoncut}(v)); so an
+  inequality $\rho_1\succeq\rho_2$ at the cut of $W$ gives $\rho_1^*\succeq\rho_2^*$
+  at the cut of $V$, and in particular reflection positivity passes from
+  $\rho$ to $\rho^*$.
+ \item \emph{Marginals.} For $u,v\in V$ the law of $(z_u,z_v)$ under $\rho^*$ is
+  the law of $(\zeta_{\pi u},\zeta_{\pi v})$ under $\rho$.
+ \item \emph{Equivariance.} If $\rho$ is invariant under
+  $\zeta\mapsto(g(\zeta_w))_w$ for a bijection $g$ of $\mathcal X$, then $\rho^*$
+  is invariant under $z\mapsto(g(z_v))_v$.
+ \end{enumerate}
+ For the slot array and $\mathcal C'=\{0,2\}$ (a law on labels indexed by
+ $(u_0,\ell)$), the cuts of the second chamber coordinate are inactive, and by
+ (c) the ordered pair of labels at every query of $\mathcal E_6$ under the
+ pullback $\rho^*$ has the law of the single ordered pair at the slots
+ $(0,0)$ and $(2,1)$ of $\Zsix\times\{0,1\}$ under the original law $\rho$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) $\vartheta_a(\vartheta_a(j))=2a-1-(2a-1-j)=j$. A fixed point would satisfy
+$2j\equiv2a-1\pmod6$, which is impossible because $2j-2a+1$ is odd. For
+$i\in\{0,1,2\}$, $\vartheta_a(a+i)=a-1-i$, so
+$\vartheta_a(H_a)=\{a-1,a-2,a-3\}=\Zsix\setminus H_a$; and
+$\vartheta_{a+3}(j)=2a+5-j\equiv\vartheta_a(j)$,
+$H_{a+3}=\{a+3,a+4,a+5\}=\Zsix\setminus H_a$. The map $\vartheta_a$ reverses
+parity. For even $j$, $\vartheta_a(j)$ is odd and
+$\rot(\vartheta_a(j))=2a-3-j=\vartheta_a(j+2)=\vartheta_a(\rot j)$; for odd $j$,
+$\rot(\vartheta_a(j))=2a+1-j=\vartheta_a(j-2)=\vartheta_a(\rot j)$.
+
+\emph{Chamber automorphisms.} Let $\alpha$ be one. For every $x$, the elements
+$y\ne x$ with $\Rel(x,y)$ and $y\ne\rot(x)$ are $x\pm1$, because
+$\rot(x)=x\pm2$. Since $\alpha$ is a bijection commuting with $\rot$ and
+preserving $\Rel$, it maps this set for $x$ onto the set for $\alpha x$; so it
+preserves the hexagon adjacency $y=x\pm1$, and $\alpha$ is a rotation
+$j\mapsto j+k$ or a reflection $j\mapsto m-j$. A rotation commutes with $\rot$
+if and only if $k$ is even: then it preserves parity and
+$\rot(j+k)=\rot(j)+k$, while for odd $k$, $\rot(k)=k-2\ne k+2=\rot(0)+k$. A
+reflection commutes with $\rot$ if and only if $m$ is odd: then it reverses
+parity and $\rot(m-j)=m-\rot(j)$, while for even $m$,
+$\rot(m)=m+2\ne m-2=m-\rot(0)$. The odd values $m=2a-1$ give
+$\vartheta_0,\vartheta_1,\vartheta_2$. Conversely these six maps commute with
+$\rot$ and change the differences $y-x\in\{0,\pm1\}$ at most by a sign, so
+they preserve $\Rel$, and so do their inverses. The chamber automorphisms form
+a group by definition; it has these six elements.
+
+\emph{The elements $\alpha_a$.} For even $a$, $\alpha_a$ is a translation by an
+even number, $\alpha_a(H_a)=H_0$, and
+$\alpha_a\vartheta_a\alpha_a^{-1}(j)=2a-1-(j+a)-a=-1-j=\vartheta_0(j)$. For odd
+$a$, $\alpha_a$ is the reflection $j\mapsto m-j$ with $m=a+2$ odd, hence lies
+in $\mathcal G_6$; it is an involution with $\alpha_a(H_a)=\{2,1,0\}$, and
+$\alpha_a\vartheta_a\alpha_a(j)=a+2-\big(2a-1-(a+2-j)\big)=5-j=\vartheta_0(j)$.
+
+\emph{Half isomorphisms.} Restricted to $H_0=\{0,1,2\}$, the relation $\Rel$
+holds on all ordered pairs except $(2,0)$: indeed $\rot(0)=2$, while
+$0\notin\{2,1,3,4\}$. So $(0,2)$ is the unique pair $(x,y)$ of $H_0$ with
+$\Rel(x,y)$ and not $\Rel(y,x)$, and it is the only $\rot$-step inside $H_0$
+($\rot(1)=5$ and $\rot(2)=4$ lie outside $H_0$). The automorphism $\alpha_a$
+maps $H_a$ onto $H_0$ preserving $\Rel$ and $\rot$-steps, so $H_a$ also has a
+unique asymmetric pair, which is its unique $\rot$-step. A $\Rel$-preserving
+bijection $H_a\to H_0$ must map the asymmetric pair of $H_a$ to $(0,2)$ and
+therefore the third element to $1$. This proves uniqueness, and the restriction
+of every $\alpha\in\mathcal G_6$ with $\alpha(H_a)=H_0$ is such a bijection.
+
+\emph{Transport.} Let $\sigma=\alpha_a^{(c)}$. Since
+$\alpha_a^{-1}\vartheta_0\alpha_a=\vartheta_a$, we have
+$\sigma^{-1}\vartheta_{c,0}\sigma=\vartheta_{c,a}$, and
+$\sigma^{-1}\{v:v_c\in H_0\}=\{v:v_c\in\alpha_a^{-1}H_0\}=\{v:v_c\in H_a\}$ is
+the plus half of $\vartheta_{c,a}$. If $\sigma_*\kappa=\kappa$, then
+\cref{rem:cut-symmetries}(c) gives the relabelling of the cut matrix, and
+$\kappa\succeq_{\vartheta_{c,0}}\kappa'$ implies
+$\kappa=\sigma_*\kappa\succeq_{\vartheta_{c,a}}\sigma_*\kappa'$. For the last
+two assertions apply this with $\kappa'=0$ to each $a\in\Zsix$ and each chamber
+coordinate.
+
+(ii) For $f_0$: $H_0=\{0,1,2\}$ and $\vartheta_0(3,4,5)=(2,1,0)$. For $f_4$:
+$H_4=\{4,5,0\}$ and $\vartheta_4(j)=7-j\equiv1-j$, so $\vartheta_4(1,2,3)=(0,5,4)$.
+Hence
+\[
+ f_0(\Zsix)=\{0,1,2\},\qquad f_4(\{0,1,2\})=\{0,5\},\qquad f_0(\{0,5\})=\{0\},
+\]
+and $f_0\circ f_4\circ f_0$ is the constant map $0$. The minus fold of
+$\vartheta_a$ maps $H_a$ by $\vartheta_a$ onto $H_{a+3}$ and fixes $H_{a+3}$; as
+$\vartheta_{a+3}=\vartheta_a$, it is the plus fold $f_{a+3}$ of $\vartheta_{a+3}$.
+
+(iii) An induced cut $\vartheta^{[i]}$ is a fixed-point-free involution because
+$\vartheta$ is one, and it maps $\{v:v_i\in V^{(i)}_+\}$ onto
+$\{v:v_i\in V^{(i)}_-\}$. If $v_i\in V^{(i)}_+$, then $v$ lies in the plus half
+and is fixed by the plus fold; otherwise the plus fold sends $v$ to
+$\vartheta^{[i]}v$, whose coordinate $i$ is $\vartheta(v_i)$. So the folds of
+$\vartheta^{[i]}$ replace $v_i$ by its fold and fix the other coordinates, and
+maps acting on different coordinates commute. In the composition of the folds
+of an interleaved sequence, the coordinate $i$ is changed only by the folds of
+the coordinate $i$, in their order, and their composition is constant on
+$V^{(i)}$; so the composition is constant on $V$. For the slot array the factor
+sequences are $(\vartheta_0,\vartheta_4,\vartheta_0)$ for both chamber
+coordinates, by (ii), and the single cut of the layer, whose plus fold
+$\ell\mapsto0$ is constant; $\iota$ is the cut of the layer. The induced
+involutions $\vartheta_{c,a}$ and $\vartheta_{c,a'}$ coincide if and only if
+$\vartheta_a=\vartheta_{a'}$, that is $2a\equiv2a'\pmod6$, that is
+$a'\in\{a,a+3\}$; involutions of different coordinates differ; so $\mathfrak F$
+consists of $3+3+1=7$ involutions. The last assertion is
+\cref{thm:holder,cor:seminorm}.
+
+(iv) The sources $(0,j,0)$ are six distinct slots with $u_0=0$ and $\ell=0$; the
+targets $(2,\rot j,1)$ are six distinct slots, since $\rot$ is a bijection, with
+$u_0=2$ and $\ell=1$. As $0\ne2$, the twelve endpoints are distinct. Sources lie
+in $V_+$ and targets in $V_-$, and $\iota v_e=(2,\rot j,0)\in V_+$; the slots
+$u_e$ and $\iota v_e$ are distinct, since their first coordinates are $0$ and
+$2$. The last sentence is the definition, with $\rot0=2$.
+
+(v) (a) If $i\notin\mathcal C'$, then $\vartheta^{[i]}v$ differs from $v$ only in
+the coordinate $i$, so $\pi(\vartheta^{[i]}v)=\pi(v)$ and
+$(\zeta\circ\pi)_{\vartheta^{[i]}v}=(\zeta\circ\pi)_v$. (b) Write $\vartheta_V$,
+$\vartheta_W$ for the cuts induced by $\vartheta$ on $V$ and on $W$, with plus
+halves $V_+$, $W_+$. Since $i\in\mathcal C'$, $\pi\circ\vartheta_V=\vartheta_W\circ\pi$,
+$\pi(V_+)\subseteq W_+$ and $\pi^{-1}(W_+)=V_+$. Put
+$\phi(\xi)=(\xi_{\pi v})_{v\in V_+}$ for $\xi\in\mathcal X^{W_+}$. For
+$z=\zeta\circ\pi$ we have $z_{V_+}=\phi(\zeta_{W_+})$ and
+$(z_{\vartheta_Vv})_{v\in V_+}=(\zeta_{\vartheta_W\pi v})_{v\in V_+}
+=\phi\big((\zeta_{\vartheta_Ww})_{w\in W_+}\big)$; so the pullback is the
+half-local map of $\phi$, and \cref{lem:commoncut}(v) applies. (c) and (d) are
+immediate from $z_v=\zeta_{\pi v}$. For the slot array with $\mathcal C'=\{0,2\}$,
+$\pi(0,j,0)=(0,0)$ and $\pi(2,\rot j,1)=(2,1)$.
+\end{proof}
+
+\begin{remark}\label{rem:slot-array-instances}
+Nothing in the transport of (i), in (iii) and in (v) depends on the particular
+factors. For instance the
+array $(\Zsix)^3$, with the nine-step sequence formed from
+$(\vartheta_0,\vartheta_4,\vartheta_0)$ in each of its three chamber
+coordinates, is sorted in the same way; Part~VI uses this array.
+\end{remark}
+
+\subsection{Square-affine invariance}\label{subsec:pos:invariance}
+
+Many laws below are invariant under relabelling all field elements
+at once by maps $x\mapsto rx+c$ with $r$ a square unit, chosen
+independently at each prime. Such a map acts only on the sampled
+field labels, not on the discrete choices in a record (which
+component or type was selected). Conditioning on a component or a
+type therefore preserves this invariance, while conditioning on a
+specified field label need not preserve it, and no invariance is claimed
+after such conditioning below. This subsection
+defines the invariance and lists the operations that preserve it.
+
+\begin{definition}[Square-affine invariance and pair law]\label{def:map:invariance}
+Let $\mathcal B$ be a finite set of odd primes with exponents $e_p\ge1$
+($p\in\mathcal B$), and $X_{\mathcal B}=\prod_{p\in\mathcal B}\Z/p^{e_p}\Z$. Let
+$\mathfrak G_{\mathcal B}$ be the group of maps $g=(g_p)_{p\in\mathcal B}$ of
+$X_{\mathcal B}$, $g(x)_p=r_px_p+c_p$, where $r_p$ is a square unit modulo
+$p^{e_p}$ and $c_p\in\Z/p^{e_p}\Z$, chosen \emph{independently} for each prime
+(for $e_p=1$: $r_p\in\Qsq$ and $c_p\in\Fp$). It acts on tuples
+$z\in X_{\mathcal B}^S$ ($S$ any finite index set) by $(gz)_s=g(z_s)$, the same
+$g$ for every index. A finite signed measure $\mu$ on $\Omega\times X_{\mathcal B}^S$,
+where the finite set $\Omega$ records discrete data fixed by the group (maps,
+component and type indices, tags), is \emph{square-affine invariant} if it is
+invariant under $(\omega,z)\mapsto(\omega,gz)$ for all $g\in\mathfrak G_{\mathcal B}$.
+If $e_p=1$ for every $p\in\mathcal B$, write
+$\Om[\mathcal B]=\prod_{p\in\mathcal B}\Om\subseteq X_{\mathcal B}^2$ (the pairs
+$(x,y)$ with $y_p-x_p\in\Qsq$ for every $p\in\mathcal B$); the \emph{product
+strict-square pair law} is the uniform probability on $\Om[\mathcal B]$, which
+is $\bigotimes_{p\in\mathcal B}\Unif(\Om)$.
+\end{definition}
+
+\begin{lemma}[Marginals and pair laws]\label{lem:marginals}
+Let $\mathcal B$ be as in \cref{def:map:invariance}.
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item\label{it:marg:closure} \emph{Invariance is preserved} by the following
+ operations on square-affine invariant measures: sums and real multiples;
+ normalization of a nonzero nonnegative measure; passing to the variation
+ $|\mu|$; multiplication by a nonnegative function $\Phi(\omega,z)$ with
+ $\Phi(\omega,gz)=\Phi(\omega,z)$ (for instance the restriction to an event
+ defined by the latent record $\omega$ alone, or to injectivity at every
+ prime, or, when $e_p=1$, a density that is a product of functions
+ $\Ap(\pm(z_s-z_{s'})_p)$); images under $(\omega,z)\mapsto(\omega',z\circ\varsigma_\omega)$,
+ where $\omega'$ is a function of $\omega$ and $\varsigma_\omega\colon S'\to S$ is
+ a map of index sets depending on $\omega$ (including the
+ cylinder pullback of \cref{lem:slot-array}(v), forgetting coordinates);
+ products $\mu_1\otimes\mu_2$ of invariant measures over disjoint prime sets
+ $\mathcal B_1,\mathcal B_2$ (as a measure over $\mathcal B_1\cup\mathcal B_2$, with
+ latent record $(\omega_1,\omega_2)$); and mixtures
+ $\sum_{\omega_0\in\Omega_0}\kappa(\omega_0)\,\delta_{\omega_0}\otimes\mu^{\omega_0}$ on
+ $(\Omega_0\times\Omega)\times X_{\mathcal B}^S$ of invariant measures
+ $\mu^{\omega_0}$ indexed by an additional latent variable $\omega_0$ with law
+ $\kappa$ (for example a map shared by all primes of a block, drawn before the
+ field labels, which are then independent across the primes). For a prime $p$
+ with $e_p=1$ and an oriented graph $G$, the uniform law on the injective
+ strict-square labellings of $G$ over $\Fp$ (the law $\lambda_p(G)$ of
+ \cref{def:graphs:labeling}) and the uniform law on all its strict-square
+ labellings are invariant ($\mathcal B=\{p\}$).
+\item\label{it:marg:one} \emph{One-slot marginals.} If $\mu$ is an invariant
+ finite signed measure on $\Omega\times X_{\mathcal B}^S$, then for every
+ $s\in S$ and $\omega\in\Omega$ the measure $\mu(\{\omega\}\times\{z:z_s\in\cdot\})$
+ on $X_{\mathcal B}$ is $\mu(\{\omega\}\times X_{\mathcal B}^S)\,\Unif(X_{\mathcal B})$.
+ In particular the one-slot marginals of $\mu$ and of $|\mu|$ are
+ $\mu(1)\Unif(X_{\mathcal B})$ and $|\mu|(1)\Unif(X_{\mathcal B})$, where
+ $\mu(1)$ is the total mass; and if $\mu$ is nonnegative, the law of $z_s$
+ under $\mu(\cdot\mid\omega)$ is uniform for every $\omega$ of positive mass.
+ These conclusions need only invariance under the translations
+ $(\omega,z)\mapsto(\omega,(z_s+c)_s)$, $c\in X_{\mathcal B}$.
+\item\label{it:marg:pair} \emph{Pair laws.} Suppose $e_p=1$ for every
+ $p\in\mathcal B$. If $\mu$ is a nonzero nonnegative invariant measure,
+ $s\ne s'$, and $\mu$-almost surely $(z_s,z_{s'})\in\Om[\mathcal B]$, then the law
+ of $(z_s,z_{s'})$ under $\mu(\cdot\mid\omega)$, and under $\mu/\mu(1)$, is the
+ product strict-square pair law $\Unif(\Om[\mathcal B])$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\ref{it:marg:closure} Each operation commutes with the action
+$(\omega,z)\mapsto(\omega,gz)$. For images, $(gz)\circ\varsigma_\omega=g(z\circ\varsigma_\omega)$
+because $g$ acts slotwise; for products,
+$\mathfrak G_{\mathcal B_1\cup\mathcal B_2}=\mathfrak G_{\mathcal B_1}\times\mathfrak G_{\mathcal B_2}$
+acts factorwise; for the variation, the image under the bijection $g$ of the
+Jordan decomposition $\mu=\mu_+-\mu_-$ is again a decomposition into mutually
+singular nonnegative measures, so by uniqueness $g$ preserves $\mu_\pm$ and
+$|\mu|$; the other cases are immediate, injectivity being preserved because
+each $g_p$ is a bijection. The uniform laws are invariant because
+$z\mapsto rz+c$ ($r\in\Qsq$) is a bijection of the respective sets of
+labellings: it multiplies every difference by a nonzero square and preserves
+injectivity. Functions $\Ap(\pm(z_s-z_{s'})_p)$ are invariant for the same
+reason.
+
+\ref{it:marg:one} The measure $\mu(\{\omega\}\times\{z:z_s\in\cdot\})$ is
+invariant under the translations $x\mapsto x+c$, $c\in X_{\mathcal B}$, which
+lie in $\mathfrak G_{\mathcal B}$ and act transitively on $X_{\mathcal B}$; so it
+gives the same mass to every point. Summing over $\omega$ gives the
+unconditional statement, and $|\mu|$ is invariant under the same translations
+by the Jordan argument of \ref{it:marg:closure}. Only the translations were
+used.
+
+\ref{it:marg:pair} $\mathfrak G_{\mathcal B}$ acts transitively on $\Om[\mathcal B]$:
+given $(x,y),(x',y')\in\Om[\mathcal B]$, put
+$g(w)_p=\frac{y'_p-x'_p}{y_p-x_p}(w_p-x_p)+x'_p$; the ratio is a quotient of
+nonzero squares, so $g\in\mathfrak G_{\mathcal B}$, and $g(x)=x'$, $g(y)=y'$.
+Conditioning on $\omega$ preserves invariance, so the law of $(z_s,z_{s'})$
+under $\mu(\cdot\mid\omega)$ is an invariant probability on the finite set
+$\Om[\mathcal B]$, on which $\mathfrak G_{\mathcal B}$ acts transitively; hence it is
+uniform. Mixing over $\omega$ gives the statement for $\mu/\mu(1)$. Finally
+$\Om[\mathcal B]=\prod_p\Om$, so its uniform law is the product of the uniform
+laws of the factors.
+\end{proof}
+
+\subsection{Independent atoms: product laws and $\alpha^{72}\le Y$}\label{subsec:pos:products}
+
+The reference law of the functional is a product of laws of independent
+atoms, finite sets of primes. The next lemma collects what the product
+inherits from its factors.
+
+An \emph{atom} is a finite set $\Blk$ of odd primes with exponents $e_p\ge1$;
+$X_\Blk=\prod_{p\in\Blk}\Z/p^{e_p}\Z$ carries its uniform probability measure. Let
+$V$ be a slot set with a family $\mathfrak F$ of cuts that contains a sorting
+sequence, $d=|V|$, and let $\mathcal A$ be a set of pairwise disjoint atoms,
+each with a measure $\mu_\Blk$ on $X_\Blk^V$. For a finite set
+$\mathcal S\subseteq\mathcal A$ put $X_{\mathcal S}=\prod_{\Blk\in\mathcal S}X_\Blk$,
+identify a family $(z_{v,\Blk})_{v\in V,\Blk\in\mathcal S}$ with $(z_v)_{v\in V}$,
+$z_v=(z_{v,\Blk})_\Blk\in X_{\mathcal S}$, and let
+\[
+ \mu_{\mathcal S}=\bigotimes_{\Blk\in\mathcal S}\mu_\Blk ,\qquad
+ Z_{\mathcal S}(g)=\Lambda_{\mu_{\mathcal S}}(g)\quad(g\colon X_{\mathcal S}\to\R).
+\]
+For $\mathcal S_1\subseteq\mathcal S$, $\E_{\mathcal S_1}g$ is the uniform average
+of $g$ over the coordinates of the atoms of $\mathcal S_1$:
+$\E_{\mathcal S_1}g(x)=\E_{y\in X_{\mathcal S_1}}g(x+y)$, with $y$ extended by $0$
+at the other atoms.
+
+\begin{lemma}[Signed H\"older inequality, mean and averaging]\label{lem:record:holder}
+Suppose that every $\mu_\Blk$ is a probability measure on $X_\Blk^V$, reflection
+positive at every cut of $\mathfrak F$, and square-affine invariant
+(\cref{def:map:invariance}, for the primes of $\Blk$). Let
+$\mathcal S\subseteq\mathcal A$ be finite and let $g,g_v$ ($v\in V$) be real
+functions on $X_{\mathcal S}$.
+\begin{enumerate}[label=(\alph*)]
+\item $\mu_{\mathcal S}$ is a probability measure, RP at every cut of
+ $\mathfrak F$. Hence $Z_{\mathcal S}(g)\ge0$,
+ $|\Lambda_{\mu_{\mathcal S}}((g_v)_v)|\le\prod_vZ_{\mathcal S}(g_v)^{1/d}$, and
+ $\|g\|_{\mathcal S}=Z_{\mathcal S}(g)^{1/d}$ is a seminorm.
+\item $\mu_{\mathcal S}$ is invariant under
+ $\mathfrak G_{\mathcal S}=\prod_{\Blk\in\mathcal S}\mathfrak G_\Blk$; its one-slot
+ marginals are $\Unif(X_{\mathcal S})$; and for $u,w\in V$ the law of
+ $(z_u,z_w)$ is the product over $\Blk\in\mathcal S$ of the laws of
+ $(z_{u,\Blk},z_{w,\Blk})$ under $\mu_\Blk$. Consequently
+ $|\E_xg(x)|\le\|g\|_{\mathcal S}$.
+\item $\|g\circ\psi\|_{\mathcal S}=\|g\|_{\mathcal S}$ for every primewise map
+ $\psi\in\mathfrak G_{\mathcal S}$, $\psi(z)_p=r_pz_p+c_p$.
+\item If $\mathcal S_1\subseteq\mathcal S$, then
+ $Z_{\mathcal S}(\E_{\mathcal S_1}g)=Z_{\mathcal S\setminus\mathcal S_1}(\E_{\mathcal S_1}g)
+ \le Z_{\mathcal S}(g)$. If $g$ depends only on the coordinates of the atoms of
+ $\mathcal S_2\subseteq\mathcal S$, then $Z_{\mathcal S}(g)=Z_{\mathcal S_2}(g)$.
+\item If $\E_xg(x)=\alpha\ge0$, then $\alpha^d\le Z_{\mathcal S}(g)$. In
+ particular, for the lift, the inputs and the functional of
+ \cref{def:record:functional} (with $\mathcal S=\mathcal A_N$, $d=72$, and $I,D_0,s$ as there),
+ \[
+  \E_{z\in G_N}g^{I,D_0,s}(z)=\frac{D_0\,\#\{n\in A\cap I:\ n\equiv s\ (D_0)\}}{|I|},
+ \]
+ so $\E F_A=\alpha:=|A|/N$ and $\alpha^{72}\le\Yf(\Lsc,A)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) A product of probability measures is a probability measure. At a cut
+$\vartheta\in\mathfrak F$, $C_\vartheta(\mu_{\mathcal S})=\bigotimes_\Blk C_\vartheta(\mu_\Blk)$
+by \eqref{eq:cc:kron}, a Kronecker product of symmetric positive semidefinite
+matrices. Since $\mathfrak F$ contains a sorting sequence, \cref{thm:holder}
+and \cref{cor:seminorm} apply; $d$ is even because $V$ has a cut.
+(b) The invariance is the product clause of
+\cref{lem:marginals}\ref{it:marg:closure}, and the one-slot marginals are
+uniform by \cref{lem:marginals}\ref{it:marg:one}. Under a product measure the
+coordinates of different factors are independent, and $(z_u,z_w)$ is the
+family of the pairs $(z_{u,\Blk},z_{w,\Blk})$. The mean bound is the second
+part of \cref{cor:seminorm}.
+(c) By (b), the map $(z_v)_v\mapsto(\psi(z_v))_v$ preserves $\mu_{\mathcal S}$.
+(d) $\E_{\mathcal S_1}g$ is the average of the translates $g(\cdot+y)$,
+$y\in X_{\mathcal S_1}$; by (c) with $r_p=1$ they all have seminorm
+$\|g\|_{\mathcal S}$, and the triangle inequality of (a) gives the inequality.
+The two equalities follow from Fubini, since the factors $\mu_\Blk$ are
+probability measures and the integrand does not depend on the labels of the
+atoms integrated out.
+(e) By (b), $\alpha\le\|g\|_{\mathcal S}$. For the lift, averaging over $z$
+annihilates every nontrivial character, and the trivial character
+has conductor $1$, at most the cutoff $Q$ of the lift
+(\cref{sec:lifts}), so it is retained and the mean of
+$\mathcal L_{I,N}f$ is
+$\widehat f_I(0)=|I|^{-1}\sum_{n\in I}f(n)$. With
+$f=(D_0\one_{n\equiv s\,(D_0)}\one_A)|_I$ this is the stated number; with
+$I=[N]$ and $D_0=1$ it is $\alpha$. Apply the first part to $g=F_A$, for which
+$Z_{\mathcal A_N}(F_A)=\Yf(\Lsc,A)$.
+\end{proof}
+
+For the slot array and its family $\mathfrak F$ the hypotheses of the lemma
+are contained in \ref{it:record:R1}--\ref{it:record:R3} of
+\cref{hyp:record:reference}, which Part~V verifies atom by atom at every cut of
+$\mathfrak F$, not only at the sorting cuts (see the discussion after
+\cref{hyp:record:reference}).
+
+\paragraph{Consequences and what to read next.}
+Only linear algebra (the Loewner order of \cref{def:prelim:operators},
+Kronecker products, polar decomposition, Cauchy--Schwarz and Jensen's
+inequality) and the arithmetic notation of \cref{sec:notation}: the nonzero
+squares $\Qsq$, the strict-square pairs $\Om$ and the indicator $\Ap$. Later
+definitions are named only as examples or applications: the laws
+$\lambda_p(G)$ (\cref{def:graphs:labeling}) in \cref{lem:marginals}, the
+coupled index (\cref{def:hyb:coupled}) in \cref{rem:cc:limits}, and the lift,
+the functional and the reference hypotheses
+(\cref{def:record:functional,hyp:record:reference}) in and after
+\cref{lem:record:holder}(e). No property of square-difference-free sets is
+used in this section.

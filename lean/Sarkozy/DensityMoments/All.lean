@@ -1,0 +1,29 @@
+module
+
+public import Sarkozy.DensityMoments.ChoiceClasses
+public import Sarkozy.DensityMoments.Clique36Assembly
+public import Sarkozy.DensityMoments.Clique36
+public import Sarkozy.DensityMoments.LawAlgebra
+public import Sarkozy.DensityMoments.DigitBijection
+public import Sarkozy.DensityMoments.IidPrefix
+public import Sarkozy.DensityMoments.PrefixAllowance
+public import Sarkozy.DensityMoments.PrefixDeletion
+public import Sarkozy.DensityMoments.PrefixEqualityEvents
+public import Sarkozy.DensityMoments.PrefixDeletionBridge
+public import Sarkozy.DensityMoments.Unconditional
+public import Sarkozy.DensityMoments.PrefixCopies
+public import Sarkozy.DensityMoments.Sanity
+public import Sarkozy.DensityMoments.MiddleCatalogTable
+public import Sarkozy.DensityMoments.MiddleCatalog72
+public import Sarkozy.DensityMoments.PacketGates
+public import Sarkozy.DensityMoments.PacketGateData
+public import Sarkozy.DensityMoments.PacketsMain
+public import Sarkozy.DensityMoments.UpperGates
+public import Sarkozy.DensityMoments.NonrootPacket
+public import Sarkozy.DensityMoments.CoupledMixture
+public import Sarkozy.DensityMoments.ExactTypedMixture
+public import Sarkozy.DensityMoments.PacketsBridge
+public import Sarkozy.DensityMoments.TypedMixtureProved
+public import Sarkozy.DensityMoments.CoupledSlots
+public import Sarkozy.DensityMoments.SubCellGates
+public import Sarkozy.DensityMoments.SubCellMain

@@ -1,0 +1,2242 @@
+
+\section{Spectral criteria for cut operators}\label{sec:spectral}
+
+\paragraph{What this section proves and how to read it.}
+This section proves that a lower bound
+$A_p\succeq -gp^{-1/2}I$ for a cut operator (the normalized cut operator $\Op$ of \cref{lem:spec:cutkernel}), for all $p\ge p_0$, can
+be verified by one finite positive-semidefiniteness test at $p_0$.
+Two routes are given: Route~A via conditional laws of the opposite
+half, centring at the half-law mean; Route~B via explicit uniform
+averages over allowed label sets, needing no completed law. A third
+method computes star-shaped parts exactly in a fixed invariant half
+law. \emph{Centring at the half-law mean} means subtracting the mean
+under the half law itself, not under a uniform model; a
+\emph{matrix part} is a block of an operator matrix, never a prime
+block. Inputs:
+\cref{sec:cuts,sec:dl,sec:extraction}. Outputs: the spectral caps
+used for completions in Part~V. A first reading should follow the
+statements of the two criteria and \cref{subsec:spec:thresholds};
+Fourier and coupling details are reference material. The list of
+Part~V cuts using each route is in \cref{sec:design-walk}; it is not
+needed to read the criteria. Both routes also bound the mean-zero
+compression and give $\Op\preceq(1+O(1/p))I$ ($\Op$ and $r=p^{-1/2}$ are as in the Conventions paragraph below), which is what allows
+tensorisation over a prime block. Cut codes such as L20 denote
+specific mirror symmetries of the twelve- or $72$-label graphs; each
+is expanded where it is first used in Part~V and need not be
+memorised here.
+
+\paragraph{The method.}
+The criteria split $L^2(\mu)$ into the constants, the \emph{degree-one space}
+$\mathcal V$ of sums of mean-zero functions of one label, and the rest.
+Fourier analysis diagonalizes $\Op$ on $\mathcal V$: on the mode
+$\xi$ it acts as $r\Azero(\xi)$ up to an error of operator norm
+$O(r^2)$, quantified in \cref{subsec:spec:degone}, where
+$\Azero(\xi)=\chi(\xi)\eps_G\Delta^E$ is the
+signed matrix of the cross edges (\cref{subsec:spec:fourier,subsec:spec:degone}).
+The coupling of $\mathcal V$ to the rest is controlled by a Gram matrix of the
+conditional densities of one opposite label; these densities lie within the factor $R'_k$ of uniform on the explicit allowed sets $\Phi_k(x)$ (\cref{def:coupling-data}) and are compared entrywise with an explicit
+model matrix (\cref{subsec:spec:coupling,subsec:spec:completion-variance}). On
+the rest the cross kernel is expanded in characters of sets of cross pairs
+(\cref{subsec:spec:perp}). Centring the test function at its mean under the
+half law makes the empty set and every star vanish exactly there
+(\cref{subsec:spec:centring}). What remains are the nonstar sets, which are
+of second order and are bounded by the extraction lemma and by bounding the terms with a repeated label separately
+(\cref{lem:matching:extractionk,lem:oct24-collision}). A Schur complement over
+the two remaining blocks gives the finite test (\cref{subsec:spec:routeA}).
+Route~B (\cref{subsec:spec:routeB}) works with explicit Markov stars instead of
+the conditional law of the opposite half, and therefore needs no information
+on the completed cut law. Every error term is an admissible function of
+$r=p^{-1/2}$, so one exact test at a threshold covers all larger primes
+(\cref{subsec:spec:thresholds}). Class one ($p\equiv1\pmod4$) needs the extra terms $\Hmat^{\rm cov}$ and $\eps_{\rm par}$, collected in \cref{subsec:advance:parity}. When the half law is
+one explicit invariant law, the star part can instead be computed exactly in
+that law (\cref{subsec:spec:actual-stars}); this is how the cut L20 of the
+uniform middle root, the cuts of the positive roots and the observed caps of
+the upper range are bounded.
+
+\paragraph{Conventions.}
+Throughout, $(G,\vartheta,U^+,\mathfrak o)$ are spectral data
+(\cref{def:spec:data}; here $\vartheta$ is the cut involution, not the density exponent $\vartheta$ of the closings), with the notation of \cref{subsec:cuts:data}:
+$n=|U^+|$, the cross signs $\varsigma_{jk}$, $N(k)$, $r_k=|N(k)|$, the internal
+degrees $d^0_k$, $d_k=d^0_k+r_k$, $\Delta=\max_kd_k$, $\Delta^+=\max_kd^0_k$, the
+cross pairs $E_\times$, $m_\times=|E_\times|$, the deletion degrees $t_i$ and
+$\Rcut$. Let $p$ be an odd prime with $e_\Delta(p,2n)<1$, $r=p^{-1/2}$ and
+$q=1/p$. Then $\mathcal I^+=\operatorname{Inj}_p(G^+)$, $\mu=\lambda_p(G^+)$ is the
+half law, $\lambda=\lambda_p(G)$, $m_p$ is the actual half marginal, $K$ is the
+cut kernel \eqref{eq:spec:K}, $Z=\E_{\mu\otimes\mu}K$, $\varrho=dm_p/d\mu=\Op\one$
+and $Q(F)=\ip F{\Op F}_\mu$ (\cref{lem:spec:cutkernel}). Inner products are
+conjugate-linear in the first variable. $\Op$ has a real symmetric kernel, so
+its quadratic form is determined by real functions. $P_0=I-\Jproj$ is the
+projection onto the $\mu$-mean-zero functions, and $u\otimes v$ is the operator
+$f\mapsto\ip vf_\mu u$. The class of $p$ is $\mathfrak c\in\{1,3\}$,
+$p\equiv\mathfrak c\pmod4$, and $\one_{p\equiv1(4)}$ is the indicator of class one.
+Every error term below is an explicit expression in $p$; replacing $p$ by
+$r^{-2}$ makes it a function of $r$, and \emph{admissible} means admissible in
+the sense of \cref{def:majorant}, that is, nondecreasing in $r$.
+
+\subsection{Single-variable Fourier analysis}\label{subsec:spec:fourier}
+
+On $L^2(\Fp)$ we use the uniform probability, with inner product
+$\ip fg=\E_a\overline{f(a)}g(a)$. The characters $e_\xi(a)=\ee{\xi a/p}$ ($\xi\in\Fp$) form an orthonormal basis,
+$\hat g(\xi)=\ip{e_\xi}g$, and $L^2_0(\Fp)$ is the space of mean-zero functions.
+Let $\eps_G=G_\chi/\sqrt p$ (\cref{thm:gauss}\ref{it:gauss:quad}), let $C$ be the
+\emph{Gauss operator} $(Ch)(a)=\E_{b\in\Fp}\chi(b-a)h(b)$ (the Paley operator $P$
+of \cref{lem:square-shift}, written $C$ here and in \cref{sec:extraction}), and for
+$\varsigma\in\{\pm1\}$ let $(C_\varsigma h)(a)=\E_b\chi(\varsigma(b-a))h(b)$.
+
+\begin{lemma}[The Gauss operator]\label{lem:spec:gauss}
+$Ce_\xi=c_\xi e_\xi$ with $c_0=0$ and $c_\xi=\chi(\xi)\eps_Gr$ for $\xi\ne0$.
+Moreover $\eps_G^2=\chi(-1)$, so $\eps_G\in\{\pm1\}$ if $p\equiv1\pmod4$ and
+$\eps_G\in\{\pm i\}$ if $p\equiv3\pmod4$; $|c_\xi|=r$ for $\xi\ne0$; $\norm C=r$;
+$C\one=C^*\one=0$; $\overline{c_\xi}=c_{-\xi}=\chi(-1)c_\xi$; and
+$C_\varsigma=\chi(\varsigma)C$.
+\end{lemma}
+
+\begin{proof}
+$(Ce_\xi)(a)=\E_b\chi(b-a)\ee{\xi b/p}=e_\xi(a)\,p^{-1}\sum_t\chi(t)\ee{\xi t/p}$,
+and by \cref{thm:gauss}\ref{it:gauss:quad} the last sum is $\chi(\xi)G_\chi$
+for every $\xi\in\Fp$. So $c_\xi=\chi(\xi)G_\chi/p=\chi(\xi)\eps_Gr$. By the same
+part of \cref{thm:gauss}, $\eps_G^2=\chi(-1)$ and $|\eps_G|=1$, so $|c_\xi|=r$ for
+$\xi\ne0$; $\overline{G_\chi}=\chi(-1)G_\chi$ gives $\overline{c_\xi}=\chi(-1)c_\xi$,
+and $\chi(-\xi)=\chi(-1)\chi(\xi)$ gives $c_{-\xi}=\chi(-1)c_\xi$. Since $C$ is the
+Paley operator $P$, \cref{lem:square-shift}(c) gives $\norm C=r$ and
+$C\one=C^*\one=0$. Finally $\chi(\varsigma(b-a))=\chi(\varsigma)\chi(b-a)$.
+\end{proof}
+
+The group $\mathrm{Aff}_p=\{z\mapsto az+c:\ a\in\Qsq,\ c\in\Fp\}$ of square-affine
+maps acts diagonally on $\Fp^2$ and on $\Fp^W$ for every finite set $W$. Its
+orbits on $\Fp^2$ are the diagonal, $\Om=\{(a,b):b-a\in\Qsq\}$ and
+$\Om'=\{(a,b):b-a\notin\Qsq\cup\{0\}\}$. Indeed the diagonal is one orbit by
+translation; given $(a,b),(a',b')\in\Om$, the map $z\mapsto sz+c$ with
+$s=(b'-a')/(b-a)\in\Qsq$ and $c=a'-sa$ sends $(a,b)$ to $(a',b')$; and likewise
+on $\Om'$. An invariant kernel is therefore a combination of three indicator
+functions, and its eigenvalues are the formulas of \cref{lem:spec:affpair}(a) below, through the $c_\xi$ of \cref{lem:spec:gauss}.
+
+\begin{lemma}[$\mathrm{Aff}_p$-invariant kernels]\label{lem:spec:affpair}
+\leavevmode
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item Let $\kappa\colon\Fp^2\to\C$ satisfy $\kappa(\gamma a,\gamma b)=\kappa(a,b)$ for
+  $\gamma\in\mathrm{Aff}_p$. Then
+  $\kappa=\alpha\one_{\rm diag}+\beta_+\one_{\Om}+\beta_-\one_{\Om'}$ for
+  constants $\alpha,\beta_\pm$, and the operator $(\mathcal K_\kappa h)(a)=\E_b\kappa(a,b)h(b)$
+  satisfies $\mathcal K_\kappa e_\xi=\lambda_\xi e_\xi$ with
+  \[
+    \lambda_0=\frac\alpha p+\frac{p-1}p\cdot\frac{\beta_++\beta_-}2,\qquad
+    \lambda_\xi=\frac1p\Big(\alpha-\frac{\beta_++\beta_-}2\Big)+c_\xi\,\frac{\beta_+-\beta_-}2
+    \quad(\xi\ne0).
+  \]
+\item \emph{(Pair laws.)} Let $(u,v)$ be an $\Fp^2$-valued random pair whose law is
+  $\mathrm{Aff}_p$-invariant, $\pi^==\Pr(u=v)$ and $D=\E\chi(v-u)$. The law of $(u,v)$
+  is $\pi^=\,\Unif(\mathrm{diag})+\pi^+\Unif(\Om)+\pi^-\Unif(\Om')$ with
+  $\pi^++\pi^-=1-\pi^=$ and $\pi^+-\pi^-=D$, and for all $g,h\in L^2_0(\Fp)$
+  \begin{equation}\label{eq:spec:affpair}
+    \E\big[\overline{g(u)}h(v)\big]=\pi^=\ip gh-\frac{1-\pi^=}{p-1}\ip gh+\frac p{p-1}D\ip g{Ch}.
+  \end{equation}
+\item \emph{(Covariant fields.)} Let $\nu$ be a probability measure on a finite set
+  $\mathcal Y$ on which $\mathrm{Aff}_p$ acts preserving $\nu$, and let
+  $\mathcal V_1,\dots,\mathcal V_s\colon\mathcal Y\times\Fp\to\C$ satisfy
+  $\mathcal V_k(\gamma y,\gamma a)=\mathcal V_k(y,a)$ for $\gamma\in\mathrm{Aff}_p$. Put
+  $\Gamma_{kl}=\E_\nu\E_a\overline{\mathcal V_k}\mathcal V_l$,
+  $M_{kl}=\E_\nu\overline{\E_a\mathcal V_k}\,\E_a\mathcal V_l$ and
+  $\mathcal P_{kl}=\E_\nu\ip{\mathcal V_k(y,\cdot)}{C\mathcal V_l(y,\cdot)}$. Then for every
+  $\xi\ne0$ and $w\in\C^s$, with $\mathcal V_w=\sum_kw_k\mathcal V_k$,
+  \[
+    \E_\nu\big|\E_a[\mathcal V_w(y,a)e_\xi(a)]\big|^2
+    =\frac{w^*\big(\Gamma-M+\chi(\xi)G_\chi\mathcal P\big)w}{p-1}.
+  \]
+\item \emph{(Commutant and invariant functions, $p\equiv3\pmod4$.)} (i) Every real
+  operator $T$ on $L^2(\Fp)$ that commutes with the operators $h\mapsto h\circ\gamma$,
+  $\gamma\in\mathrm{Aff}_p$, is $\alpha_TI+\beta_T\Jproj+\gamma_TC$ with real
+  $\alpha_T,\beta_T,\gamma_T$. On $L^2_0(\Fp)$ it is $\alpha_TI+\gamma_TC$, a normal
+  operator of norm $(\alpha_T^2+q\gamma_T^2)^{1/2}$, with $\alpha_T=\tr(T)/(p-1)$ and
+  $\gamma_T=\tr(C^*T)/(1-q)$ (traces on $L^2_0(\Fp)$), and it is self-adjoint if and
+  only if $\gamma_T=0$. (ii) Hence, if $\mathrm{Aff}_p$ acts on $(\mathcal Y,\nu)$ as in
+  (c) and $Y,Y'\colon L^2_0(\Fp)\to L^2(\nu)$ map real functions to real functions
+  and intertwine the two actions, then $T=Y^*Y'$ is $\alpha_TI+\gamma_TC$ on
+  $L^2_0(\Fp)$ as in (i), and $Y^*Y=\tr(Y^*Y)/(p-1)\cdot I$. (iii) If the law of a random
+  $x=(x_w)_{w\in W}\in\Fp^W$ is invariant under the simultaneous translations
+  $x\mapsto x+c\one$ and $f$ is a function on $\Fp^W$ with $f(x+c\one)=f(x)$ for all
+  $c$ and $\E f(x)=0$, then $\E[f(x)\mid x_w]=0$ for every $w\in W$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) An invariant $\kappa$ is constant on the three orbits. By translation
+invariance $\kappa(a,a+d)=\tilde\kappa(d)$ depends only on $d$, so
+$(\mathcal K_\kappa e_\xi)(a)=e_\xi(a)\E_d\tilde\kappa(d)\ee{\xi d/p}$. For $\xi\ne0$,
+$\sum_{d\in\Qsq}\ee{\xi d/p}=\frac12\sum_{d\ne0}(1+\chi(d))\ee{\xi d/p}=\frac12(-1+\chi(\xi)G_\chi)$
+by \cref{thm:gauss}\ref{it:gauss:quad}, and likewise with $-\chi$ for the
+non-squares; with $\chi(\xi)G_\chi/p=c_\xi$ this gives $\lambda_\xi$. For $\xi=0$
+the sum is $\alpha+\frac{p-1}2(\beta_++\beta_-)$.
+
+(b) The law is invariant, so it is constant on the orbits; $\chi(v-u)$ is $0$,
+$+1$, $-1$ on the diagonal, on $\Om$ and on $\Om'$, which gives the
+decomposition. The function $\kappa(a,b)=p^2\Pr(u=a,v=b)$ is invariant, with
+$\alpha=p\pi^=$ and $\beta_\pm=2p\pi^\pm/(p-1)$, since $|\Om|=|\Om'|=p(p-1)/2$.
+For $g,h\in L^2_0$, $\E[\overline{g(u)}h(v)]=\ip g{\mathcal K_\kappa h}=\sum_{\xi\ne0}\lambda_\xi
+\overline{\hat g(\xi)}\hat h(\xi)$, and by (a) and \cref{lem:spec:gauss},
+$\lambda_\xi=\pi^=-\frac{1-\pi^=}{p-1}+\frac p{p-1}Dc_\xi$. Since
+$\ip gh=\sum_\xi\overline{\hat g}\hat h$ and $\ip g{Ch}=\sum_\xi c_\xi\overline{\hat g}\hat h$,
+this is \eqref{eq:spec:affpair}.
+
+(c) Put $\kappa(a,b)=\E_\nu[\overline{\mathcal V_w(y,a)}\mathcal V_w(y,b)]$. By the invariance
+of $\nu$, $\kappa$ is $\mathrm{Aff}_p$-invariant, and the left side is
+$\E_{a,b}\kappa(a,b)\overline{e_\xi(a)}e_\xi(b)=\ip{e_\xi}{\mathcal K_\kappa e_\xi}=\lambda_\xi$. Now
+$w^*\Gamma w=\E_a\kappa(a,a)=\alpha$; $w^*Mw=\E_{a,b}\kappa(a,b)=\lambda_0$; and
+$w^*\mathcal Pw=\E_{a,b}\chi(b-a)\kappa(a,b)=\frac{p-1}{2p}(\beta_+-\beta_-)$. Eliminating
+$\beta_\pm$ in (a), $\lambda_\xi=(\alpha-\lambda_0+\chi(\xi)G_\chi w^*\mathcal Pw)/(p-1)$.
+
+(d) (i) $T=\mathcal K_\kappa$ with $\kappa(a,b)=p\,T(a,b)$, the matrix of $T$ scaled by
+$p$; $T$ commutes with the square-affine maps exactly when $\kappa$ is invariant, and
+$\kappa$ is real when $T$ is. By (a), $\kappa=\alpha\one_{\rm diag}+\beta_+\one_{\Om}+\beta_-\one_{\Om'}$
+with real coefficients, and since
+$\one_{\Om}(a,b)=\frac12(1-\one_{a=b}+\chi(b-a))$ and
+$\one_{\Om'}(a,b)=\frac12(1-\one_{a=b}-\chi(b-a))$,
+\[
+  T=\Big(\alpha-\frac{\beta_++\beta_-}2\Big)\frac Ip+\frac{\beta_++\beta_-}2\Jproj
+  +\frac{\beta_+-\beta_-}2\,C .
+\]
+On $L^2_0(\Fp)$, $\Jproj=0$, and $C$ has the eigenvalues $c_\xi=\chi(\xi)\eps_Gr\in\{\pm ir\}$,
+$\xi\ne0$, each value occurring $(p-1)/2$ times (\cref{lem:spec:gauss}). So
+$\alpha_TI+\gamma_TC$ is normal with the eigenvalues $\alpha_T\pm i\gamma_Tr$, of modulus
+$(\alpha_T^2+q\gamma_T^2)^{1/2}$; $\tr C=\sum_{\xi\ne0}c_\xi=0$ and
+$\tr(C^*C)=(p-1)q=1-q$ give the two traces; and $C^*=-C$ shows that
+$(\alpha_TI+\gamma_TC)^*=\alpha_TI-\gamma_TC$, which equals $\alpha_TI+\gamma_TC$ only if
+$\gamma_T=0$. (ii) For $\gamma\in\mathrm{Aff}_p$ let $U_\gamma$ and $\tilde U_\gamma$ be the
+two unitary actions, with $YU_\gamma=\tilde U_\gamma Y$ and $Y'U_\gamma=\tilde U_\gamma Y'$. Then
+$Y^*\tilde U_\gamma=U_\gamma Y^*$, so $Y^*Y'$ commutes with every $U_\gamma$ and is real;
+extended by zero on the constants (which the $U_\gamma$ fix) it is an operator as in (i).
+As $Y^*Y$ is self-adjoint, its coefficient $\gamma_T$ vanishes. (iii) Let
+$g(t)=\E[f(x)\mid x_w=t]$. The law of $x_w$ is translation invariant, hence uniform, and
+replacing $x$ by $x+c\one$ gives $g(t)=g(t-c)$ for all $c$; so $g$ is constant, equal to
+$\E f(x)=0$.
+\end{proof}
+
+By \cref{lem:spec:cutkernel}(d) the laws $\lambda$, $\mu$ and $m_p$ are invariant
+under $\mathrm{Aff}_p$ and have uniform one-vertex marginals, and so has every
+pair law obtained from them by taking two coordinates; part (b) applies to all
+of them. Put
+\begin{equation}\label{eq:spec:smallconst}
+  \delta^\times_l=\frac{e_{d_l}(p,2n)+e_{d_l+1}(p,2n)}{1-e_{d_l}(p,2n)},\qquad
+  \delta^\mu_l=\frac{e_{d^0_l}(p,n)+e_{d^0_l+1}(p,n)}{1-e_{d^0_l}(p,n)}\qquad(l\in U^+).
+\end{equation}
+
+\begin{lemma}[Small pair constants]\label{lem:spec:small}
+Assume $e_\Delta(p,2n)<1$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item For $k,l\in U^+$ with $\varsigma_{kl}=0$ (including $k=l$),
+  $|\E_\lambda\chi(x'_l-x_k)|\le\min(\delta^\times_k,\delta^\times_l)$. If
+  $\varsigma_{kl}\ne0$, then $\E_\lambda\chi(x'_l-x_k)=\chi(\varsigma_{kl})$. In all
+  cases $\E_\lambda\chi(x'_k-x_l)=\chi(-1)\E_\lambda\chi(x'_l-x_k)$.
+\item For distinct non-adjacent $k,l\in U^+$,
+  $|\E_\mu\chi(x_l-x_k)|\le\min(\delta^\mu_k,\delta^\mu_l)$. If $(k,l)$ is an edge of
+  $G^+$ the value is $1$; if $(l,k)$ is an edge it is $\chi(-1)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) Let $\varsigma_{kl}=0$ and condition on all labels $y_w$, $w\ne\vartheta l$.
+By \cref{lem:graphs:vertex}\ref{it:vertex:dens} for $G$ ($2n$ vertices), the
+label $x'_l=y_{\vartheta l}$ is uniform on its admissible set $\mathcal A$: the
+values outside the other $2n-1$ labels that satisfy the $d_l$ constraints with
+the distinct labels of the neighbours of $\vartheta l$. By
+\cref{lem:extension}\ref{it:ext:coarse},
+$|\mathcal A|\in p2^{-d_l}[1-e_{d_l},1+e_{d_l}]$, with $e_t=e_t(p,2n)$. The vertex $k$
+is not a neighbour of $\vartheta l$ (this is $\varsigma_{kl}=0$; for $k=l$ it is
+$\varsigma_{ll}=0$), so $x_k$ is distinct from the roots of these constraints
+and lies in the excluded set. The subset $\mathcal A^+=\{a\in\mathcal A:a-x_k\in\Qsq\}$
+is cut out by $d_l+1$ constraints with distinct roots, so
+$2|\mathcal A^+|\in p2^{-d_l}[1-e_{d_l+1},1+e_{d_l+1}]$. Since $x'_l\ne x_k$, the
+conditional expectation of $\chi(x'_l-x_k)$ is
+$(2|\mathcal A^+|-|\mathcal A|)/|\mathcal A|$, of modulus at most
+$(e_{d_l}+e_{d_l+1})/(1-e_{d_l})=\delta^\times_l$; average over the conditioning.
+The swap invariance of $\lambda$ gives
+$\E\chi(x'_l-x_k)=\E\chi(x_l-x'_k)=\chi(-1)\E\chi(x'_k-x_l)$, the last identity of
+(a); applying the first bound to the pair $(l,k)$
+($\varsigma_{lk}=-\varsigma_{kl}=0$) gives the bound $\delta^\times_k$. If
+$\varsigma_{kl}\ne0$, the cross constraint $\varsigma_{kl}(x'_l-x_k)\in\Qsq$ holds
+$\lambda$-almost surely, so $\chi(x'_l-x_k)=\chi(\varsigma_{kl})$.
+(b) The same argument for $G^+$ ($n$ vertices, maximum degree $\Delta^+$,
+$e_{\Delta^+}(p,n)\le e_\Delta(p,2n)<1$), with $d^0_l$ constraints and at most $n-1$
+excluded labels. On an edge $(k,l)$, $x_l-x_k\in\Qsq$ almost surely.
+\end{proof}
+
+\subsection{Exact star factorisation in a fixed invariant half law}\label{subsec:spec:actual-stars}
+
+The criteria of the following subsections compare a cut kernel with product
+laws: route~A through the conditional laws of single labels of the opposite
+half and an explicit model matrix, route~B through explicit normalized stars on
+allowed sets. When the half law is one fixed law invariant under
+$\mathrm{Aff}_p$, the stars need no comparison. Every Gram $\mathcal F_\alpha^*\mathcal F_\beta$ of the features defined below is then a combination of $I$ and $C$ (\cref{lem:spec:affpair}(d)), with
+coefficients given by two traces, and the complete star part of a soft cross kernel (defined in \cref{cor:star-matrix} below) factors exactly through these features. This subsection records the
+Grams (\cref{lem:general-star}), the star matrix (\cref{cor:star-matrix}), the
+projections of unobserved features (\cref{lem:hidden-feature}) and the real form of the phase gates (the positive-semidefiniteness tests at the phases $\pm i$; \cref{rem:realified-gates}). Its uses are listed in the
+opening of this section; it uses neither criterion.
+
+\paragraph{Setting.}
+In this subsection no spectral data are fixed. Let $p\equiv3\pmod4$,
+$\mathcal H=L^2_0(\Fp)$ and $\Phat=C/r$, the normalized Paley operator of
+\cref{sec:notation}; by \cref{lem:spec:gauss}, $\Phat e_\xi=\pm ie_\xi$ for $\xi\ne0$,
+so $\Phat^*=-\Phat$ and $\Phat^2=-I$ on $\mathcal H$. Let $U$ be a finite set and $\mu$
+a law on the injective tuples $x=(x_i)_{i\in U}\in\Fp^U$ that is invariant under
+the diagonal action of $\mathrm{Aff}_p$, for instance the uniform law on the
+injective strict-square labellings of an oriented graph
+(\cref{def:graphs:labeling}) or a marginal of such a law. As in the rest of the
+section, $P_0=I-\Jproj$ is the projection onto the $\mu$-mean-zero functions. For
+$R\subseteq U$, $z\in\Fp$ and $h\in\mathcal H$ put
+\begin{gather*}
+  \psi_R(z,x)=\prod_{j\in R}\chi(z-x_j),\qquad w_R(x)=\E_z\psi_R(z,x),\\
+  (W_Rh)(x)=\E_z\psi_R(z,x)h(z),\qquad (V_ih)(x)=h(x_i),
+\end{gather*}
+with $z$ uniform on $\Fp$. The sets $S\subseteq U$ with $|S|\ge2$ are the
+\emph{supports}, $w_S$ is the \emph{star mean} of $S$, and the maps $V_i$
+($i\in U$) and $W_S/r$ are the \emph{actual features} of $\mu$, the singletons and
+the stars. We write $\mathcal F_\alpha$, $\alpha\in U\sqcup\mathcal S$, for the features
+of a set $\mathcal S$ of supports ($\mathcal F_i=V_i$, $\mathcal F_S=W_S/r$), and call
+$\mathcal F_\alpha^*\mathcal F_\beta$ their \emph{Gram}.
+
+\begin{lemma}[Complete actual star synthesis]\label{lem:general-star}
+In this setting the $V_i$ are isometries of $\mathcal H$ into $L^2_0(\mu)$, the $W_S$
+map $\mathcal H$ into $L^2_0(\mu)$, and the ranges of all these maps are orthogonal
+to the functions of $x$ that are invariant under the simultaneous translations
+$x\mapsto x+c\one$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item \emph{(Diagonal Grams.)} On $\mathcal H$,
+  \begin{equation}\label{eq:star-diagonal}
+    W_S^*W_S=\frac{q\big(1-|S|q-\E_\mu w_S^2\big)}{1-q}\,I\preceq qI .
+  \end{equation}
+\item \emph{(Cross Grams.)} For supports $S,T$ put
+  $\mathcal A_{ST}=\E_\mu\E_z\psi_S\psi_T$, $\mathcal C_{ST}=\E_\mu w_Sw_T$ and
+  $\mathcal B_{ST}=\E_\mu\ip{\psi_S(\cdot,x)}{C\psi_T(\cdot,x)}$. Then, on $\mathcal H$,
+  \begin{equation}\label{eq:star-cross}
+    W_S^*W_T=\frac{q(\mathcal A_{ST}-\mathcal C_{ST})}{1-q}\,I+\frac{\mathcal B_{ST}}{1-q}\,C,
+    \qquad
+    \norm{W_S^*W_T}=\frac q{1-q}\Big((\mathcal A_{ST}-\mathcal C_{ST})^2
+    +\frac{\mathcal B_{ST}^2}q\Big)^{1/2}.
+  \end{equation}
+\item \emph{(Pivot bound.)} Let $S\ne T$, $k=|S|$, $l=|T|$, $c=|S\cap T|$,
+  $d=|S\triangle T|$, and $a_1=0$, $a_2=q$, $a_d=(d-1)r$ for $d\ge3$. Let
+  $j\in S\triangle T$ be a \emph{pivot}: given the other coordinates, every value of
+  $x_j$ has conditional probability at most $D_j/p$. Then
+  \begin{equation}\label{eq:star-cross-bound}
+    \frac{\norm{W_S^*W_T}}q\le
+    \frac{\big([a_d+(c+(k-1)(l-1))q]^2+q(D_j-1)\big)^{1/2}}{1-q} .
+  \end{equation}
+\item \emph{(Singleton entries.)} Let $k=|S|$. Then
+  \begin{equation}\label{eq:singleton-star}
+    \frac{(1-q)\norm{V_i^*W_S}}r\le
+    \begin{cases}
+      \big(r^2(1+(k-1)r)^2+k^2q\big)^{1/2}, & i\notin S,\\
+      q\sqrt{1+q}, & i\in S,\ k=2,\\
+      2\sqrt2\,q, & i\in S,\ k=3,\\
+      \big((k-1)^2q^2+((k-2)r+q)^2\big)^{1/2}, & i\in S,\ k\ge4,
+    \end{cases}
+  \end{equation}
+  and $\norm{V_i^*V_j}\le r\sqrt{1+q}/(1-q)$ for $i\ne j$.
+\item \emph{(Disjoint supports and overlapping pair supports.)} If $\rho_S$ bounds the maximal
+  correlation (\cref{def:prelim:maxcorr}) of $x_S$ and $x_{U\setminus S}$, then
+  $\norm{(W_S/r)^*(W_T/r)}\le\rho_S$ for every support $T$ disjoint from $S$. Let
+  $S=\{a,b\}$ and $T=\{a,b'\}$ with $a,b,b'$ distinct, and let $\rho$ bound, for every
+  value of $x_a$, the conditional maximal correlation of $x_b$ and
+  $x_{U\setminus\{a,b\}}$ given $x_a$. Then
+  \begin{equation}\label{eq:pair-overlap}
+    \norm{(W_S/r)^*(W_T/r)}\le\frac{2\rho}{1-q}+\frac{q(q+r)^2}{(1-q)^2} .
+  \end{equation}
+\item \emph{(Synthesis.)} Let $\mathcal S$ be a set of supports and
+  $\mathcal F\colon\mathcal H^U\oplus\mathcal H^{\mathcal S}\to L^2_0(\mu)$,
+  $\mathcal F\big((h_\alpha)_\alpha\big)=\sum_\alpha\mathcal F_\alpha h_\alpha$, the synthesis
+  of its features. If a symmetric nonnegative matrix $N$ indexed by
+  $U\sqcup\mathcal S$ satisfies $\norm{\mathcal F_\alpha^*\mathcal F_\beta}\le N_{\alpha\beta}$
+  for $\alpha\ne\beta$, then
+  $\norm{\mathcal F}^2\le1+\lambda_{\max}(N)\le1+\max_\alpha\sum_\beta N_{\alpha\beta}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\emph{Equivariance and traces.} The group $\mathrm{Aff}_p$ acts unitarily on
+$\mathcal H$ by $h\mapsto h\circ\gamma^{-1}$ and, since $\mu$ is invariant, on $L^2(\mu)$
+by $F\mapsto F\circ\gamma^{-1}$ (diagonally). For $\gamma(z)=sz+c$ with $s\in\Qsq$,
+$\chi(\gamma z-\gamma y)=\chi(s)\chi(z-y)=\chi(z-y)$, so $\psi_S(\gamma z,\gamma x)=\psi_S(z,x)$,
+and $V_i$, $W_S$ intertwine the two actions and map real functions to real
+functions. Both are of the form $(Yh)(x)=\E_z\phi(z,x)h(z)$ with a real kernel
+$\phi$: $\phi=\psi_S$ for $W_S$, and $\phi(z,x)=p\one_{z=x_i}$ for $V_i$. By
+\cref{lem:spec:affpair}(d), the Gram $T=Y^*Y'$ of two such maps is, on $\mathcal H$,
+$\alpha_TI+\gamma_TC$ with $\alpha_T=\tr(T)/(p-1)$, $\gamma_T=\tr(C^*T)/(1-q)$ and
+$\norm T=(\alpha_T^2+q\gamma_T^2)^{1/2}$, and $\gamma_T=0$ if $Y=Y'$. If $(e_m)$ is an
+orthonormal basis of $\mathcal H$, then $(Ye_m)(x)=\ip{\phi(\cdot,x)}{e_m}$, and
+$\sum_m\overline{\ip f{e_m}}\ip g{e_m}=\ip g{f-\E_zf(z)}$; with $\ip{C^*\phi}{e_m}=\ip\phi{Ce_m}$
+this gives, for kernels $\phi$, $\phi'$ of $Y$, $Y'$ and traces on $\mathcal H$,
+\begin{equation}\label{eq:star-traces}
+  \tr(Y^*Y')=\E_\mu\big(\E_z\phi\phi'-\E_z\phi\,\E_z\phi'\big),\qquad
+  \tr(C^*Y^*Y')=\E_\mu\ip{\phi(\cdot,x)}{C\phi'(\cdot,x)} .
+\end{equation}
+
+\emph{Ranges.} By translation invariance every one-vertex marginal of $\mu$ is
+uniform, so $V_i$ is an isometry and $\E_\mu V_ih=\E h=0$. Let $F\in L^2(\mu)$ satisfy
+$F(x+c\one)=F(x)$. By \cref{lem:spec:affpair}(d) applied to $F-\E_\mu F$,
+$\E_\mu[F\mid x_i]=\E_\mu F$, so $\ip F{V_ih}_\mu=\overline{\E_\mu F}\,\E h=0$. Next
+$\ip F{W_Sh}_\mu=\E_zh(z)\,\E_\mu[\overline{F(x)}\psi_S(z,x)]$, and the inner expectation does not
+depend on $z$, since $\psi_S(z+c,x+c\one)=\psi_S(z,x)$ and $\mu$ and $F$ are translation
+invariant; as $\E h=0$, $\ip F{W_Sh}_\mu=0$. For $F=\one$ this says that $W_Sh$ has
+$\mu$-mean zero.
+
+(a) In \eqref{eq:star-traces} take $\phi=\phi'=\psi_S$. As $x$ is injective,
+$\psi_S(z,x)^2=1$ except at the $|S|$ labels $x_j$, $j\in S$, so
+$\tr(W_S^*W_S)=1-|S|q-\E_\mu w_S^2$; divide by $p-1=(1-q)/q$.
+The bound by $qI$ holds already for $|S|\ge1$, since
+$\E_\mu w_S^2\ge0$.
+
+(b) Take $\phi=\psi_S$, $\phi'=\psi_T$ in \eqref{eq:star-traces}: the traces are
+$\mathcal A_{ST}-\mathcal C_{ST}$ and $\mathcal B_{ST}$.
+
+(c) Since $\chi(z-x_j)^2=1-\one_{z=x_j}$ and the labels are distinct,
+\[
+  \psi_S\psi_T=\psi_{S\triangle T}(z,x)-\sum_{j\in S\cap T}\one_{z=x_j}\,\psi_{S\triangle T}(x_j,x),
+\]
+so $|\E_z\psi_S\psi_T|\le|\E_z\psi_{S\triangle T}|+cq$. The average of a product of $d$
+characters with distinct roots is $0$ for $d=1$, $-q$ for $d=2$ \eqref{eq:two-root},
+and at most $(d-1)r$ in modulus for $d\ge3$ (\cref{thm:weil}); so
+$|\mathcal A_{ST}|\le a_d+cq$. The same facts give $|w_S|\le(k-1)r$ for every support
+($w_S=-q$ if $k=2$), so $|\mathcal C_{ST}|\le(k-1)(l-1)q$. For $\mathcal B_{ST}$ let first
+$j\in S\setminus T$. Conditionally on $x_{U\setminus\{j\}}$ let $\nu_j$ be the law of $x_j$ and
+$\phi_j(z)=\E[\chi(z-x_j)\mid x_{U\setminus\{j\}}]=\sum_t\nu_j(t)\chi(z-t)$. As $\psi_T$ and
+$\psi_{S\setminus\{j\}}$ do not depend on $x_j$,
+$\mathcal B_{ST}=\E_\mu\ip{\phi_j\psi_{S\setminus\{j\}}}{C\psi_T}$. By \eqref{eq:two-root},
+$\norm{\phi_j}^2=\sum_{t,t'}\nu_j(t)\nu_j(t')(\one_{t=t'}-q)=\sum_t\nu_j(t)^2-q\le q(D_j-1)$; with
+$|\psi_{S\setminus\{j\}}|\le1$, $\norm{C\psi_T}\le r$ (\cref{lem:spec:gauss}) and Cauchy--Schwarz,
+$|\mathcal B_{ST}|\le q(D_j-1)^{1/2}$. If $j\in T\setminus S$, write
+$\mathcal B_{ST}=\E_\mu\ip{C^*\psi_S}{\psi_T}$ and argue in the same way, as $\norm{C^*}=r$.
+Insert these bounds in the norm of (b).
+
+(d) In \eqref{eq:star-traces} take $\phi=p\one_{z=x_i}$ and $\phi'=\psi_S$:
+$\tr(V_i^*W_S)=\E_\mu(\psi_S(x_i,x)-w_S)$ and
+$\tr(C^*V_i^*W_S)=\E_\mu(C\psi_S(\cdot,x))(x_i)=\E_\mu\E_z\chi(z-x_i)\psi_S(z,x)=:\beta_i$. So
+$(1-q)\norm{V_i^*W_S}/r=\big(q(\E_\mu\psi_S(x_i,x)-\E_\mu w_S)^2+\beta_i^2\big)^{1/2}$. If $i\notin S$,
+$|\psi_S(x_i,x)|\le1$, $|w_S|\le(k-1)r$, and $\beta_i=\E_\mu w_{S\cup\{i\}}$ has modulus at most
+$kr$ by \cref{thm:weil}. If $i\in S$, $\psi_S(x_i,x)=0$, and
+$\chi(z-x_i)\psi_S(z,x)=(1-\one_{z=x_i})\psi_{S\setminus\{i\}}(z,x)$ gives
+$\beta_i=\E_\mu\big(w_{S\setminus\{i\}}-q\psi_{S\setminus\{i\}}(x_i,x)\big)$: for $k=2$, $w_S=-q$ and
+$w_{S\setminus\{i\}}=0$, so the trace is $q$ and $|\beta_i|\le q$; for $k=3$, $|w_S|\le2r$ and
+$w_{S\setminus\{i\}}=-q$, so $|\beta_i|\le2q$; for $k\ge4$, $|w_S|\le(k-1)r$ and
+$|\beta_i|\le(k-2)r+q$. These give the four cases. For $i\ne j$ take
+$\phi=p\one_{z=x_i}$, $\phi'=p\one_{z=x_j}$: the traces are $-1$ (injectivity) and
+$\E_\mu\chi(x_j-x_i)\in[-1,1]$, so $\norm{V_i^*V_j}\le(q^2+q)^{1/2}/(1-q)$.
+
+(e) For disjoint $S$, $T$ and $h,h'\in\mathcal H$, $W_Sh$ and $W_Th'$ are functions of
+$x_S$ and of $x_{U\setminus S}$ with $\mu$-mean zero, of norms at most $r\norm h$ and
+$r\norm{h'}$ by (a); so $|\ip{W_Sh}{W_Th'}_\mu|\le\rho_Sq\norm h\norm{h'}$, which is the
+first claim. Now let
+$S=\{a,b\}$, $T=\{a,b'\}$, and write $(W_Sh)(x)=F_{x_a}(x_b)$ and
+$(W_Th')(x)=G_{x_a}(x_{b'})$. Fix $x_a=\alpha$. The pair $(x_a,x_b)$ has an invariant law
+without diagonal mass, so by \cref{lem:spec:affpair}(b) the conditional law of $x_b$
+has the density $(1-\one_{\beta=\alpha}+s_{ab}\chi(\beta-\alpha))/(1-q)\le2/(1-q)$ in $\beta$
+relative to the uniform law, with $s_{ab}=\E\chi(x_b-x_a)\in[-1,1]$. As
+$F_\alpha(\beta)=\E_t\chi(t-\beta)\chi(t-\alpha)h(t)=\big(C(\chi(\cdot-\alpha)h)\big)(\beta)$,
+$\E[|F_\alpha(x_b)|^2\mid x_a=\alpha]\le2r^2\norm h^2/(1-q)$. Summing the density against
+$F_\alpha$ with \eqref{eq:two-root} and $\chi(-1)=-1$ gives the conditional mean
+\[
+  m_F(\alpha)=\E[F_\alpha(x_b)\mid x_a=\alpha]
+  =\frac{q^2h(\alpha)+qs_{ab}(Ch)(\alpha)}{1-q},
+\]
+of norm at most $q(q+r)\norm h/(1-q)$ in $\alpha$; likewise for $G$ and $h'$. Split
+$F_\alpha=m_F(\alpha)+F^\circ_\alpha$ and $G_\alpha=m_G(\alpha)+G^\circ_\alpha$ into conditional means
+and fluctuations. The fluctuations are functions of $x_b$ and of
+$x_{b'}$ with conditional mean zero given $x_a$, so their conditional inner product is
+at most $\rho\cdot2r^2\norm h\norm{h'}/(1-q)$ in modulus, and the means contribute at most
+$q^2(q+r)^2\norm h\norm{h'}/(1-q)^2$. Divide the sum by $r^2=q$.
+
+(f) The diagonal Grams satisfy $V_i^*V_i=I$ and $(W_S/r)^*(W_S/r)\preceq I$ by (a), so the
+matrix $I+N$ bounds the norms of all Grams. As
+$\norm{\mathcal F}^2=\norm{\sum_\alpha\mathcal F_\alpha\mathcal F_\alpha^*}$, \cref{lem:weighted-frame}(a)
+with unit weights gives the bound by $\lambda_{\max}(I+N)=1+\lambda_{\max}(N)$, and by the
+largest row sum of $I+N$.
+\end{proof}
+
+\Cref{lem:general-star} is an operator inequality for the whole synthesis: nested
+and overlapping supports are allowed, and no orthogonality of distinct supports is
+assumed; the only loss beyond the diagonal Grams is the term $\lambda_{\max}(N)$ in \textup{(f)}. For the uniform law on the
+injective strict-square labellings of a graph on $n$ vertices, the label $x_j$ is
+conditionally uniform on its admissible set (\cref{lem:graphs:vertex}\ref{it:vertex:dens}),
+so \cref{lem:extension}\ref{it:ext:coarse} gives the pivot density
+$D_j=2^t/(1-e_t(p,n))$, with $t$ the degree of $j$, whenever $e_t(p,n)<1$; the pivot minimizing the right side of \eqref{eq:star-cross-bound} is chosen for each pair of supports. The next statement is the reason for the
+frame: the star part of a soft cross kernel is a fixed matrix in these features.
+
+\begin{corollary}[Complete star matrix]\label{cor:star-matrix}
+In this setting let $D=(D_{ij})_{i,j\in U}$ be a real matrix with $|D_{ij}|\le1$, and let
+\[
+  K_D(x,y)=\prod_{i,j\in U}\big(1+D_{ij}\chi(y_j-x_i)\big)
+\]
+be the \emph{soft cross kernel} of $D$ between two copies $x$, $y$
+of the half, and write $K_D$ also for the operator on $L^2(\mu)$
+with kernel $K_D$ relative to $\mu\otimes\mu$. In the expansion of the product, the \emph{complete star part} is the
+sum of the terms of the single pairs $(i,j)$, of the \emph{left stars}
+$\prod_{j\in S}D_{ij}\chi(y_j-x_i)$ with centre $i$ and leaves $S$, and of the
+\emph{right stars} $\prod_{i\in S}D_{ij}\chi(y_j-x_i)$ with centre $j$ and leaves $S$
+($|S|\ge2$). Let $\mathcal F$ be the synthesis of \cref{lem:general-star}(f) for a set
+$\mathcal S$ that contains every set of leaves. Then the complete star part,
+compressed by $P_0$ on both sides, is
+\[
+  r\,\mathcal F M(\Phat)\mathcal F^*,
+\]
+where $M(\Phat)$ is the block operator matrix indexed by $U\sqcup\mathcal S$ with the
+singleton block $D\otimes\Phat$, the entries $(-1)^{|S|}\prod_{j\in S}D_{ij}$ (row $i$,
+column $S$) and $\prod_{i\in S}D_{ij}$ (row $S$, column $j$), each times $I_{\mathcal H}$,
+and zero block between supports. Let $M(i)$ be the complex matrix obtained by
+replacing $\Phat$ with the imaginary unit $i$. Then
+$\norm{r\mathcal FM(\Phat)\mathcal F^*}\le r\norm{\mathcal F}^2\norm{M(i)}$; the same holds for the
+symmetric and the skew part, with $\operatorname{Sym}M(i)$ and $\operatorname{Skew}M(i)$,
+and for the difference of two soft kernels in one synthesis, with the difference of
+their matrices.
+\end{corollary}
+
+\begin{proof}
+For $f\in L^2(\mu)$ let $g_j=V_j^*f$, so that $\E_\mu[f(y)\mid y_j=t]=\E_\mu f+g_j(t)$, the
+marginal of $y_j$ being uniform. \emph{Single pairs.} As $\E_t\chi(t-x_i)=0$,
+$\E_y\chi(y_j-x_i)f(y)=\E_t\chi(t-x_i)g_j(t)=(Cg_j)(x_i)$: the pair $(i,j)$ gives
+$D_{ij}V_iCV_j^*=rD_{ij}V_i\Phat V_j^*$. \emph{Right stars.}
+$\E_y\psi_S(y_j,x)f(y)=\E_t\psi_S(t,x)(\E_\mu f+g_j(t))=w_S(x)\E_\mu f+(W_Sg_j)(x)$: the right
+star gives $\prod_{i\in S}D_{ij}\,(W_SV_j^*+w_S\otimes\one)$. \emph{Left stars.} As
+$\chi(-1)=-1$, $\prod_{j\in S}\chi(y_j-x_i)=(-1)^{|S|}\psi_S(x_i,y)$. The function
+$z\mapsto\E_y\psi_S(z,y)f(y)$ has mean $\ip{w_S}f_\mu$ over $z$, and its projection onto
+$\mathcal H$ is $W_S^*f$; so the left star gives
+$(-1)^{|S|}\prod_{j\in S}D_{ij}\,(V_iW_S^*+\one\otimes w_S)$.
+
+\emph{Centring.} $P_0(\one\otimes w_S)=0$ and $(w_S\otimes\one)P_0=0$, while $V_i$ and $W_S$
+map into $L^2_0(\mu)$ and $V_j^*$, $W_S^*$ vanish on the constants
+(\cref{lem:general-star}). So the compression is the sum of the terms
+$rD_{ij}V_i\Phat V_j^*$, $(-1)^{|S|}\prod_{j\in S}D_{ij}\,rV_i(W_S/r)^*$ and
+$\prod_{i\in S}D_{ij}\,r(W_S/r)V_j^*$, which is $r\mathcal FM(\Phat)\mathcal F^*$.
+
+\emph{Norms.} By \cref{lem:spec:gauss}, $\mathcal H=\mathcal H_+\oplus\mathcal H_-$ with
+$\Phat=\pm iI$ on $\mathcal H_\pm$. Write $M(\Phat)=M_0\otimes I+M_1\otimes\Phat$ with real
+matrices $M_0$, $M_1$. On $\C^{U\sqcup\mathcal S}\otimes\mathcal H_\pm$ it acts as $M(\pm i)\otimes I$,
+and $M(-i)=\overline{M(i)}$ has the norm of $M(i)$; so $\norm{M(\Phat)}=\norm{M(i)}$, and
+$\norm{r\mathcal FM(\Phat)\mathcal F^*}\le r\norm{\mathcal F}^2\norm{M(i)}$. Since $\Phat^*=-\Phat$,
+$M(\Phat)^*$ acts as $M(\pm i)^*\otimes I$ on the same spaces, and the symmetric and skew
+parts of $\mathcal FM(\Phat)\mathcal F^*$ are $\mathcal F\operatorname{Sym}M(\Phat)\mathcal F^*$ and
+$\mathcal F\operatorname{Skew}M(\Phat)\mathcal F^*$; the same argument applies to them. For two
+soft kernels on the same half law both star parts have this form with one synthesis,
+so their difference is $r\mathcal F\big(M_D(\Phat)-M_{D'}(\Phat)\big)\mathcal F^*$.
+\end{proof}
+
+If $D$ is antisymmetric, as is the matrix $\Delta^E$ of the factors of a cut kernel at
+$p\equiv3\pmod4$ (\cref{lem:spec:expansion}, \cref{subsec:spec:degone}), then
+$\prod_{k\in S}D_{kj}=(-1)^{|S|}\prod_{k\in S}D_{jk}$ for every singleton $j$ and
+support $S$: the block of the right stars is the transpose of the block of the left
+stars, and $M(i)=\begin{psmallmatrix}iD&A\\A^{\mathsf T}&0\end{psmallmatrix}$, with
+$A_{jS}=(-1)^{|S|}\prod_{k\in S}D_{jk}$, is Hermitian, of the form tested in
+\cref{rem:realified-gates}.
+
+The star means $w_S$ are not lost: they sit in the rank-one terms $\one\otimes w_S$
+and $w_S\otimes\one$, which only the double centring removes. For $|S|\ge3$, $w_S$ is
+in general a nonconstant translation-invariant function with pointwise bound $|w_S|\le(|S|-1)r$, so it remains in the kernel through these rank-one terms; only the
+doubly centred matrix omits it. The raw scalar means, the nonstar terms and the
+coincidences of the kernel are not covered by the corollary and are bounded
+separately in each application. For two soft kernels on the same half law one synthesis over the union of their supports cancels every common
+star coefficient exactly.
+
+When a cut operator is compressed to the functions of a set $O$ of observed
+coordinates, as for the merge and constant marginals of the upper range
+(\cref{prop:observed-caps}), the star matrix splits into its principal part on the
+features measurable in $x_O$ and the rest. A feature that involves an unobserved
+coordinate is small after the compression:
+
+\begin{lemma}[Unobserved features]\label{lem:hidden-feature}
+In this setting let $O\subseteq U$, let $\Pi_O$ be the conditional expectation onto the
+functions of $x_O$, and let $j\in U\setminus O$ be such that, given the other
+coordinates, every value of $x_j$ has conditional probability at most $D_j/p$. Then
+\[
+  \norm{\Pi_OV_j}\le r\Big(\frac{D_j-1}{1-q}\Big)^{1/2},\qquad
+  \norm{\Pi_O(W_S/r)}\le r\Big(\frac{D_j-1}{1-q}\Big)^{1/2}\quad(j\in S).
+\]
+No independence of the unobserved coordinates is used.
+\end{lemma}
+
+\begin{proof}
+Let $\Pi_j$ be the conditional expectation onto the functions of $x_{U\setminus\{j\}}$, and
+$\nu_j(\cdot\mid x)$ the conditional law of $x_j$ given them. As $O\subseteq U\setminus\{j\}$,
+$\Pi_O=\Pi_O\Pi_j$ and $\norm{\Pi_O}\le1$, so it suffices to bound $\Pi_jV_j$ and $\Pi_jW_S$.
+Conditional expectation commutes with the diagonal action of $\mathrm{Aff}_p$, since
+$\mu$ is invariant; so these maps intertwine the two actions, and their Grams are
+real self-adjoint operators on $\mathcal H$ commuting with $\mathrm{Aff}_p$, that is,
+scalars equal to their traces over $p-1=(1-q)/q$ (\cref{lem:spec:affpair}(d)). The map
+$\Pi_jV_j$ has the kernel $\phi=p\nu_j(z\mid x)$, and by \eqref{eq:star-traces} its Gram
+has the trace $\E_\mu\big(p\sum_z\nu_j(z\mid x)^2-1\big)\le D_j-1$. The map $\Pi_jW_S$ has the
+kernel $\phi=\phi_j\psi_{S\setminus\{j\}}$ with
+$\phi_j(z,x)=\E[\chi(z-x_j)\mid x_{U\setminus\{j\}}]=\sum_t\nu_j(t\mid x)\chi(z-t)$, as
+$\psi_{S\setminus\{j\}}$ does not depend on $x_j$. By \eqref{eq:star-traces} and
+$|\psi_{S\setminus\{j\}}|\le1$, its Gram has trace at most $\E_\mu\E_z\phi_j^2$, and as in the
+proof of \cref{lem:general-star}(c), $\E_z\phi_j^2=\sum_t\nu_j(t\mid x)^2-q\le q(D_j-1)$.
+Dividing by $p-1$ gives $\norm{\Pi_jV_j}^2\le q(D_j-1)/(1-q)$ and
+$\norm{\Pi_jW_S}^2\le q^2(D_j-1)/(1-q)$.
+\end{proof}
+
+The division by $\dim\mathcal H=p-1$ is where the invariance enters: a
+Hilbert--Schmidt bound alone would give only $\norm{\Pi_jW_S}\le r(D_j-1)^{1/2}$. A
+star with all its leaves observed is measurable in $x_O$ and is not changed by
+$\Pi_O$; for a star with an unobserved leaf the best unobserved pivot may be chosen.
+
+\begin{remark}[Real forms of the phase gates]\label{rem:realified-gates}
+On $\mathcal H$ the operator $\Phat$ has the eigenvalues $\pm i$, so a coefficient
+operator built from real matrices and $\Phat$ is the direct sum of its values at $i$
+and at $-i$, which are complex conjugate matrices; one test at $\Phat=i$ covers both
+phases. A Hermitian matrix $X_0+iX_1$ ($X_0$ real symmetric, $X_1$ real
+antisymmetric) is positive semidefinite if and only if the real symmetric matrix
+$\begin{psmallmatrix}X_0&-X_1\\X_1&X_0\end{psmallmatrix}$ of twice the size is, since
+$(u+iv)^*(X_0+iX_1)(u+iv)$ is its quadratic form at $(u,v)$ for real $u,v$; the
+certificates test this real form by exact rational $LDL^{\mathsf T}$ elimination. A
+bound $\norm{M(i)}\le k$ for a Hermitian $M(i)=\begin{psmallmatrix}iD&A\\A^*&0\end{psmallmatrix}$,
+with $D$ real antisymmetric and $A$ real, is $kI\pm M(i)\succeq0$, that is, after
+eliminating the lower block $kI$, $k^2I-AA^*\pm ikD\succeq0$; a non-Hermitian $M$ uses
+its singular-value dilation
+$\begin{psmallmatrix}kI&M\\M^*&kI\end{psmallmatrix}\succeq0$ in the same way. The same
+real forms serve the matrix test \eqref{eq:spectral-test} at class three
+(\cref{rem:spectral-criterion:certificate}), the conditional star and joint row
+gates (\cref{prop:conditional-star,lem:joint-rows}) and the observed caps
+(\cref{prop:observed-caps}).
+\end{remark}
+
+\subsection{The degree-one part}\label{subsec:spec:degone}
+
+Let $\mathcal V_k=\{g(x_k):g\in L^2_0(\Fp)\}\subseteq L^2(\mu)$ and
+$\mathcal V=\sum_{k\in U^+}\mathcal V_k$, the \emph{degree-one space}, with the
+$\mu$-orthogonal projection $\Pi_{\mathcal V}$. Since the one-vertex marginals of
+$\mu$ and of $m_p$ are uniform, every $v\in\mathcal V$ has
+$\E_\mu v=\E_{m_p}v=0$. For $v=\sum_kg_k(x_k)$ with $g_k\in L^2_0(\Fp)$ put
+$\hat g(\xi)=(\hat g_k(\xi))_{k\in U^+}\in\C^{U^+}$ and
+$\norm g^2=\sum_k\norm{g_k}^2=\sum_{\xi\ne0}|\hat g(\xi)|^2$. Then
+$v=\sum_{\xi\ne0}v_\xi$ with the \emph{mode components}
+$v_\xi=\sum_k\hat g_k(\xi)e_\xi(x_k)$; if the $g_k$ are real,
+$\hat g(-\xi)=\overline{\hat g(\xi)}$.
+
+The translations $x\mapsto x+c\one$ ($c\in\Fp$) act unitarily on $L^2(\mu)$ and
+commute with $\Op$, with $\Pi_{\mathcal V}$ and with $\Jproj$ ($\mu$ and $K$ are
+translation invariant, and $\mathcal V$ is a translation-invariant subspace).
+Hence $L^2(\mu)$ is the orthogonal sum of the \emph{isotypic subspaces}
+$\mathcal W_\xi=\{F:F(x+c\one)=e_\xi(c)F(x)\ \text{for all}\ c\}$, $\xi\in\Fp$; each
+is preserved by $\Op$, $\Pi_{\mathcal V}$ and $P_0$, and $v_\xi\in\mathcal W_\xi$.
+
+Let $\Delta^E$ be the $U^+\times U^+$ matrix with $\Delta^E_{kl}=\chi(\varsigma_{kl})$
+if $\varsigma_{kl}\ne0$ and $0$ otherwise. It depends on $p$ only through
+$\chi(-1)$: it is the $0/1$ matrix of the cross pairs (symmetric) if
+$p\equiv1\pmod4$, and the antisymmetric matrix $(\varsigma_{kl})$ if
+$p\equiv3\pmod4$. Let $\Lambda_D\ge\norm{\Delta^E}$ be a certified bound (the
+certificates use an exact rational one). Put
+\begin{gather}
+  \Azero(\xi)=\chi(\xi)\eps_G\,\Delta^E,\qquad
+  \eta_Q=\frac{\Lambda_D}{p-1}+\frac p{p-1}\max_k\sum_{l:\,\varsigma_{kl}=0}\min(\delta^\times_k,\delta^\times_l)
+  +\frac n{(p-1)r},\label{eq:spec:Azero}\\
+  \eps_V=\frac{n-1}{p-1}+\frac p{p-1}\,r\,\max_k\Big(d^0_k+\sum_{l\ne k,\,l\not\sim k}
+  \min(\delta^\mu_k,\delta^\mu_l)\Big).\label{eq:spec:epsV}
+\end{gather}
+$\Azero(\xi)$ is Hermitian: for $p\equiv1\pmod4$, $\eps_G$ is real and $\Delta^E$
+real symmetric; for $p\equiv3\pmod4$, $\eps_G$ is imaginary and $\Delta^E$ real
+antisymmetric. Also $\Azero(\xi)^*\Azero(\xi)=(\Delta^E)^{\mathsf T}\Delta^E$.
+
+\begin{lemma}[The degree-one block]\label{lem:spec:degone}
+Assume $e_\Delta(p,2n)<1$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item For $v=\sum_kg_k(x_k)$ and $v'=\sum_kh_k(x_k)$ in $\mathcal V$ (complex
+  coefficients allowed),
+  $\E_\lambda[\overline{v(x)}v'(x')]=\ip v{\Op v'}_\mu=\sum_{\xi\ne0}\hat g(\xi)^*\mathbf Q(\xi)\hat h(\xi)$,
+  where $\mathbf Q(\xi)_{kl}=-\frac1{p-1}+\frac p{p-1}c_\xi\delta^\times_{kl}$ and
+  $\delta^\times_{kl}=\E_\lambda\chi(x'_l-x_k)$. The matrix $\mathbf Q(\xi)$ is Hermitian and
+  $\mathbf Q(-\xi)=\overline{\mathbf Q(\xi)}$.
+\item $\mathbf Q(\xi)/r=\Azero(\xi)+E_Q(\xi)$ with $E_Q(\xi)$ Hermitian,
+  $\norm{E_Q(\xi)}\le\eta_Q$, and $\norm{\Azero(\xi)}=\norm{\Delta^E}$.
+\item For $\xi\ne0$ and $w\in\C^{U^+}$,
+  $\norm{\sum_kw_ke_\xi(x_k)}^2_\mu=w^*\mathbf N(\xi)w$ with
+  $\mathbf N(\xi)=I-\frac{\one\one^{\mathsf T}-I}{p-1}+\frac p{p-1}c_\xi\Delta^\mu$, where
+  $\Delta^\mu_{kl}=\E_\mu\chi(x_l-x_k)$ ($k\ne l$) and $\Delta^\mu_{kk}=0$; and
+  $\norm{\mathbf N(\xi)-I}\le\eps_V$. Different mode components are orthogonal in
+  $L^2(\mu)$. Hence $(1-\eps_V)\norm g^2\le\norm v^2_\mu\le(1+\eps_V)\norm g^2$ for
+  every $v\in\mathcal V$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) The identity $\E_\lambda[\overline{v(x)}v'(x')]=\ip v{\Op v'}_\mu$ is
+\cref{lem:spec:cutkernel}(b), extended to complex functions by linearity. The
+pair $(x_k,x'_l)$ has an $\mathrm{Aff}_p$-invariant law with $\pi^==0$
+(injectivity across the cut) and $D=\delta^\times_{kl}$, so by
+\cref{lem:spec:affpair}(b)
+$\E_\lambda[\overline{g_k(x_k)}h_l(x'_l)]=-\frac1{p-1}\ip{g_k}{h_l}+\frac p{p-1}\delta^\times_{kl}
+\ip{g_k}{Ch_l}$. By Parseval and \cref{lem:spec:gauss},
+$\ip{g_k}{h_l}=\sum_\xi\overline{\hat g_k(\xi)}\hat h_l(\xi)$ and
+$\ip{g_k}{Ch_l}=\sum_\xi c_\xi\overline{\hat g_k(\xi)}\hat h_l(\xi)$, and the term $\xi=0$
+vanishes. Here $\delta^\times_{kl}$ is real and $\delta^\times_{lk}=\chi(-1)\delta^\times_{kl}$
+(\cref{lem:spec:small}(a)); with $\overline{c_\xi}=\chi(-1)c_\xi$ this gives
+$\overline{\mathbf Q(\xi)_{lk}}=\mathbf Q(\xi)_{kl}$, and $\overline{c_\xi}=c_{-\xi}$ gives
+$\mathbf Q(-\xi)=\overline{\mathbf Q(\xi)}$.
+
+(b) Write $\delta^\times=\Delta^E+\Delta^{\rm sm}$, where $\Delta^{\rm sm}_{kl}=\delta^\times_{kl}$ if
+$\varsigma_{kl}=0$ and $0$ otherwise (\cref{lem:spec:small}(a)). With
+$c_\xi/r=\chi(\xi)\eps_G$ and $\frac p{p-1}=1+\frac1{p-1}$,
+\[
+  \mathbf Q(\xi)/r=\Azero(\xi)+\frac{\Azero(\xi)}{p-1}+\frac p{p-1}\chi(\xi)\eps_G\Delta^{\rm sm}
+  -\frac{\one\one^{\mathsf T}}{(p-1)r}.
+\]
+$|\chi(\xi)\eps_G|=1$, so $\norm{\Azero(\xi)}=\norm{\Delta^E}\le\Lambda_D$. The matrix of
+moduli $|\Delta^{\rm sm}|$ is symmetric with entries at most
+$\min(\delta^\times_k,\delta^\times_l)$; by the Schur test its norm, and hence
+$\norm{\Delta^{\rm sm}}$, is at most the maximal row sum in \eqref{eq:spec:Azero}.
+$\norm{\one\one^{\mathsf T}}=n$. This gives $\norm{E_Q}\le\eta_Q$, and $E_Q$ is
+Hermitian as a difference of Hermitian matrices.
+
+(c) For $k\ne l$, \cref{lem:spec:affpair}(b) for $(x_k,x_l)$ under $\mu$
+($\pi^==0$, $D=\Delta^\mu_{kl}$) gives
+$\E_\mu[\overline{e_\xi(x_k)}e_\xi(x_l)]=-\frac1{p-1}+\frac p{p-1}c_\xi\Delta^\mu_{kl}$,
+and the diagonal terms are $1$; this is the formula for $\mathbf N(\xi)$. As in
+(a), $c_\xi\Delta^\mu$ is Hermitian. Its norm is at most $r$ times the maximal row
+sum of the symmetric matrix $|\Delta^\mu|$, whose entries are $1$ on the $d^0_k$
+internal edges at $k$ and at most $\min(\delta^\mu_k,\delta^\mu_l)$ otherwise
+(\cref{lem:spec:small}(b)); and $\norm{\one\one^{\mathsf T}-I}=n-1$. So
+$\norm{\mathbf N(\xi)-I}\le\eps_V$. The mode components $v_\xi$ lie in the mutually
+orthogonal spaces $\mathcal W_\xi$, and $\norm g^2=\sum_\xi|\hat g(\xi)|^2$.
+\end{proof}
+
+\subsection{Coupling degree-one functions to the remainder}\label{subsec:spec:coupling}
+
+The spectral criteria split test functions into the degree-one
+space $\mathcal V$, handled by Fourier analysis in the preceding
+subsection, and its orthogonal complement. What remains is the
+leakage from $\mathcal V$ into the complement under the cut
+operator, namely $\norm{(I-\Pi_{\mathcal V})\Op F_V}$ for
+$F_V\in\mathcal V$; this subsection bounds it. Write $\Op=\varrho\cdot\mathcal P$, i.e.\ $(\Op H)(x)=\varrho(x)(\mathcal PH)(x)$, with $(\mathcal PH)(x)=\E_\lambda[H(x')\mid x]$. Then
+$\Op F_V$ is controlled by the conditional laws of the single opposite labels
+$x'_k$ given $x$. These are probability vectors on explicit allowed sets with
+almost constant densities, and the model matrix $\Hmat$ below is the Gram
+matrix that their densities would have if they were exactly the normalized
+indicators of the allowed sets. Since route~B
+(\cref{subsec:spec:routeB}) needs the same estimates for the uniform laws on
+the allowed sets, we state them for a family of such densities.
+
+For $x\in\mathcal I^+$ and $k\in U^+$ the \emph{allowed set} is
+\[
+  \Phi_k(x)=\{a\in\Fp\setminus x(U^+):\ \varsigma_{jk}(a-x_j)\in\Qsq\ \text{for all}\ j\in N(k)\}.
+\]
+It is a set as in \cref{lem:extension} with the $r_k$ distinct roots $x_j$,
+$j\in N(k)$, and the excluded set $x(U^+)$ of $n$ labels, so
+$|\Phi_k(x)|\in p2^{-r_k}[1-\hat e_k,1+\hat e_k]$ with $\hat e_k=e_{r_k}(p,n)$
+(\cref{lem:extension}\ref{it:ext:coarse}). For $\gamma\in\mathrm{Aff}_p$,
+$\Phi_k(\gamma x)=\gamma\Phi_k(x)$.
+
+\begin{definition}[Coupling data]\label{def:coupling-data}
+\emph{Coupling data} at $p$ consist of a law $\nu$ on $\mathcal I^+$ and, for every
+$k\in U^+$ and $x\in\mathcal I^+$, a probability vector $P_k(\cdot\mid x)$ on $\Fp$
+supported on $\Phi_k(x)$, such that:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item $\nu$ is $\mathrm{Aff}_p$-invariant, and its density with respect to $\mu$ takes
+  values in an interval $[c,R_\nu c]$ with $c>0$ and $R_\nu\ge1$;
+\item $P_k(\gamma a\mid\gamma x)=P_k(a\mid x)$ for $\gamma\in\mathrm{Aff}_p$;
+\item $P_k(a\mid x)=(1+\delta_k(a;x))/|\Phi_k(x)|$ on $\Phi_k(x)$, with
+  $1+\delta_k\in[1/R'_k,R'_k]$ for numbers $R'_k\ge1$; we put $\delta_k=0$ off
+  $\Phi_k(x)$ and $\delta'_k=R'_k-1$, so $|\delta_k|\le\delta'_k$.
+\end{enumerate}
+Put $\Psi_k(x,a)=pP_k(a\mid x)-1$, a function with $\E_a\Psi_k(x,a)=0$ for $a$ uniform on $\Fp$, and
+\[
+  \widetilde\Hmat_{kl}=\E_\nu\ip{\Psi_k(x,\cdot)}{\Psi_l(x,\cdot)},\qquad
+  \mathbf D_{kl}=\E_\nu\ip{\Psi_k(x,\cdot)}{C\Psi_l(x,\cdot)},\qquad
+  \mathbf M(\xi)=\frac{\widetilde\Hmat}{p-1}+\frac p{p-1}c_\xi\mathbf D .
+\]
+For $F_V=\sum_kg_k(x_k)\in\mathcal V$ let $(\mathcal PF_V)(x)=\sum_k\sum_aP_k(a\mid x)g_k(a)$.
+\end{definition}
+
+The two instances used below are these.
+\begin{enumerate}[label=\textup{(\Alph*)}]
+\item \emph{The cut.} $\nu=m_p$, and $P_k(\cdot\mid x)$ is the conditional law of $x'_k$
+  given $x$ under $\lambda$; then $\mathcal PF_V(x)=\E_\lambda[F_V(x')\mid x]$. Here
+  $R_\nu=\Rcut$: by \cref{lem:spec:cutkernel}(b),(c) and its proof,
+  $\varrho=N/\E_\mu N$ with $N_-\le N\le N_+$ and $N_+/N_-=\Rcut$. Condition
+  (ii) holds because $\lambda$ is $\mathrm{Aff}_p$-invariant. For (iii), let
+  $\mathfrak o_k$ be the order of $U^+$ that starts with $k$ and then lists
+  $U^+\setminus\{k\}$ in the reverse of the deletion order $\mathfrak o$; for
+  $i\ne k$ let $t'_{k,i}$ be $r_i$ plus the number of $G^+$-neighbours of $i$
+  preceding $i$ in $\mathfrak o_k$, and
+  \begin{equation}\label{eq:spec:Rprime}
+    R'_k=\prod_{i\ne k}\frac{1+e_{t'_{k,i}}(p,2n)}{1-e_{t'_{k,i}}(p,2n)} .
+  \end{equation}
+  Let $N_k(a)$ be the number of $x'\in\mathcal I^+$ with $K(x,x')=1$ and $x'_k=a$,
+  so that $P_k(a\mid x)=N_k(a)/\sum_bN_k(b)$. If $a\notin\Phi_k(x)$ then
+  $N_k(a)=0$ (injectivity across the cut, or a cross constraint at $k$ fails).
+  If $a\in\Phi_k(x)$, label the vertices $i\ne k$ of $x'$ in the order
+  $\mathfrak o_k$: when $x'_i$ is chosen, its constraints are the $r_i$ cross
+  constraints with the roots $x_j$, $j\in N(i)$, and the internal constraints
+  with its already labelled $x'$-neighbours (including $k$), $t'_{k,i}\le d_i\le
+  \Delta$ constraints in all; their roots are distinct, and the excluded set
+  $x(U^+)\cup\{\text{labels already chosen}\}$ has fewer than $2n$ elements and
+  contains them. By \cref{lem:extension}\ref{it:ext:coarse} the number of choices
+  lies in $p2^{-t'_{k,i}}[1-e_{t'_{k,i}}(p,2n),1+e_{t'_{k,i}}(p,2n)]$, whatever the
+  earlier choices. Hence $N_k(a)\in[L_k,U_k]$ on $\Phi_k(x)$, with $L_k>0$ and
+  $U_k/L_k=R'_k$, and
+  $1+\delta_k(a)=N_k(a)/\operatorname{avg}_{\Phi_k}N_k\in[1/R'_k,R'_k]$,
+  where $\operatorname{avg}_{\Phi_k}N_k:=
+  |\Phi_k(x)|^{-1}\sum_{a\in\Phi_k(x)}N_k(a)$.
+\item \emph{Explicit stars.} $\nu=\mu$, and $P_k(\cdot\mid x)$ is the uniform law on
+  $\Phi_k(x)$: $R_\nu=1$ and $R'_k=1$, $\delta_k=0$.
+\end{enumerate}
+
+\begin{lemma}[Modes of coupling data]\label{lem:coupling-modes}
+For coupling data and $F_V=\sum_kg_k(x_k)\in\mathcal V$,
+$\norm{\mathcal PF_V}^2_\nu=\sum_{\xi\ne0}\hat g(\xi)^*\mathbf M(\xi)\hat g(\xi)$, and
+$\mathbf M(\xi)$ is Hermitian. In instance \textup{(A)},
+$\norm{\Op F_V}^2_\mu\le(\sup\varrho)\,\norm{\mathcal PF_V}^2_{m_p}$.
+\end{lemma}
+
+\begin{proof}
+Since $\E_a[pP_k(a\mid x)]=1$ and $\E_ag_k=0$,
+$\sum_aP_k(a\mid x)g_k(a)=\E_a[\Psi_k(x,a)g_k(a)]$. Hence $\mathcal PF_V=\sum_{\xi\ne0}Y_\xi$
+with $Y_\xi(x)=\E_a[\sum_k\hat g_k(\xi)\Psi_k(x,a)e_\xi(a)]$. By (ii) for the
+translations, $Y_\xi(x+c\one)=e_\xi(c)Y_\xi(x)$, and $\nu$ is translation invariant;
+so the $Y_\xi$ are orthogonal in $L^2(\nu)$. By \cref{lem:spec:affpair}(c) with
+$\mathcal Y=\mathcal I^+$ and the covariant fields $\Psi_k$, for which $M=0$,
+$\norm{Y_\xi}^2_\nu=\hat g^*(\widetilde\Hmat+\chi(\xi)G_\chi\mathbf D)\hat g/(p-1)=\hat g^*\mathbf M(\xi)\hat g$,
+because $\chi(\xi)G_\chi=pc_\xi$. $\mathbf M(\xi)$ is Hermitian, since the left side is
+real for every $\hat g$. In instance (A), $\Op H=\varrho\cdot\mathcal PH$
+(\cref{lem:spec:cutkernel}(b)), so
+$\norm{\Op F_V}^2_\mu=\E_\mu[\varrho^2|\mathcal PF_V|^2]=\E_{m_p}[\varrho|\mathcal PF_V|^2]$.
+\end{proof}
+
+\paragraph{The model.}
+For $J\subseteq U^+$ let $\eps_J\in\R^{U^+}$ have the entries
+$(\eps_J)_k=\prod_{j\in J}\chi(\varsigma_{jk})$ if $J\subseteq N(k)$ and $0$ otherwise,
+and write $\eps_J\cdot w=\sum_k(\eps_J)_kw_k$. The \emph{star Gram model} is
+\begin{equation}\label{eq:spec:H}
+  \Hmat=\sum_{\emptyset\ne J\subseteq U^+}\eps_J\eps_J^{\mathsf T},\qquad
+  \Hmat_{kl}=\prod_{j\in N(k)\cap N(l)}\big(1+\chi(\varsigma_{jk}\varsigma_{jl})\big)-1 .
+\end{equation}
+Thus $\Hmat\succeq0$, $\Hmat_{kk}=2^{r_k}-1$, and
+$\norm\Hmat_{\rm row}=\max_k\sum_l|\Hmat_{kl}|\ge\norm\Hmat$. Distinct $k,l$ are
+\emph{inconsistent} if $\chi(\varsigma_{jk}\varsigma_{jl})=-1$ for some
+$j\in N(k)\cap N(l)$ (then $\Hmat_{kl}=-1$), and \emph{consistent} otherwise.
+
+\begin{definition}[The coupling model]\label{def:coupling-model}
+A set $J\subseteq U^+$ with $|J|\ge2$ is \emph{coverable} if $G^+[J]$ has no
+isolated vertex. Put
+\[
+  \Hmat^{\rm cov}=\sum_{\substack{|J|\ge2\\ J\ \text{coverable}}}\eps_J\eps_J^{\mathsf T},\qquad
+  \Hmat^{\rm nc}=\sum_{\substack{|J|\ge2\\ J\ \text{not coverable}}}\eps_J\eps_J^{\mathsf T},\qquad
+  \Hmat^+=\Hmat+\one_{p\equiv1(4)}\Hmat^{\rm cov}.
+\]
+These matrices, $\Delta^E$ and $\Hmat$ depend on $p$ only through its class
+$\mathfrak c$; we write $\Hmat_{(\mathfrak c)}$, $\Hmat^+_{(\mathfrak c)}$,
+$\Delta^E_{(\mathfrak c)}$ when the class matters, and put
+\[
+  \mathbf A_{1,\pm}=\pm\Delta^E_{(1)},\qquad \mathbf A_{3,\pm}=\pm i\,\Delta^E_{(3)}.
+\]
+By \cref{lem:spec:gauss}, for every $\xi\ne0$ the matrix $\Azero(\xi)$ is one of
+$\mathbf A_{\mathfrak c,+}$, $\mathbf A_{\mathfrak c,-}$, both values occur, and
+$\mathbf A_{\mathfrak c,\pm}^*\mathbf A_{\mathfrak c,\pm}=(\Delta^E_{(\mathfrak c)})^{\mathsf T}\Delta^E_{(\mathfrak c)}$.
+For a real symmetric matrix $X$, $\bar\lambda(X)$ denotes a fixed certified number with $\bar\lambda(X)\ge\lambda_{\max}(X)$; every formula below uses this fixed number (an exact $LDL^{\mathsf T}$ certificate of
+$\bar\lambda I-X\succeq0$, or the maximal absolute row sum).
+\end{definition}
+
+$\Hmat^{\rm cov}$ and $\Hmat^{\rm nc}$ are Gram sums, hence positive semidefinite.
+For $p\equiv1\pmod4$, $\chi(-1)=1$, so $(\eps_J)_k=[J\subseteq N(k)]$,
+$\Delta^E_{kl}=[\varsigma_{kl}\ne0]$, $\Hmat_{kl}=2^{|N(k)\cap N(l)|}-1$, and every pair is
+consistent.
+
+\paragraph{The Gram comparison.}
+Put $\beta_{kk}=2^{r_k}\hat e_k/(1-\hat e_k)$, and for consistent $k\ne l$, with
+$u_{kl}=|N(k)\cup N(l)|$ and $e_u=e_{u_{kl}}(p,n)$,
+\begin{equation}\label{eq:spec:beta}
+  \beta_{kl}=2^{|N(k)\cap N(l)|}\max\Big(\frac{1+e_u}{(1-\hat e_k)(1-\hat e_l)}-1,\
+  1-\frac{1-e_u}{(1+\hat e_k)(1+\hat e_l)}\Big);
+\end{equation}
+$\beta_{kl}=0$ for inconsistent $k\ne l$, and $\eps'_H=\max_k\sum_l\beta_{kl}$. For
+consistent $k\ne l$ put
+$\Upsilon_{kl}=2^{|N(k)\cap N(l)|}(1+e_u)/((1-\hat e_k)(1-\hat e_l))$, and
+$\Upsilon_{kl}=0$ otherwise (in particular for inconsistent $k\ne l$; the diagonal values $\Upsilon_{kk}$ are not used). For coupling data put
+\[
+  \eps_X=\max_k\Big[\frac{2^{r_k}\delta'^2_k}{1-\hat e_k}+\sum_{l\ne k}\Upsilon_{kl}
+  \big(\delta'_k+\delta'_l+\delta'_k\delta'_l\big)\Big].
+\]
+
+\begin{lemma}[Gram comparison]\label{lem:spec2:gram}
+Assume $e_\Delta(p,2n)<1$ and let coupling data be given. Let
+$\psi_k(x,\cdot)=(p/|\Phi_k(x)|)\one_{\Phi_k(x)}-1$ and
+$\Hmat^0_{kl}=\E_\nu\ip{\psi_k}{\psi_l}$. Then $\Hmat^0\preceq\Hmat+\eps'_HI$ and
+$\widetilde\Hmat\preceq\Hmat+\eps_HI$ with $\eps_H:=\eps'_H+\eps_X$. In instance
+\textup{(B)}, $\widetilde\Hmat=\Hmat^0$ and $\eps_X=0$.
+\end{lemma}
+
+\begin{proof}
+\emph{The model.} Fix $x$. Then
+$\ip{\psi_k}{\psi_l}=p|\Phi_k\cap\Phi_l|/(|\Phi_k||\Phi_l|)-1$. For $k=l$ this is
+$p/|\Phi_k|-1$, while $\Hmat_{kk}+1=2^{r_k}$ and
+$p/|\Phi_k|\in2^{r_k}[(1+\hat e_k)^{-1},(1-\hat e_k)^{-1}]$; so the two differ by at
+most $\beta_{kk}$. For inconsistent $k\ne l$ some $j\in N(k)\cap N(l)$ requires
+$a-x_j\in\varsigma_{jk}\Qsq$ and $a-x_j\in\varsigma_{jl}\Qsq$, which are disjoint
+sets; so $\Phi_k\cap\Phi_l=\emptyset$ and both entries are $-1$. For consistent
+$k\ne l$ the two constraints at a common $j$ coincide, so $\Phi_k\cap\Phi_l$ is cut
+out by $u_{kl}$ constraints with distinct roots and has
+$p2^{-u_{kl}}[1-e_u,1+e_u]$ elements; since
+$2^{r_k+r_l-u_{kl}}=2^{|N(k)\cap N(l)|}=\Hmat_{kl}+1$, the entries differ by at
+most $\beta_{kl}$. These bounds hold for every $x$; average over $\nu$ and apply
+Gershgorin to the real symmetric matrix $\Hmat^0-\Hmat$.
+
+\emph{The deviations.} By (iii), $pP_k=(1+\psi_k)(1+\delta_k)$, so
+$\Psi_k=\psi_k+(1+\psi_k)\delta_k$ and $\widetilde\Hmat=\Hmat^0+X+X^{\mathsf T}+Y$ with
+$X_{kl}=\E_\nu\ip{\psi_k}{(1+\psi_l)\delta_l}$ and
+$Y_{kl}=\E_\nu\ip{(1+\psi_k)\delta_k}{(1+\psi_l)\delta_l}$. Since $P_l$ is a probability
+on $\Phi_l$, $\sum_{a\in\Phi_l}\delta_l(a)=0$, and therefore
+\[
+  \ip{\psi_k}{(1+\psi_l)\delta_l}=\frac{p^2}{|\Phi_k||\Phi_l|}\E_a[\one_{\Phi_k\cap\Phi_l}\delta_l]
+  -\frac p{|\Phi_l|}\E_a[\one_{\Phi_l}\delta_l]
+  =\frac{p^2}{|\Phi_k||\Phi_l|}\E_a[\one_{\Phi_k\cap\Phi_l}\delta_l].
+\]
+For $k=l$ this vanishes, so $X_{kk}=0$. For inconsistent $k\ne l$,
+$X_{kl}=Y_{kl}=0$. For consistent $k\ne l$,
+$p|\Phi_k\cap\Phi_l|/(|\Phi_k||\Phi_l|)\le\Upsilon_{kl}$, so $|X_{kl}|\le\Upsilon_{kl}\delta'_l$
+and $|Y_{kl}|\le\Upsilon_{kl}\delta'_k\delta'_l$. Finally
+$Y_{kk}\le\E_\nu(p/|\Phi_k|)\delta'^2_k\le2^{r_k}\delta'^2_k/(1-\hat e_k)$. The matrix of
+these bounds for $|X_{kl}|+|X_{lk}|+|Y_{kl}|$ is symmetric, so by Gershgorin
+$X+X^{\mathsf T}+Y\preceq\eps_XI$. In instance (B), $\delta_k=0$.
+\end{proof}
+
+\paragraph{The Paley part.}
+For $k\in U^+$, $J\subseteq N(k)$, $a\in\Fp$ and $x\in\mathcal I^+$ put
+\[
+  \chi_{J,k}(a;x)=\prod_{j\in J}\chi(\varsigma_{jk}(a-x_j)),\qquad
+  \varphi_k(a;x)=\prod_{j\in N(k)}\big(1+\chi(\varsigma_{jk}(a-x_j))\big)
+  =\sum_{J\subseteq N(k)}\chi_{J,k}(a;x),
+\]
+$\varphi^\circ_k=\varphi_k-1$ and, for coupling data, $E_k=pP_k(\cdot\mid x)-\varphi_k$, so
+that $\Psi_k=\varphi^\circ_k+E_k$. For $J\subseteq U^+$ let
+$g_J(a;x)=\prod_{j\in J}\chi(a-x_j)$, so that $\chi_{J,k}=(\eps_J)_kg_J$, and
+\[
+  S_J(x_J)=\ip{g_J}{Cg_J}=\E_{a,b}\,g_J(a)\chi(b-a)g_J(b),\qquad t_J=\E_\nu S_J(x_J).
+\]
+Put
+\begin{gather*}
+  \theta_j=\Big(\frac{R_\nu2^{d^0_j}}{1-e_{d^0_j}(p,n)}-1\Big)^{1/2},\qquad
+  \theta_{\max}=\max_j\theta_j,\\
+  \rho_{\rm row}=\max_k(2^{r_k}-1)\sum_l(2^{r_l}-1),\qquad
+  \eps_{\ne}=r\,\theta_{\max}\rho_{\rm row},\\
+  \Delta_k=\max\Big(\frac{R'_k}{1-\hat e_k}-1,\ 1-\frac1{(1+\hat e_k)R'_k}\Big),\qquad
+  \hat E^2=\sum_k\Big(2^{r_k}(1+\hat e_k)\Delta_k^2+\frac{n4^{r_k}}p\Big),
+\end{gather*}
+and, for numbers $\Gamma_E\ge0$ and $\eps_H$ with $\widetilde\Hmat\preceq\Hmat+\eps_HI$,
+\begin{equation}\label{eq:spec:rem}
+  \eps_{\rm rem}(\Gamma_E)=2\big(\Gamma_E(\bar\lambda(\Hmat)+\eps_H)\big)^{1/2}+\Gamma_E .
+\end{equation}
+The notation $\eps_{\rm rem}(\Gamma_E)$ suppresses the dependence on $\eps_H$.
+
+\begin{lemma}[The Paley part]\label{lem:spec2:paley}
+Assume $e_\Delta(p,2n)<1$ and let coupling data be given.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item For every $x\in\mathcal I^+$ and $w\in\C^{U^+}$,
+  $\norm{\sum_kw_kE_k(\cdot;x)}\le\hat E|w|$.
+\item Let $\Gamma_E$ satisfy $\E_\nu\norm{\sum_kw_kE_k(\cdot;x)}^2\le\Gamma_E|w|^2$ for all $w$
+  (by (a), $\Gamma_E=\hat E^2$ is admissible), and $\eps_H$ as above. Then for
+  $w\in\C^{U^+}$
+  \[
+    \Big|w^*\mathbf Dw-\sum_{|J|\ge2}t_J\,|\eps_J\cdot w|^2\Big|\le r\big(\eps_{\ne}+\eps_{\rm rem}(\Gamma_E)\big)|w|^2 .
+  \]
+\item $S_J=0$ if $|J|=1$, $|S_J|\le r$ for every $J$, and $S_J=0$ (so $t_J=0$)
+  for every $J$ if $p\equiv3\pmod4$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) Let $\lambda_k=p2^{-r_k}/|\Phi_k|\in[(1+\hat e_k)^{-1},(1-\hat e_k)^{-1}]$. For
+$a\notin x(U^+)$ every factor of $\varphi_k$ is $0$ or $2$, so
+$\varphi_k(a;x)=2^{r_k}\one_{\Phi_k}(a)$; for $a\in x(U^+)$, $0\le\varphi_k\le2^{r_k}$ and
+$P_k(a\mid x)=0$. On $\Phi_k$, $E_k=2^{r_k}(\lambda_k(1+\delta_k)-1)$ with
+$\lambda_k(1+\delta_k)\in[1/((1+\hat e_k)R'_k),R'_k/(1-\hat e_k)]$, so $|E_k|\le2^{r_k}\Delta_k$
+there; $E_k=0$ off $\Phi_k\cup x(U^+)$, and $|E_k|\le2^{r_k}$ on the $n$ points of
+$x(U^+)$. Since $|\Phi_k|/p\le2^{-r_k}(1+\hat e_k)$,
+$\norm{E_k}^2\le2^{r_k}(1+\hat e_k)\Delta_k^2+n4^{r_k}/p$, and Cauchy--Schwarz gives
+$\norm{\sum_kw_kE_k}\le\hat E|w|$.
+
+(b) \emph{Splitting.} With $\Psi_w=\sum_kw_k\Psi_k$, $\varphi^\circ_w=\sum_kw_k\varphi^\circ_k$ and
+$E_w=\sum_kw_kE_k$,
+\[
+  w^*\mathbf Dw=\E_\nu\ip{\Psi_w}{C\Psi_w}=\E_\nu\ip{\varphi^\circ_w}{C\varphi^\circ_w}
+  +\E_\nu\ip{\varphi^\circ_w}{CE_w}+\E_\nu\ip{E_w}{C\Psi_w}.
+\]
+As $\norm{\varphi^\circ_w}\le\norm{\Psi_w}+\norm{E_w}$ and $\norm C=r$, the last two terms are
+at most $r\E_\nu[\norm{E_w}(2\norm{\Psi_w}+\norm{E_w})]$, which by Cauchy--Schwarz in $x$
+is at most $r\big(2\Gamma_E^{1/2}|w|(\E_\nu\norm{\Psi_w}^2)^{1/2}+\Gamma_E|w|^2\big)$; and
+$\E_\nu\norm{\Psi_w}^2=w^*\widetilde\Hmat w\le(\bar\lambda(\Hmat)+\eps_H)|w|^2$. This is
+$r\eps_{\rm rem}(\Gamma_E)|w|^2$. The main term is
+\[
+  \E_\nu\ip{\varphi^\circ_w}{C\varphi^\circ_w}=\sum_{k,l}\overline{w_k}w_l
+  \sum_{\emptyset\ne J\subseteq N(k)}\ \sum_{\emptyset\ne J'\subseteq N(l)}
+  \E_\nu\ip{\chi_{J,k}}{C\chi_{J',l}} .
+\]
+
+\emph{Terms with $J\ne J'$.} Suppose $j\in J\setminus J'$ (if $J\subseteq J'$ take
+$j\in J'\setminus J$ and use $C^*$, which also has norm $r$). Then $\chi_{J',l}$ and
+$\chi_{J\setminus\{j\},k}$ do not depend on $x_j$, so
+$\E_\nu\ip{\chi_{J,k}}{C\chi_{J',l}}=\E_\nu\ip{\phi_j\chi_{J\setminus\{j\},k}}{C\chi_{J',l}}$ with
+$\phi_j(a)=\sum_t\nu_j(t)\chi(\varsigma_{jk}(a-t))$, where $\nu_j$ is the conditional law of
+$x_j$ given the other labels under $\nu$. By \eqref{eq:two-root},
+$\norm{\phi_j}^2=\norm{\nu_j}^2_{\ell^2}-\frac1p\le\max\nu_j-\frac1p$. Under $\mu$ the
+conditional law of $x_j$ is uniform on a set of at least
+$p2^{-d^0_j}(1-e_{d^0_j}(p,n))$ values, and the density of $\nu$ with respect to $\mu$
+has ratio at most $R_\nu$, so $\max\nu_j\le R_\nu2^{d^0_j}/(p(1-e_{d^0_j}(p,n)))$
+(\cref{lem:graphs:vertex}\ref{it:vertex:dens} for $G^+$). Hence
+$\norm{\phi_j}\le r\theta_j$, and as $|\chi|\le1$ the term is at most $r^2\theta_{\max}$
+in modulus. There are at most $(2^{r_k}-1)(2^{r_l}-1)$ pairs $(J,J')$, and the
+Schur test for the symmetric matrix $((2^{r_k}-1)(2^{r_l}-1))_{kl}$ bounds their
+total by $r^2\theta_{\max}\rho_{\rm row}|w|^2=r\eps_{\ne}|w|^2$.
+
+\emph{Terms with $J=J'$.} For $J\subseteq N(k)\cap N(l)$,
+$\E_\nu\ip{\chi_{J,k}}{C\chi_{J,l}}=(\eps_J)_k(\eps_J)_lt_J$, so these terms sum to
+$\sum_Jt_J|\eps_J\cdot w|^2$; the singletons contribute nothing by (c).
+
+(c) If $p\equiv3\pmod4$, $C$ is real antisymmetric ($\chi(-1)=-1$), so
+$\ip g{Cg}=0$ for real $g$. If $J=\{j\}$, substituting $a\mapsto a+x_j$,
+$b\mapsto b+x_j$ and then $b=au$ ($a\ne0$),
+$p^2S_J=\sum_{a\ne0}\chi(a)^3\sum_u\chi(u)\chi(u-1)=-\sum_{a\ne0}\chi(a)=0$. Always
+$|S_J|\le\norm{g_J}^2\norm C\le r$.
+\end{proof}
+
+For $p\equiv3\pmod4$ the lemma says that the Paley part of the coupling is of
+lower order: $|w^*\mathbf Dw|\le r(\eps_{\ne}+\eps_{\rm rem})|w|^2$. For $p\equiv1\pmod4$ the
+diagonal terms $t_J$ with $|J|\ge2$ survive, and \cref{subsec:advance:parity} bounds
+them.
+
+\begin{lemma}[The coupling block]\label{cor:spec2:coupling}
+Assume $e_\Delta(p,2n)<1$ and $\eps_V<1$, and take the coupling data of instance
+\textup{(A)}. Let the following numbers be given.
+\begin{itemize}
+\item $R_+\ge\sup_{\mathcal I^+}\varrho$; for instance $R_+=\Rcut$
+  (\cref{lem:spec:cutkernel}(c)), or $R_+$ of \cref{prop:spec2:mucentre}\ref{it:centre:sup}.
+\item $\eps_H$ with $\widetilde\Hmat\preceq\Hmat+\eps_HI$; for instance $\eps'_H+\eps_X$
+  (\cref{lem:spec2:gram}), or its minimum with $\eps^{\rm loc}_H$ of
+  \cref{lem:push:conditionalgram}.
+\item $\Gamma_E$ with $\E_{m_p}\norm{\sum_kw_kE_k(\cdot;x)}^2\le\Gamma_E|w|^2$ for all $w$; for
+  instance $\hat E^2$ (\cref{lem:spec2:paley}(a)), or its minimum with the
+  completion-variance bound $\Gamma^{\rm loc}_E$ of \cref{lem:projection-diagonal}.
+\item If $p\equiv1\pmod4$, a number $\bar\zeta\ge0$ with $|t_J|\le\bar\zeta r$ for every
+  $J$ with $|J|\ge2$ that is not coverable; \cref{subsec:advance:parity} supplies
+  admissible values.
+\item $\Lambda_+\ge\lambda_{\max}(\Hmat^+)$, $\Lambda_{\rm nc}\ge\lambda_{\max}(\Hmat^{\rm nc})$,
+  $\Lambda_D\ge\norm{\Delta^E}$ and $\bar\lambda(\Hmat)\ge\lambda_{\max}(\Hmat)$.
+\end{itemize}
+Put $\eps_{\rm par}=\one_{p\equiv1(4)}\bar\zeta\Lambda_{\rm nc}$,
+$\eps_{\rm rem}=\eps_{\rm rem}(\Gamma_E)$ of \eqref{eq:spec:rem} with this $\eps_H$, and
+\begin{equation}\label{eq:spec:etaB}
+  \eta_B=\Big(\frac{R_+p}{p-1}-1\Big)\Lambda_+
+  +\frac{R_+p}{p-1}\big(\eps_H+\eps_{\ne}+\eps_{\rm rem}+\eps_{\rm par}\big)
+  +\eps_V\Lambda_D^2+2\Lambda_D\eta_Q .
+\end{equation}
+Then for every $\xi\ne0$
+\[
+  \mathbf M(\xi)\preceq\frac1{p-1}\Big[\widetilde\Hmat+\one_{p\equiv1(4)}\Hmat^{\rm cov}
+  +(\eps_{\ne}+\eps_{\rm rem}+\eps_{\rm par})I\Big]\preceq\frac{\Lambda_M}{p-1}\,I,
+\]
+with $\Lambda_M=\Lambda_++\eps_H+\eps_{\ne}+\eps_{\rm rem}+\eps_{\rm par}$, and for every complex
+$F_V=\sum_kg_k(x_k)\in\mathcal V$
+\begin{equation}\label{eq:spec:coupling}
+  \norm{(I-\Pi_{\mathcal V})\Op F_V}^2_\mu\le r^2\sum_{\xi\ne0}\hat g(\xi)^*
+  \big(\Hmat^+-\Azero(\xi)^*\Azero(\xi)+\eta_BI\big)\hat g(\xi).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+\emph{The matrix $\mathbf M$.} By \cref{lem:spec2:paley}(b),(c), and since $|t_J|\le r$
+for every $J$, $|t_J|\le\bar\zeta r$ for the non-coverable $J$, and both
+$\Hmat^{\rm cov}$ and $\Hmat^{\rm nc}$ are Gram sums,
+\[
+  |w^*\mathbf Dw|\le r\big(\one_{p\equiv1(4)}\big(w^*\Hmat^{\rm cov}w+\bar\zeta\,w^*\Hmat^{\rm nc}w\big)
+  +(\eps_{\ne}+\eps_{\rm rem})|w|^2\big),
+\]
+and $\bar\zeta w^*\Hmat^{\rm nc}w\le\bar\zeta\Lambda_{\rm nc}|w|^2$. Multiply by
+$\frac p{p-1}|c_\xi|=\frac p{p-1}r$ and use $pr^2=1$; as $\mathbf M(\xi)$ is Hermitian
+(\cref{lem:coupling-modes}) this gives the first inequality, and
+\cref{lem:spec2:gram} ($\widetilde\Hmat\preceq\Hmat+\eps_HI$) with $\Hmat^+\preceq\Lambda_+I$ gives
+the second.
+
+\emph{Step 1.} By \cref{lem:coupling-modes} and the first part,
+$\norm{\Op F_V}^2_\mu\le R_+\sum_\xi\hat g^*\mathbf M\hat g\le
+r^2\frac{R_+p}{p-1}\sum_\xi\hat g^*\big[\Hmat^++(\eps_H+\eps_{\ne}+\eps_{\rm rem}+\eps_{\rm par})I\big]\hat g$,
+and $\frac{R_+p}{p-1}\Hmat^+\preceq\Hmat^++(\frac{R_+p}{p-1}-1)\Lambda_+I$, because
+$\Hmat^+\succeq0$ and $R_+p/(p-1)\ge1$ ($\sup\varrho\ge\E_\mu\varrho=1$).
+
+\emph{Step 2.} Let $v=\sum_kv_k(x_k)$ with $\hat v(\xi)=\mathbf Q(\xi)\hat g(\xi)$ for
+$\xi\ne0$ and $\hat v(0)=0$. Then $v\in\mathcal V$, with no reality
+condition on its coefficients. By \cref{lem:spec:degone}(a),
+$\ip v{\Op F_V}_\mu=\sum_\xi|\mathbf Q\hat g|^2$, and by \cref{lem:spec:degone}(c),
+$\norm v^2\le(1+\eps_V)\sum_\xi|\mathbf Q\hat g|^2$. Hence
+$\norm{\Pi_{\mathcal V}\Op F_V}^2\ge|\ip v{\Op F_V}|^2/\norm v^2\ge(1+\eps_V)^{-1}
+\sum_\xi|\mathbf Q(\xi)\hat g(\xi)|^2$ (trivially if the sum is $0$).
+
+\emph{Conclusion.} By \cref{lem:spec:degone}(b),
+$|\mathbf Q\hat g|^2/r^2=|(\Azero+E_Q)\hat g|^2\ge|\Azero\hat g|^2-2\Lambda_D\eta_Q|\hat g|^2=:X-Y$,
+and since $\eps_V<1$ and $X\le\Lambda_D^2|\hat g|^2$,
+\[
+  (1+\eps_V)^{-1}|\mathbf Q\hat g|^2/r^2\ge(1-\eps_V)\max(0,X-Y)\ge X-Y-\eps_VX
+  \ge\hat g^*\Azero^*\Azero\hat g-(2\Lambda_D\eta_Q+\eps_V\Lambda_D^2)|\hat g|^2 .
+\]
+By Pythagoras, $\norm{(I-\Pi_{\mathcal V})\Op F_V}^2=\norm{\Op F_V}^2-\norm{\Pi_{\mathcal V}\Op F_V}^2$;
+collecting the terms gives \eqref{eq:spec:coupling}.
+\end{proof}
+
+The proof uses $\sup\varrho$ only in Step~1, where $\Op F_V=\varrho\cdot\mathcal PF_V$. The
+other occurrences of $\Rcut$, through $R_\nu$ in $\theta_j$ and in the constant
+$\zeta$ of \cref{subsec:advance:parity}, bound ratios of counts; the number $R_+$ used in Step~1 is not substituted for $\Rcut$ in them. For $p\equiv3\pmod4$ the model is $\Hmat^+=\Hmat$ and
+$\eps_{\rm par}=0$.
+
+\subsection{Variance of completion counts}\label{subsec:spec:completion-variance}
+
+The coupling inputs $\eps_H$ and $\Gamma_E$ measure how far the conditional density
+$pP_k(\cdot\mid x)$ of instance (A) is from the normalized indicator of $\Phi_k(x)$,
+that is, how much the number of completions of the opposite half varies with the
+value $a=x'_k$. The bounds of \cref{lem:spec2:gram,lem:spec2:paley} use only the
+range of the completion counts, through $R'_k$, which is a product over all
+vertices. At the completed-root cuts LL20 (the chamber cut in coordinate~0 of the two-layer root) and LL22 (its layer cut), defined in \cref{subsec:push:layer72spectral} (see also \cref{lem:upper-completed-root}), this range bound is too crude for the test \eqref{eq:spectral-test}. The estimate below integrates the
+internal neighbourhood $S$ of $k$ exactly: conditionally on the labels $z$ of the
+vertices outside $S\cup\{k\}$, whose law does not depend on $a$, the count is,
+up to the edges inside $S$ and to coincidences, a product of one-variable counts,
+and each depends on $a$ only through one Paley factor of norm $r$; the edges inside
+$S$ are expanded in characters and bounded by matchings or by the two-variable
+sum of \cref{thm:dl:H2}. Minkowski's inequality then averages over $z$. The result is
+a bound for the relative variance of the counts, which enters the coupling block
+through the two lemmas that follow it.
+
+Fix $x\in\mathcal I^+$ and $k\in U^+$, and let $C_k(a)$ be the number of
+$x'\in\mathcal I^+$ with $K(x,x')=1$ and $x'_k=a$ (the count $N_k(a)$ of instance
+(A)); it vanishes off $\Phi_k=\Phi_k(x)$. Write $\E_{\Phi_k}$, $\Var_{\Phi_k}$ for the
+uniform probability on $\Phi_k$, and let
+$v_k(x)=\Var_{\Phi_k}(C_k)/(\E_{\Phi_k}C_k)^2$ be the \emph{relative completion variance}.
+We use count errors $(\epsilon^+_t)_{t\ge0}$ and $(\epsilon^-_t(z))_{t,z\ge0}$, nondecreasing
+in $t$ and $z$, such that every set $\Phi$ of \cref{lem:extension} with $t$ roots
+satisfies $|\Phi|\le p2^{-t}(1+\epsilon^+_t)$, whatever its excluded set, and
+$|\Phi|\ge p2^{-t}(1-\epsilon^-_t(z))$ if it excludes at most $z$ labels. By
+\cref{lem:extension}\ref{it:ext:upper},\ref{it:ext:lower} the graded errors
+$e^+_t$, $e^-_t(z)$ of \eqref{eq:graphs:graded} are such errors, and so is every
+larger choice. The certificates use $\epsilon^+_t=c_tr+\binom t2r^2$ and
+$\epsilon^-_t(z)=\epsilon^+_t+z2^tr^2$ with $c_t=\sum_{j=3}^t\binom tj(j-1)$. These are
+larger: $c_t-a_t=b_t-\binom t2$ is the number of even-size subsets of $\{1,\dots,t\}$
+with at least four elements (with $a_t$, $b_t$ as in \eqref{eq:graphs:graded}; proof of \cref{lem:extension}), so $\epsilon^+_t-e^+_t=\epsilon^-_t(z)-e^-_t(z)=(c_t-a_t)(r-r^2)\ge0$;
+and $c_t$, $\binom t2$ are nondecreasing in $t$.
+
+\begin{lemma}[Completion variance]\label{lem:push:localvariance}
+Assume $e_\Delta(p,2n)<1$, and let $x\in\mathcal I^+$ and $k\in U^+$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item \emph{(Range.)} If $0<l\le C\le u$ on a probability space and $\bar C=\E C$, then
+  $\Var(C)/\bar C^2\le(u-\bar C)(\bar C-l)/\bar C^2\le(u-l)^2/(4ul)$. In particular
+  $v_k(x)\le\delta'^2_k/(4(1+\delta'_k))$ with $\delta'_k=R'_k-1$ of \eqref{eq:spec:Rprime}.
+\item \emph{(The internal neighbourhood.)} Let $S=\{i\in U^+:i\sim k\}$, let
+  $R=U^+\setminus(\{k\}\cup S)$, and suppose that $G^+[S]$ is bipartite, with parts
+  $S_0$, $S_1$. For $i\in S$ put $m_i=d_i-1-\deg_{G^+[S]}(i)$ and
+  \begin{gather*}
+    \alpha^-_i=1-\epsilon^-_{m_i}(2n),\qquad \alpha^+_i=1+\epsilon^+_{m_i},\qquad
+    \alpha^{++}_i=1+\epsilon^+_{m_i+1},\\
+    \kappa_i=\frac{2^{m_i+1}}{1-\epsilon^-_{m_i+1}(2n)},\qquad
+    \kappa_\Phi=\frac{2^{r_k}}{1-\epsilon^-_{r_k}(n)},\qquad
+    L_i=(\kappa_\Phi2^{m_i}\alpha^+_i)^{1/2}r+2^{m_i}r^2,
+  \end{gather*}
+  and assume that all displayed denominators are positive. For a nonempty set $H$ of
+  edges of $G^+[S]$ let $P_H$ be the minimum of the numbers in
+  (i), over all matchings satisfying the stated component
+  condition (this set may be empty), and in (ii), over all edges
+  $uv\in H$ (nonempty, since $H\ne\emptyset$).
+  \begin{enumerate}[label=\textup{(\roman*)}]
+  \item \emph{Matching bounds.} Let $M=\{u_1v_1,\dots,u_mv_m\}\subseteq H$ be a nonempty
+    matching, $u_i\in S_0$, $v_i\in S_1$, and let its \emph{contracted digraph} on
+    $\{1,\dots,m\}$ have an arc $i\to l$ for every edge of $H$ between $u_i$ and $v_l$,
+    $i\ne l$. If its strongly connected components have size at most two, $b$ of them
+    of size two, put
+    \[
+      B_H(M)=2^br^{|M|}\prod_{i\in V(M)}(2^{m_i+1}\alpha^{++}_i)^{1/2}
+      \prod_{i\in S\setminus V(M)}\alpha^{++}_i .
+    \]
+  \item \emph{Two-variable bounds.} For an edge $uv\in H$, with $d_u=m_u+1$,
+    $d_v=m_v+1$, $f_u$ and $f_v$ the numbers of other edges of $H$ at $u$ and at
+    $v$, $s_u=\alpha^{++}_u+d_u2^{d_u}r^2$, $s_v=\alpha^{++}_v+d_v2^{d_v}r^2$ and
+    $(C_0,C_1,C_2)=\sum_{i\le d_u,\,j\le d_v}\binom{d_u}i\binom{d_v}j\mathbf c(i+f_u,j+f_v)$,
+    \[
+      \Big(r^2(C_0+rC_1+r^2C_2)+2nr^2\big(2^{d_u}s_v+2^{d_v}s_u\big)\Big)
+      \prod_{i\in S\setminus\{u,v\}}\alpha^{++}_i .
+    \]
+    Here $\mathbf c(a,b)=(0,0,0)$ if $ab=0$, $\mathbf c(1,1)=(1,0,0)$, and otherwise
+    $\mathbf c(a,b)$ is the vector of the coefficients of $1,r,r^2$ in
+    $\mathcal B(a,b,0)$ of \eqref{eq:dl:B} if $a\ge2$ (in
+    particular if both are at least two), and in
+    $\mathcal B(b,a,0)$ if $a<2\le b$.
+  \end{enumerate}
+  Put
+  \begin{gather*}
+    \mathrm{Lin}_k=\sum_{i\in S}L_i\prod_{j\in S\setminus\{i\}}\alpha^{++}_j,\qquad
+    \mathrm{Pair}_k=\sum_{\emptyset\ne H\subseteq E(G^+[S])}P_H,\\
+    \mathrm{Coll}_k=2^{|E(G^+[S])|}\prod_{i\in S}\alpha^{++}_i
+    \sum_{\{i,j\}\subseteq S}\min(\kappa_i,\kappa_j)\,r^2,\qquad
+    \mathrm{Exc}_k=\prod_{i\in S}\alpha^+_i\,(|R|\kappa_\Phi)^{1/2}r,
+  \end{gather*}
+  $\eps^{\rm loc}_k=\mathrm{Lin}_k+\mathrm{Pair}_k+\mathrm{Coll}_k+\mathrm{Exc}_k$ and
+  $\ell^{\rm loc}_k=\prod_{i\in S}\alpha^-_i-\eps^{\rm loc}_k$. If $\ell^{\rm loc}_k>0$, then
+  \begin{equation}\label{eq:push:localvariance}
+    v_k(x)\le\big(\eps^{\rm loc}_k/\ell^{\rm loc}_k\big)^2 .
+  \end{equation}
+\end{enumerate}
+\end{lemma}
+
+The bound depends on $x$ only through the graph data, so it is uniform in $x$. If
+$G^+[S]$ is a forest, every nonempty matching is admissible in (i) with $b=0$: a
+directed cycle of the contracted graph, followed through the matched edges, would
+be a cycle of $G^+[S]$. If $G^+[S]$ is a four-cycle together with isolated
+vertices, $b=1$ exactly when $H$ is the four-cycle and $|M|=2$, and $b=0$
+otherwise. These are the two geometries of the root cuts: each internal
+neighbourhood of $\mathrm{LL20}$ is a $K_{2,2}$ together with isolated vertices,
+and each internal neighbourhood of $\mathrm{LL22}$ is a forest (the evaluator of \cref{rem:spectral-criterion:certificate} checks that every internal neighbourhood is of one of these two kinds).
+
+\begin{proof}
+(a) $(u-C)(C-l)\ge0$ gives $\E C^2\le(u+l)\bar C-ul$, so
+$\Var C\le(u-\bar C)(\bar C-l)$, and
+$(u-l)^2\bar C^2-4ul(u-\bar C)(\bar C-l)=((u+l)\bar C-2ul)^2\ge0$. For the second statement take
+the uniform probability on $\Phi_k$ and $C=C_k$, which lies in $[L_k,U_k]$ with
+$U_k/L_k=R'_k$ (instance (A) of \cref{subsec:spec:coupling}).
+
+(b) \emph{Conditioning.} The vertices of $R$ are not adjacent to $k$. Let $\mathcal Z$ be
+the set of labellings $z$ of $R$ that are injective, avoid $x(U^+)$, and satisfy the
+edges inside $R$ and the cross constraints of $R$ with $x$; it does not depend on
+$a$. A completion counted by $C_k(a)$ is a triple $(a,y,z)$ with $z\in\mathcal Z$,
+$a\notin z(R)$ and a labelling $y$ of $S$ satisfying the remaining constraints. For
+$i\in S$ the constraints of $y_i$ with the fixed labels are its $r_i$ cross
+constraints with $x$ and its edges to $R$, $m_i$ in all, with distinct roots; let
+$\Phi^z_i$ be the set of values outside $x(U^+)\cup z(R)$ (at most $2n$ labels)
+satisfying them, and $A_i=2^{m_i}|\Phi^z_i|/p$, so that $\alpha^-_i\le A_i\le\alpha^+_i$. For
+$a\in\Phi_k\setminus z(R)$ let $\mathcal A_i(a)=\{y\in\Phi^z_i:y\ne a,\ \text{the constraint of
+the edge between $i$ and $k$ holds}\}$, a set with $m_i+1$ distinct roots, and
+$\rho_i=2^{m_i+1}\one_{\mathcal A_i(a)}$ on $\Fp$. Then
+$q_i:=\E\rho_i=2^{m_i+1}|\mathcal A_i(a)|/p\le\alpha^{++}_i$ and
+$\norm{\rho_i}^2_2=2^{m_i+1}q_i\le2^{m_i+1}\alpha^{++}_i$. Define the normalized count
+$\mathcal H(a,z)=2^{|E(G^+[S])|}\prod_{i\in S}(2^{m_i+1}/p)\cdot\#\{y\}$ for $a\notin z(R)$,
+and $\mathcal H(a,z)=0$ if $a\in z(R)$. Then
+$C_k(a)=c_0\sum_{z\in\mathcal Z}\mathcal H(a,z)$ with a constant $c_0>0$ independent of $a$ and
+$z$, and $\mathcal Z\ne\emptyset$ because $C_k\not\equiv0$ (\cref{lem:spec:cutkernel}(c)).
+For $a\notin z(R)$, with $y$ uniform on $\Fp^S$,
+\[
+  \mathcal H(a,z)=\E_y\Big[\prod_{i\in S}\rho_i(y_i)\,\one[y\ \text{injective}]
+  \prod_{e\in E(G^+[S])}\big(1+\chi_e(y)\big)\Big],
+\]
+where $\chi_e(y)=\chi(y_w-y_{w'})$ for the edge $e=(w',w)$: on injective $y$,
+$1+\chi_e(y)$ is twice the indicator of the edge constraint $y_w-y_{w'}\in\Qsq$.
+
+\emph{The linear part.} For $a\in\Phi_k\setminus z(R)$,
+$q_i(a)=\frac{2^{m_i}}p\sum_{y\in\Phi^z_i}\big(1+s_i\chi(y-a)-\one_{y=a}\big)
+=A_i+f_i(a)-\frac{2^{m_i}}p\one_{\Phi^z_i}(a)$, with $s_i\in\{\pm1\}$ the sign of the
+constraint of the edge between $i$ and $k$ and $f_i=s_i2^{m_i}C\one_{\Phi^z_i}$. By
+\cref{lem:spec:gauss}, $\norm{f_i}^2_2\le4^{m_i}r^2|\Phi^z_i|/p=2^{m_i}A_ir^2$. The
+uniform probability on $\Phi_k$ has density at most $\kappa_\Phi$ with respect to the
+uniform probability on $\Fp$, so $\norm{(q_i-A_i)\one_E}_{L^2(\Phi_k)}\le L_i$ on
+$E=\Phi_k\setminus z(R)$. There $q_j\le\alpha^{++}_j$ and $A_j\le\alpha^+_j\le\alpha^{++}_j$;
+telescoping $\prod_iq_i-\prod_iA_i$ and Minkowski give
+$\norm{(\prod_iq_i-\prod_iA_i)\one_E}_{L^2(\Phi_k)}\le\mathrm{Lin}_k$.
+
+\emph{Coincidences.} Let $\mathcal H'$ be the expression for $\mathcal H$ with the indicator of
+injectivity replaced by the indicator of injectivity inside $S_0$ and inside $S_1$.
+The product over $E(G^+[S])$ lies in $[0,2^{|E(G^+[S])|}]$, and on injective $y$ the
+two agree. Hence
+$0\le\mathcal H'-\mathcal H\le2^{|E(G^+[S])|}\sum\E_y[\prod_i\rho_i(y_i)\one_{y_i=y_j}]$ over the
+pairs $\{i,j\}$ with one vertex in each part. For any pair,
+$\E_y[\prod_l\rho_l\one_{y_i=y_j}]=\prod_lq_l\cdot|\mathcal A_i\cap\mathcal A_j|/(|\mathcal A_i||\mathcal A_j|)
+\le\prod_lq_l\cdot\min(\kappa_i,\kappa_j)/p$, since $\mathcal A_i$ excludes at most $2n$ labels
+and so $|\mathcal A_i|\ge p/\kappa_i$. Expanding the product over the edges,
+$\mathcal H'=\sum_{H\subseteq E(G^+[S])}T_H$ with
+\[
+  T_H=\E_y\Big[\prod_{i\in S}\rho_i(y_i)\,\one[y\ \text{injective inside}\ S_0\ \text{and inside}\ S_1]
+  \prod_{e\in H}\chi_e(y)\Big],
+\]
+and $\prod_iq_i-T_\emptyset$ lies in $[0,\prod_lq_l\sum\min(\kappa_i,\kappa_j)/p]$, the sum over
+the pairs inside one part. These two lists of pairs are disjoint, so on $E$
+\[
+  \Big|\mathcal H-\prod_iq_i-\sum_{\emptyset\ne H}T_H\Big|\le\mathrm{Coll}_k .
+\]
+
+\emph{Matching bounds.} Let $M\subseteq H$ be a matching as in (i). Freeze the labels of
+$S\setminus V(M)$. The factors of $T_H$ that involve a matched vertex and an unmatched
+one (characters of edges of $H$, and the indicators of distinctness inside a part)
+are functions of the matched label of modulus at most one; absorb them into
+$\rho_i$, $i\in V(M)$, which does not increase $\norm{\rho_i}_2$. The remaining
+kernel between the labels of $V(M)\cap S_0$ and of $V(M)\cap S_1$ is a product of
+signed characters of the core $H[V(M)]$, with the matching edges as diagonal; all
+edges of $H$ join the two parts, and the distinctness inside each part restricted
+to $V(M)$ is the projection onto injective tuples. By \cref{lem:matching:kernel}(a)
+(if $b=0$) and (b), the compression of this kernel by these projections has norm at
+most $2^br^{|M|}$, so the inner
+expectation over the matched labels is at most
+$2^br^{|M|}\prod_{i\in V(M)}\norm{\rho_i}_2$ in modulus, by Cauchy--Schwarz. The
+remaining factors among the unmatched labels have modulus at most one, and
+$\E_y\prod_{i\notin V(M)}\rho_i(y_i)=\prod_{i\notin V(M)}q_i\le\prod_{i\notin V(M)}\alpha^{++}_i$.
+Hence $|T_H|\le B_H(M)$.
+
+\emph{Two-variable bounds.} Let $uv\in H$, $u\in S_0$, $v\in S_1$, and freeze all labels
+except $y_u,y_v$. Off $x(U^+)\cup z(R)\cup\{a\}$, which contains its roots, $\rho_u(y_u)$
+equals the soft product $\tilde\rho_u(y_u)=\prod_\beta(1+s_\beta\chi(y_u-\beta))$ over its $d_u$ constraints
+with the fixed labels and $a$ (the \emph{optional centres}; a
+centre here is a label $\beta$ in a factor $\chi(y_u-\beta)$, not
+a principal law); the characters of the other edges of $H$ at $u$
+have the frozen labels of $S_1$ as centres (the $f_u$ \emph{forced
+centres}). The optional centres lie in $x(U^+)\cup z(R)\cup\{a\}$
+and the forced centres are labels of $\mathcal A_w$, $w\in S_1$,
+distinct by the injectivity inside $S_1$; so all $d_u+f_u$ centres
+at $u$ are distinct, and likewise at $v$. Expanding the optional
+factors, the average over $(y_u,y_v)\in\Fp^2$ of
+$\tilde\rho_u\tilde\rho_v$ times the characters is a sum of
+$\binom{d_u}i\binom{d_v}j$ averages $\E_{y,y'}\chi(f(y)g(y')(y'-y))$ with
+$\deg f=i+f_u$, $\deg g=j+f_v$, each multiplied by a sign. If $\deg g=0$ the sum
+over $y'$ vanishes, and similarly for $\deg f=0$; if $\deg f=\deg g=1$ the
+two-root identity \eqref{eq:two-root} gives modulus at most $p$; otherwise
+\cref{thm:dl:H2} gives modulus at most $p\,\mathcal B(\cdot,\cdot,s)\le p\,\mathcal B(\cdot,\cdot,0)$.
+So this average is at most $r^2(C_0+rC_1+r^2C_2)$. Restoring the excluded values:
+$\tilde\rho_u\ge0$, it agrees with $2^{d_u}$ times the indicator of its constraints off
+its $d_u$ roots and is at most $2^{d_u}$ at the roots, so
+$\E\tilde\rho_u\le s_u$; each of $y_u$, $y_v$ must avoid at most $2n$ labels (the
+excluded labels and the frozen labels of its own part); so the restriction changes
+the average by at most $\frac{2n}p(2^{d_u}s_v+2^{d_v}s_u)$. The edge $uv$ vanishes on
+the diagonal, and the coincidences between the two parts are charged in
+$\mathrm{Coll}_k$. The other factors are bounded as in the matching case. Hence $|T_H|$
+is at most the bound (ii), and so $|T_H|\le P_H$.
+
+\emph{Averaging.} On $E$,
+$|\mathcal H-\prod_iA_i|\le|\prod_iq_i-\prod_iA_i|+\mathrm{Pair}_k+\mathrm{Coll}_k$. On
+$\Phi_k\setminus E$ (where $a\in z(R)$), $\mathcal H=0$ and $|\mathcal H-\prod_iA_i|\le\prod_i\alpha^+_i$,
+while the uniform probability of this set is at most $|R|/|\Phi_k|\le|R|\kappa_\Phi/p$.
+Hence $\norm{\mathcal H(\cdot,z)-\prod_iA_i}_{L^2(\Phi_k)}\le\eps^{\rm loc}_k$ for every
+$z\in\mathcal Z$. Let $\bar{\mathcal H}=\E_z\mathcal H(\cdot,z)$ and $\bar A=\E_z\prod_iA_i\ge\prod_i\alpha^-_i$,
+with $z$ uniform on $\mathcal Z$. By Minkowski,
+$\norm{\bar{\mathcal H}-\bar A}_{L^2(\Phi_k)}\le\eps^{\rm loc}_k$, so
+$\E_{\Phi_k}\bar{\mathcal H}\ge\bar A-\eps^{\rm loc}_k\ge\ell^{\rm loc}_k>0$ and
+$\Var_{\Phi_k}\bar{\mathcal H}\le\norm{\bar{\mathcal H}-\bar A}^2\le(\eps^{\rm loc}_k)^2$. As
+$C_k=c_0|\mathcal Z|\bar{\mathcal H}$, the relative variance of $C_k$ is that of $\bar{\mathcal H}$.
+\end{proof}
+
+The relative variance enters the coupling block in two ways: through the
+error functions $E_k$ (the input $\Gamma_E$) and through the Gram matrix of the
+conditional densities (the input $\eps_H$). In \cref{lem:projection-diagonal,lem:push:conditionalgram} below, $\bar v_k$ is any
+number with $v_k(x)\le\bar v_k$ for every $x$, for instance the minimum of the
+bounds of \cref{lem:push:localvariance}(a) and (b).
+
+\begin{lemma}[Projection-error diagonal]\label{lem:projection-diagonal}
+In instance \textup{(A)}, for every $x\in\mathcal I^+$ and $k\in U^+$,
+\begin{equation}\label{eq:push:projectiondiagonal}
+  \norm{E_k(\cdot;x)}^2\le\frac{n4^{r_k}}p+\frac{2^{r_k}}{1-\hat e_k}\big(\bar v_k+\hat e_k^2\big),
+\end{equation}
+with $\hat e_k=e_{r_k}(p,n)$. Consequently $\Gamma^{\rm loc}_E$, the sum over $k$ of the
+right side, satisfies $\norm{\sum_kw_kE_k(\cdot;x)}^2\le\Gamma^{\rm loc}_E|w|^2$ for every
+$x$, and $\min(\Gamma^{\rm loc}_E,\hat E^2)$ is an admissible input $\Gamma_E$ of
+\cref{cor:spec2:coupling}.
+\end{lemma}
+
+\begin{proof}
+Let $\alpha=|\Phi_k|/p$ and $\bar C_k=\E_{\Phi_k}C_k$. On $\Phi_k$,
+$pP_k=\alpha^{-1}C_k/\bar C_k$ and $\varphi_k=2^{r_k}$, so
+$E_k=\alpha^{-1}(C_k/\bar C_k-1)+(\alpha^{-1}-2^{r_k})$; off $\Phi_k\cup x(U^+)$, $E_k=0$; and
+$|E_k|\le2^{r_k}$ on $x(U^+)$. Since $\sum_{\Phi_k}(C_k/\bar C_k-1)=0$, the cross term
+vanishes and
+$\norm{E_k}^2\le\alpha^{-1}v_k+\alpha^{-1}(1-2^{r_k}\alpha)^2+n4^{r_k}/p$. Finally
+$\alpha^{-1}\le2^{r_k}/(1-\hat e_k)$ and $|1-2^{r_k}\alpha|\le\hat e_k$. The second statement
+is Cauchy--Schwarz over $k$, and the minimum of two admissible inputs is
+admissible.
+\end{proof}
+
+A \emph{weighted Schur bound} of a nonnegative symmetric matrix $Y$ is a number
+$\max_k(Yw)_k/w_k$ for a vector $w$ with positive entries. It bounds the norm of
+every Hermitian matrix $X$ with $|X_{kl}|\le Y_{kl}$, since
+$|u^*Xu|\le\sum Y_{kl}|u_k||u_l|\le\sum_k|u_k|^2(Yw)_k/w_k$.
+
+\begin{lemma}[Conditional-density Gram refinement]\label{lem:push:conditionalgram}
+In instance \textup{(A)} put $y_k=2^{r_k}\bar v_k/(1-\hat e_k)$, let $Y$ be the matrix with
+$Y_{kk}=y_k$, $Y_{kl}=\min\{(y_ky_l)^{1/2},\Upsilon_{kl}\delta'_k\delta'_l\}$ for consistent
+$k\ne l$ and $Y_{kl}=0$ otherwise, and let $\Gamma_D$ be the smaller of $\sum_ky_k$ and a
+weighted Schur bound of $Y$. Let $h_0$ be a weighted Schur bound of the matrix
+$(\beta_{kl})$ of \eqref{eq:spec:beta}. Then
+\begin{equation}\label{eq:push:conditionalgram}
+  \widetilde\Hmat\preceq\Hmat+\eps^{\rm loc}_HI,\qquad
+  \eps^{\rm loc}_H=h_0+2\big(\Gamma_D(\bar\lambda(\Hmat)+h_0)\big)^{1/2}+\Gamma_D .
+\end{equation}
+So $\min(\eps'_H+\eps_X,\eps^{\rm loc}_H)$ is an admissible input $\eps_H$ of
+\cref{cor:spec2:coupling}.
+\end{lemma}
+
+\begin{proof}
+Fix $x$. As in the proof of \cref{lem:spec2:gram}, $\Psi_k=\psi_k+D_k$ with
+$D_k=(1+\psi_k)\delta_k=\alpha_k^{-1}\one_{\Phi_k}(C_k/\bar C_k-1)$, $\alpha_k=|\Phi_k|/p$ and
+$\bar C_k=\E_{\Phi_k}C_k$. The Gram
+matrix of the $\psi_k$ differs from $\Hmat$ entrywise by at most $\beta_{kl}$, so its
+norm distance from $\Hmat$ is at most $h_0$, and the synthesis operator
+$A_x\colon w\mapsto\sum_kw_k\psi_k$ satisfies $\norm{A_xw}^2\le w^*\Hmat w+h_0|w|^2$, and so
+$\norm{A_xw}^2\le(\bar\lambda(\Hmat)+h_0)|w|^2$. Next
+$\norm{D_k}^2=\alpha_k^{-1}v_k\le y_k$; for consistent $k\ne l$,
+$|\ip{D_k}{D_l}|\le\min\{\norm{D_k}\norm{D_l},\Upsilon_{kl}\delta'_k\delta'_l\}$, by the
+intersection count of the proof of \cref{lem:spec2:gram}; and for inconsistent
+pairs the supports are disjoint. So the synthesis operator $D_x\colon
+w\mapsto\sum_kw_kD_k$ has $\norm{D_x}^2\le\Gamma_D$ (the trace bound
+$\norm{D_x}^2\le\sum_k\norm{D_k}^2$ needs no positivity). Finally
+$w^*\widetilde\Hmat w=\E_{m_p}\norm{A_xw+D_xw}^2\le\E\big(\norm{A_xw}^2+2\norm{A_xw}\norm{D_xw}
++\norm{D_xw}^2\big)$, which is at most $w^*\Hmat w+\eps^{\rm loc}_H|w|^2$.
+\end{proof}
+
+At the root cuts the certificates take, at each threshold, the smaller of each
+refined input and the standard one: $\Gamma_E=\min(\Gamma^{\rm loc}_E,\hat E^2)$, with
+$\bar v_k$ the bound (b) of \cref{lem:push:localvariance} (each $P_H$ the smaller of its
+matching and two-variable bounds), and $\eps_H=\min(\eps'_H+\eps_X,\eps^{\rm loc}_H)$, with
+$\bar v_k$ the minimum of the bounds (a) and (b); they then
+recompute $\eps_{\rm rem}$ and $\eta_B$ and repeat the exact
+positive-semidefiniteness tests of \eqref{eq:spectral-test}.
+All these inputs are admissible
+(\cref{lem:spectral-monotone}(d)), with the Schur weights fixed at the threshold.
+
+\subsection{The character expansion}\label{subsec:spec:perp}
+
+The part of the cut kernel orthogonal to the degree-one space is
+handled by expanding it in the characters of its cross pairs.
+Each set $S$ of cross pairs contributes one operator $T_S$; sets
+whose pairs all share one endpoint (\emph{stars}) are computed
+exactly below, and the remaining sets are grouped into a nonstar
+term and a collision term, bounded in \cref{sec:extraction}. For a
+cross pair $e=(j,k)\in E_\times$ put $\chi_e(x,x')=\chi(\varsigma_{jk}(x'_k-x_j))$, and
+for $S\subseteq E_\times$ put $\chi_S=\prod_{e\in S}\chi_e$; let $T_S$ be the operator on
+$L^2(\mu)$ with kernel $\chi_S$ relative to $\mu\otimes\mu$,
+$(T_Sh)(x)=\E_{x'\sim\mu}[\chi_S(x,x')h(x')]$. Let $J(S)$ and $K(S)$ be the sets of
+$x$-endpoints and $x'$-endpoints of $S$. A nonempty $S$ is a \emph{column star} if
+$|K(S)|=1$ (all its pairs have the same $x'$-endpoint), a \emph{row star} if
+$|J(S)|=1$, and a \emph{nonstar} otherwise; single pairs are stars of both kinds.
+The \emph{transpose} of $S$ is $S^{\mathsf t}=\{(k,j):(j,k)\in S\}\subseteq E_\times$
+(\cref{lem:spec:elementary}). Put
+\[
+  K_0(x,x')=\one\{x(U^+)\cap x'(U^+)=\emptyset\}\prod_{e\in E_\times}\big(1+\chi_e(x,x')\big),
+  \qquad Z_0=\E_{\mu\otimes\mu}K_0,
+\]
+let $T_{\rm ns}=\sum_{S\ \rm nonstar}T_S$, and let $T_{\rm coll}$ be the operator with the
+kernel $\one\{x(U^+)\cap x'(U^+)\ne\emptyset\}\prod_{e\in E_\times}(1+\chi_e(x,x'))$. We use
+the same letter for a kernel and its operator relative to $\mu\otimes\mu$.
+
+\begin{lemma}[Expansion]\label{lem:spec:expansion}
+On $\mathcal I^+\times\mathcal I^+$, $K_0=2^{m_\times}K$, so $Z_0=2^{m_\times}Z$ and $\Op=K_0/Z_0$;
+and, as operators on $L^2(\mu)$,
+\begin{equation}\label{eq:record:root-kernel}
+  K_0=\one\otimes\one+\sum_{S\ \rm star}T_S+T_{\rm ns}-T_{\rm coll}.
+\end{equation}
+All these kernels are real; the kernel of $T_{\rm coll}$ is nonnegative and symmetric,
+and $T_S^*=T_{S^{\mathsf t}}$ for every $S$.
+\end{lemma}
+
+\begin{proof}
+$\prod_e(1+\chi_e)=\sum_S\chi_S$ identically, and $\chi_\emptyset=1$ gives $\one\otimes\one$. If
+$x(U^+)\cap x'(U^+)=\emptyset$, then $x'_k\ne x_j$ for every pair, and $1+\chi(y)=2\Ap(y)$
+for $y\ne0$, so the product is $2^{m_\times}K$ by \eqref{eq:spec:K}; otherwise $K=0$
+and $K_0=0$. Each factor of the collision kernel lies in $\{0,1,2\}$. Exchanging
+$x$ and $x'$ maps $\chi_e$, $e=(j,k)$, to
+$\chi(\varsigma_{jk}(x_k-x'_j))=\chi(\varsigma_{kj}(x'_j-x_k))=\chi_{(k,j)}$, because
+$\varsigma_{kj}=-\varsigma_{jk}$ (\cref{lem:spec:elementary}); this gives the symmetry of
+the collision kernel and $T_S^*=T_{S^{\mathsf t}}$.
+\end{proof}
+
+For $x\in\mathcal I^+$ and $t\in\Fp$ let
+$\varphi_k(t;x)=\prod_{j\in N(k)}(1+\chi(\varsigma_{jk}(t-x_j)))$ as in
+\cref{subsec:spec:coupling}, $h_{\star,k}(x)=\E_t\varphi_k(t;x)-1$, and let
+$h_\star=\sum_kh_{\star,k}$; this is the star function of
+\eqref{eq:star-function} in \cref{sec:dl}, with its centre $t$
+integrated out.
+The \emph{standard star constants} are
+\[
+  P_{\rm st}=r^2\sum_{k\in U^+}\binom{r_k}2,\qquad
+  W_{\rm st}=r\sum_{k\in U^+}\sum_{s=3}^{r_k}\binom{r_k}s(s-1).
+\]
+
+\begin{lemma}[Stars]\label{lem:spec:stars}
+Assume $e_\Delta(p,2n)<1$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item Let $S=J\times\{k\}$ be a column star, $\emptyset\ne J\subseteq N(k)$, and
+  $h\in L^2(\mu)$. Then $(T_Sh)(x)=\E_t[\chi_{J,k}(t;x)\,\E_\mu[h\mid x_k=t]]$. In
+  particular $T_Sh=(\E_\mu h)\,T_S\one$ if $\E_\mu[h\mid x_k]$ is constant, and
+  $T_S\one=(\eps_J)_kw_J$ with $w_J(x)=\E_t\prod_{j\in J}\chi(t-x_j)$; on $\mathcal I^+$,
+  $w_J=0$ if $|J|=1$, $w_J=-q$ if $|J|=2$, and $|w_J|\le(|J|-1)r$ if $|J|\ge3$.
+\item For a row star $S$, $T_S=(T_{S^{\mathsf t}})^*$ with $S^{\mathsf t}$ a column star,
+  and $T_S\one$ is a constant.
+\item The column stars at $k$ together map $\one$ to $h_{\star,k}$, and
+  $\sum_{S\ \rm star}T_S\one=h_\star+\E_\mu h_\star$; hence
+  $\ip\one{\sum_{S\ \rm star}T_S\one}_\mu=2\E_\mu h_\star$.
+\item $|\E_\mu h_\star|\le P_{\rm st}+W_{\rm st}$ and $\norm{h_\star-\E_\mu h_\star}_\mu\le W_{\rm st}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) $\chi_S(x,x')=\chi_{J,k}(x'_k;x)$ depends on $x'$ only through $x'_k$, which is
+uniform under $\mu$. The values of $w_J$ are \cref{lem:star-trace}: for $|J|=1$
+the sum $\sum_t\chi(t-x_j)$ vanishes, for $|J|=2$ use \eqref{eq:two-root}
+($x$ is injective), and for $|J|\ge3$ \cref{thm:weil}. The identity
+$\chi_{J,k}=(\eps_J)_k\prod_j\chi(t-x_j)$ is the multiplicativity of $\chi$.
+(b) The first statement is \cref{lem:spec:expansion}. $(T_S\one)(x)=\E_{x'}\prod_{k\in
+K(S)}\chi(\varsigma_{jk}(x'_k-x_j))$ with $\{j\}=J(S)$; replacing $x'$ by $x'+x_j\one$,
+which preserves $\mu$, shows that it does not depend on $x$.
+(c) Summing (a) over $\emptyset\ne J\subseteq N(k)$ gives
+$\E_t[(\varphi_k(t;x)-1)\cdot1]=h_{\star,k}$. The single pairs contribute $w_{\{j\}}=0$,
+so the row stars (with at least two pairs) contribute a constant equal to
+$\sum\ip\one{T_S\one}=\sum\ip{T_{S^{\mathsf t}}\one}\one$, which is the total mean of the
+column stars with at least two pairs, $\E_\mu h_\star$.
+(d) By (a), $h_\star=-q\sum_k\sum_{|J|=2}(\eps_J)_k+h^{\ge3}$ with
+$h^{\ge3}=\sum_k\sum_{|J|\ge3}(\eps_J)_kw_J$, where $|(\eps_J)_k|\le1$. The first term is a
+constant of modulus at most $P_{\rm st}$, and $\norm{h^{\ge3}}_\infty\le W_{\rm st}$.
+Hence $h_\star-\E_\mu h_\star=h^{\ge3}-\E_\mu h^{\ge3}$, of norm at most
+$\norm{h^{\ge3}}_\mu\le W_{\rm st}$.
+\end{proof}
+
+\subsection{Centring at the half-law mean}\label{subsec:spec:centring}
+
+The test functions are centred at their mean under the half law $\mu$. Centring
+at the mean under $m_p$ instead leaves $\E_\mu F_\perp\ne0$, and then every star and
+every four-cycle can contribute through $\E_\mu F_\perp$; centring at $\E_\mu F$ removes these terms
+exactly, in exchange for one cross term $2c\ip{\varrho-1}{F_\perp}_\mu$ between the constant and the remainder,
+which is of second order. Let $\mathcal H_\perp=(\C\one\oplus\mathcal V)^\perp\subseteq L^2(\mu)$.
+
+\begin{proposition}[Centring at the $\mu$-mean]\label{prop:spec2:mucentre}
+Assume $e_\Delta(p,2n)<1$ and $\eps_V<1$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item\label{it:centre:decomp} For real $F\in L^2(\mu)$ let $c=\E_\mu F$,
+  $F_V=\Pi_{\mathcal V}(F-c)=\sum_kg_k(x_k)$ and $F_\perp=F-c-F_V\in\mathcal H_\perp$. Every
+  $h\in\mathcal H_\perp$ has $\E_\mu[h\mid x_k]=0$ for all $k$; hence $\ip{h'}{T_Sh}_\mu=0$
+  for $h,h'\in\mathcal H_\perp$ if $S=\emptyset$ or $S$ is a star. Moreover
+  $\ip\one{\Op v}_\mu=0$ for $v\in\mathcal V$, and
+  $\norm F^2_\mu=c^2+\norm{F_V}^2_\mu+\norm{F_\perp}^2_\mu\ge(1-\eps_V)(c^2+\norm g^2+\norm{F_\perp}^2_\mu)$.
+\item\label{it:centre:form}
+  $Q(F)=c^2+2c\ip{\varrho-1}{F_\perp}_\mu+Q(F_V)+2\ip{F_\perp}{\Op F_V}_\mu+Q(F_\perp)$.
+\item\label{it:centre:inputs} \emph{(Inputs.)} Let $N_{\rm ns}$, $D_{\rm col}$, $M_\star$ satisfy
+  $\norm{T_{\rm ns}}\le N_{\rm ns}$, $\norm{T_{\rm coll}}\le D_{\rm col}$ and
+  $\norm{h_\star-\E_\mu h_\star}_\mu\le M_\star$, and let $\eps_Z<1$ satisfy $Z_0\ge1-\eps_Z$; for
+  instance $\eps_Z=Z_\star+N_{\rm ns}+D_{\rm col}$ with
+  $2|\E_\mu h_\star|\le Z_\star$, or
+  $\eps_Z=\min(\eps_Z',\eps_Z'')$ for two numbers
+  $\eps_Z',\eps_Z''$ formed in this way from different admissible
+  pairs $(Z_\star,D_{\rm col})$.
+  Put $R_Z=(1-\eps_Z)^{-1}$ and $\eps_\varrho=R_Z(M_\star+N_{\rm ns}+D_{\rm col})$.
+  \begin{enumerate}[label=\textup{(c\arabic*)}]
+  \item\label{it:centre:Z} $Z_0-1=2\E_\mu h_\star+\ip\one{(T_{\rm ns}-T_{\rm coll})\one}_\mu$,
+    and $2^{-m_\times}/Z\le R_Z$.
+  \item\label{it:centre:sup} $\sup_{\mathcal I^+}\varrho\le R_+:=\dfrac{\prod_{i=1}^n\big(1+e_{t_i}(p,2n)\big)}
+    {(1-\eps_Z)\prod_{i\in U^+}\big(1-e_{d^0_i}(p,n)\big)}$, with the deletion degrees $t_i$.
+  \item\label{it:centre:rho} $\norm{\varrho-1}_\mu=\norm{P_0\Op\one}_\mu\le\eps_\varrho$.
+  \item\label{it:centre:perp} $|\ip h{\Op h}_\mu|\le R_Z(N_{\rm ns}+D_{\rm col})\norm h^2_\mu$ for
+    $h\in\mathcal H_\perp$.
+  \item\label{it:centre:cperp} $c^2+2c\ip{\varrho-1}{F_\perp}_\mu+Q(F_\perp)\ge-c_\perp r\norm{F_\perp}^2_\mu$
+    with $c_\perp=\big(R_Z(N_{\rm ns}+D_{\rm col})+\eps_\varrho^2\big)/r$.
+  \end{enumerate}
+\item\label{it:centre:standard} \emph{(Standard star inputs.)} The numbers
+  $M_\star=W_{\rm st}$ and $Z_\star=2(P_{\rm st}+W_{\rm st})$ are admissible in
+  \ref{it:centre:inputs}, by \cref{lem:spec:stars}(d).
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) $h\perp\one$ and $h\perp\mathcal V_k$, and every function of $x_k$ is a constant plus
+an element of $\mathcal V_k$; so $h$ is orthogonal to all functions of $x_k$. For
+$S=\emptyset$, $\ip{h'}{T_\emptyset h}=\overline{\E h'}\,\E h=0$. For a column star at $k$,
+$T_Sh=0$ by \cref{lem:spec:stars}(a); for a row star,
+$\ip{h'}{T_Sh}=\ip{T_{S^{\mathsf t}}h'}h=0$ by (b) of that lemma. Next
+$\ip\one{\Op v}=\E_\lambda v(x')=\E_{m_p}v=0$ (\cref{lem:spec:cutkernel}(b),(d)). The
+three functions $c$, $F_V$, $F_\perp$ are pairwise orthogonal, and
+\cref{lem:spec:degone}(c) gives $\norm{F_V}^2\ge(1-\eps_V)\norm g^2$.
+(b) Put $G=F_V+F_\perp$, so $\E_\mu G=0$. As $\Op$ is self-adjoint with $\Op\one=\varrho$,
+$Q(c+G)=c^2\E_\mu\varrho+2c\ip\varrho G+Q(G)$, with $\E_\mu\varrho=1$,
+$\ip\varrho G=\ip{\varrho-1}G$ and $\ip{\varrho-1}{F_V}=\E_{m_p}F_V-\E_\mu F_V=0$.
+(c1) Pair \eqref{eq:record:root-kernel} with $\one$ and use
+\cref{lem:spec:stars}(c). By \cref{lem:spec:expansion}, $2^{-m_\times}/Z=1/Z_0$.
+(c2) By the proof of \cref{lem:spec:cutkernel}(b),(c),
+$\varrho(x)=N(x)/(Z|\mathcal I^+|)$ with
+$N(x)\le\prod_ip2^{-t_i}(1+e_{t_i}(p,2n))$, and $\sum_it_i=|E(G^+)|+m_\times$. By
+\cref{lem:graphs:sequential}\ref{it:seq:count} for $G^+$ (any order, $t^0_i\le d^0_i$),
+$|\mathcal I^+|\ge p^n2^{-|E(G^+)|}\prod_i(1-e_{d^0_i}(p,n))$. With $Z\ge2^{-m_\times}(1-\eps_Z)$
+the powers of $p$ and $2$ cancel.
+(c3) $\E_\mu\varrho=1$, so $\varrho-1=P_0\Op\one$. By \eqref{eq:record:root-kernel} and
+\cref{lem:spec:stars}(c),
+$P_0K_0\one=(h_\star-\E_\mu h_\star)+P_0(T_{\rm ns}-T_{\rm coll})\one$, of norm at most
+$M_\star+N_{\rm ns}+D_{\rm col}$; divide by $Z_0\ge1-\eps_Z$.
+(c4) By (a) only $T_{\rm ns}-T_{\rm coll}$ contributes to $\ip h{K_0h}$; divide by $Z_0$.
+(c5) $c^2+2c\ip{\varrho-1}{F_\perp}\ge-\ip{\varrho-1}{F_\perp}^2\ge-\eps_\varrho^2\norm{F_\perp}^2$, and
+(c4) bounds $Q(F_\perp)$.
+\end{proof}
+
+The proposition reduces the perpendicular block to the four numbers $N_{\rm ns}$,
+$D_{\rm col}$, $M_\star$ and $\eps_Z$: after centring at
+the $\mu$-mean no star term survives on $\mathcal H_\perp$, and every nonstar set, a
+four-cycle included, lies in a class of a nonstar partition, whose classes together
+are bounded by $N_{\rm ns}$
+(\cref{lem:advance:compressed-partition,lem:matching:extractionk}). The two
+remaining inputs are the coincidence bound $D_{\rm col}$ (\cref{lem:oct24-collision})
+and the star marginal $M_\star$ and mean $Z_\star$: the standard constants of
+\ref{it:centre:standard}, or the sharper ordered-star bounds of
+\cref{prop:advance:ordered-star,lem:star-mean}.
+
+\subsection{Route~A (conditional laws, centring at the half-law mean)}\label{subsec:spec:routeA}
+
+Route~A centres test functions at their mean under the half law
+and works through the conditional law of the opposite half. The
+theorem packages the estimates of the previous subsections into
+one finite test at the smallest prime $p_0$; hypotheses
+(R1)--(R3) name exactly which earlier estimates must be supplied.
+
+\begin{theorem}[Spectral criterion centred at the half-law mean (Route~A)]\label{thm:spectral-criterion}
+Let $(G,\vartheta,U^+,\mathfrak o)$ be spectral data satisfying
+\textup{(S1)} of \cref{def:spec:data} at $p_0$,
+put $r_0=p_0^{-1/2}$, and fix a class $\mathfrak c\in\{1,3\}$. Suppose that the
+following hold at every prime $p\ge p_0$ with $p\equiv\mathfrak c\pmod4$, with
+$r=p^{-1/2}$, where every input is a function of $r\in(0,r_0]$, and
+$N_{\rm ns}/r$, $D_{\rm col}/r$, $M_\star/r$, $\eps_Z$, $\Gamma_E$, $\eps_H$ and $\bar\zeta$ are
+admissible.
+\begin{enumerate}[label=\textup{(R\arabic*)}]
+\item \emph{(Degree one.)} $\eta_Q$ and $\eps_V$ are the quantities \eqref{eq:spec:Azero}
+  and \eqref{eq:spec:epsV}, with a fixed $\Lambda_D\ge\norm{\Delta^E_{(\mathfrak c)}}$.
+\item \emph{(Perpendicular inputs.)} $N_{\rm ns}$, $D_{\rm col}$, $M_\star$ and $\eps_Z<1$ are
+  as in \cref{prop:spec2:mucentre}\ref{it:centre:inputs}, and $\eps_Z(r_0)<1$.
+\item \emph{(Coupling.)} $\eps_H$, $\Gamma_E$ and, if $\mathfrak c=1$, $\bar\zeta$ satisfy
+  the hypotheses of \cref{cor:spec2:coupling} at $p$, and $\eta_B$ is the quantity
+  \eqref{eq:spec:etaB} formed with them, with $R_+$ of
+  \cref{prop:spec2:mucentre}\ref{it:centre:sup} (or $R_+=\Rcut$) and with fixed bounds
+  $\Lambda_+$, $\Lambda_{\rm nc}$, $\bar\lambda(\Hmat)$ for the matrices of class $\mathfrak c$.
+\end{enumerate}
+Put $R_Z=(1-\eps_Z)^{-1}$, $\eps_\varrho=R_Z(M_\star+N_{\rm ns}+D_{\rm col})$ and
+$c_\perp=\big(R_Z(N_{\rm ns}+D_{\rm col})+\eps_\varrho^2\big)/r$. Let
+$\cperp,\bar\eta_Q,\bar\eta_B,\bar\eps_V$ be upper bounds of the values of
+$c_\perp,\eta_Q,\eta_B,\eps_V$ at $r_0$, with $\bar\eps_V<1$. Suppose that for each sign
+$\pm$ there is $\tau^{\rm sp}_{\mathfrak c,\pm}>0$ with
+\begin{equation}\label{eq:spectral-test}
+  \mathbf M_{\mathfrak c,\pm}:=\mathbf A_{\mathfrak c,\pm}
+  -\frac{\Hmat^+_{(\mathfrak c)}-(\Delta^E_{(\mathfrak c)})^{\mathsf T}\Delta^E_{(\mathfrak c)}}{\tau^{\rm sp}_{\mathfrak c,\pm}}
+  +\Big(\cperp+\tau^{\rm sp}_{\mathfrak c,\pm}-\bar\eta_Q-\frac{\bar\eta_B}{\tau^{\rm sp}_{\mathfrak c,\pm}}\Big)I\succeq0 .
+\end{equation}
+For $\mathfrak c=3$, if $\tau^{\rm sp}_{3,+}=\tau^{\rm sp}_{3,-}$ the two matrices are complex
+conjugate, so one of the two tests suffices. Let
+\[
+  g_{\mathfrak c}\ \ge\ \max_\pm\frac{\cperp+\tau^{\rm sp}_{\mathfrak c,\pm}}{1-\bar\eps_V}.
+\]
+Then for every prime $p\ge p_0$ with $p\equiv\mathfrak c\pmod4$:
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item $\Op\succeq-g_{\mathfrak c}\,p^{-1/2}I$ on $L^2(\mu_p)$;
+\item $\norm{P_0\Op P_0}\le g_{\mathfrak c}\,p^{-1/2}$;
+\item $\norm{\varrho-1}_\mu=\norm{P_0\Op\one}_\mu\le\eps_\varrho(r)$, and
+  $p\,\eps_\varrho(r)^2\le p_0\,\eps_\varrho(r_0)^2$;
+\item for every $g\ge g_{\mathfrak c}$ with $gr_0<1$, $\Op\preceq(1+B^+/p)I$ with
+  $B^+=p_0\,\eps_\varrho(r_0)^2/(1-gr_0)$.
+\end{enumerate}
+\end{theorem}
+
+\begin{corollary}[Blocks]\label{cor:spectral-criterion-blocks}
+In the setting of \cref{thm:spectral-criterion}, let $g\ge g_{\mathfrak c}$ with $gr_0<1$
+and $B^+$ as in \textup{(d)}, and let $\Blk$ be a finite set of primes
+$p\equiv\mathfrak c\pmod4$, all at least $P\ge p_0$, with $\sum_{p\in\Blk}\log p\le L$, and
+$b=\min\Blk$. Then $\bigotimes_{p\in\Blk}\Op\succeq-d\,b^{-1/2}I$ with
+$d=g_{\mathfrak c}\exp\big(B^+L/(P\log P)\big)$, and so also with $g$ in place of
+$g_{\mathfrak c}$. If the hypotheses hold for both classes and $g\ge\max(g_1,g_3)$, the
+same holds for blocks of primes of both classes.
+\end{corollary}
+
+\begin{proof}
+By (a) and (d), at every $p\in\Blk$,
+$-g_{\mathfrak c}p^{-1/2}\le\Op\le1+B^+/p$ and $g_{\mathfrak c}p^{-1/2}\le gr_0<1$. By
+\cref{lem:spec:tensorcomp}(b) with $\mathcal V_p=L^2(\mu_p)$,
+$\bigotimes_p\Op\succeq-g_{\mathfrak c}b^{-1/2}\exp(B^+\sum_{p\in\Blk}1/p)$, and
+$\sum_{p\in\Blk}1/p\le L/(b\log b)\le L/(P\log P)$ by \cref{lem:spec:tensorcomp}(c) and
+since $X\log X$ increases. For both classes use $\max(g_1,g_3)$ in place of
+$g_{\mathfrak c}$, and the larger of the two values of $B^+$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:spectral-criterion}]
+Fix a prime $p\ge p_0$ with $p\equiv\mathfrak c\pmod4$, so that $r\le r_0$.
+
+\emph{Uniformity.} (S1) at $p_0$ gives (S1) at $p$. By \cref{lem:spectral-monotone} and
+the admissibility of the inputs, $\eps_V(r)\le\bar\eps_V<1$, $\eps_Z(r)\le\eps_Z(r_0)<1$,
+$\eta_Q(r)\le\bar\eta_Q$, $\eta_B(r)\le\bar\eta_B$, $c_\perp(r)\le\cperp$, and $\eps_\varrho/r$ is
+nondecreasing; the matrices depend only on $\mathfrak c$. So \cref{cor:spec2:coupling} and
+\cref{prop:spec2:mucentre} apply at $p$. Let $\Xi_\pm$ be the set of $\xi\ne0$ with
+$\chi(\xi)\eps_G=\pm1$ if $\mathfrak c=1$, and with $\chi(\xi)\eps_G=\pm i$ if $\mathfrak c=3$;
+the two sets partition $\Fp^\times$, and $\Azero(\xi)=\mathbf A_{\mathfrak c,\pm}$ on $\Xi_\pm$
+(\cref{lem:spec:gauss}). For $s>0$ write $\mathbf M_{\mathfrak c,\pm}(s)$ for the
+matrix of \eqref{eq:spectral-test} with $s$ in place of $\tau^{\rm sp}_{\mathfrak c,\pm}$. For
+every $s>0$ and every $\xi\in\Xi_\pm$, the matrix
+\[
+  \mathcal M_s(\xi)=\Azero(\xi)-\frac{\Hmat^+-\Azero(\xi)^*\Azero(\xi)}s
+  -\Big(\eta_Q(r)+\frac{\eta_B(r)}s\Big)I
+\]
+dominates $\mathbf M_{\mathfrak c,\pm}(s)-(\cperp+s)I$
+(\cref{lem:majorant}(d)), so $\mathcal M_s(\xi)\succeq-(\cperp+s)I$ whenever
+$\mathbf M_{\mathfrak c,\pm}(s)\succeq0$, in particular for $s=\tau^{\rm sp}_{\mathfrak c,\pm}$.
+
+\emph{Centring at the half-law mean.} Let $F$ be real, with the decomposition
+$F=c+F_V+F_\perp$ of \cref{prop:spec2:mucentre}. By parts
+\ref{it:centre:form} and \ref{it:centre:cperp} of that proposition,
+\[
+  Q(F)\ge-\cperp r\norm{F_\perp}^2+Q(F_V)+2\ip{F_\perp}{\Op F_V},
+\]
+and $Q(F_V)\ge r\sum_{\xi\ne0}\hat g(\xi)^*(\Azero(\xi)-\eta_QI)\hat g(\xi)$
+(\cref{lem:spec:degone}(a),(b)).
+
+\emph{Splitting by translation characters.} Work in the complexification of
+$L^2(\mu)$ and let $F_{V,\pm}$ and $F_{\perp,\pm}$ be the components of $F_V$ and
+$F_\perp$ in $\bigoplus_{\xi\in\Xi_\pm}\mathcal W_\xi$. These summands are
+orthogonal for either prime class. The components need not be real:
+$F_{V,\pm}\in\mathcal V$ has coefficients $\hat g\one_{\Xi_\pm}$,
+$F_{\perp,\pm}\perp\mathcal V$, and
+$\norm{F_{\perp,+}}^2+\norm{F_{\perp,-}}^2\le\norm{F_\perp}^2$.
+As $\Op$ and $\Pi_{\mathcal V}$ preserve every translation sector,
+\[
+ \ip{F_\perp}{\Op F_V}
+ =\sum_\pm\ip{F_{\perp,\pm}}{(I-\Pi_{\mathcal V})\Op F_{V,\pm}}.
+\]
+Put $s_\pm=\tau^{\rm sp}_{\mathfrak c,\pm}$. Young's inequality on each
+orthogonal summand and the complex form of \eqref{eq:spec:coupling} give
+\[
+  2|\ip{F_\perp}{\Op F_V}|\le\sum_\pm\Big(s_\pm r\norm{F_{\perp,\pm}}^2
+  +\frac r{s_\pm}\sum_{\xi\in\Xi_\pm}\hat g^*\big(\Hmat^+-\Azero^*\Azero+\eta_BI\big)\hat g\Big).
+\]
+Hence
+$Q(F)\ge r\sum_\pm\sum_{\xi\in\Xi_\pm}\hat g^*\mathcal M_{s_\pm}(\xi)\hat g-\cperp r\norm{F_\perp}^2
+-\sum_\pm s_\pm r\norm{F_{\perp,\pm}}^2$, and by the uniformity step
+\[
+  Q(F)\ge-\big(\cperp+\max_\pm s_\pm\big)r\big(\norm g^2+\norm{F_\perp}^2\big)
+  \ge-g_{\mathfrak c}(1-\bar\eps_V)\,r\,(c^2+\norm g^2+\norm{F_\perp}^2)
+  \ge-g_{\mathfrak c}r\norm F^2,
+\]
+by \cref{prop:spec2:mucentre}\ref{it:centre:decomp}. This proves (a) for both
+classes. The difference between the classes remains entirely in their finite
+matrices: for class three the two tests with a common parameter are complex
+conjugate, as stated in the theorem.
+
+\emph{The compression (b).} For real $h\perp\one$, $c=0$ in the decomposition, and
+\cref{prop:spec2:mucentre}\ref{it:centre:perp} is two-sided:
+$-Q(h_\perp)\ge-R_Z(N_{\rm ns}+D_{\rm col})\norm{h_\perp}^2\ge-\cperp r\norm{h_\perp}^2$. Apply the
+argument above to $-\Op$: only the sign of $\Azero(\xi)$ changes, and on the modes
+$\Xi_\pm$ the bracket of $-\Op$ is $\mathcal M_s$ with $\mathbf A_{\mathfrak c,\mp}$; use
+$s=\tau^{\rm sp}_{\mathfrak c,\mp}$ on those modes.
+This gives $-Q(h)\ge-g_{\mathfrak c}r\norm h^2$, and with (a)
+$|Q(h)|\le g_{\mathfrak c}r\norm h^2$; as $P_0\Op P_0$ is real symmetric, (b) follows. This
+is why both signs are needed: on a given mode the lower bound uses one sign and the
+upper bound the other.
+
+\emph{(c) and (d).} (c) is \cref{prop:spec2:mucentre}\ref{it:centre:rho} together with
+$p\eps_\varrho(r)^2=(\eps_\varrho(r)/r)^2\le(\eps_\varrho(r_0)/r_0)^2$. (d) is
+\cref{prop:matching:positive}(c) with $e=\eps_\varrho$ and $\beta=gr\ge g_{\mathfrak c}r$, using (b)
+and (c).
+\end{proof}
+
+\begin{remark}[Pinned correlations of the half law are not used]\label{rem:spectral-criterion:influence}
+The proof uses \textup{(S1)} only, through the extension counts of the degree-one
+and coupling blocks (\cref{lem:spec:small,lem:spec2:gram,lem:spec2:paley}), the
+star means, the nonstar extraction (\cref{lem:matching:extractionk}), the
+coincidence bound and the normalization. After $\mu$-centring the empty set and the
+stars vanish on $F_\perp$, and every other character set, each $K_{2,2}$ included, is
+a leaf of the nonstar partition. The influence conditions \eqref{eq:spec:S2} of $G^+$
+were needed in the perpendicular estimates of those earlier 216-slot criteria that
+charged the $K_{2,2}$ terms separately through a pure-pair frame bound
+$\sum_J\norm{\Pi_{H_J}F}^2\le\mathrm{Fr}\,\norm F^2$ (\cref{subsec:obs:tested}); the criterion
+here does not use that bound, although the certificates still assert
+\eqref{eq:spec:S2} for $G^+$ (\cref{rem:spectral-criterion:certificate}).
+\end{remark}
+
+\begin{remark}[The row-norm criterion]\label{rem:spectral-criterion:row}
+If $s>0$ satisfies $s^2-(\Lambda_D+\bar\eta_Q)s-(\bar\lambda(\Hmat^+)+\bar\eta_B)\ge0$, then
+\eqref{eq:spectral-test} holds with $\tau^{\rm sp}_{\mathfrak c,\pm}=s$, because
+$\mathbf A_{\mathfrak c,\pm}\succeq-\Lambda_DI$ and
+$\Hmat^+-(\Delta^E)^{\mathsf T}\Delta^E\preceq\bar\lambda(\Hmat^+)I$. A scalar test of this
+kind, with row norms and the earlier model $2\Hmat$, was the acceptance test of an
+earlier version of the criterion. No certificate of the final construction uses it:
+every cap is certified by the matrix test \eqref{eq:spectral-test} itself.
+\end{remark}
+
+\begin{remark}[The earlier criteria]\label{rem:spectral-criterion:history}
+The criteria of the 216-slot design (its Theorem~S and its
+sharpenings at its middle cuts; see \cref{sec:history}) are built
+from the same blocks, those of
+\cref{subsec:spec:fourier,subsec:spec:degone,subsec:spec:coupling,subsec:spec:perp},
+and the same Schur complement. Theorem~S centres at $\E_{m_p}F$, uses the model
+$2\Hmat$ and bounds the perpendicular block by decision trees and bicliques. Its
+sharpenings centre at $\E_\mu F$ as in \cref{prop:spec2:mucentre} and treat the
+class-one Paley terms with dilation parity and an exceptional-clique term (here
+$\Hmat^{\rm cov}$ and $\bar\zeta$ suffice, \cref{subsec:advance:parity}); they charge the
+$K_{2,2}$ terms first through a pure-pair frame and finally, in the matching test,
+through a matching partition and coincidence charging as in
+\cref{subsec:spec:centring}. All of them use one test
+parameter for all signs and assume \eqref{eq:spec:S2}. So they are not literally
+cases of \cref{thm:spectral-criterion}, and no cap of the final construction uses
+them; \cref{subsec:history:216} records them.
+\end{remark}
+
+\begin{remark}[Where route A is applied]\label{rem:spectral-criterion:uses}
+The three applications evaluate the same test and differ only in the inputs.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \emph{Twelve-label middle cuts} (\cref{lem:layer12-caps}): the cuts L21, E21
+  and L10 of the uniform graph laws. The cuts F21 and L20 are computed as well,
+  but the middle uses for F21 the negative cap $k_{\rm D}$ of the reference fold
+  record (\cref{lem:old-f-law}, \cref{cert:record:old-f-cap}) and for L20 the caps
+  of \cref{subsec:middle-l20}, from the complete actual stars; on the three late middle pieces the two-layer root is a positive reweighting of the uniform root (the tilted law of \cref{sec:positive-roots}), and its cuts L20 and L21 have the
+  caps of \cref{prop:root-chamber,prop:root-layer}.
+  The two grids of \cref{cert:layer12-grid} have $26$ and $9$ thresholds and
+  $520$ and $180$ exact tests. $N_{\rm ns}$ from a compressed
+  matching partition, $D_{\rm col}=D_{\rm nat}$ of \eqref{eq:collision-natural}, the standard
+  star inputs ($M_\star=W_{\rm st}$, $Z_\star=2(P_{\rm st}+W_{\rm st})$), and the standard
+  coupling inputs ($\eps_H=\eps'_H+\eps_X$, $\Gamma_E=\hat E^2$, $\bar\zeta=\zeta$). The
+  block caps use $g_3$ only; $B^+$ is computed with the maximum over both classes,
+  which is allowed by (d).
+\item \emph{Ten nonroot upper cuts} (\ref{it:record:upper-F6}): FL21, EL21, FL22,
+  EL22, FF22, FE22, EE22, LL10, FL11, EL11, at the thresholds $2^{47}$ (for the
+  upper bands below $2^{48}$) and $2^{48}$ (for the bands from $2^{48}$ on) and at
+  the thresholds of the tail datum; inputs as in (i).
+  Below $\Pfour=2^{512}$ only class three occurs, and $g$ is the larger of the caps of the
+  two conjugate class-three tests; for the tail datum $g$ is the maximum over both
+  classes and both signs. The merge and constant marginals of EL22 in four
+  reserved states have the observed caps of \cref{prop:observed-caps}, which are
+  not route-A applications.
+\item \emph{Completed roots} LL20, LL22 from $2^{52}$ on
+  (\cref{lem:upper-completed-root}): $N_{\rm ns}=\sum_{k=2}^4C_kr^k$ from the augmented
+  partition (a refinement of the compressed partition of
+  \cref{lem:advance:compressed-partition}), with the nonstar coefficients $C_k$ of
+  \cref{cor:extraction-leaf}(b); $D_{\rm col}=\min(D_{\rm ord},D_{\rm nat})$
+  (\cref{lem:oct24-collision}(e)); $M_\star$ and $Z_\star$ of
+  \cref{prop:advance:ordered-star,lem:star-mean}, maximized over the two classes;
+  $\eps_Z$ the smaller of $2(P_{\rm st}+W_{\rm st})+N_{\rm ns}+D_{\rm nat}$ and
+  $Z_\star+N_{\rm ns}+D_{\rm col}$; $R_+$ recomputed with this $\eps_Z$; $\Gamma_E$ and $\eps_H$
+  the minima of \cref{subsec:spec:completion-variance}; and, at class one, $\bar\zeta$
+  the minimum of \cref{lem:spec2:parity-transfer}.
+\end{enumerate}
+\end{remark}
+
+\subsection{Route~B (uniform averages over allowed sets)}\label{subsec:spec:routeB}
+
+Route~A tests the cut operator through the conditional law of the opposite half,
+whose completion counts it must control. At the two root cuts this needs the
+completion-variance denominator $\ell^{\rm loc}_k$ of \cref{lem:push:localvariance} to
+be positive, which holds only for $p$ above approximately
+$2^{49.96}$ for $\mathrm{LL20}$ and $2^{49.30}$ for
+$\mathrm{LL22}$ --- well above $\Pthree$, which is why Route~B
+is used at these cuts; no bound in the paper uses these
+approximate values as thresholds. Route~B expands the kernel
+around the product of the
+half laws and compares its star part with explicit normalized stars: averages over
+the allowed sets $\Phi_k(x)$, not conditional laws of the completed cut law. Their
+star synthesis is controlled by a finite Schur test. It is stated for $p\equiv3\pmod4$, the
+only class at which it is applied.
+
+\paragraph{Setting.}
+Let $p\equiv3\pmod4$ be a prime with $e_\Delta(p,2n)<1$ and $p>4n^2$. Then
+$\Hmat^+=\Hmat$, $\Azero(\xi)=\chi(\xi)\eps_G\Delta^E=\pm i\Delta^E$ is Hermitian,
+$\Azero(\xi)^2=(\Delta^E)^{\mathsf T}\Delta^E$, and both signs occur. Let $\Lambda_D\ge\norm{\Delta^E}$
+and $\mathbf R=\Hmat-(\Delta^E)^{\mathsf T}\Delta^E$. Let $U=L^2_0(\Fp)$ and
+$\mathbf E\colon U^n\to L^2(\mu)$, $(\mathbf Eg)(x)=\sum_kg_k(x_k)$; the \emph{explicit star}
+is $(B_kg)(x)=|\Phi_k(x)|^{-1}\sum_{t\in\Phi_k(x)}g(t)$, with $\mathbf Bg=\sum_kB_kg_k$. Put
+$(S_kg)(x)=\E_t\varphi_k(t;x)g(t)$ and $\mathbf Sg=\sum_kS_kg_k$. Translations act unitarily
+on $U^n$ and diagonally on $L^2(\mu)$, and $\mathbf E$, $\mathbf B$, $\mathbf S$ intertwine
+these actions ($\Phi_k(x+c\one)=\Phi_k(x)+c$). Hence $\mathbf E^*\mathbf E$, $\mathbf E^*\mathbf B$
+and $\mathbf B^*\mathbf B$ preserve each mode $\C^ne_\xi$, $\xi\ne0$, and act there by
+$n\times n$ matrices; distinct modes have orthogonal images.
+
+\begin{theorem}[Spectral criterion from uniform averages over allowed sets (Route~B)]\label{thm:record:direct-star}
+In this setting assume the following.
+\begin{enumerate}[label=\textup{(H\arabic*)}]
+\item\label{it:record:star-H1} \emph{Frame.} On every mode $\xi\ne0$,
+  \[
+    \norm{\mathbf E^*\mathbf E-I}\le\eps_V,\qquad
+    \norm{\mathbf E^*\mathbf B/r-\Azero(\xi)}\le\eps_\times,\qquad
+    \mathbf B^*\mathbf B/r^2\preceq\Hmat+\eps_{\mathbf B}I .
+  \]
+\item\label{it:record:star-H2} \emph{Schur test.} With
+  $\eps_{\mathbf W}=\eps_{\mathbf B}+2\Lambda_D\eps_\times+\Lambda_D^2\eps_V$ and
+  $\eps_{\mathbf{EW}}=\eps_\times+\Lambda_D\eps_V$, there are rationals $s_\star,g_\star>0$ such
+  that, with $\alpha_\star=1+\eps_V+s_\star$ and $\beta_\star=\eps_{\mathbf W}+\eps_{\mathbf{EW}}^2/s_\star$,
+  the matrix $\mathbf R+\beta_\star I$ is positive definite and
+  \begin{equation}\label{eq:record:schur}
+    \pm\eps_G\Delta^E+\frac{g_\star}{\alpha_\star}I-\frac{\mathbf R+\beta_\star I}{g_\star}\succeq0
+    \qquad\text{for both signs}.
+  \end{equation}
+\item\label{it:record:star-H3} \emph{Inputs.} Nonnegative numbers $N_{\rm ns}$, $D_{\rm col}$,
+  $M_\star$, $z_\star$ and $Z_\star$ satisfy $\norm{T_{\rm ns}}\le N_{\rm ns}$, $\norm{T_{\rm coll}}\le D_{\rm col}$,
+  $\norm{h_\star-\E_\mu h_\star}_\mu\le M_\star$, $|\E_\mu h_\star|\le z_\star$ and
+  $2|\E_\mu h_\star|\le Z_\star$, and $\eps_Z:=Z_\star+N_{\rm ns}+D_{\rm col}<1$.
+\end{enumerate}
+Put
+\begin{gather*}
+  \eps_{\rm soft}=2(1+\eps_V)^{1/2}\Big[r\Big(\sum_k\hat e_k^2(\Hmat_{kk}+\eps_{\mathbf B})\Big)^{1/2}
+  +nr^2\Big(\sum_k4^{r_k}\Big)^{1/2}\Big],\\
+  g_{\rm root}=\frac{g_\star+(N_{\rm ns}+D_{\rm col}+M_\star^2+z_\star^2+\eps_{\rm soft})/r}{1-\eps_Z},
+  \qquad
+  \eps_\varrho=\frac{M_\star+N_{\rm ns}+D_{\rm col}}{1-\eps_Z}.
+\end{gather*}
+Then, with $\mathbf W=\mathbf B/r-\mathbf E\Azero$ and
+$\mathbf L=r(\mathbf E\Azero\mathbf E^*+\mathbf E\mathbf W^*+\mathbf W\mathbf E^*)$:
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item $-g_\star rI\preceq\mathbf L\preceq g_\star rI$;
+\item $K_0=(\one+h_\star)\otimes(\one+h_\star)+\mathbf L+\mathcal R$ with
+  $\norm{\mathcal R}\le N_{\rm ns}+D_{\rm col}+M_\star^2+z_\star^2+\eps_{\rm soft}$;
+\item $|Z_0-1|\le\eps_Z$ and $\Op\succeq-g_{\rm root}rI$;
+\item $\norm{P_0\Op\one}\le\eps_\varrho$ and $\norm{P_0\Op P_0}\le g_{\rm root}r$;
+\item if $g_{\rm root}r<1$, then $\Op\preceq(1+B_{\rm top}/p)I$ with
+  $B_{\rm top}=p\eps_\varrho^2/(1-g_{\rm root}r)$.
+\end{enumerate}
+\end{theorem}
+
+The two signs in \eqref{eq:record:schur} are the two values of $\Azero(\xi)$. Each
+direction of (a) needs both: on a given mode the lower bound uses the sign
+$\chi(\xi)$, and the upper bound the opposite one. The upper bound in (a) enters
+through (d), and (d) enters (e). The two matrices of \eqref{eq:record:schur} are
+complex conjugates ($\eps_G\Delta^E$ is $\pm i$ times a real matrix and $\mathbf R$ is real),
+so either test implies the other; the certificate checks both.
+
+\begin{proof}
+(a) Let $\mathbf F=[\mathbf E,\mathbf W]\colon U^n\oplus U^n\to L^2(\mu)$ and, on the mode $\xi$,
+$\mathcal C(\xi)=\begin{psmallmatrix}\Azero(\xi)&I\\ I&0\end{psmallmatrix}$. Then
+$\mathbf F\mathcal C\mathbf F^*=\mathbf E\Azero\mathbf E^*+\mathbf W\mathbf E^*+\mathbf E\mathbf W^*=\mathbf L/r$. Write
+$\Gamma=\mathbf E^*\mathbf B/r-\Azero$ and $\Delta_V=\mathbf E^*\mathbf E-I$, so $\norm\Gamma\le\eps_\times$
+and $\norm{\Delta_V}\le\eps_V$. Then $\mathbf E^*\mathbf W=\Gamma-\Delta_V\Azero$ has norm at most
+$\eps_{\mathbf{EW}}$, and
+\[
+  \mathbf W^*\mathbf W=\frac{\mathbf B^*\mathbf B}{r^2}-\Azero^2-\Gamma^*\Azero-\Azero\Gamma+\Azero\Delta_V\Azero
+  \preceq\mathbf R+\eps_{\mathbf W}I .
+\]
+For $(u,v)$ on one mode,
+$\norm{\mathbf Eu+\mathbf Wv}^2\le(1+\eps_V)\norm u^2+2\eps_{\mathbf{EW}}\norm u\norm v
++\ip v{(\mathbf R+\eps_{\mathbf W})v}$, and
+$2\eps_{\mathbf{EW}}\norm u\norm v\le s_\star\norm u^2+\eps_{\mathbf{EW}}^2\norm v^2/s_\star$ gives
+$\mathbf F^*\mathbf F\preceq\mathcal M:=\diag(\alpha_\star I,\mathbf R+\beta_\star I)$, which is positive definite.
+Thus $\mathcal Q=\mathbf F\mathcal M^{-1/2}$ has norm at most one, and
+$\mathbf F\mathcal C\mathbf F^*=\mathcal Q(\mathcal M^{1/2}\mathcal C\mathcal M^{1/2})\mathcal Q^*$. By congruence,
+$\mathcal M^{1/2}\mathcal C\mathcal M^{1/2}+g_\star I\succeq0$ is equivalent to
+$\mathcal C+g_\star\mathcal M^{-1}\succeq0$, that is, to
+\[
+  \begin{pmatrix}\Azero(\xi)+(g_\star/\alpha_\star)I&I\\ I&g_\star(\mathbf R+\beta_\star I)^{-1}\end{pmatrix}\succeq0,
+\]
+and, the lower right block being positive definite, to the Schur complement
+condition \eqref{eq:record:schur} with the sign of $\chi(\xi)$. Hence
+$\mathbf L\succeq-\mathcal Q(g_\star rI)\mathcal Q^*\succeq-g_\star rI$. For the upper bound conjugate by
+the unitary $\diag(I,-I)$, which commutes with $\mathcal M$: it carries $-\mathcal C(\xi)$ to the
+matrix $\mathcal C$ with $-\Azero(\xi)$ in place of $\Azero(\xi)$, and the same argument with
+the other sign of \eqref{eq:record:schur} gives $-\mathbf L\succeq-g_\star rI$.
+
+(b) \emph{Stars.} The uniform one-vertex marginals of $\mu$ give
+$(\mathbf E^*f)_k(t)=\E_\mu[f\mid x_k=t]-\E_\mu f$. By \cref{lem:spec:stars}(a), summed
+over $\emptyset\ne J\subseteq N(k)$, the column stars at $k$ act by
+\[
+  f\mapsto\E_t\big[(\varphi_k(t;x)-1)\big(\E_\mu f+(\mathbf E^*f)_k(t)\big)\big]
+  =h_{\star,k}(x)\,\E_\mu f+\big(S_k(\mathbf E^*f)_k\big)(x),
+\]
+since $\E_t(\mathbf E^*f)_k=0$. So the column stars give $h_\star\otimes\one+\mathbf S\mathbf E^*$,
+and the row stars, their adjoints by \cref{lem:spec:stars}(b), give
+$\one\otimes h_\star+\mathbf E\mathbf S^*$. Row and column stars overlap exactly in the
+single pairs. The single pair $\{(j,k)\}$ acts by
+$f\mapsto\chi(\varsigma_{jk})(C(\mathbf E^*f)_k)(x_j)$, since its constant part integrates to
+zero; as $Ce_\xi=r\chi(\xi)\eps_Ge_\xi$, the single pairs sum to $r\mathbf E\Azero\mathbf E^*$. By
+\eqref{eq:record:root-kernel},
+\[
+  K_0=(\one+h_\star)\otimes(\one+h_\star)-h_\star\otimes h_\star+\mathbf S\mathbf E^*+\mathbf E\mathbf S^*
+  -r\mathbf E\Azero\mathbf E^*+T_{\rm ns}-T_{\rm coll}.
+\]
+Since $\mathbf B=r(\mathbf E\Azero+\mathbf W)$ and $\Azero$ is Hermitian,
+$\mathbf B\mathbf E^*+\mathbf E\mathbf B^*-r\mathbf E\Azero\mathbf E^*=\mathbf L$. Hence (b) holds with
+$\mathcal R=(\mathbf S-\mathbf B)\mathbf E^*+\mathbf E(\mathbf S-\mathbf B)^*-h_\star\otimes h_\star+T_{\rm ns}-T_{\rm coll}$,
+and $\norm{h_\star\otimes h_\star}=\norm{h_\star}^2_\mu=\norm{h_\star-\E_\mu h_\star}^2+(\E_\mu h_\star)^2\le
+M_\star^2+z_\star^2$.
+
+\emph{Soft stars.} For $t\notin x(U^+)$ each factor of $\varphi_k(t;x)$ is $0$ or $2$, so
+$\varphi_k(t;x)=2^{r_k}\one_{\Phi_k(x)}(t)$. Hence
+\[
+  S_kg=a_k\,B_kg+\mathrm{coll}_kg,\qquad a_k(x)=\frac{2^{r_k}|\Phi_k(x)|}p,\qquad
+  (\mathrm{coll}_kg)(x)=\frac1p\sum_{i\in U^+}\varphi_k(x_i;x)g(x_i),
+\]
+with $|a_k-1|\le\hat e_k$ and $0\le\varphi_k\le2^{r_k}$. By \ref{it:record:star-H1} on the
+modes, $\norm{B_kg}\le r(\Hmat_{kk}+\eps_{\mathbf B})^{1/2}\norm g$, and each $x_i$ is uniform,
+so $\norm{\mathrm{coll}_kg}\le n2^{r_k}p^{-1}\norm g$. Cauchy--Schwarz over $k$ gives
+\[
+  \norm{\mathbf S-\mathbf B}\le r\Big(\sum_k\hat e_k^2(\Hmat_{kk}+\eps_{\mathbf B})\Big)^{1/2}
+  +\frac np\Big(\sum_k4^{r_k}\Big)^{1/2},
+\]
+and $\norm{\mathbf E}\le(1+\eps_V)^{1/2}$, so the two soft terms of $\mathcal R$ have norm at most
+$\eps_{\rm soft}$.
+
+(c) The images of $\mathbf E$, $\mathbf B$ and $\mathbf S$ have $\mu$-mean zero: the first because
+the one-vertex marginals are uniform, the others because the law of $t$ in $B_k$,
+and the weight $\E_\mu\varphi_k(t;x)$ in $S_k$, are translation invariant in $t$. Also
+$\mathbf E^*\one=0$. Hence $\mathbf L\one=0$, $\ip\one{\mathbf L\,\cdot}=0$ and
+$(\mathbf S-\mathbf B)^*\one=0$. Pairing (b) with $\one$,
+$Z_0=\ip\one{K_0\one}=1+2\E_\mu h_\star+\ip\one{(T_{\rm ns}-T_{\rm coll})\one}$, so
+$|Z_0-1|\le\eps_Z$; moreover $Z_0>0$. As $(\one+h_\star)\otimes(\one+h_\star)\succeq0$, (a) and
+(b) give $K_0\succeq-(g_\star r+\norm{\mathcal R})I$, and dividing by $Z_0\ge1-\eps_Z$ gives
+$\Op\succeq-g_{\rm root}rI$.
+
+(d) Applying (b) to $\one$ and projecting,
+$P_0K_0\one=(h_\star-\E_\mu h_\star)+P_0(T_{\rm ns}-T_{\rm coll})\one$, because the soft terms
+vanish on $\one$ and the term $-h_\star\E_\mu h_\star$ of $\mathcal R$ cancels against
+$(\one+h_\star)\E_\mu h_\star$. Hence $\norm{P_0K_0\one}\le M_\star+N_{\rm ns}+D_{\rm col}$.
+Compressing (b) by $P_0$ on both sides removes $\one\otimes\one$, $h_\star\otimes\one$ and
+$\one\otimes h_\star$; the two terms $\pm P_0(h_\star\otimes h_\star)P_0$ cancel, and
+$P_0\mathbf LP_0=\mathbf L$. Thus
+$P_0K_0P_0=\mathbf L+P_0[(\mathbf S-\mathbf B)\mathbf E^*+\mathbf E(\mathbf S-\mathbf B)^*+T_{\rm ns}-T_{\rm coll}]P_0$, of
+norm at most $g_\star r+\eps_{\rm soft}+N_{\rm ns}+D_{\rm col}$ by (a). Divide by $Z_0$.
+
+(e) $\Op$ is self-adjoint with $\ip\one{\Op\one}=1$; use
+\cref{prop:matching:positive}(a) with $e=\eps_\varrho$ and $\beta=g_{\rm root}r$, by (d).
+\end{proof}
+
+The proof never uses the completed conditional law of the root, its row ratio
+$\Rcut$, or the completion-variance denominator. The rank-one term
+$h_\star\otimes h_\star$ is included in the remainder bound of \textup{(b)} through $M_\star^2+z_\star^2$, not omitted, and it does not enter the centred
+block.
+
+\begin{lemma}[Inputs for the star synthesis at the root cuts]\label{lem:record:frame-inputs}
+In the setting of \cref{thm:record:direct-star},
+\ref{it:record:star-H1} holds with the following numbers, in
+which $\hat E^2$, $\eps_{\rm rem}$ and $\eps_{\ne}$ are the
+quantities so named in \cref{subsec:spec:coupling}, specialised
+to the explicit-stars mode ($R'_k=1$ and $R_\nu=1$, so that
+$\Delta_k=\hat e_k/(1-\hat e_k)$ and $\theta^\mu_j$ has no $R_\nu$
+factor).
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item $\eps_V$ is the quantity \eqref{eq:spec:epsV}.
+\item With $\phi_k=(\hat e_k+e_{r_k+1}(p,n))/(1-\hat e_k)$,
+  \[
+    \eps_\times=\frac n{(p-1)r}+\frac{\Lambda_D}{p-1}+\frac p{p-1}
+    \Big(\max_i\sum_{k:\,\varsigma_{ik}=0}\phi_k\cdot\max_k\sum_{i:\,\varsigma_{ik}=0}\phi_k\Big)^{1/2}.
+  \]
+\item With $\eps'_H$ of \eqref{eq:spec:beta},
+  $\theta^\mu_j=(2^{d^0_j}/(1-e_{d^0_j}(p,n))-1)^{1/2}$, $\rho_{\rm row}$ as in
+  \cref{subsec:spec:coupling}, and
+  \begin{gather*}
+    \hat E^2=\sum_k\Big(2^{r_k}(1+\hat e_k)\Big(\frac{\hat e_k}{1-\hat e_k}\Big)^2+\frac{n4^{r_k}}p\Big),
+    \qquad
+    \eps_{\rm rem}=2\big(\hat E^2(\norm\Hmat_{\rm row}+\eps'_H)\big)^{1/2}+\hat E^2,\\
+    \eps_{\ne}=r\max_j\theta^\mu_j\,\rho_{\rm row},\qquad
+    \eps_{\mathbf B}=\Big(\frac p{p-1}-1\Big)\norm\Hmat_{\rm row}+\frac p{p-1}\big(\eps'_H+\eps_{\ne}+\eps_{\rm rem}\big).
+  \end{gather*}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) On the mode $\xi$, $\mathbf E^*\mathbf E$ is the matrix $\mathbf N(\xi)$ of
+\cref{lem:spec:degone}(c).
+
+(ii) The pair $(x_i,t)$, with $x\sim\mu$ and $t$ uniform on $\Phi_k(x)$, has an
+$\mathrm{Aff}_p$-invariant law, and $t\ne x_i$ always. By \cref{lem:spec:affpair}(b) the
+entry $(i,k)$ of $\mathbf E^*\mathbf B$ on the mode $\xi$ is $-1/(p-1)+\frac p{p-1}m_{ik}c_\xi$,
+where $m_{ik}=\E\chi(t-x_i)$. If $\varsigma_{ik}\ne0$, every $t\in\Phi_k(x)$ satisfies
+$\chi(t-x_i)=\chi(\varsigma_{ik})$, so $m_{ik}=\Delta^E_{ik}$. If $\varsigma_{ik}=0$ (including
+$i=k$), $x_i$ is not a root of the constraints of $\Phi_k(x)$, and the
+$t\in\Phi_k(x)$ with $\chi(t-x_i)=1$ are cut out by $r_k+1$ constraints with distinct
+roots; their number lies in $p2^{-r_k-1}[1\pm e_{r_k+1}(p,n)]$. Since
+$\sum_{t\in\Phi_k}\chi(t-x_i)=2\#\{\chi=1\}-|\Phi_k|$, this sum is at most
+$p2^{-r_k}(e_{r_k+1}+\hat e_k)$ in modulus, and $|m_{ik}|\le\phi_k$ pointwise in $x$.
+Therefore
+\[
+  \frac{\mathbf E^*\mathbf B}r-\Azero(\xi)=-\frac{\one\one^{\mathsf T}}{(p-1)r}+\frac{\Azero(\xi)}{p-1}
+  +\frac p{p-1}\chi(\xi)\eps_GM^{\rm off},
+\]
+where $M^{\rm off}$ has the entries $m_{ik}$ with $\varsigma_{ik}=0$ and zeros elsewhere.
+Bound the three norms by $n$, $\Lambda_D$ and the Schur test.
+
+(iii) This is \cref{subsec:spec:coupling} for the explicit stars, instance (B), in which
+$R_\nu=1$ and $R'_k=1$: then $\theta_j=\theta^\mu_j$, $\Delta_k=\hat e_k/(1-\hat e_k)$ and $\eps_X=0$.
+For $w\in\C^n$, $\mathbf B(we_\xi)=\mathcal P(\sum_kw_ke_\xi(x_k))$ in the notation of
+\cref{def:coupling-data}, so by \cref{lem:coupling-modes}
+\[
+  \frac{w^*(\mathbf B^*\mathbf B)(\xi)w}{r^2}=\frac{w^*\mathbf M(\xi)w}{r^2}
+  =\frac p{p-1}\big(w^*\Hmat^0w+pc_\xi\,w^*\mathbf D^0w\big),
+\]
+with $\Hmat^0=\widetilde\Hmat$ and $\mathbf D^0=\mathbf D$ for these data. By
+\cref{lem:spec2:gram}, $\Hmat^0\preceq\Hmat+\eps'_HI$; by \cref{lem:spec2:paley}, with
+$\Gamma_E=\hat E^2$, $\bar\lambda(\Hmat)=\norm\Hmat_{\rm row}$ and $\eps_H=\eps'_H$, and since
+$t_J=0$ for $p\equiv3\pmod4$, $|w^*\mathbf D^0w|\le r(\eps_{\ne}+\eps_{\rm rem})|w|^2$. As $|pc_\xi|r=1$
+and $\Hmat\succeq0$, $\norm\Hmat\le\norm\Hmat_{\rm row}$,
+\[
+  \frac{w^*\mathbf B^*\mathbf Bw}{r^2}\le\frac p{p-1}\big(w^*\Hmat w+(\eps'_H+\eps_{\ne}+\eps_{\rm rem})|w|^2\big)
+  \le w^*\Hmat w+\eps_{\mathbf B}|w|^2. \qedhere
+\]
+\end{proof}
+
+The same proofs give \cref{thm:record:direct-star} and \cref{lem:record:frame-inputs} at $p\equiv1\pmod4$, with
+$\Hmat^+=\Hmat+\Hmat^{\rm cov}$ in place of $\Hmat$ everywhere except inside $\eps_{\rm rem}$,
+with $\pm\Delta^E$ in place of $\pm\eps_G\Delta^E$ (now two distinct tests), and with
+$\eps_{\rm par}=(R_{\rm full}-1+n/((p-n)r))\norm{\Hmat^{\rm nc}}_{\rm row}$ ($R_{\rm full}$ is defined in \cref{lem:spec2:paley-one} below) added inside the last
+bracket of $\eps_{\mathbf B}$ (\cref{lem:spec2:paley-one} with $R_\nu=1$); the caps of the
+final construction use only $p\equiv3\pmod4$. The application to the root
+cuts, with the inputs of \ref{it:record:star-H3}, the monotone extension from an
+endpoint, the exact frame and Schur tests and the certified class-three caps, is
+\cref{lem:record:direct-star-inputs}, \cref{lem:record:monotone-endpoint},
+\cref{cert:record:direct-star} and \cref{cert:upper-root-caps}.
+
+\subsection{From one prime to all primes and blocks}\label{subsec:spec:thresholds}
+
+Both criteria are checked at one threshold and used at every larger prime and on
+blocks of primes. The first step is the monotonicity of the error terms.
+
+\begin{lemma}[Monotone spectral quantities]\label{lem:spectral-monotone}
+Let spectral data satisfy \textup{(S1)} at $p_0$, $r_0=p_0^{-1/2}$, and write every
+quantity as a function of $r\in(0,r_0]$. In part~\textup{(a)}, quantities
+involving coupling data use instance~\textup{(A)} or~\textup{(B)} of
+\cref{subsec:spec:coupling}.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item The following are admissible: every $e_t(p,n')$ with $t\le\Delta$, $n'\le2n$,
+  and $\hat e_k$; $\Rcut-1$, $R_{\rm full}-1$, $R'_k-1$, $R_\nu R_{\rm full}-1$ and their
+  quotients by $r$; $\delta^\times_l$, $\delta^\mu_l$, $\eps_V$ and $\eta_Q$; $\beta_{kl}$,
+  $\eps'_H$, $\Upsilon_{kl}$ and $\eps_X$; $\theta_j$, $\theta^\mu_j$, $\eps_{\ne}$, $\Delta_k$,
+  $\hat E^2$, $\phi_k$, $\eps_\times$, and $\zeta$ of \cref{lem:spec2:paley-one}.
+\item If the inputs $\Gamma_E$, $\eps_H$, $\bar\zeta$ and $R_+$ are admissible, so are
+  $\eps_{\rm rem}$, $\eps_{\rm par}$, $\eta_B$ and $\Lambda_M$.
+\item If $N_{\rm ns}/r$, $D_{\rm col}/r$, $M_\star/r$ and $\eps_Z$ are admissible and
+  $\eps_Z(r_0)<1$, then $R_Z$, $R_+$ of \cref{prop:spec2:mucentre}\ref{it:centre:sup},
+  $\eps_\varrho/r$, $\eps_\varrho$ and $c_\perp$ are admissible, and so are the bound
+  $R_{\rm full}-1+n/((p-n)r)+\eps_\varrho$ of \cref{lem:spec2:parity-transfer} and its
+  minimum with $\zeta$; $P_{\rm st}/r^2$ and $W_{\rm st}/r$ are constants.
+\item If the count errors $\epsilon^\pm_t$ of \cref{subsec:spec:completion-variance} are
+  polynomials in $r$ with nonnegative coefficients, and at $r_0$ the denominators of
+  \cref{lem:push:localvariance}\textup{(b)} are positive and $\ell^{\rm loc}_k>0$, then
+  $\ell^{\rm loc}_k>0$ on $(0,r_0]$, and the bound $(\eps^{\rm loc}_k/\ell^{\rm loc}_k)^2$ of
+  \cref{lem:push:localvariance}, the bound (a) there, $\Gamma^{\rm loc}_E$, and
+  $\eps^{\rm loc}_H$ with fixed Schur weights are admissible.
+\end{enumerate}
+The matrices $\Delta^E$, $\Hmat$, $\Hmat^{\rm cov}$, $\Hmat^{\rm nc}$ and $\Hmat^+$ depend on $p$ only
+through its class modulo $4$.
+\end{lemma}
+
+\begin{proof}
+We use \cref{lem:majorant}. Every $e_t(p,n')=2^t(h_tr+n'r^2)$ is a polynomial in $r$
+with nonnegative coefficients and no constant term; so is $e_u$ for every $u$; and by
+(S1) every $e_t(p,n')$ with $t\le\Delta$, $n'\le2n$ is below one at $r_0$, hence on
+$(0,r_0]$. Further $p/(p-1)=1/(1-r^2)$, $1/(p-1)=r^2/(1-r^2)$, $1/((p-1)r)=r/(1-r^2)$
+and $n/((p-n)r)=nr/(1-nr^2)$, where $nr^2<1$ by (S1). A product of factors
+$(1+e)/(1-e)$ with small $e<1$ is one plus a small function. This gives the ratios and
+the constants of \eqref{eq:spec:smallconst}, \eqref{eq:spec:Azero}, \eqref{eq:spec:epsV},
+$\Upsilon_{kl}$, $\eps_X$, $\hat E^2$ (whose last term is $n4^{r_k}r^2$), $\phi_k$, $\eps_\times$ and
+$\zeta=(R_\nu R_{\rm full}-1)+nr/(1-nr^2)$. In $\theta_j$ the argument of the square root
+is at least $0$ and nondecreasing, since $R_\nu\ge1$ and $2^{d^0_j}/(1-e)\ge1$, and
+$\eps_{\ne}=r\theta_{\max}\rho_{\rm row}$. Both branches of $\Delta_k$ are nondecreasing.
+In \eqref{eq:spec:beta} the second branch of the maximum never exceeds the first:
+for $0\le a,b<1$ and $e_u\ge0$,
+\[
+  \frac{1+e_u}{(1-a)(1-b)}+\frac{1-e_u}{(1+a)(1+b)}-2
+  =\frac{2\big(a^2+b^2+ab-a^2b^2+e_u(a+b)\big)}{(1-a^2)(1-b^2)}\ge0,
+\]
+so $\beta_{kl}$ equals its first branch, which is nondecreasing; this avoids any
+condition on $e_u$. For (b), $\eps_{\rm rem}$, $\eps_{\rm par}=\bar\zeta\Lambda_{\rm nc}$, $\Lambda_M$ and
+$\eta_B$ are built from these by sums, products and square roots, and
+$R_+p/(p-1)-1=R_+/(1-r^2)-1\ge0$ is nondecreasing. For (c),
+$R_Z=1/(1-\eps_Z)$ and $R_+$ are nondecreasing when $\eps_Z<1$ is;
+$\eps_\varrho/r=R_Z(M_\star/r+N_{\rm ns}/r+D_{\rm col}/r)$;
+$c_\perp=R_Z(N_{\rm ns}/r+D_{\rm col}/r)+r(\eps_\varrho/r)^2$; $\eps_\varrho=r\cdot(\eps_\varrho/r)$; and
+$R_{\rm full}-1$, $nr/(1-nr^2)$ and $\zeta$ are admissible by (a). For (d), the denominators
+$1-\epsilon^-_t(z)$ of $\kappa_\Phi$ and $\kappa_i$ are nonincreasing in $r$ and positive at
+$r_0$, so $\kappa_\Phi$ and $\kappa_i$ are admissible; every term of
+$\eps^{\rm loc}_k$ is built from $r$, $\kappa_\Phi$, $\kappa_i$, $\alpha^+_i$, $\alpha^{++}_i$ and
+fixed integers by sums, products and square roots, so it is admissible, while
+$\prod_i\alpha^-_i$ is nonincreasing; hence $\ell^{\rm loc}_k$ is nonincreasing and
+$\eps^{\rm loc}_k/\ell^{\rm loc}_k$ nondecreasing. The bound (a) is
+$\delta'^2_k/(4(1+\delta'_k))$ with $\delta'_k$ admissible, and $y\mapsto y^2/(4(1+y))$
+increases. The remaining quantities are sums, products, minima and square roots of
+these, and a weighted Schur bound with fixed weights is a fixed nonnegative
+combination of matrix entries.
+\end{proof}
+
+\begin{remark}[How a cap is certified]\label{rem:spectral-criterion:certificate}
+For a cut and a threshold $p_0$ the route-A evaluator computes, at $r_0=p_0^{-1/2}$ and in
+outward interval arithmetic, the quantities of (R1)--(R3). It asserts
+$e_{d_l}(p_0,2n)<1$ for every $l$, hence the first half of (S1) (the second, $p_0>4n^2$,
+holds at every threshold used, since $p_0\ge2^{24}>4\cdot36^2\ge4n^2$ for the values $n\le36$ occurring in \cref{rem:spectral-criterion:uses}), $\eps_Z<\frac12$
+and $\bar\eps_V<1$ (and asserts the influence conditions \eqref{eq:spec:S2} of $G^+$,
+which no statement uses). For each class $\mathfrak c\in\{1,3\}$ and each sign, a
+floating-point bisection proposes a rational $\tau^{\rm sp}_{\mathfrak c,\pm}$, which is accepted
+only by an exact rational $LDL^{\mathsf T}$ test of \eqref{eq:spectral-test}; for $\mathfrak c=3$ the
+test runs on the real $2n\times2n$ embedding of the Hermitian matrix
+(\cref{rem:realified-gates}). In this test
+$\cperp,\bar\eta_Q,\bar\eta_B,\bar\eps_V$ are the upper ends of the enclosures, rounded up
+to denominator $10^{10}$. The evaluator records
+$g_{\mathfrak c,\pm}=(\lceil10^8(\cperp+\tau^{\rm sp}_{\mathfrak c,\pm})/(1-\bar\eps_V)\rceil+1)/10^8$ and
+$g=\max_{\mathfrak c,\pm}g_{\mathfrak c,\pm}\ge\max(g_1,g_3)$, asserts $gr_0<1$, and records
+$B^+=p_0\eps_\varrho(r_0)^2/(1-gr_0)$ as an interval. An argument applying \cref{cor:spectral-criterion-blocks} at a block start $Q\ge p_0$
+with block length at most $L$ uses $d=g'\exp(B^+L/(Q\log Q))$ and asserts $d/\sqrt Q<1$,
+where $g'=g_3$ in the middle range and on the bands of the upper range, where $B^+$ is also recomputed with $g_3$ in place of $g$, as (d) allows, and $g'=g$
+for the tail datum (\cref{cor:spectral-criterion-blocks}). Every input is an admissible function fixed at
+$p_0$ together with the partitions and the test matrices, so its value at $p_0$ is a
+valid input at every prime $p\ge p_0$ (\cref{lem:spectral-monotone,lem:majorant}). Floating
+point only proposes the rational parameters; the exact tests prove them. The route-B
+caps are extended from their endpoints in the same way
+(\cref{lem:record:monotone-endpoint}), with the two branches of \eqref{eq:spec:beta}
+checked as above. The twelve-label grids are listed in \cref{tab:data:layer12-grid},
+and the grid of the cut L20 of \cref{subsec:middle-l20} in \cref{tab:data:l20-grid}. The
+caps of the upper range are recorded in the certificates of \cref{sec:upper-reference}
+and in \cref{cert:upper-lower-bands}, and \cref{tab:data:upper-bands} lists the
+band inputs.
+\end{remark}
+
+\subsection{Primes $p\equiv1\pmod4$: extra terms (large primes only)}\label{subsec:advance:parity}
+
+This subsection is used only at the tail primes $p\ge\Pfour=2^{512}$ with
+$p\equiv1\pmod4$ (\cref{subsec:tail-law}). At every other prime of the construction
+where a spectral cap is used, $p\equiv3\pmod4$ and $t_J=0$
+(\cref{lem:spec2:paley}(c)). At $p\equiv1\pmod4$ the degree-one matrices
+$\mathbf A_{1,\pm}=\pm\Delta^E$ are real symmetric, the two signs of
+\eqref{eq:spectral-test} are distinct tests, the model is $\Hmat^+=\Hmat+\Hmat^{\rm cov}$
+(\cref{def:coupling-model}), and the non-coverable sets enter $\eta_B$ through
+$\eps_{\rm par}=\bar\zeta\Lambda_{\rm nc}$ (\cref{cor:spec2:coupling}). It remains to supply
+admissible values of $\bar\zeta$.
+
+\begin{lemma}[Class-one Paley terms]\label{lem:spec2:paley-one}
+Let $p\equiv1\pmod4$, assume $e_\Delta(p,2n)<1$, and let coupling data be given. For
+every $J\subseteq U^+$ with $|J|\ge2$ and every $x\in\mathcal I^+$, $|S_J(x_J)|\le r$; in
+particular $|t_J|\le r$. If $J$ is not coverable, then
+\[
+  |t_J|\le\zeta r,\qquad \zeta=(R_\nu R_{\rm full}-1)+\frac n{(p-n)r},\qquad
+  R_{\rm full}=\prod_{i\in U^+}\frac{1+e_{d^0_i}(p,n)}{1-e_{d^0_i}(p,n)} .
+\]
+In instance \textup{(A)}, $R_\nu R_{\rm full}=\Rcut R_{\rm full}$.
+\end{lemma}
+
+\begin{proof}
+$|S_J|\le\norm{g_J}^2\norm C\le r$. Let $j\in J$ be isolated in $G^+[J]$, and let
+$u_{\rm cons}$ be the uniform law on $\operatorname{Inj}_p(G^+[J])$. By
+\cref{lem:graphs:vertex}\ref{it:vertex:subset} for $G^+$ and the density bound (i) of
+the coupling data, the law $\nu_J$ of $x_J$ under $\nu$ is $w\,u_{\rm cons}/\E_{u_{\rm cons}}w$
+with $\max w/\min w\le R_\nu R_{U^+\setminus J}\le R:=R_\nu R_{\rm full}$. Since
+$w/\E w\in[1/R,R]$ and $|S_J|\le r$,
+$|t_J-\E_{u_{\rm cons}}S_J|=|\E_{u_{\rm cons}}[(w/\E w-1)S_J]|\le(R-1)r$. Under $u_{\rm cons}$, given
+$x_{J\setminus\{j\}}$ the label $x_j$ is uniform on the $p-|J|+1$ values not used, because
+$j$ has no edge in $G^+[J]$. Write $S_J=\E_{a,b}\chi(b-a)\chi(a-x_j)\chi(b-x_j)
+g_{J\setminus\{j\}}(a)g_{J\setminus\{j\}}(b)$. The terms $a=b$ vanish, and for $a\ne b$,
+$|\sum_{t\notin x(J\setminus\{j\})}\chi((a-t)(b-t))|\le1+(|J|-1)$ by \eqref{eq:two-root}; so
+$|\E_{u_{\rm cons}}S_J|\le|J|/(p-|J|+1)\le n/(p-n)$. Hence $|t_J|\le\zeta r$.
+\end{proof}
+
+So $\bar\zeta=\zeta$ is admissible in \cref{cor:spec2:coupling}; the ten nonroot cuts use it.
+At the root cuts the constant $\zeta$ (with $R_\nu=\Rcut$ in instance~\textup{(A)}) is larger at every stored threshold than the bound of the transfer below, which replaces it there.
+
+\begin{lemma}[Transfer of the non-coverable Paley averages]\label{lem:spec2:parity-transfer}
+Let $p\equiv1\pmod4$, take instance \textup{(A)}, and let $\eps_\varrho\ge\norm{\varrho-1}_\mu$.
+Then for every $J$ with $|J|\ge2$ that is not coverable,
+\[
+  \frac{|t_J|}r\le R_{\rm full}-1+\frac n{(p-n)r}+\eps_\varrho .
+\]
+Consequently $\bar\zeta=\min\{\zeta,\ R_{\rm full}-1+n/((p-n)r)+\eps_\varrho\}$ is admissible in
+\cref{cor:spec2:coupling}.
+\end{lemma}
+
+\begin{proof}
+Here $t_J=\E_{m_p}S_J$. Since $|S_J|\le r$ pointwise, Cauchy--Schwarz gives
+$|\E_{m_p}S_J-\E_\mu S_J|=|\E_\mu[(\varrho-1)S_J]|\le\eps_\varrho r$. The isolated-vertex argument
+of \cref{lem:spec2:paley-one} for $\nu=\mu$ ($R_\nu=1$) gives
+$|\E_\mu S_J|\le(R_{\rm full}-1+n/((p-n)r))r$.
+\end{proof}
+
+The certificate applies the transfer only at the root cuts LL20 and LL22, with
+$\eps_\varrho=R_Z(M_\star+N_{\rm ns}+D_{\rm col})$, the constant coupling of
+\cref{prop:spec2:mucentre}\ref{it:centre:rho}; there it gives the smaller value at every
+stored threshold, and the stored class-one root caps, which are inputs of the tail law,
+are computed with it. Every quantity is
+admissible (\cref{lem:spectral-monotone}), so the value at the threshold covers all
+larger primes of the class. Sharper class-one bounds recorded in \cref{subsec:obs:tested} are not used by any certificate of the construction.
+
+\paragraph{Consequences and what to read next.}
+This section used the following inputs; its outputs are the two criteria and the exact star synthesis above.
+From Part~II: Weil's bound, the two-root identity, Gauss sums and the Paley operator
+(\cref{thm:weil,thm:gauss,lem:square-shift}, \eqref{eq:two-root}); maximal correlation
+(\cref{def:prelim:maxcorr}); admissible majorants
+(\cref{def:majorant,lem:majorant}). From Part~IV: the extension count, the sequential
+counts and the conditional laws of graph laws
+(\cref{lem:extension,lem:graphs:sequential,lem:graphs:vertex},
+\eqref{eq:graphs:graded}); spectral data, the cut kernel, the positive envelope and the
+block lift (\cref{def:spec:data,lem:spec:elementary,lem:spec:cutkernel,prop:matching:positive,lem:spec:tensorcomp});
+weighted frames (\cref{lem:weighted-frame}), in \cref{subsec:spec:actual-stars};
+the star-trace dictionary and the star function (\cref{lem:star-trace},
+\eqref{eq:star-function}); the two-variable sum \cref{thm:dl:H2} with \eqref{eq:dl:B}; and
+the witness kernel \cref{lem:matching:kernel}. As inputs of the criteria (not used in
+their proofs): the nonstar and coincidence bounds
+(\cref{lem:advance:compressed-partition,lem:matching:extractionk,cor:extraction-leaf,lem:oct24-collision}) and
+the ordered-star bounds (\cref{prop:advance:ordered-star,lem:star-mean}). No input of
+\cref{subsec:spec:actual-stars} comes from the two criteria.

@@ -1,0 +1,386 @@
+\providecommand{\ContinuationExponent}{\frac{4066280877}{355000000000000}}
+\providecommand{\ContinuationTheta}{0.999999999794}
+\providecommand{\AdvanceExponent}{\frac{8855891201}{710000000000000}}
+\providecommand{\AdvanceTheta}{0.999999999862}
+\providecommand{\FurtherExponent}{\frac{887239883}{71000000000000}}
+\providecommand{\FurtherTheta}{0.99999999966289}
+\section{How the construction developed}\label{sec:history}
+
+\paragraph{What this section is for (not used in the proof).}
+This section is historical only: no proof in Parts~I--V depends on
+it, and a reader verifying \cref{thm:main} can skip it entirely.
+It records how the exponent was reached through complete proofs of
+smaller exponents. Terms such as ``checkpoint'' mean one such
+complete version; dates in subsection titles are retained as
+labels for those versions and each subsection states in words what
+changed, so no archived draft need be consulted. The checkpoint
+table ends with the baseline ($\vartheta=1$, the $\theta=1$ of \cref{sec:closing}); the improved result
+$\vartheta=\FourRoutesDensity$ of
+\crefrange{sec:density:moments-prefix}{sec:four-routes-closing} is
+described in prose at the end of this section and is not a further
+table row.
+\Cref{subsec:history:216} reads the design on $216$ slots, on which the first
+explicit versions and the first five checkpoints were built, as the first
+instance of the scheme of the comparison theorem of Part~III and groups its inherited machinery by its role in the current proof: the final proof is that design
+re-instantiated on $72$ slots, with four structural substitutions and new
+local laws, not a different proof.
+\Cref{subsec:history:sparse,subsec:history:layers,subsec:history:oct24,subsec:history:oct2425}
+follow the steps from there to the final design, and
+\cref{subsec:history:lessons} collects what they taught; the obstructions met
+on the way are in \cref{sec:obstructions}. No proof in Parts~II--V uses this
+section. ``Old \S$n$'' is a section of the archived manuscript of $644$ pages
+at commit \texttt{a6e4c29}, preserved with its hash manifest in
+\path{archive/paper-purepair-2026-10-24.tar.gz}; its proofs and verifiers
+remain reproducible (\cref{subsec:cert:archive}, \cref{tab:cert:checkpoints}).
+``Master \S$n$'' is a section of the manuscript of $770$ pages at master
+commit \texttt{8dc0a3fe}, which appends the three checkpoints of 24--25
+October (master \S\S42--44) to that text; it is preserved in
+\path{archive/paper-further-2026-10-25.tar.gz}.
+Throughout, $\eps$ is the density saving of
+the checkpoint in question, $a$ its functional exponent, $\theta$ its density
+exponent and $d$ its number of slots, so that $\eps=a/(d-\theta)$; the
+archived text often writes $c$ for $\eps$.
+
+\subsection{The checkpoints}\label{subsec:history:checkpoints}
+
+The OpenAI preprint \cite{OpenAI} proved $s(N)\le CN^{1-\eps}$ with an
+absolute $\eps>0$ from a functional on $d=(24!)^{161}$ slots. The first
+complete explicit version of the present argument \cite{PartI}, already on
+the $216$-slot array, gave $\eps=2.939\cdot10^{-15}$, and its rewritten
+version $2.5115\cdot10^{-9}$. \Cref{tab:history:checkpoints}
+lists the sixteen checkpoints that followed those two versions
+(the two versions just named are not rows of the table) and
+\cref{tab:history:ideas} what each added. Every
+closing in the sequence has the three tasks described in
+\cref{sec:design-walk}; the closing numbers of different rows are nevertheless
+values of different criteria, comparable only through their margins below
+one; the slot counts, query
+counts and criteria of a row belong to its own design, and no constant of one
+row may be substituted into the criterion of another without the checks of
+that criterion.
+
+\begin{table}[ht]
+\centering
+\footnotesize
+\caption{The checkpoints: $d$ slots, $k$ queries (edges amplified
+by repetition in the signed product; the first design couples
+nine pairs, one family at a time), density exponent $\theta$,
+functional exponent $a=(d-\theta)\eps$, and $\Theta$ the certified upper bound
+for the closing quantity of the checkpoint's own criterion. The last column
+is the section in which the checkpoint is proved: old \S\ of the archived
+$644$-page manuscript for rows 1--11, master \S\ of the $770$-page manuscript
+for rows 12--14; rows 15--16 are the Codex improvements and the
+density-linear baseline integrated here; the verifiers are listed in \cref{tab:cert:checkpoints}.}
+\label{tab:history:checkpoints}
+\begin{tabular}{@{}rllrlll l@{}}
+\toprule
+ & $\eps$ & & $d$ & $\theta$ & $k$ & $\Theta<$ & \S\\
+\midrule
+1 & $3347/10^{12}$ & $3.347\cdot10^{-9}$ & $216$ & $0$ & $9$ pairs & $0.999929$ & \S\S27--28\\
+2 & $83/2000000000$ & $4.15\cdot10^{-8}$ & $216$ & $0$ & $16$ & $0.979927$ & \S29\\
+3 & $269973/5376500000000$ & $5.0214\cdot10^{-8}$ & $216$ & $47/50$ & $16$ & $0.999580$ & \S30\\
+4 & $1/8000000$ & $1.25\cdot10^{-7}$ & $216$ & $108/125$ & $4$ & $0.988050$ & \S31\\
+5 & $513/2242156250$ & $2.288\cdot10^{-7}$ & $216$ & $753/1000$ & $16$ & $0.983739$ & \S32\\
+6 & $2214/1111328125$ & $1.992\cdot10^{-6}$ & $72$ & $7/8$ & $8$ & $0.997534$ & \S\S33--35\\
+7 & $1971/635562500$ & $3.101\cdot10^{-6}$ & $72$ & $817/1000$ & $8$ & $0.998934$ & \S36\\
+8 & $63/8927500$ & $7.057\cdot10^{-6}$ & $72$ & $29/50$ & $6$ & $0.957300$ & \S37\\
+9 & $441/44375000$ & $9.938\cdot10^{-6}$ & $72$ & $1$ & $6$ & $0.995315$ & \S38\\
+10 & $276327/27734375000$ & $9.963\cdot10^{-6}$ & $72$ & $1$ & $6$ & $0.999998993$ & \S40\\
+11 & $243319543/22187500000000$ & $1.0967\cdot10^{-5}$ & $72$ & $1$ & $6$ & $0.999999999410$ & \S41\\
+12 & {\renewcommand{\frac}[2]{#1/#2}$\ContinuationExponent$} & $1.1454\cdot10^{-5}$ & $72$ & $1$ & $6$ & $\ContinuationTheta$ & master \S42\\
+13 & {\renewcommand{\frac}[2]{#1/#2}$\AdvanceExponent$} & $1.2473\cdot10^{-5}$ & $72$ & $1$ & $6$ & $\AdvanceTheta$ & master \S43\\
+14 & {\renewcommand{\frac}[2]{#1/#2}$\FurtherExponent$} & $1.2496\cdot10^{-5}$ & $72$ & $1$ & $6$ & $\FurtherTheta$ & master \S44\\
+15 & {\renewcommand{\frac}[2]{#1/#2}$\CodexExponent$} & $1.2512\cdot10^{-5}$ & $72$ & $1$ & $6$ & $\CodexTheta$ & Codex 25 Oct.\\
+16 & {\renewcommand{\frac}[2]{#1/#2}$\PushExponent$} & $1.2513\cdot10^{-5}$ & $72$ & $1$ & $6$ & $\PushTheta$ & \cref{sec:closing}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+{\footnotesize
+\begin{longtable}{@{}r>{\raggedright\arraybackslash}p{0.54\textwidth}>{\raggedright\arraybackslash}p{0.38\textwidth}@{}}
+\caption{What each checkpoint of \cref{tab:history:checkpoints} added (the
+new idea in italics), and why it was replaced.}
+\label{tab:history:ideas}\\
+\toprule
+ & Construction & Why it was replaced\\
+\midrule
+\endfirsthead
+\toprule
+ & Construction & Why it was replaced\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+1 & row completion (old \S18: completing a law from its conditional rows), component-table terminals (the terminal components $\mathcal T$ of the component table, \cref{subsec:history:216} below), obstruction cover (covering nonaccepting records by positive laws, \cref{sec:obstructions});
+ \emph{centred singleton recurrence: the common baseline is paid once} &
+ nonaccepting records are covered, not repaired; one coupled pair has first-order obstruction polynomial $2x+2y+4z$ ($x,y,z$ as in \cref{subsec:history:216})\\
+2 & one fixed family; \emph{repairs keeping the actual conditional marginals,
+ a signed product over $16$ disjoint edges} & sharpened by the same method\\
+3 & $L^2$ row marginals, a cubic trace in the first repair, a graded upper
+ prefix; \emph{the density-normalized induction, $\theta>0$} &
+ graph-transfer term $0.438$ and matching term $0.363$ of that row's $\Theta$: ``new local laws rather than new
+ parameters''\\
+4 & \emph{a sparse middle law: one added constraint per nonaccepting record, at
+ one cut}; four amplified edges & with four edges the matching term is
+ $0.823$\\
+5 & sixteen edges again; \emph{each expansion term at its best cut};
+ trace-moment marginals & graph comparison $0.713$; the conversion $a/216$\\
+6 & \emph{a two-point layer replaces the third chamber coordinate}; prime
+ classes; a two-layer upper reference & refined in row~7\\
+7 & second-order upper-root inputs, product rows; upper start $2^{50}$ &
+ lower graph comparison $0.330$, matching $0.586$\\
+8 & square-clique prefix, twelve-label middle law; \emph{a comparison law that
+ is not reflection positive, under a reserved Gram bracket}; six queries &
+ reserved comparison $0.793$; the density gate nearly tight\\
+9 & \emph{mirror pairing} with an orientation mixture, variance credits,
+ direct Gram, \emph{common mean}, coupons, direct-star root from $2^{49}$,
+ $\theta=1$, kernel cutoff $\beta=1/20$ (\cref{app:kernel20}) &
+ index and square step improvable; a new $F$ law\\
+10 & \emph{exact square-shift contraction}, least square step, fixed $\Kint$,
+ ordered upper coincidences & kept, and extended, by row~11\\
+11 & \emph{pure paired $F$ law with positive joint envelopes for the even skew
+ products}; fresh restorations; $\mcl=8192$ &
+ the pure-law constants could be lowered only to their proved limits $2$ and
+ $\sqrt5$ (row~12); row~13 changed the law\\
+12 & \emph{exact identities in the actual half marginal} (pair laws, the actual
+ frame); channels \emph{collected with their coincidence substitutions before
+ norms}; raw-arm, leading, remainder and full prices kept apart; weighted
+ feature frames; positive backgrounds, variance of degrees three and four,
+ chosen diagonals in the mean, late-pool coupons; modular root variance; fine
+ upper bands, log-convex root coefficients, a free Young allowance, skew-only
+ repairs, forest matrices; continuous index moments; a fresh native source &
+ the pure law at its sharp limits $2$, $\sqrt5$; the direct-Gram coefficient
+ $\sqrt6$ sharp for scalar half diagonals\\
+13 & \emph{signed whole-block law}: a signed mixture, after the block products,
+ of three positive accepting laws repaired to the actual marginal; the
+ \emph{bracket with one fold copy} and the doubled protection; the
+ \emph{two-cut error}; matrix envelopes in the singleton block algebra,
+ physical averages for all classes, orbit coupons; piece product caps;
+ complete actual stars and the direct chamber cap ($\sqrt{30}$); dense upper
+ comparisons, six-query acceptance, observed caps, joint F/E rows;
+ $Q_3=19951586$, $P_3=167\cdot2^{40}$ &
+ the invariant price estimated by $U_0-S/4$ instead of assigned exactly; the root still uniform\\
+14 & \emph{positive pair-trace tilts of the root} on three late pieces, both
+ cuts in the fixed half charts, the changed marginal priced in restoration;
+ the \emph{assigned invariant price}; a positive mixture of six-query LE laws;
+ forced free-root coincidence factors; free Young allowances and fresh
+ endpoints of the joint rows & conductor-depth and root refinements in
+ rows 15--16\\
+15 & \emph{seven positive roots}: the collision, pair-gap and layer-remainder bounds and the coherent $39$-score root of \cref{sec:positive-roots};
+ \emph{finite conductor-depth index} & closer repricing anchor available\\
+16 & \emph{exact block charges rebuilt at a closer anchor}, with the same
+ selected local laws and depth index & selected construction\\
+\end{longtable}
+}
+
+From the first to the last row $\eps$ grew by a factor of about $3739$. The
+slot count accounts for a factor of about $3.04$, through $d-\theta$ falling
+from $216$ to $71$; the rest, a factor of about $1229$, is the growth of the
+functional exponent $a$, which is limited by the requirement $\Theta<1$.
+Every price grows with $a$ through $q_{\Blk}^{2a}$, so each step lowered a
+local constant, added a credit, or replaced a local law by a cheaper one.
+
+\subsection{The $216$-slot starting point}\label{subsec:history:216}
+
+The first five checkpoints used $(\Zsix)^3$, nine families of
+rotation edges, and a third-coordinate chamber cut reserved for
+comparison. Their middle laws were fixed samplewise by that cut.
+The current $72$-slot law depends on the layer coordinate instead,
+so its reserved Gram bracket replaces samplewise fixedness.
+The inherited analytic and local machinery is stated in its current
+generality in Parts II--IV; the old constructions are not additional
+premises of the final theorem.
+
+The early middle reference combined a leading array law, row and
+column repairs, and a terminal completion. Its weights were negative
+spectral envelopes. This is the origin of the five-type completion
+and its slice argument. Pinned correlations supplied the envelopes;
+Peyre's tensorization and Kassabov's angle bounds supplied their
+stability. The largest early losses were first-order errors in row
+counts and in four-cycle character kernels. Pivot averaging and
+second-order character estimates removed those losses where the
+variables remained free. They could not remove errors in variables
+already fixed by conditioning.
+
+The old upper graph had $216$ vertices and degree $74$. Its repair
+was consequently expensive even after the first spectral improvements.
+The two-layer graph lowered these parameters to $72$ and $20$.
+The comparison mechanism survived: assign positive prices to records,
+compare their Fourier averages at square-step scales, use the six
+query couplings, and close a single strict scalar inequality.
+
+\begin{table}[htbp]
+\centering\small
+\caption{The inherited machinery and its place in the present proof.
+The detailed section-by-section history is preserved in the archived
+manuscripts.}\label{tab:history:216}
+\begin{tabular}{@{}p{.43\textwidth}p{.51\textwidth}@{}}
+\toprule
+Inherited argument & Present formulation\\ \midrule
+Sorting, positivity, lifts and sectors &
+\crefrange{sec:positivity}{sec:scale-comparison}\\
+Local counts and correlations &
+\cref{sec:labellings,sec:cuts,sec:spectral}\\
+Second-order character sums & \cref{sec:dl}\\
+Witness extraction and coincidences & \cref{sec:extraction}\\
+Completion, polarization and marginal repair & \cref{sec:completion-repair}\\
+Price comparison and density induction & \cref{thm:comparison,thm:density:induction}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Sparse laws, single edges and best cuts}\label{subsec:history:sparse}
+
+The sparse middle law kept $180$ of the $252$ edges of the
+one-layer graph. Early repairs imposed one square constraint at a time,
+and later versions compared each expansion term at its best available
+cut. Eligibility at several cuts belongs to one fixed signed difference;
+it does not license taking coordinatewise minima from different laws.
+The weighted moving-root moments and the separation of marginal errors
+from centred correlations remain in the current proof. The sparse
+constructions themselves are historical checkpoints.
+
+\subsection{Two layers, six queries and the October 18 record}\label{subsec:history:layers}
+
+Replacing one six-point coordinate by a two-point layer reduced the
+number of slots from $216$ to $72$. With density exponent $\theta$,
+the conversion became $\eps=a/(72-\theta)$. The middle construction
+then needed positivity and comparison at a genuine layer cut.
+The twelve-label root and its fold, matching, merge and constant
+records supplied that completion.
+
+Six queries reduced the number of independent index factors in the
+matching term. The October 18 record then combined exact block budgets,
+paired middle comparisons, a direct-star upper root, and a common-mean
+credit. The crude norm sum still exceeded one; the class envelopes,
+variance credits and matching comparison were essential. Their roles
+are explained by \cref{rem:record:plain}, without reproducing that
+checkpoint's proof here.
+
+\subsection{Blocks and the $72$-slot form}\label{subsec:history:oct24}
+
+The next version used the exact square-shift norm
+$\sqrt{p+1}/(p-1)$, the least square divisible by the conductor,
+and a fixed interval count with a fully paid wrap term.
+Ordered collision counts sharpened the upper root.
+The pure-pair construction then moved the first-order fold price to
+the skew part. Positive envelopes for even skew products more than
+paid for the resulting skew norm. Its variance and mean credits were
+recomputed together at the new exponent; they were not imported as
+separate numerical decrements.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Structural changes retained in the final construction.}
+\label{tab:history:components}
+\begin{tabular}{@{}p{.30\textwidth}p{.64\textwidth}@{}}
+\toprule
+Component & Retained change\\ \midrule
+Middle comparison & Actual-marginal signed whole-block law;
+\cref{def:record:mixture}\\
+Reserved comparison & One fold copy and a two-cut error;
+\cref{lem:record:gram,cor:two-cut-series}\\
+Middle root & Complete star frame and positive trace-square tilts;
+\cref{sec:positive-roots}\\
+Upper comparison & One-way repairs, forest and dense accepting laws;
+\cref{sec:upper-comparison}\\
+Closing & Compatible variance, matching and common-mean credits;
+\cref{sec:four-routes-closing}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Exact actual laws, signed blocks and positive roots}
+\label{subsec:history:oct2425}
+
+The subsequent improvements kept the $72$-slot frame and changed
+its local laws or the estimates for them. Computing the fold
+operators in their actual half marginals, and collecting their
+coincidence substitutions before taking norms, brought the pure-law
+coefficients close to their limiting values. Signed mixtures taken
+\emph{after} block products then reduced the leading fold coefficient
+without paying variation once per prime. The selected parameter is
+$\tlaw=127/500$.
+
+The complete chamber star matrix exposed the uniform root's leading
+coefficient $\sqrt{30}$. Positive squares of pair-trace scores lowered
+that coefficient on later pieces. Their finite proofs had to control
+both cuts, full rows, normalizers and the actual marginal changes.
+The last selected piece uses the coherent $39$-trace law; the seven
+selected laws and parameters are in \cref{def:positive-root}.
+Smaller local norms alone would not justify these replacements.
+
+In parallel, actual-marginal upper comparisons, exact collision
+pricing and finite conductor moments improved the other parts of the
+same scalar budget. The density-linear baseline is
+$\eps=\PushExponent$. The selected theorem further uses accepting
+constant and merge comparisons, consistent normalizers and density
+exponent $\vartheta=\FourRoutesDensity$, together with the
+October~29 local refinements described next. Its complete closing is
+\cref{cert:four-routes-closing}, yielding
+$\eps=\FourRoutesExponent$.
+
+\subsection{The October 29 local refinements}\label{subsec:history:astra}
+
+The Gram estimate for the combined centred rectangle gives the
+centred cap $121.588/p$
+(\cref{thm:rectangle-gram}), replacing a sum of individual nonstar
+bounds. The cyclic-triangle remainder has limiting coefficient $140$,
+and inserting an opposite-base-pair score into the soft kernel
+is bounded by $2897q$
+(\cref{lem:native-pair-linear}). Sign-incompatible collision strata
+are removed before extension counts
+(\cref{lem:signed-collisions}). The squarefree-cubic resultant identity
+also gives a complete three-label witness bound
+(\cref{thm:cubic-resultant}). These estimates are proved in their
+respective sections, not as modifications appended to the closing.
+
+The final reconstruction keeps the complete existing middle portfolio
+and allocates its positive mean jointly with the comparison
+(\cref{subsec:joint-mean}). It repairs fresh six-query SS and constant
+emissions to the old full marginals, compresses the retained dense
+comparisons, and bounds all sixteen small soft comparisons by exhaustive
+two- and three-coordinate character partitions
+(\cref{subsec:upper-six-refinements}). The complete-cubic primitive
+improves the DD symmetric coefficient to less than $1.478923$ per
+record. Cross-weighted extraction also reduces the two upper root
+caps and their complete reference weights on $301$ bands
+(\cref{subsec:upper-cross-weighted}). These steps give the independently reconstructed closing
+$\Theta<\FourRoutesTheta$ and $\eps=\FourRoutesExponent$.
+
+The larger endpoints quoted in the supplied handoffs concern a different
+middle portfolio whose complete cell and matrix witnesses were not
+included. Their conditional scalar replays remain useful research
+records; the present theorem uses the explicit construction and
+independent checks just described. \Cref{cert:astra-local} records the
+additional local identities and their finite verification.
+
+\subsection{What the successive versions showed}\label{subsec:history:lessons}
+
+The largest gains came from changing the slot array or a physical law.
+Sharper estimates also mattered when they retained a cancellation,
+used an exact actual marginal, or replaced a first-order sum by a
+second-order operator bound. A local gain becomes an exponent gain
+only after every affected completion weight, marginal, restoration
+and price has been checked in one compatible construction.
+
+Three accounting rules recur. First, keep raw-arm, leading,
+remainder and full prices distinct. Second, subtract only coefficients
+identified inside the same positive expansion, spending each invariant
+or variance coefficient once. Third, repair candidate laws to common
+marginals before averaging, and propagate both symmetric and skew
+prices from the resulting law.
+
+An early density-transfer error illustrates a separate analytic rule.
+A bound $A(\alpha_v/\alpha)^\theta+e$ cannot be replaced by
+$(A+e)(\alpha_v/\alpha)^\theta$ when the density ratio is below one.
+For $A=\theta=1$, $e=1/10$ and $\alpha_v/\alpha=1/4$, the former
+is $7/20$ and the latter $11/40$. The proof bounds the additive
+error before extracting the main density factor
+(\cref{prop:record:density-structured}).
+
+Finally, a sharp local decomposition is a limit of that decomposition,
+not a proof that the global exponent is optimal. The obstructions in
+\cref{sec:obstructions} retain their stated scope. Historical numerical
+claims and their exact source files remain in the archived checkpoints;
+none of this historical discussion is a premise of the main theorem.

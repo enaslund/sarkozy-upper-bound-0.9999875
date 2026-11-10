@@ -1,0 +1,1180 @@
+\section{Induction on the scale: reducing pinned averages to smaller instances}
+\label{sec:scale-comparison}
+
+\paragraph{What this section proves and how to read it.}
+This section proves that, at a least counterexample, every pinned
+average (an average with labels fixed at a few atoms and inputs
+restricted to residue classes, called a \emph{structured energy})
+is at most its price times $Y$, and that the induction then converts
+$\Theta<1$ into $s(N)\le CN^{1-a/71}$ in the baseline
+($\theta=1$). The mechanism is the single rescaling already used in
+\cref{sec:mechanism}: fixing labels restricts $A$ to shorter
+square-step progressions, where the induction hypothesis holds.
+Inputs: $Y=\Yf(\Lsc,A)$ of \cref{def:record:functional} with atom
+laws satisfying (R1)--(R5). Outputs: the pinned-average bound, the
+rules (\emph{admissible for the energy estimates},
+\cref{def:admissible}---one of three qualified uses of
+``admissible'' in the paper) for applying sharp bounds without
+counting a price twice, negligibility of forced pairs and of large
+pinnings, and \cref{thm:record:lineardensity}. Part~III uses only
+these outputs. A first reading should follow the rescaling in
+\cref{subsec:scale:fibres} and the induction in
+\cref{subsec:scale:induction}; the folded-energy order of operations
+can be read as a specified order (sharp bound, then average over
+shared labels, then rescale).
+
+\paragraph{Remainders linear in the density.}
+Two features of the estimates matter. First, every analytic remainder is
+$O(\Lsc^{-\sigma}\alpha)$, with the density $\alpha=|A|/N$ to the first
+power. The density enters through the moment bounds of
+\cref{lem:record:lift-moments}, which are linear in $\alpha$: an $L^{2r}$
+norm of an input costs $\alpha^{1/(2r)}$, and the density exponents of every
+H\"older split used below add up to exactly one ($1/2+71/142$ in the
+comparison, $2\cdot2/4$ and $70\cdot2/140$ in the cancellation, $72/72$ for
+large products). At a counterexample, where $Y>C_0\Lsc^{-a}\alpha^\theta$, a
+remainder $C\Lsc^{-\sigma}\alpha$ is at most
+$(C/C_0)\Lsc^{a-\sigma}\alpha^{1-\theta}Y$, uniformly in $\alpha$, and the
+induction closes at the density exponent $\theta=1$ under the single
+condition $a<\sigma$. An absolute remainder $C\Lsc^{-\sigma}$ would be small compared
+with $Y$ only if $\alpha$ were not too small, which forces a sparseness
+condition and $\theta<1$ (\cref{rem:record:theta-ladder}).
+
+Second, the averaging is done in a fixed order. A sharp operator bound is
+applied at fixed shared labels, with a constant that does not depend on
+them; the Cauchy--Schwarz inequality is then integrated over the law of the
+shared labels; and only then is the comparison applied, to the two resulting
+unconditional energies (\cref{lem:record:folded-energy}). No comparison is
+pointwise in the selected labels, and no conditional
+distribution of the non-shared labels of one half, given the
+shared labels, is assumed to be uniform.
+
+The induction hypothesis is used only through the rescaling of
+\cref{lem:record:fibre-scale}. Fixing the labels at a set of atoms fixes a
+residue class; splitting the class into progressions with a square step
+returns the same problem at a shorter scale, because a square-difference-free
+set meets a progression of square step in a rescaled square-difference-free
+set.
+
+\subsection{Numerical exponents and the inequalities they must satisfy}\label{subsec:scale:stage}
+
+The exponents of the analytic estimates are fixed once.
+
+\begin{definition}[Analytic stage]\label{def:record:analytic-stage}
+$\beta=1/20$ is the exponent of the functional; $\eta=17/100$ is the
+major-arc exponent of \cref{app:kernel20}; $\gamma=255/1024$ is the
+one-slot and pair mixing exponent at the tail primes $p\ge\Pfive$; selected
+sets of field primes have product at most $N^\tau$, $\tau=1/201$;
+$T_0=N^{t_{\rm an}}$, $t_{\rm an}=1/60$, is the truncation of pair supports
+in the cancellation; $H=N^{\beta/2}=N^{1/40}$ is the outside cutoff of the
+comparison and of the kernel; $\sigma=1/825$ is the error exponent;
+$\delta=10^{-10}$ is the moment loss per slot and $\ell_0=10^{-8}$ the
+moment loss of the large-product estimate. A \emph{constant} depends only on
+these parameters, on $\Kint$, $\Mzero$, $Q_{\rm pre}$, the reference laws and
+the moment constants of \cref{lem:record:lift-moments}; it never depends on
+$\Lsc$, $A$, the selected atoms, their labels, the intervals or the residues.
+\end{definition}
+
+\paragraph{The stage inequalities.}
+\Cref{cert:record:analytic-stage} (\cref{app:certificates}) checks in
+exact rational arithmetic that these parameters satisfy the following strict
+inequalities:
+\begin{enumerate}[label=(S\arabic*)]
+\item $\gamma\beta/2-\tau-72\delta-\sigma>0$;
+\item $\gamma t_{\rm an}-72\delta-\sigma>0$;
+\item $\beta/6-t_{\rm an}(1/2-\gamma)-72\delta-\sigma>0$;
+\item $\tau/4-\ell_0-\sigma>0$;
+\item $1-2\tau-6\beta>0$, $\beta/2-\tau>0$, $\beta/2-t_{\rm an}>0$ and
+ $\beta(1-2\tau)-\beta/2>0$;
+\item the seven kernel slacks of \cref{lem:record:arcs}, computed in
+ \cref{cor:kernel20}, are positive;
+\item the tail coefficients and the tail gates of
+ \cref{lem:record:tail-mixing} hold; only the gate at $\Pfive$ is used.
+\end{enumerate}
+Here (S1) is used in the comparison, where only the weaker
+$\gamma\beta/2-72\delta>\sigma$ is needed for an individual averaged estimate
+(\cref{lem:record:density-dc}); its full slack also absorbs the sum of raw
+comparison errors in \cref{prop:density:production}. Conditions (S2) and (S3) are used in the accepted-pair
+cancellation (\cref{lem:record:density-can}), where they are the two saving
+exponents $\gamma t_{\rm an}=17/4096$ and
+$1/120-t_{\rm an}(1/2-\gamma)=17/4096$ less the moment loss; (S4) in the
+large-product estimate (\cref{lem:record:density-lp}); the four inequalities
+of (S5), in this order, give the moment hypothesis at the target scale,
+complete selected fibres ($HD_E\le Q$ when $q_E\le N^\tau$), complete pair
+fibres and the kernel modulus ($HN^{t_{\rm an}}Q_{\rm pre}\le Q$), and the
+target cutoff ($n^\beta\ge H$), through \cref{lem:scale-conditions}; (S6) is
+the admissibility of the kernel triple of \cref{cor:kernel20}, used in
+\cref{app:kernel20}, and (S7) is used in \cref{lem:record:tail-mixing}. None
+of (S1)--(S7) involves $\Kint$ or the clique prefix. Apart from the slot
+prices $\xi_v$ and the density factors $\kappa_v$ of
+\cref{def:record:structured-energy}, in which $\Kint$, divisors of $\Mzero$
+and the clique powers $p^{e_p}$ appear explicitly, the fixed integers
+$\Kint$, $\Mzero$, $Q_{\rm cl}$ and $Q_{\rm pre}$ enter the estimates of this
+section only through constants, through the term $u_\Lsc\to0$ and through the
+starting scale of \cref{lem:scale-conditions}; this is possible because every
+inequality is strict.
+
+\subsection{Residue-class restriction and square-step rescaling}\label{subsec:scale:fibres}
+
+For a set $E$ of atoms of $\mathcal A_N$ we write $X_E$ for the product of
+their groups, $D_E=|X_E|$ for its full order, $q_E$ for the product of the
+primes of the atoms of $E$ with $e_p=1$, and $E_{\rm cl}=E\cap\mathcal P_1$
+for its clique primes. Thus $D_E=q_E\prod_{p\in E_{\rm cl}}p^{e_p}\le
+q_EQ_{\rm cl}$. For a divisor $D_0$ of $\Mzero$ put $D=D_0D_E$. The two
+factors are coprime: the primes of $\Mzero$ are $2$ and the primes
+$p\equiv3\pmod4$ below $Q_3$, none of which is a prime of an atom. The
+\emph{square step} of $E$ and $D_0$ is the least perfect square divisible by
+$D$ \eqref{eq:sq},
+\begin{equation}\label{eq:square-step}
+ R=\sq(D)=\sq(D_0)\,q_E^2\prod_{p\in E_{\rm cl}}p^{e_p};
+\end{equation}
+the second form holds because $\sq$ is multiplicative on coprime factors,
+$q_E$ is squarefree and every $e_p$ is even. The primes of $R$ are those of
+$D$, so $R$ is coprime to every prime of an atom outside $E$.
+
+\begin{lemma}[Exact fibres and the square-step comparison input]
+\label{lem:record:fibre-scale}
+Let $\Lsc\ge2$, $N=\Kint\Lsc$, let $A\subseteq[N]$ be square-difference-free
+and let $E\subseteq\mathcal A_N$, with $\mathcal S=\mathcal A_N\setminus E$.
+Let $I\in\mathcal I_\Lsc$, $D_0\mid\Mzero$, $s\in\Z/D_0\Z$, $z\in X_E$ and
+$g=g^{I,D_0,s}$. Put $D=D_0D_E$, let $\mathfrak a\bmod D$ be the class with
+$\mathfrak a\equiv s\pmod{D_0}$ and $\mathfrak a\equiv z_p\pmod{p^{e_p}}$ for the primes $p$ of
+$E$, and let
+\[
+ \alpha_{\rm f}=\frac D{|I|}\,\#\{x\in A\cap I:\ x\equiv\mathfrak a\ (\mathrm{mod}\ D)\}
+\]
+be the density of $A$ in the fibre of $z$.
+\begin{enumerate}[label=(\alph*)]
+\item \emph{(Exact fibre.)} For every $f:I\to\C$ and every character $\xi$ of
+ $X_{\mathcal S}$ with $q(\xi)D_E\le Q$, the coefficient at $\xi$ of the
+ specialization $(\mathcal L_{I,N}f)(z,\cdot)$ is
+ $(D_E/|I|)\sum_{x\in I,\,x\equiv z\,(D_E)}f(x)e(-x\xi)$, where
+ $x\equiv z\ (D_E)$ means $x\equiv z_p\pmod{p^{e_p}}$ for each prime $p$ of
+ $E$. In particular
+ \[
+  \widehat{g(z,\cdot)}(\xi)=\frac D{|I|}\sum_{\substack{x\in A\cap I\\ x\equiv\mathfrak a\,(D)}}e(-x\xi).
+ \]
+\item \emph{(Square step.)} Let $R=\sq(D)$ be the square step of $E$ and
+ $D_0$, $\ell=\lceil|I|/(\Kint R)\rceil$, $n=\Kint\ell$ and
+ $\lambda=Rn/|I|$. Write $I=c_I+[|I|]$, $A_I=(A\cap I)-c_I\subseteq[|I|]$ and
+ $J_{\mathfrak a}=\{j\in[R]:j\equiv\mathfrak a-c_I\pmod D\}$ (so $|J_{\mathfrak a}|=R/D$), and for $j\in J_{\mathfrak a}$
+ put $c_j=j-R$,
+ \[
+  A'_j=\{n'\in[n]:\ Rn'+c_j\in A_I\},\qquad
+  T_j(y)=R^{-1}(y-c_I-c_j)\quad(y\in X_{\mathcal S}),
+ \]
+ $h_j=\mathcal L^{\mathcal S}_{[n],n^\beta}\one_{A'_j}$, the lift of
+ $\one_{A'_j}$ on $X_{\mathcal S}$ with cutoff $n^\beta$, and
+ \[
+  \widetilde g=\frac{\lambda D}{R}\sum_{j\in J_{\mathfrak a}}h_j\circ T_j ,
+ \]
+ the \emph{square-step model} of $g(z,\cdot)$. Each $A'_j$ is
+ square-difference-free, each $T_j$ is a map of the form in
+ \ref{it:record:R3}, and
+ \[
+  \frac DR\sum_{j\in J_{\mathfrak a}}\alpha_j=\frac{\alpha_{\rm f}}\lambda,\qquad
+  \alpha_j=\frac{|A'_j|}n .
+ \]
+ If $H\le n^\beta$ and $HD_E\le Q$, then $\widetilde g$ and $g(z,\cdot)$
+ have the same Fourier coefficient at every character $\xi$ of
+ $X_{\mathcal S}$ with $q(\xi)\le H$.
+\item \emph{(Restoration.)} $Z_{\mathcal S}(h_j)\le\Yf(\ell,A'_j)$ for every
+ $j\in J_{\mathfrak a}$.
+\item \emph{(Scales.)} $1\le\lambda<1+\Kint R/|I|$ and $\ell\ge\Lsc/\xi_I$
+ with $\xi_I=(N/|I|)R$. Moreover $\ell<\Lsc$, unless $E=\emptyset$,
+ $D_0=1$ and $I=[N]$.
+\item \emph{(Moments.)} If $n\ge10n^{6\beta}$, then for every integer
+ $r\ge1$ and every $\epsilon>0$,
+ $\|\widetilde g\|_{2r}^{2r}\le C_{r,\epsilon}N^\epsilon\lambda^{2r-1}\alpha_{\rm f}$,
+ with the constant $C_{r,\epsilon}$ of \cref{lem:record:lift-moments}(c).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) Every prime of $D_0$ divides $\Mzero$ and none divides $D_E$, so the
+class $\mathfrak a$ exists and is unique. Write a character of $G_N$ as $\xi+\zeta$
+with $\xi$ a character of $X_{\mathcal S}$ and $\zeta$ one of $X_E$; their
+conductors are coprime, so $q(\xi+\zeta)=q(\xi)q(\zeta)$, and $q(\zeta)$
+divides $D_E$. If $q(\xi)D_E\le Q$, every character $\zeta$ of $X_E$ occurs
+together with $\xi$ in the lift, so the coefficient of $e(y\cdot\xi)$ in
+$(\mathcal L_{I,N}f)(z,\cdot)$ is
+\[
+ \frac1{|I|}\sum_{x\in I}f(x)e(-x\xi)\sum_{\zeta}e((z-x)\cdot\zeta)
+ =\frac{D_E}{|I|}\sum_{\substack{x\in I\\ x\equiv z\,(D_E)}}f(x)e(-x\xi),
+\]
+by orthogonality of the characters of each cyclic group $\Z/p^{e_p}\Z$. For
+$f=D_0\one_{x\equiv s\,(D_0)}\one_A$ the Chinese remainder theorem
+gives the second formula, and it holds also when the fibre is empty.
+Completeness of the selected group is necessary here: for the cyclic group
+$\Z/9\Z$ with cutoff $3$, $I=[1,9]$, $A=\{9\}$ and label $3$, the retained
+characters have numerators $0,3,6$ and the specialized lift equals $1/3$,
+although the fibre $\{x\equiv3\ (9)\}\cap A$ is empty.
+
+(b) Since $D$ divides $R$, exactly $R/D$ residues $j\in[R]$ satisfy
+$j\equiv\mathfrak a-c_I\pmod D$. The map $(n',j)\mapsto Rn'+c_j=R(n'-1)+j$ is a
+bijection $[n]\times[R]\to[Rn]$, and $[|I|]\subseteq[Rn]$ because
+$Rn\ge|I|$; restricted to $j\in J_{\mathfrak a}$ it is a bijection onto the integers of
+$[Rn]$ in the class $\mathfrak a-c_I\bmod D$. The integers of $(|I|,Rn]$ do not lie in
+$A_I$, so the padding contributes nothing, and
+$\sum_{j\in J_{\mathfrak a}}|A'_j|=\#\{x\in A\cap I:x\equiv\mathfrak a\ (D)\}$. Therefore
+$(D/R)\sum_j\alpha_j=D\,\#\{x\in A\cap I:x\equiv\mathfrak a\ (D)\}/(Rn)
+=\alpha_{\rm f}|I|/(Rn)=\alpha_{\rm f}/\lambda$. If $n'_1<n'_2$ lie in
+$A'_j$ and $n'_2-n'_1=k^2$ with $k\ge1$, then two elements of $A$ differ by
+$Rk^2=(\sqrt R\,k)^2$, which is impossible because $R$ is a perfect square.
+The integer $R$ is coprime to every prime of $\mathcal S$, and as $R$ is a
+perfect square, $R^{-1}$ is a square unit modulo every $p^{e_p}$, $p$ a prime
+of $\mathcal S$; so $T_j$ is of the form in \ref{it:record:R3}. Let $\xi$ be
+a character of $X_{\mathcal S}$ with $q(\xi)\le H$. Multiplication by the
+unit $R$ permutes the characters of $X_{\mathcal S}$ and preserves
+conductors, and $e(T_j(y)\cdot R\xi)=e((y-c_I-c_j)\cdot\xi)$. Since
+$q(R\xi)=q(\xi)\le H\le n^\beta$, the character $R\xi$ is retained in $h_j$,
+and the coefficient of $e(y\cdot\xi)$ in $\widetilde g$ is
+\[
+ \frac{\lambda D}{R}\sum_{j\in J_{\mathfrak a}}e(-(c_I+c_j)\xi)\,
+ \frac1n\sum_{n'\in A'_j}e(-n'R\xi)
+ =\frac{\lambda D}{Rn}\sum_{\substack{x\in A\cap I\\ x\equiv\mathfrak a\,(D)}}e(-x\xi)
+ =\frac D{|I|}\sum_{\substack{x\in A\cap I\\ x\equiv\mathfrak a\,(D)}}e(-x\xi).
+\]
+By (a), which applies since $q(\xi)D_E\le HD_E\le Q$, this is the
+coefficient of $g(z,\cdot)$.
+
+(c) Let $\mathcal A_n$ be the atoms of the functional at the scale $\ell$,
+whose group has cutoff $n^\beta$ ($\Kint\ell=n$); so
+$\mathcal A_n\subseteq\mathcal A_N$, and put $E'=E\cap\mathcal A_n$. A
+character with $q\le n^\beta$ involves only primes at most $n^\beta$, and
+every such prime of $\mathcal S$ lies in an atom of $\mathcal A_n$ (the
+atoms of $\mathcal P_1\cup\mathcal P_3$ belong to every scale), so $h_j$
+depends only on the
+coordinates of $\mathcal S'=\mathcal S\cap\mathcal A_n=\mathcal A_n\setminus E'$,
+and $Z_{\mathcal S}(h_j)=Z_{\mathcal S'}(h_j)$ by Fubini
+(\cref{lem:record:holder}(d)). Let $u_j=\mathcal L_{[n],n}\one_{A'_j}$ be the
+full lift at scale $n$. Averaging $u_j$ over the coordinates of $E'$ deletes
+exactly the characters that are nonconstant on an atom of $E'$ and leaves the
+others; the remaining characters are those of $h_j$, with the same
+coefficients. Hence $\E_{E'}u_j=h_j$. Averaging over atoms does not increase
+$Z$ (\cref{lem:record:holder}(d)), and the atom laws at scale $\ell$ are those
+at scale $\Lsc$ by \ref{it:record:R1}, so
+\[
+ Z_{\mathcal S'}(h_j)=Z_{\mathcal A_n}(\E_{E'}u_j)\le Z_{\mathcal A_n}(u_j)
+ =\Yf(\ell,A'_j).
+\]
+
+(d) $n=\Kint\lceil|I|/(\Kint R)\rceil$ lies in $[|I|/R,|I|/R+\Kint)$, which
+gives the bounds for $\lambda$, and $\ell\ge|I|/(\Kint R)=\Lsc/\xi_I$. If
+$D>1$, then $R\ge4$, because $R$ is a perfect square, and
+$\ell\le\lceil N/(4\Kint)\rceil=\lceil\Lsc/4\rceil<\Lsc$. If $D=1$, then
+$E=\emptyset$, $D_0=1$ and $R=1$; for $I=I_b$,
+$\ell=\lceil\Lsc/\Kint\rceil<\Lsc$, since $\Kint\ge2$ and $\Lsc\ge2$.
+
+(e) $T_j$ preserves the uniform measure, so by Minkowski
+$\|\widetilde g\|_{2r}\le\lambda\frac DR\sum_j\|h_j\|_{2r}$. Each $h_j$ is a
+whole-support piece of the lift of $\one_{A'_j}$ on $X_{\mathcal S}$ with
+cutoff $n^\beta$, and $|[n]|\ge10(n^\beta)^6$, so
+$\|h_j\|_{2r}^{2r}\le C_{r,\epsilon}N^\epsilon\alpha_j$ by
+\cref{lem:record:lift-moments}(c) and $n\le N$. Concavity of
+$x\mapsto x^{1/(2r)}$ and (b) give
+$\|\widetilde g\|_{2r}\le\lambda(C_{r,\epsilon}N^\epsilon\alpha_{\rm f}/\lambda)^{1/(2r)}$.
+\end{proof}
+
+The hypotheses of (b) and (e) hold for every selection used below, from a
+fixed starting scale on. We collect once all the conditions on the scale
+that the comparison and the cancellation need.
+
+\begin{lemma}[Scale conditions]\label{lem:scale-conditions}
+There is $\Lsc_*\ge2$, depending only on the analytic stage, $\Kint$,
+$\Mzero$, $Q_{\rm cl}$ and $Q_{\rm pre}$, such that for every
+$\Lsc\ge\Lsc_*$, with $N=\Kint\Lsc$, $Q=N^\beta$, $H=N^{\beta/2}$ and
+$T_0=N^{t_{\rm an}}$:
+\begin{enumerate}[label=(\roman*)]
+\item $\Lsc\ge10N^{6\beta}$;
+\item $HQ_{\rm cl}N^\tau\le Q$;
+\item $n_0:=N^{1-2\tau}/(\Kint\Mzero^2Q_{\rm cl})$ satisfies
+ $n_0^\beta\ge H$ and $n_0\ge10N^{6\beta}$;
+\item $\Kint^2\Mzero^2Q_{\rm cl}N^{2\tau-1}\le1$;
+\item $N^\beta\ge\Pfive$, so that every prime of $[\Pfour,\Pfive)$ is a
+ coordinate of $G_N$;
+\item $HQ_{\rm pre}T_0\le Q$ and
+ $\Mzero Q_{\rm pre}T_0\le\min(N^{1/20},\Lsc)$;
+\item $N$ is at least the thresholds $N_0$ and $N_0'$ of
+ \cref{prop:record:kernel20}(i)--(iii) at the triple of
+ \cref{cor:kernel20}, $(\beta,\kappa,\eta)=(1/20,1/20,17/100)$, with
+ $C_D=C_H=1$, $\mathcal P_0=\mathcal P_1$ and $m_p=e_p/2$.
+\end{enumerate}
+Consequently, let $E\subseteq\mathcal A_N$ with $q_E\le N^\tau$, $D_0\mid\Mzero$
+and $I\in\mathcal I_\Lsc$, and let $R$, $n$ and $\lambda$ be as in
+\cref{lem:record:fibre-scale}(b). Then $R\le\Mzero^2Q_{\rm cl}N^{2\tau}$,
+$HD_E\le Q$, $n_0\le n\le N$, $n^\beta\ge H$ and $n\ge10n^{6\beta}$; and
+$1\le\lambda\le2$ and $\lambda^{72}\le1+u_\Lsc$, where
+\[
+ u_\Lsc=\big(1+\Kint^2\Mzero^2Q_{\rm cl}N^{2\tau-1}\big)^{72}-1
+\]
+tends to zero as $\Lsc\to\infty$. In particular the hypotheses of
+\cref{lem:record:fibre-scale}(b) and (e) hold.
+\end{lemma}
+
+\begin{proof}
+Each of (i)--(iv) and (vi) compares two powers of $N$, up to fixed
+constants, with a positive gap in the exponents: $1-6\beta>0$ for (i),
+$\beta/2-\tau>0$ for (ii), $\beta(1-2\tau)-\beta/2>0$ and $1-2\tau-6\beta>0$
+for (iii), $1-2\tau>0$ for (iv), and $\beta/2-t_{\rm an}>0$, hence also
+$\beta-t_{\rm an}>0$ and $1-t_{\rm an}>0$, for (vi); all of them follow from
+(S5). Conditions (v) and (vii) are fixed thresholds. So all seven hold for
+large $\Lsc$.
+
+For the consequences, $\sq(D_0)\le D_0^2\le\Mzero^2$ and
+$\prod_{p\in E_{\rm cl}}p^{e_p}\le Q_{\rm cl}$ give
+$R\le\Mzero^2Q_{\rm cl}N^{2\tau}$, and $D_E\le q_EQ_{\rm cl}$ with (ii) gives
+$HD_E\le Q$. Next $n=\Kint\lceil|I|/(\Kint R)\rceil\le\Kint\lceil N/\Kint\rceil=N$,
+and $n\ge|I|/R\ge(N/\Kint)/(\Mzero^2Q_{\rm cl}N^{2\tau})=n_0$ because
+$|I|\ge\Lsc=N/\Kint$; by (iii), $n^\beta\ge n_0^\beta\ge H$ and
+$n\ge n_0\ge10N^{6\beta}\ge10n^{6\beta}$. Finally
+\cref{lem:record:fibre-scale}(d) gives
+$1\le\lambda<1+\Kint R/|I|\le1+\Kint^2\Mzero^2Q_{\rm cl}N^{2\tau-1}$, which is
+at most $2$ by (iv), and raising to the power $72$ gives
+$\lambda^{72}\le1+u_\Lsc$.
+\end{proof}
+
+Conditions (i)--(iv) are used in the comparison
+(\cref{lem:record:density-dc,prop:record:density-structured}), (i) and
+(v)--(vii) in the cancellation (\cref{lem:record:density-can}), and (i) in the
+large-product estimate (\cref{lem:record:density-lp}).
+
+\subsection{Pinned averages at a least counterexample}
+\label{subsec:scale:structured}
+
+All energy estimates are made at a least counterexample to the bound that
+the induction proves.
+
+\begin{definition}[Least normalized counterexample]
+\label{def:record:counterexample}
+Let $a>0$, $0<\theta\le1$ and $C_0\ge1$. A pair $(\Lsc,A)$, with
+$A\subseteq[\Kint\Lsc]$ square-difference-free, is a \emph{least normalized
+counterexample} for $(a,\theta,C_0)$ if $\Yf(\Lsc,A)>C_0\Lsc^{-a}\alpha^\theta$,
+and $\Yf(\ell,A')\le C_0\ell^{-a}\alpha_{A'}^\theta$ for every $\ell<\Lsc$ and
+every square-difference-free $A'\subseteq[\Kint\ell]$, where
+$\alpha_{A'}=|A'|/(\Kint\ell)$ and $0^\theta=0$. Then $\alpha>0$, since
+$F_\emptyset=0$.
+\end{definition}
+
+\begin{definition}[Structured energies and prices]
+\label{def:record:structured-energy}
+Let $a>0$ and $0<\theta\le1$ be the exponents of the induction. Let
+$\Lsc\ge1$, $N=\Kint\Lsc$, let $A\subseteq[N]$ be square-difference-free and
+$\alpha=|A|/N>0$. A \emph{structured energy} at $(\Lsc,A)$ is given by the
+following data.
+\begin{enumerate}[label=(\alph*)]
+\item A set $E\subseteq\mathcal A_N$ of \emph{selected} atoms with
+ $q_E\le N^\tau$; put $\mathcal S=\mathcal A_N\setminus E$.
+\item A finite signed measure $\rho$ on $X_E^V$ whose variation $|\rho|$ has
+ every one-slot marginal equal to $\|\rho\|\Unif(X_E)$, where
+ $\|\rho\|=|\rho|(X_E^V)$.
+\item For each $v\in V$ a divisor $D_{0,v}$ of $\Mzero$ and a length
+ $M_v\in\{\Lsc,N\}$, and a probability law $\mathbf P$ on index vectors
+ $\omega=(I_v,s_v)_{v\in V}$ with $I_v\in\mathcal I_\Lsc$, $|I_v|=M_v$ and
+ $s_v\in\Z/D_{0,v}\Z$.
+\end{enumerate}
+The energy is
+\[
+ \mathfrak E=\E_{\omega\sim\mathbf P}\int\Lambda_{\mu_{\mathcal S}}
+ \big((g_v^\omega(z_v,\cdot))_{v\in V}\big)\,d\rho(z),\qquad
+ g_v^\omega=g^{I_v,D_{0,v},s_v}.
+\]
+A slot is \emph{unchanged} if $E=\emptyset$, $D_{0,v}=1$ and $M_v=N$ (then
+$g_v^\omega=F_A$), and \emph{changed} otherwise. With
+$R_E=q_E^2\prod_{p\in E_{\rm cl}}p^{e_p}$, the slot prices are
+\[
+ \xi_v=\frac N{M_v}\,\sq(D_{0,v})R_E,\qquad
+ \bar\alpha_v=\E_{\mathbf P}\,\frac{D_{0,v}}{M_v}\#\{x\in A\cap I_v:
+ x\equiv s_v\ (D_{0,v})\}.
+\]
+The \emph{main price} is
+$\Pi_{\rm main}=\prod_v\xi_v^{a/72}\prod_{v\ \rm changed}(\bar\alpha_v/\alpha)^{\theta/72}$.
+If $\kappa_v\ge1$ are numbers with $\bar\alpha_v\le\kappa_v\alpha$ for every
+changed slot, the \emph{coarse price} is
+$\Pi=\prod_v\xi_v^{a/72}\prod_{v\ \rm changed}\kappa_v^{\theta/72}$; thus
+$\Pi\ge\max(1,\Pi_{\rm main})$.
+\end{definition}
+
+One may take $\kappa_v=1$ if $(I_v,s_v)$ is uniform on
+$\{I_1,\dots,I_\Kint\}\times\Z/D_{0,v}\Z$, or if $M_v=N$ and $s_v$ is
+uniform; $\kappa_v=\Kint$ if $s_v$ is uniform given a fixed interval $I_v$,
+since then $\bar\alpha_v=\alpha_{I_v}\le\Kint\alpha$; and always
+$\kappa_v=\Mzero\Kint$. Since $\sq(D_{0,v})R_E=\sq(D_{0,v}D_E)$, the price
+$\xi_v$ is $\xi_{I_v}$ of \cref{lem:record:fibre-scale}(d): for $M_v=N$ it is
+the square step of $E$ and $D_{0,v}$, and for $M_v=\Lsc$ it is $\Kint$ times
+it. If a clique prime $p$ belongs to $E$, its contribution to
+$\prod_v\xi_v^{a/72}$ over the $72$ slots is $p^{e_pa}$; a prefix
+atom not in $E$ contributes no factor.
+
+\begin{lemma}[Averaged comparison with a density factor]
+\label{lem:record:density-dc}
+There is a constant $C_{\rm dc}$ with the following property. Let
+$\Lsc\ge\Lsc_*$ (\cref{lem:scale-conditions}) and consider a structured
+energy at $(\Lsc,A)$. Put $H=N^{1/40}$. For every $\omega$, $z\in X_E^V$ and
+changed slot $v$, let $\widetilde g_v^\omega(z_v,\cdot)$ be the square-step
+model of \cref{lem:record:fibre-scale}(b) for
+$(E,I_v,D_{0,v},s_v,z_v)$; for an unchanged slot put
+$\widetilde g_v^\omega=F_A$. Let $\widetilde{\mathfrak E}$ be the energy with
+$\widetilde g_v^\omega$ in place of $g_v^\omega$. Then
+\begin{multline*}
+ \E_{\mathbf P}\int\big|\Lambda_{\mu_{\mathcal S}}((g_v^\omega(z_v,\cdot))_v)
+ -\Lambda_{\mu_{\mathcal S}}((\widetilde g_v^\omega(z_v,\cdot))_v)\big|\,d|\rho|(z)\\
+ \le C_{\rm dc}\|\rho\|N^{-\gamma\beta/2+72\delta}\alpha
+ \le C_{\rm dc}\|\rho\|\Lsc^{-\sigma}\alpha ;
+\end{multline*}
+in particular $|\mathfrak E-\widetilde{\mathfrak E}|\le
+C_{\rm dc}\|\rho\|\Lsc^{-\sigma}\alpha$.
+\end{lemma}
+
+\begin{proof}
+\emph{Step 0: the scale.} By \cref{lem:scale-conditions}, applied to $E$ and
+each $D_{0,v}$, $I_v$, the hypotheses $H\le n^\beta$, $HD_E\le Q$ and
+$n\ge10n^{6\beta}$ of \cref{lem:record:fibre-scale}(b),(e) hold at every
+changed slot, and $1\le\lambda_v\le2$.
+
+\emph{Step 1: telescoping.} Fix $\omega$ and $z$, and let $v_1,\dots,v_k$ be
+the changed slots. Then
+$\Lambda((g_v)_v)-\Lambda((\widetilde g_v)_v)=\sum_{i=1}^k\Lambda(Y^{(i)})$,
+where $Y^{(i)}$ carries $\widetilde g_{v_j}$ at $v_j$ for $j<i$,
+$g_{v_i}-\widetilde g_{v_i}$ at $v_i$, $g_{v_j}$ at $v_j$ for $j>i$, and $F_A$
+at the unchanged slots (all specialized at $z$). By
+\cref{lem:record:fibre-scale}(b), the input at $v_i$ has no character of
+conductor at most $H$. The law $\mu_{\mathcal S}$ is the product of the laws
+of the atoms of $\mathcal S$ below $\Pfive$, a probability measure with
+uniform one-slot marginals by \ref{it:record:R3}, and of the tail laws
+$\mu_p$, $p\ge\Pfive$, which satisfy the mixing hypothesis
+\ref{it:record:R4} at every slot (in the notation of
+\cref{def:mixing}). Every character of the first factor has conductor
+dividing $Q_{\rm pre}$. By \cref{lem:record:prefix-conductor} with
+$C'=Q_{\rm pre}$,
+\[
+ |\Lambda(Y^{(i)})|\le\Big(\frac{Q_{\rm pre}}H\Big)^{\gamma}
+ \big\|(g_{v_i}-\widetilde g_{v_i})(z_{v_i},\cdot)\big\|_2
+ \prod_{w\ne v_i}\|Y^{(i)}_w(z_w,\cdot)\|_{142}.
+\]
+
+\emph{Step 2: averaging.} Integrate over $\omega\sim\mathbf P$ and
+$z\sim|\rho|/\|\rho\|$ and apply H\"older's inequality with the exponents
+$2$ and $142$ ($71$ times), so that $1/2+71/142=1$:
+\[
+ \E\Big[\|X\|_2\prod_{w}\|Y_w\|_{142}\Big]\le(\E\|X\|_2^2)^{1/2}
+ \prod_w(\E\|Y_w\|_{142}^{142})^{1/142}.
+\]
+Under $|\rho|/\|\rho\|$ each $z_w$ is uniform on $X_E$ and independent of
+$\omega$. Hence, by Fubini and \cref{lem:record:lift-moments}(c) (the lift on
+$G_N$ is a whole-support piece of the kind treated there, with
+$\mathcal S'=\mathcal P_1$, and $|I_w|\ge\Lsc\ge10N^{6\beta}$), for
+$2r\in\{2,142\}$ and every $\epsilon>0$,
+\[
+ \E\|g_w^\omega(z_w,\cdot)\|_{2r}^{2r}=\E_\omega\|g_w^\omega\|_{L^{2r}(G_N)}^{2r}
+ \le C_{r,\epsilon}N^\epsilon\Mzero^{2r}\,\E_\omega\alpha_{I_w}
+ \le C_{r,\epsilon}N^\epsilon\Mzero^{2r}\Kint\alpha ,
+\]
+because $\alpha_I\le\Kint\alpha$ for $|I|\ge N/\Kint$; the same holds for
+$F_A$. By \cref{lem:record:fibre-scale}(e), with $\lambda_w\le2$,
+$\E\|\widetilde g_w(z_w,\cdot)\|_{2r}^{2r}\le C_{r,\epsilon}N^\epsilon2^{2r-1}
+\E\alpha_{{\rm f},w}$, where $\alpha_{{\rm f},w}$ is the fibre density of
+$z_w$, and
+$\E_z\alpha_{{\rm f},w}=D_{0,w}\#\{x\in A\cap I_w:x\equiv s_w\}/|I_w|
+\le\Mzero\Kint\alpha$, because the class $\mathfrak a(z_w)$ is uniform among the $D_E$
+classes modulo $D$ compatible with $s_w$. Finally
+$\|X\|_2^2\le2\|g\|_2^2+2\|\widetilde g\|_2^2$. Thus every factor is at most
+$(C_\epsilon N^\epsilon\alpha)^{1/(2r)}$, and each of the at most $72$ terms
+is bounded by $Q_{\rm pre}^\gamma H^{-\gamma}C_\epsilon N^{\epsilon}\alpha$,
+the density exponents adding to $1/2+71/142=1$. Take $\epsilon=72\delta$.
+Finally $N^{-\gamma\beta/2+72\delta}\le N^{-\sigma}\le\Lsc^{-\sigma}$ by (S1).
+\end{proof}
+
+\begin{proposition}[Density-structured energy estimate]
+\label{prop:record:density-structured}
+Let $0<\theta\le1$, $a>0$ and $C_0\ge1$, and let $(\Lsc,A)$ be a least
+normalized counterexample for $(a,\theta,C_0)$
+(\cref{def:record:counterexample}), with $\Lsc\ge\Lsc_*$ and
+$Y=\Yf(\Lsc,A)$. Then every structured energy at $(\Lsc,A)$ satisfies
+\[
+ |\mathfrak E|\le\|\rho\|\big[(1+u_\Lsc)\,\Pi_{\rm main}\,Y
+ +C_{\rm dc}\Lsc^{-\sigma}\alpha\big]
+ \le\|\rho\|\Big(1+u_\Lsc+\frac{C_{\rm dc}}{C_0}\Lsc^{a-\sigma}
+ \alpha^{1-\theta}\Big)\Pi\,Y,
+\]
+with $u_\Lsc\to0$ as in \cref{lem:scale-conditions}.
+\end{proposition}
+
+\begin{proof}
+By \cref{lem:record:density-dc} it suffices to bound $\widetilde{\mathfrak E}$
+by $\|\rho\|(1+u_\Lsc)\Pi_{\rm main}Y$. Fix $\omega$ and $z$. By the signed
+H\"older inequality of \cref{lem:record:holder}(a) for $\mu_{\mathcal S}$,
+$|\Lambda_{\mu_{\mathcal S}}((\widetilde g_v)_v)|\le
+\prod_vZ_{\mathcal S}(\widetilde g_v(z_v,\cdot))^{1/72}$. At an unchanged slot
+$E=\emptyset$, $\mathcal S=\mathcal A_N$ and $Z_{\mathcal S}(F_A)=Y$. At a
+changed slot $v$, with the data $D,R,J_{\mathfrak a},h_j,A'_j,\lambda_v,\ell_v$ of
+\cref{lem:record:fibre-scale}(b) for that slot, the triangle inequality for
+the seminorm $Z_{\mathcal S}^{1/72}$ and its invariance under the maps $T_j$
+(\cref{lem:record:holder}(a),(c)), then \cref{lem:record:fibre-scale}(c), give
+\[
+ Z_{\mathcal S}(\widetilde g_v)^{1/72}\le\lambda_v\frac DR\sum_{j\in J_{\mathfrak a}}
+ Z_{\mathcal S}(h_j)^{1/72}\le\lambda_v\frac DR\sum_{j\in J_{\mathfrak a}}
+ \Yf(\ell_v,A'_j)^{1/72}.
+\]
+Here $\ell_v<\Lsc$ by \cref{lem:record:fibre-scale}(d), so the hypothesis on
+smaller scales gives $\Yf(\ell_v,A'_j)\le C_0\ell_v^{-a}\alpha_j^\theta$, also
+when $A'_j=\emptyset$. Concavity of $x\mapsto x^{\theta/72}$ and
+\cref{lem:record:fibre-scale}(b) give
+$\frac DR\sum_j\alpha_j^{\theta/72}\le(\alpha_{{\rm f},v}/\lambda_v)^{\theta/72}$,
+where $\alpha_{{\rm f},v}$ is the fibre density of $z_v$, hence
+\[
+ Z_{\mathcal S}(\widetilde g_v)\le\lambda_v^{72-\theta}C_0\ell_v^{-a}\alpha_{{\rm f},v}^\theta
+ \le(1+u_\Lsc)C_0\Lsc^{-a}\xi_v^a\alpha_{{\rm f},v}^\theta ,
+\]
+using $\ell_v\ge\Lsc/\xi_v$ and $\lambda_v^{72}\le1+u_\Lsc$
+(\cref{lem:record:fibre-scale}(d), \cref{lem:scale-conditions}). The price
+$\xi_v$ does not depend on $\omega$ or $z$. Every factor is nonnegative, so
+H\"older's inequality with $72$ equal exponents on the probability space of
+$(\omega,z)$, with law $\mathbf P\otimes|\rho|/\|\rho\|$, gives
+\[
+ |\widetilde{\mathfrak E}|\le\|\rho\|\prod_v\big(\E\,Z_{\mathcal S}
+ (\widetilde g_v(z_v,\cdot))\big)^{1/72}.
+\]
+At a changed slot, Jensen's inequality ($\theta\le1$) and
+$\E\alpha_{{\rm f},v}=\bar\alpha_v$ (as in Step~2 of
+\cref{lem:record:density-dc}) give $\E Z_{\mathcal S}(\widetilde g_v)\le
+(1+u_\Lsc)C_0\Lsc^{-a}\alpha^\theta\xi_v^a(\bar\alpha_v/\alpha)^\theta\le
+(1+u_\Lsc)Y\xi_v^a(\bar\alpha_v/\alpha)^\theta$, since
+$C_0\Lsc^{-a}\alpha^\theta<Y$. Multiplying over the slots proves the first
+inequality. For the second, $\Pi_{\rm main}\le\Pi$, $\Pi\ge1$ and
+$C_{\rm dc}\Lsc^{-\sigma}\alpha=(C_{\rm dc}/C_0)\Lsc^{a-\sigma}\alpha^{1-\theta}
+\cdot C_0\Lsc^{-a}\alpha^\theta<(C_{\rm dc}/C_0)\Lsc^{a-\sigma}
+\alpha^{1-\theta}\,\Pi\,Y$.
+\end{proof}
+
+The additive error is bounded before the main term is estimated, and the
+main term carries no additive error, so no density ratio is pulled through
+an additive error; in particular a density ratio below one is
+never factored out of the displayed bound, whose additive error
+was estimated before any ratio is formed (an example of the
+error this avoids is in \cref{subsec:history:lessons}). The
+second form uses only the coarse factors $\kappa_v\ge1$: a fixed interval
+index costs at most $\Kint^{\theta/72}$ per changed slot, and the finer
+factor $(\alpha_{I_v}/\alpha)^{\theta/72}$ is never multiplied into the
+additive term (\cref{rem:wrap-coarse}).
+
+The average over the $R/D$ progressions of the square step is essential, and
+their number costs nothing: the weights $D/R$ of the triangle inequality add
+up to one, and concavity moves the average inside the power $\theta/72$. A
+changed slot therefore costs only $\xi_v^{a/72}$, where $\xi_v$ bounds the
+factor by which the child scale $\ell_v\ge\Lsc/\xi_v$ is shorter, together
+with the density of its fibre.
+
+\subsection{Differences of laws at one cut, and the order for applying bounds}\label{subsec:scale:folded}
+
+At one cut, the comparison theorem bounds a signed difference of
+records $K_s$ through the inequality \eqref{eq:record:sharp}
+below: its pairing with half-functions on the two sides is at most
+a constant $d$ times the product of their norms in the half
+marginals. (This displayed form is what ``sharp'' means throughout
+the paper.) Cauchy--Schwarz across the cut then replaces the
+signed difference by the geometric mean of two nonnegative
+energies, obtained by copying one half onto all slots---the folds
+$\phi_\pm$ of \cref{def:sorting}. The next lemma states this
+reduction, the order in which such steps may be composed, and the
+marginals and prices of the two energies.
+
+\begin{lemma}[Folded energies]\label{lem:record:folded-energy}
+Let $\vartheta$ be a cut of $V$ with halves $V_\pm$ and folds $\phi_\pm$
+(\cref{def:sorting}), at which every $\mu_\Blk$ is reflection positive. Let
+$E\subseteq\mathcal A_N$, $\mathcal S=\mathcal A_N\setminus E$, and write
+$z=(z_+,z_-)$ with $z_\pm\in X_E^{V_\pm}$. Let $\pi$ be a probability measure
+on a finite set $\Omega_0$ of shared labels; for $s\in\Omega_0$ let
+$\kappa_s$ be a probability measure on $X_E^V$ with half marginals $m_\pm^s$
+on $X_E^{V_\pm}$, and let $K_s$ be a signed measure on $X_E^V$ such that,
+for all real functions $\varphi$ on $X_E^{V_+}$ and $\psi$ on $X_E^{V_-}$,
+\begin{equation}\label{eq:record:sharp}
+ \Big|\int\varphi(z_+)\psi(z_-)\,dK_s(z)\Big|\le d\,
+ \|\varphi\|_{L^2(m_+^s)}\|\psi\|_{L^2(m_-^s)},
+\end{equation}
+with $d$ independent of $s$. Let $g_v$ $(v\in V)$ be real functions on
+$X_E\times X_{\mathcal S}$. Put
+\begin{align*}
+ T&=\int\pi(ds)\int\Lambda_{\mu_{\mathcal S}}\big((g_v(z_v,\cdot))_{v\in V}\big)\,dK_s(z),\\
+ \mathfrak E_\pm&=\int\pi(ds)\int\Lambda_{\mu_{\mathcal S}}
+ \big((g_{\phi_\pm(u)}(z_{\phi_\pm(u)},\cdot))_{u\in V}\big)\,dm_\pm^s(z_\pm).
+\end{align*}
+\begin{enumerate}[label=(\alph*)]
+\item $\mathfrak E_\pm\ge0$ and $|T|\le d\,\mathfrak E_+^{1/2}\mathfrak E_-^{1/2}$.
+\item $\mathfrak E_\pm$ is the energy of the inputs $g_{\phi_\pm(u)}$ with the
+ nonnegative selected measure $\kappa^\pm$, the image of
+ $\pi(ds)m_\pm^s(dz_\pm)$ under $z_\pm\mapsto(z_{\phi_\pm(u)})_{u\in V}$. The
+ one-slot marginal of $\kappa^\pm$ at $u$ is the marginal at $\phi_\pm(u)$
+ of $\kappa=\int\pi(ds)\kappa_s$. In particular, if $\kappa$ has uniform
+ one-slot marginals on $V_+$ (resp.\ $V_-$), so has $\kappa^+$
+ (resp.\ $\kappa^-$) on all of $V$.
+\item If the inputs also depend on an external index $\omega$ with a
+ probability law $\mathbf P$ independent of the labels, then
+ $\E_{\mathbf P}|T^\omega|\le d\,(\E_{\mathbf P}\mathfrak E_+^\omega)^{1/2}
+ (\E_{\mathbf P}\mathfrak E_-^\omega)^{1/2}$.
+\item If $K_s=K'_s\otimes\pi'_s$, where $\pi'_s$ is a probability measure on
+ the labels of further atoms (a coupling of its two half marginals) and
+ $K'_s$ satisfies \eqref{eq:record:sharp} relative to $\kappa'_s$, then $K_s$
+ satisfies \eqref{eq:record:sharp} with the same $d$ relative to
+ $\kappa'_s\otimes\pi'_s$.
+\item[(d$'$)] \emph{(Common cut.)} If $K_s=K^1_s\otimes K^2_s$, where $K^1_s$
+ and $K^2_s$ are signed measures on the labels of two disjoint sets of atoms,
+ each $K^i_s$ satisfying \eqref{eq:record:sharp} at the same cut $\vartheta$,
+ relative to a probability measure $\kappa^i_s$, with the constant $d_i$,
+ then $K_s$ satisfies \eqref{eq:record:sharp} relative to
+ $\kappa^1_s\otimes\kappa^2_s$ with the constant $d_1d_2$; if the two factors
+ have their own laws of shared labels, take the product law. By induction,
+ the same holds for finitely many factors, with the product of their
+ constants.
+\item \emph{(Copying.)} For every function $b:V\to\R$,
+ \[
+  \sum_{u\in V}b(\phi_+(u))+\sum_{u\in V}b(\phi_-(u))=2\sum_{v\in V}b(v).
+ \]
+ Hence, for structured inputs, the slot data of $\mathfrak E_\pm$ at $u$ are
+ those of the slot $\phi_\pm(u)$ of $T$, and
+ $\Pi(\mathfrak E_+)\Pi(\mathfrak E_-)=\Pi^2$, where $\Pi$ is the coarse price
+ of the slot data of $T$; likewise for the main prices and for every product
+ $\prod_vc_v$ of nonnegative numbers attached to the slots. If the slot data
+ depend on further data, such as the conductors of an index support, that
+ are held fixed through a finite sequence of such steps, each applied to an
+ energy produced by the previous ones, then for each fixed value of these
+ data the final energies $\mathfrak E_i$, which enter the resulting bound
+ with the exponents $2^{-j_i}$ ($j_i$ the number of steps leading to
+ $\mathfrak E_i$), satisfy $\prod_i\Pi(\mathfrak E_i)^{2^{-j_i}}=\Pi$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) A sharp bound is a block-Gram bracket. To see this, fix $s$, identify
+minus-half labels with plus-half labels through the reflection, and let
+$D_\pm^s$ be the diagonal matrices of the half marginals $m_\pm^s$ and
+$C_s=C_\vartheta(K_s)$. Inequality \eqref{eq:record:sharp} is equivalent to
+\[
+ \begin{pmatrix}dD_+^s&C_s\\C_s^{\mathsf T}&dD_-^s\end{pmatrix}\succeq0:
+\]
+the sharp bound makes its quadratic form nonnegative by $2xy\le x^2+y^2$;
+conversely, applying a nonnegative quadratic form to $(t\varphi,\psi)$ and
+varying $t$ gives the sharp bound. This also covers zero marginal masses
+and $d=0$.
+
+Let $Q=C_\vartheta(\mu_{\mathcal S})\succeq0$, by reflection positivity and
+\eqref{eq:cc:kron}. The bracket with every block equal to $Q$ is positive
+semidefinite. Tensorizing it with the preceding bracket
+(\cref{lem:record:block-gram}(b)) gives
+\[
+ \begin{pmatrix}
+ dD_+^s\otimes Q&C_s\otimes Q\\
+ C_s^{\mathsf T}\otimes Q&dD_-^s\otimes Q
+ \end{pmatrix}\succeq0.
+\]
+Evaluate at the two half-functions carrying their respective inputs $g_v$.
+By \eqref{eq:cc:bilinear}, the off-diagonal form is the integrand defining
+$T$ at fixed $s$; the diagonal forms, without the factor $d$, are exactly
+the two folded energies at fixed $s$, since a diagonal copy repeats the
+same half assignment across the cut. They are nonnegative, and the
+block-Gram inequality bounds the absolute value of the first form by $d$
+times their geometric mean. Integrating over $s$ and applying
+Cauchy--Schwarz in $L^2(\pi)$ proves (a).
+
+(b) The first statement is the definition; for the marginal, the law of
+$z_{\phi_+(u)}$ under $\pi(ds)m_+^s(dz_+)$ is the marginal at
+$\phi_+(u)\in V_+$ of $\int\pi(ds)\kappa_s$, because $m_+^s$ is the
+$V_+$-marginal of $\kappa_s$.
+
+(c) Apply (a) for each $\omega$ and Cauchy--Schwarz in $L^2(\mathbf P)$.
+
+(d$'$) Tensorize the two sharp brackets from (a). Their diagonal blocks
+are $d_1d_2D^1_\pm\otimes D^2_\pm$ and their off-diagonal block is the cut
+matrix of $K_s^1\otimes K_s^2$, by \eqref{eq:cc:kron}. The same equivalence
+therefore gives the sharp bound with constant $d_1d_2$. The argument is
+pointwise in all shared labels, so independent shared-label laws can be
+combined by taking their product, and induction gives finitely many factors.
+For (d), a probability coupling satisfies the sharp bound with constant one
+by Cauchy--Schwarz under that coupling; apply (d$'$).
+
+(e) Each $v\in V_+$ occurs exactly twice among $\phi_+(u)$, $u\in V$ (for
+$u=v$ and $u=\vartheta v$), and no $v\in V_-$ occurs; symmetrically for
+$\phi_-$. This is the identity, and the same count gives
+$\prod_uc_{\phi_+(u)}\cdot\prod_uc_{\phi_-(u)}=\prod_{v\in V_+}c_v^2
+\prod_{v\in V_-}c_v^2=(\prod_vc_v)^2$ for all numbers $c_v\ge0$. With $c_v$
+the slot factors $\xi_v^{a/72}$, $\kappa_v^{\theta/72}$ and
+$(\bar\alpha_v/\alpha)^{\theta/72}$ (the last two at changed slots), this is
+the statement on prices; the changed or unchanged status of a slot is copied
+with its input. For a sequence of
+steps, induct on the number of steps: replacing an energy $\mathfrak E$ of
+exponent $2^{-j}$ by the two energies of a further step, each of exponent
+$2^{-j-1}$, does not change the product, because
+$\Pi(\mathfrak E_+)^{1/2}\Pi(\mathfrak E_-)^{1/2}=\Pi(\mathfrak E)$ by the
+first part.
+\end{proof}
+
+By (a), (e) and \cref{prop:record:density-structured}, a sharp difference
+with constant $d$ costs at most
+$d(1+u_\Lsc+(C_{\rm dc}/C_0)\Lsc^{a-\sigma}\alpha^{1-\theta})\Pi\,Y$ at a least
+normalized counterexample: the geometric mean of the two energies retains the
+price $\Pi$, not $\Pi^2$. The same holds for the weights carried by the slots
+of an index support. In the index energies of Part~III each query conductor
+occurs at two slots, so it enters with the exponent $2a/72=a/36$. A later
+chamber fold can give four occurrences on one energy and none on the other,
+but the geometric mean keeps the original two; the conductors are therefore
+held fixed through every Cauchy--Schwarz step and averaged only after the
+complementary energies are combined, and no higher conductor moment is used
+(\cref{lem:envelope-energy}).
+
+The two energy estimates apply to the energies of the comparison once the
+selected laws and the bounds applied to them have the following properties.
+They are properties of the construction, verified where the laws are built.
+
+\begin{definition}[Admissible laws]\label{def:admissible}
+Consider a reduction of a multilinear form to structured energies by
+expansions over selected atoms, sharp operator bounds at cuts
+(\cref{lem:record:folded-energy}) and \cref{prop:record:density-structured}.
+Its closure obligations are:
+\begin{enumerate}[label=(O\arabic*)]
+\item every selected law that remains after the operator-to-energy reduction
+ is nonnegative, or an invariant signed measure, with uniform whole-slot
+ marginals on the selected atoms (\ref{it:record:R3},
+ \cref{def:record:comparison-law}), and it is independent of the interval,
+ residue and inclusion indices;
+\item every sharp operator bound is uniform in the shared labels at which it
+ is applied (the constant $d$ of \eqref{eq:record:sharp});
+\item index-support projections are taken before the field folds, and the
+ inclusion conductors stay fixed through all folds and geometric means; they
+ are averaged only afterwards (\cref{lem:record:folded-energy}(e));
+\item the chamber folds used in a geometric mean commute with the reserved
+ cut $\iota$, so that complementary folds have the
+ copying property of \cref{lem:record:folded-energy}(e).
+\end{enumerate}
+A signed measure on the labels of a finite set of atoms is an
+\emph{admissible law} if it satisfies (O1) and every sharp operator bound
+applied to it satisfies (O2). A reduction is \emph{admissible} if its selected
+laws are admissible and it satisfies (O3) and (O4).
+\end{definition}
+
+For the slot array $V$ every chamber fold commutes with the reserved cut
+$\iota$ (\cref{lem:slot-array}(iii)); so a law fixed samplewise by $\iota$,
+and an assignment of inputs invariant under $\iota$, stay so after a chamber
+fold. Whole-slot uniformity does not imply uniformity of the conditional
+distributions of the non-shared labels of one half given the shared labels,
+and none of the statements of this section needs it. A pointwise statement
+with arbitrary pinned values of the non-shared labels would need a further
+theorem and is not used. Each construction lemma of Part~V states that its
+laws are admissible; \cref{tab:admissibility} collects them.
+
+\subsection{Forced pairs and very large pinnings are negligible}\label{subsec:scale:cancellation}
+
+The accepted queries enter through one estimate: an average in which an
+ordered pair of slots carries inputs from adjacent intervals, with residues
+differing by a nonvanishing square class, and whose law forces a strict-square
+difference on that pair at every prime with $e_p=1$ (at a clique prime, a
+nonzero difference of even valuation with a square unit part), is
+negligible. Square-difference-free%
+ness is used here, through the actual-square kernel.
+
+\begin{lemma}[Accepted-pair cancellation with a density factor]
+\label{lem:record:density-can}
+There is a constant $C_{\rm can}$ with the following property. Let
+$\Lsc\ge\Lsc_*$ (\cref{lem:scale-conditions}), $N=\Kint\Lsc$, let
+$A\subseteq[N]$ be square-difference-free and $\alpha=|A|/N$. Let $X_{\rm pre}$
+be the product of the groups of the atoms below $\Pfive$, and let
+$\varrho=\varrho_{\rm pre}\otimes\bigotimes_{\Pfive\le p\le N^\beta}\varrho_p$
+be a product of probability measures on $X_{\rm pre}^V$ and on $\Fp^V$, each
+with uniform one-slot marginals. Let $(u,v)$ be an ordered pair of slots
+such that:
+\begin{enumerate}[label=(\alph*)]
+\item for every $p\ge\Pfive$, $\varrho_p$ satisfies the hypothesis of
+ \cref{lem:tr:pairsupport} at $(u,v)$ with the exponent $\gamma$: the
+ $(u,v)$-marginal of $\varrho_p$ is $\Unif(\Om)$, and its conditional
+ operator from the pair $(u,v)$ to the other slots fixes constants, maps
+ mean-zero functions to mean-zero functions and has norm at most
+ $p^{-\gamma}$ on them;
+\item $\varrho_{\rm pre}$-almost surely, $z_{v,p}-z_{u,p}$ is a nonzero square
+ at every prime with $e_p=1$ below $\Pfive$, and at every clique prime it is
+ nonzero, of even valuation $2j<e_p$, with a square unit part.
+\end{enumerate}
+Let $1\le b\le\Kint-1$, $s\in\Z/\Mzero\Z$, and let $r\in\Z/\Mzero\Z$ be a
+nonvanishing square class (\cref{def:nonvanishing-square-class}). Let $G_u=g^{I_b,\Mzero,s}$,
+$G_v=g^{I_{b+1},\Mzero,s+r}$, and let $G_w=g^{I_w,D_{0,w},s_w}$ $(w\ne u,v)$
+be inputs of \cref{def:record:functional}. Then
+\[
+ \Big|\int\prod_{w\in V}G_w(z_w)\,d\varrho(z)\Big|\le C_{\rm can}N^{72\delta}\alpha
+ \big(N^{-\gamma t_{\rm an}}+N^{-1/120+t_{\rm an}(1/2-\gamma)}\big)
+ \le2C_{\rm can}\Lsc^{-\sigma}\alpha .
+\]
+The bound is uniform in $b$, $s$, $r$ and the other indices, so it persists
+after integration against any probability law of the indices; for
+$c\varrho$ with $0\le c\le1$ it is multiplied by $c$.
+\end{lemma}
+
+\begin{proof}
+\emph{Step 0.} Use the constant of \cref{prop:record:kernel20}(iii)
+at the triple of \cref{cor:kernel20}, with $C_D=C_H=1$. The external
+modulus and the clique moduli are fixed independently of the scale. Put $H=N^{1/40}$, $T_0=N^{t_{\rm an}}$ and $D_{\rm pre}=|X_{\rm pre}|$,
+which divides $Q_{\rm pre}$. By \cref{lem:scale-conditions}(v), every prime of
+$[\Pfour,\Pfive)$ is a coordinate of $G_N$; the other primes below $\Pfive$
+are coordinates of $G_N$ or divide $\Mzero$.
+
+\emph{Step 1: the pair decomposition.} Condition on the prefix labels
+$x=(x_w)_{w\in V}$ of all slots, distributed by $\varrho_{\rm pre}$. Put
+$\varphi_x(y_u,y_v)=G_u(x_u,y_u)G_v(x_v,y_v)$ and
+$W_x=\prod_{w\ne u,v}G_w(x_w,\cdot)$, functions of the tail labels. By (a),
+\cref{lem:tr:pairsupport} applies to the tail factors, so
+\[
+ \Big|\int\varphi_xW_x\Big|^2\le\|W_x\|_2^2\Big[T_0^{-2\gamma}\|\varphi_x\|_2^2
+ +\sum_{q_U\le T_0}q_U^{-2\gamma}\|E_U\varphi_x\|_2^2\Big],
+\]
+with $\|\varphi_x\|_2$ for $\bigotimes_p\Unif(\Om)$, $\|W_x\|_2$ for the law of
+the other slots, and $U$ running over sets of tail primes $p\ge\Pfive$.
+Integrate over $x$ and apply Cauchy--Schwarz:
+\[
+ \Big|\int\prod_wG_w\,d\varrho\Big|\le\Big(\int\|W_x\|_2^2\Big)^{1/2}
+ \Big(T_0^{-2\gamma}\int\|\varphi_x\|_2^2
+ +\sum_{q_U\le T_0}q_U^{-2\gamma}\int\|E_U\varphi_x\|_2^2\Big)^{1/2}.
+\]
+
+\emph{Step 2: moments.} Under $\varrho$ every $z_w$ is uniform on $G_N$. By
+H\"older with $70$ factors and \cref{lem:record:lift-moments}(c) with moments of
+order $140$ (all inputs have intervals of length at least
+$\Lsc\ge10N^{6\beta}$, by \cref{lem:scale-conditions}(i)),
+\[
+ \int\|W_x\|_2^2\,d\varrho_{\rm pre}=\int\prod_{w\ne u,v}|G_w(z_w)|^2\,d\varrho
+ \le\prod_{w\ne u,v}\|G_w\|_{140}^2\le C_\epsilon N^\epsilon\alpha ,
+\]
+and by Cauchy--Schwarz and the fourth moments,
+$\int\|\varphi_x\|_2^2\le\|G_u\|_4^2\|G_v\|_4^2\le C_\epsilon N^\epsilon\alpha$.
+The density exponents are $70\cdot2/140=1$ and $2\cdot2/4=1$.
+
+\emph{Step 3: a low pair support.} Fix $U$ with $q_U\le T_0$. The function
+$E_U\varphi_x$ averages both pair variables over the tail primes outside $U$.
+Fix also the pair labels $y=(y_u,y_v)$ at $U$, with
+$(y_{u,p},y_{v,p})\in\Om$; let $\mathcal S'$ be the set of tail primes
+$\Pfive\le p\le N^\beta$ outside $U$, and $g_1=G_u(x_u,y_u,\cdot)$,
+$g_2=G_v(x_v,y_v,\cdot)$ on $X_{\mathcal S'}$. By the pair multiplier
+identity of \cref{lem:square-shift}(d),
+\[
+ E_U\varphi_x(y)=\Psi_{\le H}+\Psi_{>H},\qquad
+ \Psi_{\le H}=\sum_{q(\xi)\le H}\widehat{g_1}(-\xi)\widehat{g_2}(\xi)g(\xi),
+\]
+the sums running over the characters of $X_{\mathcal S'}$, with $g(\xi)$ the
+unit quadratic average (\cref{def:kernel-notation}). Since every prime of
+$\mathcal S'$ exceeds $64$, $|g(\xi)|\le q(\xi)^{-1/3}<H^{-1/3}$ for
+$q(\xi)>H$, and Cauchy--Schwarz and Parseval give
+$|\Psi_{>H}|\le H^{-1/3}\|g_1\|_2\|g_2\|_2$.
+
+For the low part put $D=\Mzero D_{\rm pre}q_U$. By
+\cref{lem:scale-conditions}(vi), $HD_{\rm pre}q_U\le Q$, so
+\cref{lem:record:fibre-scale}(a), with the conditioned atoms in the role of
+$E$, gives for $q(\xi)\le H$
+\[
+ \widehat{g_1}(\xi)=\frac D\Lsc\sum_{\substack{n\in A\cap I_b\\ n\equiv\mathfrak a_1\,(D)}}e(-n\xi),
+ \qquad
+ \widehat{g_2}(\xi)=\frac D\Lsc\sum_{\substack{n\in A\cap I_{b+1}\\ n\equiv\mathfrak a_2\,(D)}}e(-n\xi),
+\]
+where $\mathfrak a_1\equiv s$, $\mathfrak a_2\equiv s+r\pmod\Mzero$, $\mathfrak a_1\equiv x_u$,
+$\mathfrak a_2\equiv x_v$ on $X_{\rm pre}$ and $\mathfrak a_1\equiv y_u$, $\mathfrak a_2\equiv y_v$ on $X_U$.
+Every prime below $\Pfive$ and every prime of $U$ divides $D$; hence the
+characters of $X_{\mathcal S'}$ with $q(\xi)\le H$ are exactly the elements
+of $\Xi_{H,D}$ (\cref{def:kernel-notation}), since a squarefree $q\le H\le N^\beta$ coprime to $D$ has all
+its primes in $\mathcal S'$. The difference $\mathfrak a_2-\mathfrak a_1$ is $r$ modulo $\Mzero$,
+a nonzero square at the primes of $U$ and at the primes below $\Pfive$ with
+$e_p=1$, and at the clique primes nonzero of even valuation below $e_p$ with
+square unit part, by (b). With
+$F_i=\one_A\one_{I_{b+i-1}}\one_{n\equiv\mathfrak a_i\,(D)}$ on $[N]$ and $\widehat F_i$
+normalized by $N$, we have $\widehat{g_1}(-\xi)=(DN/\Lsc)\widehat F_1(-\xi)$ and
+$\widehat{g_2}(\xi)=(DN/\Lsc)\widehat F_2(\xi)$. The supports are ordered,
+since $I_b$ lies below $I_{b+1}$, and no difference is a positive square. So
+\cref{prop:record:kernel20}(iii) applies in the form of \cref{cor:kernel20}, with
+$D\le N^{1/20}$ (\cref{lem:scale-conditions}(vi)), $H=N^{1/40}$ and
+$N$ above the thresholds of the proposition (\cref{lem:scale-conditions}(vii)):
+\begin{align*}
+ |\Psi_{\le H}|&=\frac{DN^2}{\Lsc^2}\Big|D\sum_{\xi\in\Xi_{H,D}}g(\xi)
+ \widehat F_1(-\xi)\widehat F_2(\xi)\Big|\\
+ &\le\frac{DN^2}{\Lsc^2}\,\frac{C N^{-1/120}\|F_1\|_{\ell^2}\|F_2\|_{\ell^2}}N
+ =C\Kint N^{-1/120}\sqrt{\alpha_{{\rm f},1}\alpha_{{\rm f},2}},
+\end{align*}
+where
+$\alpha_{{\rm f},i}=(D/\Lsc)\|F_i\|_{\ell^2}^2=(D/\Lsc)\#\{n\in A\cap I_{b+i-1}:n\equiv\mathfrak a_i\ (D)\}$
+are the two fibre densities. The fibre modulus $D$ cancels. Since
+$D\le\Lsc$ (\cref{lem:scale-conditions}(vi)),
+$\alpha_{{\rm f},i}\le(D/\Lsc)(\Lsc/D+1)\le2$.
+
+Now average over $x\sim\varrho_{\rm pre}$ and
+$y\sim\bigotimes_{p\in U}\Unif(\Om)$. The labels $(x_u,y_u)$ are uniform on
+$X_{\rm pre}\times X_U$, so the class $\mathfrak a_1$ is uniform among the
+$D_{\rm pre}q_U$ classes modulo $D$ above $s$, and
+$\E\alpha_{{\rm f},1}=\Mzero\#\{n\in A\cap I_b:n\equiv s\ (\Mzero)\}/\Lsc
+\le\Mzero\Kint\alpha$. Hence
+$\E(\alpha_{{\rm f},1}\alpha_{{\rm f},2})\le2\E\alpha_{{\rm f},1}\le2\Mzero\Kint\alpha$;
+no independence of the two classes is used. For the high part,
+Cauchy--Schwarz and Jensen's inequality ($\|g_1\|_2^4\le\E|g_1|^4$ over
+$X_{\mathcal S'}$) give
+$\E(\|g_1\|_2^2\|g_2\|_2^2)\le\|G_u\|_4^2\|G_v\|_4^2\le C_\epsilon N^\epsilon\alpha$,
+because $(x_u,y_u)$ together with the uniform outside label is uniform on
+$G_N$. Since $\|E_U\varphi_x\|_2^2=\E_y|E_U\varphi_x(y)|^2$ and
+$|\Psi|^2\le2|\Psi_{\le H}|^2+2|\Psi_{>H}|^2$,
+\[
+ \int\|E_U\varphi_x\|_2^2\,d\varrho_{\rm pre}(x)\le4C^2\Kint^3\Mzero N^{-1/60}\alpha
+ +2H^{-2/3}C_\epsilon N^\epsilon\alpha\le C'_\epsilon N^{-1/60+\epsilon}\alpha ,
+\]
+uniformly in $U$.
+
+\emph{Step 4: summation.} Distinct sets $U$ have distinct products, and
+$0<\gamma<1/2$, so
+$\sum_{q_U\le T_0}q_U^{-2\gamma}\le1+T_0^{1-2\gamma}/(1-2\gamma)$. Inserting
+Steps~2 and~3 into Step~1,
+\[
+ \Big|\int\prod_wG_w\,d\varrho\Big|\le C_\epsilon N^\epsilon\alpha
+ \big(N^{-\gamma t_{\rm an}}+N^{-1/120+t_{\rm an}(1/2-\gamma)}\big).
+\]
+Take $\epsilon=72\delta$; both exponents are below $-\sigma$ by (S2) and
+(S3), which proves the lemma.
+\end{proof}
+
+At a nonunit clique or external-index difference the kernel is applied in
+the root-class form of \cref{prop:record:kernel20}(iii), which keeps every
+pinned prime in the modulus. Its constants satisfy the same uniform bounds.
+For the odd prefix with a unit external index,
+\cref{prop:record:kernel20}(ii), where an even-valuation square is divided
+out of the modulus, may be used in place of (iii). The fourth moment
+enters with the exponent exactly $1/2$, and no strict inequality between
+moment exponents is needed.
+
+\begin{lemma}[Large products with a density factor]
+\label{lem:record:density-lp}
+Let $(\eta_\Blk)$ be nonnegative numbers indexed by the atoms of all scales,
+with $\Pi_{\rm H}=\prod_\Blk(1+\eta_\Blk q_\Blk^{1/4})<\infty$, where $q_\Blk$
+is the product of the primes of $\Blk$ with $e_p=1$. For $\epsilon>0$ there is
+$C_\epsilon$ with the following property. Let $\Lsc\ge1$ with
+$\Lsc\ge10N^{6\beta}$, $c\ge1$, and for every set $E\subseteq\mathcal A_N$
+with $q_E>N^\tau$ let $\kappa'_E$ be a finite nonnegative measure on $G_N^V$
+with $\kappa'_E(1)\le c\prod_{\Blk\in E}\eta_\Blk$ whose one-slot marginals are
+multiples of the uniform law, and let $(G^E_v)_v$ be inputs
+$g^{I,D_0,s}$ of \cref{def:record:functional}, possibly averaged over indices
+by a probability law. Then
+\[
+ \sum_{E:\,q_E>N^\tau}\Big|\int\prod_vG^E_v(z_v)\,d\kappa'_E(z)\Big|
+ \le c\,C_\epsilon\Pi_{\rm H}N^{-\tau/4+\epsilon}\alpha .
+\]
+The same bound holds if the term of $E$ is replaced by
+$a_E(I_E^+I_E^-)^{1/2}$ with $0\le a_E\le c\prod_{\Blk\in E}\eta_\Blk$ and
+$I_E^\pm$ energies of such inputs under probability measures with uniform
+one-slot marginals. With $\epsilon=\ell_0$ the right-hand side is at most
+$c\,C\,\Pi_{\rm H}\Lsc^{-\sigma}\alpha$, by (S4).
+\end{lemma}
+
+\begin{proof}
+For fixed $E$ and indices, H\"older's inequality with $72$ factors in
+$L^{72}(\kappa'_E)$ and the uniform marginals give
+$|\int\prod_vG_v\,d\kappa'_E|\le\kappa'_E(1)\prod_v\|G_v\|_{L^{72}(G_N)}$; after
+averaging over the indices, H\"older over their law gives the same product of
+averaged norms. By \cref{lem:record:lift-moments}(c) with moments of order $72$,
+each norm is at most $(C_\epsilon N^\epsilon\Mzero^{72}\Kint\alpha)^{1/72}$, so
+the product is $C_\epsilon N^\epsilon\alpha$: the density exponents are
+$72/72=1$. The same bound holds for $I_E^\pm$, hence for $(I_E^+I_E^-)^{1/2}$.
+Finally, by Rankin's trick,
+\[
+ \sum_{E:\,q_E>N^\tau}\prod_{\Blk\in E}\eta_\Blk\le N^{-\tau/4}\sum_E
+ \prod_{\Blk\in E}\eta_\Blk q_\Blk^{1/4}\le N^{-\tau/4}\Pi_{\rm H}.
+\]
+\end{proof}
+
+In the comparison proof the coefficient $\eta_\Blk$ of an atom
+is taken to be the sum of the prices at $\Blk$ listed in
+(CP8)(c), after the operator-to-energy reduction
+(\cref{lem:record:rec}(ii), \cref{def:cp8}); a spectral price entering
+the sum is the price produced by this reduction, not the total variation
+of the original signed law. The product
+$\Pi_{\rm H}$ is then finite by the summability (c) of \cref{def:cp8}: the
+atoms below $\Pfour$ are finitely many, each with a finite factor in
+$\Pi_{\rm H}$, and at a tail prime $p$ the prices of the selected laws are
+$s_p$, $a_p$ and the matching prices $T_{{\rm L},p}=T_{{\rm R},p}$, which
+add up to at most three times $s_p+a_p\le C_{\rm tail}p^{-3/2+2a}$, so that
+their sum weighted by $p^{1/4}$ converges (\cref{lem:tail-prices}(iii),
+(iv)).
+
+\subsection{From $\Theta<1$ to $s(N)\le CN^{1-a/71}$ (baseline induction)}\label{subsec:scale:induction}
+
+It remains to convert a closing inequality at a least counterexample
+into a bound for every $A$. The theorem does this by induction on
+the scale: if a least counterexample would satisfy $Y\le\Theta Y$
+with $\Theta(0)<1$ and only the two allowed kinds of remainder, then
+no counterexample exists and $Y\le C\Lsc^{-a}\alpha^\theta$ holds in
+general.
+
+\begin{theorem}[Linear-density induction]\label{thm:record:lineardensity}
+Let $0<a<\sigma$ and $0<\theta\le1$, and assume
+\ref{it:record:R1}--\ref{it:record:R5}. Suppose there are $\Lsc_1\ge1$,
+$z_0>0$ and a function $\Theta:[0,z_0]\to[0,\infty)$, continuous at $0$ with
+$\Theta(0)<1$, such that the following recurrence hypothesis holds.
+\begin{enumerate}[label=(Rec)]
+\item Let $C_0\ge1$, let $(\Lsc,A)$ be a least normalized counterexample for
+ $(a,\theta,C_0)$ with $\Lsc\ge\Lsc_1$, and let $z\in[0,z_0]$. If every
+ structured energy that the recurrence bounds at $(\Lsc,A)$ satisfies
+ $|\mathfrak E|\le(1+z)\|\rho\|\,\Pi\,\Yf(\Lsc,A)$ with its coarse price $\Pi$,
+ and the sum of the absolute values of its cancellation and large-product
+ remainders is at most $z\,\Yf(\Lsc,A)$, then
+ $\Yf(\Lsc,A)\le\Theta(z)\,\Yf(\Lsc,A)$.
+\end{enumerate}
+Suppose further that these remainders consist of a number, bounded
+independently of $\Lsc$ and $A$, of integrals of the form bounded in
+\cref{lem:record:density-can}, integrated against probability laws of the
+indices and multiplied by coefficients bounded independently of $\Lsc$ and
+$A$, together with finitely many sums of the form bounded in
+\cref{lem:record:density-lp}, whose number and whose constants $c$ and
+$\Pi_{\rm H}$ are independent of $\Lsc$ and $A$. Then there is $C$
+with
+\[
+ \Yf(\Lsc,A)\le C\,\Lsc^{-a}\alpha^\theta
+\]
+for every $\Lsc\ge1$ and every square-difference-free $A\subseteq[\Kint\Lsc]$.
+Consequently $\alpha^{72-\theta}\le C\Lsc^{-a}$, and
+$s(N)\le C'N^{1-a/(72-\theta)}$ for every $N\ge1$. At $\theta=1$ the
+conversion is $\eps=a/71$.
+\end{theorem}
+
+\begin{proof}
+Let $C_{\rm R}$ be a constant with: the remainders at any least normalized
+counterexample $(\Lsc,A)$ with $\Lsc\ge\Lsc_*$ have total absolute value at
+most $C_{\rm R}\Lsc^{-\sigma}\alpha$. It exists by
+\cref{lem:record:density-can,lem:record:density-lp} and the hypothesis on
+their number and coefficients, and it does not depend on $C_0$, because the
+remainders do not involve the induction.
+
+\emph{Choice of constants.} By continuity choose $z_1\in(0,z_0]$ with
+$\Theta(z)\le(1+\Theta(0))/2<1$ for $0\le z\le z_1$. Choose
+$\Lsc_0\ge\max(\Lsc_1,\Lsc_*)$ such that $u_\Lsc\le z_1/2$ and
+$(C_{\rm dc}+C_{\rm R})\Lsc^{a-\sigma}\le z_1/2$ for $\Lsc\ge\Lsc_0$; this is
+possible because $a<\sigma$. For the finitely many $\Lsc<\Lsc_0$, every
+retained coefficient of $F_A$ has modulus at most $\alpha$, so
+$|F_A|\le n_\Lsc\alpha$, with $n_\Lsc$ the number of retained characters of
+$G_N$, and $\Yf(\Lsc,A)\le(n_\Lsc\alpha)^{72}\le n_\Lsc^{72}\alpha$. Put
+$C_{\rm base}=\max_{\Lsc<\Lsc_0}n_\Lsc^{72}$ and
+$C_0=\max(1,C_{\rm base}\Lsc_0^a)$. Then
+$\Yf(\Lsc,A)\le C_{\rm base}\alpha\le C_0\Lsc^{-a}\alpha^\theta$ for
+$\Lsc<\Lsc_0$, since $\alpha\le\alpha^\theta$.
+
+\emph{The least counterexample.} Suppose the bound
+$\Yf(\Lsc,A)\le C_0\Lsc^{-a}\alpha^\theta$ fails for some pair, and let $\Lsc$
+be the least scale at which it fails, for some $A$. Then $(\Lsc,A)$ is a least
+normalized counterexample, $\Lsc\ge\Lsc_0$, $\alpha>0$ and $Y=\Yf(\Lsc,A)>0$.
+By \cref{prop:record:density-structured}, every structured energy satisfies
+$|\mathfrak E|\le(1+u_\Lsc+C_{\rm dc}\Lsc^{a-\sigma}\alpha^{1-\theta}/C_0)
+\|\rho\|\Pi Y\le(1+z_1)\|\rho\|\Pi Y$, because $\alpha\le1$ and $C_0\ge1$. The
+remainders are at most
+$C_{\rm R}\Lsc^{-\sigma}\alpha=(C_{\rm R}/C_0)\Lsc^{a-\sigma}\alpha^{1-\theta}
+\cdot C_0\Lsc^{-a}\alpha^\theta<z_1Y$. By (Rec), $Y\le\Theta(z_1)Y<Y$, a
+contradiction. Hence the bound holds with $C=C_0$. No lower bound on $\alpha$
+is used: the relative error $C\Lsc^{a-\sigma}\alpha^{1-\theta}/C_0$ is uniform
+in $\alpha$ because $\theta\le1$.
+
+\emph{Conversion.} By \cref{lem:record:holder}(e), $\alpha^{72}\le\Yf(\Lsc,A)
+\le C_0\Lsc^{-a}\alpha^\theta$, so $\alpha^{72-\theta}\le C_0\Lsc^{-a}$ when
+$\alpha>0$, and
+$|A|=\alpha N\le C_0^{1/(72-\theta)}\Kint^{a/(72-\theta)}N^{1-a/(72-\theta)}$.
+For an arbitrary $N\ge\Kint$ put $N'=\Kint\lceil N/\Kint\rceil<2N$; a
+square-difference-free subset of $[N]$ is one of $[N']$, which gives
+$s(N)\le C'N^{1-a/(72-\theta)}$. For $N<\Kint$, $s(N)\le N\le\Kint$.
+\end{proof}
+
+The hypothesis (Rec) is supplied by the comparison theorem: in the proof of
+\cref{thm:comparison}, \cref{lem:record:rec} shows that (Rec) holds for the
+density exponent $\theta$ of the frame data, with $\Theta(z)$ the closing
+number of \cref{thm:comparison} evaluated with every energy bound inflated by
+the factor $1+z$ and every remainder bounded by $zY$; it also proves the
+continuity at $z=0$ and that the remainders have the forms of
+\cref{lem:record:density-can,lem:record:density-lp}. In the baseline theorem
+$\theta=1$, and $\Theta(0)$ is the certified closing value. The induction uses
+only the moments of orders $2$, $4$, $72$, $140$ and $142$, and no limit in an
+interpolation parameter.
+
+\begin{remark}[Fixed parameters]\label{rem:fixed-parameters}
+Every statement and proof of \cref{sec:scale-comparison} holds for an
+arbitrary fixed integer $\Kint\ge2$, with the least square step
+\eqref{eq:square-step}, and for arbitrary fixed even exponents $e_p=2m_p$ at
+the clique primes, and so do the statements of Part~II that it uses:
+the functional is defined for these data (\cref{def:record:functional}); the
+index averages hold for every $\Kint\ge2$ (\cref{lem:twointerval}); the
+moment constants depend on the prefix only through $Q_{\rm cl}$
+(\cref{lem:record:lift-moments}(c)); conductor decay allows any finite
+prefix (\cref{lem:record:prefix-conductor}), and the pair-support decay
+involves only the tail primes (\cref{lem:tr:pairsupport}); and the kernel
+allows any $m_p$, with constants depending on $\prod_{p\in\mathcal P_1}p^{e_p}$
+(\cref{prop:record:kernel20}(iii), \cref{lem:kernel-depth-classes}).
+Constants and the starting scale depend on these fixed data, and nothing is
+asserted uniformly as $\Kint$ or the prefix grow with $N$. Each interval pair
+$I_b,I_{b+1}$ with $1\le b<\Kint$ is ordered, which, with their common length
+$\Lsc$, is all that the cancellation uses of the intervals, and the child
+scales are strictly smaller by
+\cref{lem:record:fibre-scale}(d). The baseline theorem uses $\Kint=\PushK$,
+$e_p=2\mcl$ with $\mcl=8192$ at the class-one primes below $\Pfour$,
+$\theta=1$ and the price exponent $a=\PushA$, which satisfies the gate
+$a<\sigma$ of \cref{thm:record:lineardensity}, with
+$\sigma-a=65195254/201416015625$, and gives
+$\eps=a/71=\PushExponent$. The gates of the analytic transfer that involve
+$a$ (the analytic, density, fixed-index and fixed-prefix gates,
+\cref{cert:record:analytic-stage}(S0)) hold on the
+whole range $0<a\le9/10000$ and for every fixed $\Kint\ge2$; in particular,
+there the induction slack is $\sigma-a\ge103/330000$, and the exponent of the
+bound $2^{513-\mcl+1024\mcl a}$ for the price of the deleted clique exception
+(\cref{lem:frontier:iidenergy}) is at most $-80783/625$, so that this price
+together with the tail prices beyond $\Pfour$ stays below $10^{-12}$
+(\cref{cert:record:frame-data}(a), (f); \cref{rem:prefix-digits}).
+\end{remark}
+
+\begin{remark}[Empty and concentrated fibres]\label{rem:record:fibres}
+\leavevmode
+\begin{enumerate}[label=(\roman*)]
+\item If $A=\emptyset$, every lift and every energy vanishes; the induction
+ treats this case before any division by $\alpha$.
+\item If $A$ is a single point, $\E_I|f|^2=1/|I|$, and
+ \cref{lem:record:lift-moments} bounds every fixed moment by
+ $C_\epsilon N^\epsilon/|I|$; no hypothesis $\alpha|I|\to\infty$ is used.
+\item A pinned lift need not vanish on an empty fibre. Let $|I|$ be divisible
+ by $15$, $A=\{n\in I:15\mid n\}$, $\mathcal P=\{3,5\}$ and $Q=5$. The lift is
+ $G(z_3,z_5)=(3\cdot\one_{z_3=0}+5\cdot\one_{z_5=0}-1)/15$. At $z_3=1$ the
+ fibre is empty, but $G(1,z_5)=(5\cdot\one_{z_5=0}-1)/15\ne0$. Its part of
+ conductor at most $Q/3$ is zero, as the exact fibre identity
+ (\cref{lem:record:fibre-scale}(a)) requires. The comparison never asserts
+ more than this: the square-step model $\widetilde g$ vanishes on an empty
+ fibre, and the difference $g-\widetilde g$ is controlled by averaged
+ moments.
+\item If $A$ is one residue class modulo a retained conductor, the lift
+ concentrates on one class of the product group, and its moments of every
+ fixed order are of order $\alpha$; so the linear dependence on $\alpha$ in
+ \cref{lem:record:lift-moments} cannot be improved in general.
+\end{enumerate}
+\end{remark}
+
+\begin{remark}[The density exponent]\label{rem:record:theta-ladder}
+At $\theta=1$ the density saving $a/(72-\theta)$ is $a/71$. Without the
+density-linear moments of \cref{lem:record:lift-moments}, a remainder
+$C\Lsc^{-\sigma}$ is compared with $Y>C_0\Lsc^{-a}\alpha^\theta$ through the
+sparse-set bound $Y\le C_\epsilon\Lsc^\epsilon\alpha^s$ (every $\epsilon>0$),
+$s=(10^6-36)/(10^6-1)$, which follows from H\"older, Parseval and a moment of
+order $2\cdot10^6$ by interpolation. This needs the sparse gate $as/(s-\theta)<\sigma$, which allows
+exactly $\theta<s(\sigma-a)/\sigma$: about $0.2680$ at the price exponent of
+the baseline theorem, so a saving of less than $a/71.73$. That route also needs
+the uniform whole-slot marginals: its main-term Jensen step uses them
+(\cref{def:admissible}). Only $\theta=0$, with
+saving $a/72$, needs no density averaging at all. The density-linear moments
+thus gain the factor $72/71$ over $\theta=0$, and about $1.010$ over the
+sparse gate.
+\end{remark}
+
+\paragraph{Consequences and what to read next.}
+Inputs used in this section: the functional, its atoms, inputs and
+reference hypotheses
+(\cref{def:record:functional,hyp:record:reference}); the least square step
+and the strict square classes (\eqref{eq:sq}, \cref{def:strict-square-class,def:nonvanishing-square-class});
+the products of atom
+laws with the signed H\"older inequality, the seminorm, invariance and
+averaging (\cref{lem:record:holder}); the density-linear moment bound
+(\cref{lem:record:lift-moments}); conductor decay with a finite prefix and
+the pair-support decay (\cref{lem:record:prefix-conductor,lem:tr:pairsupport},
+with \cref{def:mixing}); the pair multiplier of the strict-square pair law
+(\cref{lem:square-shift}(d)); the actual-square kernel and its notation
+(\cref{def:kernel-notation,prop:record:kernel20,cor:kernel20}); the tail prices, for the
+finiteness of $\Pi_{\rm H}$ (\cref{lem:tail-prices}); reflection
+positivity, folds and the one-cut
+Cauchy--Schwarz inequality (\cref{def:rp,def:sorting,lem:holder:one-cut}); the
+slot array (\cref{lem:slot-array}); and the stage inequalities of
+\cref{cert:record:analytic-stage}.

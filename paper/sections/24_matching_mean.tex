@@ -1,0 +1,1073 @@
+\section{Dominators for $\nu$ and the mean constant $m>1$}\label{sec:matching-mean}
+
+\paragraph{What this section proves and how to read it.}
+This section proves (CP6) and (CP7): it constructs positive laws
+$M_{{\rm L},\Blk},M_{{\rm R},\Blk}$ dominating $\nu_\Blk$ at $\iota$
+(called \emph{matching envelopes} in (CP6); they are unrelated to
+the matching records $E_0,E_1$---in prose we call them
+\emph{dominators for $\nu$}), with total price $T$ entering
+$J=Be^T(R_I/2)^6$ through $e^T$, and it proves the mean energies
+exceed $mY$ with $m>1$ (a lower bound \emph{added} to the energy,
+hence $(1-m)/64<0$ in $\Theta$, unlike the subtracted savings $D$).
+The \emph{side functions} below collect the diagonal weights; only
+their final values are used, and the long list of intermediate
+constants in \cref{def:side-function} that no estimate uses can be
+skipped---the theorem statements cite only the assembled $T$ and
+$m$. Reading-order note: $T$ includes upper-range prices proved in
+\cref{sec:upper-comparison}; the per-block dominator construction
+here is independent, the total $T$ is assembled in
+\cref{sec:closing}. Inputs: \cref{sec:middle-frame}. Outputs:
+(CP6),(CP7) with baseline $T<0.60760$, $m>1.58994$.
+\begin{itemize}
+\item For every atom $\Blk$ it constructs two positive measures
+ $M_{{\rm L},\Blk}$ and $M_{{\rm R},\Blk}$, the \emph{matching envelopes}. The
+ comparison law sits in a positive semidefinite $2\times2$ block
+ $\bigl(\begin{smallmatrix}M_{{\rm L},\Blk}&\nu_\Blk\\
+ \nu_\Blk^*&M_{{\rm R},\Blk}\end{smallmatrix}\bigr)\succeq_\iota0$ at the reserved
+ cut, and $M_{s,\Blk}-\Nbr_\Blk$ is a positive reserved-diagonal measure. For each $s\in\{{\rm L},{\rm R}\}$, the sum over atoms $\sum_\Blk\operatorname{price}(M_{s,\Blk}-\Nbr_\Blk)$ is at most the matching exponent $T$ of the matching term
+ $J=Be^T(R_I/2)^6$ (\cref{prop:record:matching}).
+\item The proof of \cref{thm:comparison} uses the envelopes twice. Through the
+ index-support lemma (\cref{lem:record:common-mean}) it compares the signed
+ index form $J_\nu$ with $Y_\nu$, up to the excess of the random-inclusion
+ energies $V_s$ of the envelopes over their mean energies $e_s$
+ (\cref{eq:record:cm-selected}); through \cref{lem:envelope-energy} it bounds
+ $V_s$ by $2^6J$. The mean energies are bounded below in
+ \cref{subsec:record:positive_means}; this is the mean credit $m$ of $\Theta$
+ (\cref{prop:record:mean-credit}, \eqref{eq:mean-credit}).
+\item The closing (\cref{cert:closing}) evaluates $T$ and $m$.
+\end{itemize}
+
+Every record change of the comparison law except the two two-layer fold
+records $F_1,F_2$ of a middle block already has such a bracket from its norm
+envelopes (\cref{def:record:comparison-law}). For the matching records the
+envelopes use chosen diagonals, which dominate the norm envelopes and are paid
+by the same prices.
+
+For $F_1,F_2$ the norm envelopes would enter $T$ with the full
+fold norm price, which is too large for $\Theta<1$, and the
+bracket is built
+directly (\cref{subsec:record:direct_gram}). The reference record and its
+signed comparison record are bounded jointly by a positive $2\times2$ Gram at
+$\iota$, whose diagonal shifts are multiples of the record's own one-layer
+companion. The dominator $\Nbr$ already contains that companion
+once, with coefficient $v_{\rm D}$ (\cref{lem:record:gram}). The joint Gram
+needs a diagonal of coefficient about $2.39\,w_{\rm D}$ on each side (the signed
+coefficient $\bar H_Xd_\tlaw$), and only the excess
+$k_s=w_{\rm D}d_s-v_{\rm D}$ is priced. The copy of the companion already present in $\Nbr$ is not counted again in that diagonal.
+
+Each chosen side is an auxiliary side, given by a certified formula, plus a nonnegative rounded increment, and is at least the signed Gram coefficient $\bar H_Xd_\tlaw$. So only nonnegative increments are added to the
+auxiliary price (\cref{subsec:signed-sides}). The envelopes and $T$ are
+assembled in \cref{subsec:matching-envelopes}, the common mean of the
+selected law in \cref{subsec:cm-selected}, and the mean credit in
+\cref{subsec:record:positive_means}.
+
+\subsection{A joint $2\times2$ block for reference and comparison records}\label{subsec:record:direct_gram}
+
+The matching bracket uses the reference and the signed comparison record
+jointly. Its leading part is a small matrix in the four actual features
+$V_0,A_1/r,A_2/r,A_3/r$; it does not require a second calculation of their
+individual spectra. We first isolate that matrix calculation, then state the
+arithmetic side function used to price the resulting diagonals.
+
+\begin{lemma}[The leading Gram]\label{lem:record:direct-gram}
+Let $\mathcal H$ be a Hilbert space and let $V,A_1,A_2,A_3\colon H_0\to\mathcal H$
+satisfy $\|(V,A_1/r,A_2/r,A_3/r)\|^2\le\Gamma$, where $r>0$.
+For $\xi\in\R^3$ put $A_\xi=\sum_i\xi_iA_i$ and $\mathbf e=(1,0,0)$.
+For $u,v\in\R^3$ define
+\[
+ L_{\rm old}=-(A_{\mathbf e}V^*+VA_{\mathbf e}^*),\qquad
+ L_{u,v}=A_uV^*+VA_v^*,\qquad
+ G(u,v)=\begin{pmatrix}L_{\rm old}&L_{u,v}\\L_{u,v}^*&L_{\rm old}\end{pmatrix}.
+\]
+For $\tside>0$ let
+\[
+ \Upsilon_{\tside}(u,v)=
+ \begin{pmatrix}-\mathbf e/\tside&u\\v&-\tside\mathbf e\end{pmatrix},\qquad
+ s(\tside;u,v)=\|\Upsilon_{\tside}(u,v)\|.
+\]
+This is a real $6\times2$ matrix, and
+\begin{gather*}
+ s(\tside;u,v)^2=\lambda_{\max}
+ \begin{pmatrix}\tside^{-2}+\|v\|^2&-u_1/\tside-\tside v_1\\
+ -u_1/\tside-\tside v_1&\tside^2+\|u\|^2\end{pmatrix},\\
+ G(u,v)\succeq-r\Gamma s(\tside;u,v)
+ \operatorname{diag}(\tside I,\tside^{-1}I).
+\end{gather*}
+For the signed arm vector $\mathbf a_\tlaw=(\tlaw,1,1-\tlaw)$, put
+$u_\tlaw=\mathbf a_\tlaw-\mathbf e$ and
+$v_\tlaw=-\mathbf a_\tlaw-\mathbf e$. Then
+\[
+ L_{u_\tlaw,v_\tlaw}=L_{\rm old}
+ +A_{\mathbf a_\tlaw}V^*-VA_{\mathbf a_\tlaw}^*,\qquad
+ G(u_\tlaw,v_\tlaw)\succeq-r\Gamma s_\tlaw I,
+\]
+where
+\[
+ s_\tlaw=\bigl(4-2\tlaw+2\tlaw^2+2\sqrt{1+\tlaw^2}\bigr)^{1/2},
+ \qquad s_0=\sqrt6.
+\]
+The statement holds directly in the actual half-marginal space; the adjoints
+and the frame bound are always those of $\mathcal H$.
+\end{lemma}
+
+\begin{proof}
+Let $\Sigma=(V,A_1/r,A_2/r,A_3/r)$ and
+$\mathbf S=\operatorname{diag}(\Sigma,\Sigma)$. In each copy of $H_0^4$
+separate the centre coordinate $V$ from the three arm coordinates. After
+conjugating $G(u,v)$ by
+$\Delta_{\tside}^{-1/2}$, where
+$\Delta_{\tside}=\operatorname{diag}(\tside I,\tside^{-1}I)$, its coefficient
+matrix in these eight features, ordered with both centres first, is
+\[
+ \mathbf M=\begin{pmatrix}0&\Upsilon_{\tside}^{\mathsf T}\\
+ \Upsilon_{\tside}&0\end{pmatrix}.
+\]
+Indeed the old diagonal stars acquire the coefficients
+$-\mathbf e/\tside$ and $-\tside\mathbf e$, while the off-diagonal arms retain
+$u,v$. Thus the conjugated operator is
+$r\mathbf S(\mathbf M\otimes I)\mathbf S^*$, with the same coordinate
+permutation in $\mathbf S$. The least eigenvalue of $\mathbf M$ is
+$-\|\Upsilon_{\tside}\|$, so it is at least
+$-r s(\tside;u,v)\mathbf S\mathbf S^*\succeq-r\Gamma s(\tside;u,v)I$.
+Conjugating back proves the order. The displayed $2\times2$ matrix is
+$\Upsilon_{\tside}^{\mathsf T}\Upsilon_{\tside}$.
+
+At the signed point, linearity of $A_\xi$ gives the identity for
+$L_{u_\tlaw,v_\tlaw}$, and at $\tside=1$ the last matrix is
+\[
+ \begin{pmatrix}4+2\tlaw^2&2\\2&4-4\tlaw+2\tlaw^2\end{pmatrix}.
+\]
+Its largest eigenvalue is $4-2\tlaw+2\tlaw^2+2\sqrt{1+\tlaw^2}$.
+\end{proof}
+
+In the application $\mathcal H=L^2(m_0)$ and the features are those of
+\cref{lem:actual-features}, with $V=V_0$ and $\Gamma=\Gamma_A$.
+The reference contributes $L_{\rm old}$ on the diagonal; the signed law
+contributes its old leading part plus its skew leading difference off the
+diagonal (\cref{lem:old-f-law}(f), \cref{prop:signed-bounds}(c)). This is why the
+Gram gives a joint bracket and not only a norm bound for the change. At
+$\tlaw=127/500$, $s_\tlaw=2.38422727\ldots$, compared with $\sqrt6=2.4494897\ldots$
+at the mirror point. Adding the two remainders gives the actual coefficient
+\[
+ d_\tlaw=s_\tlaw\Gamma_A+(e_o+e_{\rm sg})r,
+\]
+which is below $2.39033202$ at $Q_3$. The block argument is
+\cref{prop:signed-sides} below.
+
+\paragraph{Auxiliary sides and the certified price.}
+The Gram in the actual space $L^2(m_0)$ is supplied by the signed law. The numerical price is stored
+as an auxiliary side plus a nonnegative increment to that Gram coefficient.
+We retain the complete arithmetic definition of the auxiliary side because it
+fixes this split and its outward roundings. Its parameters are inherited from
+a probability mixture of four sign patterns, but no law of the construction
+uses that mixture; no operator estimate for it is needed. In particular the
+coefficients below are definitions of numbers, not assertions about another
+comparison law.
+
+\begin{definition}[The side function]\label{def:side-function}
+For a prime $p\equiv3\pmod4$ with $q=1/p\le2^{-20}$, put
+$r=p^{-1/2}$, $Z=(1-q)(1-2q)$,
+$h_0=1-14q$ and $e_0=2q/((1-3q)(1-4q))$, as in
+\cref{subsec:middle-records:notation}. Fix
+\[
+ (w_{++},w_{+-},w_{-+},w_{--})=(5803723,2409463,1786814,0)/10^7,
+\]
+\[
+ (\bar b,\bar d,\bar f)=(b_0,d_0,f_0)=(.6426372,.5181074,.1607446),\qquad
+ \tside=31/32,
+\]
+where $\bar b=\sum_{(\beta,\delta)\in\{\pm1\}^2}\beta
+w_{\beta\delta}$,
+$\bar d=\sum_{(\beta,\delta)\in\{\pm1\}^2}\delta
+w_{\beta\delta}$ and
+$\bar f=\sum_{(\beta,\delta)\in\{\pm1\}^2}\beta\delta
+w_{\beta\delta}$.
+Set $u=(-\bar b,1,\bar b)$, $v=(-1,-\bar d,-\bar d)$,
+$s(\tside)=s(\tside;u,v)$ as in \cref{lem:record:direct-gram}, and
+\begin{gather*}
+ \gamma=\left(1+\frac{q(1+2r)}{1-2q}\right)^{1/2},\qquad
+ c_{\rm lead}=\gamma(\|u\|_2+\|v\|_2),\\
+ F_{\rm frame}=\frac{2+|\bar b+1|}{1-q}
+ +\frac{|1-\bar d|q}{(1-q)(1-2q)}
+ +\frac{2|\bar b-\bar d|q^2}{(1-q)(1-2q)}
+ +\frac{|2-\bar b+\bar d|r}{1-q},\\
+ \zeta_{++}=\frac{6q^2}{(1-4q)(1-5q)},\qquad
+ \zeta_{+-}=\frac{4q}{(1-4q)(1-5q)},\\
+ \zeta_{-+}=\frac{4q}{(1-4q)(1-5q)(1-7q)},\qquad
+ \zeta_{--}=\frac{8q}{(1-4q)(1-5q)(1-7q)},\\
+ C_{\rm old}=\frac{19}{Zh_0},\qquad
+ C_{\rm ns}=2|\bar b|+1+2|\bar d|+4|\bar f|,\qquad
+ n_*=\frac{1+8r+(18/Z+144)q}{h_0},\\
+ C_z=\frac{n_*}q\sum w_{\beta\delta}\zeta_{\beta\delta},\qquad
+ C_{\rm new}=\frac{2C_{\rm ns}/Z+144+|\bar b-\bar d|}{h_0}+C_z,\\
+ k_{\rm raw}=\frac{rc_{\rm lead}}{h_0}+qC_{\rm new},\qquad
+ \eta_1=\frac{(4w_{++}+6w_{+-}+4w_{-+}+8w_{--})q}{h_0},\\
+ \rho_1=\frac{k_{\rm raw}+\eta_1^2}{1-\eta_1},\qquad
+ \eta_\star=\frac{e_0+\eta_1}{1-\eta_1},\qquad
+ \phi_2=\frac{\eta_\star}{1-\rho_1},\qquad
+ K_\infty=\frac4{h_0^{1/2}(1-\eta_1)},\\
+ \phi_\infty=\eta_\star+K_\infty\phi_2,\qquad
+ C_{\rm rep}=\frac{2\phi_\infty}q\Bigl(k_{\rm raw}+\frac{14q}{h_0}\Bigr),
+ \qquad C'=C_{\rm new}+C_{\rm rep}.
+\end{gather*}
+With these numbers define
+\begin{gather*}
+ c_{\rm com}=\frac{rF_{\rm frame}}{h_0}
+ +r\Bigl(C_{\rm old}+C'+\frac{2e_0^2}q\Bigr),\\
+ d^m_{\rm L}=\frac{\gamma s(\tside)\tside/h_0+c_{\rm com}}{1-e_0},\qquad
+ d^m_{\rm R}=\frac{\gamma s(\tside)\tside^{-1}/h_0+c_{\rm com}}{1-e_0},\\
+ k_0=\frac{2\gamma/h_0+r(C_{\rm old}+14/h_0+2e_0/q+e_0^2/q)}{1-e_0},\\
+ k_1=\frac{c_{\rm lead}/h_0+r(C'+14/h_0+2e_0/q+e_0^2/q)}{1-e_0},\\
+ \bar k=\max(k_0,k_1).
+\end{gather*}
+For a middle piece starting at $X$, evaluate at $q_X=1/X$ and
+$r_X=1/\lfloor\sqrt X\rfloor\ge X^{-1/2}$, and put
+$n_X=\lfloor L_{\rm loc}/\log_-X\rfloor$, $L_{\rm loc}=585$
+(\cref{lem:record:local-domain}). The \emph{auxiliary sides} are
+\[
+ d^{\rm aux}_s(X)=e^{n_Xe_0(X)}
+ \max\bigl(d^m_s(X),\,2\bar k(X)^2r_X\bigr),\qquad s\in\{{\rm L},{\rm R}\}.
+\]
+Every coefficient is evaluated as follows: the displayed
+expression, exactly as written as a function of the independent
+variables $(q,r)$ in the nondecreasing form of
+\cref{lem:majorant} (each remainder $qc$ written as $r(rc)$), is
+evaluated at $(q_X,r_X)$; no coefficient is used in a different
+$(q,r)$ form. In particular a remainder evaluated at $q_X$ is
+never divided by the larger value $r_X$.
+The $33$ values and their gates, including $\eta_1<1$, $\rho_1<1$ and
+$2\phi_\infty<1$, are those of
+\cref{tab:data:sides,cert:record:matching}.
+\end{definition}
+
+At this auxiliary point $s(31/32)=2.0778741\ldots$,
+$s\tside=2.0129405\ldots$ and $s/\tside=2.1449023\ldots$.
+The chosen physical sides below are at least the signed Gram coefficient,
+regardless of these smaller auxiliary values.
+
+For the block argument, recall that $\nu_F$ is the uniform law of a half
+$(x_0,x_1,x_2)$ with distinct labels and $x_0\to x_2$. The reference
+record has density $K_0=\Psi_0/z_0$ relative to $\nu_F\otimes\nu_F$,
+where $\Psi_0=I_\times(1+\mathsf A)(1+\mathsf B)$ and both half marginals
+are $m_0=g_0\nu_F$. Here $h_0\le z_0\le1$ and $|g_0-1|\le e_0$
+(\cref{lem:old-f-law}(a)); all Markov adjoints in the next lemma are in
+$L^2(m_0)$.
+
+\begin{lemma}[Unequal sides]\label{lem:record:asymmetric-gram}
+Let $\Blk$ be a middle block of a piece starting at $X$, with least prime $b$,
+$r_b=b^{-1/2}$ and at most $n_X=\lfloor L_{\rm loc}/\log_-X\rfloor$ primes. Let
+$\Pi'_{F_1,\Blk}$ be a record placed by $F_1$ whose kernel is a finite real
+combination
+\[
+ K'_\Blk=\sum_{c\in I}\alpha_c\bigotimes_{p\in\Blk}K'_{c,p},\qquad
+ \sum_{c\in I}\alpha_c=1,
+\]
+of products of probability couplings $K'_{c,p}$ with both half marginals $m_0$
+(a single product is the case $|I|=1$); write $T'_{c,p}$ for their Markov
+operators on $L^2(m_0)$ and $T'_p=\sum_c\alpha_cT'_{c,p}$.
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Enlargement.} If the block cut matrix of (b) is $\succeq_\iota0$ with
+ sides $d_{\rm L},d_{\rm R}$, it is so with any sides $d'_{\rm L}\ge d_{\rm L}$,
+ $d'_{\rm R}\ge d_{\rm R}$.
+\item \emph{Block extension.} Suppose that, for nonnegative functions $c_{\rm L},c_{\rm R}$
+ of $(q,r)$ that are nondecreasing in $(q,r)$ and a number $c_{\ge2}(X)\ge0$,
+ \begin{itemize}
+ \item at every prime $p\in\Blk$, on $L^2(m_0)^2$,
+  $\bigl(\begin{smallmatrix}T_{\rm old}+r_pc_{\rm L}I&T'_p\\
+  T'^*_p&T_{\rm old}+r_pc_{\rm R}I\end{smallmatrix}\bigr)\succeq0$, with
+  $c_s=c_s(1/p,p^{-1/2})$ and $T_{\rm old}$ the Markov operator of $K_0$;
+ \item on every exact support $S\subseteq\Blk$ of at least two primes, the
+  restrictions to the sector $\mathcal H_S$ of the old block operator
+  $\bigotimes_pT_{{\rm old},p}$ and of the new one $\sum_c\alpha_c\bigotimes_pT'_{c,p}$
+  have norms summing to at most $c_{\ge2}(X)r_Xr_b$.
+ \end{itemize}
+ Then, as cut matrices at $\iota$ of measures on the labels of $\Blk$,
+ \[
+  \begin{pmatrix}\Pi_{F_1,\Blk}+r_bd_{\rm L}D^1_\Blk&\Pi'_{F_1,\Blk}\\
+  \Pi'^{\,*}_{F_1,\Blk}&\Pi_{F_1,\Blk}+r_bd_{\rm R}D^1_\Blk
+  \end{pmatrix}\succeq_\iota0
+  \qquad\text{for}\quad
+  d_s\ge H_\Blk\max\bigl(c_s(X),c_{\ge2}(X)r_X\bigr),
+ \]
+ where $H_\Blk$ is any bound for the density of $m_{0,\Blk}=\bigotimes_pm_{0,p}$
+ relative to $\nu_F^{\otimes\Blk}$, for instance $e^{n_Xe_0(X)}$, or
+ $\bar H_X=(1-n_Xe_0(X))^{-1}$ if $n_Xe_0(X)<1$; and $D^1_\Blk$ is the diagonal
+ copy at $\iota$ of the product law $\nu_F^{\otimes\Blk}$ placed by $F_1$, the
+ normalized one-layer companion of $F_1$ in $\widetilde\mu_\Blk$.
+\item Let $\varsigma(x)=(-x_2,-x_1,-x_0)$ and $\Phi(x,y)=(\varsigma
+ y,\varsigma x)$. Then $\varsigma$ preserves $\nu_F$ and $g_0$, $\Phi$
+ preserves $K_0$, and $\Phi$ maps the edges $x_0\to y_2$,
+ $y_0\to x_2$, $x_1\to y_0$, $x_0\to y_1$ to $x_0\to y_2$, $y_0\to x_2$,
+ $x_2\to y_1$, $x_1\to y_2$. If the comparison record of $F_2$ is the
+ reflected transpose of that of $F_1$, $K'_{2,c,p}(x,y)=K'_{c,p}(\varsigma
+ y,\varsigma x)$ for every component and every prime, then (b) holds for
+ $F_2$ with $d_{\rm L}$ and $d_{\rm R}$ interchanged.
+\end{enumerate}
+Consequently, if the \emph{side gates} $k_s:=w_{\rm D}d_s-v_{\rm D}\ge0$,
+$s\in\{{\rm L},{\rm R}\}$, hold in the piece, the two fold records of a block
+cost $k_{\rm L}+k_{\rm R}$ per unit $r_b^2$ on each side.
+\end{lemma}
+
+\begin{proof}
+(a) The difference of the two cut matrices is the diagonal
+$\operatorname{diag}((d'_{\rm L}-d_{\rm L})r_bD^1_\Blk,(d'_{\rm R}-d_{\rm R})r_bD^1_\Blk)$,
+a positive reserved-diagonal measure, which is $\succeq_\iota0$ (\ref{it:record:E3}).
+
+(b) The old block operator is $\bigotimes_pT_{{\rm old},p}$ and the new one is
+the combination $T'_\Blk=\sum_c\alpha_c\bigotimes_pT'_{c,p}$; every prime factor
+fixes the constants of $m_0$ on both sides, because all these couplings have
+the actual marginal $m_0$ on both sides. By \cref{lem:sector}(a) and
+\cref{rem:signed-mixture-sectors} both preserve the orthogonal sectors
+$\mathcal H_S$ on which the factors in a set $S$ of primes are mean-zero and the
+others constant; the old one is $\bigotimes_{p\in S}(T_{{\rm old},p}-\Jproj)$ there,
+and the new one is $T'_p-\Jproj$ at the one coordinate $p$ if $S=\{p\}$. So the
+block Gram is the orthogonal sum of its restrictions to the sectors
+(\cref{lem:sector}(a)), and it suffices to treat each sector with the shifts
+$\sigma_s=r_b\max(c_s(X),c_{\ge2}(X)r_X)$. On $\mathcal H_\emptyset$ it is
+$\bigl(\begin{smallmatrix}1+\sigma_{\rm L}&1\\1&1+\sigma_{\rm R}
+\end{smallmatrix}\bigr)\succeq0$, as $\sum_c\alpha_c=1$. On $S=\{p\}$ it is the
+restriction of the prime Gram at $p$, which holds with the shifts
+$r_pc_s(1/p,p^{-1/2})\le r_bc_s(X)\le\sigma_s$, by the monotonicity of $c_s$, as
+$p\ge b\ge X$ and $r_X\ge X^{-1/2}$; larger shifts preserve it. For $|S|\ge2$ let
+$O$ and $N$ be the restrictions of the old and new operators; $O$ is
+self-adjoint, $\|O\|+\|N\|\le c_{\ge2}(X)r_Xr_b\le\sigma_s$, and
+$\bigl(\begin{smallmatrix}O+\sigma_{\rm L}&N\\N^*&O+\sigma_{\rm R}\end{smallmatrix}\bigr)
+\succeq\bigl(\begin{smallmatrix}(\sigma_{\rm L}-\|O\|)I&N\\N^*&(\sigma_{\rm R}-\|O\|)I
+\end{smallmatrix}\bigr)\succeq0$, since $\sigma_s-\|O\|\ge\|N\|$. This gives the block
+Gram on $L^2(m_{0,\Blk})^2$ with the shifts $\sigma_s$ times $I$.
+
+In measure form, the cut forms at $\iota$ of $\Pi_{F_1,\Blk}$ and
+$\Pi'_{F_1,\Blk}$ at real half-functions are the forms of $T_{{\rm old},\Blk}$ and
+$T'_\Blk$ on $L^2(m_{0,\Blk})$, and that of the identity is the cut form of the
+diagonal law $\operatorname{Diag}_\iota(m^{F_1}_{0,\Blk})$ of the actual half
+marginal placed by $F_1$. Its density with respect to $D^1_\Blk$ is
+$\prod_{p\in\Blk}g_0(x_p)\le H_\Blk$; for the two examples, $g_0\le1+e_0(X)$ at
+every prime of the block (\cref{lem:old-f-law}(a)), and the block has at most
+$n_X$ primes, so the density is at most $(1+e_0(X))^{n_X}\le e^{n_Xe_0(X)}\le
+\bar H_X$. Replacing $\operatorname{Diag}_\iota(m^{F_1}_{0,\Blk})$ by
+$H_\Blk D^1_\Blk$ therefore adds a positive reserved-diagonal measure, which is
+$\succeq_\iota0$ (\ref{it:record:E3}).
+
+(c) $\varsigma$ is an involution preserving $\nu_F$
+(\cref{subsec:middle-records:notation}) and $g_0$ (\cref{lem:old-f-law}(a)).
+Writing
+$(x',y')=\Phi(x,y)$, a relation $s\to t$ between labels becomes $-t\to-s$;
+this gives the edge table, and in particular $x_0\to y_2$ and $y_0\to x_2$
+are fixed, so $K_0\circ\Phi=K_0$. The added edges of $F_1$
+go to those of $F_2$ (\cref{cert:record:middle-geometry}). With
+$(\mathcal U\varphi)(x)=\varphi(\varsigma x)$, unitary on $L^2(\nu_F)$ and on
+$L^2(m_0)$, the hypothesis reads $T'_{2,c,p}=\mathcal UT'^{\,*}_{c,p}\mathcal U^*$
+for every component, and $\mathcal UT_{\rm old}\mathcal U^*=T_{\rm old}$. Exchange
+the two copies in the prime Gram of (b) and conjugate by
+$\operatorname{diag}(\mathcal U,\mathcal U)$: this is the prime Gram of the $F_2$
+record with $c_{\rm L}$ and $c_{\rm R}$ interchanged, the shifts being multiples of
+the identity. On the block, $\bigotimes_p\mathcal U$ maps every sector
+$\mathcal H_S$ onto itself, so the bound on the sectors of at least two primes
+is carried over unchanged, and the density of $m_{0,\Blk}$ is $\varsigma$-invariant.
+So the proof of (b) applies to $F_2$ with the sides interchanged.
+
+The last assertion is the bookkeeping of the two records: by (b) and (c),
+the layer-zero side carries $r_bd_{\rm L}$ for $F_1$ and $r_bd_{\rm R}$ for
+$F_2$, the layer-one side the reverse, each record has weight $w_{\rm D}r_b$, and
+the bracket already contains the one-layer companion of each record with the
+weight $v_{\rm D}r_b^2$ (one fold copy, \cref{lem:record:gram}).
+\end{proof}
+
+\paragraph{The global substitution.}
+For a middle block $\Blk$ let
+$F^{(2)}_\Blk=w_{\rm D}r(\Pi_{F_1,\Blk}+\Pi_{F_2,\Blk})/\widetilde\mu_\Blk(1)$ be the reference's two
+two-layer fold records, with their one-layer companions
+$F_{{\rm fold},\Blk}=v_{\rm D}r^2(D^1_\Blk+D^2_\Blk)/\widetilde\mu_\Blk(1)$ (\cref{def:record:frame}(b),
+where $D^j_\Blk$ is written $\operatorname{Diag}_\iota(\Pi^{(1)}_{F_j})$),
+where here $\Pi_{F_j,\Blk}$ and $D^j_\Blk$ denote probability laws;
+the common normalizing factor is displayed explicitly, unlike the
+component notation of \cref{def:record:frame}(b). The law
+$D^2_\Blk$ is defined as
+$D^1_\Blk$ with $F_2$ in place of $F_1$; and put
+\[
+ \lambda_{{\rm res},\Blk}=\lambda_\Blk-F^{(2)}_\Blk,\qquad
+ \Nbr_{{\rm res},\Blk}=\Nbr_\Blk-F^{(2)}_\Blk-F_{{\rm fold},\Blk}
+ =\lambda_{{\rm res},\Blk}+H_\Blk .
+\]
+Outside the middle put $\lambda_{{\rm res},\Blk}=\lambda_\Blk$ and
+$\Nbr_{{\rm res},\Blk}=\Nbr_\Blk$.
+
+\subsection{The sides of the signed law}\label{subsec:signed-sides}
+
+The joint $2\times2$ block of the preceding subsection needs, on
+each of its two diagonal sides, a coefficient---the \emph{side}:
+the multiple of the one-layer companion record placed on that
+diagonal. For the signed comparison records of $F_1$ and $F_2$
+the block is positive already with the two equal sides
+$\bar H_Xd_\tlaw(X)$, where $d_\tlaw$ is the explicit coefficient
+computed from the joint Gram matrix in
+\cref{prop:signed-bounds}(d). The construction instead starts
+from cheaper auxiliary sides given by a certified formula
+(\cref{def:side-function}) and increases each by a nonnegative
+increment to at least $\bar H_Xd_\tlaw(X)$; only the auxiliary
+price and the increment are then charged. The proposition makes
+this precise, piece by piece.
+
+\begin{proposition}[The sides of the signed law]\label{prop:signed-sides}
+For a middle piece starting at $X$ let $n_X=\lfloor L_{\rm loc}/\log_-X\rfloor$,
+assume $n_Xe_0(X)<1$, put $\bar H_X=(1-n_Xe_0(X))^{-1}$, and let $d_\tlaw(X)$ and
+$c_{\ge2}(X)$ be the constants of \eqref{eq:signed-constants} at $(q_X,r_X)$, with
+$\tlaw=127/500$ (the functions of \cref{cert:signed-local} evaluate them at the
+$33$ piece starts).
+\begin{enumerate}[label=(\roman*)]
+\item Let $\Blk$ be a middle block of the piece. The signed comparison record of
+ $F_1$ (\cref{def:record:mixture}(c)) satisfies the hypotheses of
+ \cref{lem:record:asymmetric-gram}(b) with $c_{\rm L}=c_{\rm R}=d_\tlaw$ and the
+ support-two constant $c_{\ge2}(X)$, and $c_{\ge2}(X)r_X<d_\tlaw(X)$. Hence its block
+ Gram holds with $d_{\rm L}=d_{\rm R}=\bar H_Xd_\tlaw(X)$, and so does that of $F_2$
+ (\cref{lem:record:asymmetric-gram}(c)).
+\item The \emph{increments}
+ \begin{equation}\label{eq:signed-increment}
+  \delta^+_{s,X}=\operatorname{up}\bigl([\bar H_Xd_\tlaw(X)-d^{\rm aux}_s(X)]_+\bigr),
+  \qquad s\in\{{\rm L},{\rm R}\},
+ \end{equation}
+ where in the display $\bar H_Xd_\tlaw(X)$ is replaced by its certified upper endpoint $U_X$ from \cref{cert:signed-local}, and with
+ $\operatorname{up}(x)=10^{-30}\lceil10^{30}x\rceil$, define the \emph{chosen sides}
+ $d_s(X)=d^{\rm aux}_s(X)+\delta^+_{s,X}\ge\max(\bar H_Xd_\tlaw(X),d^{\rm aux}_s(X))$,
+ for which the block Grams of (i) hold (\cref{lem:record:asymmetric-gram}(a)). In
+ the piece $i$, starting at $X_i$, with the completion weights $w_{{\rm D},i}$,
+ $v_{{\rm D},i}$ of \cref{lem:front12:reference}, the \emph{side coefficients}
+ are
+ \[
+  k_{s,i}=w_{{\rm D},i}d_s(X_i)-v_{{\rm D},i}=k^{\rm aux}_{s,i}+w_{{\rm D},i}\delta^+_{s,i},
+  \qquad k^{\rm aux}_{s,i}=w_{{\rm D},i}d^{\rm aux}_s(X_i)-v_{{\rm D},i},
+ \]
+ with $\delta^+_{s,i}=\delta^+_{s,X_i}$, and $k^{\rm aux}_{s,i}\ge0$ in every piece
+ (\cref{cert:record:matching}); so the side gates hold. (These side coefficients
+ are not the caps $k_{\rm L}$ of the layer cut L21 and $k_{\rm R}=k_{\rm E}$ of
+ \cref{lem:front12:reference}(ii); in this section $k_{\rm L},k_{\rm R}$ always
+ denote side coefficients.)
+\item With the certified degree-two charges
+ $\bar I_{2,i}=\operatorname{hi}(I_{2,i})\ge\sum_\Blk r_\Blk^2q_\Blk^{2a_0}$ of the pieces at
+ the anchor $a_0$ (\cref{lem:record:block-charge}, \cref{def:closing-quantities}),
+ \[
+  \sum_i(k_{{\rm L},i}+k_{{\rm R},i})\bar I_{2,i}\le T'_K:=T^{\rm aux\prime}_K+T^{\rm inc\prime}_K,
+ \]
+ where $T^{\rm aux\prime}_K=\sum_i\operatorname{up}\bigl((k^{\rm aux}_{{\rm L},i}
+ +k^{\rm aux}_{{\rm R},i})\bar I_{2,i}\bigr)$ and $T^{\rm inc\prime}_K=\sum_i
+ \operatorname{up}\bigl(2w_{{\rm D},i}\operatorname{up}\bigl(\frac12(\delta^+_{{\rm L},i}
+ +\delta^+_{{\rm R},i})\bigr)\bar I_{2,i}\bigr)$. Put $T_K=tT'_K$, with the repricing
+ factor $t=e^{2(a-a_0)L}$, $L=570$ (\cref{def:closing-quantities}(1)).
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) \emph{The prime Gram.} Let $p\in\Blk$, so $p\ge X\ge Q_3>2^{24}$, and let
+$T'_p=T[K_{\tlaw,p}]$ be the operator on $L^2(m_0)$ of the signed record at $p$
+(the notation $T[\cdot]$ of \cref{prop:signed-bounds}), the combination
+$P_{++,p}+\frac\tlaw2P_{-+,p}-\frac\tlaw2P_{--,p}$ of its three components
+(\cref{def:record:mixture}(c)). These are probability couplings with both half
+marginals $m_0$ (\cref{lem:signed-components}(d)), so
+$T_{\rm old}$ and $T'_p$ fix the constants on both sides, and the decomposition
+of $L^2(m_0)$ into the constants and the $m_0$-centred functions reduces the
+prime Gram. On the constants it is
+$\bigl(\begin{smallmatrix}1+dr&1\\1&1+dr\end{smallmatrix}\bigr)\succeq0$ for
+$d\ge0$. On the centred functions, $T_{\rm old}=O_0+R_o$ with
+$\|R_o\|\le e_oq$, where $O_0=-(A_{\mathbf e}V_{0,m}^*+V_0A_{\mathbf e}^{*_m})$ is the
+natural leading part, with adjoints in $L^2(m_0)$ (\cref{lem:old-f-law}(f));
+and $T'_p=O_0+L^m_{\tlaw,p}+R^{\rm new}_{\tlaw,p}$ with
+$L^m_{\tlaw,p}=A_{\mathbf a_\tlaw}V_{0,m}^*-V_0A_{\mathbf a_\tlaw}^{*_m}$, the signed
+leading difference with the unprojected pair feature $A_3$ and the adjoints of
+$L^2(m_0)$, and $\|R^{\rm new}_{\tlaw,p}\|\le e_{\rm sg}q$
+(\cref{prop:signed-bounds}(c)). The leading parts form the operator matrix
+$G(u_\tlaw,v_\tlaw)$ of the synthesis form of \cref{lem:record:direct-gram}, with
+$\mathcal H=L^2(m_0)$, $V=V_0$ and the features $A_i$ regarded as maps into
+$L^2(m_0)$, whose synthesis has squared norm at most the frame $\Gamma_A$ of
+\cref{lem:actual-features}(d). At $\tside=1$ it gives
+$G(u_\tlaw,v_\tlaw)\succeq-r\Gamma_As_\tlaw I$. The remainders form the self-adjoint
+matrix $\bigl(\begin{smallmatrix}R_o&R^{\rm new}_{\tlaw,p}\\R^{{\rm new}*}_{\tlaw,p}&R_o
+\end{smallmatrix}\bigr)\succeq-(e_o+e_{\rm sg})qI$. As $q=r^2$, the prime Gram with
+the shifts $dr$ is positive semidefinite for
+$d\ge s_\tlaw\Gamma_A+(e_o+e_{\rm sg})r=d_\tlaw$, all evaluated at $(1/p,p^{-1/2})$. The
+function $d_\tlaw$ is nondecreasing in $(q,r)$ (\eqref{eq:signed-constants}), so
+this is the first hypothesis of \cref{lem:record:asymmetric-gram}(b) with
+$c_{\rm L}=c_{\rm R}=d_\tlaw$.
+
+\emph{Supports of at least two primes.} On every exact support $S\subseteq\Blk$
+with $|S|\ge2$ the restrictions of the old and of the signed block operators
+have norms with sum at most $c_{\ge2}/b$, with $c_{\ge2}$ at $(1/b,b^{-1/2})$, and
+$c_{\ge2}r<2<s_\tlaw\le d_\tlaw$ (\cref{prop:signed-bounds}(d)); the bound comes from the
+prime centred norms $(\Gamma_A+e_or)r$ of the reference and $c_+r$ of the three
+components, through \cref{lem:sector}(a) and \cref{rem:signed-mixture-sectors},
+the record being a combination of three products with absolute coefficient sum
+$1+\tlaw$. By monotonicity and $r_b\le r_X$, $c_{\ge2}/b\le c_{\ge2}(X)r_Xr_b$, which is
+the second hypothesis. The bound $c_{\ge2}r<2$ of the proof of
+\cref{prop:signed-bounds}(d) holds at every $(q,r)$ with $q\le2^{-24}$ and
+$r\le2^{-12}$, hence at $(q_X,r_X)$, as $X\ge2^{24}$ gives
+$r_X=1/\lfloor\sqrt X\rfloor\le2^{-12}$; so $c_{\ge2}(X)r_X<2<s_\tlaw\le d_\tlaw(X)$, an
+inequality that \cref{cert:signed-local} also asserts at the $33$ piece starts.
+
+\emph{The block.} \Cref{lem:record:asymmetric-gram}(b) with $H_\Blk=\bar H_X$
+gives the block Gram with the sides
+\[
+ d_{\rm L}=d_{\rm R}=\bar H_X\max\bigl(d_\tlaw(X),c_{\ge2}(X)r_X\bigr)=\bar H_Xd_\tlaw(X);
+\]
+here the block has at most $n_X$ primes
+(\cref{lem:record:local-domain}(ii)), and $n_Xe_0(X)<1$ is a gate asserted in
+\cref{cert:signed-local} and again by the evaluation of the increments of (ii)
+(\cref{cert:record:matching}). The record of $F_2$ is the reflected transpose of
+that of $F_1$, taken componentwise (\cref{def:record:mixture}(d)), so
+\cref{lem:record:asymmetric-gram}(c) gives its block Gram with the same, equal,
+sides. The Gram is an exact relation between the operators of the signed record
+and of the reference, together with the operator bounds above; the total
+variation $1+\tlaw$ of the record enters only the variation factor of (CP4)
+(\cref{def:record:comparison-law}, \cref{rem:signed-mixture-sectors}), and the
+Gram acquires no total-variation multiplier.
+
+(ii) Since $\operatorname{up}(x)\ge x$ and the certified upper bound is at least
+$\bar H_Xd_\tlaw(X)$, $\delta^+_{s,X}\ge\max(0,\bar H_Xd_\tlaw(X)-d^{\rm aux}_s(X))$, so
+$d_s(X)\ge\max(\bar H_Xd_\tlaw(X),d^{\rm aux}_s(X))$, and by (i) and
+\cref{lem:record:asymmetric-gram}(a) the block Gram holds with the sides $d_s(X)$,
+for $F_1$ and, interchanged, for $F_2$. The identity for $k_{s,i}$ is the
+definition, and $k_{s,i}\ge k^{\rm aux}_{s,i}\ge0$ because
+$w_{{\rm D},i},\delta^+_{s,i}\ge0$.
+
+(iii) By (ii), $(k_{{\rm L},i}+k_{{\rm R},i})\bar I_{2,i}=(k^{\rm aux}_{{\rm L},i}
++k^{\rm aux}_{{\rm R},i})\bar I_{2,i}+2w_{{\rm D},i}\cdot\frac12(\delta^+_{{\rm L},i}
++\delta^+_{{\rm R},i})\cdot\bar I_{2,i}$; bound each term by its rounding upwards
+($w_{{\rm D},i},\bar I_{2,i}\ge0$) and sum over the pieces.
+\end{proof}
+
+At the first piece start $X=Q_3$: $n_X=34$, $\bar H_Xd_\tlaw(X)$ is about
+$2.39034$, the auxiliary sides are about $2.05245$ and $2.18441$, and the
+increments about $0.33789$ and $0.20593$. In every piece $\bar H_Xd_\tlaw(X)$
+exceeds both auxiliary sides, so both increments are positive and both chosen sides are the auxiliary sides plus the rounded increments of \eqref{eq:signed-increment}, hence at least $\bar H_Xd_\tlaw(X)$; the auxiliary sides only
+split the price $T'_K$ into the two certified sums of (iii): $T^{\rm aux\prime}_K$ is
+about $0.0354169$, and the repriced increment price $tT^{\rm inc\prime}_K$ about
+$0.1273584$. The coefficients
+$k^{\rm aux}_{s,i}$ are positive in every piece, the smallest, at the last piece,
+being about $0.0707$ (\cref{tab:data:sides}, \cref{cert:record:matching}).
+
+\subsection{The dominators $M_{\rm L},M_{\rm R}$ and the total $T$}\label{subsec:matching-envelopes}
+
+In every middle piece $i$ we use the chosen sides and the side coefficients
+$k_{s,i}$ of \cref{prop:signed-sides}. For a middle block $\Blk$ of the piece:
+\begin{itemize}
+\item the \emph{chosen side diagonals} are
+ \[
+  K_{{\rm L},\Blk}=r_\Blk^2\bigl(k_{{\rm L},i}D^1_\Blk+k_{{\rm R},i}D^2_\Blk\bigr),\qquad
+  K_{{\rm R},\Blk}=r_\Blk^2\bigl(k_{{\rm R},i}D^1_\Blk+k_{{\rm L},i}D^2_\Blk\bigr),
+ \]
+ without the normalization $1/\widetilde\mu_\Blk(1)$ that the companions in $\Nbr$
+ carry; omitting it adds a nonnegative multiple of the same positive reserved
+ diagonals;
+\item the \emph{chosen matching diagonal} is
+ $Q_{E,\Blk}=r_\Blk^2q_i\bigl(D_{E_0,\Blk}+D_{E_1,\Blk}\bigr)$, where
+ $q_i=w_{{\rm S},i}(s_{E,i}+a_{E,i})$, and $s_{E,i}$, $a_{E,i}$ are the symmetric
+ and skew coefficients of the matching records recorded in the native source
+ (\cref{cert:record:means}): certified upper bounds for the coefficients
+ $s_E(X_i)$, $a_E(X_i)$ of \cref{lem:record:exact-marginal-e}(ii) evaluated at $r_X=X_i^{-1/2}$, the least value allowed by (ii), which permits every $r_X\ge X_i^{-1/2}$ since the coefficients are nondecreasing in $(q,r)$ by (i); and
+ $D_{E_s,\Blk}=\operatorname{Diag}_\iota(m_{E_s,\Blk})$ is the selected diagonal of $E_s$
+ (\cref{def:record:eligible}), the diagonal copy at $\iota$ of the product law
+ placed by $E_s$. By \cref{lem:record:exact-marginal-e}(ii) the symmetric and skew
+ parts of the change of each matching record of $\Blk$, of weight $w_{\rm S}r_\Blk$
+ normalized by $\widetilde\mu_\Blk(1)\ge1$, have norm envelopes
+ $\tilde\pi^\epsilon D_{E_s,\Blk}$ with $\tilde\pi^{\rm s}+\tilde\pi^{\rm a}\le r_\Blk^2q_i$
+ (\cref{subsec:variance:eligible}); so $Q_{E,\Blk}$ dominates the norm envelopes of
+ the two matching changes, and replacing them by $Q_{E,\Blk}$ adds a positive
+ reserved-diagonal measure. (The prices $S_{E,i}$, $A_{E,i}$ are formed with the
+ coefficients of (ii) at $r_X=1/\lfloor\sqrt{X_i}\rfloor$, which are not smaller.)
+\end{itemize}
+Outside the middle, $K_{s,\Blk}=Q_{E,\Blk}=0$.
+
+\paragraph{The matching exponent.}
+With the totals at the exponent $a$ of \cref{def:closing-quantities} put
+\[
+ T_{QE}=S_E+A_E,\qquad
+ T=S_E+A_E+S_{\rm oth}+A_{\rm oth}+T_K+S_{\rm u}(a)+A_{\rm u}(a)+10^{-12},
+\]
+with the $T_K$ of \cref{prop:signed-sides}(iii), the totals $S_E$, $A_E$ of the
+matching records and $S_{\rm oth}$, $A_{\rm oth}$ of the other middle records
+(\cref{lem:middle-comparison-prices}), and the upper and tail prices
+$S_{\rm u}(a)$, $A_{\rm u}(a)$ of \cref{prop:record:upper}(ii).
+\begin{itemize}
+\item The gate $2q_i\bar I_{2,i}\le A_{E,i}+S_{E,i}$, with the matching prices of
+ the piece at $a_0$ (\cref{def:closing-quantities}(3)), holds in every piece
+ (\cref{cert:record:means}), so the chosen matching diagonals cost at most
+ $T_{QE}$.
+\item The prices of the prefix records lie inside the allowance $10^{-12}$
+ (\cref{lem:frontier:iidenergy}(ii)--(iv)).
+\item The symmetric and skew prices of the fold records do not enter $T$; only
+ $T_K$ does.
+\end{itemize}
+At the baseline exponent $T_K$ is about $0.1628311$ and $T_{QE}$ about $0.4233528$
+(\cref{cert:closing}).
+
+\begin{proposition}[Matching envelopes and the matching exponent]
+\label{prop:record:matching}
+\leavevmode
+\begin{enumerate}[label=(\roman*)]
+\item For every atom $\Blk$ there are measures $M_{{\rm L},\Blk}$ and
+ $M_{{\rm R},\Blk}$ with $\bigl(\begin{smallmatrix}M_{{\rm L},\Blk}&\nu_\Blk\\
+ \nu_\Blk^*&M_{{\rm R},\Blk}\end{smallmatrix}\bigr)\succeq_\iota0$, such that
+ $M_{{\rm L},\Blk}-\Nbr_\Blk$ and $M_{{\rm R},\Blk}-\Nbr_\Blk$ are positive
+ reserved-diagonal measures whose normalizations have uniform one-slot
+ marginals and do not depend on the indices. In a middle block
+ \[
+  M_{s,\Blk}=\Nbr_\Blk+Q^\circ_\Blk+Q_{E,\Blk}+K_{s,\Blk},\qquad s\in\{{\rm L},{\rm R}\},
+ \]
+ where $Q^\circ_\Blk$ is the sum of the norm envelopes of
+ \cref{def:record:comparison-law} of every record change other than the two
+ fold records and the two matching records; outside the middle
+ $M_{s,\Blk}=\mu_\Blk+Q_\Blk$, with $Q_\Blk$ the sum of the norm envelopes of the
+ changes at $\Blk$.
+\item For both $s$, with the $T$ of the paragraph above,
+ \[
+  \sum_\Blk\operatorname{price}(M_{s,\Blk}-\Nbr_\Blk)\le T,\qquad
+  T\in[0.607496889410,\,0.607496889411]\quad\text{at }a=\PushA.
+ \]
+ So (CP6) holds with the matching exponent $T$ of
+ \cref{def:closing-quantities}(5).
+\item The single-half random-inclusion energies $V_{\rm L}$ of $X$ under
+ $\bigotimes_\Blk M_{{\rm L},\Blk}$ and $V_{\rm R}$ of $Y$ under
+ $\bigotimes_\Blk M_{{\rm R},\Blk}$ (\cref{def:hyb:coupled}) are at most
+ $(2^6J+o(1))Y$, with $J=Be^T(R_I/2)^6$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) In a middle block, by \cref{def:record:frame}(d),
+$\Nbr_{{\rm res},\Blk}-\lambda_{{\rm res},\Blk}=H_\Blk\succeq_\iota0$ and
+\[
+ \Nbr_{{\rm res},\Blk}+\lambda_{{\rm res},\Blk}=\bigl(2\mu_\Blk-2F^{(2)}_\Blk
+ -2F_{{\rm fold},\Blk}-2E_{{\rm fold},\Blk}+H_\Blk\bigr)+2E_{{\rm new},\Blk}+2G_\Blk .
+\]
+The proof of \cref{lem:record:gram}(ii) writes
+$2\mu_\Blk-F_{{\rm fold},\Blk}-2E_{{\rm fold},\Blk}+H_\Blk$ as a sum of measures each
+positive semidefinite at $\iota$, one for every component of $\widetilde\mu_\Blk$
+(all normalized by $\widetilde\mu_\Blk(1)$): for each fold record $F_j$, $j=1,2$,
+the pair $2w_{\rm D}r\Pi_{F_j,\Blk}+v_{\rm D}r^2D^j_\Blk$, positive at $\iota$ by the
+protection \eqref{eq:protection} (\cref{lem:front12:reference}(iv)); for each
+matching record the record with its part of $H_\Blk$; and every other component
+together with its own one-layer companion. The two fold pairs add up to
+exactly $2F^{(2)}_\Blk+F_{{\rm fold},\Blk}$. Removing them leaves a positive
+semidefinite sum, and $E_{\rm new}$ and $G$ are positive and reserved diagonal.
+Since $\lambda_{{\rm res},\Blk}$ is symmetric at $\iota$, the symmetric-bracket
+criterion of \cref{lem:record:block-gram}(d) gives
+$\bigl(\begin{smallmatrix}\Nbr_{\rm res}&\lambda_{\rm res}\\
+\lambda_{\rm res}&\Nbr_{\rm res}\end{smallmatrix}\bigr)\succeq_\iota0$; no
+diagonal is used twice.
+
+Add $w_{\rm D}r/\widetilde\mu_\Blk(1)$ times the block Grams of
+\cref{prop:signed-sides}(i),(ii) for the signed $F_1$ record, with the chosen
+sides $d_{\rm L},d_{\rm R}$, and, with the sides interchanged, for the signed $F_2$
+record. The off-diagonal entry becomes
+$\lambda_{\rm res}+w_{\rm D}r(\Pi'_{F_1}+\Pi'_{F_2})/\widetilde\mu_\Blk(1)$, which is
+$\lambda_\Blk$ with the two fold records replaced by their signed comparison
+records. On the layer-zero side the diagonal entry becomes
+\[
+ \Nbr_{\rm res}+F^{(2)}_\Blk+\frac{w_{\rm D}r^2}{\widetilde\mu_\Blk(1)}\bigl(d_{\rm
+ L}D^1_\Blk+d_{\rm R}D^2_\Blk\bigr)
+ =\Nbr_\Blk+\frac{r^2}{\widetilde\mu_\Blk(1)}\bigl(k_{\rm L}D^1_\Blk+k_{\rm R}D^2_\Blk\bigr),
+\]
+since $\Nbr_{\rm res}+F^{(2)}_\Blk=\Nbr_\Blk-F_{{\rm fold},\Blk}$ and
+$F_{{\rm fold},\Blk}=v_{\rm D}r^2(D^1_\Blk+D^2_\Blk)/\widetilde\mu_\Blk(1)$; the difference between $\Nbr_\Blk+K_{{\rm L},\Blk}$ and this diagonal entry is a positive reserved-diagonal measure,
+because $k_s\ge0$ and $\widetilde\mu_\Blk(1)\ge1$. On the layer-one side it is at
+most $\Nbr_\Blk+K_{{\rm R},\Blk}$ in the same way. Enlarging a diagonal entry by a
+positive reserved-diagonal measure keeps the bracket. Finally add the brackets
+of \cref{def:record:comparison-law} of every other record change (they are
+those of \cref{lem:record:record-expansion}): for the two matching changes with
+the diagonal $Q_{E,\Blk}$, which dominates their norm envelopes
+(\cref{subsec:matching-envelopes}), and for the other changes with their norm
+envelopes, whose sum is $Q^\circ_\Blk$. Their off-diagonal entries complete
+$\nu_\Blk$. Outside the middle only this last step occurs, starting from
+$\bigl(\begin{smallmatrix}\mu_\Blk&\mu_\Blk\\ \mu_\Blk&\mu_\Blk
+\end{smallmatrix}\bigr)\succeq_\iota0$ ($\mu_\Blk$ is reflection positive at
+$\iota$, \cref{hyp:record:reference}). The side gates make
+$k_{\rm L},k_{\rm R}\ge0$; the added diagonals are positive, reserved diagonal,
+with uniform one-slot marginals, and independent of the indices. The exchange
+of \cref{lem:record:asymmetric-gram}(c) is used here, so that each envelope
+carries $k_{\rm L}+k_{\rm R}$ for the two fold records together; without it one
+side would carry $2k_{\rm R}$.
+
+(ii) The price of $K_{s,\Blk}$ is its mass times $q_\Blk^{2a}$, at most
+$(k_{{\rm L},i}+k_{{\rm R},i})r_\Blk^2q_\Blk^{2a}$, and $q_\Blk^{2a}\le tq_\Blk^{2a_0}$ for a
+middle block (\cref{lem:record:repricing}; $\log q_\Blk\le L$). Summed over the
+blocks of the piece $i$ the chosen side diagonals cost at most
+$t(k_{{\rm L},i}+k_{{\rm R},i})\bar I_{2,i}$, and over all pieces at most $tT'_K=T_K$
+by \cref{prop:signed-sides}(iii). In the same way $Q_{E,\Blk}$ has the price
+$2q_ir_\Blk^2q_\Blk^{2a}$, so the chosen matching diagonals cost at most
+$t\sum_i2q_i\bar I_{2,i}\le t\sum_i(A_{E,i}+S_{E,i})=T_{QE}$ by the gate; this is
+the budget of the norm envelopes they replace, and no second copy is
+introduced. The norm envelopes $Q^\circ_\Blk$ of the merges and of the deleted
+records have the prices of \cref{lem:middle-comparison-prices}, of total at most
+$S_{\rm oth}+A_{\rm oth}$ at $a$. Outside the middle, $Q_\Blk$ is the norm envelope
+of the upper and tail repairs and deletions, of total price at most
+$S_{\rm u}(a)+A_{\rm u}(a)$ (\cref{prop:record:upper}(ii)), and of the deleted
+exception of the prefix, charged to the symmetric part only, of total price
+below $10^{-12}$ (\cref{lem:frontier:iidenergy}(ii)--(iv) with $\mcl=8192$). Adding
+these bounds gives $T$; its enclosure is that of \cref{cert:closing}.
+
+(iii) Each $M_{s,\Blk}-\Nbr_\Blk$ is a nonnegative combination of positive
+reserved-diagonal laws with uniform one-slot marginals, independent of the
+index, with $\sum_\Blk\operatorname{price}(M_{s,\Blk}-\Nbr_\Blk)\le T$ by (ii). \Cref{lem:envelope-energy} with
+$Q_s=M_{s,\Blk}-\Nbr_\Blk$ and $T_Q=T$ gives $V_s\le(Be^TR_I^6+o(1))Y=
+(2^6J+o(1))Y$, the conductor argument being carried out inside each
+half-energy. No symmetry of the comparison records and no odd-skew
+cancellation is used.
+\end{proof}
+
+\subsection{The common mean for the selected law}\label{subsec:cm-selected}
+
+For the final construction the six queries $\mathcal E_6$ have pairwise
+disjoint endpoints (\cref{lem:slot-array}(iv)) and the index law, with
+$\delta_j=1$ for the interval coordinate, for the $2$-adic coordinate modulo $8$, and for the prime $3$ coordinate, and
+$\delta_p=\sqrt{p+1}/(p-1)$ at the class-three primes $7\le p<Q_3$, satisfies
+(CP0)(d) (\cref{lem:imp:padic-envelope}); the matching envelopes of
+\cref{prop:record:matching}(i) are brackets as in (CP6). So
+\cref{cor:index-support-frame} applies to the signed index form $J_\nu$ of
+\eqref{eq:record:expansion}. With the \emph{mean energies}
+$e_s=Q_{\otimes M_s}(\bar X,\bar X)$ of the two envelopes ($\bar X$ the
+half-function with $F_A$ at every slot) and the single-half random-inclusion
+energies $V_{\rm L},V_{\rm R}$ of \cref{prop:record:matching}(iii), it gives
+\begin{equation}\label{eq:record:cm-selected}
+ |J_\nu-Y_\nu|\le\tfrac12\bigl[(V_{\rm L}-e_{\rm L})+(V_{\rm R}-e_{\rm
+ R})\bigr],\qquad V_{\rm L},V_{\rm R}\le(2^6J+o(1))Y .
+\end{equation}
+The empty-support components are kept exactly: on one side $Y_\nu$, on the
+other the mean energies, which exceed the mean energy $Y_\nu$ of the law
+itself. This saves one of the $64$ copies of the reserved cost in $\Theta$
+(\cref{thm:record:criterion}) and is why the lower bounds of the next
+subsection enter $\Theta$.
+
+\subsection{Mean energies exceed $mY$ with $m>1$}\label{subsec:record:positive_means}
+
+The number $\Theta$ in \cref{thm:comparison} is nonincreasing
+in the mean credit $m$ of (CP7): a larger proved $m$ only helps.
+We bound
+the mean energies from the reference side. Each envelope contains $\Nbr$,
+and $\Nbrz$ is $\mu$ plus positive reserved-diagonal records; at $\iota$
+every monomial of the product of $\Nbrz$ and the chosen diagonals is
+therefore positive semidefinite, and explicit lower bounds for a few
+monomials may be kept while all others are discarded. The monomials kept are
+those of the polarized fold diagonals, the chosen side diagonals and the
+chosen matching diagonals, on sets of at most four distinct blocks, and of
+five or six blocks of a pool of late pieces. Their energies are bounded below
+by restoration (\cref{lem:record:restoration}) at the chamber cut where the
+two-layer fold record is the diagonal copy of its own induced law, and, for the
+matching diagonals, by the aligned bridge (\cref{lem:record:paired-e-joint}). At
+the baseline exponent these coupons are necessary for
+$\Theta<1$ in this construction: they lower $\Theta$ by about
+$(m-1)/64\approx0.0092$, against a margin $1-\Theta$ of about
+$2.67\cdot10^{-11}$.
+
+\paragraph{Notation.}
+Energies are those of the toolkit
+\ref{it:record:E1}--\ref{it:record:E3}: $Y[\kappa]=Y_{\kappa\otimes\mu_{-X}}$
+for a measure $\kappa$ on the labels of a set $X$ of atoms, and
+$Y^{\Nbr}[\kappa]$, $Y^{\Nbrz}[\kappa]$ with $\Nbr_{-X}$, $\mathsf N_{0,-X}$
+outside. Let $\Blk$ be a middle block of the piece $[X_i,Y_i)$
+(\cref{def:record:exact-blocks}), with least prime $b_\Blk$ and
+$r_\Blk=b_\Blk^{-1/2}$. For $j\in\{1,2\}$ the normalized one-layer
+companion $D^j_\Blk$ of $F_j$ is a positive normalized law, fixed samplewise
+by $\iota$, with uniform one-slot marginals, and so are the selected diagonals
+$D_{E_s,\Blk}$ of the matching records; $D_{E_s,\Blk}=\operatorname{Diag}_\iota(\Pi^{(1)}_{E_s})$
+is the one-layer matching law on the reserved diagonal, whereas $D^j_\Blk$ is the diagonal copy of $\nu_F^{\otimes\Blk}$ placed by $F_j$, and the selected diagonal $D_{F_j,\Blk}=\operatorname{Diag}_\iota(m^{F_j}_{0,\Blk})$ is obtained from it by the density of $m^{F_j}_{0,\Blk}$ relative to $\nu_F^{\otimes\Blk}$. By \cref{def:record:frame} and \cref{lem:record:gram},
+\[
+ (\Nbrz-\mu)_\Blk=\mathsf E_\Blk+H_\Blk,\qquad\mathsf E_\Blk=(E_{\rm add}+G)_\Blk,
+ \qquad E_{{\rm add},\Blk}=\frac{v_{\rm D}r_\Blk^2}{1+h_\Blk}\bigl(D_{E_0,\Blk}+D_{E_1,\Blk}\bigr),
+\]
+with $\widetilde\mu_\Blk(1)=1+h_\Blk$, where $h_\Blk$ is the nonroot mass
+\eqref{eq:record:nonroot-mass}; all summands are nonnegative and reserved
+diagonal. The fold companion
+$F_{{\rm fold},\Blk}=v_{\rm D}r_\Blk^2(1+h_\Blk)^{-1}(D^1_\Blk+D^2_\Blk)$ is a summand of
+$\Nbr$, not of $\Nbrz$; it enters the mean only through the polarization orders
+$\mathsf E_\Blk\pm F_{{\rm fold},\Blk}\succeq_{\vartheta_0}0$
+(\cref{lem:middle-polarization}, \cref{rem:polarization-uses}(3)). By
+\cref{prop:record:matching}(i),
+$M_{s,\Blk}-\Nbr_\Blk-K_{s,\Blk}-Q_{E,\Blk}=Q^\circ_\Blk\succeq_\iota0$
+(\ref{it:record:E3}).
+
+For the piece $i$ we use the piece values $h_i$, $M_i$, $\chi_i$,
+$\varepsilon_i$ and the density factors $H_i=(1+2/(X_i-4))^{n_i}$, with
+$n_i=\lfloor L/\log_-X_i\rfloor$ and $L=570$, of \eqref{eq:variance:pieces}, and
+the caps $C_i$ of \cref{lem:piece-caps}. For a multiset $m$ of pieces, $C_m$,
+$\eta_m$ and the restored value $\ell_m=\mathcal F(C_m,h_m,M_m,\chi_m)$ are those
+of the piece data of \cref{subsec:variance:backgrounds}, and a set of distinct
+middle blocks has the \emph{pattern} $m$ if $m_i$ of its blocks lie in the
+piece $i$. (Multisets of pieces are written $m$, as in \cref{subsec:variance:backgrounds}, and ``pattern'' here means such a multiset, not a chamber pattern $\phi$; they occur only as indices and in the
+sums over $|m|$, and are not to be confused with the mean credit $m$ of
+(CP7).) The factor $H_i$ bounds the density of the actual block marginal $m_{0,\Blk}$
+relative to $\nu_F^{\otimes\Blk}$ for every block of the piece: at a prime,
+$\sup g_0=(p-2)/(p-4)=1+2/(p-4)$, the value of the formula of
+\cref{lem:old-f-law}(a) at $e_{01}=e_{12}=0$, and a block of the piece has at most
+$n_i$ primes, all at least $X_i$ (\cref{lem:record:local-domain}). Put
+\[
+ c_{E,i}=\frac{v_{{\rm D},i}}{1+h_i},\qquad c_{F,i}=\frac{c_{E,i}}{H_i},
+\]
+the coefficients of the matching diagonals of $E_{\rm add}$ and of the polarized
+fold diagonals, and let $W_0(m)=W(\varnothing,m;\mathbf1)$ be the distinct-choice
+weight of \cref{lem:distinct-choice}(a) with unit coefficients: the sum of
+$\prod_{\Blk\in X}b_\Blk^{-1}$ over the sets $X$ of distinct middle blocks of
+pattern $m$ is at least $W_0(m)$. Except through the caps $C_i$, these
+quantities do not depend on $a$.
+
+\begin{lemma}[Restored companion energies]\label{lem:record:companion-energy}
+Let $X$ be a nonempty set of distinct middle blocks, $\Blk\in X$ lying in the
+piece $i(\Blk)$, and $j\in\{1,2\}$.
+\begin{enumerate}[label=(\alph*)]
+\item For every real $\ell$, if $Y[\bigotimes_{\Blk\in X}\Pi_{F_j,\Blk}]\ge(\ell-o(1))Y$, then
+ $Y[\bigotimes_{\Blk\in X}D^j_\Blk]\ge\bigl(\ell/\prod_{\Blk\in X}H_{i(\Blk)}-o(1)\bigr)Y$.
+ In particular, if $X$ has the pattern $m$, then
+ $Y[\bigotimes_{\Blk\in X}D^j_\Blk]\ge(\ell_m/\prod_{i\in m}H_i-o(1))Y$.
+\item If $X$ has the pattern $m$, then
+ $Y[\bigotimes_{\Blk\in X}D_{E_0,\Blk}]+Y[\bigotimes_{\Blk\in X}D_{E_1,\Blk}]
+ \ge2\bigl([\ell_m-C_m\eta_m]_+-o(1)\bigr)Y$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) Put $\Pi_X=\bigotimes_{\Blk\in X}\Pi_{F_j,\Blk}$.
+
+\emph{Contraction at the reserved cut.} By
+\cref{lem:record:fold-identification}(d), $\Pi_X$ is symmetric at $\iota$
+with actual half marginal $m_X=\bigotimes_{\Blk\in X}m^{F_j}_{0,\Blk}$, so
+the contraction \ref{it:record:P1} gives
+$Y[\Pi_X]\le Y[\operatorname{Diag}_\iota(m_X)]$.
+
+\emph{Density.} For a block $\Blk$ of the piece $i$, the density of
+$m^{F_j}_{0,\Blk}$ with respect to the half law $\nu_F^{\otimes\Blk}$ (placed by
+$F_j$) of $D^j_\Blk$ is at most $H_i$ (paragraph above), and densities of
+products multiply. So the density domination \ref{it:record:P2}, a domination
+of reserved-diagonal measures, gives
+$Y[\operatorname{Diag}_\iota(m_X)]\le\prod_{\Blk\in X}H_{i(\Blk)}\,
+Y[\bigotimes_{\Blk\in X}D^j_\Blk]$. Combining the two steps with the hypothesis
+proves the first claim. For the second, the blocks of $X$ share the fold chamber
+$\vartheta_{2j}$ of $F_j$ (\cref{lem:record:fold-identification}(b)), and the piece
+data give $Y[\Pi_X]\ge(\ell_m-o(1))Y$ (\cref{subsec:variance:backgrounds},
+\cref{lem:record:restoration}, with the cap $C_m\ge C_X$ of \cref{lem:piece-caps}).
+
+(b) By \cref{subsec:variance:backgrounds}, \cref{lem:record:paired-e-joint}(b)
+holds for $X$ with $l_0=\ell_m$, $C=C_m$ and $\varepsilon_X\le\eta_m$; and the
+actual half marginal at $\iota$ of the aligned embedding $E^X_s$ is
+$\bigotimes_{\Blk\in X}m_{E_s,\Blk}$, so its diagonal copy is
+$\bigotimes_{\Blk\in X}D_{E_s,\Blk}$. Hence (b) is \cref{lem:record:paired-e-joint}(c),
+as $[l_0-C\varepsilon_X]_+\ge[\ell_m-C_m\eta_m]_+$.
+\end{proof}
+
+\begin{proposition}[Mean credit]\label{prop:record:mean-credit}
+Assume, in every middle piece, the protection \eqref{eq:protection}, the side
+gates $k^{\rm aux}_{s,i}\ge0$ (\cref{prop:signed-sides}) and the matching gates
+$2q_i\bar I_{2,i}\le A_{E,i}+S_{E,i}$ (\cref{subsec:matching-envelopes}). Then, for
+$s\in\{{\rm L},{\rm R}\}$, $e_s\ge(m-o(1))Y$ with
+\begin{equation}\label{eq:mean-credit}
+ m=1+m_F+m_Q-R_{\rm err}e^{T_K+T_{QE}},
+\end{equation}
+where the sums run over the multisets $m$ of pieces, the products over the
+pieces of $m$ with multiplicity,
+\begin{align*}
+ m_F&=\sum_{1\le|m|\le4}W_0(m)\,\ell_m\Bigl[2\prod_{i\in m}c_{F,i}
+ +\prod_{i\in m}\frac{k_{{\rm L},i}}{H_i}+\prod_{i\in m}\frac{k_{{\rm R},i}}{H_i}\Bigr]
+ +m^{\rm pool}_F,\\
+ m_Q&=\sum_{1\le|m|\le4}2W_0(m)\,[\ell_m-C_m\eta_m]_+
+ \Bigl[\prod_{i\in m}(c_{E,i}+q_i)-\prod_{i\in m}c_{E,i}\Bigr]+m^{\rm pool}_Q,
+\end{align*}
+and $m^{\rm pool}_F$, $m^{\rm pool}_Q$ are the late-pool coupons of degrees five and
+six of \cref{lem:pool-coupons}(b), on the pieces starting at $2^{31}$ or later.
+Hence (CP7) holds with the mean credit $m$.
+\end{proposition}
+
+\begin{proof}
+\emph{Step 1: from the envelopes to $\Nbrz$.} In every middle block
+$0\preceq_\iota\Nbr_\Blk+K_{s,\Blk}+Q_{E,\Blk}\preceq_\iota M_{s,\Blk}$: the bracket
+measure is positive semidefinite at $\iota$ (\cref{lem:record:gram}(ii)), the
+chosen diagonals are positive and reserved diagonal (their coefficients are
+nonnegative by the gates), and the difference is $Q^\circ_\Blk\succeq_\iota0$;
+outside the middle $M_{s,\Blk}-\mu_\Blk=Q_\Blk\succeq_\iota0$. By the tensor
+monotonicity of \cref{lem:record:block-gram}(d), applied to the cut matrices at
+$\iota$ \eqref{eq:cc:kron}, $\bigotimes_\Blk M_{s,\Blk}\succeq_\iota
+\bigotimes_\Blk(\Nbr_\Blk+K_{s,\Blk}+Q_{E,\Blk})$, and evaluation at $\bar X$ gives
+$e_s\ge Y_{\widetilde M_s}$ with $\widetilde M_s=\bigotimes_\Blk(\Nbr_\Blk+K_{s,\Blk}+Q_{E,\Blk})$.
+Let $M_{0,s}$ be the same product with $\Nbrz$ in place of $\Nbr$. Expand both
+over the set $\mathcal S$ of blocks that carry $K_{s,\Blk}$ or $Q_{E,\Blk}$ and
+over, at each block of $\mathcal S$, the choice of $K_{s,\Blk}$ or $Q_{E,\Blk}$. Each resulting product $C_{\mathcal S}$ of chosen diagonals (the notation suppresses the choice) is a positive measure whose normalization
+has uniform one-slot marginals and is admissible (\cref{prop:record:matching}(i)),
+and its price is the product of the prices $\pi_\Blk$ of its factors; by
+\ref{it:record:E1},
+$|Y^{\Nbr}[C_{\mathcal S}]-Y^{\Nbrz}[C_{\mathcal S}]|\le(1+o(1))R_{\rm err}
+\prod_{\Blk\in\mathcal S}\pi_\Blk Y$. Summing over all choices gives at most
+$(1+o(1))R_{\rm err}\prod_\Blk\bigl(1+\pi(K_{s,\Blk})+\pi(Q_{E,\Blk})\bigr)Y\le
+(1+o(1))R_{\rm err}e^{T_K+T_{QE}}Y$, because the chosen side diagonals cost at most
+$T_K$ and the chosen matching diagonals at most $T_{QE}$, for either $s$ (proof of
+\cref{prop:record:matching}(ii)). So
+$e_s\ge Y_{M_{0,s}}-(R_{\rm err}e^{T_K+T_{QE}}+o(1))Y$.
+
+\emph{Step 2: the expansion.} Write
+$M_{0,s}=\bigotimes_\Blk\bigl(\mu_\Blk+\mathsf E_\Blk+H_\Blk+K_{s,\Blk}+Q_{E,\Blk}\bigr)$ and
+expand $\mathsf E_\Blk=E_{{\rm add},\Blk}+G_\Blk$ as well. The cut matrix at $\iota$ of
+every term is a tensor product of positive semidefinite matrices, since
+$\mu_\Blk\succeq_\iota0$ and the other measures are positive and reserved diagonal;
+so every term has nonnegative energy (\ref{it:record:E2}), and we may keep
+some and discard the rest. Keep the term with $\mu$ at every atom, whose
+energy is $Y$, and, for every set $X$ of distinct middle blocks with
+$1\le|X|\le4$, or with $|X|\in\{5,6\}$ and all blocks in pieces of the pool, the
+three families of terms in which the blocks outside $X$ carry $\mu$ and the
+blocks of $X$ carry
+\begin{itemize}
+\item[($\alpha$)] labels in $\{E_{\rm add},G\}$, together
+ $\bigotimes_{\Blk\in X}\mathsf E_\Blk$;
+\item[($\beta$)] the chosen side diagonal, together $\bigotimes_{\Blk\in X}K_{s,\Blk}$;
+\item[($\gamma$)] labels in $\{E_{\rm add},Q_E\}$, at least one of them $Q_E$.
+\end{itemize}
+These are distinct terms of the expansion: ($\gamma$) has a $Q_E$ label, and
+($\alpha$), ($\beta$) have none and differ in every label. All other terms are
+discarded. The number of middle blocks is finite and does not depend on the
+scale, so the errors $o(1)Y$ below add up to $o(1)Y$.
+
+\emph{Step 3: the empty-$Q$ branch.} ($\alpha$) By the polarization orders
+$\mathsf E_\Blk\pm F_{{\rm fold},\Blk}\succeq_{\vartheta_0}0$
+(\cref{rem:polarization-uses}(3)) and the identity of all degrees
+\cref{lem:tr:polarization}(d),
+\[
+ \bigotimes_{\Blk\in X}\mathsf E_\Blk-\bigotimes_{\Blk\in X}F_{{\rm fold},\Blk}
+ =2^{-|X|}\sum_{\sigma\in\{\pm1\}^X}\Bigl(1-\prod_\Blk\sigma_\Blk\Bigr)
+ \bigotimes_{\Blk\in X}\bigl(\mathsf E_\Blk+\sigma_\Blk F_{{\rm fold},\Blk}\bigr)
+ \succeq_{\vartheta_0}0 .
+\]
+The factors $\mu_{\Blk'}$, $\Blk'\notin X$, are reflection positive at
+$\vartheta_0$, so $Y[\bigotimes\mathsf E_\Blk]\ge Y[\bigotimes F_{{\rm fold},\Blk}]$
+(\ref{it:record:E2}). Expand $\bigotimes F_{{\rm fold},\Blk}$ in the measures
+$\bigotimes_\Blk D^{j_\Blk}_\Blk$; the products with mixed orientations are positive
+and reserved diagonal, with nonnegative energy, and are discarded; the two
+common orientations $j\equiv1$, $j\equiv2$ have, by
+\cref{lem:record:companion-energy}(a), energies at least $\ell_m/\prod_{i\in m}H_i-o(1)$
+times $Y$, with the coefficient $\prod_\Blk v_{\rm D}r_\Blk^2/(1+h_\Blk)\ge
+\prod_\Blk r_\Blk^2\prod_{i\in m}c_{E,i}$. So the terms ($\alpha$) of $X$ have energy at
+least $(2\prod_\Blk r_\Blk^2\,\ell_m\prod_{i\in m}c_{F,i}-o(1))Y$, the factor $2$ counting
+the two common orientations. The fold companions are summands of $\Nbr$ and not
+of $\Nbrz$, so this polarized copy is the only way in which they enter the
+mean.
+
+($\beta$) Expand $\bigotimes K_{s,\Blk}$ in the same measures and keep the two common
+orientations: for $s={\rm L}$ they are
+$\prod_\Blk r_\Blk^2\bigl(\prod_\Blk k_{{\rm L},i(\Blk)}\bigotimes D^1_\Blk
++\prod_\Blk k_{{\rm R},i(\Blk)}\bigotimes D^2_\Blk\bigr)$, and for $s={\rm R}$ the same with
+$D^1$ and $D^2$ exchanged. By \cref{lem:record:companion-energy}(a) both give at
+least $(\prod_\Blk r_\Blk^2\,\ell_m[\prod_{i\in m}k_{{\rm L},i}/H_i+\prod_{i\in m}k_{{\rm R},i}/H_i]
+-o(1))Y$: the exact left and right pairing is retained, no ordering of the
+sides is needed, and both envelopes receive the same credit. The chosen side
+diagonals carry no factor $1/(1+h_\Blk)$, so the side ratios are $k_{s,i}/H_i$. In
+the bracket of one fold copy the measure $\Nbrz-\mu$ contains no fold diagonal
+(\cref{lem:record:gram}), so there are no terms mixing fold diagonals of $\Nbrz$
+with the chosen side diagonals.
+
+\emph{Step 4: the nonempty-$Q$ branch.} ($\gamma$) Every factor is
+$c_\Blk r_\Blk^2(D_{E_0,\Blk}+D_{E_1,\Blk})$ with
+$c_\Blk\in\{v_{\rm D}/(1+h_\Blk),\,q_{i(\Blk)}\}$, so the terms ($\gamma$) of $X$ add up
+to
+\[
+ \prod_\Blk r_\Blk^2\Bigl[\prod_\Blk\Bigl(\frac{v_{\rm D}}{1+h_\Blk}+q_{i(\Blk)}\Bigr)
+ -\prod_\Blk\frac{v_{\rm D}}{1+h_\Blk}\Bigr]\bigotimes_\Blk\bigl(D_{E_0,\Blk}+D_{E_1,\Blk}\bigr).
+\]
+The bracket is a polynomial with
+nonnegative coefficients that is nondecreasing in each $v_{\rm D}/(1+h_\Blk)\ge
+c_{E,i(\Blk)}$, so it is at least $\prod_{i\in m}(c_{E,i}+q_i)-\prod_{i\in m}c_{E,i}$.
+Keep the two aligned orientations of $\bigotimes(D_{E_0,\Blk}+D_{E_1,\Blk})$ and discard
+the others; by \cref{lem:record:companion-energy}(b) their energies add up to at
+least $2([\ell_m-C_m\eta_m]_+-o(1))Y$. The empty and nonempty $Q$ branches are
+disjoint, even where their physical diagonals are proportional.
+
+\emph{Step 5: summation.} For $1\le|X|\le4$ the bounds of Steps 3 and 4 depend on
+$X$ only through its pattern $m$ and the factor $\prod_\Blk r_\Blk^2$, and the sum of
+this factor over the sets of pattern $m$ is at least $W_0(m)$
+(\cref{lem:distinct-choice}(a)); all coefficients are nonnegative. This gives the
+sums over $1\le|m|\le4$. For a set $X$ of $k\in\{5,6\}$ blocks of pieces of the
+pool, the first assertion of \cref{lem:pool-coupons} gives
+$Y[\bigotimes_{\Blk\in X}\Pi_{F_j,\Blk}]\ge(\ell_{\mathcal P^k}-o(1))Y$ and
+\cref{lem:record:paired-e-joint}(b), (c) with the pool data, so Steps 3 and 4 hold
+with $\ell_{\mathcal P^k}$, $C_{\mathcal P}^k$ and $\eta_{\mathcal P^k}$ in place of
+$\ell_m$, $C_m$ and $\eta_m$ (\cref{lem:record:companion-energy}(a), and the proof of
+\cref{lem:record:companion-energy}(b) with these data);
+the bounds of \cref{lem:pool-coupons}(b) for the sums over these sets of the
+coefficients of the three branches give the coupons $m^{\rm pool}_F$ and
+$m^{\rm pool}_Q$, which occupy degrees disjoint from those of the other kept terms.
+Adding the kept terms and Step 1 gives
+$e_s\ge(1+m_F+m_Q-R_{\rm err}e^{T_K+T_{QE}}-o(1))Y$ for both $s$. Every restoration is recomputed at the exponent $a$ with the product caps $C_m$ at that exponent, not transported from an estimate at $a_0$, and no lower estimate
+of an upper-priced norm is used.
+
+The closing number $\Theta$ is nonincreasing in $m$ (\cref{rem:cp:monotone}), so
+certified lower bounds for $m_F$, $m_Q$ and upper bounds for $R_{\rm err}$, $T_K$ and
+$T_{QE}$ may be used.
+\end{proof}
+
+The chosen side diagonals carry no factor $1/(1+h_\Blk)$, so the side ratios
+are $k_{s,i}/H_i$. The fold companions of $\Nbr$ carry it, so $c_{F,i}$ keeps
+$1/(1+h_i)$. The full chosen prices $T_K$ and $T_{QE}$ are charged in the error
+exponent, as in the matching exponent. The restorations are
+evaluated at the product caps of the final exponent, with piece
+data that do not depend on $a$. The following numerical values describe
+the baseline certificate, before the joint allocation below; they are in
+\cref{cert:record:means}:
+$m_F>0.400172842378$, $m_Q>0.190134971388$, of which the terms
+pooled over the pieces from $2^{31}$ contribute
+about $1.1951\cdot10^{-7}$ and $6.5884\cdot10^{-7}$ (the degree-six parts of both pooled coupons $m^{\rm pool}_F$ and $m^{\rm pool}_Q$ vanish),
+$R_{\rm err}e^{T_K+T_{QE}}<3.67071778633\cdot10^{-4}$ and $m>1.589940741988$.
+
+\input{sections/24a_joint_mean}
+
+\paragraph{Hypotheses verified in this section.}
+\begin{itemize}
+\item (CP6): for every atom the bracket of \cref{prop:record:matching}(i) holds.
+ $M_{s,\Blk}-\Nbr_\Blk$ is a nonnegative combination of positive reserved-diagonal
+ laws with uniform one-slot marginals, independent of the index: the norm
+ envelopes $D^\epsilon_{\Blk,t}$ of (CP4) of the records other than the fold and
+ matching records, the chosen matching diagonals $Q_{E,\Blk}$ and the chosen side
+ diagonals $K_{s,\Blk}$. Its summed price is at most the $T$ of
+ \cref{prop:record:matching}(ii), with the sides of \cref{prop:signed-sides}. The
+ chosen diagonals are diagonal copies of components of the reference, positive
+ records with admissible normalizations (\cref{def:record:frame} and the paragraph
+ after it); so (CP8)(a) holds for them.
+\item (CP7): $\frac12(e_{\rm L}+e_{\rm R})\ge(m-o(1))Y$ with $m$ of
+ \eqref{eq:mean-credit}, by \cref{prop:record:mean-credit}.
+\item Every bound used is an exact relation (orders at $\iota$ and $\vartheta_0$;
+ the expansion and polarization identities; the contraction and density
+ steps), an upper bound from \ref{it:record:E1}, or an exact relation minus such
+ bounds (the restorations, the mean error), and the restorations are positive
+ parts of continuous expressions; so the bound of (CP7) is robust, as (CP8)(b)
+ requires (\cref{lem:record:rec}(i)). The gates of this section, $k^{\rm aux}_{s,i}\ge0$
+ (positive in every piece), the protection $v_{\rm D}\ge2w_{\rm D}k_{\rm D}$, the
+ matching gates, $n_Xe_0(X)<1$ and $c_{\ge2}(X)r_X<d_\tlaw(X)$, are inequalities
+ between fixed numbers of the construction, which inflation does not change
+ (\cref{rem:cp:robust-final}).
+\end{itemize}
+These are the rows ``(CP6)'' and ``(CP7)'' of \cref{tab:hypotheses}.
+
+\paragraph{Consequences and what to read next.}
+The arguments in this section use the following statements. The one-cut calculus and block-Gram tensorization
+(\cref{lem:record:block-gram}); the sector lemma and signed mixtures
+(\cref{lem:sector,rem:signed-mixture-sectors}); the admissible majorants
+(\cref{lem:majorant}); the Paley triple calculus (\cref{lem:paley-triple});
+polarization of all degrees
+(\cref{lem:tr:polarization,rem:polarization-uses}); the energy toolkit
+(\cref{lem:energy-toolkit}); the comparison-law interface and the robustness of
+the final chain
+(\cref{def:record:comparison-law,lem:record:record-expansion,lem:record:rec,rem:cp:robust-final,rem:cp:monotone});
+repricing (\cref{lem:record:repricing,cor:first-stage-repricing}); and the
+index-support and envelope-energy lemmas
+(\cref{lem:record:common-mean,cor:index-support-frame,lem:envelope-energy}) with the
+disjoint query endpoints of \cref{lem:slot-array}.
+
+From the middle range: the frame, the first stage and the bracket with one fold
+copy
+(\cref{def:record:frame,lem:middle-polarization,lem:record:gram,lem:front12:reference},
+\eqref{eq:protection}); the reference fold record, the actual features and the
+signed law
+(\cref{lem:old-f-law,lem:actual-features,def:record:mixture,lem:signed-components,prop:signed-bounds,lem:mirror},
+\eqref{eq:signed-leading}, \eqref{eq:signed-constants}, \cref{cert:signed-local});
+the prices of the matching, other middle and prefix records
+(\cref{lem:record:exact-marginal-e,lem:middle-comparison-prices,lem:frontier:iidenergy});
+the chamber geometry, restoration and coupons
+(\cref{lem:record:fold-identification,lem:record:restoration,def:record:eligible,lem:record:paired-e-joint,lem:distinct-choice,lem:piece-caps,lem:pool-coupons})
+with the piece data of \cref{subsec:variance:backgrounds,subsec:variance:final}; and
+the block data
+(\cref{def:record:exact-blocks,lem:record:local-domain,lem:record:block-charge}).
+
+Finally: the index law (\cref{prop:oct24-index-cost}); the upper prices
+(\cref{prop:record:upper}); the closing quantities
+(\cref{def:closing-quantities}); and the certificates
+\cref{cert:record:matching,cert:record:means,cert:closing}.

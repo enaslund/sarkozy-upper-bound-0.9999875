@@ -1,0 +1,138 @@
+\subsection{The complete three-by-three character kernel}
+\label{subsec:cubic-resultant}
+
+The four-cycle estimate has a counterpart for three labels on each
+side. Here a polynomial Gram identity replaces the character table.
+The bound applies to the complete bipartite graph $K_{3,3}$; deleting one of its
+edges does not preserve the argument.
+
+\begin{theorem}[Squarefree cubic resultant]\label{thm:cubic-resultant}
+Let $p$ be an odd prime and let $\mathcal S_d$ be the monic squarefree
+polynomials of degree $d$ over $\Fp$. On counting-measure spaces, set
+\[
+ B_d(f,g)=\chi(\operatorname{Res}(g,f)),
+ \qquad f\in\mathcal S_d,\quad g\in\mathcal S_3.
+\]
+Then $B_3^*B_3\preceq p^3I$. Consequently the kernel
+\[
+ \prod_{i,j=1}^3\chi(y_j-x_i)
+\]
+on uniform $\Fp^3$, compressed on both sides to internally distinct
+triples, has norm at most $6p^{-3/2}$.
+\end{theorem}
+
+\begin{proof}
+We first record the polynomial character identity needed for the Gram.
+For a monic squarefree polynomial $D$ of degree $2m$, put
+$\chi_D(f)=\chi(\operatorname{Res}(D,f))$ and
+$S_j(D)=\sum_{f\ {\rm monic},\,\deg f=j}\chi_D(f)$.
+On the finite \'etale algebra $\Fp[X]/D$, use the additive character
+$\psi_D(z)=\ee{\operatorname{res}(z/D)/p}$, where the residue is the
+coefficient of $X^{-1}$ at infinity. In the monomial basis
+$X^{2m-1},\ldots,X,1$, ordered by decreasing degree, the matrix of
+$(u,v)\mapsto\operatorname{res}(uv/D)$ has antidiagonal entries $1$
+and zeros below that antidiagonal, so its determinant is
+$(-1)^{m(2m-1)}$. Factoring the algebra into fields and evaluating
+the quadratic Gauss sums gives
+\[
+ \sum_z\chi_D(z)\psi_D(bz)=p^m\chi_D(b).
+\]
+This holds also for nonunits $b$: a field factor then has a zero
+multiplicative-character sum. The annihilator of the polynomials
+of degree less than $k$ consists of those of degree less than
+$2m-k$. Summing the displayed Fourier identity over monic degree-$k$
+polynomials, and then over the nonzero leading coefficient, yields
+\[
+ S_k(D)=p^{k-m}\left((p-1)\sum_{j=0}^{2m-k-2}S_j(D)
+                         -S_{2m-k-1}(D)\right),\qquad k<2m.
+\]
+For $j\ge2m$, $S_j(D)=0$ by periodicity modulo $D$: the sum over
+a complete residue system modulo $D$ vanishes.
+In particular,
+\[
+\begin{array}{c|l}
+ \deg D&\text{identities}\\ \hline
+ 6&S_3=(p-1)(1+S_1)-S_2,\\
+ 4&S_2=p-1-S_1,\quad S_3=-p,\\
+ 2&S_1=-1,\quad S_2=S_3=0.
+\end{array}
+\]
+
+Write $G_d=B_d^*B_d$, let $r_g$ be the number of rational roots of
+$g$, put $R=\diag(r_g)$ and $L=G_1+J$, and introduce the features
+\[
+ C(a,g)=\one[g(a)=0],\qquad
+ V(a,t;g)=\one[g(a)=0]\chi\bigl((g/(X-a))(t)\bigr).
+\]
+Here $a,t\in\Fp$ and $g\in\mathcal S_3$; in $V$, the quotient is
+understood only when $a$ is a root of $g$, and $V(a,t;g)=0$ otherwise.
+Set $T=C^*C+V^*V$ and $E=\sum_aV(a,a)^*V(a,a)$.
+The exact identity is
+\begin{equation}\label{eq:cubic-gram}
+ G_3=p^3I+RL+LR-L-G_2-(p+1)T+E.
+\end{equation}
+Here is an entrywise verification, including nonsplit cubics.
+Fix $g,h$, put $U=\gcd(g,h)$, $D=gh/U^2$, and let $u$ be the number of
+$a\in\Fp$ such that $g(a)h(a)=0$. With
+$M_j=\sum_{\deg f=j,\ f\ {\rm monic}}\chi_g(f)\chi_h(f)$, the
+nonsquarefree quadratics and cubics are, respectively,
+$(X-a)^2$ and $(X-a)^2(X-b)$. Thus
+\[
+ (G_1)_{g,h}=M_1,\quad (G_2)_{g,h}=M_2-(p-u),\quad
+ (G_3)_{g,h}=M_3-(p-u)M_1.
+\]
+For $g\ne h$, the generating series of the $M_j$ is that of the
+$S_j(D)$ multiplied by $\prod_{P\mid U}(1-\chi_D(P)z^{\deg P})$.
+If $U=1$, the degree-six identity gives zero correction in
+\eqref{eq:cubic-gram}. If $U=X-a$, put
+$\eta=\chi_D(X-a)$ and $\ell=1+S_1(D)$. Then
+\[
+ M_1=\ell-1-\eta,\quad M_2=p-(1+\eta)\ell+\eta,\quad
+ M_3=-p(1+\eta)+\eta\ell,
+\]
+and $T_{g,h}=\ell$, $E_{g,h}=\eta$, giving the correction
+$-(p+1)\ell+\eta$.
+If $U=(X-a)(X-b)$, write
+$e_1=\chi_D(X-a)+\chi_D(X-b)$,
+$e_2=\chi_D(X-a)\chi_D(X-b)$. Then
+$(M_1,M_2,M_3)=(-1-e_1,e_1+e_2,-e_2)$ and
+$(T_{g,h},E_{g,h})=(-e_1,e_1)$, giving $(p+2)e_1$.
+If $U$ is an irreducible quadratic, the same calculation with
+$\eta=\chi_D(U)$ gives $(M_1,M_2,M_3)=(-1,-\eta,\eta)$ and
+$T_{g,h}=E_{g,h}=0$.
+On the diagonal, listing the degrees of the irreducible factors
+of $g$, the three factorization types give
+\[
+\begin{array}{c|c|c|c|c|c}
+ \text{type}&r_g&M_1&M_2&M_3&T_{g,g}\\ \hline
+ 111&3&p-3&p^2-3p+3&p^3-3p^2+3p-1&3(p-1)\\
+ 12&1&p-1&p^2-p-1&p^3-p^2-p+1&p+1\\
+ 3&0&p&p^2&p^3-1&0
+\end{array}
+\]
+and $E_{g,g}=r_g$. Substitution proves \eqref{eq:cubic-gram}
+in every case.
+
+Finally $0\preceq E\preceq T$. The synthesis identities
+\[
+ \sum_a C(a,g)=r_g,\qquad
+ \sum_a\chi(t-a)V(a,t;g)=r_g\chi(g(t))
+\]
+and Cauchy--Schwarz imply
+$C^*C\succeq p^{-1}RJR$ and
+$V^*V\succeq(p-1)^{-1}RG_1R$, hence $pT\succeq RLR$.
+Since
+$RLR-RL-LR+L=(R-I)L(R-I)\succeq0$,
+\eqref{eq:cubic-gram} gives $G_3\preceq p^3I$.
+Restriction to split cubics is a compression. Each split cubic has
+six ordered root triples; lifting both variables therefore multiplies
+the counting norm by $6$. Dividing by $p^3$ for uniform-cube measure
+proves the last assertion.
+\end{proof}
+
+As with the four-cycle bound, separate input and output restrictions
+are contractions. A jointly imposed missing-edge mask is a different
+operator and needs its own proof. The complete nine-edge case is used
+in the finite upper comparisons of \cref{prop:upper-soft-nine}.
+Other three-by-three subgraphs there retain matching, path or
+four-cycle witnesses.

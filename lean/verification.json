@@ -1,0 +1,52 @@
+{
+  "format": 1,
+  "date": "2026-11-10",
+  "scope": "Partial conditional companion; the principal conclusion has exponent 0.99999.",
+  "toolchain": "leanprover/lean4:v4.35.0-rc3",
+  "source_comparison": {
+    "lean_files_compared": 3632,
+    "noncomment_code_matches_checked_snapshot": true,
+    "comparison": "Comments masked; blank lines and trailing comment whitespace ignored; code line contents and indentation preserved.",
+    "earlier_snapshot_source_hashes_verified": 3634
+  },
+  "publication_checks": {
+    "source_library_build": {
+      "status": "PASS",
+      "jobs": 12588,
+      "cache": "Existing local compiled cache reused."
+    },
+    "public_audit": {
+      "status": "PASS",
+      "declarations": 57449,
+      "headline_roots": 840,
+      "permitted_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "compiled_library": "The public audit was run against the checked source library. Public proof code matches that library source after comment masking."
+    },
+    "clean_public_source_rebuild_performed": false,
+    "independent_checkers_rerun_for_publication_copy": false
+  },
+  "earlier_independent_checks": {
+    "date": "2026-11-10",
+    "scope": "All 840 Audit.lean headline roots, including BudgetLinks.main_goal_rebased_bl.",
+    "export_sha256": "8cc4d20af7cf0847847cc7af5619ab9d0c630b3ab3670570690289d3a5e1aa99",
+    "roots_sha256": "92a8cf0fab22ac33dc1a202662b10da26feb735adac60ae35967ec0094e964c9",
+    "nanoda": {
+      "exit_code": 0,
+      "declarations": 117802,
+      "typechecker_errors": 0,
+      "pretty_printer_errors": 1,
+      "pretty_printer_message": "Unable to print axioms",
+      "binary_sha256": "8241c5e6baa29490aa118d382f97961b208ae730fdb96545c2abed74c9ece5a8"
+    },
+    "con_ron": {
+      "exit_code": 0,
+      "mode": "verified",
+      "accepted_declarations": 114501,
+      "binary_sha256": "4e5616d94374cae37324dad2594f6230c2bb2297240249fc78ff508f3bc5acef"
+    }
+  }
+}

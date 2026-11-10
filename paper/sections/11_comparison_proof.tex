@@ -1,0 +1,540 @@
+\providecommand{\PushA}{\frac{5422587}{6103515625}}
+\providecommand{\PushK}{890666}
+\providecommand{\PushTheta}{0.99999999997327}
+\section{From the five estimates to Theorem~C}
+\label{sec:comparison-proof}
+
+\paragraph{What this section proves and how to read it.}
+This section proves Theorem~C. The closing inequality
+(\cref{thm:record:criterion}) combines the wrapping bound $W$, the mean energies $e_{\rm L},e_{\rm R}$ and the
+envelope energies $V_{\rm L},V_{\rm R}$ of the previous section with the first comparison: at a
+least counterexample, $1\le\Theta+o(1)$. The robustness lemma
+(\cref{lem:record:rec}) shows that every $o(1)$ in this chain is produced by
+structured energies and by the two analytic remainders, so that the
+density-linear induction of \cref{thm:record:lineardensity} applies. The
+section ends with the proof of the one-query proposition
+(\cref{rem:cp:one-query}) and with \cref{tab:hypotheses}, which records where
+Part~V verifies each hypothesis.
+
+\subsection{At a least counterexample, $1\le\Theta+o(1)$}\label{subsec:cp:closing}
+
+This lemma is where the comparison closes: the five estimates of
+\cref{sec:comparison-lemmas} combine to show that a least
+counterexample forces $1\le\Theta+o(1)$. Hence $\Theta<1$ rules out
+a counterexample at large scale, which is the contradiction behind
+Theorem~C.
+
+\begin{lemma}[Closing inequality]\label{thm:record:criterion}
+Assume (CP0)--(CP4), (CP6) and (CP8). Let $\mathcal E$ and $m$ be numbers such
+that, at every least normalized counterexample,
+\begin{enumerate}[label=(\roman*)]
+\item $Y_\nu\ge Y_\lambda-(\mathcal E+o(1))Y$, and
+\item $\frac12(e_{\rm L}+e_{\rm R})\ge(m-o(1))Y$.
+\end{enumerate}
+Then, at every least normalized counterexample,
+\begin{equation}\label{eq:record:criterion}
+ 1\le\Theta(\mathcal E,m)+o(1),\qquad
+ \Theta(\mathcal E,m)=\bigl(1-2^{-k}\bigr)\bigl(L_0+\mathcal E\bigr)+J+W
+ +\frac{1-m}{2^k},
+\end{equation}
+with $J$ and $W$ as in \cref{thm:comparison}. Consequently, if
+$\Theta(\mathcal E,m)<1$, no least normalized counterexample
+exists with $\Lsc$ sufficiently large.
+\end{lemma}
+
+\begin{proof}
+By \cref{lem:record:wrap-expansion},
+\begin{equation}\label{eq:cp:wrap-step}
+ 2^kY_\nu\le J_\nu+(2^kW+o(1))Y .
+\end{equation}
+The index-support lemma, in the form of \cref{cor:index-support-frame}, applies
+to the signed index operator $\mathcal T=\bigotimes_e(2P_e-T_e)$, the joint
+bracket of the envelopes of (CP6) tensorized over the finitely many atoms of
+$\mathcal A_N$, and the half-functions $X_\omega$, $Y_\omega$, whose means are
+$\bar X$. Its mean term is $Y_\nu$, its mean energies are the $e_s$ of (CP7),
+and its random-inclusion energies are $V_{\rm L}=V_{\bigotimes M_{\rm L}}(X)$ and
+$V_{\rm R}=V_{\bigotimes M_{\rm R}}(Y)$ (\cref{def:hyb:coupled}(f)). By
+\eqref{eq:index-support-frame},
+\begin{equation}\label{eq:cp:mean-step}
+ J_\nu\le Y_\nu+\tfrac12\bigl[(V_{\rm L}-e_{\rm L})+(V_{\rm R}-e_{\rm R})\bigr].
+\end{equation}
+By \cref{lem:envelope-energy}, applied with $Q_{\Blk}=M_{s,\Blk}-\Nbr_{\Blk}$
+and $T_Q=T$ (CP6), $V_{\rm L},V_{\rm R}\le(Be^TR_I^k+o(1))Y=(2^kJ+o(1))Y$.
+With (ii), \eqref{eq:cp:wrap-step} and \eqref{eq:cp:mean-step} give
+\[
+ (2^k-1)\,Y_\nu\le\bigl(2^kJ-m+2^kW+o(1)\bigr)Y .
+\]
+By (i) and \cref{lem:record:first-stage}, $Y_\nu\ge(1-L_0-\mathcal E-o(1))Y$.
+Since $Y>0$ and $2^k-1>0$,
+$(2^k-1)(1-L_0-\mathcal E)\le2^kJ-m+2^kW+o(1)$, that is,
+$2^k\le(2^k-1)(L_0+\mathcal E)+2^kJ+2^kW+(1-m)+o(1)$; dividing by $2^k$ gives
+\eqref{eq:record:criterion}. The last assertion follows because $o(1)\to0$ as
+$\Lsc\to\infty$, uniformly over square-difference-free $A\subseteq[\Kint\Lsc]$.
+\end{proof}
+
+\begin{corollary}[Joint comparison and mean allocation]\label{cor:joint-closing}
+The comparison loss $Y_\lambda-Y_\nu$ and the mean energies
+$e_{\rm L},e_{\rm R}$ enter the preceding proof with opposite signs.
+It suffices to bound their combined contribution.
+The separate bounds (i) and (ii) in \cref{thm:record:criterion} may be
+replaced by a single robust bound. Suppose that, for some real
+constant $\mathcal H$,
+\[
+ (2^k-1)(Y_\lambda-Y_\nu)-\tfrac12(e_{\rm L}+e_{\rm R})
+ \le (2^k\mathcal H-1+o(1))Y.
+\]
+Then the resulting closing number is
+\[
+ \Theta=(1-2^{-k})L_0+J+W+\mathcal H.
+\]
+In particular, positive comparison energies and negative mean energies
+may first be combined on the same labelled diagonal. If their residual
+coefficients are nonnegative, their common energies may then be bounded
+by upper prices and completed to exponential series.
+\end{corollary}
+
+\begin{proof}
+Keep the mean energies in \eqref{eq:cp:mean-step} until after combining
+that inequality with \eqref{eq:cp:wrap-step}. This gives
+\[
+ (2^k-1)Y_\lambda\le (2^k(J+W)+o(1))Y
+ +(2^k-1)(Y_\lambda-Y_\nu)-\tfrac12(e_{\rm L}+e_{\rm R}).
+\]
+Use the displayed joint bound and
+$Y_\lambda\ge(1-L_0-o(1))Y$, and divide by $2^k$.
+Nonnegative residual coefficients permit exactly the positive
+completion argument of \cref{lem:record:record-expansion}; applying an
+upper price to an isolated negative mean term would not permit it.
+The robustness proof of \cref{lem:record:rec} applies to the combined
+positive series, with the same two kinds of analytic remainder.
+\end{proof}
+
+\begin{remark}[The trivial value of the mean constant]\label{rem:cp:trivial-mean}
+By \cref{lem:record:domination}, hypothesis (ii) always holds with
+$m=1-L_0$, and then $\Theta(\mathcal E,1-L_0)=L_0+(1-2^{-k})\mathcal E+J+W$;
+that remark explains this bookkeeping. A larger $m$ lowers $\Theta$ by
+$(m-1+L_0)/2^k$; Part~V proves $m>1$ (\cref{prop:record:mean-credit}).
+\end{remark}
+
+\subsection{Every error term comes from the two allowed remainders}\label{subsec:cp:robust}
+
+The hypothesis (Rec) of \cref{thm:record:lineardensity} asks for the closing
+inequality with every analytic error made explicit: every structured-energy
+bound inflated by the factor $1+z$, every remainder bounded by $zY$, and a
+closing number $\Theta(z)$ continuous at $z=0$. The next lemma supplies it and
+records how each $o(1)$ above arises.
+
+\begin{lemma}[The recurrence hypothesis]\label{lem:record:rec}
+Assume (CP0)--(CP8).
+\begin{enumerate}[label=(\roman*)]
+\item\emph{Robust bounds.} Exact same-scale relations (identities and
+ inequalities between quantities at the same scale, with no error term) hold
+ unchanged at every $z$-inflated counterexample. A bound $\Xi\le(c+o(1))Y$ obtained by applying \cref{prop:record:density-structured}, directly or
+ through \cref{lem:record:folded-energy}, \ref{it:record:E1} or
+ \cref{lem:bracket-energy}, to finitely many families of structured
+ energies, summing with nonnegative coefficients bounded by convergent
+ products of prices, and adding remainders of the forms of
+ \cref{def:robust}(a), is robust: at a $z$-inflated counterexample its
+ constant $c$ becomes $(1+z)c+c'z$, where $c'$ is a bound, independent of $\Lsc$ and $A$, for the coefficients multiplying the remainder integrals and sums in its derivation. An exact relation minus robust upper bounds is a robust lower
+ bound. Let a bound be derived from finitely many robust bounds, with
+ functions $c_1(z),\dots,c_n(z)$, by an argument that is valid whenever
+ finitely many strict inequalities between the $c_i(z)$ and fixed numbers
+ hold, and let its constant be $F(c_1,\dots,c_n)$, with $F$ continuous at
+ $(c_1(0),\dots,c_n(0))$. If the strict inequalities hold at $z=0$, the bound
+ is robust, with $c(z)=F(c_1(z),\dots,c_n(z))$.
+\item\emph{The lemmas.} The bounds of \cref{lem:energy-toolkit} and of
+ \cref{lem:sharp-first,lem:record:first-stage,lem:bracket-energy,lem:record:wrap-expansion,lem:record:common-mean,cor:index-support-frame,lem:record:record-expansion,lem:record:variance-interface,lem:envelope-energy}
+ are exact or robust for fixed selected sets. For the summed families used
+ here, the full-union split of \cref{sec:comparison-lemmas} gives uniform
+ $z_0$, $\Lsc_1$ and aggregate remainder coefficients. Their remainders
+ are of two kinds:
+ \begin{enumerate}[label=(\alph*)]
+ \item the nonwrapping terms of \cref{lem:record:wrap-expansion}: for each of
+  the at most $3^kn_\nu$ triples of a product component of $\nu$, an index
+  subset and a subset of wrapping queries that does not contain every query of the subset (a \emph{wrap pattern with a nonwrapping query}), an integral of the form
+  bounded in \cref{lem:record:density-can}, against a probability law of the
+  indices, the coefficients of the product components for one pair $(X_\omega,Y_\omega)$ of half-functions adding up to at most $2^k\mathfrak v_\nu e^{P+S}$;
+ \item the terms of the selections whose union $E$ of atoms has $q_E>N^\tau$,
+  in finitely many sums of the form bounded in \cref{lem:record:density-lp}
+  whose coefficients $\eta_{\Blk}$ are the prices of the selected laws after the operator-to-energy reduction of \cref{lem:record:rec}(ii) (the \emph{post-reduction prices}); together they have the bound of one such sum, with $c$ the sum of their constants, and with $\Pi_{\rm H}=\prod_\Blk(1+\eta_\Blk q_\Blk^{1/4})$ as in \cref{lem:record:density-lp}; neither $c$ nor $\Pi_{\rm H}$ depends on $\Lsc$ or $A$.
+ \end{enumerate}
+\item\emph{The recurrence.} Let $\mathcal E$ and $m$ be numbers for which (i)
+ and (ii) of \cref{thm:record:criterion} hold robustly. Then there are
+ $z_0>0$, $\Lsc_1$ and a function $\Theta\colon[0,z_0]\to[0,\infty)$,
+ continuous at $0$ with $\Theta(0)=\max(\Theta(\mathcal E,m),0)$, such that
+ the hypothesis (Rec) of \cref{thm:record:lineardensity} holds; its
+ remainders are those of (ii) together with those of the robust arguments
+ for (i) and (ii) of \cref{thm:record:criterion}, and they have the forms
+ that theorem requires.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) An exact relation holds at every scale with no error term, so it needs
+no inflation, and a bound of the form $\Xi\le cY$ that it gives has $c(z)=c$.
+In a bound of the second kind each structured energy is at most
+$1+z$ times its main bound at a $z$-inflated counterexample; the
+coefficients are nonnegative, so the sum of the main bounds is multiplied by
+at most $1+z$; and the remainders, at most $zY$ in total, enter with
+coefficients at most $c'$, which by \cref{def:robust}(a) is independent of
+$\Lsc$ and $A$. If $\Xi\ge\Xi_0-U$ with $\Xi_0$ exact and $U\le u(z)Y$, then
+$\Xi\ge\Xi_0-u(z)Y$. In the last case, by continuity there is $z_0>0$ such
+that the strict inequalities hold for $0\le z\le z_0$; the argument then
+applies at every $z$-inflated counterexample with $z\le z_0$, and
+$F(c_1(z),\dots,c_n(z))\to F(c_1(0),\dots,c_n(0))$ as $z\to0$. The number of
+remainders and their coefficients remain bounded, being those of finitely
+many arguments.
+
+(ii) We go through the proofs of these statements. The following are
+\emph{exact relations}: $Y[\bigotimes_{\Blk}\mu_{\Blk}]=Y$; the orders
+\ref{it:record:E2} and \ref{it:record:E3} and the relations
+\ref{it:record:P1}--\ref{it:record:P5} of \cref{lem:energy-toolkit}, among
+them the product centred interpolation \ref{it:record:P3b}; the
+cut-order and bracket
+manipulations (\cref{eq:cc:kron}, \cref{lem:record:block-gram}, part (i) of
+\cref{lem:record:variance-interface}); the vanishing of the terms with an odd
+number of skew factors in \cref{lem:record:record-expansion}; Step~1 of the
+first comparison, which is (CP2)(a); the identity
+\eqref{eq:record:expansion}; and the inequalities of
+\cref{lem:record:common-mean} and \cref{cor:index-support-frame}, which hold
+for arbitrary vectors and envelopes. The following are upper bounds of the second kind of (i):
+\ref{it:record:E1}; the tagged expansion \cref{lem:sharp-first}, which bounds
+each term of the tagged series, indexed by the numbers of
+summands of the two tags, by the product of the sharp norms of
+one tag times the geometric mean of two folded energies
+(\cref{lem:record:folded-energy}(a),
+(d$'$), (e)), the tag used for a category being chosen from the prices alone,
+so that the bound is again a sum of structured energies with nonnegative
+coefficients, and is used for Step~2 of \cref{lem:record:first-stage};
+\cref{lem:bracket-energy}, the same expansion
+with the bracket outside, in which the geometric mean of two inflated factors
+of a Cauchy--Schwarz step is again inflated by $1+z$, so that $B$ becomes
+$(1+z)B$ and not $(1+z)^2B$; the small-union bound underlying
+$|I_\omega|\le(B+o(1))\pi_\omega Y$ of
+\cref{lem:record:record-expansion}(i); the energy bounds of
+\cref{lem:envelope-energy} and of the wrapping terms of
+\cref{lem:record:wrap-expansion}, in which the conductors are held fixed
+through every fold and averaged only at the end ((O3) of
+\cref{def:admissible}); and the upper bound in
+\cref{lem:record:variance-interface}(ii). Each of these is a sum of structured
+energies with nonnegative coefficients bounded by convergent price products
+such as $e^P\tagser(d,v)$, $e^{U_0}\tagser(d,v)$, $e^{S+A}$ and $e^T$. The
+following are lower
+bounds of the third kind: the first comparison $Y_\lambda\ge(1-L_0-o(1))Y$,
+which is Step~1 minus Step~2; the bound $Y^{\Nbr}[J_X]\ge
+Y[J_X]-(R_{\rm err}+o(1))C_XY$ of \cref{lem:record:variance-interface}(ii),
+which is \ref{it:record:E2} minus \ref{it:record:E1}; and the gain
+$\max(0,\ell/\bar C-R_{\rm err})$ of \cref{lem:record:variance-interface}(iii),
+a continuous function of robust bounds. Finally,
+\cref{lem:record:record-expansion}(ii), (iii) combine the bounds of (i) of
+that lemma with the class bounds of (CP5), which are robust uniformly in the
+class by (CP8)(b), through the complete polynomial $\Psi$. The series
+$\sum_\omega b_\omega$ that $\Psi$ dominates has as coefficients $B$, the scalars $c_{\mathcal C}$ and the coefficients of the class bounds; at a $z$-inflated
+counterexample these become functions of $z$ that converge to them uniformly
+over the classes, and we may replace each by its positive part, while the
+errors $o(1)\pi_\omega$ of (CP5) become $\epsilon(z)\pi_\omega$ with one function
+$\epsilon(z)\to0$. Adding to $\Psi$ the positive parts of the changes of the
+$b_\omega$, and $\epsilon(z)(e^{S(x)}\cosh A(x)-1)$, gives a series $\Psi_z$
+with nonnegative coefficients that dominates the inflated bounds. The
+difference $\Psi_z(\hat\pi,\hat y)-\Psi(\hat\pi,\hat y)$ is at most the
+largest change of a coefficient times the sum of the values at $(\hat\pi,\hat
+y)$ of the monomials of the $b_\omega$, plus $\epsilon(z)(e^{\hat S}\cosh\hat
+A-1)$. That sum is finite: the monomials in the prices sum to at most
+$e^{\hat S}\cosh\hat A-1$, since distinct selections have distinct squarefree
+monomials, and those of the class bounds to at most
+$\prod_\Blk(1+\sum_j\hat y_{\Blk,j})$, since each of them contains one auxiliary
+price of each atom of its selection and determines the selection (CP5); this
+product is finite because $\hat y$ has a finite total. So $\Psi_z(\hat\pi,\hat
+y)$ tends to $\Psi(\hat\pi,\hat y)$ as $z\to0$.
+
+The remainders. By \cref{lem:record:wrap-expansion}, whose proof splits the
+term of an index subset $\mathcal S$ by the set of its wrapping
+queries (each query is of exactly one of three kinds: in
+$\mathcal S$ and wrapping, in $\mathcal S$ and nonwrapping, or
+outside $\mathcal S$), the nonwrapping terms are at most
+$3^kn_\nu$ integrals of the
+form bounded in \cref{lem:record:density-can}, one for each product component
+of $\nu$, against the conditional law of the indices, with coefficients
+adding up to at most $2^k\mathfrak v_\nu e^{P+S}$ for each pair; that proof
+also bounds the mass of $\nu$ by (CP2) and the brackets of (CP4). This is
+(a). The
+selections with $q_E>N^\tau$ occur in finitely many expansions, each of the
+form bounded in \cref{lem:record:density-lp} with post-reduction prices of
+the selected laws as the $\eta_{\Blk}$. Each law chosen at an atom in these expansions is one
+of the laws of (CP2)--(CP6) or a fold or normalization of one, so its price
+is at most the sum of the prices of the atom listed in (CP8)(c); the
+components of a signed comparison law are never selected laws, since they
+occur only in the cancellation of (a), so the variation factor $\mathfrak
+v_\nu$ does not enter here. Taking that
+sum as $\eta_{\Blk}$ for all the expansions,
+$\Pi_{\rm H}=\prod_{\Blk}(1+\eta_{\Blk}q_{\Blk}^{1/4})$ is finite by (CP8)(c);
+summing the finitely many sums gives the bound of one such sum. The number of
+terms and their coefficients do not depend on $\Lsc$ or $A$. This is (b).
+
+(iii) Let $(\Lsc,A)$ be a $z$-inflated least normalized counterexample, with
+$\Lsc$ and $z$ in the ranges of the finitely many robust bounds used. By (ii),
+the steps of the proof of \cref{thm:record:criterion} hold with each $o(1)$
+replaced by the deviation of a function continuous at $0$:
+$2^kY_\nu\le J_\nu+2^kW(z)Y$; \eqref{eq:cp:mean-step} exactly; $V_{\rm L},V_{\rm
+R}\le2^kJ(z)Y$; and $Y_\lambda\ge(1-L_0(z))Y$, with $W(0)=W$, $J(0)=J$ and
+$L_0(0)=L_0$. By hypothesis, $Y_\nu\ge Y_\lambda-\mathcal E(z)Y$ and
+$\frac12(e_{\rm L}+e_{\rm R})\ge m(z)Y$, with $\mathcal E(0)=\mathcal E$ and
+$m(0)=m$. The algebra of that proof gives $Y\le\Theta(z)Y$ with
+\[
+ \Theta(z)=\bigl(1-2^{-k}\bigr)\bigl(L_0(z)+\mathcal E(z)\bigr)+J(z)+W(z)
+ +\frac{1-m(z)}{2^k},
+\]
+which is continuous at $0$ with $\Theta(0)=\Theta(\mathcal E,m)$; since
+$Y>0$, the inequality persists when $\Theta(z)$ is replaced by
+$\max(\Theta(z),0)$. This is (Rec), with $z_0$ the minimum and $\Lsc_1$ the maximum of the numbers $z_0,\Lsc_1$ of the robust bounds involved. Its
+remainders are those of (ii) and those of the robust arguments for (i) and
+(ii) of \cref{thm:record:criterion}; by \cref{def:robust}(a) they are
+finitely many integrals of the form of \cref{lem:record:density-can}, with
+coefficients bounded independently of $\Lsc$ and $A$, and finitely many sums
+of the form of \cref{lem:record:density-lp}, which together have the bound of
+one such sum with the sum of their constants $c$ and the largest of their
+products $\Pi_{\rm H}$. This is the second hypothesis of
+\cref{thm:record:lineardensity}.
+\end{proof}
+
+\begin{remark}[Robustness of the final chain]\label{rem:cp:robust-final}
+In Part~V every bound that enters (CP5) and (CP7) is of one of the kinds of
+\cref{lem:record:rec}(i).
+\begin{enumerate}[label=(\alph*)]
+\item\emph{Upper bounds of structured energies}, with nonnegative
+ coefficients over certified prices: the direct prices of the middle records
+ and their repricing (\cref{lem:middle-comparison-prices,lem:record:repricing});
+ the repriced first-stage totals and the tagged series, which give $U_0$,
+ $B$, $R_{\rm err}$ and $L_0$ (\cref{cor:first-stage-repricing,cor:two-cut-series});
+ every leading class cost (with $n,m$ and $\kappa_H,\kappa_b,\Uinv,\delta_{\rm s}$ as in \cref{cor:envelope-costs})
+ \[
+  C_{n,m}=\kappa_He^{U_0}-(\kappa_H-\kappa_b)e^{t\Uinv}+M_{n,m}R_{\rm err}
+  -M^{\rm inv}_{n,m}e^{t\Uinv}t\delta_{\rm s}
+ \]
+ whose terms are an outside energy, the
+ invariant-background polynomial with nonnegative coefficients
+ (\cref{lem:oct24:invariant-background,rem:completion-subtraction}),
+ normalized couplings bounded by \ref{it:record:E1}, and an orbit coupon that
+ lowers the coupling term by an exact orbit decomposition
+ (\cref{lem:orbit-coupon}); the remainder polynomials $B\mathcal R_{n,m}$; $J$
+ and $W$; the upper prices $S_{\rm u}(a)$, $A_{\rm u}(a)$
+ (\cref{prop:record:upper}); and the complete polynomial after the
+ repeated-block monomials are added with nonnegative coefficients
+ (\cref{lem:record:record-expansion}(iv), (v)).
+\item\emph{Exact same-scale relations}: the orders \ref{it:record:E2},
+ \ref{it:record:E3} and \ref{it:record:P3b}; the operator comparison of the
+ pair projections with their positive substitutes
+ (\cref{lem:oct24:pure-pair-substitute}); the matrix-envelope orders and their
+ mask form (\cref{lem:oct24:mask-schur}); the changes of variables of
+ \cref{lem:reflection-averaging}; the orbit decomposition of
+ \cref{lem:orbit-coupon}; the positive compressions of the aligned matching
+ bridge (\cref{lem:record:paired-e-joint}(a), (c)); the all-degree
+ polarization identity (\cref{lem:tr:polarization}); and the contraction and
+ density steps of \cref{lem:record:companion-energy}.
+\item\emph{Exact relations minus upper bounds}: the restorations $l$ with the
+ individual piece caps (\cref{lem:record:restoration,lem:piece-caps}; under
+ inflation $l=\max(0,1-(C-1)h)$ becomes $\max(0,1-((1+z)C-1)h)$); the gains
+ with positive backgrounds and the late-pool gains
+ (\cref{prop:background-variance,lem:pool-coupons,lem:var-gain}), positive
+ parts of continuous expressions; the selected-only aligned matching gain
+ (\cref{lem:record:paired-e-joint,lem:class-credit}); the credited class
+ bounds (\cref{lem:class-credit}); the variance credit $D_{\rm var}$
+ (\cref{cor:variance:final}); and the mean credit $m$
+ (\cref{prop:record:mean-credit}), which subtracts $R_{\rm
+ err}e^{T_K+T_{QE}}$.
+\end{enumerate}
+The strict inequalities used are: every saving used in (a)--(c) has a stated positive lower bound; every restoration gain lies in $[0,1)$ with a positive denominator; the
+two-cut conditions $d<6$, $dv<36$ of \cref{cor:two-cut-series}; and the
+positive-mean branch; the closing and restoration scripts assert them with
+strict margins (\cref{tab:cert:finite}). Three further gates are
+nonnegativity conditions that need no margin. The orbit-coupon gate
+$M^{\rm inv}_{n,m}e^{t\Uinv}t\delta_{\rm s}\le M_{n,m}R_{\rm err}$ concerns the
+coefficient $M_{n,m}R_{\rm err}-M^{\rm inv}_{n,m}e^{t\Uinv}t\delta_{\rm s}$ of
+the coupling term, which is itself a bound of the kind (a) and so only grows
+under inflation. Every subtracted term $cg$ on a monomial in the auxiliary prices $y^{\rm arm}$ of a replaced class,
+a fixed envelope cap $c$ times a gain $g<1$, is below the coefficient
+$C_{n,m}$ of that monomial (\cref{lem:class-credit}); this gate is proved in
+the text, from $c\le\kappa_be^{t\Uinv}\le C_{n,m}$ (\cref{prop:closing-data}),
+not asserted by a script. Under inflation the coefficient, a bound of the kind
+(a), only grows, and the credit, its gain being of the kind (c), only shrinks.
+The restoration regime $0\le l\le C/2$ is kept by inflation, which lowers
+$l=\max\bigl(0,1-(C-1)h\bigr)$ and raises $C$. The side coefficients
+$k_s\ge0$, the side increments $\delta^+_{s,X}$ of \eqref{eq:signed-increment} and the bracket condition (\cref{prop:signed-sides,prop:record:matching,eq:protection})
+are inequalities between fixed numbers that enter only exact bracket
+inequalities, so inflation does not affect them; the piece caps
+$1\le C_i\le e^{2aL}$ (\cref{lem:piece-caps}) and the domain $0<a\le9/10000$
+of the analytic gates are fixed numbers as well. Under inflation the class
+costs and $B$ increase together and every normalized restoration stays at
+most one. The selections of the classes and of the credits have at most six
+atoms, the envelope expansions have finitely many couplings, the comparison
+law has finitely many product components, and $\Kint$ is fixed, so the
+remainders are finitely many.
+\end{remark}
+
+\subsection{End of the proof: applying the baseline induction}\label{subsec:cp:proof}
+
+Everything is now in place: the record expansion bounds
+$|Y_\nu-Y_\lambda|$, hypothesis~(CP7) supplies the mean credit $m$,
+and the closing lemma together with the induction of
+\cref{sec:scale-comparison} finishes Theorem~C.
+
+\begin{proof}[Proof of \cref{thm:comparison}]
+Let $(\Lsc,A)$ be a least normalized counterexample. By
+\cref{lem:record:record-expansion}(ii), applied with the classes and class
+bounds of (CP5), the upper prices $\hat\pi$ and the upper auxiliary prices
+$\hat y$,
+\[
+ |Y_\nu-Y_\lambda|\le(\Psi(\hat\pi,\hat y)+o(1))Y\le(\mathcal E+o(1))Y,
+\]
+which is hypothesis (i) of \cref{thm:record:criterion}; (CP7) is hypothesis
+(ii). Both hold robustly: the first by \cref{lem:record:rec}(ii), with
+$\mathcal E(z)=\mathcal E+|\Psi_z(\hat\pi,\hat y)-\Psi(\hat\pi,\hat y)|+c'z$,
+where $\Psi_z$ is the inflated series of that proof and $c'$ bounds the
+coefficients of the remainders (\cref{lem:record:rec}(i)), and the second by
+(CP8)(b). By \cref{lem:record:rec}(iii) there are $z_0>0$, $\Lsc_1$ and a
+function $\Theta(\cdot)$, continuous at $0$ with
+$\Theta(0)=\max(\Theta,0)<1$, for which (Rec) of
+\cref{thm:record:lineardensity} holds, with remainders of the forms that
+theorem requires. Its other hypotheses hold: $0<a<\sigma$ and
+$0<\theta\le1$ by (CP0)(b), and \ref{it:record:R1}--\ref{it:record:R5} by
+(CP1) and (CP4)(a), with the clauses of \ref{it:record:R4} and
+\ref{it:record:R5} on the accepted parts read for the normalized components
+of $\nu$ and the queries of $\mathcal E_k$, as (CP4)(a) states them; these
+clauses enter only through the hypotheses of \cref{lem:record:density-can},
+which \cref{lem:record:wrap-expansion} checks for every product
+component. It gives a constant $C$, depending only on the
+comparison data, with
+$\Yf(\Lsc,A)\le C\Lsc^{-a}\alpha^\theta$ for every $\Lsc\ge1$ and every
+square-difference-free $A\subseteq[\Kint\Lsc]$, and
+$s(N)\le C'N^{1-a/(d-\theta)}$ for every $N\ge1$, with $d=72$.
+\end{proof}
+
+The proof is the composition of \cref{thm:record:criterion},
+\cref{lem:record:first-stage}, \cref{lem:bracket-energy} (inside
+\cref{lem:record:record-expansion,lem:envelope-energy}),
+\cref{lem:record:wrap-expansion}, \cref{lem:record:record-expansion},
+\cref{lem:record:common-mean} (through \cref{cor:index-support-frame}),
+\cref{lem:envelope-energy} and \cref{lem:record:rec}, followed by
+\cref{thm:record:lineardensity} of Part~II, and of nothing else. No symmetry
+of $\nu$ and no positivity of $\nu$ is used, except that each of its finitely
+many product components is a nonnegative accepting law in the cancellation of
+the nonwrapping terms (\cref{lem:record:wrap-expansion}); the skew parts enter
+only through the vanishing of the terms with an odd number of skew factors in the record expansion and through
+the separate pricing of skew changes.
+
+\subsection{The case of one query (\cref{prop:mech:one-query})}\label{subsec:cp:one-query}
+
+For completeness we record how the one-query proposition of
+Part~I follows from the same argument with $k=1$. Nothing later
+depends on this remark.
+
+\begin{remark}[Proof of the one-query proposition]\label{rem:cp:one-query}
+We read the hypotheses of \cref{prop:mech:one-query} with the notation of this part: $k=1$ and $\mathcal E_1=\{e\}$; $\mu$ satisfies (CP1); $\nu$ is a
+product of nonnegative atom measures of bounded total mass satisfying
+(CP4)(a) for the query $e$; (H1) is
+$Y_\nu\ge(1-\mathcal E-o(1))Y$; and (H2) gives nonnegative measures
+$M_{\Blk}$ with $\bigl(\begin{smallmatrix}M_{\Blk}&\nu_{\Blk}\\
+\nu_{\Blk}^*&M_{\Blk}\end{smallmatrix}\bigr)\succeq_\iota0$ such that the
+energy under $\bigotimes_{\Blk}M_{\Blk}$ of every structured slot datum
+(\cref{def:record:structured-energy}(c)) is at most $(B+o(1))$ times its
+coarse price times $Y$. With $k=1$, \eqref{eq:record:expansion} reads
+$2Y_\nu=J_\nu+I_{\nu,\{e\}}$.
+
+(1) Part (b) of \cref{lem:record:common-mean}, applied as in
+\cref{cor:index-support-frame} with $M_{\rm L}=M_{\rm R}$ the cut matrix of
+$\bigotimes M_{\Blk}$, $\Gamma$ that of $\nu$, and $\mathcal T=2P_e-T_e$, gives
+$|J_\nu|\le V_{\rm L}^{1/2}V_{\rm R}^{1/2}$ with $V_{\rm L}=V_{\bigotimes M}(X)$ and
+$V_{\rm R}=V_{\bigotimes M}(Y)$. By \cref{lem:twointerval} the energy of
+$X^{\Jc}$ under $\bigotimes M_{\Blk}$ is the energy under this measure of a
+structured slot datum whose changed slots are $u_e$ and $\iota u_e$, each
+with the slot price
+$(\Kint\sq(D_{\Jc_e}))^{a/d}$ and the coarse factor $1$ of a uniform index; by
+(H2) it is at most $(B+o(1))(\Kint\sq(D_{\Jc_e}))^{2a/d}Y$, the conductor
+being held fixed and averaged at the end. Averaging over $\Jc$ gives $V_{\rm
+L}\le(BR_I+o(1))Y$, and likewise for $V_{\rm R}$; so $|J_\nu|\le(BR_I+o(1))Y$.
+
+(2) Split $I_{\nu,\{e\}}$ according to $b_e$. If $b_e\ne\Kint$, the query $e$
+is accepted, its two ends carry $g^{I_{b_e},\Mzero,s_e}$ and
+$g^{I_{b_e+1},\Mzero,s_e+r_e}$ with ordered supports and a nonvanishing square class
+$r_e$ (\cref{lem:imp:padic-envelope,def:nonvanishing-square-class}), and the term is a cancellation remainder of
+the form of \cref{lem:record:density-can}, hence $o(1)Y$. The event
+$b_e=\Kint$ has probability $1/\Kint$. At this fixed interval,
+the form of \cref{lem:record:common-mean} for the filtration by
+residue coordinates, with the operator
+$T_e$, bounds the term by the geometric mean of two energies as in (1), in
+which the fixed interval adds the coarse factor $\Kint^{\theta/d}$ at each of
+the two changed slots. Hence $|I_{\nu,\{e\}}|\le(BR_I\Kint^{2\theta/d}/\Kint
++o(1))Y=(2W_1+o(1))Y$ with $W_1=BR_I/(2\Kint^{1-2\theta/d})$.
+
+(3) Therefore $2(1-\mathcal E-o(1))Y\le2Y_\nu=J_\nu+I_{\nu,\{e\}}\le
+(BR_I+2W_1+o(1))Y$, that is, $1\le\mathcal E+BR_I/2+W_1+o(1)$, which is the
+assertion of \cref{prop:mech:one-query}, where $\theta=1$ and
+$\Kint^{1-2\theta/d}=\Kint^{35/36}$.
+
+If part (a) of \cref{lem:record:common-mean} is used in (1) instead, then
+$J_\nu\le Y_\nu+(BR_I+o(1))Y-\frac12(e_{\rm L}+e_{\rm R})$, and with
+$\frac12(e_{\rm L}+e_{\rm R})\ge(m-o(1))Y$ one obtains $1\le\frac12\mathcal
+E+BR_I/2+W_1+(1-m)/2+o(1)$: keeping the common mean halves the coefficient of
+$\mathcal E$. This is the case $k=1$ of \cref{thm:comparison}, without a first
+stage ($L_0=0$) and with the one energy factor $B$ of (H2) in place of both
+$Be^T$ in $J$ and $Be^{S+A}$ in $W$.
+\end{remark}
+
+\subsection{Where the hypotheses are verified (table for Theorem~C)}\label{subsec:cp:table}
+
+\Cref{tab:hypotheses} lists each hypothesis of Theorem~C, what Part~V shows
+for the construction of \cref{def:record:parameters}, and the statements that
+show it. Each section of Part~V ends with a paragraph naming the rows it
+verifies.
+
+{\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{2.75cm}>{\raggedright\arraybackslash}p{6.1cm}>{\raggedright\arraybackslash}p{5.95cm}@{}}
+\caption{Where the hypotheses of Theorem~C are verified.}\label{tab:hypotheses}\\
+\toprule
+Hypothesis & What is shown & Proved in\\
+\midrule
+\endfirsthead
+\toprule
+Hypothesis & What is shown & Proved in\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+(CP0)(a) slots, cuts & $V$ sorted by seven folds; $\iota$ fixed-point free; the family $\mathfrak F$ & \cref{def:slot-array,lem:slot-array}\\
+(CP0)(b) atoms, exponents, $a<\sigma$ & $a=\PushA<9/10000<\sigma=1/825$; inequalities (S1)--(S7); $\Kint=\PushK$; checked inequalities involving $a$ hold for $0<a\le9/10000$ & \cref{def:record:parameters,def:record:functional,cert:record:analytic-stage,cert:record:frame-data}; data files in \cref{app:certificates}\\
+(CP0)(c) queries & six queries with disjoint endpoints, sources and reflected targets in $V_+$ & \cref{lem:slot-array}, \cref{subsec:front6:construction}\\
+(CP0)(d) index law & finite conductor depths $m_{\rm ext}=64$; nonvanishing square increments modulo $\Mzero$; $R_I=M_{\rm pad}(\Kint)<1.247139907407$ & \cref{lem:kernel-depth-classes,lem:imp:padic-envelope,lem:hyb:moment,prop:imp:padic-price,cor:imp:padic-majorant,cert:index-moment}\\
+(CP1) prefix & probability law, reflection positive at every cut, square-affine invariant & \cref{lem:frontier:iidlocal}\\
+(CP1) middle & the same for the twelve-label reference; the uniform root below $2^{30}$, and seven positive roots from $2^{30}$ & \cref{lem:front12:reference} via \cref{lem:five-type}; root caps by \cref{lem:layer12-caps} (route A, \cref{thm:spectral-criterion}), \cref{prop:l20-collisions,prop:root-chamber,prop:root-layer}; the fold cap \cref{lem:old-f-law}; rows by \cref{prop:middle-negative,lem:row-comparison,lem:four-count}\\
+(CP1) upper & the same for the two-layer reference in $310$ bands & \cref{lem:upper-reference-rp}, \cref{lem:five-type} (with (f)); \cref{thm:spectral-criterion,thm:record:direct-star,lem:logconvex-coefficients,prop:observed-caps,lem:joint-rows,lem:joint-pins}\\
+(CP1) tail & the same for the large-prime law, at primes of both classes mod $4$ & \cref{lem:tail-law} (the tail law of \cref{def:tail-law}); class-one caps, \cref{subsec:advance:parity}\\
+(R4) & $(\gamma,v)$-mixing, $\gamma=255/1024$, at $p\ge P_5$; query pairs & \cref{lem:record:tail-mixing,lem:trace-mixing,lem:mixture}; (S7) of \cref{cert:record:analytic-stage}\\
+(R5), (CP4)(a) & accepted query pairs are strict-square pairs for every component; clique differences of even valuation with square unit part; uniform one-slot marginals & \cref{lem:frontier:iidlocal,cert:record:middle-geometry,lem:signed-components,def:record:mixture,lem:record:e-law,lem:merge-repair,cor:merge-repair}, \cref{sec:frontier:upper-oneway}, \cref{lem:six-query-retention,def:dense-comparison,prop:le-mixture}, \cref{lem:tail-prices}(i)\\
+(CP2)(a) & $E_{\rm add}+G-F_{\rm fold}\succeq_{\vartheta_0}0$ & \cref{lem:middle-polarization}: \cref{lem:tr:polarization} with the rows of \cref{lem:front12:reference}(i) (\cref{prop:middle-negative,lem:row-comparison})\\
+(CP2)(b) & $E_{\rm new}$ keeps the actual conditional marginals; two tags, $E_0$ sharp at its first cut and $E_1$ at its own, with equal sharp and equal variation prices; sharp coefficient $k_{\rm new}$ & \cref{lem:record:one-stage-folded-e,cert:record:one-stage}\\
+(CP3) & $\Nbr\pm\lambda\succeq_\iota0$ for $\Nbr=\lambda+F_{\rm fold}+H$; $\Nbrz-\mu=E_{\rm add}+G+H$ positive reserved diagonal; the protection gate $v_D\ge2w_Dk_D$ & \cref{lem:record:gram}(i), (ii); \cref{lem:front12:reference}(iii), and (iv) for the protection gate (\cref{eq:protection}); \cref{sec:frontier:empty-triple-negative}(c)\\
+$P$, $V$, $D$, $U_0$, tags & the middle-frame prices $P,V,D$, the block prices, repricing, the tagged series & \cref{lem:record:middle-prices,lem:record:block-charge,cert:record:middle-price,lem:record:repricing,cor:first-stage-repricing,cor:two-cut-series}; \cref{prop:closing-data}(a)\\
+(CP4) middle $F$ & the signed whole-block law: three positive accepting components repaired to the actual marginal, exact marginals, variation $1+\tlaw$; direct prices & \cref{lem:middle-comparison-prices} with \cref{def:record:mixture,lem:signed-components,prop:signed-bounds,lem:actual-features,cor:markov-completion}\\
+(CP4) middle $E$ & the law $K_1$ with exact marginals; prices; degree-four remainder & \cref{lem:middle-comparison-prices} with \cref{lem:record:e-law,lem:record:exact-marginal-e,lem:oct24:matching-star}\\
+(CP4) merges, deletions & asymmetric repairs; deleted positive records & \cref{lem:middle-comparison-prices} with \cref{lem:merge-repair,cor:merge-repair,rem:cp:charging}\\
+(CP4) upper & $84$ one-way repairs (skew-only charging; forest records in the bands from $2^{48}$), comparisons by the dense EL law, the LE mixture, deletions; $S_{\rm u}(a)$, $A_{\rm u}(a)$ & \cref{prop:record:upper,lem:tr:repair,lem:six-query-retention,prop:dense-comparison,prop:le-mixture,prop:forest-records}, \cref{rem:cp:charging}(iii); \cref{lem:upper-stars} (tail)\\
+(CP4) prefix & the deleted exception, reserved diagonal, charged to $S$ & \cref{lem:frontier:iidenergy}\\
+(CP4) tail & repairs with the all-prime caps and deletions; $s_p+a_p\le C_{\rm tail}p^{-3/2+2a}$; $S_{\rm tail}$, $A_{\rm tail}$ at $a$ & \cref{lem:tail-prices}\\
+(CP5) variance classes & the variance savings with positive backgrounds, of degrees one to four, and the savings pooled over the middle intervals with least prime at least $2^{31}$, with the piece caps & \cref{cor:variance:final} via \cref{lem:var-gain,prop:background-variance,lem:pool-coupons,lem:record:restoration,lem:piece-caps,lem:record:variance-interface,lem:record:paired-e-joint}\\
+(CP5) envelope classes & the class bounds $C_{n,m}(A^{\rm arm}_F)^n(A^{\rm arm}_E)^m+B\mathcal R_{n,m}$ ($n\ge1$, $n+m\in\{2,4,6\}$), of the aligned and of the crossed matching pairs, and of $(0,4)$, $(0,6)$ & \cref{cor:envelope-costs} via \cref{thm:envelopes,lem:oct24:mask-schur,lem:reflection-averaging,lem:oct24:invariant-background,lem:orbit-coupon}; \cref{lem:record:record-expansion}(v)\\
+(CP5) credited classes & $\kappa_{FF}g$ on fold pairs; the selected-only $\kappa_bg$ on aligned matching pairs; the quartic alternatives & \cref{lem:class-credit}\\
+(CP6) & the matching bracket with the signed direct Gram, the sides $\max(\bar H_Xd_\tlaw,d^{\rm aux}_s)$ and the chosen diagonals; $T$ & \cref{prop:record:matching,prop:signed-sides,lem:record:direct-gram,lem:record:asymmetric-gram}\\
+(CP7) & the mean credit $m=1+m_F+m_Q-R_{\rm err}e^{T_K+T_{QE}}$ & \cref{prop:record:mean-credit,lem:record:companion-energy}\\
+(CP8)(a) & (O1)--(O4) for every selected law & \cref{def:admissible} and \cref{tab:admissibility}\\
+(CP8)(b) & every bound is of a kind of \cref{lem:record:rec}(i); strict gates & \cref{lem:record:rec,rem:cp:robust-final}; \cref{thm:envelopes}(iv)\\
+(CP8)(c) & at a tail atom only $s_p$, $a_p$ and $T_{{\rm L},p}=T_{{\rm R},p}$ are nonzero, with $T_{{\rm L},p}\le s_p+a_p$ ($M_{s,p}-\mu_p$ is the sum of the norm envelopes), and $\sum_p(s_p+a_p)p^{1/4}<\infty$; auxiliary prices only at middle atoms; the other atoms are finitely many & \cref{lem:tail-prices}(iii), (iv); \cref{prop:record:matching}(i)\\
+$\Theta<1$ (baseline) & $\Theta<\PushTheta$ & \cref{prop:closing-data,cert:closing}; data files in \cref{app:certificates}\\
+\end{longtable}
+}
+
+\paragraph{Consequences and what to read next.}
+The lemmas of the previous section and \ref{it:record:E1}--\ref{it:record:E3};
+(CP0)--(CP8) with \cref{def:hyb:coupled,lem:func:unitsq,def:robust}
+and \eqref{eq:record:expansion}; and from Part~II
+\cref{prop:record:density-structured,lem:record:folded-energy,lem:record:density-can,lem:record:density-lp,thm:record:lineardensity},
+\cref{def:admissible,lem:record:block-gram} and \cref{eq:cc:kron}.

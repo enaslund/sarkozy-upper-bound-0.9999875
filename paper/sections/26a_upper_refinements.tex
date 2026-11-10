@@ -1,0 +1,370 @@
+\subsection{Complete six-query refinements used in the final closing}
+\label{subsec:upper-six-refinements}
+
+The final construction uses the following sharper comparisons for
+individual components of the upper reference. Each new accepting law
+has the same two full marginals as the component it replaces.
+The letters $\mathrm L,\mathrm D,\mathrm S,\mathrm R,\mathrm C$
+denote the five emission types of \cref{subsec:layer72:upper};
+an ordered pair specifies the types in the two coordinates.
+The local bounds below are applied with the completion weights of
+\cref{subsec:upper-cross-weighted} and the normalization of
+\cref{lem:four-routes-upper-normalized}. Throughout,
+$q=p^{-1}$ and $r=\sqrt q$.
+
+\begin{proposition}[Soft nine-label comparisons]\label{prop:upper-soft-nine}
+On the whole finite upper range the aggregate symmetric and skew
+coefficients for the changed records may be taken as
+\[
+\begin{array}{c|r|r|r}
+\text{state}&\text{records}&C_S&C_A\\ \hline
+\mathrm{DD}&6&8.873538&6.087447\\
+\mathrm{DS}&4&7.193144&5.748158\\
+\mathrm{SD}&6&5.997372&5.173918.
+\end{array}
+\]
+For each state, $C_S$ is the sum over its records of the
+per-record symmetric coefficients, and $C_A$ is the analogous skew
+sum. The corresponding aggregate norm bounds at one prime are
+$C_Sr$ and $C_Ar$, before applying the state's reference weight.
+The same coefficients control tensor blocks as in
+\cref{prop:record:upper}; that proposition specifies the resulting
+weighted comparison polynomials.
+\end{proposition}
+
+\begin{proof}
+Use the two-layer geometry of \cref{lem:upper-geometry}, restricted
+to the nine distinct label positions of the chosen half.
+For a record let $D_0$ be the matrix of signed constraints between
+its two halves: an entry $D_{0,ij}$ contributes
+$1+D_{0,ij}\chi(y_j-x_i)$. Let $\mathcal Q$ be the entries obtained
+by projecting the six queries onto these positions.
+Start with $D_1=\beta D_0$, set every entry of $\mathcal Q$ to $1$,
+and set its reverse entry to zero. The geometry gives no opposed
+query pair and no opposed old query; here opposed entries are
+related by transposing the two matrix indices. Use
+\[
+\begin{array}{c|c|c|c|c}
+ &\beta&\#\operatorname{supp}D_1&k_S&k_A\\ \hline
+\mathrm{DD}&31/40&19&1.476&1.013\\
+\mathrm{DS}&11/20&18&1.797&1.436\\
+\mathrm{SD}&17/20&13&.999&.862.
+\end{array}
+\]
+The raw density on the product of the two induced half laws is
+\[
+ H_D(x,y)=\one_{\{x_i\ne y_j\ \forall i,j\}}
+                 \prod_{i,j}(1+D_{ij}\chi(y_j-x_i)).
+\]
+It is nonnegative and accepts the required queries. Every scalar
+normalizer and both full marginal densities are retained separately.
+
+The empty character product, the stars, and the nonstars will be
+estimated separately. For the stars, use the common feature dictionary
+of \cref{cor:star-matrix}, containing all singletons and all old and
+new row and column star supports. A star with leaves $S$ has coefficient
+$(-1)^{|S|}\prod_{j\in S}D_{ij}$ on the left, and
+$\prod_{i\in S}D_{ij}$ on the right. These formulas determine the
+complete rational matrices, including stars of every degree.
+The symmetric and skew differences have caps $k_S,k_A$ in the table.
+Schur complementation of the leaf block reduces each test to rational
+positive semidefiniteness in order $18$; both signs and both Fourier
+phases are checked. The old full coefficient matrix has norm at most $4$.
+The Gram bound $\Gamma$ is the row-sum bound of
+\cref{sec:spectral}, applied to this full dictionary under the
+actual induced half law; the features are not assumed orthogonal.
+
+Here is a finite, exhaustive bound for every nonstar term. Condition
+all labels except the $k$ endpoints on each side of a matching
+of size $k=2$ or $3$.
+If $e$ is the sum, over the two halves, of the numbers of internal
+edges incident to the free coordinates, conjugation of their
+conditional laws costs at most
+\[
+ \frac{2^{e/2}}{(1-e^-_\Delta(p,8))^k},\qquad k=2,3.
+\]
+Indeed sequential extension of the $k$ coordinates counts each
+incident internal edge once and excludes at most eight labels at
+each step; the square roots of the two density bounds give this factor.
+For $k=2$ use the matching/path primitive, or the $2r^2$ rectangle
+primitive when all four cross edges are present. For $k=3$, contract
+the chosen matching and inspect the directed graph of its other six
+possible cross entries. If its strongly connected components have
+size at most two, the tensor primitives give $r^3$ or $2r^3$.
+If all nine entries are present, use the complete-cubic bound $6r^3$
+proved in \cref{subsec:cubic-resultant}. Otherwise use a two-coordinate
+witness. Factors involving a conditioned label are bounded left or
+right multipliers and cost at most one.
+
+Enumerate all subsets of the old and new cross supports. Remove the
+empty term and stars. Assign each remaining subset a valid witness
+by the preceding rule; if it contains $s$ soft edges its absolute
+coefficient is $\beta^s$. Thus the exact integer histogram $h_{k,e,v,s}$
+gives the complete nonstar majorant
+\[
+ R_{\rm ns}=\sum_{k,e,v,s}h_{k,e,v,s}\,
+    \frac{\beta^s v2^{e/2}r^k}{(1-e^-_\Delta(p,8))^k},
+ \qquad v\in\{1,2,6\}.
+\]
+There is no omitted character class: the empty, star, two-coordinate
+and three-coordinate counts sum to $2^{\#\operatorname{supp}D}$.
+Two separate exhaustive programs verify this partition for all sixteen
+records (\cref{cert:four-routes-closing}). One tests reachability; the other tests ordered components
+of size at most two and the complete nine-edge exception.
+
+Add the full cross-collision bound to $R_{\rm ns}$, obtaining $R_D$.
+For this bound and the count profiles, a soft factor is a positive
+mixture of an absent and a hard constraint. The Boolean supergraph
+has extension and collision majorants at least those of each
+subgraph, in the same orders, so it bounds their mixture. This is
+not a pointwise comparison with the all-hard accepting density.
+For the exact star coefficients let $a_D$ be the sum of their scalar
+mean bounds and $b_D$ the larger one-sided nonconstant mean bound:
+pair means cost $q$, and a star of degree $t\ge3$ costs $(t-1)r$.
+Put
+\[
+ \epsilon_D=a_D+R_D,\quad z_D=1-\epsilon_D,\quad
+ c_D=\frac{\Gamma k_Dr+R_D}{z_D},\quad
+ u_D=\frac{b_D+R_D}{z_D}.
+\]
+Here subscripts $0,1$ mean the old and new matrices $D_0,D_1$,
+with $k_0=4$ and $k_1=4+k_S+k_A$. Thus $z_i$ is a lower bound
+for the normalizing mass, $c_i$ bounds the centered operator, and
+$u_i$ bounds either centered marginal density in $L^2$.
+Let $R_i$ be the ratio bounds obtained from the exact extension
+profiles for the full graph, both completions, and the induced half;
+they satisfy $R_i^{-1}\le g_{i,L},g_{i,R}\le R_i$.
+Here $g_{i,L},g_{i,R}$ are the marginal densities of the normalized
+law relative to the induced half laws. The count bounds follow from
+\cref{lem:extension} along an insertion order in each graph.
+The finite certificate records these orders and checks their degrees.
+
+Apply the additive repair of \cref{lem:tr:repair,lem:record:additive-cancellation}
+to the normalized new law, restoring $g_{0,L},g_{0,R}$. Use
+\begin{align*}
+ U_1&=R_0R_1-1,&
+ \rho_1&=R_1(c_1+u_1^2),&
+ \rho_I&=R_1(R_{D_1}/z_1+u_1^2),\\
+ K_\infty&=2^{\#\operatorname{supp}D_1/2}R_1/\sqrt{z_1},&
+ h_2&=(1+\rho_I)\sqrt{R_1}(u_0+u_1),&
+ F&=2U_1+\frac{K_\infty\rho_Ih_2}{1-\rho_I^2}.
+\end{align*}
+Both marginal errors are invariant under simultaneous translation
+of all labels in a half. Centered leading stars annihilate functions
+in this invariant subspace, as in \cref{lem:record:additive-cancellation},
+so the repair can use the smaller contraction bound $\rho_I$.
+The tests $\rho_I\le\rho_1<1/2$, $2F<1$ give a positive law with
+the exact old full marginals. Its centered correction is at most
+$C_{\rm rep}=2F(c_1+u_1)$.
+Writing $E_i=R_{D_i}+\epsilon_i(\Gamma k_ir+R_{D_i})/z_i$, the
+complete symmetric and skew bounds are
+\[
+ d_S\le R_0(\Gamma k_Sr+E_0+E_1+C_{\rm rep}),\qquad
+ d_A\le R_0(\Gamma k_Ar+E_1+C_{\rm rep}).
+\]
+The old law is self-adjoint, so it contributes no skew remainder.
+At $p=2^{47}$, exact outward arithmetic gives per-record maxima
+\[
+\begin{array}{c|cc}
+ &d_S/r\le&d_A/r\le\\ \hline
+\mathrm{DD}&1.478922985748&1.014574466504\\
+\mathrm{DS}&1.798285763015&1.437039335347\\
+\mathrm{SD}&.999561930536&.862319609396.
+\end{array}
+\]
+Multiplication by the record counts proves the stated aggregate caps.
+The old and new full centered norms are below $1/2$, and their squared
+sum is smaller than either displayed comparison cap times $r$.
+This proves the higher prime-support tensor gates. Every normalized
+majorant increases with $r$ and has positive denominators at $2^{47}$,
+so the endpoint proves the whole finite upper range.
+\end{proof}
+
+\begin{proposition}[The six-query SS comparison]\label{prop:upper-ss-six}
+The four changed $\mathrm{SS}$ records have aggregate caps
+$(C_S,C_A)=(4.832,4.832)$ throughout the finite upper range.
+\end{proposition}
+
+\begin{proof}
+The half law is uniform on injective nine-tuples. The required edges
+are $x_a\longrightarrow y_b$ for $a\ne b$, $a,b\in\{0,1,2\}$;
+the source and target triples are disjoint when the halves are identified.
+Use the product of their six strict factors
+$1+\chi(y_b-x_a)-\one_{y_b=x_a}$, without further cross-half exclusions.
+Writing $k=(p-3)/4$ and $t$ for the number of common successors of the
+three source labels, inclusion-exclusion gives exactly
+$k^3-(3k-2)t$ injective target triples, with $0\le t\le k$.
+The resulting row and column mass ratio is at most
+\[
+ 1+\frac{4q(3-17q)}{(1-7q)(1-11q)}\le1+13q.
+\]
+The six singleton terms and six pair stars have complete leading
+norm $1+\sqrt2$; their source and target coefficient groups are
+disjoint, so the symmetric and skew norms are each
+$(1+\sqrt2)/2$. The twelve-feature actual Gram bound is $1+88r$.
+Of the $64$ subsets, exactly $51$ are nonstars. Each has a two-edge
+matching and contains no four-cycle. The conservative $2q$ primitive,
+conditional density $(1-8q)^{-2}$, and strict deletions therefore give
+\[
+ R=(102(1-8q)^{-2}+192)q,\quad z=1-6q-R,\quad
+ c=((1+88r)(1+\sqrt2)r+R)/z.
+\]
+Put $R_1=1+13q$, $\rho_1=R_1(c+(13q)^2)$, and
+\[
+ F=13q+\frac{8R_1}{\sqrt z}\frac{13q}{1-\rho_1},\qquad
+ C_{\rm rep}=2F(c+13q).
+\]
+The additive repair is positive and restores both full nine-label
+marginals. The old all-distinct eighteen-label law has centered norm
+at most $81q/(1-89q)$: its excluded-collision kernel has constant
+row and column mass at most $81q/(1-8q)$.
+Thus the complete skew coefficient is
+$[((1+88r)(1+\sqrt2)r/2+R)/z+C_{\rm rep}]/r$;
+the symmetric coefficient adds $81r/(1-89q)$.
+At $2^{47}$ these are below $1.207140517672$ and $1.207147345461$.
+The squared-full-norm block gate divided by $r$ is below
+$4.913171\cdot10^{-7}$. All positivity gates hold and all normalized
+majorants decrease with $p$. The per-record choice $1.208$ proves the claim.
+\end{proof}
+
+\begin{proposition}[Constant-emission comparisons]\label{prop:upper-constant-six}
+The two $\mathrm{LC}$ and two $\mathrm{CL}$ records have aggregate caps
+$(C_S,C_A)=(1.162,1.0024)$ and $(C_S,C_A)=(1.8972,2.0056)$,
+respectively.
+\end{proposition}
+
+\begin{proof}
+Retain the full eighteen-label half law $\mu$; constant emission
+observes the six labels in row zero of the matching coordinate.
+The projected queries are one edge for $\mathrm{LC}$, and a
+six-edge permutation matching for $\mathrm{CL}$. Numbering its
+six observed positions suitably by $0,\ldots,5$, this permutation is
+$(0\ 2\ 4)(1\ 5\ 3)$.
+The old constant-emission estimate of \cref{sec:upper-reference} gives
+observed centered norm $g_Cr$, with $g_C=.079761731$, full centered
+norm $5.65086987r$, and
+$\|g_0-1\|_\mu^2\le b_Cq$, $b_C=39236.89926$.
+Here $g_0$ is the density of the old full marginal relative to $\mu$;
+it must be restored before projecting to the six emitted labels.
+
+All new counts have explicit orders. Each nine-vertex component of
+the half is indexed by $(a,b)\in\{0,1,2\}^2$, numbered $3a+b$,
+with adjacency when both coordinates differ. The orders
+\[
+ (0,4,2,6,5,1,7,3,8),\qquad(0,3,7,2,4,6,5,1,8)
+\]
+give the half and three-pin completion profiles, the latter with pins
+$\{0,3,6\}$. Doubling over the two components gives
+$(2,4,6,4,2)$ and $(0,4,6,6,2)$.
+The old completion shifts the first profile by four degrees.
+Use exclusion bounds $18,36,36$, respectively; no independence of
+the components is assumed. The count products give
+$R_0^{-1}\le g_0\le R_0$, with $R_0<1.000451743231$ at $P_3$.
+
+For $\mathrm{LC}$ put
+$K_1=(1+\chi(y_j-x_i)-\one_{y_j=x_i})/(1-q)$.
+It has both marginals $\mu$. If $u=g_0-1$, translation invariance
+and singleton uniformity imply $K_1u=K_1^*u=0$.
+Thus $(1+u(x)+u(y))K_1$ is an explicit positive accepting repair to
+the full old marginals. With
+$c_1=r\sqrt{1+q}/(1-q)$, its raw symmetric and skew bounds are
+$(1+c_1)c_1/2$, and the repair costs $2(R_0-1)c_1$.
+
+For $\mathrm{CL}$ use the product of the six strict matching factors.
+Its $57$ nonstars each contain two disjoint matching edges. Put
+\[
+ D_*=\frac{16}{1-10r-295q},\quad R=(57D_*^2+192)q,\quad
+ z=1-R,\quad e=R/z,\quad\Gamma=1+5c_1.
+\]
+The permutation consists of two three-cycles, so the full, symmetric
+and skew leading norms are $1,\sqrt3/2,1$. Hence use
+$c=(\Gamma r+R)/z$, $s=(\Gamma\sqrt3 r/2+R)/z$, and $a=c$.
+If $[L_H,U_H]$, $[L_C,U_C]$ are the preceding half and completion
+count intervals, the raw row lies between $L_C/U_H$ and
+$U_C/L_H+18^2 2^6q$. The extra term pays all cross coincidences.
+Together with $|Z-1|\le R$ this gives a two-sided marginal ratio
+$R_1<1.000004428066$. Set
+\[
+ \rho_1=R_1(c+e^2),\quad K_\infty=8R_1/\sqrt z,\quad
+ F=R_0R_1-1+
+       \frac{K_\infty\sqrt{R_1}(\sqrt{b_C}\,r+e)}{1-\rho_1}.
+\]
+Here $F<.000573119058$, $2F<1$, so the additive repair is positive
+and has the exact full old marginals. Its correction is $2F(c+e)$.
+Compression to the six observed labels contracts this correction;
+transport uses the actual emitted density, bounded below by $R_0^{-1}$.
+Thus $d_S\le R_0(s+g_Cr+2F(c+e))$ and
+$d_A\le R_0(a+2F(c+e))$. For $\mathrm{LC}$ use $e=0$,
+$F=R_0-1$, and $s=a=(1+c_1)c_1/2$.
+At $P_3$ the per-record pairs are below
+$(.580927565959,.501129803137)$ and
+$(.948455483308,1.002692888286)$.
+The squared-full-norm block gates divided by $r$ are below
+$7.52\cdot10^{-8}$, and each full centered factor is below $1/2$.
+The positive normalized majorants decrease with $p$, proving the claim.
+\end{proof}
+
+\begin{proposition}[Dense comparisons after emission]\label{prop:upper-observed-dense}
+Keep the dense laws and positive mixtures of
+\cref{prop:dense-comparison,prop:le-mixture}. In every finite upper band
+their assigned aggregate coefficients may be decreased by
+\[
+ (\delta_S,\delta_A)_{\rm LR}=(4.2612,4.0668),\qquad
+ (\delta_S,\delta_A)_{\rm RL}=(2.9322,1.4466).
+\]
+\end{proposition}
+
+\begin{proof}
+The merge observes a set $O$ of twelve of the eighteen half labels.
+Let $\mu_O$ be the marginal of the induced half law on $O$ and
+$\Pi=\mathbb E_\mu(\,\cdot\mid O)$. Exact common full marginals give
+the emitted difference $\Pi(K'-K_0)\Pi$. Its marginal is
+$\mathbb E_\mu(g_0\mid O)\mu_O$, so the original lower density bound
+and transport factor remain valid. All complete remainders, normalizers
+and repairs remain charged in full.
+
+In the star dictionary a feature is visible if its support lies
+entirely in $O$; all other features are called hidden. There are
+$72$ visible features, out of $198$ for LR and $282$ for RL.
+Write $N_h$ for the number of hidden features and put
+$D_*=16/(1-10r-295q)$, as in the preceding proof. Set
+\[
+ h^2=N_hq\frac{D_*-1}{1-q},\qquad
+ \Gamma_v=1+71\frac{\sqrt{(9r+21q)^2+q(D_*-1)}}{1-q}.
+\]
+The actual projected Gram estimates give visible synthesis norm at
+most $\sqrt{\Gamma_v}$ and hidden synthesis norm at most $h$.
+Let $\Phi$ send a coefficient vector to its linear combination of
+star features, and let $M$ be the coefficient matrix.
+For a full coefficient norm $\|M\|\le k$ and visible principal norm
+at most $k_v$,
+\[
+ \|\Pi\Phi M\Phi^*\Pi\|\le
+ \Gamma_vk_v+k(2\sqrt{\Gamma_v}h+h^2).
+\]
+This pays both cross blocks without assuming orthogonal feature ranges.
+In the local notation of \cref{prop:dense-comparison,prop:le-mixture},
+the LR state uses LE laws and the RL state uses EL laws.
+The complete rational matrix tests, for all six LR and two RL records, give
+\[
+\begin{array}{c|cc|cc}
+ &k_S&k_{S,v}&k_A&k_{A,v}\\ \hline
+\text{LE mixture I}&1.722417&1.012148&1.712498&1.032944\\
+\text{LE mixture II}&1.723080&1.012050&1.711273&1.033383\\
+\text{EL}&2.970000&1.503700&2.080000&1.356555.
+\end{array}
+\]
+The old chosen formula is $T(\Gamma_{\rm old}k+E/r)$ with
+$T,\Gamma_{\rm old}\ge1$. Therefore its upward rounding may be
+decreased by
+$k-\Gamma_vk_v-k(2\sqrt{\Gamma_v}h+h^2)$.
+At $P_3$ the symmetric and skew savings exceed
+$(.7102,.6778)$ on each LR record and $(1.4661,.7233)$ on each
+RL record. These are savings in a specified
+chosen formula, not differences of unrelated norm estimates.
+The old and new full centered norms are bounded by $7r,13r$;
+their squared sum is at most $218q<r$, while every decreased
+coefficient exceeds one. This checks the tensor sectors.
+All majorants improve as $p$ increases, so the rebates apply to
+all $310$ finite bands. The tail is excluded.
+\end{proof}

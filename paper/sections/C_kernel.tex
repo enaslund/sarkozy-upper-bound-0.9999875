@@ -1,0 +1,643 @@
+\section{The actual-square kernel for cutoffs up to \texorpdfstring{$N^{1/20}$}{N to the 1/20}}
+\label{app:kernel20}
+
+\begingroup
+\emergencystretch=3em
+
+\paragraph{What this appendix proves and how to read it.}
+This appendix proves \cref{prop:record:kernel20} for every triple
+$(\beta,\kappa,\eta)$ that is admissible in the sense of
+\cref{def:kernel-conditions}. It is the only estimate of the analytic stage in
+which the absence of square differences in $A$ produces cancellation
+(\cref{sec:kernel}). It is
+applied through \cref{cor:kernel20}, at
+$(\beta,\kappa,\eta)=(1/20,1/20,17/100)$, in the accepted-pair cancellation
+\cref{lem:record:density-can} of \cref{sec:scale-comparison}, using part~(iii)
+for the nonvanishing square classes of the finite-depth external index
+and the square-clique prefix. The strict-square and fixed-prefix cases
+in parts~(i) and~(ii) are special cases of this same construction. Through
+the cancellation lemma the kernel also enters the wrap of the signed index
+form (\cref{lem:record:wrap-expansion}).
+
+The proof follows \cite[Prop.~6.1]{OpenAI}. As explained in
+\cref{sec:kernel}, it compares a model kernel $k_0$, whose bilinear form
+against $(F,J)$ is the pairing of the proposition, with a signed kernel $k$ on
+the positive squares, whose bilinear form vanishes; the work is the uniform
+bound $\|S-S_0\|_\infty=O(H^{-1/3})$ for their Fourier transforms
+(\cref{lem:record:K20-approx}). Off the major arcs both transforms are small;
+on a major arc both reduce to one arithmetic coefficient, and the two
+coefficients agree exactly when the part of the denominator prime to $D$ is at
+most $H$. Each error is a power of $N$ whose exponent is the left-hand side of
+one of (E1)--(E4). One root-class construction
+(\cref{lem:kernel-depth-classes}) supplies the arithmetic coefficient for
+all three cases. We retain the square-division identity
+(\cref{lem:record:nonunit-rescale}) to explain how the normalization behaves
+under rescaling; the estimate itself requires no separate rescaling proof.
+
+Besides elementary facts (geometric sums, partial summation, the Chinese
+remainder theorem, Hensel lifting of square roots of units, and Plancherel's
+identity on $\R/\Z$) the proof uses Dirichlet's approximation theorem: for
+$Q_0\ge1$ and $\alpha\in\R$ there are coprime integers $a,q$ with
+$1\le q\le Q_0$ and $|\alpha-a/q|\le1/(qQ_0)$. Weyl's inequality and the
+quadratic Gauss sums at odd prime powers are proved below
+(\cref{lem:record:weyl-even,lem:record:prime-power-lift}).
+
+\paragraph{Conventions.}
+The reduced denominator $q(\xi)$, the unit quadratic average $g$, the
+frequency set $\Xi_{H,D}$ and the normalized transform $\widehat F$ are those
+of \cref{def:kernel-notation}, and the strict square classes are those of
+\cref{def:strict-square-class}; of $g$ we use its defining formula and
+$|g|\le1$. Throughout, $(\beta,\kappa,\eta)$ is
+admissible, and (E1)--(E4), (K0)--(K2) are the conditions of
+\cref{def:kernel-conditions}. We fix $C_D,C_H\ge1$, an integer $N\ge1$,
+a modulus $D\le C_DN^\kappa$ divisible by $8$, a cutoff
+$C_H^{-1}N^{\beta/2}\le H\le C_HN^{\beta/2}$, and a nonvanishing square
+class $r$ modulo $D$ as in \cref{prop:record:kernel20}(iii). For $p\mid D$,
+$v_p(D)$ is its exponent in $D$. The root period $D'$ will be a divisor of
+$D$, constructed below; all analytic bounds use only $D'\le D$.
+We write $\|x\|$ for the distance
+from $x\in\R$ to $\Z$, and $V_N(x)=N^{-1}\sum_{n=1}^Ne(xn)$, so that
+$|V_N(x)|\le\min(1,(2N\|x\|)^{-1})$. A \emph{constant} $C$ depends only on $C_D$ and $C_H$, and ``$N$ large''
+means $N\ge N_0$ for some $N_0$ depending only on $\beta$, $\kappa$, $\eta$,
+$C_D$ and $C_H$; for $N$ large, $H\ge1$. As in \cref{sec:kernel}, $q$ is a
+denominator and $a$, $b$, $r$ are residues or numerators (not $q=1/p$,
+$r=p^{-1/2}$ or the price exponent $a$), and letters such as $A$, $B$, $J$,
+$S$, $T$, $V$ have only the local meanings given here
+(\cref{subsec:notation:symbols}).
+
+\subsection{The two kernels}
+
+The proof compares two kernels: a model kernel, built from square
+root classes modulo $D$, whose pairing with $(F,J)$ is the quantity
+in \cref{prop:record:kernel20}, and a signed kernel supported on
+the actual positive squares, whose pairing vanishes because no
+difference in question is a square. This subsection constructs the
+root classes from which both kernels are built.
+
+\begin{lemma}[Root classes at finite conductor depth]
+\label{lem:kernel-depth-classes}
+Let $D$ and $r$ be as above. There is a class $m_0\bmod D'$, with
+$D'\mid D$, such that $\rho_D(m)=D'\one_{m\equiv m_0\,(D')}$ has mean one,
+supremum $D'$ and, in the expansion $\rho_D(m)=\sum_{j\bmod D'}e(j(m-m_0)/D')$, Fourier coefficients of total absolute value $D'$.
+Every $m$ in this class satisfies $m^2\equiv r\pmod D$. At a prime $p\mid D$,
+the squared root variable is uniform on the residues modulo $p^k$, for every $k\ge v_p(D)$, that reduce to $r$ modulo $p^{v_p(D)}$. In particular, for $p\nmid a$, the local mean of
+$e(am^2/p^k)$ is $e(ar/p^k)$ if $k\le v_p(D)$ and zero otherwise.
+\end{lemma}
+\begin{proof}
+Fix a prime $p\mid D$. Write $h=v_p(D)$ and $v_p(r)=2j$, and choose a root $b$ of $r$
+modulo $p^h$ with $v_p(b)=j$, which exists by
+\cref{def:nonvanishing-square-class}. For odd $p$, restrict the root variable
+to $b+p^{h-j}t$. Its square, after subtracting $r$ and dividing by
+$p^h$, is
+\[
+ (b^2-r)/p^h+2(b/p^j)t+p^{h-2j}t^2.
+\]
+The linear coefficient is a unit and the quadratic coefficient is
+divisible by $p$. A polynomial $u t+p v t^2+c$ with $p\nmid u$
+permutes every $\Z/p^k\Z$: modulo $p$ it is bijective, and each
+solution modulo $p^k$ has exactly one lift for each prescribed next
+digit, since the derivative remains a unit. This proves uniformity
+on the higher square residues.
+
+At $2$, use the root class $b+2^{h-j-1}t$. The corresponding
+higher-square coefficient is
+\[
+ (b^2-r)/2^h+(b/2^j)t+2^{h-2j-2}t^2.
+\]
+The linear coefficient is odd and the quadratic coefficient even,
+because $h-2j\ge3$. The same digit-lifting proof applies. Replacing
+$b$ by another representative of its root class does not change the
+conclusion. In both cases the root class squares to $r$ at depth $h$
+and is uniform over all its higher extensions; a primitive additive
+character above depth $h$ therefore has mean zero.
+
+The root periods are $p^{h-j}$ at odd primes and $2^{h-j-1}$ at
+$2$. Their product $D'$ divides $D$. The Chinese remainder theorem
+gives one root class $b_0\bmod D'$, with normalized weight
+$D'\one_{b=b_0\,(D')}$. This weight has mean one, supremum $D'$,
+and exactly $D'$ Fourier coefficients of modulus one. The local character
+means follow by averaging over the uniform higher square residues: for $k>h$ the factor is
+$e(ar/p^k)\E_{t\bmod p^{k-h}}e(at/p^{k-h})=0$.
+\end{proof}
+
+\begin{definition}[Root weight, unit sieve and the two kernels]
+\label{def:record:K20-kernels}
+Use the root weight $\rho_D$ and period $D'$ of
+\cref{lem:kernel-depth-classes}. For an odd prime
+$p\nmid D$ put
+\[
+ w_p(m)=\frac{p\one_{p\mid m}-1}{p-1}=\frac1{p-1}\sum_{j=1}^{p-1}e(jm/p),
+\]
+and $w_u=\prod_{p\mid u}w_p$ for squarefree $u$ coprime to $D$ ($w_1=1$).
+With $u$ running over the squarefree integers $1\le u\le H$ coprime to $D$,
+define
+\begin{align*}
+ k_0(n)&=\frac DN\one_{1\le n\le N}\one_{n\equiv r\,(D)}
+  \sum_{\xi\in\Xi_{H,D}}g(\xi)e(-\xi n),\\
+ k(n)&=\sum_{1\le m\le\sqrt N}\one_{n=m^2}\frac{2m}N\,\rho_D(m)
+  \sum_u(-1)^{\omega(u)}w_u(m),
+\end{align*}
+and $S_0(\alpha)=\sum_nk_0(n)e(\alpha n)$, $S(\alpha)=\sum_nk(n)e(\alpha n)$.
+These objects have the following properties.
+\begin{enumerate}[label=(\alph*)]
+\item $\rho_D$ has mean one over its period $D'$, $\|\rho_D\|_\infty=D'$,
+ $\rho_D(m)=\sum_{j\bmod D'}e(j(m-m_0)/D')$, and $m^2\equiv r\pmod D$
+ whenever $\rho_D(m)\ne0$.
+\item $|w_u|\le1$; $w_p$ has mean zero modulo $p$; the Fourier coefficients
+ of $w_u$ have total absolute value one; and for $q$ coprime to $D$
+ \begin{equation}\label{eq:record:unitsieve}
+  \sum_{u\mid\rad(q)}(-1)^{\omega(u)}w_u(m)=\prod_{p\mid q}\big(1-w_p(m)\big)
+  =\frac q{\varphi(q)}\one_{(m,q)=1}.
+ \end{equation}
+\item $S(\alpha)=\sum_{m\le\sqrt N}\frac{2m}N\Phi(m)e(\alpha m^2)$, where
+ $\Phi(m)=\rho_D(m)\sum_u(-1)^{\omega(u)}w_u(m)$ is a finite sum of additive
+ characters in $m$ with coefficients of total absolute value at most $D'H$.
+\end{enumerate}
+\end{definition}
+
+\begin{proof}[Proof of (a)--(c)]
+(a) The root-class lemma gives the mean, supremum and square condition;
+the Fourier formula is orthogonality modulo $D'$.
+(b) $w_p(m)$ is $1$ if $p\mid m$ and $-1/(p-1)$ otherwise, and
+$1-w_p(m)=\frac p{p-1}\one_{p\nmid m}$; expanding the product gives
+\eqref{eq:record:unitsieve}, since $\prod_{p\mid q}p/(p-1)=q/\varphi(q)$.
+(c) The total absolute value of the coefficients is submultiplicative under
+products; $\rho_D$ contributes $D'$, each $w_u$ one, and there are at most $H$
+values of $u$.
+\end{proof}
+
+\paragraph{How the kernels are matched.}
+By (a), $k$ lives on the squares in the class $r$ modulo $D$, the class of
+$k_0$, and the factor $2m/N$ is the discrete form of $dn=2m\,dm$, matching the
+weight $1/N$ of $k_0$. The divisor sum \eqref{eq:record:unitsieve} is the
+density of the uniform law on the units modulo $q$; it turns averages of
+$e(\xi m^2)$ over residues into averages over units, which is how $g$ arises
+(\cref{lem:record:kernel-coefficient}). It is truncated at $u\le H$ so that
+$\Phi$ has Fourier coefficients of total size at most $D'H$. The same
+construction in the strict-square case underlies \cite[Prop.~6.1]{OpenAI}.
+
+\begin{lemma}[The model kernel as a sum over centres]
+\label{lem:record:K20-centres}
+We have
+\[
+ S_0(\alpha)=\sum_{\xi\in\Xi_{H,D}}\sum_{j\bmod D}g(\xi)e(-jr/D)
+ V_N(\alpha-\xi+j/D).
+\]
+The \emph{centres} $\xi-j/D$ are distinct, there are at most $DH^2$ of them,
+each is a reduced fraction of denominator at most $DH$, and each coefficient
+has modulus at most one. Every $\alpha_0\in\Q/\Z$ is uniquely
+$\alpha_0=\alpha_D+\alpha_1$, where the prime factors of $q(\alpha_D)$ divide
+$D$ and $q_1=q(\alpha_1)$ is coprime to $D$; the point $\alpha_0$ is a centre
+exactly when $q(\alpha_D)\mid D$ and $\alpha_1\in\Xi_{H,D}$, and its
+coefficient is then $c_0(\alpha_0)=g(\alpha_1)e(\alpha_Dr)$. Put
+$c_0(\alpha_0)=0$ otherwise.
+\end{lemma}
+
+\begin{proof}
+Expand $\one_{n\equiv r\,(D)}=D^{-1}\sum_{j\bmod D}e(j(n-r)/D)$. If
+$\xi-j/D=\xi'-j'/D$, then $\xi-\xi'$ has denominator dividing
+$q(\xi)q(\xi')$, which is coprime to $D$, and also dividing $D$; so
+$\xi=\xi'$ and $j\equiv j'$. The number of centres is at most
+$D\sum_{q\le H}\varphi(q)\le DH^2$. The decomposition of $\alpha_0$ is the
+partial fraction decomposition; a centre $\xi-j/D$ has $\alpha_1=\xi$ and
+$\alpha_D=-j/D$, whence the coefficient $g(\xi)e(-jr/D)=g(\alpha_1)e(\alpha_Dr)$.
+\end{proof}
+
+\subsection{Weyl's inequality with even denominators}
+
+The minor-arc estimate needs a bound for quadratic exponential
+sums with explicit constants and with no parity condition on the
+denominator, because even denominators occur through the modulus
+$D$. We prove the form needed.
+
+\begin{lemma}[Weyl's inequality with a linear twist]
+\label{lem:record:weyl-even}
+Let $\alpha\in\R$ and let $a/q$ be a reduced fraction with $q\ge1$ and
+$|\alpha-a/q|\le q^{-2}$. For all $\lambda\in\R$ and all integers
+$1\le M'\le M$,
+\[
+ \Big|\sum_{m=1}^{M'}e(\alpha m^2+\lambda m)\Big|^2
+ \le M+200\Big(\frac Mq+1\Big)\big(M+q\log(2q)\big).
+\]
+No parity condition on $q$ is needed.
+\end{lemma}
+
+This is Weyl's inequality with explicit constants (compare
+\cite[Lemma~2.4]{Vaughan97}); in the proof, two indices $h,h'$ in one block of $\Delta=\max(1,\lfloor q/4\rfloor)$ consecutive integers differ by $j=|h-h'|$ with $0<2j<q/2$ when $q\ge4$, so $q\nmid2aj$ whatever the parity of $q$.
+
+\begin{proof}
+Squaring and grouping the pairs $(m,m+h)$ by $h$,
+\[
+ \Big|\sum_{m\le M'}e(\alpha m^2+\lambda m)\Big|^2\le M'+2\sum_{h=1}^{M'-1}
+ \Big|\sum_{m\in I_h}e(2\alpha hm)\Big|,
+\]
+where $I_h$ is an interval of length at most $M'$; the phases
+$e(\alpha h^2+\lambda h)$ are unimodular, so the twist $\lambda$ plays no
+role. A geometric sum satisfies $|\sum_{m\in I}e(xm)|\le\min(|I|,(2\|x\|)^{-1})$,
+so the left-hand side is at most $M+2\sum_{h=1}^M\min(M,\|2\alpha h\|^{-1})$.
+
+Let $\Delta=\max(1,\lfloor q/4\rfloor)$ and split $\{1,\dots,M\}$ into at most
+$M/\Delta+1$ blocks of $\Delta$ consecutive integers. Suppose $q\ge4$, and let
+$h\ne h'$ lie in one block, so $j=|h-h'|$ satisfies $0<j<\Delta\le q/4$. Then
+$q\nmid2j$, hence $q\nmid2aj$, so $\|2aj/q\|\ge1/q$; and
+$|2j(\alpha-a/q)|\le2j/q^2<1/(2q)$. Therefore
+$\|2\alpha h-2\alpha h'\|=\|2\alpha j\|>1/(2q)$: the points $2\alpha h$ of one
+block are $1/(2q)$-separated on $\R/\Z$. Each set
+$\{x:k/(2q)\le\|x\|<(k+1)/(2q)\}$ is the union of two half-open intervals of
+length $1/(2q)$ and contains at most two points of a block. The points with
+$k=0$ contribute at most $2M$, the others at most $2\cdot2q/k$ for each $k$,
+so a block contributes at most $2M+4q\sum_{k=1}^q1/k\le2M+12q\log(2q)$. Since
+$\Delta\ge q/8$ for $q\ge4$, there are at most $8M/q+1$ blocks, and
+$2\sum_h\min(M,\|2\alpha h\|^{-1})\le2(8M/q+1)(2M+12q\log(2q))
+\le192(M/q+1)(M+q\log(2q))$. If $q\le3$, then $2\sum_h\min(M,\|2\alpha h\|^{-1})\le2M^2\le6(M/q)M$, which is
+smaller.
+\end{proof}
+
+\subsection{Arcs}
+
+For a reduced fraction $a/q$ with $1\le q\le N^\eta$ put
+$\mathfrak M(a/q)=\{\alpha\in\R/\Z:\|\alpha-a/q\|\le2N^{-1+\eta}\}$, and let
+$\mathfrak m$ be the complement of the union of these major arcs. For
+$\alpha_0=a/q$ and every squarefree $1\le u\le H$ coprime to $D$ let
+$a_u(m)=\rho_D(m)w_u(m)e(\alpha_0m^2)$, let $A_u$ be its mean over any one period (the value is independent of the period chosen),
+and put
+\[
+ c(\alpha_0)=\sum_u(-1)^{\omega(u)}A_u .
+\]
+
+\begin{lemma}[Arcs]\label{lem:record:arcs}
+For $N$ large the following hold.
+\begin{enumerate}[label=(\roman*)]
+\item The major arcs are pairwise disjoint. Every $\alpha\in\mathfrak m$ has a
+ reduced fraction $a/q$ with $N^\eta<q\le N^{1-\eta}$ and $|\alpha-a/q|\le q^{-2}$.
+\item Every centre of $S_0$ is the centre of a major arc. If $\alpha=\alpha_0+y$
+ with $\alpha_0=a/q$, $q\le N^\eta$ and $|y|\le2N^{-1+\eta}$, then every centre
+ $\alpha_c\ne\alpha_0$ satisfies $\|\alpha-\alpha_c\|\ge(2qDH)^{-1}$.
+\item For $\alpha\in\mathfrak m$,
+ $|S(\alpha)|\le CN^{\kappa+\beta/2-\eta/2}(\log2N)^{1/2}$ and
+ $|S_0(\alpha)|\le CN^{\kappa+\beta-\eta}$.
+\item For $\alpha$ as in (ii), $S_0(\alpha)=c_0(\alpha_0)V_N(y)+R_0$ with
+ $|R_0|\le CN^{\eta+2\kappa+3\beta/2-1}$, and $S(\alpha)=c(\alpha_0)V_N(y)+R_1$
+ with $|R_1|\le C(N^{2\eta+2\kappa+\beta-1/2}+N^{\eta+\beta/2-1})$.
+\end{enumerate}
+The exponents $\kappa+\beta/2-\eta/2$, $\kappa+\beta-\eta$,
+$\eta+2\kappa+3\beta/2-1$, $2\eta+2\kappa+\beta-1/2$ are the left-hand sides of
+(E1)--(E4), hence below $-\beta/6$, and $\eta+\beta/2-1$ is smaller than the
+third. At the triple $(1/20,1/20,17/100)$ of \cref{cor:kernel20} the five
+exponents are $-1/100$, $-7/100$, $-131/200$, $-1/100$, $-161/200$, below
+$-1/120$, and the seven kernel slacks of (E1)--(E4), (K0)--(K2), computed in
+\cref{cor:kernel20}, are $1/600$, $37/600$, $97/150$, $1/600$, $49/100$,
+$19/200$, $117/200$.
+\end{lemma}
+
+\begin{proof}
+We use $D'\le D\le C_DN^\kappa$ and $H\le C_HN^{\beta/2}$, so
+$DH\le C_DC_HN^{\kappa+\beta/2}$.
+
+(i) Two distinct reduced fractions of denominators at most $N^\eta$ are at
+distance at least $N^{-2\eta}$, and $4N^{-1+\eta}<N^{-2\eta}$ for $N$ large, by
+(K0). For $\alpha\in\mathfrak m$, Dirichlet's theorem with
+$Q_0=\lfloor N^{1-\eta}\rfloor$ gives a reduced $a/q$ with $q\le Q_0$ and
+$|\alpha-a/q|\le1/(qQ_0)\le q^{-2}$. If $q\le N^\eta$, then
+$|\alpha-a/q|\le1/Q_0\le2N^{-1+\eta}$, so $\alpha\in\mathfrak M(a/q)$, which is
+impossible. Hence $N^\eta<q\le N^{1-\eta}$.
+
+(ii) Every centre has denominator at most
+$DH\le C_DC_HN^{\kappa+\beta/2}<N^\eta$ for $N$ large, by (K1). Two distinct
+fractions of denominators $q$ and at most $DH$ are at distance at least
+$(qDH)^{-1}$. Since $4qDHN^{-1+\eta}\le4C_DC_HN^{2\eta+\kappa+\beta/2-1}\le1$
+for $N$ large, by (K2), we have $|y|\le(2qDH)^{-1}$, and the triangle
+inequality gives the claim.
+
+(iii) Let $\alpha\in\mathfrak m$, with $a/q$ from (i), and
+$M=\lfloor\sqrt N\rfloor$. By (K0), $\eta<1/2$, so $M\le N^{1/2}\le N^{1-\eta}$;
+also $M^2/q\le N^{1-\eta}$ and $q\le N^{1-\eta}$. By
+\cref{lem:record:weyl-even}, uniformly in $\lambda$ and $M'\le M$, expanding
+the product,
+\[
+ \Big|\sum_{m\le M'}e(\alpha m^2+\lambda m)\Big|^2\le M+200\Big(\frac{M^2}q
+ +M\log2q+M+q\log2q\Big)\le801N^{1-\eta}\log(2N).
+\]
+The weights $2m/N$ increase and are at most $2/\sqrt N$, so partial summation
+bounds $|\sum_{m\le\sqrt N}\frac{2m}Ne(\alpha m^2+\lambda m)|$ by $4/\sqrt N$
+times the maximum over $M'\le M$ of the sums above, that is, by
+$116N^{-\eta/2}(\log2N)^{1/2}$. Expanding $\Phi$ by
+\cref{def:record:K20-kernels}(c),
+$|S(\alpha)|\le116D'HN^{-\eta/2}(\log2N)^{1/2}
+\le116C_DC_HN^{\kappa+\beta/2-\eta/2}(\log2N)^{1/2}$.
+By (ii), every centre is the centre of a major arc, so it lies at distance
+more than $2N^{-1+\eta}$ from $\alpha$; each term of
+\cref{lem:record:K20-centres} is therefore at most $(4N^\eta)^{-1}$ in modulus,
+and $|S_0(\alpha)|\le DH^2/(4N^\eta)\le C_DC_H^2N^{\kappa+\beta-\eta}$.
+
+(iv) \emph{The model kernel.} If $\alpha_0$ is a centre, its term in
+\cref{lem:record:K20-centres} is $c_0(\alpha_0)V_N(y)$; if not,
+$c_0(\alpha_0)=0$. By (ii), each of the at most $DH^2$ other centres has
+$|V_N(\alpha-\alpha_c)|\le qDH/N$, so
+$|R_0|\le qD^2H^3/N\le C_D^2C_H^3N^{\eta+2\kappa+3\beta/2-1}$.
+
+\emph{The actual kernel.} Since $(m+q)^2-m^2=q(2m+q)$, the factor
+$e(\alpha_0m^2)$ has period $q$, so $a_u$ has a period $T_u$ dividing
+$\lcm(D',u,q)$, and $T_u\le D'uq$. Also $|a_u|\le D'$ and
+$|A_u|\le\E|\rho_D|=1$. Hence $E_u(x)=\sum_{1\le m\le x}a_u(m)-A_ux$
+satisfies $|E_u(x)|\le D'T_u+T_u\le2D'T_u$ for real $x\ge0$: the complete
+periods contribute exactly $A_u$ times their length, and fewer than $T_u$
+terms remain. Put $X=\sqrt N$ and $f_y(x)=\frac{2x}Ne(yx^2)$. Since
+$e(\alpha m^2)=e(\alpha_0m^2)e(ym^2)$, \cref{def:record:K20-kernels}(c) gives
+$S(\alpha)=\sum_u(-1)^{\omega(u)}\sum_{m\le X}f_y(m)a_u(m)$. Stieltjes
+integration by parts against $\sum_{m\le x}a_u(m)=A_ux+E_u(x)$, with
+$f_y(0)=E_u(0)=0$, gives
+\[
+ \sum_{m\le X}f_y(m)a_u(m)=A_u\int_0^Xf_y(x)\,dx+f_y(X)E_u(X)
+ -\int_0^XE_u(x)f_y'(x)\,dx .
+\]
+Here $|f_y(X)|=2/\sqrt N$ and
+$\int_0^X|f_y'|\le\int_0^X(2/N+8\pi|y|x^2/N)\,dx\le2/\sqrt N+9|y|\sqrt N$, so
+the last two terms are at most $18D'T_u(1+|y|N)/\sqrt N$. The substitution
+$v=x^2$ gives $\int_0^Xf_y=N^{-1}\int_0^Ne(yv)\,dv$, which differs from
+$V_N(y)$ by at most $2\pi|y|$, because $|e(yn)-e(yv)|\le2\pi|y|$ for
+$v\in[n-1,n]$. Summing over the at most $H$ values of $u$, with
+$\sum_{u\le H}u\le H^2$, $T_u\le D'uq$ and $|A_u|\le1$,
+\[
+ S(\alpha)=c(\alpha_0)V_N(y)+R_1,\qquad
+ |R_1|\le\frac{18qD^2H^2(1+|y|N)}{\sqrt N}+2\pi|y|H .
+\]
+With $q\le N^\eta$, $1+|y|N\le3N^\eta$ and $|y|\le2N^{-1+\eta}$ this is at most
+\[
+ 54C_D^2C_H^2N^{2\eta+2\kappa+\beta-1/2}+4\pi C_HN^{\eta+\beta/2-1}.\qedhere
+\]
+\end{proof}
+
+\subsection{Local factors and the arithmetic coefficient}
+
+For $p\mid D$, let $\mathcal C_p$ be the residue class $b+p^{h-j}\Z$ (resp.\ $b+2^{h-j-1}\Z$ at $p=2$) constructed in the proof of \cref{lem:kernel-depth-classes}, with $h,j,b$ as there. The weight $\rho_D$ is the product of their
+normalized indicators. We collect the two local rules needed for the
+arithmetic coefficient: the root-class rule at primes of $D$, and the
+quadratic Gauss sums at the remaining primes.
+
+\begin{lemma}[Local means at the primes of $D$, and Gauss sums]
+\label{lem:record:prime-power-lift}
+\begin{enumerate}[label=(\alph*)]
+\item Let $p\mid D$, $j\ge1$ and $p\nmid a$. The mean of $e(am^2/p^j)$ over the
+ residues $m\in\mathcal C_p$ modulo $p^{\max(j,v_p(D))}$ is $e(ar/p^j)$ if
+ $j\le v_p(D)$, and $0$ if $j>v_p(D)$.
+\item Let $p\nmid D$ be an odd prime, $j\ge1$ and $p\nmid a$, and put
+ $G_{p^j}(a)=\sum_{m\bmod p^j}e(am^2/p^j)$. Then $|G_{p^j}(a)|=p^{j/2}$. If
+ $j\ge2$, then $\sum_{m\in(\Z/p^j\Z)^\times}e(am^2/p^j)=0$. The twisted sum
+ \[
+  \Gamma_j=p^{-j}\sum_{m\bmod p^j}w_p(m)e(am^2/p^j)
+  \quad\text{satisfies}\quad|\Gamma_j|\le2p^{-j/2}.
+ \]
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) This is the local character mean of \cref{lem:kernel-depth-classes}.
+
+(b) Writing the pairs $(m,m')$ as $(m,m+h)$,
+\[
+ |G_{p^j}(a)|^2=\sum_{h\bmod p^j}e(ah^2/p^j)\sum_{m\bmod p^j}e(2ahm/p^j)=p^j,
+\]
+because the inner sum is $p^j$ if $p^j\mid h$ and $0$ otherwise, as
+$p\nmid2a$. Let $j\ge2$, and write $m=x+p^{j-1}h$ with $0\le x<p^{j-1}$ and
+$0\le h<p$; then $m^2\equiv x^2+2xhp^{j-1}\pmod{p^j}$, since $2j-2\ge j$.
+Summing over $h$ removes the $x$ with $p\nmid x$, while for $p\mid x$ the $p$
+lifts $m$ of $x$ are divisible by $p$ and have $m^2\equiv x^2\pmod{p^j}$. Hence
+$G_{p^j}(a)$ and the sum of $e(am^2/p^j)$ over the $m$ divisible by $p$ both
+equal $p\sum_{0\le x<p^{j-1},\,p\mid x}e(ax^2/p^j)$, and the sum over the
+units, which is their difference, vanishes. For $\Gamma_j$ write
+$w_p(m)=\frac p{p-1}\one_{p\mid m}-\frac1{p-1}$. If $j=1$, the first part
+contributes the single term $m=0$, of size $\frac1{p-1}$, and the second has
+modulus $\frac1{p-1}p^{-1/2}$; so $|\Gamma_1|\le\frac{1+p^{-1/2}}{p-1}\le2p^{-1/2}$
+for $p\ge3$. If $j\ge2$, the sum over the $m$ divisible by $p$ equals
+$G_{p^j}(a)$, so $\Gamma_j=p^{-j}G_{p^j}(a)$ and $|\Gamma_j|=p^{-j/2}$.
+\end{proof}
+
+\begin{lemma}[The arithmetic coefficient]\label{lem:record:kernel-coefficient}
+Let $\alpha_0=a/q$ be reduced and $\alpha_0=\alpha_D+\alpha_1$ as in
+\cref{lem:record:K20-centres}, with $q_1=q(\alpha_1)$. If $q_1\le H$, then
+$c(\alpha_0)=c_0(\alpha_0)$. If $q_1>H$, then $c_0(\alpha_0)=0$ and
+\[
+ |c(\alpha_0)|\le3^{\omega(q_1)}q_1^{-1/2}\le3^{\pi(729)}q_1^{-1/3}
+ <3^{\pi(729)}H^{-1/3}.
+\]
+\end{lemma}
+
+\begin{proof}
+Let $m$ be uniform modulo $\lcm(D',u,q)$, a common period of the factors of
+$a_u$. By the Chinese remainder theorem, its residues modulo the part of this
+modulus at the primes of $D$ and modulo the part prime to $D$ are independent
+and uniform. Now $\rho_D(m)$ and $e(\alpha_Dm^2)$ depend only on the first,
+and $w_u(m)$ and $e(\alpha_1m^2)$ only on the second. Hence
+$A_u=A^{(D)}A^{(1)}_u$ with $A^{(D)}=\E_m\rho_D(m)e(\alpha_Dm^2)$ and
+$A^{(1)}_u=\E_mw_u(m)e(\alpha_1m^2)$, and both factor over prime powers.
+
+\emph{The $D$-part.} Write $\alpha_D=\sum_{p\mid D}a_p/p^{j_p}$ with
+$p\nmid a_p$ when $j_p\ge1$. Since $\rho_D$ is the product of the normalized
+indicators of the root classes, the local factor at a prime $p\mid D$ with
+$j_p\ge1$ is the mean of $e(a_pm^2/p^{j_p})$ over $\mathcal C_p$, which by
+\cref{lem:record:prime-power-lift}(a) is $e(a_pr/p^{j_p})$ if
+$j_p\le v_p(D)$ and $0$ otherwise; a prime of $D$ with $j_p=0$ contributes
+$1$. Therefore $A^{(D)}=e(\alpha_Dr)$ if $q(\alpha_D)\mid D$, and $A^{(D)}=0$
+otherwise.
+
+\emph{The coprime part.} The denominator $q_1$ is odd, being prime to $8$. If
+$p\mid u$ and $p\nmid q_1$, the local factor at $p$ is the mean of $w_p$,
+which is zero. So $A_u=0$ unless $u\mid\rad(q_1)$.
+
+\emph{Case $q_1\le H$.} Every divisor of $\rad(q_1)$ is squarefree, coprime
+to $D$ and at most $H$, so all of them occur among the $u$, and by
+\eqref{eq:record:unitsieve}
+\[
+ c(\alpha_0)=A^{(D)}\,\E_{m\bmod q_1}\Big[\frac{q_1}{\varphi(q_1)}
+ \one_{(m,q_1)=1}e(\alpha_1m^2)\Big]
+ =\frac{A^{(D)}}{\varphi(q_1)}\sum_{m\in(\Z/q_1\Z)^\times}e(\alpha_1m^2).
+\]
+If $q_1$ is squarefree, the last average is $g(\alpha_1)$
+(\cref{def:kernel-notation}), and $c(\alpha_0)=c_0(\alpha_0)$ by
+\cref{lem:record:K20-centres}; both vanish unless $q(\alpha_D)\mid D$. If $q_1$
+is not squarefree, the unit sum factors over the prime powers $p^j\,\|\,q_1$
+and vanishes at one with $j\ge2$ (\cref{lem:record:prime-power-lift}(b)); then
+$c(\alpha_0)=0=c_0(\alpha_0)$.
+
+\emph{Case $q_1>H$.} Then $\alpha_1\notin\Xi_{H,D}$ and $c_0(\alpha_0)=0$. Let
+$u\mid\rad(q_1)$ and $p^j\,\|\,q_1$, and let $a'/p^j$ be the $p$-component of
+$\alpha_1$. The local factor of $A^{(1)}_u$ at $p$ is the normalized Gauss sum
+$p^{-j}G_{p^j}(a')$, of modulus $p^{-j/2}$, if $p\nmid u$, and $\Gamma_j$, of
+modulus at most $2p^{-j/2}$, if $p\mid u$ (\cref{lem:record:prime-power-lift}(b)).
+So $|A^{(1)}_u|\le2^{\omega(u)}q_1^{-1/2}$, and with $|A^{(D)}|\le1$,
+\[
+ |c(\alpha_0)|\le q_1^{-1/2}\sum_{u\mid\rad(q_1)}2^{\omega(u)}=3^{\omega(q_1)}q_1^{-1/2}.
+\]
+Every prime $p\ge729=3^6$ has $p^{1/6}\ge3$, and at most $\pi(729)$ primes are
+smaller; so $3^{\omega(q)}\le3^{\pi(729)}q^{1/6}$ for every $q\ge1$.
+\end{proof}
+
+\subsection{The uniform approximation and the kernel estimate}
+
+All the arc estimates are now available. The lemma combines them
+into the uniform bound $\|S-S_0\|_\infty=O(H^{-1/3})$ for the
+Fourier transforms of the two kernels, and
+\cref{prop:record:kernel20} then follows by Plancherel.
+
+\begin{lemma}[Uniform Fourier approximation]\label{lem:record:K20-approx}
+For $N$ large,
+$\sup_{\alpha\in\R/\Z}|S(\alpha)-S_0(\alpha)|\le(3^{\pi(729)}+4)H^{-1/3}$.
+\end{lemma}
+
+\begin{proof}
+Let $s_{\min}>0$ be the least of the slacks of (E1)--(E4). By
+\cref{lem:record:arcs}, every power of $N$ in its parts (iii) and (iv) has
+exponent at most $-\beta/6-s_{\min}$, while $H^{-1/3}\ge C_H^{-1/3}N^{-\beta/6}$.
+On $\mathfrak m$, \cref{lem:record:arcs}(iii) bounds $|S|+|S_0|$. On a major
+arc, \cref{lem:record:arcs}(iv), $|V_N(y)|\le1$ and
+\cref{lem:record:kernel-coefficient} give
+$|S-S_0|\le3^{\pi(729)}H^{-1/3}+|R_0|+|R_1|$. Each of the four quantities $|S|,|S_0|$ in \cref{lem:record:arcs}(iii) and $|R_0|,|R_1|$ in \cref{lem:record:arcs}(iv) is therefore at most $H^{-1/3}$ for $N$ large, the factor
+$(\log2N)^{1/2}$ included.
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:record:kernel20}]
+First prove (iii), using \cref{def:record:K20-kernels} with the nonvanishing
+square class $r\equiv b-a\pmod D$. Extend $F,J$ by zero, and for a finitely
+supported $h$ put
+$B_h(F,J)=N^{-1}\sum_{x,n}h(n)F(x)J(x+n)$. With
+$\widetilde F(\alpha)=\sum_xF(x)e(-x\alpha)$ and
+$S_h(\alpha)=\sum_nh(n)e(\alpha n)$, so that $S_{k_0}=S_0$ and $S_k=S$,
+orthogonality and then Cauchy--Schwarz and Plancherel give
+\[
+ B_h(F,J)=\frac1N\int_0^1S_h(\alpha)\widetilde F(-\alpha)\widetilde J(\alpha)\,d\alpha,
+ \qquad
+ |B_{k-k_0}(F,J)|\le\frac{\|S-S_0\|_\infty\|F\|_{\ell^2}\|J\|_{\ell^2}}N.
+\]
+Every term of $B_k(F,J)$ contains $F(x)J(x+m^2)$ with $m\ge1$, which vanishes
+because no difference of the supports is a positive square; so
+$B_k(F,J)=0$. This is the step at which square-difference-freeness is used
+(\cref{sec:kernel}). If $F(x)J(y)\ne0$, then $1\le y-x\le N-1$ by the hypothesis of \cref{prop:record:kernel20} that every point of $\supp F$ is smaller than every point of $\supp J$,
+and $y-x\equiv b-a\equiv r\pmod D$, so both indicators in $k_0(y-x)$ equal one
+and
+\[
+ B_{k_0}(F,J)=\frac D{N^2}\sum_{x,y}F(x)J(y)\sum_{\xi\in\Xi_{H,D}}g(\xi)
+ e(-\xi(y-x))=D\sum_{\xi\in\Xi_{H,D}}g(\xi)\widehat F(-\xi)\widehat J(\xi).
+\]
+Hence the left-hand side of \eqref{eq:record:K20} is
+$|B_{k_0-k}(F,J)|\le(3^{\pi(729)}+4)H^{-1/3}\|F\|_{\ell^2}\|J\|_{\ell^2}/N$ by
+\cref{lem:record:K20-approx}, and $H^{-1/3}\le C_H^{1/3}N^{-\beta/6}$; so
+\eqref{eq:record:K20} holds with $C=(3^{\pi(729)}+4)C_H^{1/3}$ for $N$ large.
+Part (i) is the case of unit square classes and $v_2(D)=3$; the valuation
+conditions of (ii) also describe nonvanishing square classes, so the same
+bound applies there. Its rescaling identity is proved next. Finally, a
+function bounded by one on one class modulo $D$ in an interval $I$ has
+$\|F\|_{\ell^2}^2\le|I|/D+1$, giving the last assertion.
+\end{proof}
+
+\subsection{Nonunit differences}
+
+This subsection is explanatory and is not used in the estimate
+just proved. It records exactly how the kernel statement and its
+normalization transform when both supports are divided by a common
+square $R$, which is the rescaling used in the main text when the
+forced difference is not a unit modulo $D$.
+
+\begin{lemma}[Division by an even-valuation square]
+\label{lem:record:nonunit-rescale}
+In the setting of \cref{prop:record:kernel20}(ii), let $\mathcal P_0'$ be the
+set of $p\in\mathcal P_0$ with $v_p(b-a)=2j_p\ge2$, and put
+$R=\prod_{p\in\mathcal P_0'}p^{2j_p}$, $D_R=D/R$ and $N'=\lceil N/R\rceil$.
+Then $a\equiv b\pmod R$. Let $a_R\in(-R,0]$ with $a_R\equiv a\pmod R$, and
+$F'(n')=F(a_R+Rn')$, $J'(n')=J(a_R+Rn')$ for $n'\in\Z$.
+\begin{enumerate}[label=(\alph*)]
+\item $F'$ and $J'$ are supported in $[1,N']$, in the classes
+ $a'=(a-a_R)/R$ and $b'=(b-a_R)/R$ modulo $D_R$, and
+ $\|F'\|_{\ell^2}=\|F\|_{\ell^2}$, $\|J'\|_{\ell^2}=\|J\|_{\ell^2}$. Moreover
+ $D_R=8d_R$ with $d_R=d/R$ odd, $D_R$ and $D$ have the same prime divisors,
+ and $b'-a'$ is a strict square class modulo $D_R$.
+\item Every point of $\supp F'$ is smaller than every point of $\supp J'$, and
+ no such difference is the square of a positive integer.
+\item $\Xi_{H,D_R}=\Xi_{H,D}$, and $\xi\mapsto R\xi$ is a bijection of this set
+ onto itself that preserves conductors, with $g(R\xi)=g(\xi)$.
+\item With $\widehat F_N$ normalized by $N$ and $\widehat{F'}_{N'}$ by $N'$,
+ \[
+  D\sum_{\xi\in\Xi_{H,D}}g(\xi)\widehat F_N(-\xi)\widehat J_N(\xi)
+  =R\Big(\frac{N'}N\Big)^2\,D_R\sum_{\xi'\in\Xi_{H,D_R}}g(\xi')
+  \widehat{F'}_{N'}(-\xi')\widehat{J'}_{N'}(\xi').
+ \]
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Since $p^{2j_p}$ divides $b-a$ for $p\in\mathcal P_0'$, $R\mid b-a$; and
+$R\mid D$, because $2j_p<2m_p$.
+
+(a) If $F(n)\ne0$, then $1\le n\le N$ and $n\equiv a\equiv a_R\pmod R$, so
+$n=a_R+Rn'$ with $n'=(n-a_R)/R$. As $1-a_R\in[1,R]$, $n'\ge1/R>0$; and
+$n'\le(N+R-1)/R$, so $n'\le\lceil N/R\rceil$. The congruence $n\equiv a\pmod D$
+is equivalent to $Rn'\equiv a-a_R\pmod D$, that is, to $n'\equiv a'\pmod{D_R}$,
+because $R$ divides both $a-a_R$ and $D$. The same holds for $J$, and the map
+$n\mapsto n'$ is a bijection of supports, which preserves the $\ell^2$ norms.
+$R$ is an odd square, so $d_R$ is odd and $R\equiv1\pmod8$. At
+$p\in\mathcal P_0'$ the exponent of $p$ in $D_R$ is $2m_p-2j_p\ge2$; at every
+other prime the exponent is unchanged. Now $b'-a'\equiv(b-a)/R\pmod{D_R}$. It
+is $\equiv1\pmod8$, since $b-a\equiv1$ and $R\equiv1$. At $p\in\mathcal P_0'$,
+$(b-a)/R$ is the unit part $(b-a)/p^{2j_p}$, a nonzero square modulo $p$,
+divided by $R/p^{2j_p}$, the square of an integer prime to $p$; so it is a
+nonzero square modulo $p$. At every other odd prime of $D_R$, $b-a$ is a
+nonzero square modulo $p$ and $R$ is the square of an integer prime to $p$.
+So $b'-a'$ is a strict square class modulo $D_R$.
+
+(b) The map $n\mapsto n'$ is increasing. If $y'-x'=k^2$ with $k\ge1$, then
+$y-x=Rk^2=(\sqrt R\,k)^2$, which is excluded.
+
+(c) The set $\Xi_{H,D}$ depends only on the prime divisors of $D$. For
+$\xi\in\Xi_{H,D}$, $R$ is coprime to $q(\xi)$, so multiplication by $R$
+permutes the reduced fractions of denominator $q(\xi)$. Since $\sqrt R$ is
+coprime to $q(\xi)$, the map $m\mapsto\sqrt Rm$ permutes the units modulo
+$q(\xi)$, and $g(R\xi)=\varphi(q(\xi))^{-1}\sum_me(\xi(\sqrt Rm)^2)=g(\xi)$.
+
+(d) By (a), $\widehat F_N(\xi)=N^{-1}\sum_{n'}F'(n')e(-(a_R+Rn')\xi)
+=(N'/N)e(-a_R\xi)\widehat{F'}_{N'}(R\xi)$, and likewise for $J$. In the product
+$\widehat F_N(-\xi)\widehat J_N(\xi)$ the phases $e(a_R\xi)e(-a_R\xi)$ cancel.
+Substitute $\xi'=R\xi$, use (c), and write $D=RD_R$.
+\end{proof}
+
+The factor $R(N'/N)^2$ in (d) is essential: omitting it would
+multiply the right-hand side by $R^{-1}(N/N')^2$, a factor between
+$R/4$ and $R$ when $N\ge R$, since $N/R\le N'\le2N/R$
+(\cref{sec:kernel}).
+
+\subsection{The range of the method}
+
+The closing remark records which exponent ranges the seven
+conditions (E1)--(E4), (K0)--(K2) allow, and why nonunit square
+classes need no new arc estimates. The unused ranges play no role
+later.
+
+\begin{remark}[The range of the parameters]\label{rem:record:K20-range}
+(1) With $\kappa=\beta$ the seven conditions of \cref{def:kernel-conditions}
+read $5\beta/3<\eta/2$, $13\beta/6<\eta$, $\eta+11\beta/3<1$,
+$2\eta+19\beta/6<1/2$, $3\eta<1$, $3\beta/2<\eta$ and $2\eta+3\beta/2<1$. The
+first and the fourth give the window $(10\beta/3,\,1/4-19\beta/12)$ of
+\cref{sec:kernel}, nonempty exactly when $\beta<3/59$, and for $\eta$ in it the
+other five hold as well. For squarefree $d$ and $H=N^{\beta/2}$ this is the
+setting of \cite[Prop.~6.1]{OpenAI}, where $\beta=10^{-5}$ and the major arcs
+have exponent $1/10$. Neither this window at values of $\beta$
+other than $1/20$ nor the OpenAI parameter values just named
+are used in this paper.
+
+(2) The root weight enters the proof only through its period, its supremum
+and the total size of its Fourier coefficients (each equal to $D'$), and
+through the local rule of \cref{lem:record:prime-power-lift}(a). This is why
+nonunit square classes, including the higher $2$-adic depths of the external
+index, require no new arc estimates: the root-class lemma supplies the same
+local rule and keeps $D'\le D$. The nonvanishing condition is essential to
+that construction; zero square classes are not covered.
+\end{remark}
+
+\paragraph{Consequences and what to read next.}
+The proof assumes \cref{def:strict-square-class,def:nonvanishing-square-class,def:kernel-notation,def:kernel-conditions},
+Dirichlet's approximation
+theorem and the elementary facts listed above; Weyl's inequality and the
+Gauss sums at odd prime powers are proved here. At the triple of
+\cref{cor:kernel20} the only numerical input is the positivity of the seven
+kernel slacks, item~(S6) of \cref{cert:record:analytic-stage}.
+
+\endgroup

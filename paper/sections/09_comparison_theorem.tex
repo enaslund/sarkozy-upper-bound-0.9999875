@@ -1,0 +1,954 @@
+\providecommand{\PushA}{\frac{5422587}{6103515625}}
+\providecommand{\PushK}{890666}
+\providecommand{\PushTheta}{0.99999999997327}
+\section{The comparison theorem: standing data, prices, and hypotheses}
+\label{sec:comparison-theorem}
+
+\paragraph{What this section proves and how to read it.}
+This section states Theorem~C: if distributions $\mu,\lambda,\nu$
+satisfy explicit hypotheses (CP0)--(CP8) and the number $\Theta$
+formed from their prices is $<1$, then
+$s(N)\le C'N^{1-a/(72-\theta)}$ with $0<\theta\le1$. No particular
+local law is used; Part~V later exhibits laws satisfying the
+hypotheses. In words: $\mu$ is the reflection-positive reference
+law; $\lambda$ is obtained from $\mu$ by record differences with the
+same conditional one-half distributions, grouped by the cut at which
+each difference has a uniform operator bound (a \emph{tag}); a
+positive law $\Nbr$ dominates $\lambda$ at the reserved cut in the
+$2\times2$ block sense; $\nu$ is a finite signed combination of
+nonnegative laws each accepting the queries (in the bundled sense of
+\cref{subsec:intro:glossary}), with symmetric and skew differences
+priced separately; second positive laws dominate $\nu$ itself.
+Inputs: Part~II only. Output: \cref{thm:comparison}, proved in
+\cref{sec:comparison-lemmas,sec:comparison-proof} and applied with
+$k=6$ in Part~V (\cref{tab:hypotheses}). A first reading should
+follow (CP0), the price definitions, the statement of Theorem~C with
+the reading guide preceding it, and treat (CP1)--(CP8) as a checklist
+to be consulted in Part~V. Two reading-order warnings: the
+repricing corollary in \cref{subsec:cp:prices} mentions totals
+$L_0,B$ defined in (CP2)--(CP3) below and can be skipped until then;
+and \emph{robust} bounds, used in (CP5) and (CP7), are defined in
+\cref{def:robust} immediately after (CP7)---in brief, bounds whose
+$o(1)$ errors come only from the two allowed analytic remainders.
+Theorem~C is the $k$-query form of \cref{prop:mech:one-query}.
+
+\emph{Letters.} In this part $B$ is the energy factor of the law
+dominating $\lambda$, $A$ the total skew price, $\mathcal E$ the
+dominated price bound for $\nu-\lambda$ and $J$ the coupled index
+term; an
+atom (a block of primes) is written $\Blk$. The square-difference-free set of
+integers of the main theorem is also written $A$, but only in its lift $F_A$,
+as the second entry of a pair $(\Lsc,A)$ (in $\Yf(\Lsc,A)$, in a
+counterexample, and in ``uniformly in $A$''), and where such a set is
+quantified (as in \cref{def:hyb:coupled} and Theorem~C); its density is
+$\alpha=|A|/N$.
+
+\subsection{Standing data (CP0), prices, and conversion between exponents}\label{subsec:cp:prices}
+
+Theorem~C is stated for abstract comparison data, which Part~V
+later verifies for one concrete construction. This subsection lists
+those data as (CP0), then defines the price of changing the law at
+one atom and how a price computed at a smaller exponent $a_0$ is
+converted to the exponent $a$ of the theorem.
+
+\begin{definition}[(CP0) Standing data: slots, scales, queries, index]\label{def:cp0}
+\emph{Comparison data} consist of the following objects.
+\begin{enumerate}[label=(\alph*)]
+\item\emph{Slots and cuts.} The slot array $V$ of \cref{def:slot-array},
+ $d=|V|=72$, with the family $\mathfrak F$ of its cuts: the chamber cuts
+ $\vartheta_{c,a}$ of the two coordinates and the reserved cut
+ $\iota(u_0,u_1,\ell)=(u_0,u_1,1-\ell)$, with plus half $V_+=\{\ell=0\}$ and
+ minus half $V_-=\iota V_+$. The family contains the sorting sequence of
+ \cref{lem:slot-array}(iii) (\cref{def:sorting}).
+\item\emph{Scales, atoms and the analytic stage.} A fixed integer $\Kint\ge2$
+ and, for every scale $\Lsc\ge1$ with $N=\Kint\Lsc$, the group $G_N$, its set
+ $\mathcal A_N$ of atoms, the lift $F_A$ and the inputs $g^{I,D_0,s}$ of
+ \cref{def:record:functional}, with fixed prefix exponents $e_p$; the
+ analytic stage of \cref{def:record:analytic-stage}; a density exponent
+ $0<\theta\le1$; and a price exponent $a$ with $0<a<\sigma$. We write
+ $\mathcal A=\bigcup_N\mathcal A_N$ for the set of atoms of all scales. Every
+ law attached below to an atom $\Blk$ is a measure on $X_{\Blk}^V$ that does
+ not depend on the scale.
+\item\emph{Queries.} A family $\mathcal E_k$ of $k\ge1$ directed queries
+ $e=(u_e,v_e)$ with pairwise disjoint endpoints (the $2k$ slots $u_e,v_e$ are
+ distinct), sources $u_e\in V_+$ and reflected targets $\iota v_e\in V_+$.
+\item\emph{Index law.} A fixed modulus $\Mzero=\prod_p p^{h_p}$,
+ $h_2\ge3$, coprime to every prime of $G_N$; a product convolution law
+ on nonvanishing square increments at these coordinates; and independent
+ conductor-depth envelopes and moment $R_I$, as in
+ \cref{def:hyb:coupled}. Each exact-conductor space is preserved by the
+ coordinate transition, and the norm of the transition restricted
+ to it is bounded by the corresponding decreasing depth tail. The interval transition is the cyclic shift.
+\end{enumerate}
+\end{definition}
+
+Only (a) refers to the particular array: the arguments of this part use of
+$V$ only that its family of cuts contains a sorting sequence and the reserved
+cut, and that the chamber folds commute with $\iota$ ((O4) of
+\cref{def:admissible}; \cref{lem:slot-array}(iii)). So the scheme of
+(CP1)--(CP8) is not tied to this array, and \cref{subsec:history:216} reads
+the $216$-slot design, with $V=(\Zsix)^3$ and the reserved cut
+$\vartheta_{2,0}$, as its first instance. The analytic stage of Part~II,
+however, is formulated for $72$ slots, and Theorem~C is stated for the array
+of (a), so $d=72$ throughout; the letter $d$ marks where the number of slots
+enters an exponent (the slot price exponent $a/d$ and the density factor
+$\theta/d$). In Part~V,
+$k=6$ and $\mathcal E_6$ is the family of the six queries of
+\cref{def:slot-array}(e), which satisfies (c) by \cref{lem:slot-array}(iv).
+
+\paragraph{Energies, the counterexample and $o(1)$.}
+For a finite signed measure $\kappa=\bigotimes_{\Blk}\kappa_{\Blk}$ on
+$G_N^V$ let $C_\iota(\kappa)$ be its cut matrix at $\iota$ and
+$Q_\kappa(X,Y)=\ip X{C_\iota(\kappa)Y}$ its cut form for half-functions $X,Y$
+on $G_N^{V_+}$ (\cref{def:cc:order}), and put
+\[
+ Y_\kappa=Q_\kappa(\bar X,\bar X)=\Lambda_\kappa(F_A,\dots,F_A),
+\]
+where $\bar X$ is the half-function carrying $F_A$ at every slot of $V_+$.
+Since every slot carries the same input, $Y_\kappa$ is also the value at
+$(\bar X,\bar X)$ of the cut form of $\kappa$ at any other cut. For the
+reference $\mu$ of (CP1), $Y_\mu=\Yf(\Lsc,A)$ and $\alpha^d\le Y_\mu$
+(\cref{lem:record:holder}). Every argument of this part takes place at a
+least normalized counterexample $(\Lsc,A)$ for $(a,\theta,C_0)$
+(\cref{def:record:counterexample}), and $Y=Y_\mu>0$ there. Energies whose
+selected atoms have a union $E$ with $q_E\le N^\tau$ are structured energies,
+bounded by their coarse prices (\cref{prop:record:density-structured}), with
+sharp bounds applied in the order of \cref{lem:record:folded-energy}. Every
+expansion over selected atoms also has terms with $q_E>N^\tau$; their sum is
+bounded by
+\cref{lem:record:density-lp}, with the post-reduction prices of the selected
+laws as the coefficients $\eta_{\Blk}$, and is $O(\Lsc^{-\sigma}\alpha)=o(1)Y$. Throughout,
+$o(1)$ denotes a quantity that tends to zero as $\Lsc\to\infty$, uniformly in
+$A$. Every $o(1)$ of this part is produced by structured energies and by the
+two kinds of analytic remainders, the large selections just described and
+the cancellations of \cref{lem:record:density-can}; this is the robustness of
+\cref{def:robust}, which is what the hypothesis (Rec) of
+\cref{thm:record:lineardensity} asks for (\cref{lem:record:rec}).
+
+At a least counterexample, fixing the labels at an atom $\Blk$ fixes residue
+classes, and splitting a class into progressions whose step is a square
+divisible by $q_{\Blk}$ returns the problem at a shorter scale
+(\cref{lem:record:fibre-scale}); by the induction hypothesis this costs the
+factor $(q_{\Blk}^2)^{a/d}$ at each of the $d$ slots. This is the origin of
+the prices.
+
+\begin{definition}[Prices]\label{def:price}
+Let $\Blk$ be an atom and $q_{\Blk}=\prod_{p\in\Blk}p$ its block modulus. Its
+\emph{selection factor} is $q_{\Blk}^{2a}$; for a prefix atom $\{p\}$ with
+$e_p$ even we read $q_{\Blk}^{2a}$ as $p^{e_pa}$, the factor of selecting the
+full group $\Z/p^{e_p}\Z$ (\cref{def:record:structured-energy}).
+\begin{enumerate}[label=(\alph*)]
+\item The \emph{price} of a finite signed measure $\zeta$ on $X_{\Blk}^V$ is
+ $\|\zeta\|_{\rm var}\,q_{\Blk}^{2a}$: selecting $\Blk$ changes every slot.
+\item Let $c\in\mathfrak F$ be a cut, $\kappa$ a nonnegative measure on
+ $X_{\Blk}^V$ of mass $w$ and $\zeta$ a signed measure on $X_{\Blk}^V$. Then
+ $\zeta$ has \emph{sharp bound $d_\zeta$ relative to $\kappa$ at $c$} if, for a
+ probability law $\pi$ on a finite set of shared labels,
+ $\kappa=w\int\kappa_s\,\pi(ds)$ and $\zeta=w\int K_s\,\pi(ds)$ with
+ probability measures $\kappa_s$ and signed measures $K_s$ that satisfy
+ \eqref{eq:record:sharp} at $c$ relative to the half marginals of $\kappa_s$,
+ with the constant $d_\zeta$, for every $s$. The \emph{sharp price} of $\zeta$
+ is $w\,d_\zeta\,q_{\Blk}^{2a}$. More generally an \emph{operator price} is a
+ weight, times an operator norm relative to actual half marginals, times
+ $q_{\Blk}^{2a}$.
+\item An \emph{upper price} is any number at least the price. A \emph{total}
+ is a sum of prices over the atoms of $\mathcal A$. In an expansion over
+ selected atoms each selected atom is charged its price once per expanded
+ term.
+\end{enumerate}
+\end{definition}
+
+The unpriced part of a price (a mass, a weight, a weighted norm) does not
+depend on the exponent, and an atom's laws do not depend on the scale; so a
+total over $\mathcal A$ bounds the corresponding sum over $\mathcal A_N$ at
+every scale.
+
+\begin{lemma}[Repricing]\label{lem:record:repricing}
+Let $0<a'\le a''$ and $L\ge0$, and let $\mathcal P$ be a family of atoms of
+primes with $e_p=1$ such that $\log q_{\Blk}\le L$ for every
+$\Blk\in\mathcal P$. Then $q_{\Blk}^{2a''}\le e^{2(a''-a')L}q_{\Blk}^{2a'}$ for
+$\Blk\in\mathcal P$, and for all numbers $c_{\Blk}\ge0$ that do not depend on
+the exponent,
+\[
+ \sum_{\Blk\in\mathcal P}c_{\Blk}\,q_{\Blk}^{2a''}
+ \le e^{2(a''-a')L}\sum_{\Blk\in\mathcal P}c_{\Blk}\,q_{\Blk}^{2a'} .
+\]
+In particular every price, sharp price or operator price of a law of an atom
+of $\mathcal P$ at the exponent $a''$ is at most $e^{2(a''-a')L}$ times its
+value at $a'$; an upper bound at $a'$ for a sum of such prices (for instance
+the block charge \eqref{eq:record:cell-charge} of Part~V, in the notation
+there), multiplied by $e^{2(a''-a')L}$, bounds the
+sum at $a''$; and two such steps compose to one step from the first to the
+last exponent.
+\end{lemma}
+
+\begin{proof}
+For each atom, $q_{\Blk}^{2a''}=q_{\Blk}^{2a'}e^{2(a''-a')\log q_{\Blk}}\le
+q_{\Blk}^{2a'}e^{2(a''-a')L}$, because $a''-a'\ge0$ and $\log q_{\Blk}\le L$.
+Multiply by $c_{\Blk}\ge0$ and sum. A price is its unpriced part times
+$q_{\Blk}^{2a}$, and the partition and the laws are the same at both
+exponents; only the selection factor changes. Two steps with budgets $L_1$,
+$L_2$ multiply to the factor $e^{2(a_1-a_0)L_1+2(a_2-a_1)L_2}$, which is
+$e^{2(a_2-a_0)L}$ for a common budget $L$.
+\end{proof}
+
+The argument needs $a''\ge a'$: for a negative difference the upper bound
+$L$ for $\log q_{\Blk}$ would point the wrong way.
+
+\begin{corollary}[The first stage at a larger exponent]
+\label{cor:first-stage-repricing}
+Let $a_0\le a$, and let every first-stage atom of (CP2) be a block of primes
+with $e_p=1$ and $\log q_{\Blk}\le L$. Let $U_0'$, $P'$ and $d_j'$, $v_j'$
+($j\in\mathfrak T$) be upper bounds for the totals $U_0$, $P$ and the tag
+totals $d_j$, $v_j$ of (CP2) and (CP3), computed for the same laws at the
+exponent $a_0$, and put $t=e^{2(a-a_0)L}$. Then at the exponent $a$
+\[
+ U_0\le tU_0',\qquad P\le tP',\qquad d_j\le td_j',\qquad v_j\le tv_j'
+ \quad(j\in\mathfrak T),
+\]
+and
+\[
+ L_0\le e^{tP'}\tagser(td',tv'),\qquad
+ R_{\rm err}\le e^{tU_0'}\tagser(td',tv'),\qquad
+ B\le e^{tU_0'}\bigl(1+\tagser(td',tv')\bigr).
+\]
+\end{corollary}
+
+\begin{proof}
+Every first-stage price is a price of a law of a first-stage atom: $p_\Blk$
+and $u_\Blk$ are prices of positive records, $d_{\Blk,i}$ is a sharp price and
+$v_{\Blk,i}$ the price of two positive records. So
+\cref{lem:record:repricing}, applied to the sums over the first-stage atoms
+and, for the tag totals, to the sums over the differences of each tag, gives
+the first four bounds. The series $\tagser$ and the exponential are
+nondecreasing in every argument (\cref{rem:cp:tags}), which gives the bounds
+for $L_0=e^P\tagser(d,v)$ and $R_{\rm err}=e^{U_0}\tagser(d,v)$, and then
+$B=e^{U_0}+R_{\rm err}\le e^{tU_0'}+e^{tU_0'}\tagser(td',tv')$.
+\end{proof}
+
+In the closing of Part~V the corollary is applied with the totals of the
+middle range certified at the anchor $a_0=\PushAnchor$
+(\cref{lem:record:middle-prices,cert:record:middle-price}) and the actual
+middle block budget $L=570$ (\cref{def:closing-quantities}); the upper prices
+have their own anchor $a_{\rm u}=883/10^6$ and are repriced band by band, each
+with its own logarithmic product bound (\cref{prop:record:upper}).
+
+\subsection{Queries and the random interval-and-residue index}\label{subsec:cp:index}
+
+The primes dividing $\Mzero$ are not coordinates of $G_N$. They enter
+through a fixed external residue index on each query, together with an
+interval index.
+The coupled index is $(b_e+1,s_e+r_e)$, where $r_e$ has the prescribed
+product law on nonvanishing square classes. On a nonwrapping interval,
+accepted-square cancellation follows from \cref{lem:record:density-can}
+and the prime-power kernel extension \cref{prop:record:kernel20}(iii).
+Uniform averaging still gives exactly the original lift. The residue depths
+enter the estimates through the conductor moment $R_I$
+(\cref{def:hyb:coupled}(g)).
+The following elementary unit-square case also explains the earlier
+squarefree index and remains useful when bounding its moment.
+
+\begin{lemma}[Unit squares]\label{lem:func:unitsq}
+Let $\Mzero=8d_0$ with $d_0$ odd and squarefree, and let $\Qsqmod{\Mzero}$ be
+the set of squares of the unit group $(\Z/\Mzero\Z)^\times$.
+\begin{enumerate}[label=(\roman*)]
+\item $\Qsqmod{\Mzero}=\{r\in\Z/\Mzero\Z:\ r\equiv1\pmod8,\ r\bmod p\in\Qsq\
+ \text{for every prime }p\mid d_0\}$. Every element of $\Qsqmod{\Mzero}$ is a
+ strict square class modulo $\Mzero$ (\cref{def:strict-square-class}).
+\item Under the Chinese remainder isomorphism
+ $\Z/\Mzero\Z\cong\Z/8\Z\times\prod_{p\mid d_0}\Fp$, the uniform probability on
+ $\Qsqmod{\Mzero}$ is the product of the point mass at $1$ in $\Z/8\Z$ and the
+ uniform probabilities on the sets $\Qsq$, $p\mid d_0$. In particular
+ $|\Qsqmod{\Mzero}|=\prod_{p\mid d_0}(p-1)/2$, and if $3\mid d_0$ the factor at
+ $3$ is the point mass at $1$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Since $d_0$ is odd and squarefree, the Chinese remainder theorem gives
+$\Z/\Mzero\Z\cong\Z/8\Z\times\prod_{p\mid d_0}\Fp$ and
+$(\Z/\Mzero\Z)^\times\cong(\Z/8\Z)^\times\times\prod_{p\mid d_0}\Fp^\times$.
+The squares of a product of groups are the products of the squares. Every
+odd square is $\equiv1\pmod8$, so the squares of $(\Z/8\Z)^\times=\{1,3,5,7\}$
+form $\{1\}$, and the squares of $\Fp^\times$ form $\Qsq$; this is the
+description in (i), and its elements are $\equiv1\pmod8$ and nonzero squares
+modulo every prime of $d_0$, which is the definition of a strict square
+class. The uniform probability on a product set is the product of the
+uniform probabilities, $|\Qsq|=(p-1)/2$, and $\Qsq[3]=\{1\}$; this is (ii).
+\end{proof}
+
+\begin{definition}[The coupled index]\label{def:hyb:coupled}
+Let $\mathcal E_k$ be the query family of (CP0), $\Lsc\ge1$, $N=\Kint\Lsc$,
+$A\subseteq[N]$ square-difference-free, and let $I_b$, $b\in\Z/\Kint\Z$, be
+the intervals of \cref{def:record:functional}: consecutive intervals of
+length $\Lsc$ partitioning $[N]$, each element of $I_b$ smaller than each
+element of $I_{b+1}$ for $1\le b<\Kint$, while $b+1$ wraps $I_{\Kint}$ to
+$I_1$.
+\begin{enumerate}[label=(\alph*)]
+\item\emph{Index space.} $\Omega=\prod_{e\in\mathcal E_k}\Omega_e$ with
+ $\Omega_e=\Z/\Kint\Z\times\Z/\Mzero\Z$ and the uniform probability measure;
+ $\omega=(\omega_e)_e$, $\omega_e=(b_e,s_e)$. By the Chinese remainder theorem
+ $\Omega=\prod_{j\in\mathcal K}\Omega_j$ is a product of cyclic groups indexed
+ by the \emph{coordinates} $\mathcal K=\bigsqcup_e\mathcal K_e$: the interval
+ coordinate $b_e$ and the prime-power residues
+ $s_e\bmod p^{h_p}$ for $p\mid\Mzero$.
+\item\emph{Half-functions.} For $\omega\in\Omega$ and $x\in G_N^{V_+}$,
+ \begin{align*}
+  X_\omega(x)&=\prod_{e}g^{I_{b_e},\Mzero,s_e}(x_{u_e})
+  \prod_{v\in V_+\setminus\{u_e\}_e}F_A(x_v),\\
+  Y_\omega(x)&=\prod_{e}g^{I_{b_e},\Mzero,s_e}(x_{\iota v_e})
+  \prod_{v\in V_+\setminus\{\iota v_e\}_e}F_A(x_v),
+ \end{align*}
+ and $\bar X(x)=\prod_{v\in V_+}F_A(x_v)$. (The half-function $Y_\omega$ always
+ carries an index; it is not one of the energies $Y_\kappa$.)
+\item\emph{Coupling.} Independently for every query and prime, choose
+ the specified square increment $r_{e,p}\bmod p^{h_p}$; combine them by
+ the Chinese remainder theorem to obtain $r_e$. The coupled index is
+ $\omega'=(b+1,s+r)$. Its Markov operator
+ $T_ef(b_e,s_e)=\E_{r_e}f(b_e+1,s_e+r_e)$ is the tensor product of the
+ interval shift and the coordinate convolutions. Let $P_e$ average over
+ the entire index $\omega_e$, interval coordinate included. All the
+ coordinate transitions are doubly stochastic. The finite laws of the
+ square increments $r_{e,p}$ used in the application are given in
+ \cref{lem:imp:padic-envelope}; the uniform
+ unit-square law of \cref{lem:func:unitsq} is a special alternative.
+\item\emph{Coupled and signed forms.} For a finite signed measure $\kappa$ on
+ $G_N^V$ and $\mathcal S\subseteq\mathcal E_k$ put
+ \[
+  I_{\kappa,\mathcal S}=\E_\omega\,Q_\kappa\Bigl(X_\omega,
+  \Bigl(\bigotimes_{e\in\mathcal S}T_e\bigotimes_{e\notin\mathcal S}P_e\,Y
+  \Bigr)_\omega\Bigr),\qquad
+  J_\kappa=\E_\omega\,Q_\kappa\bigl(X_\omega,(\mathcal TY)_\omega\bigr),\qquad
+  \mathcal T=\bigotimes_e(2P_e-T_e),
+ \]
+ the operators acting on the index variable of $Y_\omega$; they commute with
+ the field labels. $J_\kappa$ is the \emph{signed index form}.
+\item\emph{Depth law.} On a residue coordinate modulo $p^{h_p}$ let
+ $E_{p,j}$ be conditional expectation given the residue modulo $p^j$,
+ $0\le j\le h_p$, with $E_{p,0}$ the average. Choose decreasing tails
+ $1=\delta_{p,0}\ge\delta_{p,1}\ge\cdots\ge\delta_{p,h_p}\ge0$
+ bounding the transition norm on the exact-conductor spaces
+ $\operatorname{ran}(E_{p,j}-E_{p,j-1})$. Set
+ $\delta_{p,h_p+1}=0$ and choose a random depth with
+ $\Pr(J_{e,p}\ge j)=\delta_{p,j}$, independently across primes and
+ queries. Always reveal the interval. Write $\Jc$ for this whole
+ depth vector and $Z^{\Jc}$ for the corresponding conditional
+ expectation. Bernoulli inclusion is the special case of a chain
+ containing only the constant and full-coordinate projections.
+\item\emph{Energies.} For a nonnegative measure $M$ on $G_N^V$ with
+ $M\succeq_\iota0$ the \emph{single-half random-inclusion energies} of $X$ and
+ $Y$ under $M$ are
+ \[
+  V_M(X)=\E_{\Jc}\E_\omega\,Q_M\bigl(X^{\Jc}_\omega,X^{\Jc}_\omega\bigr),\qquad
+  V_M(Y)=\E_{\Jc}\E_\omega\,Q_M\bigl(Y^{\Jc}_\omega,Y^{\Jc}_\omega\bigr),
+ \]
+ the two summands of the energy of the one-cut coupling inequality
+ (\cref{lem:hyb:coupling}) without its factor $\frac12$.
+\item\emph{Conductor moment.} Put
+ $D_{\Jc_e}=\prod_{p\mid\Mzero}p^{J_{e,p}}$. With $\sq(D)$ the least
+ square divisible by $D$, the one-query moment is
+ \[
+  R_I=\E_{\Jc}\bigl(\Kint\,\sq(D_{\Jc_e})\bigr)^{2a/d}.
+ \]
+ It does not depend on $e$. Depths are held fixed through every fold
+ and structured-energy estimate, and averaged only afterwards.
+\end{enumerate}
+\end{definition}
+
+The coupled forms place the two ends of every query of $\mathcal S$ on the
+residue classes $s_e$ and $s_e+r_e$ of the intervals $I_{b_e}$ and
+$I_{b_e+1}$. Indeed, by the bilinear identity \eqref{eq:cc:bilinear},
+$Q_\kappa(X_\omega,Y_{\omega''})=\Lambda_\kappa((k_v)_{v\in V})$ with
+$k_{u_e}=g^{I_{b_e},\Mzero,s_e}$, $k_{v_e}=g^{I_{b''_e},\Mzero,s''_e}$ and
+$k_v=F_A$ otherwise, because the slot $\iota(\iota v_e)=v_e$ carries the
+factor of $Y_{\omega''}$ at $\iota v_e$; and an averaged index $e\notin\mathcal
+S$ leaves $F_A$ at both of its ends. In $V_M(Y)$ the map $Y$ is evaluated at
+a uniform index; since $\omega'$ is uniform as well (the $T_j$ are doubly
+stochastic), this is the natural normalization. The depth law
+gives the exact norm envelope on each conductor vector
+$\mathbf j$: the envelope $\prod_p\delta_{p,j_p}$ is exactly the
+probability that all the depths $j_p$ are revealed.
+The index-support lemma, with its filtration form below, applies to
+both the transition and its adjoint.
+By \cref{lem:twointerval}, $X^{\Jc}_\omega$
+carries $g^{I_{b_e},D_{\Jc_e},s_e\bmod D_{\Jc_e}}$ at $u_e$ and $F_A$ at the
+other slots of $V_+$, and likewise $Y^{\Jc}_\omega$ at the slots $\iota v_e$
+(\cref{cor:index-support-frame}(ii)).
+
+\begin{lemma}[Conductor moment]\label{lem:hyb:moment}
+For $w\ge0$ and every query $e$,
+\[
+ \E_{\Jc}(\Kint\,\sq(D_{\Jc_e}))^w
+ =\Kint^w\prod_{p\mid\Mzero}
+ \left[1+(p^{2w}-1)\sum_{l=1}^{\lceil h_p/2\rceil}
+ p^{2w(l-1)}\delta_{p,2l-1}\right].
+\]
+The expectation of the product over $k$ queries is the $k$-th power
+of this expression. Every factor is nondecreasing in $w$ and in the
+chosen tails. For the earlier squarefree law $\Mzero=8d_0$, with
+$8$ always revealed and Bernoulli odd-prime probabilities $\delta_p$,
+the expression is $(16\Kint)^w\prod_{p\mid d_0}(1+\delta_p(p^{2w}-1))$.
+\end{lemma}
+\begin{proof}
+The local least square is $p^{2\lceil J_{e,p}/2\rceil}$.
+For an integer-valued nonnegative variable $J$,
+\[
+ \E z^{\lceil J/2\rceil}
+ =1+(z-1)\sum_{l\ge1}z^{l-1}\Pr(J\ge2l-1).
+\]
+Apply this finite summation-by-parts identity with $z=p^{2w}$;
+independence across primes and queries proves the assertions.
+The Bernoulli specialization follows from $\sq(8)=16$ and
+$\sq(p)=p^2$. In the selected construction $w=2a/72=a/36$
+and the finite-depth moment is evaluated in \cref{prop:imp:padic-price}.
+\end{proof}
+
+\paragraph{The signed index form.}
+Expanding the product of the commuting operators $2P_e-T_e$,
+$\bigotimes_e(2P_e-T_e)=\sum_{\mathcal S}(-1)^{|\mathcal S|}2^{k-|\mathcal
+S|}\bigotimes_{e\in\mathcal S}T_e\bigotimes_{e\notin\mathcal S}P_e$, so for
+every finite signed measure $\kappa$
+\begin{equation}\label{eq:record:expansion}
+ J_\kappa=\sum_{\mathcal S\subseteq\mathcal E_k}
+ (-1)^{|\mathcal S|}2^{k-|\mathcal S|}I_{\kappa,\mathcal S},
+ \qquad I_{\kappa,\varnothing}=Y_\kappa .
+\end{equation}
+The second identity holds because every unused index averages its slot
+function to the full lift: $\E_{b,s}g^{I_b,\Mzero,s}=F_A$ for uniform $(b,s)$
+(\cref{lem:twointerval}), and $X_\omega$, $Y_\omega$ are products of functions
+of the independent $\omega_e$ at the distinct slots $u_e$, respectively $\iota
+v_e$; so $(\bigotimes_eP_eY)_\omega=\E Y=\bar X$, $\E X=\bar X$, and
+$I_{\kappa,\varnothing}=Q_\kappa(\E X,\bar X)=Y_\kappa$ by bilinearity. The constant coefficient $2^k$ of
+$\mathcal T$ is the factor $2^k$ of the closing: the empty-support component
+of $J_\nu$ is $Y_\nu$ itself.
+
+\begin{remark}[The choice of the coupling]\label{rem:hyb:optimal}
+Nothing in the proofs depends on the following two facts. No doubly
+stochastic kernel on $\F_p$ supported on nonzero square shifts has a smaller
+centred norm than the uniform square shift (\cref{lem:square-shift}(b)). Reusing one index for
+two queries generally correlates their inputs, and the product mean identity
+$\E X=\bar X$ then has no justification; this is why the queries have
+pairwise disjoint endpoints and independent indices.
+\end{remark}
+
+\subsection{Hypotheses (CP1)--(CP8) on the three laws}\label{subsec:cp:hypotheses}
+
+The hypotheses are conditions, atom by atom, on the reference law
+$\mu$, the first-stage law $\lambda$ and the signed comparison law
+$\nu$. We first fix the words \emph{record}, \emph{diagonal} and
+\emph{bracket}, then state (CP1)--(CP8) in order.
+
+\begin{definition}[Records, diagonals and brackets]\label{def:cp:records}
+A \emph{record} of an atom $\Blk$ is a nonnegative measure on $X_{\Blk}^V$,
+and a \emph{positive record} is a record whose normalization is admissible
+(\cref{def:admissible}); in particular its one-slot marginals are uniform. A
+record is \emph{diagonal at a cut} $c$ if it is fixed samplewise by the
+reflection of $c$; at $\iota$ we say \emph{reserved diagonal}. A diagonal
+record has a nonnegative diagonal cut matrix at its cut, so it is
+$\succeq_c0$ (\cref{lem:commoncut}(i)). For a probability law $m$ on
+$X_{\Blk}^{V_+}$, $\operatorname{Diag}_\iota(m)$ is its \emph{diagonal copy}
+(\cref{lem:commoncut}(i)): the plus half has law $m$ and the minus half is its
+reflection; its cut matrix is $\operatorname{diag}(m)$. For a measure
+$\zeta$ with image $\iota_*\zeta$ under the reflection,
+$\frac12(\zeta+\iota_*\zeta)$ and $\frac12(\zeta-\iota_*\zeta)$ are the
+\emph{symmetric} and \emph{skew parts} of $\zeta$ at $\iota$; their cut
+matrices are the symmetric and the antisymmetric part of $C_\iota(\zeta)$
+(\cref{rem:cut-symmetries}(a)). A \emph{bracket} at $\iota$ is a bracket of
+measures
+$\bigl(\begin{smallmatrix}M&K\\ K^*&M'\end{smallmatrix}\bigr)\succeq_\iota0$
+in the sense of \cref{subsec:pos:brackets}, a positive semidefinite block
+matrix of cut matrices at $\iota$. It gives
+$|Q_K(x,y)|\le Q_M(x,x)^{1/2}Q_{M'}(y,y)^{1/2}$, brackets tensorize over
+atoms, and for $K$ symmetric at $\iota$,
+$\bigl(\begin{smallmatrix}M&K\\ K&M\end{smallmatrix}\bigr)\succeq_\iota0$ if
+and only if $M\pm K\succeq_\iota0$ (\cref{lem:record:block-gram}(a),(b),(d)).
+\end{definition}
+
+\begin{definition}[(CP1) Reference]\label{def:cp1}
+The \emph{reference} at scale $N$ is a product
+$\mu=\bigotimes_{\Blk\in\mathcal A_N}\mu_{\Blk}$ of probability measures that
+satisfies \ref{it:record:R1}--\ref{it:record:R3} of
+\cref{hyp:record:reference}, with \ref{it:record:R2} at every cut of
+$\mathfrak F$, and the part of \ref{it:record:R4} that concerns $\mu$: at
+every tail prime $p\ge\Pfive$, $\mu_p$ is $(\gamma,v)$-mixing for every
+slot $v$.
+\end{definition}
+
+Reflection positivity is required at every cut of the family, not only along
+the sorting sequence (see the remark after \cref{hyp:record:reference}): the
+first comparison and the bracket energies of the next section, and the
+restorations (\cref{lem:record:restoration}) and companion energies
+(\cref{lem:record:companion-energy}) of Part~V, use chamber cuts outside the
+sorting sequence.
+
+\begin{definition}[(CP2) First stage]\label{def:cp2}
+A set $\mathcal A^{\rm fs}\subseteq\mathcal A$ of \emph{first-stage atoms},
+a finite set $\mathfrak T$ of \emph{tags} with a cut $c_j\in\mathfrak F$ for
+every $j\in\mathfrak T$, and, for $\Blk\in\mathcal A^{\rm fs}$, signed
+measures $\rho_{\Blk}$ and $\delta_{E,\Blk}$ on $X_{\Blk}^V$ ($E$ anticipates
+the application, where the tagged differences below are those of the
+matching records; see \cref{rem:cp:tags}) such that:
+\begin{enumerate}[label=(\alph*)]
+\item $\rho_{\Blk}-\mu_{\Blk}=\sum_ic_i\kappa_i$ is a finite real combination
+ of positive records $\kappa_i$, with \emph{variation price}
+ $p_{\Blk}=\sum_i|c_i|\kappa_i(1)\,q_{\Blk}^{2a}$, and
+ $\rho_{\Blk}\succeq_{\vartheta_0}\mu_{\Blk}$ at one cut $\vartheta_0\in\mathfrak F$,
+ the same for all first-stage atoms;
+\item $\delta_{E,\Blk}=\sum_i(\kappa'_{\Blk,i}-\kappa_{\Blk,i})$ is a finite
+ sum of differences of positive records of equal mass; each difference
+ carries a tag $j(\Blk,i)\in\mathfrak T$ and has a sharp bound relative to
+ $\kappa_{\Blk,i}$ at the cut $c_{j(\Blk,i)}$ of its tag
+ (\cref{def:price}(b)); $d_{\Blk,i}$ is its sharp price and
+ $v_{\Blk,i}=\bigl(\kappa_{\Blk,i}(1)+\kappa'_{\Blk,i}(1)\bigr)q_{\Blk}^{2a}$
+ its \emph{variation price}, the price of both positive parts of the
+ difference.
+\end{enumerate}
+The \emph{first stage} is $\lambda=\bigotimes_{\Blk}\lambda_{\Blk}$ with
+$\lambda_{\Blk}=\rho_{\Blk}+\delta_{E,\Blk}$ on $\mathcal A^{\rm fs}$ and
+$\lambda_{\Blk}=\mu_{\Blk}$ otherwise. Its totals are $P=\sum_\Blk p_{\Blk}$,
+the \emph{tag totals}
+\[
+ d_j=\sum_{(\Blk,i):\,j(\Blk,i)=j}d_{\Blk,i},\qquad
+ v_j=\sum_{(\Blk,i):\,j(\Blk,i)=j}v_{\Blk,i}\qquad(j\in\mathfrak T),
+\]
+$D=\sum_jd_j$ and $V=\sum_jv_j$, and its \emph{cost} is
+\[
+ L_0=e^P\tagser(d,v),\qquad
+ \tagser(d,v)=\sum_{\boldsymbol k\in\Z_{\ge0}^{\mathfrak T}\setminus\{0\}}\
+ \min_{j:\,k_j\ge1}\frac{d_j^{k_j}\prod_{j'\ne j}v_{j'}^{k_{j'}}}
+ {\prod_{j'\in\mathfrak T}k_{j'}!},
+\]
+where $d=(d_j)_j$, $v=(v_j)_j$ and $\boldsymbol k=(k_j)_{j\in\mathfrak T}$
+runs over the nonzero \emph{count vectors}.
+\end{definition}
+
+\begin{remark}[Tags]\label{rem:cp:tags}
+The series $\tagser$ has nonnegative terms, and it is nondecreasing in every
+argument, a minimum of nondecreasing functions being nondecreasing. It
+converges: with $m_j=\max(d_j,v_j)$ every term at $\boldsymbol k$ is at most
+$\prod_jm_j^{k_j}/k_j!$, so $\tagser(d,v)\le e^{\sum_jm_j}-1$. If
+$d_j\le v_j$ for every tag, then $\tagser(d,v)\le De^V$, so $L_0\le
+De^{P+V}$, the cost of expanding with one sharp difference per term: bound
+the minimum at $\boldsymbol k$ by the term of one tag $j$ with $k_j\ge1$, use
+$d_j^{k_j}\le d_jv_j^{k_j-1}$ and $k_j!\ge(k_j-1)!$, and sum over the
+$\boldsymbol k$ assigned to each $j$. The condition $d_j\le v_j$ can always
+be arranged when the two positive parts of every difference have the same
+half marginals in every shared label: a difference of two probability
+couplings with common half marginals satisfies \eqref{eq:record:sharp} with
+the constant $2$, each coupling being a contraction between its marginal
+spaces, so its sharp constant may be taken at most $2$ and then
+$d_{\Blk,i}\le v_{\Blk,i}$. In that sense tags only sharpen. A tag collects
+the differences that are sharp at a common cut, and all of them are applied
+sharply together
+(\cref{lem:sharp-first}); with a single tag the series is
+$\tagser=e^{d_0}-1$, and its gain over $De^V$ comes from the differences being
+paid sharply at once instead of one at a time. In Part~V there are two tags,
+the two folded matching records of the one-stage repair, each sharp at its
+own first cut, with $d_0=d_1=D/2$ and $v_0=v_1=V/2$
+(\cref{lem:record:one-stage-folded-e,cor:two-cut-series}).
+\end{remark}
+
+\begin{definition}[(CP3) Gram bracket]\label{def:cp3}
+The \emph{bracket} is $\Nbr=\bigotimes_{\Blk}\Nbr_{\Blk}$ with
+$\Nbr_{\Blk}=\mu_{\Blk}$ off the first-stage atoms and
+$\Nbr_{\Blk}=\Nbr_{0,\Blk}+\delta_{E,\Blk}$ on them, where
+$\Nbr_{0,\Blk}-\mu_{\Blk}$ is a finite sum of positive reserved-diagonal
+records, of total price $u_{\Blk}$, such that for every atom $\lambda_{\Blk}$
+is symmetric at $\iota$, $\Nbr_{\Blk}$ is nonnegative, and
+\[
+ \begin{pmatrix}\Nbr_{\Blk}&\lambda_{\Blk}\\ \lambda_{\Blk}&\Nbr_{\Blk}
+ \end{pmatrix}\succeq_\iota0,\qquad\text{equivalently}\qquad
+ \Nbr_{\Blk}\pm\lambda_{\Blk}\succeq_\iota0 .
+\]
+We also write $\Nbrz=\bigotimes_\Blk\Nbr_{0,\Blk}$ for the
+record-difference-free part of the bracket, with
+$\Nbr_{0,\Blk}=\mu_\Blk$ off the first-stage atoms. Its totals
+are $U_0=\sum_\Blk u_{\Blk}$ and
+$R_{\rm err}=e^{U_0}\tagser(d,v)$, with the tags and prices of (CP2)(b), and
+the \emph{energy factor} of the bracket is
+\[
+ B=e^{U_0}+R_{\rm err}.
+\]
+\end{definition}
+
+The bracket is the substitute for reflection positivity of $\lambda$ at the
+reserved cut: $\lambda$ need not be positive there, but it is dominated in
+absolute value by a positive measure whose energies are priced. An energy
+with outside law $\Nbr$ on the atoms outside its selected set $X$ costs at
+most $B$ times its price (\cref{lem:bracket-energy}): $e^{U_0}$ for the
+part without record differences and $R_{\rm err}$ for the rest.
+
+\begin{definition}[(CP4) Comparison law]\label{def:record:comparison-law}
+\label{def:cp4}
+A \emph{comparison law} is a product $\nu=\bigotimes_{\Blk}\nu_{\Blk}$ of
+finite signed measures on $X_{\Blk}^V$, each a finite real combination
+$\nu_{\Blk}=\sum_{i\in I_\Blk}c_{\Blk,i}\nu_{\Blk,i}$ of nonnegative measures
+$\nu_{\Blk,i}$, its \emph{components}, with $\nu_\Blk(1)>0$, and with
+$|I_\Blk|=1$, $c_{\Blk,1}=1$ at all but finitely many atoms of $\mathcal A$,
+such that:
+\begin{enumerate}[label=(\alph*)]
+\item\emph{Acceptance.} Every query of $\mathcal E_k$ is accepted by every
+ component: $\nu_{\Blk,i}(1)>0$ and, $\nu_{\Blk,i}$-almost surely, for every
+ $e$, the difference $z_{v_e}-z_{u_e}$ is a nonzero square at every prime of
+ $\Blk$ with $e_p=1$, and at a prefix prime it is nonzero, of even valuation
+ $2j<e_p$, with a square unit part. All one-slot marginals of every component
+ are multiples of the uniform law. With the normalized components
+ $\bar\nu_{\Blk,i}=\nu_{\Blk,i}/\nu_{\Blk,i}(1)$ as the accepted parts,
+ \ref{it:record:R5} and the part of \ref{it:record:R4} that concerns
+ $\bar\nu$ hold, the latter for the queries of $\mathcal E_k$ (in Part~V,
+ $\mathcal E_k=\mathcal E_6$).
+\item\emph{Records and brackets.} We have
+ \[
+  \nu_{\Blk}-\lambda_{\Blk}=\sum_{t\in\mathcal T_{\Blk}}
+  \bigl(\zeta^{\rm s}_{\Blk,t}+\zeta^{\rm a}_{\Blk,t}\bigr),
+ \]
+ a finite sum over the records $t$ of $\Blk$ that the comparison law changes
+ (repairs, replaces or deletes), where $\zeta^{\rm s}_{\Blk,t}$ and
+ $\zeta^{\rm a}_{\Blk,t}$ are the symmetric and skew parts at $\iota$ of the
+ change of $t$; and there are reserved-diagonal probability laws
+ $D^{\rm s}_{\Blk,t}$, $D^{\rm a}_{\Blk,t}$ with uniform one-slot marginals
+ (diagonal copies of actual half marginals of $t$, in the applications) and
+ numbers $\tilde\pi^{\rm s}_{\Blk,t},\tilde\pi^{\rm a}_{\Blk,t}\ge0$ with
+ \[
+  \begin{pmatrix}\tilde\pi^{\rm s}_{\Blk,t}D^{\rm s}_{\Blk,t}&\zeta^{\rm s}_{\Blk,t}\\
+  \zeta^{\rm s}_{\Blk,t}&\tilde\pi^{\rm s}_{\Blk,t}D^{\rm s}_{\Blk,t}\end{pmatrix}
+  \succeq_\iota0,\qquad
+  \begin{pmatrix}\tilde\pi^{\rm a}_{\Blk,t}D^{\rm a}_{\Blk,t}&\zeta^{\rm a}_{\Blk,t}\\
+  \zeta^{{\rm a}*}_{\Blk,t}&\tilde\pi^{\rm a}_{\Blk,t}D^{\rm a}_{\Blk,t}\end{pmatrix}
+  \succeq_\iota0 .
+ \]
+ The diagonal entries are the \emph{norm envelopes} of the change; their
+ coefficients carry no price. The prices are
+ $\pi^\epsilon_{\Blk,t}=\tilde\pi^\epsilon_{\Blk,t}q_{\Blk}^{2a}$
+ ($\epsilon\in\{{\rm s},{\rm a}\}$), $s_{\Blk}=\sum_t\pi^{\rm s}_{\Blk,t}$,
+ $a_{\Blk}=\sum_t\pi^{\rm a}_{\Blk,t}$, and the totals are
+ \[
+  S=\sum_{\Blk}s_{\Blk},\qquad A=\sum_{\Blk}a_{\Blk}.
+ \]
+\item\emph{Selections.} A \emph{selection} $\omega$ is a nonempty finite set
+ $X\subseteq\mathcal A_N$ of atoms with a record $t_{\Blk}\in\mathcal
+ T_{\Blk}$ and a type $\epsilon_{\Blk}\in\{{\rm s},{\rm a}\}$ for every
+ $\Blk\in X$, the number of skew types being even. Its signed measure, its
+ monomial and its term are
+ \[
+  \zeta_\omega=\bigotimes_{\Blk\in X}\zeta^{\epsilon_{\Blk}}_{\Blk,t_{\Blk}},\qquad
+  \pi_\omega=\prod_{\Blk\in X}\pi^{\epsilon_{\Blk}}_{\Blk,t_{\Blk}},\qquad
+  I_\omega=Y_{\zeta_\omega\otimes\lambda_{-X}},\qquad
+  \lambda_{-X}=\bigotimes_{\Blk\notin X}\lambda_{\Blk}.
+ \]
+\end{enumerate}
+The \emph{variation factor} of $\nu$ is
+$\mathfrak v_\nu=\prod_{\Blk\in\mathcal A}|\nu|_\Blk/\nu_\Blk(1)$, with
+$|\nu|_\Blk=\sum_{i\in I_\Blk}|c_{\Blk,i}|\,\nu_{\Blk,i}(1)$, and
+$n_\nu=\prod_{\Blk\in\mathcal A}|I_\Blk|$ is the number of its \emph{product
+components} $\bigotimes_\Blk c_{\Blk,i_\Blk}\nu_{\Blk,i_\Blk}$. Both are
+finite, do not depend on the scale, and equal one when every $\nu_\Blk$ is
+represented by a single nonnegative component with coefficient one;
+every factor $|\nu|_\Blk/\nu_\Blk(1)$ is at least one.
+\end{definition}
+
+Summing the brackets of (b) over $t$ gives blockwise brackets with the
+diagonal laws $D^\epsilon_{\Blk}=\sum_t\tilde\pi^\epsilon_{\Blk,t}
+D^\epsilon_{\Blk,t}/\sum_t\tilde\pi^\epsilon_{\Blk,t}$ and the coefficients
+$\sum_t\tilde\pi^\epsilon_{\Blk,t}$. A term of the expansion of
+$\bigotimes_{\Blk}(\lambda_{\Blk}+\sum_t(\zeta^{\rm s}_{\Blk,t}+\zeta^{\rm
+a}_{\Blk,t}))$ chooses at most one record and one type at each atom; since
+$\lambda_{\Blk}$ is symmetric at $\iota$, a term with an odd number of skew
+factors has a skew cut matrix and vanishes at $(\bar X,\bar X)$. This is why
+selections carry an even number of skew types. In the construction of
+Part~V, $\nu_{\Blk}$ is normalized by the normalizing mass of $\mu_{\Blk}$, so
+that retained records keep their weights. In Part~V the middle blocks carry
+signed combinations, through their fold records (three components each,
+\cref{def:record:mixture}); every other atom law is nonnegative. The signs
+enter the theorem only through the cancellation of the accepted queries,
+which is applied to each product component separately
+(\cref{lem:record:wrap-expansion}); the brackets of (b) and every energy
+bound concern the record changes and the envelopes, not the components.
+
+\begin{remark}[Charging rules]\label{rem:cp:charging}
+(i) Let a record $w\kappa$, with $\kappa$ a probability measure symmetric at
+$\iota$ and $m$ its half marginal, be deleted, so that $-w\kappa$ is its
+change. Then $\zeta^{\rm s}=-w\kappa$, $\zeta^{\rm a}=0$, $D^{\rm
+s}=\operatorname{Diag}_\iota(m)$ and $\tilde\pi^{\rm s}=w$ satisfy (b): a
+deleted positive record is charged its mass in $\tilde\pi^{\rm s}$ only.
+Indeed $|Q_\kappa(f,f)|\le\int|f(z_+)||f(\iota z_-)|\,d\kappa\le
+\|f\|_{L^2(m)}^2=Q_{\operatorname{Diag}_\iota(m)}(f,f)$, where $\iota z_-$
+denotes the minus-half labels read on $V_+$, so
+$\operatorname{Diag}_\iota(m)\pm\kappa\succeq_\iota0$.
+(ii) Let a record $w\Pi$ be replaced by $w\Pi'$, where $\Pi,\Pi'$ are
+probability measures with the same half marginal $m$ on both halves of
+$\iota$, and let $\Delta$ be the operator on $L^2(m)$ with
+$\ip\varphi{\Delta\psi}_m=\int\varphi(z_+)\psi(\iota z_-)\,d(\Pi'-\Pi)(z)$, with
+symmetric and skew parts $\Delta^{\rm s},\Delta^{\rm a}$. Then (b) holds with
+$D^{\rm s}=D^{\rm a}=\operatorname{Diag}_\iota(m)$,
+$\tilde\pi^{\rm s}=w\|\Delta^{\rm s}\|$ and $\tilde\pi^{\rm a}=w\|\Delta^{\rm
+a}\|$: such a repair is charged its weight times its operator norms. Indeed
+the cut matrix of $\Pi'-\Pi$ is $\operatorname{diag}(m)\Delta$ and that of
+$\operatorname{Diag}_\iota(m)$ is $\operatorname{diag}(m)$, so the form of the
+symmetric bracket at $(f,g)$ is
+$c\|f\|_m^2+2\ip f{\Delta^{\rm s}g}_m+c\|g\|_m^2$, $c=\|\Delta^{\rm s}\|$, which
+is nonnegative; likewise for the skew part.
+(iii) \emph{Skew-only charging.} In (ii) let $\Pi$ be symmetric at $\iota$.
+Then $\Delta^{\rm a}$ is the skew part of the operator $\Delta'$ of $\Pi'$
+alone, $\ip\varphi{\Delta'\psi}_m=\int\varphi(z_+)\psi(\iota z_-)\,d\Pi'(z)$:
+the operator of $\Pi'-\Pi$ is $\Delta'-\Delta_\Pi$, with $\Delta_\Pi$ the
+operator of $\Pi$, which is self-adjoint. So a replacement of a symmetric
+record is charged in the skew price only by the skew part of the new law,
+$\tilde\pi^{\rm a}=w\|\Delta'^{\rm a}\|$, whatever the symmetric record it
+replaces; and a deleted symmetric record has no skew charge, as in (i).
+\end{remark}
+
+\begin{definition}[(CP5) Class bounds]\label{def:cp5}
+Optionally: for every atom $\Blk$ finitely many numbers $y_{\Blk,j}\ge0$
+($j\in J_\Blk$), the \emph{auxiliary prices}, each attached to one record
+$t\in\mathcal T_\Blk$ of (CP4)(b) and one type $\epsilon\in\{{\rm s},{\rm a}\}$
+(in Part~V, operator prices of parts of the record changes: raw-arm, leading
+and remainder prices, \cref{lem:middle-comparison-prices}); a family of
+pairwise disjoint \emph{classes} $\mathcal C$ of selections, each selection
+of a class having at most $n_{\max}$ atoms, with $n_{\max}$ a fixed integer
+independent of the scale, of $A$ and of the class; and for every
+selection $\omega$ of a class a polynomial $\phi_\omega$ with nonnegative
+coefficients in the auxiliary prices, its \emph{class bound}, each of whose
+monomials is a product, over the atoms $\Blk$ of $\omega$, of one auxiliary
+price attached to the record and type $(t_\Blk,\epsilon_\Blk)$ of $\omega$ at
+$\Blk$; such that robustly and uniformly in $\mathcal C$
+\[
+ \sum_{\omega\in\mathcal C}|I_\omega|\le\sum_{\omega\in\mathcal C}
+ \bigl(\phi_\omega+o(1)\pi_\omega\bigr)Y .
+\]
+A \emph{class cost} $0\le c_{\mathcal C}\le B$ is the case
+$\phi_\omega=c_{\mathcal C}\pi_\omega$, the prices
+$\pi^{\epsilon_\Blk}_{\Blk,t_\Blk}$ of the selected records serving as auxiliary
+prices; its \emph{gain} is $B-c_{\mathcal C}$.
+\end{definition}
+
+Every selection costs at most $B$ times its monomial
+(\cref{lem:record:record-expansion}); a class cost below $B$, or class bounds
+below $B$ times the monomials of their class, record a saving proved for that
+class: a variance credit (\cref{sec:variance}), a bound by
+positive dominating matrices (\cref{sec:envelopes}), or both. The
+requirement
+$c_{\mathcal C}\le B$ is no restriction: since every class satisfies the
+bound with the cost $B$, a proved cost $c\ge0$ may always be replaced by
+$\min(c,B)$. In particular a cost certified below an upper bound $B'$ of $B$
+gives the class cost $\min(c,B)\le c$, and the closing may be evaluated with
+$c$ and $B'$ (\cref{rem:cp:monotone}). A class bound in auxiliary prices is
+used when it improves, in the evaluated totals, on $B$ times the full
+monomials of its class; the degree-class replacement of
+\cref{lem:record:record-expansion}(v) is the case used in Part~V. Since a
+monomial of a class bound contains one auxiliary price of each record of its
+selection, it determines the selection; this is what lets the class bounds of
+all selections be added up as one power series.
+
+\begin{definition}[(CP6) Matching envelopes]\label{def:cp6}
+For $s\in\{{\rm L},{\rm R}\}$ and every atom, nonnegative measures
+$M_{s,\Blk}$ such that $M_{s,\Blk}-\Nbr_{\Blk}$ is a finite nonnegative
+combination of positive reserved-diagonal records, of price $T_{s,\Blk}$,
+and
+\[
+ \begin{pmatrix}M_{{\rm L},\Blk}&\nu_{\Blk}\\ \nu_{\Blk}^*&M_{{\rm R},\Blk}
+ \end{pmatrix}\succeq_\iota0
+\]
+for every atom. The \emph{matching exponent} is a number $T$ with
+$\sum_{\Blk}T_{s,\Blk}\le T$ for both sides $s$.
+\end{definition}
+
+\begin{definition}[(CP7) Mean energies]\label{def:cp7}
+A number $m$, the \emph{mean credit}, such that robustly
+\[
+ \tfrac12(e_{\rm L}+e_{\rm R})\ge(m-o(1))\,Y,\qquad
+ e_s=Q_{\bigotimes_{\Blk}M_{s,\Blk}}(\bar X,\bar X),
+\]
+where $e_s$ is the \emph{mean energy} of the envelope of the side $s$.
+\end{definition}
+
+The envelopes are allowed to differ on the two sides of the reserved cut,
+and each half-function is measured only under its own envelope. The mean
+energies enter the closing through the common mean of the signed index
+(\cref{lem:record:common-mean}): the empty-support component of $J_\nu$ is
+$Y_\nu$, and that of the envelope energies is $e_s$.
+
+\begin{definition}[Robust bounds]\label{def:robust}
+Let $z\ge0$. A least normalized counterexample $(\Lsc,A)$, for
+$(a,\theta,C_0)$ with any $C_0\ge1$, is
+\emph{$z$-inflated} for an argument if every structured energy $\mathfrak E$
+that the argument bounds at $(\Lsc,A)$ satisfies $|\mathfrak
+E|\le(1+z)\|\rho\|\,\Pi\,Y$ with its coarse price $\Pi$, and the absolute
+values of its \emph{remainders} (the integrals of the form bounded in
+\cref{lem:record:density-can} and the sums of the form bounded in
+\cref{lem:record:density-lp} that it uses) add up to at most $zY$. An
+inequality $\Xi\le(c+o(1))Y$, with $\Xi$ a quantity attached to $(\Lsc,A)$ and
+$c$ a number, is \emph{robust} if it has an argument such that:
+\begin{enumerate}[label=(\alph*)]
+\item its remainders are a number, bounded independently of $\Lsc$ and $A$,
+ of integrals of the form of \cref{lem:record:density-can}, each integrated
+ against a probability law of the indices and multiplied by a coefficient
+ bounded independently of $\Lsc$ and $A$, and finitely many sums of the form
+ of \cref{lem:record:density-lp} whose constants $c$ and $\Pi_{\rm H}$ (in the
+ notation of that lemma) do not depend on $\Lsc$ and $A$;
+\item there are $z_0>0$, $\Lsc_1$ and a function $c(\cdot)$ on $[0,z_0]$,
+ continuous at $0$ with $c(0)=c$, such that $\Xi\le c(z)Y$ at every
+ $z$-inflated least normalized counterexample with $\Lsc\ge\Lsc_1$ and $z\le
+ z_0$.
+\end{enumerate}
+Robust lower bounds $\Xi\ge(c-o(1))Y$ are defined in the same way. A family of
+bounds is robust \emph{uniformly} if one argument, one $z_0$ and $\Lsc_1$, and
+one modulus of continuity at $0$ serve for all of them; in particular the
+remainders of the whole family together satisfy (a).
+\end{definition}
+
+A robust bound holds with $o(1)$ in the ordinary sense. By
+\cref{prop:record:density-structured}, every least normalized counterexample
+with $\Lsc$ large is $z$-inflated with
+$z=u_\Lsc+(C_{\rm dc}+C_{\rm R})\Lsc^{a-\sigma}$, which tends to zero uniformly
+in $A$ because $a<\sigma$ and $C_0\ge1$; here $C_{\rm R}$ bounds the
+remainders allowed by (a), through
+\cref{lem:record:density-can,lem:record:density-lp}, as in the proof of
+\cref{thm:record:lineardensity}.
+
+\begin{definition}[(CP8) Admissibility, robustness, summability]\label{def:cp8}
+\leavevmode
+\begin{enumerate}[label=(\alph*)]
+\item\emph{Admissibility.} Every law named in (CP2)--(CP6) (the positive
+ records of (CP2)(a), the records $\kappa_{\Blk,i},\kappa'_{\Blk,i}$, the
+ records of $\Nbr_{0,\Blk}-\mu_{\Blk}$, the laws $D^\epsilon_{\Blk,t}$ and the
+ records of $M_{s,\Blk}-\Nbr_{\Blk}$) is admissible, and so is every selected
+ law that the reductions of this part produce from them; every reduction of
+ this part satisfies (O3) and (O4) of \cref{def:admissible}.
+\item\emph{Robustness.} The bounds of (CP5) and (CP7) are robust
+ (\cref{def:robust}), those of (CP5) uniformly in the class.
+\item\emph{Summability.} With $q_{\Blk}$ here denoting the
+ product of the primes of $\Blk$ with $e_p=1$ only (so the weight
+ $q_{\Blk}^{1/4}$ is $1$ at a prefix atom, whose prices in
+ \cref{def:price} nevertheless carry the factor $p^{e_pa}$),
+ $v_\Blk=\sum_iv_{\Blk,i}$ and $d_\Blk=\sum_id_{\Blk,i}$
+ as in (CP2), $s_{\Blk},a_{\Blk}$ as in (CP4) and the auxiliary prices of
+ (CP5),
+ \[
+  \sum_{\Blk\in\mathcal A}q_{\Blk}^{1/4}\Bigl(p_{\Blk}+v_{\Blk}+d_{\Blk}
+  +u_{\Blk}+s_{\Blk}+a_{\Blk}+T_{{\rm L},\Blk}+T_{{\rm R},\Blk}
+  +\sum_{j\in J_\Blk}y_{\Blk,j}\Bigr)<\infty .
+ \]
+\end{enumerate}
+\end{definition}
+
+Part (c) makes the totals $P$, $V$, $D$ (and the tag totals), $U_0$, $S$,
+$A$, $T$ and the totals of the auxiliary prices finite and independent of the
+scale, and it makes the product $\Pi_{\rm H}$ of \cref{lem:record:density-lp}
+finite for the coefficients that the expansions produce: these are
+post-reduction prices of the selected laws, and only the tail atoms form an
+infinite family. A bound is shown to be robust by the criterion of
+\cref{lem:record:rec}(i): it is built from structured-energy bounds by sums,
+products and monotone operations, or it is an exact relation minus such
+bounds, and every strict inequality it needs holds strictly at $z=0$.
+
+\subsection{Theorem~C: if $\Theta<1$ then $s(N)\le C'N^{1-a/(72-\theta)}$}\label{subsec:cp:theorem}
+
+\paragraph{How to read the statement.}
+Theorem~C is conditional: it assumes laws satisfying (CP0)--(CP8)
+and concludes the power saving from the single numerical inequality
+$\Theta<1$. The symbols in $\Theta$ are: $d=72$ slots and $k$ queries
+($k=6$ in Part~V); $L_0$ the total price of $\mu\to\lambda$ (CP2);
+$B$ the energy factor of the law dominating $\lambda$ (CP3);
+$S,A$ the total symmetric and skew prices of $\nu-\lambda$ (CP4),
+with $\hat S,\hat A$ any finite upper bounds for them; $\mathcal E$
+any number at least $\Psi(\hat\pi,\hat y)$, where $\Psi$ is a
+\emph{complete polynomial}---a power series with nonnegative
+coefficients dominating every simultaneous-change bound, defined in
+\cref{rem:cp:monotone} below and constructed in
+\cref{lem:record:record-expansion} (without (CP5) families,
+$\Psi(\hat\pi)=B(e^{\hat S}\cosh\hat A-1)$; the simpler display
+$\mathcal E=B(e^S\cosh A-1)-D$ in \cref{subsec:intro:inequality} is
+the Part~V evaluation with savings $D$ subtracted); $T$ the total
+price of the dominators for $\nu$ (CP6), entering through $e^T$;
+$R_I$ the conductor factor of one index (\cref{def:hyb:coupled});
+$m$ the mean-energy lower bound (CP7), whose trivial admissible
+value is $1-L_0$ (\cref{lem:record:domination}); and
+$J,W$ as displayed. Hatted quantities are certified upper bounds:
+by monotonicity (\cref{rem:cp:monotone}) the theorem may be applied
+with upper bounds for prices and a lower bound for $m$. Note
+$0<\theta\le1$ in (CP0): the improved exponent
+$\vartheta=\FourRoutesDensity>1$ of \cref{thm:main} is not obtained
+by substituting $\vartheta$ for $\theta$ here, but by the separate
+induction of \crefrange{sec:density:moments-prefix}{sec:four-routes-closing}.
+In (CP4) the letter $\omega$ denotes a \emph{selection} (a choice of
+changed records), not the random index $\omega$ of
+\cref{def:hyb:coupled}; the context (prices versus intervals)
+distinguishes them.
+
+\begin{theorem}[Theorem~C. If $\Theta<1$ then $s(N)\le C'N^{1-a/(72-\theta)}$]\label{thm:comparison}
+Let comparison data satisfy (CP0)--(CP8) at every scale. Let $\hat\pi\ge\pi$
+be upper prices for the records of (CP4), with totals $\hat S\ge S$ and
+$\hat A\ge A$ finite; let $\hat y\ge y$ be upper auxiliary prices of (CP5),
+of finite total $\sum_{\Blk,j}\hat y_{\Blk,j}$; let $\Psi$ be a complete
+polynomial of \cref{lem:record:record-expansion}(ii) for the classes and
+class bounds of (CP5) (for instance in the completed form (iv) or the
+replaced form (v) of that lemma) that converges at $(\hat\pi,\hat y)$, and
+let $\mathcal E\ge\Psi(\hat\pi,\hat y)$. Put
+\begin{gather*}
+ J=Be^T\Bigl(\frac{R_I}2\Bigr)^k,\qquad
+ W=Be^{S+A}\Bigl[\Bigl(1+\frac{R_I}{2\Kint^{1-2\theta/d}}\Bigr)^k-1\Bigr],\\
+ \Theta=\bigl(1-2^{-k}\bigr)\bigl(L_0+\mathcal E\bigr)+J+W+\frac{1-m}{2^k}.
+\end{gather*}
+If $\Theta<1$, there is a constant $C$, depending only on the
+comparison data, such that $\Yf(\Lsc,A)\le
+C\Lsc^{-a}\alpha^\theta$ for every $\Lsc\ge1$ and every square-difference-free
+set $A\subseteq[\Kint\Lsc]$, $\alpha=|A|/(\Kint\Lsc)$. Consequently
+\[
+ s(N)\le C'N^{1-a/(d-\theta)}\qquad\text{for every }N\ge1 .
+\]
+\end{theorem}
+
+The proof is in \cref{sec:comparison-proof}. Without classes, the complete
+polynomial of \cref{lem:record:record-expansion}(ii) is
+$\Psi=B(e^{S(x)}\cosh A(x)-1)$ and $\Psi(\hat\pi)=B(e^{\hat S}\cosh\hat
+A-1)$; a class replaces $B$ times its monomials by its class bounds.
+
+\begin{remark}[Monotonicity]\label{rem:cp:monotone}
+$\Theta$ is nondecreasing in $L_0$, $\mathcal E$, $B$, $S$, $A$, $T$ and
+$R_I$, and nonincreasing in $m$: $1-2^{-k}>0$, $J$ is nondecreasing in $B$,
+$T$ and $R_I$, and $W$ in $B$, $S+A$ and $R_I$, all of these being
+nonnegative. A complete polynomial is any power series with nonnegative
+coefficients that dominates, coefficient by coefficient, the series
+$\sum_\omega b_\omega$ of \cref{lem:record:record-expansion}(ii), in which a
+selection in no class contributes $B$ on its monomial, a selection of a class
+with a class cost that cost on its monomial, and a selection of a class with
+class bounds its class bound. So every power series with nonnegative
+coefficients dominating these, for instance one built from certified upper
+bounds for $B$, for the class costs and for the coefficients of the class
+bounds, gives an admissible $\mathcal E$ when it is evaluated at upper prices
+and upper auxiliary prices. Hence the theorem holds with certified upper
+bounds for $L_0$, $B$, $S$, $A$, $T$, $R_I$, the prices, the auxiliary prices,
+the class costs and the coefficients of the class bounds, and a certified
+lower bound for $m$, in place of the quantities themselves; this is how the
+closing of Part~V evaluates $\Theta$.
+\end{remark}
+
+\begin{remark}[Reading the closing number]\label{rem:cp:reading}
+The sum $L_0+\mathcal E$ bounds $|Y_\nu-Y_\mu|/Y$ up to $o(1)$, and
+since the empty term of the signed-index expansion is $Y_\nu$
+itself, the bound $L_0+\mathcal E$ enters $\Theta$ with the
+coefficient $(2^k-1)/2^k$ (see the opening of
+\cref{sec:comparison-lemmas}). In $J$ each query contributes
+$R_I/2$; $W$ bounds the terms in which every query to which the
+coupled transition, rather than the average, is applied in that
+term wraps; and
+$m>1$ lowers $\Theta$ through $(1-m)/2^k$. In the baseline
+application $k=6$, $d=72$, $\theta=1$, so $1-2^{-k}=63/64$ and
+$\Kint^{1-2\theta/d}=\Kint^{35/36}$ with $\Kint=\PushK$, giving
+$\eps=a/71$ and $\Theta<\PushTheta$ (\cref{sec:closing}). These are
+baseline values, quoted here only as an illustration; Theorem~C
+itself uses no Part~V number.
+\end{remark}
+
+\paragraph{Consequences and what to read next.}
+From Part~II: the slot array and its cuts (\cref{lem:slot-array},
+\cref{def:sorting}), the cut calculus (\cref{def:cc:order},
+\cref{eq:cc:bilinear}, \cref{rem:cut-symmetries}, \cref{lem:commoncut},
+\cref{lem:record:block-gram}), the
+functional and its inputs (\cref{def:record:functional},
+\cref{lem:twointerval}), the reference hypotheses
+(\cref{hyp:record:reference}), the square shift (\cref{lem:square-shift}), the
+sector lemma (\cref{lem:sector}), and the analytic notions of
+\cref{def:record:analytic-stage,def:record:counterexample,def:record:structured-energy,def:admissible},
+\cref{eq:record:sharp}, \cref{lem:record:density-can,lem:record:density-lp}.

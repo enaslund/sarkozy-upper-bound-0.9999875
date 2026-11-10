@@ -1,0 +1,1464 @@
+
+\section{Middle primes I: blocks and spectral bounds for the twelve-label law}
+\label{sec:middle-reference}
+
+\paragraph{What this section proves and how to read it.}
+The middle range is $p\equiv3\pmod4$ in
+$[Q_3,P_3)=[19\,951\,586,167\cdot2^{40})$. This section partitions
+it into prime blocks $\Blk$ with $\sum_{p\in\Blk}\log p\le570$
+(grouped into $33$ consecutive intervals, called \emph{pieces} in
+displays), proves degree-sum bounds converting per-prime constants
+into block prices (sums $\sum q_{\Blk}^{2a}b_{\Blk}^{-d/2}$; ``block
+charge'' below means such a sum), and proves spectral bounds
+($-gp^{-1/2}I\preceq A_p\preceq(1+c^+/p)I$, called \emph{caps}) for
+the twelve-label graph laws. The summand of weight $1$ in the five-type
+completion of \cref{lem:front12:reference} is called the \emph{principal law} (\emph{root} in this part; the word has
+nothing to do with square roots). Cut codes name mirror symmetries:
+L20 is one chamber symmetry, expanded at first use. Inputs: Part~IV.
+Outputs: blocks and caps used to build $\mu,\lambda$ in
+\cref{sec:middle-frame}. On seven intervals from $2^{30}$ the
+principal law is reweighted; \cref{sec:positive-roots} bounds it.
+A first reading should follow the block definition and cap
+statements; threshold arithmetic is reference material.
+
+\emph{Conventions.} In this section $\vartheta_a$ is the chamber cut
+$\vartheta_{0,a}$ of the first coordinate: the reflection
+$u_0\mapsto2a-1-u_0$ with plus half $H_a=\{a,a+1,a+2\}$ (indices mod $6$),
+$a\in\Z/6\Z$. The reserved cut $\iota$ flips the layer $\ell$ and has plus
+half $V_+=\{\ell=0\}$. For a prime $p$ we write $r=p^{-1/2}$ and $q=1/p$; on a
+block $\Blk$ with least prime $b=b_{\Blk}$, $r=b^{-1/2}$ and $q=1/b$, while
+$q_{\Blk}=\prod_{p\in\Blk}p$. The order $\succeq_c$ of cut matrices is that of
+\cref{def:cc:order}. Every middle block has $\log q_{\Blk}\le L=570$; the
+local data of a piece $[X,Y)$ are evaluated at its start $X$ and at the
+local cap $L_{\rm loc}=585$ (\cref{lem:record:local-domain}).
+
+\subsection{Middle blocks with $\sum\log p\le570$ and their degree sums}
+\label{subsec:record:middle_blocks}
+
+This subsection fixes the partition of the middle primes $p\equiv3\pmod4$
+(called class-three primes below; $p\equiv1\pmod4$ are class-one) into
+blocks and bounds the three sums
+\[
+ b_d(X,Y)=\sum_{\Blk\subseteq[X,Y)}q_{\Blk}^{2a}\,b_{\Blk}^{-d/2}
+ \qquad(d=2,3,4)
+\]
+over the blocks $\Blk$ of a middle piece $[X,Y)$. Multiplied by the local
+coefficients evaluated at $X$, these sums give every middle price
+(\cref{lem:record:middle-prices}). The subsection also gives the lower
+bounds for $\sum_{\Blk}b_{\Blk}^{-1}$ used by the mean credit
+(\cref{lem:record:lower-start-sums}) and the caps of the selection factors of
+the pieces used by the restorations (\cref{lem:piece-caps}).
+
+Below the explicit Chebyshev threshold the partition consists of exact
+blocks built from an authenticated prime histogram; above it, of
+geometrically spaced cells partitioned into blocks of fixed cardinality $n_j$. Every block has logarithmic length at most the
+budget $L=570$, so its selection factor is at most $e^{2aL}$; the local laws
+of a piece are evaluated at the larger local cap $L_{\rm loc}=585$. The
+partition depends on no parameter of the induction and is fixed before the
+scale $N$.
+
+Throughout, $\theta(t;4,3)=\sum_{p\le t,\ p\equiv3\ (4)}\log p$, and
+$\mathsf e_X=2411/(5000000\log X)$ is the relative error of \cref{thm:bmor}.
+We put $X_{\rm Ch}=4\,800\,162\,890$; thus $X_{\rm Ch}-1$ is the threshold of
+that theorem, and $|\theta(t;4,3)-t/2|\le\mathsf e_Xt$ for all
+$t\ge X\ge X_{\rm Ch}$. The threshold has no slack: an analytic cell may not
+start below $X_{\rm Ch}$.
+
+\begin{definition}[Exact log-budget blocks]\label{def:record:exact-blocks}
+Let $L=570$ and let
+\[
+ \mathfrak u_*=2^{40}L=626\,721\,627\,832\,320
+\]
+be the integer budget.
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Pieces.} The middle range
+ $[Q_3,P_3)=[19\,951\,586,\,167\cdot2^{40})$ is the union of the $33$ pieces
+ $[X_i,Y_i)=[X_i,X_{i+1})$, $1\le i\le33$, whose endpoints
+ $X_1<X_2<\dots<X_{34}$ are
+ \begin{gather*}
+  19951586,\ 21757358,\ 23726568,\ 25429506,\ 25874006,\ 28215802,\\
+  2^{25},\ 39903170,\ 47453134,\ 56431604,\ 2^{26},\ 79806340,\
+  94906266,\\ 112863208,\ 2^{27},\ 159612678,\ 189812532,\ 225726414,\
+  2^{28},\\ 319225356,\ 379625064,\ 451452826,\ 2^{29},\ 638450710,\
+  759250126,\\ 902905652,\ 2^{30},\ 2^{31},\ 2^{32},\ 2^{34},\ 2^{36},\
+  2^{40},\ 2^{45},\ 167\cdot2^{40};
+ \end{gather*}
+ thus $X_1=Q_3$, $X_{33}=2^{45}$ and $Y_{33}=X_{34}=P_3$, the numbering of
+ \cref{tab:record:middle-pieces}. A block of a piece contains only primes
+ $p\equiv3\pmod4$ of that piece.
+\item \emph{Mandatory threshold points.} For $97\le j\le128$ let
+ $c_j=2\lceil2^{j/4}/2\rceil$ be the least even integer $\ge2^{j/4}$; let
+ $c'_1=21\,757\,358$, $c'_2=25\,429\,506$ and $c'_3=25\,874\,006$, the least
+ even integers $\ge2^{195/8}$, $2^{123/5}$ and $2^{197/8}$; and put
+ $c_{129}=X_{\rm Ch}$. These $36$ numbers are the \emph{threshold points} (called cuts in the data; they are not mirror cuts), and the $35$ intervals between consecutive threshold points are the \emph{parts}. Every endpoint of (a) below $2^{32}$ is a threshold point ($Q_3=c_{97}$), so each piece below $2^{32}$ is a
+ union of parts, and the piece $[2^{32},2^{34})$ contains the part
+ $[c_{128},c_{129})$.
+\item \emph{Exact blocks below $X_{\rm Ch}$.} Every prime
+ $p\in[2^{24},X_{\rm Ch})$ carries an integer upper logarithm
+ $\mathfrak u(p)$: the interval $[2^{24},X_{\rm Ch})$ is covered by $5668$
+ fixed consecutive count bins $[{\rm lo},{\rm hi})$, and $\mathfrak u(p)$ is
+ the least integer $\ge2^{40}\log{\rm hi}$ for the bin containing $p$, so
+ that $\log p<\mathfrak u(p)/2^{40}$ (the bins and the authenticated
+ histogram are in \cref{subsec:data:pieces}). In each part list its primes
+ $p\equiv3\pmod4$ in increasing order. A prime joins the current block if
+ the sum of $\mathfrak u$ over the block stays at most $\mathfrak u_*$;
+ otherwise it starts a new block. The last block of a part is closed at the
+ end of the part.
+\item \emph{Fixed-cardinality cells above $X_{\rm Ch}$.} In a piece $[X,Y)$
+ with $Y>X_{\rm Ch}$ put $x=\max(X,X_{\rm Ch})$,
+ $\mathsf n=\lceil128\log_2(Y/x)\rceil$ and
+ \[
+  x_j=x^{1-j/\mathsf n}Y^{j/\mathsf n},\qquad
+  n_j=\Bigl\lfloor\frac L{\log x_{j+1}}\Bigr\rfloor\qquad(0\le j<\mathsf n).
+ \]
+ In the cell $[x_j,x_{j+1})$ group its primes $p\equiv3\pmod4$, in
+ increasing order, into consecutive blocks of $n_j$ primes; the last
+ block of the cell may have fewer. The five pieces above $X_{\rm Ch}$ have
+ $\mathsf n=236,256,512,640,306$; their integers $n_j$ are recorded in
+ \cref{cert:record:middle-price}.
+\end{enumerate}
+The \emph{middle blocks} are the blocks of (c) and (d). Each lies in one
+part or one cell, and therefore in one piece.
+\end{definition}
+
+No endpoint used in (c) or (d) is a prime: $X_{\rm Ch}$, the threshold points and every
+$Y$ are even, and an interior $x_j$ cannot be an odd prime $p$, because
+$p^{\mathsf n}=x^{\mathsf n-j}Y^j$ would be even. The cells and the
+cardinalities are deterministic functions of $L$ and of the endpoints; the
+bin integers are fixed rational upper logarithms. No numerical choice
+depends on $a$ or on $N$.
+
+\begin{remark}[Restarts and fixed cardinality]
+\label{rem:middle-restarts}
+A block never straddles a part or a cell: the partition restarts at every
+cut. This costs one restart term per cell in \cref{lem:record:block-charge},
+but it removes every analysis of blocks that cross a boundary between
+pieces with different local coefficients, and it lets each piece carry its
+own local law. Inside a cell all blocks except the last have exactly $n_j$
+primes, so the start of every later block is controlled by the full block
+that precedes it; this turns the sum over block starts into a sum over
+primes, to which the explicit Chebyshev bound is applied once, on the whole
+interval.
+The pieces need not be equally spaced: the threshold points $c'_1,c'_2,c'_3$, together with
+$c_{98}$, are endpoints $X_i$, so $[c_{97},c_{99})$ is the union of five
+consecutive pieces, each a union of parts. Each piece carries its own prime
+counts, product
+budget and restart, endpoint and jump terms; the pieces are disjoint and cover
+the range, so adding their charges drops no boundary term.
+\end{remark}
+
+\begin{lemma}[Domain of the local laws]\label{lem:record:local-domain}
+Let $\Blk$ be a middle block in the piece $[X,Y)$. Then:
+\begin{enumerate}[label=(\roman*)]
+\item every prime of $\Blk$ satisfies $p\equiv3\pmod4$ and
+ $X\le b_{\Blk}\le p<Y$;
+\item $\log q_{\Blk}\le L$; hence
+ $|\Blk|\le\lfloor L/\log X\rfloor\le n_X:=\lfloor L_{\rm loc}/\log X\rfloor$
+ with $L_{\rm loc}=585$, $\sum_{p\in\Blk}1/p\le L/(X\log X)$ and
+ $q_{\Blk}^{2a}\le e^{2aL}$;
+\item each bound listed below, computed with threshold $Q=X$ and
+ logarithmic block length $L_{\rm loc}$, holds for every prime and block as
+ stated in its cited result, hence for $\Blk$; these are the
+ caps of the cuts of the root and of the twelve-label graphs with their block
+ inflation (\cref{lem:layer12-caps}; \cref{imp:local:collision-gap} on the pieces
+ below $2^{30}$; \cref{cert:positive-root-caps} on the pieces from $2^{30}$), the cap $k_{\rm D}$ of the reference fold record
+ (\cref{lem:old-f-law}), the row constants $f_j,h_j$, the completion weights,
+ the one-stage coefficients $k_{\rm new}$ and $s_{\rm fold}$ and the
+ coefficients of the middle prices (\cref{lem:front12:reference},
+ \cref{lem:record:one-stage-folded-e}, \cref{lem:record:middle-prices} and
+ \cref{lem:middle-comparison-prices}).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) holds by construction. For (ii), a block of
+\cref{def:record:exact-blocks}(c) satisfies
+\[
+ \log q_{\Blk}<\sum_{p\in\Blk}\mathfrak u(p)/2^{40}\le\mathfrak u_*/2^{40}=L .
+\]
+A block of (d) in the cell $[x_j,x_{j+1})$ has at most $n_j$ primes, all
+below $x_{j+1}$, so $\log q_{\Blk}<n_j\log x_{j+1}\le L$ by the definition of
+$n_j$. Every prime of $\Blk$ is at least $X$, so
+$|\Blk|\log X\le\log q_{\Blk}\le L\le L_{\rm loc}$,
+$\sum_{p\in\Blk}1/p\le|\Blk|/X$, and
+$q_{\Blk}^{2a}=e^{2a\log q_{\Blk}}\le e^{2aL}$.
+
+(iii) The row constants, $k_{\rm new}$, $s_{\rm fold}$ and the coefficients of
+\cref{lem:record:middle-prices} are admissible functions in the sense of
+\cref{lem:majorant}, of $r=p^{-1/2}$ and of the block count, with their powers
+of $r$ cancelled (for the row constants see the proof of
+\cref{lem:front12:reference}(i), for $k_{\rm new}$ and $s_{\rm fold}$ their
+formulas). By \cref{lem:majorant}(b) the value of such a coefficient at $X$,
+with the count $n_X\ge|\Blk|$ of (ii), bounds its value at $b_{\Blk}\ge X$. The
+coefficients of \cref{lem:middle-comparison-prices} combine the weights and
+$f_1,h_1$ with the constants $s_F$, $a_F$ and $\ell_{\tlaw}$ of the signed fold
+records and the coefficients $s_E$, $a_E$ and $g_\Sigma(X)$, which are valid at
+every block of the piece by \eqref{eq:signed-constants} with
+\cref{prop:signed-bounds}, by \cref{lem:record:exact-marginal-e}(ii) and by
+\cref{cor:merge-repair}. The caps
+are constants valid for every prime at least the threshold at which they are
+computed, and this threshold is the piece start $X$ itself: every piece start
+is a threshold of \cref{cert:layer12-grid} and an endpoint of
+\cref{cert:l20-grid}, and the caps of the positive roots are evaluated at $X$
+(\cref{cert:positive-root-caps}). The block caps hold for every block of the
+piece by (i) and (ii), since $L\le L_{\rm loc}$; the grid domain $Q\ge2^{24}$,
+length at most $10000$, contains $(X,L_{\rm loc})$. The cap $k_{\rm D}$ holds
+at every block of the piece by \cref{lem:old-f-law}. The completion weights are
+fixed numbers whose inequalities involve only these inputs. That the local data
+of each of the $33$ pieces were computed at $(X,L_{\rm loc})$ is part of
+\cref{cert:record:middle-price}.
+\end{proof}
+
+The selection exponent $2aL$ exceeds one: it is
+$1236349836/1220703125<1.013$ at the baseline exponent $a$, and
+$253204431/250000000$ at the reference exponent $a_0=\PushAnchor$ of the tabulated
+middle prices. No statement of the paper requires $2aL\le1$: the restorations
+and variance credits take an arbitrary upper bound for the block selection
+factor, and every block is priced at its own $q_{\Blk}^{2a}$. A middle price at
+$a\ge a_0$ is at most $t=e^{2(a-a_0)L}$ times its value at $a_0$
+(\cref{lem:record:repricing}), and the selection factor of one block is at most
+$C=e^{2aL}$, which is below $2.753348440327$ at the baseline exponent (\cref{def:closing-quantities},
+\cref{tab:closing-values}). The restorations use the sharper caps of the
+individual pieces (\cref{lem:piece-caps}).
+
+\begin{lemma}[Block charges]\label{lem:record:block-charge}
+Let $a>0$ and $s>0$.
+\begin{enumerate}[label=(\roman*)]
+\item \emph{Cells.} Let $[x,Y)$ be an interval with $x\ge X_{\rm Ch}$ and
+ $x,Y$ even, $x_j=x^{1-j/\mathsf n}Y^{j/\mathsf n}$ for $0\le j\le\mathsf n$,
+ and let $n_0,\dots,n_{\mathsf n-1}\ge1$ be integers. Partition the primes
+ $p\equiv3\pmod4$ of each cell $[x_j,x_{j+1})$ into consecutive blocks of
+ $n_j$ primes, the last possibly shorter. Put
+ \[
+  \Pi_j=\exp(2an_j\log x_{j+1}),\qquad g_j=\Pi_j/n_j,\qquad
+  I_j(s)=\int_{x_j}^{x_{j+1}}\frac{t^{-s}}{\log t}\,dt
+ \]
+ (numbers attached to the cells). Then, with
+$\mathsf e=\mathsf e_x:=2411/(5000000\log x)$,
+ \begin{equation}\label{eq:record:cell-charge}
+ \begin{split}
+  \sum_{\Blk}q_{\Blk}^{2a}b_{\Blk}^{-s}\le{}&\sum_{j<\mathsf n}\Pi_jx_j^{-s}
+   +\Bigl(\frac12+\mathsf e\Bigr)\sum_{j<\mathsf n}g_jI_j(s)\\
+   &+2\mathsf e\,\frac{g_0x^{1-s}}{\log x}
+   +2\mathsf e\sum_{0<j<\mathsf n}(g_j-g_{j-1})_+\frac{x_j^{1-s}}{\log x_j}.
+ \end{split}
+ \end{equation}
+\item \emph{Exact blocks.} For a block $\Blk$ of
+ \cref{def:record:exact-blocks}(c) put
+ $\mathfrak u(\Blk)=\sum_{p\in\Blk}\mathfrak u(p)$,
+ $k_{\Blk}=\lceil2^{16}\mathfrak u(\Blk)/\mathfrak u_*\rceil$ and
+ \[
+  w_2(\Blk)=\Bigl\lceil\frac{2^{95}}{b_{\Blk}}\Bigr\rceil,\quad
+  w_3(\Blk)=\Bigl\lceil\frac{2^{127}}{b_{\Blk}\lfloor(2^{64}b_{\Blk})^{1/2}
+  \rfloor}\Bigr\rceil,\quad
+  w_4(\Blk)=\Bigl\lceil\frac{2^{95}}{b_{\Blk}^2}\Bigr\rceil.
+ \]
+ Then $1\le k_{\Blk}\le2^{16}$,
+ $q_{\Blk}^{2a}\le\exp(2a\mathfrak u_*k_{\Blk}/2^{56})\le e^{2aL}$ and
+ $b_{\Blk}^{-d/2}\le w_d(\Blk)/2^{95}$. Consequently, for every part
+ $\mathfrak p$,
+ \[
+  \sum_{\Blk\subseteq\mathfrak p}q_{\Blk}^{2a}b_{\Blk}^{-d/2}\le
+  \sum_{k=1}^{2^{16}}\exp\Bigl(\frac{2a\mathfrak u_*k}{2^{56}}\Bigr)
+  \frac{w_d(\mathfrak p,k)}{2^{95}},\qquad
+  w_d(\mathfrak p,k)=\sum_{\Blk\subseteq\mathfrak p,\ k_{\Blk}=k}w_d(\Blk).
+ \]
+\end{enumerate}
+In particular, for every middle piece $[X,Y)$ and $d\in\{2,3,4\}$,
+$b_d(X,Y)$ is at most the sum of (ii) over the parts of the piece below
+$X_{\rm Ch}$ and of \eqref{eq:record:cell-charge} with $s=d/2$ over its cells
+above $X_{\rm Ch}$.
+\end{lemma}
+
+\begin{proof}
+(i) \emph{Block starts.} Fix a cell $j$. Its first block starts at a prime
+$b\ge x_j$, so it contributes at most $\Pi_jx_j^{-s}$: its primes are
+below $x_{j+1}$, and it has at most $n_j$ of them, so
+$q_{\Blk}<x_{j+1}^{n_j}$. Every later block $\Blk'$ of the cell is preceded by
+a block $\Blk$ of exactly $n_j$ primes, all smaller than $b_{\Blk'}$. Since
+$t^{-s}$ decreases, $b_{\Blk'}^{-s}\le n_j^{-1}\sum_{p\in\Blk}p^{-s}$.
+Distinct blocks $\Blk'$ give distinct blocks $\Blk$, so
+\[
+ \sum_{\Blk\subseteq\text{cell }j}q_{\Blk}^{2a}b_{\Blk}^{-s}\le\Pi_jx_j^{-s}
+  +g_j\sum_{\substack{x_j\le p<x_{j+1}\\ p\equiv3\ (4)}}p^{-s}.
+\]
+Empty cells and short last blocks are covered, and every cell keeps its
+own restart term $\Pi_jx_j^{-s}$.
+
+\emph{Partial summation.} Put $f_s(t)=t^{-s}/\log t$ and let
+$\phi(t)=g_jf_s(t)$ for $x_j\le t<x_{j+1}$. Then $\phi$ is right-continuous
+and positive, it decreases on each open cell (as $s>0$ and $t>1$), and its
+jump at an interior endpoint is $\Delta_j=(g_j-g_{j-1})f_s(x_j)$. With
+$\eta(t)=\theta(t;4,3)-t/2$,
+\[
+ \sum_jg_j\sum_{\substack{x_j\le p<x_{j+1}\\ p\equiv3\ (4)}}p^{-s}
+ =\int_{[x,Y)}\phi\,d\theta(\cdot;4,3)
+ =\frac12\int_x^Y\phi(t)\,dt+\int_{[x,Y)}\phi\,d\eta .
+\]
+No endpoint is a prime, so $\eta$ has no atom at any $x_j$ or at $Y$, and
+Stieltjes integration by parts with the jumps of $\phi$ gives
+\[
+ \int_{[x,Y)}\phi\,d\eta=\eta(Y)\phi(Y^-)-\eta(x)\phi(x)-\int_x^Y\eta(t)\phi'(t)\,dt
+ -\sum_{0<j<\mathsf n}\eta(x_j)\Delta_j ,
+\]
+the integral being over the open cells. By \cref{thm:bmor},
+$|\eta(t)|\le\mathsf et$ on $[x,Y]$. Since $\phi\ge0$ and $\phi'<0$ on the
+open cells, the modulus of the right side is at most
+\[
+ \mathsf e\Bigl[Y\phi(Y^-)+x\phi(x)+\int_x^Yt(-\phi'(t))\,dt
+ +\sum_jx_j|\Delta_j|\Bigr].
+\]
+Integrating by parts on each open cell and summing,
+$\int_x^Yt(-\phi')\,dt=x\phi(x)-Y\phi(Y^-)+\int_x^Y\phi+\sum_jx_j\Delta_j$.
+Since $\Delta_j+|\Delta_j|=2(\Delta_j)_+$, the error is at most
+$\mathsf e[2x\phi(x)+\int_x^Y\phi+2\sum_jx_j(\Delta_j)_+]$. Adding the main
+term $\frac12\int\phi=\frac12\sum_jg_jI_j(s)$ and the restart terms gives
+\eqref{eq:record:cell-charge}. The argument does not use monotonicity of
+$g_j$, and it applies a single Chebyshev error to the whole interval; no additional error term arises at interior cell
+endpoints beyond the jump terms displayed in
+\eqref{eq:record:cell-charge}.
+
+(ii) The bin integers satisfy $\log p<\mathfrak u(p)/2^{40}$, so
+$\log q_{\Blk}<\mathfrak u(\Blk)/2^{40}$. A single prime has
+$\mathfrak u(p)\le\lceil2^{40}\log X_{\rm Ch}\rceil<2.46\cdot10^{13}<\mathfrak u_*$,
+so a block started by one prime is within the budget, and the greedy rule
+gives $1\le\mathfrak u(\Blk)\le\mathfrak u_*$, hence $1\le k_{\Blk}\le2^{16}$
+and $\mathfrak u(\Blk)\le\mathfrak u_*k_{\Blk}/2^{16}$, which gives the price
+bound and $\exp(2a\mathfrak u_*k_{\Blk}/2^{56})\le\exp(2a\mathfrak u_*/2^{40})
+\le e^{2aL}$. For $d=2,4$ the weight bound is immediate. For $d=3$ put
+$s_0=\lfloor(2^{64}b)^{1/2}\rfloor\le2^{32}b^{1/2}$; then
+$2^{127}/(bs_0)\ge2^{95}b^{-3/2}$. Group the blocks of the part by $k_{\Blk}$.
+Every block, including the first block after each cut, is an actual block
+of the partition, so no restart term is needed.
+\end{proof}
+
+\begin{corollary}[One positive functional for all charge degrees]
+\label{cor:positive-charge-functional}
+For fixed cells and fixed $a$, the right side of
+\eqref{eq:record:cell-charge} is $\Phi(t^{-s})$, where
+\begin{align*}
+ \Phi(f)={}&\sum_j\Pi_j f(x_j)
+ +(\tfrac12+\mathsf e)\sum_jg_j\int_{x_j}^{x_{j+1}}
+                                      \frac{f(t)}{\log t}\,dt\\
+ &+2\mathsf e\frac{g_0x}{\log x}f(x)
+ +2\mathsf e\sum_{j>0}(g_j-g_{j-1})_+
+                              \frac{x_j}{\log x_j}f(x_j).
+\end{align*}
+This functional is positive and independent of the degree $s$.
+Hence any pointwise polynomial inequality in $r=t^{-1/2}$ on
+$[x,Y]$ may be integrated against $\Phi$, including an
+inequality with signed coefficients. A common positive repricing
+factor preserves this property.
+\end{corollary}
+\begin{proof}
+Every displayed weight is nonnegative, and substitution of $f(t)=t^{-s}$
+gives \eqref{eq:record:cell-charge}. Apply positivity to the difference
+of the two sides of the pointwise inequality.
+\end{proof}
+
+The inequality is applied before rounding. Independently rounded
+upper bounds for different monomials do not define the same positive
+functional and cannot be substituted into its negative coefficients.
+For the exact blocks the same principle applies to the actual common
+block sum; their independently rounded degree histograms supply upper
+bounds, not signed functional identities.
+
+
+The same partial summation, with the error subtracted, gives lower bounds
+for the unpriced start sums.
+
+\begin{lemma}[Lower start sums]\label{lem:record:lower-start-sums}
+\leavevmode
+\begin{enumerate}[label=(\roman*)]
+\item In the setting of \cref{lem:record:block-charge}(i),
+ \[
+  \sum_{\Blk}b_{\Blk}^{-1}\ \ge\ \Bigl(\frac12-\mathsf e\Bigr)
+   \sum_{j<\mathsf n}\frac1{n_j}\log\frac{\log x_{j+1}}{\log x_j}
+   -2\mathsf e\Bigl(\frac1{n_0\log x}
+   +\sum_{0<j<\mathsf n}\frac{(1/n_j-1/n_{j-1})_+}{\log x_j}\Bigr).
+ \]
+\item For every part $\mathfrak p$ of \cref{def:record:exact-blocks}(c),
+ \[
+  \sum_{\Blk\subseteq\mathfrak p}b_{\Blk}^{-1}\ \ge\
+  \frac{\sum_{\Blk\subseteq\mathfrak p}w_2(\Blk)-\#\{\Blk\subseteq\mathfrak p\}}
+  {2^{95}} .
+ \]
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) A block of cell $j$ has at most $n_j$ primes, all at least its first
+prime $b$, so $\sum_{p\in\Blk}p^{-1}\le n_jb^{-1}$. Summing over the blocks,
+$\sum_{\Blk}b_{\Blk}^{-1}\ge\sum_j n_j^{-1}\sum_{p\in\text{cell }j}p^{-1}$.
+Apply the partial summation of the proof of
+\cref{lem:record:block-charge}(i) with $s=1$ and $g_j$ replaced by $1/n_j$:
+the main term is $\frac12\sum_jn_j^{-1}I_j(1)$ with
+$I_j(1)=\log(\log x_{j+1}/\log x_j)$, and the same error bound, now
+subtracted, gives (i). No first-block term is subtracted, and the bound
+holds for arbitrary $n_j$. (ii) $w_2(\Blk)<2^{95}/b_{\Blk}+1$.
+\end{proof}
+
+The lower sum of (i) is a bound for a whole interval: it does not assume
+that a single fine cell has relative prime density close to one half.
+
+One budget $L$ bounds every block, but the largest block product of a piece
+may be smaller; the restorations of \cref{sec:variance} use the following caps,
+one for each piece.
+
+\begin{lemma}[Piece caps]\label{lem:piece-caps}
+For a middle piece $[X_i,Y_i)$ let $L_i$ be the largest of the numbers
+$k_{\Blk}L/2^{16}$ over its blocks $\Blk$ of
+\cref{def:record:exact-blocks}(c) and of the recorded upper bounds for
+$n_j\log x_{j+1}$ over its cells of \cref{def:record:exact-blocks}(d). Then
+every block of the piece has $\log q_{\Blk}\le L_i\le L$. Consequently, for
+$0<a\le a_*$ and $C_i=e^{2a_*L_i}$, every block of piece $i$ has
+$q_{\Blk}^{2a}\le C_i$, and distinct blocks $\Blk_1,\dots,\Blk_k$ lying in
+pieces $i_1,\dots,i_k$ have $\prod_lq_{\Blk_l}^{2a}\le C_m:=\prod_lC_{i_l}$
+($m$ the multiset of the pieces $i_1,\dots,i_k$).
+\end{lemma}
+
+\begin{proof}
+For a block of (c), $\log q_{\Blk}<\mathfrak u(\Blk)/2^{40}\le
+k_{\Blk}\mathfrak u_*/2^{56}=k_{\Blk}L/2^{16}$ by
+\cref{lem:record:block-charge}(ii), as $\mathfrak u_*=2^{40}L$; and
+$k_{\Blk}\le2^{16}$. A block of (d) in the cell $[x_j,x_{j+1})$ has at most
+$n_j$ primes, all below $x_{j+1}$, so $\log q_{\Blk}<n_j\log x_{j+1}$, and
+$n_j\log x_{j+1}\le L$ by the definition of $n_j$. The authenticated histogram
+stores $k_{\Blk}$ for every exact block, so the maximum over the piece bounds
+every block of it; it is not an average. The products follow from
+$q_{\Blk}^{2a}\le e^{2aL_i}\le e^{2a_*L_i}$.
+\end{proof}
+
+The numbers $L_i$ lie between $556.79$ and $570$
+(\cref{tab:data:piece-values}). They are recorded in
+\path{research/push_2026_10_25/artifacts/author.json} (key
+\texttt{restoration\_product\_caps}; producer
+\path{research/advance_2026_10_24/envelopes/piece_product_caps.py}, which
+authenticates the histogram and the partition run). The restorations
+(\cref{subsec:variance:final}) use them at $a_*=a$.
+
+\Cref{cert:record:middle-price} (\cref{app:certificates}) records the finite facts about
+this partition (the tiling, the bins and the histogram of the exact blocks, the
+cells and their integers $n_j$, the piece log caps $L_i$ and the lower start
+sums of \cref{lem:record:lower-start-sums}) and, at the reference exponent
+$a_0$, the four totals of \cref{subsec:middle-frame-prices}. The degree charges
+of each piece are listed in \cref{tab:record:middle-pieces}, and its four sums
+in \cref{tab:record:middle-charges}.
+
+\begin{remark}[What rests on the explicit Chebyshev bound]
+\label{rem:record:middle-scope}
+In the middle range \cref{thm:bmor} enters only through
+\eqref{eq:record:cell-charge} and \cref{lem:record:lower-start-sums}(i): it
+prices the five analytic intervals above $X_{\rm Ch}$, which carry about
+two thirds of the total degree-two charge at the reference exponent $a_0$
+(pieces $29$--$33$ of \cref{tab:record:middle-pieces}), and it gives the
+analytic lower start sums of the mean credit. Below $X_{\rm Ch}$ the blocks
+are built from exact prime counts, and no Chebyshev estimate is used.
+\end{remark}
+
+\subsection{Ordered pairs at $p\equiv3\pmod4$}\label{subsec:middle-pairs}
+
+Let $p\equiv3\pmod4$ be prime and $\chi$ its quadratic character, and write
+$x\to y$ if $\chi(y-x)=1$. Since $\chi(-1)=-1$ this is a tournament on
+$\Fp$ (the Paley tournament).
+
+\begin{lemma}[Class-three middle pairs]\label{lem:record:class-three}
+Let $p\equiv3\pmod4$ be prime.
+\begin{enumerate}[label=(\roman*)]
+\item For distinct $x,y\in\Fp$ there are exactly $(p-3)/4$ labels $z$ with
+ $x\to z$ and $y\to z$, and exactly $(p-3)/4$ with $z\to x$ and $z\to y$.
+\item Call $(x_0,x_0',x_2,x_2',u,u')$, six distinct labels, an
+ \emph{$F$-configuration} if $y\to z$ for all $y\in\{x_0,x_0'\}$ and
+ $z\in\{x_2,x_2'\}$. For $p\ge11$ every ordered pair $(u,u')$ of distinct
+ labels is the middle pair of exactly $(p-3)(p-7)(p-4)(p-5)/16$
+ $F$-configurations.
+\item Let $p>15$. Fix distinct $u,u'$ and an ordered pair $(x_0,x_0')$ of
+ distinct labels outside $\{u,u'\}$. The number of ordered pairs
+ $(x_2,x_2')$ completing an $F$-configuration lies between
+ $(p-11)(p-15)/16$ and $(p-3)(p-7)/16$. Consequently the conditional laws
+ of $(x_0,x_0')$ and of $(x_2,x_2')$ given $(u,u')$ under
+ $\lambda_p(G_{\rm F,2})$ (\cref{subsec:push:layer12spectral}), relative to the uniform
+ distinct-pair law avoiding the middle pair, have densities in
+ $[R_2^{-1},R_2]$ with $R_2=(p-3)(p-7)/((p-11)(p-15))$. For one layer the
+ same holds with $R_1=(p-1)/(p-3)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) is part of \cref{lem:paley-triple}.
+
+(ii) By (i) there are $p(p-1)\lambda_0(\lambda_0-1)$ ordered outer
+$K_{2,2}$ embeddings $(x_0,x_0',x_2,x_2')$, with $\lambda_0=(p-3)/4$;
+each allows $(p-4)(p-5)$ ordered middle pairs. The maps
+$z\mapsto\alpha z+\beta$ with $\chi(\alpha)=1$ preserve $F$-configurations
+and act transitively on the ordered distinct pairs $(u,u')$ with fixed
+$\chi(u'-u)$. The middle labels are unconstrained, so $(u,u')$ and $(u',u)$
+have the same number of completions; since $\chi(-1)=-1$, this exchange
+interchanges the two orbits. Hence the count is constant, equal to
+$\lambda_0(\lambda_0-1)(p-4)(p-5)=(p-3)(p-7)(p-4)(p-5)/16$.
+
+(iii) By (i), the common successors of $x_0,x_0'$ number $\lambda_0$;
+removing those among $u,u'$ leaves $\lambda_0-h$ with $0\le h\le2$. Ordered
+pairs of distinct ones number $(\lambda_0-h)(\lambda_0-h-1)$, which lies
+between $(\lambda_0-2)(\lambda_0-3)$ and $\lambda_0(\lambda_0-1)$. The
+conditional density of $(x_0,x_0')$ is its count divided by the mean count,
+so it lies in $[R_2^{-1},R_2]$. The same argument with common predecessors
+gives the opposite outer marginal. For one layer the successors of $x_0$
+other than the middle label number $(p-1)/2$ or $(p-3)/2$, whence $R_1$.
+\end{proof}
+
+\begin{remark}[Why the middle range is class three]\label{rem:middle-class-three}
+Part (ii) fails for $p\equiv1\pmod4$: at $p=13$ the two orbits of ordered
+middle pairs have $312$ and $264$ completions. Part (ii) gives the $F$ and
+$E$ laws the same middle law, so that in the completion and in the first
+stage the $F$ and $E$ kernels are densities against the one conditional
+reference of part~(iii) (the uniform distinct-pair law given the middle
+pair) and the fold kernel has middle-pair density identically $1$
+(\cref{rem:polarization-uses}); this is why the middle range consists of
+class-three primes, every class-one prime below $P_4$ being a prefix prime
+(\cref{lem:frontier:iidlocal}).
+\end{remark}
+
+\subsection{The twelve-label graphs and bounds $-gp^{-1/2}I\preceq A_p\preceq(1+c^+/p)I$}
+\label{subsec:push:layer12spectral}
+
+On a block $\Blk$ of class-three primes we write $x\to y$ if $\chi_p(y-x)=1$
+at every prime $p$ of $\Blk$. The \emph{twelve-label root} $G_{\rm L,2}$, the
+\emph{$F$ graph} $G_{\rm F,2}$ and the \emph{$E$ graph} $G_{\rm E,2}$ are the
+graphs $G_{\rm L}$, $G_{\rm F}$, $G_{\rm E}$ of
+\cref{lem:record:fold-identification} with the layer set $\{0,1\}$, and
+$G_{\rm L,1}$, $G_{\rm F,1}$, $G_{\rm E,1}$ are their one-layer versions (layer
+set $\{0\}$). Thus $G_{\rm L,2}$ has the vertices
+$(u,\ell)\in\Z/6\Z\times\{0,1\}$ and the edges $(u,\ell)\to(\rot u,\ell')$ for
+all $u,\ell,\ell'$, the four layer lifts of each of the six rotation edges
+$0\to2\to4\to0$ and $1\to5\to3\to1$: $12$ vertices, $24$ edges, every degree
+$4$. The $F$ and $E$ graphs have three \emph{objects} $0,1,2$, each carrying
+one label per layer; the $F$ graphs have all the edges from the labels of
+object $0$ to those of object $2$ (four, respectively one), the $E$ graphs no
+edges. For an oriented graph $G$,
+$\lambda_{\Blk}(G)=\bigotimes_{p\in\Blk}\lambda_p(G)$ is the product of the
+uniform laws on the injective strict-square labellings
+(\cref{def:graphs:labeling}).
+
+\begin{lemma}[Twelve-label geometry]\label{lem:layer12-geometry}
+\leavevmode
+\begin{enumerate}[label=(\alph*)]
+\item The chamber reflections $u\mapsto k-u$ ($k\in\{1,3,5\}$), the translation
+ $u\mapsto u+2$ and the layer swap $\ell\mapsto1-\ell$ map the edge set of
+ $G_{\rm L,2}$ onto itself; the first two do the same for $G_{\rm L,1}$; the
+ layer swap is an automorphism of $G_{\rm F,2}$ and $G_{\rm E,2}$.
+\item The subgraph of $G_{{\rm L},j}$ induced on the objects $0,1,2$ of the
+ plus half $H_0$ is $G_{{\rm F},j}$, $j=1,2$.
+\item The subgraph of $G_{\mathfrak f,2}$ induced on the layer $\ell=0$ is
+ $G_{\mathfrak f,1}$, $\mathfrak f\in\{\rm L,F,E\}$.
+\item $G_{{\rm F},j}$ and $G_{{\rm E},j}$ induce the same graph, without
+ edges, on the object pairs $\{0,1\}$ and $\{1,2\}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The chamber maps of (a) and part (b) are
+\cref{lem:record:fold-identification}(a),(c); the layer swap permutes the
+four layer lifts of every edge. (c) and (d) are read off from the
+definitions. The script \path{research/push_2026_10_17/sparse/layer12.py}
+reconstructs these facts.
+\end{proof}
+
+The spectral caps concern five cuts: the first-coordinate cut $\vartheta_0$
+of $G_{\rm L,2}$ and of $G_{\rm L,1}$ (named L20 and L10), and the layer
+cut $\iota$ of $G_{\rm L,2}$, $G_{\rm F,2}$ and $G_{\rm E,2}$ (named L21, F21
+and E21). Each is spectral data in the sense of \cref{def:spec:data}, with the
+deletion order $\mathfrak o$ of that definition fixed as in the data of
+\cref{cert:layer12-grid}; by \cref{lem:layer12-geometry}(b),(c) its half
+graph $G^+$ is $G_{{\rm F},j}$ for L20 and L10 and the one-layer graph for
+the three layer cuts. For a prime $p$ let $\mathsf A_p$ be the normalized
+cut operator of \cref{lem:spec:cutkernel} on $L^2(\lambda_p(G^+))$, so that
+$\E_{\lambda_p(G)}[\Phi(x)\Phi(x')]=\ip\Phi{\mathsf A_p\Phi}$ for every real
+function $\Phi$ on the half, $x$ and $x'$ being the half and the reflected
+half of a labelling; on a block, $\mathsf A_{\Blk}=\bigotimes_{p\in\Blk}\mathsf A_p$,
+and the same identity holds for $\lambda_{\Blk}(G)$
+(\cref{lem:spec:cutkernel}(e)).
+
+Route~A (\cref{thm:spectral-criterion}) gives the caps of L21, E21, L10 and F21
+(\cref{lem:layer12-caps}). The cap of L20 of the uniform root is proved directly
+from complete actual stars (\cref{subsec:middle-l20}); on the seven pieces from $2^{30}$ the caps of L20 and L21 of the positive root are those of
+\cref{sec:positive-roots}. For the folds the reference uses the cap $k_{\rm D}$
+of \cref{lem:old-f-law}, not the F21 cap.
+
+\begin{lemma}[Twelve-label caps]\label{lem:layer12-caps}
+Let $X$ be the start of a middle piece, and for one of the cuts L21, E21, L10
+and F21 let $g_X$ be the class-three negative constant and $c^+_X$ the positive
+constant recorded at the threshold $X$ in \cref{cert:layer12-grid}.
+\begin{enumerate}[label=(\alph*)]
+\item For every prime $p\ge X$ with $p\equiv3\pmod4$,
+ $-g_Xp^{-1/2}I\preceq\mathsf A_p\preceq(1+c^+_X/p)I$.
+\item Let $\Blk$ be a middle block, with least prime $b$, of the piece starting
+ at $X$. Then
+ $\mathsf A_{\Blk}\succeq-g_X\exp\bigl(c^+_XL_{\rm loc}/(X\log X)\bigr)\,b^{-1/2}$.
+ The coefficient $g_X\exp(c^+_XL_{\rm loc}/(X\log X))$ is the \emph{block cap}
+ of the cut for the piece.
+\end{enumerate}
+The reference uses the block caps of L21 on the pieces below $2^{30}$ and those
+of E21 and L10 on every piece; the cap of F21 is recorded but not used.
+\end{lemma}
+
+\begin{proof}
+(a) This is route~A, \cref{thm:spectral-criterion}(a),(d) for the class
+$\mathfrak c=3$, with $p_0=X$ and $c^+_X$ the constant $B^+$ of (d). The
+spectral data satisfy (S1) at $X$: the graphs have at most twelve vertices
+(half-graphs on $n\le6$ vertices, in the notation of
+\cref{thm:spectral-criterion}) and maximum degree at most four, and $X\ge Q_3>2^{24}$, so
+$e_\Delta(X,2n)\le e_4(2^{24},12)<5\cdot10^{-3}$ and $X>4n^2$. The inputs
+(R1)--(R3) are the standard ones of \cref{rem:spectral-criterion:uses}(i): the
+nonstar bound of the compressed matching partition for these spectral
+data (\cref{cor:extraction-compressed}), the natural coincidence bound
+\eqref{eq:collision-natural} of \cref{lem:oct24-collision}, and the standard
+star and coupling inputs. The evaluator verifies the test
+\eqref{eq:spectral-test} in exact rational arithmetic at $X$ for both
+class-three signs, with one common value of $\tau^{\rm sp}_{3,\pm}$, and
+records $g_X$, rounded upward, as the class-three constant $g_3$ of the
+theorem; it computes $c^+_X$ with the largest $g$ of all four tests, which
+satisfies $gX^{-1/2}<1$ and is at least $g_3$, as (d) allows
+(\cref{rem:spectral-criterion:certificate}).
+(b) By \cref{lem:record:local-domain}(i),(ii), the primes of $\Blk$ satisfy
+$p\equiv3\pmod4$ and $p\ge X$, and $\sum_{p\in\Blk}\log p\le L\le L_{\rm loc}$.
+Apply \cref{cor:spectral-criterion-blocks} with its $P$ equal to $X$ and its
+length $L$ equal to $L_{\rm loc}$.
+\end{proof}
+
+\begin{certificate}[The twelve-label grids]\label{cert:layer12-grid}
+For each of the five cuts of the twelve-label law and each of the
+$35$ thresholds listed below, the constants of the Route~A
+criterion (\cref{thm:spectral-criterion}) have been evaluated and
+its four exact positive-semidefiniteness tests
+\eqref{eq:spectral-test} pass; every middle piece start is one of
+the thresholds, so these give the caps at every piece. The values
+are stored in two data files, built with the spectral evaluator
+\path{research/push_2026_10_17/sparse/layer72_spectral.py} applied to the
+twelve-label graphs (\path{research/push_2026_10_17/sparse/layer12_spectral.py}).
+The record \path{research/frontier_2026_10_17/root/middle12_grid.json}, built by
+\path{research/frontier_2026_10_17/root/build_middle12_grid.py}, contains $26$
+thresholds: $2^{24}$, $2^{25}$, $2^{26}$, the sixteen piece starts from
+$79\,806\,340$ to $2^{30}$, and $2^{31}$, $2^{32}$, $2^{34}$, $2^{36}$,
+$2^{40}$, $2^{45}$, $2^{50}$; the replay record
+\path{research/frontier_2026_10_17/root/middle12_grid_replay.json} repeats its
+$520$ tests with fresh partitions. The record
+\path{research/continuation_2026_10_24/global/middle_grid_new.json}, built by
+\path{research/continuation_2026_10_24/global/middle_grid.py}, contains the nine
+piece starts $19\,951\,586$, $21\,757\,358$, $23\,726\,568$, $25\,429\,506$,
+$25\,874\,006$, $28\,215\,802$, $39\,903\,170$, $47\,453\,134$,
+$56\,431\,604$; the review record
+\path{research/continuation_2026_10_24/global/middle_grid_review.json} repeats
+its $180$ tests with fresh partitions. The two records contain the same
+compressed matching partition of each cut, which each review rebuilds, and,
+for each threshold and cut, the constants
+of \cref{thm:spectral-criterion} and four exact rational positive
+semidefiniteness tests of \eqref{eq:spectral-test} (both real class-one signs
+and both Hermitian class-three signs); in every record the two class-three
+tests use the same $\tau^{\rm sp}$. Every piece start is a threshold of one of
+the records: pieces $1$--$6$ and $8$--$10$ read the second, pieces $7$ and
+$11$--$33$ the first. The final source stores for each piece and cut the
+threshold $X$, the length $585$, the class-three $g$, $c^+$ and the block cap;
+the native check
+(\path{research/advance_2026_10_24/global/check_low_reference_native.py}) binds
+every stored route-A spectrum to the record entry at $X$, and the L20 spectrum
+to the endpoint $X$ of \cref{cert:l20-grid}, and recomputes the block caps; the
+native check of the final source verifies that its spectra are those of the
+source so checked, with L20 replaced by the protected collision cap
+at every start and with both L20 and L21 replaced on the seven middle pieces
+from $2^{30}$ by \cref{cert:positive-root-caps}. At $Q_3$ the
+class-three values of $g$ are $2.57407111$ (L21), $0.00454092$ (E21) and
+$1.75129044$ (L10), with block caps
+below $2.574071293695$, $0.004540920001$ and $1.751290440133$. The records also
+contain route-A constants of L20 and F21, which the reference does not use
+(\cref{subsec:middle-l20}; for the folds \cref{lem:old-f-law},
+\cref{cert:record:old-f-cap}), and of L21 at the starts from $2^{30}$, where the
+root is a positive tilt (\cref{sec:positive-roots}). The finite
+checks are inputs of the spectral proof, not substitutes for its graph
+decomposition. The data are listed in \cref{tab:data:layer12-grid}.
+\end{certificate}
+
+\subsection{The chamber symmetry L20 for the uniform principal law}\label{subsec:middle-l20}
+
+One cut governs the middle range: the chamber reflection in the
+first coordinate, called L20 in the tables and certificates. The
+lower spectral bound (the \emph{cap}) of its operator for the
+twelve-label principal law is the most negative in the middle
+range, so it is the bound the completion has to compensate. On the
+middle intervals (``pieces'') starting below $2^{30}$ the
+principal law is the uniform law $\lambda_{\Blk}(G_{\rm L,2})$; the
+tilted laws of \cref{sec:positive-roots} start at $2^{30}$. This
+subsection bounds the L20 operator for the uniform law directly,
+by computing its star part exactly in its own half law
+(\cref{subsec:spec:actual-stars}) instead of using the general
+criteria of \cref{sec:spectral}. Fix
+a prime $p\equiv3\pmod4$. By \cref{lem:layer12-geometry}(b) the half graph of
+L20 is $G_{\rm F,2}$, so the half reference $\mu_p=\lambda_p(G_{\rm F,2})$ is
+the uniform law on injective tuples $x=(a_0,a_1,b_0,b_1,c_0,c_1)$ with
+$a_i\to c_j$ for all $i,j$ (the labels of the objects $0,1,2$ in the layers
+$0,1$; coordinates numbered $0,\dots,5$ in this order). Let $T=\mathsf A_p$ be
+the L20 cut operator on $L^2(\mu_p)$, $\mathcal I$ the subspace of functions
+invariant under the simultaneous translations $x_k\mapsto x_k+y$
+($y\in\Fp$), and $\chi^+_p=D_{\rm full}^2/L_{\rm low}^2$ the second bound of
+\cref{lem:record:root-marginal}(ii), with $D_{\rm full},L_{\rm low}$ as defined
+there. As $T\one$ is the density of the half law
+of the root relative to $\mu_p=\lambda_{F,p}$ (\cref{lem:spec:cutkernel}(b)),
+$\norm{T\one-\one}^2=\chi^2(\nu_{\mathrm L,p}\,\|\,\lambda_{F,p})\le\chi^+_p$,
+where $\nu_{\mathrm L,p}$ is the $\vartheta_0$-half law of $\lambda_p(G_{{\rm L},2})$.
+
+The cross pairs of the cut are the sixteen layer lifts of the four root edges
+$b'\to a$, $c\to b'$, $b\to a'$ and $c'\to b$ between the half $x$ and the
+reflected half $x'$. The \emph{soft L20 kernel} is the product over the
+sixteen cross pairs of the factors $1+(D_{20})_{ij}\chi(x'_j-x_i)$, without the
+indicator that $x$ and $x'$ have no common label (its factors are the signed
+factors of the cut, not the soft factors of \cref{cor:soft-kernels}), with the
+signed cross matrix
+\begin{equation}\label{eq:l20-cross-matrix}
+ D_{20}=\begin{pmatrix}
+ 0&0&-1&-1&0&0\\0&0&-1&-1&0&0\\
+ 1&1&0&0&-1&-1\\1&1&0&0&-1&-1\\
+ 0&0&1&1&0&0\\0&0&1&1&0&0
+ \end{pmatrix}
+\end{equation}
+(rows indexed by the coordinates of $x$, columns by those of $x'$; an edge
+$y\to y'$ means $\chi(y'-y)=1$, and $\chi(-1)=-1$). The matrix $D_{20}$ is
+antisymmetric. In the notation of \cref{lem:spec:expansion} the cross signs are
+$\varsigma_{ij}=(D_{20})_{ij}$, so $T=K_0/Z_0$ and $K_0=K_{\rm soft}-T_{\rm coll}$,
+where $K_{\rm soft}=\one\otimes\one+\sum_{S\ \rm star}T_S+T_{\rm ns}$ is the soft
+kernel as an operator on $L^2(\mu_p)$. We call $C=(a_0,a_1,c_0,c_1)$
+(coordinates $0,1,4,5$) the \emph{core} of $x$ and $b=(b_0,b_1)$ (coordinates
+$2,3$; not the least prime $b_{\Blk}$) its \emph{pair}, write $\mathcal H=L^2_0(\Fp)$ and $\Phat=P/r$ for the
+normalized Paley operator, where $P$ is the Paley operator of
+\cref{lem:square-shift}, and use the features $V_k$, $W_S$ of
+\cref{subsec:spec:actual-stars} relative to $\mu_p$ and their synthesis
+$\mathcal F=(V_k,(W_S/r)_S)$. The signs of the core coordinates are
+$s=(s_0,s_1,s_4,s_5)=(-1,-1,1,1)$, as in \cref{lem:record:weighted-moment}.
+
+\begin{lemma}[Complete stars of L20]\label{lem:l20-star-matrix}
+Let $p\equiv3\pmod4$ and $p>15$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item The leaf supports with at least two elements of the stars of
+ $K_{\rm soft}$ are the twelve sets $01$, $014$, $0145$, $015$, $04$, $045$,
+ $05$, $14$, $145$, $15$, $23$, $45$, the subsets with at least two elements of
+ the row supports $\{2,3\}$ and $\{0,1,4,5\}$ of $D_{20}$. With the six
+ singletons, the Hermitian matrix $M(\Phat)$ of \cref{cor:star-matrix}
+ satisfies
+ \[
+  \det(\lambda I-M(i))=\lambda^{14}(\lambda^2-4)(\lambda^2-30);
+ \]
+ in particular $\norm{M(i)}=\sqrt{30}$.
+\item Under $\mu_p$ the conditional probability of each value of a core
+ coordinate given the other five coordinates is at most $D_j/p$ with
+ $D_j=4/(1-15q)$, and that of a pair coordinate is $D_j/p$ with
+ $D_j=1/(1-5q)$. Let $\Gamma_{20}$ be one plus the largest row
+ sum of the symmetric $18\times18$ matrix, indexed by the six
+ singletons $V_k$ and the twelve supports $S$ of part~(a) (the
+ features $W_S/r$), whose diagonal entries are $0$ and whose
+ off-diagonal entries are: for two supports $S\ne T$, the bound of
+ \cref{lem:general-star}(c) with the pivot $j\in S\triangle T$ of
+ least $D_j$; for a singleton $k$ and a support $S$, the bound of
+ \cref{lem:general-star}(d); and for two singletons, the bound of
+ \cref{lem:general-star}(c) applied to their pair.
+ Then $\norm{\mathcal F}^2\le\Gamma_{20}$; $\Gamma_{20}$ is a nondecreasing
+ function of $r$ (with $q=r^2$), and $\Gamma_{20}\to1$ as $p\to\infty$.
+\item For a label $z$ put
+ \begin{gather*}
+  \mathsf K(z,C)=\prod_{i=0,1}\bigl(1-\chi(z-a_i)\bigr)
+  \prod_{j=0,1}\bigl(1+\chi(z-c_j)\bigr),\\
+  \ell(z,C)=-\chi(z-a_0)-\chi(z-a_1)+\chi(z-c_0)+\chi(z-c_1),
+ \end{gather*}
+ $\mathsf K_\star=\mathsf K-1-\ell$ and $(W_\star h)(x)=\E_z\mathsf K_\star(z,C)h(z)$
+ for $h\in\mathcal H$, and put
+ \begin{gather*}
+  \mathbf u=\tfrac12(V_0+V_1-V_4-V_5),\qquad
+  \mathbf v=\tfrac1{\sqrt2}(V_2+V_3),\qquad
+  \mathbf w=\tfrac12(V_0+V_1+V_4+V_5),\\
+  \mathbf e=W_{23}/r,\qquad
+  \mathbf z=\tfrac1{\sqrt{15}}\bigl(W_\star/r-2\mathbf u\Phat\bigr).
+ \end{gather*}
+ Then $\mathsf K=16\cdot\one\{c_0,c_1\to z\to a_0,a_1\}$; in particular
+ $\mathsf K$ vanishes at the core labels, $\mathsf K^2=16\mathsf K$,
+ $\mathsf K\ell=4\mathsf K$ and $\E_z\ell^2=4$. The function $\mathsf K_\star$ is
+ the signed sum $\sum_S\sigma_S\psi_S$ of the eleven higher stars on the core,
+ $\sigma_S=\prod_{k\in S}s_k$, $\psi_S(z,x)=\prod_{k\in S}\chi(z-x_k)$, and the
+ doubly centred complete star part of $K_{\rm soft}$ is
+ \begin{equation}\label{eq:l20-rank4-operator}
+  T_\star=r\bigl\{\sqrt{30}(\mathbf v\mathbf z^*+\mathbf z\mathbf v^*)
+  +2(\mathbf w\mathbf e^*+\mathbf e\mathbf w^*)\bigr\}.
+ \end{equation}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(c) For $z$ outside the core each factor of $\mathsf K$ is $0$ or $2$, and all
+four are $2$ exactly when $\chi(z-a_i)=-1$ and $\chi(z-c_j)=1$ for all $i,j$,
+that is, when $z\to a_i$ and $c_j\to z$. At $z=a_i$ the factor
+$1+\chi(a_i-c_j)$ vanishes, because $a_i\to c_j$ and $\chi(-1)=-1$; at $z=c_j$
+the factor $1-\chi(c_j-a_i)$ vanishes. Hence $\mathsf K\in\{0,16\}$,
+$\mathsf K^2=16\mathsf K$, and $\ell=4$ where $\mathsf K\ne0$. Since
+$\E_z\chi(z-y)\chi(z-y')=\one_{y=y'}-q$ \eqref{eq:two-root} and
+$\sum_ks_k=0$, $\E_z\ell^2=4(1-q)+4q=4$. Expanding the product,
+$\mathsf K=\sum_S\sigma_S\psi_S$ over all $S\subseteq\{0,1,4,5\}$; the empty set
+gives $1$ and the singletons give $\ell$, so $\mathsf K_\star$ is the sum over
+the eleven sets with at least two elements.
+
+(a) and \eqref{eq:l20-rank4-operator}. By \cref{cor:star-matrix}, $M(\Phat)$ has
+the singleton block $D_{20}\otimes\Phat$, the entry
+$(-1)^{|S|}\prod_{j\in S}(D_{20})_{kj}$ at (singleton $k$, support $S$) and
+$\prod_{i\in S}(D_{20})_{ij}$ at (support $S$, singleton $j$). The leaf sets of
+the left stars are the subsets of the row supports of $D_{20}$, those of the
+right stars the subsets of its column supports, and these are the same because
+$D_{20}$ is antisymmetric; this gives the twelve supports. In $\C^{18}$, with
+the coordinate vectors $e_k$ ($0\le k\le5$) and $e_S$, put, at the phase
+$\Phat=i$,
+\begin{gather*}
+ \hat{\mathbf u}=\tfrac12(e_0+e_1-e_4-e_5),\quad
+ \hat{\mathbf v}=\tfrac1{\sqrt2}(e_2+e_3),\quad
+ \hat{\mathbf w}=\tfrac12(e_0+e_1+e_4+e_5),\quad
+ \hat{\mathbf e}=e_{23},\\
+ \hat{\mathbf z}=\tfrac1{\sqrt{15}}\Bigl(\sum_S\sigma_Se_S-2i\,\hat{\mathbf u}\Bigr),
+\end{gather*}
+the sum over the eleven supports contained in $\{0,1,4,5\}$. The four vectors
+$\hat{\mathbf v},\hat{\mathbf z},\hat{\mathbf w},\hat{\mathbf e}$ are orthonormal
+($|\hat{\mathbf z}|^2=(11+4)/15$), and
+\[
+ M(i)=\sqrt{30}\bigl(\hat{\mathbf v}\hat{\mathbf z}^*+\hat{\mathbf z}\hat{\mathbf v}^*\bigr)
+ +2\bigl(\hat{\mathbf w}\hat{\mathbf e}^*+\hat{\mathbf e}\hat{\mathbf w}^*\bigr),
+\]
+as a comparison of entries shows: on the right the singleton entries are $i$ at
+$(b_l,a_k)$ and $(c_k,b_l)$ and $-i$ at $(b_l,c_k)$ and $(a_k,b_l)$, which are
+those of $iD_{20}$; the entries at $(b_l,S)$ and $(S,b_l)$, $S\subseteq
+\{0,1,4,5\}$, are $\sigma_S=(-1)^{|S|}\prod_{j\in S}(D_{20})_{2j}
+=\prod_{i\in S}(D_{20})_{i2}$; the entries at $(k,23)$ and $(23,k)$, $k$ a core
+coordinate, are $1=(D_{20})_{k2}(D_{20})_{k3}$; and all other entries vanish on
+both sides, since a core row of $D_{20}$ has the support $\{2,3\}$ and a pair row
+the support $\{0,1,4,5\}$. So $M(i)$ has the eigenvalues $\pm\sqrt{30}$ and
+$\pm2$ on the span of the four vectors and $0$ on its orthogonal complement,
+which is (a). The synthesis maps $e_k$ to $V_k$ and $e_S$ to $W_S/r$, the phase
+acting as $\Phat$ on the label input; it maps $\hat{\mathbf v}$,
+$\hat{\mathbf w}$, $\hat{\mathbf e}$ to $\mathbf v$, $\mathbf w$, $\mathbf e$, and
+$\hat{\mathbf z}$ to $\mathbf z$, since $\sum_S\sigma_SW_S=W_\star$ by (c). The
+identity $T_\star=r\mathcal FM(\Phat)\mathcal F^*$ of \cref{cor:star-matrix} is
+therefore \eqref{eq:l20-rank4-operator}.
+
+(b) The coordinate $a_0$ is a common predecessor of $c_0,c_1$ distinct from
+$a_1,b_0,b_1$. By \cref{lem:record:class-three}(i) two distinct labels have
+exactly $(p-3)/4$ common predecessors, so given the other coordinates $a_0$ is
+uniform on at least $(p-3)/4-3=(p-15)/4$ labels; the same holds for $a_1$ and,
+with common successors of $a_0,a_1$, for $c_0,c_1$. A pair coordinate is
+uniform on the $p-5$ labels outside the other five. This gives the $D_j$. The
+off-diagonal Grams of $\mathcal F$ are bounded by the entries of the matrix
+(\cref{lem:general-star}(c),(d)), the diagonal ones are at most one
+(\cref{lem:general-star}(a)), and \cref{lem:general-star}(f) gives
+$\norm{\mathcal F}^2\le\Gamma_{20}$. Every entry is built from $q$, $r$ and
+$D_j-1\in\{(3+15q)/(1-15q),\,5q/(1-5q)\}$ by sums, products, square roots and
+division by $1-q$, so it is admissible (\cref{lem:majorant}) and tends to $0$.
+\end{proof}
+
+The synthesis bound $\norm{\mathcal F}^2\le\Gamma_{20}$ alone
+gives the coefficient $\sqrt{30}\,\Gamma_{20}$ of $r$ in the
+negative cap; its excess over $\sqrt{30}$ is of order $r$, with a
+large coefficient coming from the overlaps of the eighteen
+features. The following propositions separate the
+translation-invariant part of the kernel
+(\cref{prop:l20-completion}), replace this synthesis bound by
+the exact Gram matrices of the four
+features of \eqref{eq:l20-rank4-operator}, so that the leading coefficient
+becomes $\sqrt{30}+O(q)$ (\cref{prop:l20-rank4}), and factor the root through a
+rectangular kernel whose nonstar part is priced quadratically
+(\cref{prop:l20-rectangular,prop:l20-pair-gap}). What remains of order $r$ is the
+collision cap (\cref{prop:l20-collisions} and the remark after it).
+
+\begin{proposition}[Translation sectors]\label{prop:l20-completion}
+Let $p\equiv3\pmod4$, $p\ge2^{20}$, let $N_{\rm ns}$ and $D_{\rm col}$ be raw nonstar
+and collision caps of the soft L20 kernel (``raw'': bounds for the
+unnormalized kernel $K_0$, before division by $Z_0$), $\norm{T_{\rm ns}}\le N_{\rm ns}$
+and $\norm{T_{\rm coll}}\le D_{\rm col}$
+(\cref{cor:extraction-compressed,lem:oct24-collision}), let $m_\star$ be the
+averaged-star mean bound of \cref{lem:l20-star-mean}, and put
+$\eps_Z=N_{\rm ns}+D_{\rm col}+m_\star$ and
+$H_{20}=(N_{\rm ns}+D_{\rm col})/(1-\eps_Z)$, assuming $\eps_Z<1$. Then $T$
+preserves $\mathcal I$ and $\mathcal I^\perp$, the ranges of the features
+$V_k$, $W_S$ lie in $\mathcal I^\perp$, and the centred block of $T$ on
+$\mathcal I\cap\one^\perp$ has norm at most $H_{20}$. If moreover $H_{20}<1$
+and $C_\perp<1$ satisfy $T\succeq-C_\perp I$ and
+$\norm{T|_{\mathcal I^\perp}}\le C_\perp$, then
+\begin{equation}\label{eq:l20-caps}
+ -g\,rI\preceq T\preceq(1+c^+/p)I,\qquad g=C_\perp/r,\qquad
+ c^+=\frac{p\chi^+_p}{1-H_{20}}.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+By \cref{lem:spec:expansion}, $T=K_0/Z_0$ with $Z_0=\ip\one{K_0\one}_{\mu_p}$,
+and by \cref{lem:l20-star-mean} the star means of $K_{\rm soft}$ sum to at most
+$m_\star$ in modulus, so $Z_0\ge1-\eps_Z>0$. The simultaneous translations
+preserve $\mu_p$ and $K_0$, so $T$ commutes with them and preserves
+$\mathcal I$, and $\mathcal I^\perp$ as it is self-adjoint. The ranges of the
+features lie in $\mathcal I^\perp$ by \cref{lem:general-star}. Let
+$h,h'\in\mathcal I\cap\one^\perp$. Then $\E_{\mu_p}[h\mid x_k]=0$ for every
+coordinate $k$ (\cref{lem:spec:affpair}(d)), so $T_Sh=0$ for every column star
+$S$ (\cref{lem:spec:stars}(a)) and
+$\ip{h'}{T_Sh}=\ip{T_{S^{\mathsf t}}h'}h=0$ for every row star
+(\cref{lem:spec:stars}(b)); also $(\one\otimes\one)h=0$. By
+\eqref{eq:record:root-kernel},
+$\ip{h'}{K_0h}=\ip{h'}{(T_{\rm ns}-T_{\rm coll})h}$, of modulus at most
+$(N_{\rm ns}+D_{\rm col})\norm h\norm{h'}$, and division by $Z_0$ bounds the
+centred block by $H_{20}$. The vector $T\one-\one$ is translation invariant
+and orthogonal to $\one$, as $\ip\one{T\one}=1$, and its squared norm is at
+most $\chi^+_p$. Now \cref{prop:matching:positive}(a$''$), for the group of
+translations, gives
+$T\preceq\max\bigl(C_\perp,1+\chi^+_p/(1-H_{20})\bigr)I=(1+c^+/p)I$, as
+$C_\perp<1$. The lower bound is the hypothesis.
+\end{proof}
+
+The lower bound is required on the whole space;
+\cref{prop:l20-rectangular} supplies it.
+
+\begin{proposition}[Gram bounds for the four L20 star features]\label{prop:l20-rank4}
+Let $p\equiv3\pmod4$, $p\ge2^{20}$, let
+$\bar{\mathsf K}(C)=\E_z\mathsf K(z,C)$, $m_{\mathsf K}=\E_{\mu_p}\bar{\mathsf K}-1$
+and $v_{\mathsf K}=\E_{\mu_p}(\bar{\mathsf K}-1)^2$, let $m_\star$ be the bound
+of \cref{lem:l20-star-mean}, and put
+\begin{gather*}
+ \mathfrak m_+=2q+\tfrac14m_\star,\qquad
+ g_{\mathbf z}=\frac{1+\frac{14}{15}\mathfrak m_+}{1-q},\qquad
+ \rho=\frac{(12+8r)q^2}{(1-4q)(1-5q)},\\
+ \rho_{\mathbf v\mathbf z}=\frac{4\sqrt{2/15}\,qr(1+\mathfrak m_+)}{(1-4q)(1-q)},\qquad
+ \rho_{\mathbf v\mathbf w}=\frac{2\sqrt2\,q}{1-q},\qquad
+ \rho_{\mathbf v\mathbf e}=\frac{\sqrt2\,qr}{1-q},\\
+ \rho_{\mathbf z\mathbf w}=\frac{2r(1+\mathfrak m_+)}{\sqrt{15}(1-q)},\qquad
+ \rho_{\mathbf z\mathbf e}=\sqrt{g_{\mathbf z}}\,\rho,\qquad
+ k_{\rm top}=\sqrt{30}\,(g_{\mathbf z}+\rho_{\mathbf v\mathbf z}),\qquad
+ k_{\rm low}=2(1+\rho),\\
+ k_\times^2=2\sqrt{30}\bigl(\rho_{\mathbf v\mathbf w}^2+\rho_{\mathbf v\mathbf e}^2
+ +\rho_{\mathbf z\mathbf w}^2+\rho_{\mathbf z\mathbf e}^2\bigr),\qquad
+ k_4=k_{\rm top}+\frac{k_\times^2}{\sqrt{30}-k_{\rm low}}.
+\end{gather*}
+Then $\sqrt{30}-k_{\rm low}>0$, $|m_{\mathsf K}|\le\mathfrak m_+$, and on
+$\mathcal H$:
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item $\mathbf u^*\mathbf u=\frac1{1-q}I$,
+ $\mathbf w^*\mathbf w=\frac{1-4q}{1-q}I$,
+ $\mathbf u^*\mathbf w=\frac{2r}{1-q}\Phat$ and
+ $\mathbf v^*\mathbf v=\frac{1-2q}{1-q}I$;
+\item $W_\star^*W_\star=\frac{q(11+6m_{\mathsf K}-v_{\mathsf K})}{1-q}I$,
+ $\mathbf u^*W_\star=-\frac{2m_{\mathsf K}r}{1-q}\Phat$ and
+ $\mathbf w^*W_\star=\frac{2q(1-m_{\mathsf K})}{1-q}I$;
+\item $\mathbf z^*\mathbf z=\frac{15+14m_{\mathsf K}-v_{\mathsf K}}{15(1-q)}I
+ \preceq g_{\mathbf z}I$,
+ $\mathbf w^*\mathbf z=-\frac{2r(1+m_{\mathsf K})}{\sqrt{15}(1-q)}I$,
+ $\mathbf v^*\mathbf z=\frac{4\sqrt{2/15}\,qr(1+m_{\mathsf K})}{(1-4q)(1-q)}I$ and
+ $\mathbf v^*\mathbf w=-\frac{2\sqrt2\,q}{1-q}I$;
+\item $\mathbf e^*\mathbf e=\frac{1-2q-q^2}{1-q}I$,
+ $\mathbf v^*\mathbf e=\frac{\sqrt2\,qr}{1-q}I$,
+ $\norm{\mathbf w^*\mathbf e}\le\rho$ and
+ $\norm{\mathbf z^*\mathbf e}\le\rho_{\mathbf z\mathbf e}$.
+\end{enumerate}
+Consequently, if $\mathfrak F=(\mathbf v,\mathbf z,\mathbf w,\mathbf e)$ and
+$\Xi$ is a real symmetric $4\times4$ matrix with
+$-\Delta_\star\preceq\Xi\preceq\Delta_\star$,
+$\Delta_\star=\operatorname{diag}(\sqrt{30},\sqrt{30},2,2)$, then
+$\norm{\mathfrak F\Xi\mathfrak F^*}\le k_4$. In particular
+$\norm{T_\star}\le k_4r$.
+\end{proposition}
+
+\begin{proof}
+For $p\ge2^{20}$, $\rho<1/2$, so $k_{\rm low}<3<\sqrt{30}$.
+
+\emph{The mean.} By \cref{lem:l20-star-matrix}(c),
+$\bar{\mathsf K}-1=\sum_S\sigma_Sw_S$ over the eleven higher supports $S$ on the
+core, with $w_S(C)=\E_z\psi_S(z,x)$. The six two-element supports have
+$w_S=-q$ \eqref{eq:two-root} and $\sum\sigma_S=\frac12((\sum_ks_k)^2-4)=-2$,
+which contributes $2q$. Under $\mu_p$ the core is uniform on the admissible
+quadruples of \cref{lem:record:weighted-moment} (each has exactly $(p-4)(p-5)$
+completions by the pair), whose probability under independent uniform labels
+is $Z_4/16$ with $Z_4=(1-q)(1-3q)(1-7q)$, while $P_{\rm adm}D_4=16$ on
+them ($D_4$ the indicator that the four labels are distinct, and $P_{\rm adm}$
+the product of \cref{lem:record:weighted-moment}, $16$ on admissible
+quadruples and $0$ on the other distinct quadruples). In the notation of
+\cref{lem:l20-star-mean} the three- and four-element supports therefore
+contribute $\E_{\mu_p}[\mathcal W_3/p]=0$ and
+$\E_{\mu_p}[\mathcal W_4/p]=(M_{G_5}+8q^2-33q^3+25q^4)/Z_4$
+\eqref{eq:l20-star-identities}, and $|M_{G_5}|\le(1-q)(q^2+2qr)$
+(\cref{lem:record:weighted-moment}(b)) gives $|m_{\mathsf K}-2q|\le m_\star/4$.
+
+\emph{The Grams.} Each operator below commutes with the square-affine maps
+acting on the label input and on all coordinates, so on $\mathcal H$ it is
+$\alpha I+\gamma\Phat$, where $\alpha$ is its trace divided by $p-1$ and
+$\gamma(p-1)$ is the trace of its product with $\Phat^*$; if it is
+self-adjoint, $\gamma=0$ (\cref{lem:spec:affpair}(d)). For an orthonormal basis
+$(h)$ of $\mathcal H$, $\sum_hh(y)h(y')=p\one_{y=y'}-1$, which gives the traces.
+
+(a) Two core coordinates on the same side form a uniform distinct pair, and
+$(a_i,c_j)$ a uniform directed pair, so $V_k^*V_{k'}=-\frac q{1-q}I$ for a
+same-side pair and $V_{a_i}^*V_{c_j}=-\frac q{1-q}I+\frac r{1-q}\Phat$. The
+coefficients of $\mathbf u$ sum to zero, and the Paley parts of
+$V_{a_i}^*V_{c_j}$ and $V_{c_j}^*V_{a_i}$ cancel in $\mathbf u^*\mathbf u$ and
+$\mathbf w^*\mathbf w$ and add up in $\mathbf u^*\mathbf w$; this gives (a) for
+$\mathbf u$ and $\mathbf w$. The pair $(b_0,b_1)$ is a uniform distinct pair,
+which gives $\mathbf v^*\mathbf v$.
+
+(b) By \cref{lem:l20-star-matrix}(c),
+$\E_z\mathsf K_\star^2=16\bar{\mathsf K}+1+4-2\bar{\mathsf K}-8\bar{\mathsf K}
+=6\bar{\mathsf K}+5$ and $\E_z\mathsf K_\star=\bar{\mathsf K}-1$, so the trace of
+$W_\star^*W_\star$ is $\E_{\mu_p}\Var_z\mathsf K_\star=11+6m_{\mathsf K}-v_{\mathsf K}$.
+For a core coordinate $k$, $\mathsf K(x_k,C)=0$ and
+$\ell(x_k,C)=-2\pm\chi(x_k-x_{k'})$, $k'$ the other coordinate on the same side,
+so $\E_{\mu_p}\mathsf K_\star(x_k,C)=1$ by the exchange of $x_k$ and $x_{k'}$, and
+the trace of $V_k^*W_\star$ is $1-m_{\mathsf K}$. Where $\mathsf K\ne0$,
+$\chi(z-x_k)=s_k$, and $\E_z\chi(z-x_k)\ell=s_k$; so
+$\E_z\chi(z-x_k)\mathsf K_\star=s_k(\bar{\mathsf K}-1)$ and
+$V_k^*W_\star=\frac{q(1-m_{\mathsf K})}{1-q}I+\frac{s_km_{\mathsf K}r}{1-q}\Phat$.
+Summing with the coefficients of $\mathbf u$ and of $\mathbf w$ gives (b).
+
+(c) By (a), (b), $\Phat^2=-I$ and $\Phat^*=-\Phat$ on $\mathcal H$,
+$15\,\mathbf z^*\mathbf z=W_\star^*W_\star/q+8m_{\mathsf K}(1-q)^{-1}I
++4\,\mathbf u^*\mathbf u$ and
+$\sqrt{15}\,\mathbf w^*\mathbf z=\mathbf w^*W_\star/r-2\mathbf w^*\mathbf u\Phat$;
+this gives $\mathbf z^*\mathbf z$ and $\mathbf w^*\mathbf z$, and
+$\mathbf z^*\mathbf z\preceq g_{\mathbf z}I$ as $v_{\mathsf K}\ge0$. Given the
+core, each pair coordinate is uniform on the $p-4$ labels outside it, so
+$\E_{\mu_p}[h(b_l)\mid C]=-2(\mathbf wh)(C)/(p-4)$ for $h\in\mathcal H$; hence
+$\mathbf v^*Y=-\frac{2\sqrt2\,q}{1-4q}\mathbf w^*Y$ for every operator $Y$ with
+values in the functions of the core, and $Y=\mathbf w,\mathbf z$ give
+$\mathbf v^*\mathbf w$ and $\mathbf v^*\mathbf z$.
+
+(d) \Cref{lem:general-star}(a) with $w_{23}=-q$ gives $\mathbf e^*\mathbf e$.
+The trace of $V_2^*W_{23}$ is $\E[\chi(0)\chi(b_0-b_1)]+q=q$, and the trace of
+its product with $\Phat^*$ is $r^{-1}\E\,\E_z\chi(z-b_0)^2\chi(z-b_1)
+=-qr^{-1}\E\chi(b_0-b_1)=0$; so
+$V_2^*W_{23}=V_3^*W_{23}=\frac{q^2}{1-q}I$, which gives $\mathbf v^*\mathbf e$.
+Given the core, $(b_0,b_1)$ is uniform on the ordered distinct pairs outside it,
+and expanding $\sum_{y\ne y'}\chi(z-y)\chi(z-y')$ over such pairs gives, on
+$\mathcal H$,
+\[
+ \E_{\mu_p}[W_{23}\mid C]=\frac{-2q\sum_kV_k+2\sum_{|S|=2}W_S}{(p-4)(p-5)},
+\]
+the sums over the core coordinates and over the six two-element subsets of the
+core. As $\norm{V_k}=1$ and $\norm{W_S}\le r$ (\cref{lem:general-star}(a)), the
+conditional expectation $\Pi_C\mathbf e$ of $\mathbf e$ onto the functions of the
+core has norm at most $\rho$. For $Y=\mathbf w,\mathbf z$, which take values in
+the functions of the core, $\mathbf e^*Y=(\Pi_C\mathbf e)^*Y$, and
+$\norm{\mathbf w}\le1$, $\norm{\mathbf z}\le\sqrt{g_{\mathbf z}}$.
+
+\emph{The consequence.} As $-\Delta_\star\preceq\Xi\preceq\Delta_\star$,
+$\norm{\mathfrak F\Xi\mathfrak F^*}\le\norm{\mathfrak F\Delta_\star\mathfrak F^*}
+=\norm{\Delta_\star^{1/2}\mathfrak G\Delta_\star^{1/2}}$, where
+$\mathfrak G=\mathfrak F^*\mathfrak F$ is the Gram of the four features. In the
+blocks $(\mathbf v,\mathbf z)$ and $(\mathbf w,\mathbf e)$ this matrix has
+diagonal blocks of norms at most $k_{\rm top}$ and $k_{\rm low}$, by (a)--(d),
+and an off-diagonal block of squared norm at most $k_\times^2$, the weighted sum
+of the squared norms of its four entries. Since
+$k_{\rm top}\ge\sqrt{30}>k_{\rm low}$, the largest eigenvalue of
+$\bigl(\begin{smallmatrix}k_{\rm top}&k_\times\\k_\times&k_{\rm low}\end{smallmatrix}\bigr)$,
+at most $k_{\rm top}+k_\times^2/(k_{\rm top}-k_{\rm low})\le k_4$, bounds the
+norm. By \eqref{eq:l20-rank4-operator}, $T_\star/r=\mathfrak F\Xi_\star\mathfrak F^*$
+with $\Xi_\star=\bigl(\begin{smallmatrix}0&\sqrt{30}\\\sqrt{30}&0\end{smallmatrix}\bigr)
+\oplus\bigl(\begin{smallmatrix}0&2\\2&0\end{smallmatrix}\bigr)$, and
+$-\Delta_\star\preceq\Xi_\star\preceq\Delta_\star$.
+\end{proof}
+
+The coefficient $k_4$ is $\sqrt{30}+O(q)$: the only overlap of order $r$, the
+entry $\rho_{\mathbf z\mathbf w}$ between the two blocks, enters quadratically
+across the gap $\sqrt{30}-2$.
+
+\begin{proposition}[The soft L20 kernel as a swapped rectangle product]\label{prop:l20-rectangular}
+Let $p\equiv3\pmod4$, $p\ge2^{20}$. Let $\mu^{\rm core}$ be the uniform law on the
+admissible cores $C$ (distinct labels with $a_i\to c_j$) and $\mu^{\rm pair}$ the
+uniform law on the ordered distinct pairs $b$, and let
+$\mathsf R\colon L^2(\mu^{\rm pair})\to L^2(\mu^{\rm core})$ have the kernel
+$\mathsf R(C;b)=\mathsf K(b_0,C)\mathsf K(b_1,C)$; the features $\mathbf z,\mathbf w$
+of the core and $\mathbf v,\mathbf e$ of the pair are those of
+\cref{lem:l20-star-matrix}, read in these laws.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item $\mathsf R$ has the row mass
+ $\mathfrak r(C)=\mathsf R\one(C)=(\bar{\mathsf K}(C)^2-16q\bar{\mathsf K}(C))/(1-q)$
+ and a constant column mass, and $\mathsf R_c=\mathsf R-\mathfrak r\otimes\one$
+ (where $(\mathfrak r\otimes\one)h=(\E h)\,\mathfrak r$) satisfies
+ $\mathsf R_c\one=\mathsf R_c^*\one=0$ and $\mathsf R_c^*\mathfrak r=0$.
+\item Let $N_A$ be an upper bound for the norm of the double-centred
+ nonstar remainder
+ $P_0(\text{nonstars})P_0$. A raw cap from
+ \cref{cor:soft-kernels}(a) suffices; the sharper bound of
+ \cref{thm:rectangle-gram} also applies. Then
+ \begin{equation}\label{eq:l20-rectangle}
+  \mathsf R=\mathfrak r\otimes\one+\mathsf R_\star+\mathsf R_\circ,\qquad
+  \mathsf R_\star=r\bigl(\sqrt{30}\,\mathbf z\mathbf v^*+2\mathbf w\mathbf e^*\bigr),\qquad
+  \norm{\mathsf R_\circ}\le N_A ,
+ \end{equation}
+ and $\norm{\mathsf R_\star}\le k_4r$; hence $\norm{\mathsf R_c}\le k_4r+N_A$.
+\item On $L^2(\mu^{\rm core}\otimes\mu^{\rm pair})$ the soft L20 kernel is
+ \begin{equation}\label{eq:l20-swap}
+  K_{\rm soft}\bigl((C,b),(C',b')\bigr)=\mathsf R(C;b')\,\mathsf R(C';b),\qquad
+  K_{\rm soft}=T[\mathsf R,\mathsf R]=(\mathsf R\otimes\mathsf R^*)\operatorname{Swap}.
+ \end{equation}
+\item Put $\eta=2q+11r$, $h_p=(1-4q)(1-5q)/(1-q)$ and
+ \[
+  s_p=\frac{\bigl[1+4\mathfrak m_++(6+4\eta+\eta^2)\eta^2
+  +256q^2(1+2\mathfrak m_++\eta^2)\bigr]^{1/2}}{1-q}.
+ \]
+ Then $\norm{\mathfrak r}\le s_p$. If $\norm{\mathsf R_c}\le c_{\rm R}<1$, then for
+ every collision cap $D_{\rm col}$ with $\eps_Z=N_{\rm ns}+D_{\rm col}+m_\star<1$
+ as in \cref{prop:l20-completion},
+ \[
+  T\succeq-C'I,\qquad\norm{T|_{\mathcal I^\perp}}\le C',\qquad
+  C'=\frac{s_pc_{\rm R}/h_p+D_{\rm col}}{1-\eps_Z}.
+ \]
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) Given $C$, under $\mu^{\rm pair}$, $\mathfrak r(C)=\frac1{p(p-1)}\sum_{y\ne y'}
+\mathsf K(y,C)\mathsf K(y',C)=\frac{p^2\bar{\mathsf K}^2-\sum_y\mathsf K(y,C)^2}{p(p-1)}$,
+which is the stated formula by $\mathsf K^2=16\mathsf K$. If $\varphi$ is a
+function of the core invariant under the square-affine maps, then
+$\mathsf R^*\varphi(b)=\E_{\mu^{\rm core}}[\mathsf R(C;b)\varphi(C)]$ is invariant
+under these maps acting on $b$, hence constant on each of the two orbits of
+ordered distinct pairs (the sign of $\chi(b_1-b_0)$); $\mathsf R$ is symmetric
+in $b_0,b_1$, and the exchange maps one orbit onto the other because
+$\chi(-1)=-1$, so $\mathsf R^*\varphi$ is constant. With $\varphi=\one$ and
+$\varphi=\mathfrak r$ this gives the constant column mass $\E\mathfrak r$ and
+$\mathsf R^*\mathfrak r=\norm{\mathfrak r}^2\one$; hence $\mathsf R_c\one=0$,
+$\mathsf R_c^*\one=0$ and $\mathsf R_c^*\mathfrak r=0$.
+
+(b) By (a), $\mathsf R_c=P_0\mathsf RP_0$, with $P_0$ the projections onto the
+mean-zero functions. Expand
+$\mathsf R=\prod(1+s_k\chi(b_l-x_k))$ over the eight cross pairs (core
+coordinate $k$, pair coordinate $b_l$) into its $256$ subset terms: the
+constant, $34$ stars ($8$ single pairs, $22$ sets of at least two pairs at one
+pair coordinate and $4$ pairs $\{(k,b_0),(k,b_1)\}$ at one core coordinate)
+and $221$ nonstars. The double centring removes the constant. The stars at
+$b_l$ add up to $(\ell+\mathsf K_\star)(b_l,C)$, and
+$\E_z\ell(z,C)h(z)=\sum_ks_k(Ph)(x_k)=-2r(\mathbf u\Phat h)(C)$; so after the
+double centring they give $(W_\star-2r\mathbf u\Phat)V^*_{b_l}=\sqrt{15}\,r\,\mathbf zV^*_{b_l}$,
+with $V_{b_l}h=h(b_l)$; the stars at the core coordinates give
+$\sum_kV_kW_{23}^*=2r\mathbf w\mathbf e^*$, their rank-one marginal terms being
+exactly those removed by the double centring (\cref{cor:star-matrix}).
+Hence the centred stars give
+$\sqrt{15}\,r\,\mathbf z(V^*_{b_0}+V^*_{b_1})+2r\mathbf w\mathbf e^*=\mathsf R_\star$,
+and $\mathsf R_\circ=P_0(\text{nonstars})P_0$ has norm at most that of the sum
+of the nonstar terms. The raw extraction bound of \cref{cor:soft-kernels}(a)
+also bounds this compression: the core and pair coordinate embeddings
+are isometries, and the eight-edge kernel uses the same $221$ subsets.
+The sharper direct calculation is \cref{thm:rectangle-gram}.
+Finally $\mathsf R_\star$ maps the mean-zero functions of the pair to those of
+the core. Its Hermitian dilation on $L^2(\mu^{\rm core})\oplus L^2(\mu^{\rm pair})$ is
+$r\mathfrak F'\Xi_\star\mathfrak F'^*$ for the four features placed in their
+summands; their Gram has the blocks of \cref{prop:l20-rank4} inside each summand
+($\mathbf z,\mathbf w$ depend only on the core and $\mathbf v,\mathbf e$ only on
+the pair, whose laws under $\mu_p$ are $\mu^{\rm core}$ and $\mu^{\rm pair}$) and
+zero blocks across them. The argument of \cref{prop:l20-rank4} gives
+$\norm{\mathsf R_\star}\le k_4r$.
+
+(c) The cross factors between the core of $x$ and the pair of $x'$ are
+$1-\chi(b'_l-a_i)$ and $1+\chi(b'_l-c_j)$, the entries $-1$ and $1$ of $D_{20}$
+in the rows of $a_i$ and $c_j$; their product is $\mathsf R(C;b')$. By the
+antisymmetry of $D_{20}$ the factors between the pair of $x$ and the core of
+$x'$ are $1+\chi(a'_i-b_l)=1-\chi(b_l-a'_i)$ and $1-\chi(c'_j-b_l)=1+\chi(b_l-c'_j)$,
+with product $\mathsf R(C';b)$, and $D_{20}$ has no other nonzero entries. The
+second form is \cref{lem:swapped-rectangle}(a).
+
+(d) Write $\bar{\mathsf K}=1+y$. By \cref{lem:l20-star-matrix}(c) and
+\cref{thm:weil}, $|y|\le2q+4\cdot2r+3r=\eta$ (six two-root, four three-root and
+one four-root sum), and $\E_{\mu^{\rm core}}y=m_{\mathsf K}\le\mathfrak m_+$
+(\cref{prop:l20-rank4}). Hence
+$\E\bar{\mathsf K}^4\le1+4\mathfrak m_++(6+4\eta+\eta^2)\eta^2$ and
+$\E\bar{\mathsf K}^2\le1+2\mathfrak m_++\eta^2$, and dropping the term
+$-32q\bar{\mathsf K}^3\le0$ in $(1-q)^2\mathfrak r^2$ gives
+$\norm{\mathfrak r}\le s_p$; note $s_p\ge1$. By (a), $\mathsf R$ has the singular
+pair $(\mathfrak r/\norm{\mathfrak r},\one)$ with the value $\norm{\mathfrak r}$,
+and all its other singular values are at most $c_{\rm R}$. By
+\cref{lem:swapped-rectangle}(a) the eigenvalues of $T[\mathsf R,\mathsf R]$ are
+$0$, the squares of the singular values and their products $\pm\sigma_i\sigma_j$
+($i\ne j$); as $c_{\rm R}<1\le s_p$, all negative eigenvalues are at least
+$-s_pc_{\rm R}$, and all eigenvalues except the one at the translation-invariant
+vector $(\mathfrak r/\norm{\mathfrak r})\otimes\one$ have modulus at most
+$s_pc_{\rm R}$. The law $\mu_p$ is $\mu^{\rm core}\otimes\mu^{\rm pair}$ conditioned on
+the translation-invariant event $\mathcal E$ that the pair avoids the core,
+which has probability $h_p$ for every core. With the isometry
+$Jf=\one_{\mathcal E}f/\sqrt{h_p}$ of $L^2(\mu_p)$ into
+$L^2(\mu^{\rm core}\otimes\mu^{\rm pair})$, $K_{\rm soft}=h_p^{-1}J^*T[\mathsf R,\mathsf R]J$
+on $L^2(\mu_p)$, and $J$ maps $\mathcal I^\perp$ into the orthogonal complement
+of the translation-invariant functions. So $K_{\rm soft}\succeq-(s_pc_{\rm R}/h_p)I$
+and $\norm{K_{\rm soft}|_{\mathcal I^\perp}}\le s_pc_{\rm R}/h_p$. Finally
+$T=(K_{\rm soft}-T_{\rm coll})/Z_0$ with $\norm{T_{\rm coll}}\le D_{\rm col}$ and
+$Z_0\ge1-\eps_Z$ (proof of \cref{prop:l20-completion}).
+\end{proof}
+
+\input{sections/20a_rectangle_gram}
+
+\begin{proposition}[Sharper bound for the centred rectangle, using the gap $30q-\ell_g^2$]\label{prop:l20-pair-gap}
+In the setting of \cref{prop:l20-rectangular} put
+\begin{gather*}
+ g_{\mathbf v}=\frac{1-2q}{1-q},\qquad
+ M_g=15+44\mathfrak m_++(42+12\eta)\eta^2,\qquad
+ \tau_g^2=\frac{2qM_g}{(1-q)^2(1-2q)},\\
+ e_g=\frac{\sqrt{30}\,r(\eta+15q)\sqrt{g_{\mathbf z}}}{(1-q)\sqrt{g_{\mathbf v}}},\qquad
+ w_g=\frac{\sqrt{30}\,r\rho_{\mathbf z\mathbf w}}{\sqrt{g_{\mathbf v}}}+e_g,\qquad
+ l_g=2r+N_A,\\
+ x_g=2rw_g+\tau_gN_A,\qquad\Delta_g=30q-l_g^2 .
+\end{gather*}
+If $\Delta_g>0$, then
+$\norm{\mathsf R_c}\le c_{\rm gap}:=\bigl(\tau_g^2+x_g^2/\Delta_g\bigr)^{1/2}$.
+\end{proposition}
+
+\begin{proof}
+On $\mathcal H$, $\mathbf v^*\mathbf v=g_{\mathbf v}I$, so
+$\mathbf v'=\mathbf v/\sqrt{g_{\mathbf v}}$ is an isometry into the mean-zero
+functions of the pair. As $\E_z\ell(z,C)h(z)=-2r(\mathbf u\Phat h)(C)$ (proof of
+\cref{prop:l20-rectangular}(b)), $\mathbf zh=\E_z\mathsf K(z,C)h(z)/(\sqrt{15}\,r)$
+for $h\in\mathcal H$. Given $b_0=y$, the label $b_1$ is uniform on the other $p-1$
+labels and $\sum_{y'\ne y}\mathsf K(y',C)=p\bar{\mathsf K}-\mathsf K(y,C)$; with
+$\mathsf K^2=16\mathsf K$ this gives the exact action
+\[
+ \mathsf R\mathbf v=\sqrt{30}\,r\,\frac{\bar{\mathsf K}-16q}{1-q}\,\mathbf z .
+\]
+The Gram $(\mathsf R\mathbf v')^*\mathsf R\mathbf v'$ is self-adjoint and commutes
+with the square-affine maps, so it is a scalar (\cref{lem:spec:affpair}(d)); its
+trace is $30q\,\E[(\bar{\mathsf K}-16q)^2(1-q)^{-2}\norm{P_0\mathsf K(\cdot,C)}^2]
+/(15q\,g_{\mathbf v})$ with $\norm{P_0\mathsf K(\cdot,C)}^2=16\bar{\mathsf K}-\bar{\mathsf K}^2$,
+and division by $p-1$ gives
+\[
+ (\mathsf R\mathbf v')^*\mathsf R\mathbf v'
+ =\frac{2q\,\E\bigl[(\bar{\mathsf K}-16q)^2(16\bar{\mathsf K}-\bar{\mathsf K}^2)\bigr]}
+ {(1-q)^2(1-2q)}I .
+\]
+Here $\bar{\mathsf K}=16n/p=16nq$, where $n=\#\{z:\mathsf K(z,C)=16\}$; the
+weight vanishes at $n=0$,
+and for $n\ge1$, $0\le\bar{\mathsf K}-16q\le\bar{\mathsf K}\le16$, so the
+expectation is at most $\E(16\bar{\mathsf K}^3-\bar{\mathsf K}^4)$; expanding at
+$\bar{\mathsf K}=1+y$, $16\bar{\mathsf K}^3-\bar{\mathsf K}^4=15+44y+42y^2+12y^3-y^4$,
+and $|y|\le\eta$, $\E y\le\mathfrak m_+$ bound it by $M_g$. Thus
+$\norm{\mathsf R\mathbf v'}\le\tau_g$, and $\tau_g^2\ge30q$ as $M_g\ge15$. On the
+orthogonal complement of the range of $\mathbf v'$ in the mean-zero functions of
+the pair, $\mathbf v^*=0$, so there $\mathsf R_c=2r\mathbf w\mathbf e^*+\mathsf R_\circ$
+has norm at most $l_g$, as $\norm{\mathbf w},\norm{\mathbf e}\le1$. Moreover
+$|(\bar{\mathsf K}-16q)/(1-q)-1|\le(\eta+15q)/(1-q)$ gives
+$\norm{\mathsf R\mathbf v'-\sqrt{30}\,r\mathbf z/\sqrt{g_{\mathbf v}}}\le e_g$ and
+$\norm{(\mathsf R\mathbf v')^*\mathbf w}\le w_g$, so the off-diagonal block of
+$\mathsf R_c^*\mathsf R_c$ in this decomposition has norm at most
+$2rw_g+\tau_gN_A=x_g$. The diagonal blocks have norms at most $\tau_g^2$ and
+$l_g^2$, and $\tau_g^2-l_g^2\ge\Delta_g>0$, so the largest eigenvalue of the
+scalar comparison matrix, and with it $\norm{\mathsf R_c}^2$, is at most
+$\tau_g^2+x_g^2/\Delta_g$.
+\end{proof}
+
+The nonstar term $N_A$ enters $c_{\rm gap}^2$ through $x_g$, of order $qr$,
+across the gap $\Delta_g$ of order $q$, and through $l_g$ in the gap itself, at
+relative order $r$; so it changes $(c_{\rm gap}/r)^2$ by $O(q)$, whereas in
+$k_4r+N_A$ it enters $c/r$ linearly, at order $r$.
+
+\begin{proposition}[Collisions with the core--pair weights of the proof; the caps of L20]
+\label{prop:l20-collisions}
+For $p\equiv3\pmod4$, $p\ge2^{20}$, put $E_{c,j}=e_j(p,12)
+=((j/2-1)2^j+1)r+12\cdot2^jq$ ($j=2,3,4$),
+$\Lambda_c=(1-e_2(p,6))^4(1-e_0(p,6))^2=(1-r-24q)^4(1-6q)^2$,
+$U_c=(1+E_{c,4})^6$,
+\begin{gather*}
+ P_c(q)=96q+3712q^2+81920q^3+1245184q^4+12582912q^5+67108864q^6,\\
+ S_c=32q(1+E_{c,3})^2(1+E_{c,4})^3+64q(1+E_{c,2})(1+E_{c,3})^2(1+E_{c,4})^2,\\
+ D_{\rm bal}=\frac{S_c+U_c(P_c-96q)}{\Lambda_c}.
+\end{gather*}
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item $\norm{T_{\rm coll}}\le D_{\rm bal}$ for the soft L20 kernel.
+\item Put $\eps_Z=N_{\rm ns}+D_{\rm bal}+m_\star$,
+ $C_{20}=(s_pc_{\rm gap}/h_p+D_{\rm bal})/(1-\eps_Z)$,
+ $H_{20}=(N_{\rm ns}+D_{\rm bal})/(1-\eps_Z)$, $g_{20}=C_{20}/r$ and
+ $c^+_{20}=p\chi^+_p/(1-H_{20})$. If $\eps_Z<1/2$, $\Delta_g>0$,
+ $c_{\rm gap}<1$, $C_{20}<1$ and $H_{20}<1$ at an endpoint $P\ge2^{20}$ (that
+ is, with $q=1/P$ and $r=P^{-1/2}$), then
+ $-g_{20}(P)p^{-1/2}\le\mathsf A_p\le1+c^+_{20}(P)/p$ for every prime $p\ge P$
+ with $p\equiv3\pmod4$, and a middle block $\Blk$ of a piece starting at
+ $X\ge P$, with least prime $b$, has
+ \[
+  \mathsf A_{\Blk}\succeq-g_{20}(P)\exp\bigl(c^+_{20}(P)L_{\rm loc}/(X\log X)\bigr)
+  \,b^{-1/2}.
+ \]
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) The soft kernel contains the factors $\mathsf K(b'_l,C)$ and
+$\mathsf K(b_l,C')$ (\cref{prop:l20-rectangular}(c)), which vanish at the core
+labels (\cref{lem:l20-star-matrix}(c)). So the strata of $T_{\rm coll}$ with a
+coincidence between a pair label of one half and a core label of the other
+contribute nothing, and in the bounds of \cref{cor:incident-weights} the weights
+$\alpha_{ij}(x)$ of the $16$ pairs $(i,j)$ joining a core coordinate and a pair
+coordinate may be replaced by zero: a stratum containing such a pair is bounded
+by zero, and the bounds of the other strata do not change. The remaining
+coincidences $x'_i=x_j$ join two core coordinates ($16$ choices of $(i,j)$) or two
+pair coordinates ($4$ choices); for these, $j\notin N(i)$ and $\mathrm{mg}(j,i)=0$
+in \cref{lem:oct24-collision}. Fix $x$ and apply \cref{cor:incident-weights} with
+the actual incident weights $\alpha_{ij}(x)=w_i(x_j)$, where $w_i$ is the
+cross factor at vertex $i$ of that corollary. For an $a$-coordinate
+$i$ of $x'$ and a core coordinate $j$,
+$w_i(x_j)=\prod_{l=0,1}(1-\chi(b_l-x_j))$; for a $c$-coordinate,
+$w_i(x_j)=\prod_{l=0,1}(1+\chi(b_l-x_j))$; for a pair coordinate $i$ and a pair
+coordinate $j$, $w_i(x_j)=\mathsf K(x_j,C)$. At a core label $y$ of $x$ the
+labels $y,b_0,b_1$ are distinct, so the two products are $0$ or $4$, and not
+both are $4$. Let $n_-$ and $n_+$ count the core labels of $x$ at which the
+first, respectively the second, product is $4$; then $n_-+n_+\le4$, and the row
+charges $\rho_i(x)=q\sum_j\alpha_{ij}(x)$ are $\rho_a=4n_-q$ for the two
+$a$-coordinates, $\rho_c=4n_+q$ for the two $c$-coordinates and
+$\rho_{b_l}=q(\mathsf K(b_0,C)+\mathsf K(b_1,C))\le32q$ for the two pair
+coordinates.
+
+\emph{One coincidence.} Order the other vertices so that, for a coincident core
+coordinate, its two neighbours on the opposite side of the core come before the
+other coordinate on its side, and, for a coincident pair coordinate, the core
+alternates between the sides. The five remaining vertices then have
+$t^{ij}_\ell$ equal to $3,3,4,4,4$, respectively $2,3,3,4,4$, and
+\cref{cor:incident-weights} bounds the row sum of $T_{\rm coll,1}$ by
+$\Lambda_c^{-1}$ times
+\[
+ \sum_{i\ \rm core}\rho_i(x)(1+E_{c,3})^2(1+E_{c,4})^3
+ +\sum_{i\ \rm pair}\rho_i(x)(1+E_{c,2})(1+E_{c,3})^2(1+E_{c,4})^2\le S_c,
+\]
+since the core charges add up to $8(n_-+n_+)q\le32q$ and the pair charges to at
+most $64q$; here $\Lambda_c=L_{\rm int}$ and $e_t(p,2n)=E_{c,t}$.
+
+\emph{Two or more coincidences.} Every vertex has degree $d_i=4$, so
+$\Upsilon_k\le(1+E_{c,4})^6=U_c$, and the row sum of $T_{\rm coll,\ge2}$ is at
+most $U_c\Lambda_c^{-1}$ times the part of degree at least two of
+$\sum_I2^{e(I)}\prod_{i\in I}\rho_i(x)$. The internal edges join the
+$a$-coordinates to the $c$-coordinates, so this sum is
+$F(\rho_a,\rho_c)(1+\rho_{b_0})(1+\rho_{b_1})$ with
+\begin{align*}
+ F(\rho_a,\rho_c)&=\sum_{k,l=0}^2\tbinom2k\tbinom2l2^{kl}\rho_a^k\rho_c^l\\
+ &=1+2(\rho_a+\rho_c)+(\rho_a+\rho_c)^2+6\rho_a\rho_c
+ +8(\rho_a+\rho_c)\rho_a\rho_c+16\rho_a^2\rho_c^2 .
+\end{align*}
+As a polynomial in $\rho_a+\rho_c$, $\rho_a\rho_c$, $\rho_{b_0}$, $\rho_{b_1}$ its
+part of degree at least two has nonnegative coefficients, and
+$\rho_a+\rho_c\le16q$, $\rho_a\rho_c\le(\rho_a+\rho_c)^2/4$, $\rho_{b_l}\le32q$;
+so it is at most its value at $\rho_a=\rho_c=8q$, $\rho_{b_l}=32q$, which is
+$(1+32q)^2F(8q,8q)-1-96q=P_c-96q$. All these bounds are pointwise in $x$, and
+\cref{cor:incident-weights} turns them into the norm bound
+$\norm{T_{\rm coll}}\le D_{\rm bal}$.
+
+(b) \emph{Endpoint monotonicity.} Write every quantity as a function of
+$r=p^{-1/2}$, with $q=r^2$, on $(0,P^{-1/2}]$. The functions $N_{\rm ns}/q$ and
+$N_A/q$ are admissible in the sense of \cref{lem:majorant}
+(\cref{cor:extraction-compressed,cor:extraction-leaf}), and so is
+$D_{\rm bal}/q$: its numerator divided by $q$ is a polynomial with nonnegative
+coefficients in $r$ and the count errors, and $\Lambda_c$ is a product of
+factors $1-\varphi$ with admissible $\varphi<1$. The functions $m_\star/q$,
+$\mathfrak m_+/q$ and $\chi^+_p/q$ are nondecreasing: written in $r$, the
+numerator of $m_\star/q$ is nondecreasing on $(0,1]$ and its denominator $Z_4$
+is positive and nonincreasing, and $\chi^+_p/q=(D_{\rm full}/r)^2/L_{\rm low}^2$
+with $L_{\rm low}$ positive and nonincreasing (\cref{lem:record:root-marginal}(iii))
+and $D_{\rm full}/r$ nondecreasing, since each term of $D_{\rm full}$ carries one
+of the factors $\Delta_2$, $q$, $\mathfrak a_p$, and $\Delta_2/r$, $q/r$ and
+$\mathfrak a_p/r$ are nondecreasing. The quantities $g_{\mathbf z}$,
+$1/g_{\mathbf v}=1+q/(1-2q)$, $1/h_p=(1+3q/(1-4q))/(1-5q)$, $\rho/q$, $\eta/r$,
+$s_p$ and $k_4$ are built from these by sums, products, square roots and
+quotients by positive nonincreasing denominators. Hence $\eps_Z$, $H_{20}$,
+$\tau_g/r$, $w_g/q$, $x_g/q=2r\,w_g/q+r(\tau_g/r)(N_A/q)$ and
+$c^+_{20}=(\chi^+_p/q)/(1-H_{20})$ are nondecreasing in $r$ while $\eps_Z$ and
+$H_{20}$ are below one; $\Delta_g/q=30-(l_g/r)^2$, with $l_g/r=2+r\,N_A/q$, is
+nonincreasing; and where $\Delta_g>0$ the functions
+$(c_{\rm gap}/r)^2=(\tau_g/r)^2+(x_g/q)^2/(\Delta_g/q)$ and
+$C_{20}/r=(s_p(c_{\rm gap}/r)/h_p+D_{\rm bal}/r)/(1-\eps_Z)$ are nondecreasing.
+If the gates hold at $P$, they therefore hold at every prime $p\ge P$, with
+$g_{20}(p)\le g_{20}(P)$ and $c^+_{20}(p)\le c^+_{20}(P)$.
+
+\emph{The caps.} At such a prime, \cref{prop:l20-pair-gap} gives
+$\norm{\mathsf R_c}\le c_{\rm gap}<1$, \cref{prop:l20-rectangular}(d) with
+$c_{\rm R}=c_{\rm gap}$ and $D_{\rm col}=D_{\rm bal}$ from (a) gives
+$T\succeq-C_{20}I$ and $\norm{T|_{\mathcal I^\perp}}\le C_{20}$, and
+\cref{prop:l20-completion} with $C_\perp=C_{20}$ gives
+$-g_{20}(p)rI\preceq\mathsf A_p\preceq(1+c^+_{20}(p)/p)I$. The block bound follows
+from \cref{lem:spec:tensorcomp}(b) with $g=g_{20}(P)$ and $c^+=c^+_{20}(P)$,
+where $g_{20}(P)p^{-1/2}\le C_{20}(P)<1$, and from
+$\sum_{p\in\Blk}1/p\le L/(X\log X)\le L_{\rm loc}/(X\log X)$
+(\cref{lem:record:local-domain}(ii)).
+\end{proof}
+
+At the endpoint $p=Q_3$ (just below the middle primes) the main terms of $C_{20}/r$
+are $s_pc_{\rm gap}/(h_pr)=5.47787\ldots$, against their limit
+$\sqrt{30}=5.47723\ldots$ as $p\to\infty$, and
+$D_{\rm bal}/r=0.02176\ldots$ ($D_{\rm bal}/q=97.18\ldots$,
+close to its leading coefficient $96$); the normalizer
+$h_p^{-1}$ adds about $4.01\cdot10^{-7}$ as a relative correction. So the
+collision bound $D_{\rm bal}$ is the largest correction, and
+$g_{20}-\sqrt{30}$ is asymptotic to $96r$ as $p\to\infty$. The
+other inputs at $Q_3$ are $N_{\rm ns}=7.336\cdot10^{-5}$ up to
+the displayed digits,
+$N_A/q=281.37$, $k_4=5.4772264$, $c_{\rm gap}=1.226351\cdot10^{-3}$,
+$\chi^+_p=1.0341\cdot10^{-6}$ and $H_{20}=7.8240\cdot10^{-5}$.
+
+\begin{certificate}[The L20 grid]\label{cert:l20-grid}
+At each of the $45$ endpoints below, the quantities
+$N_{\rm ns}$, $N_A$, $D_{\rm bal}$, $m_\star$, $\eps_Z$, $k_4$,
+$s_P$, $h_P$, $c_{\rm gap}$, $C_{20}$, $H_{20}$ and $\chi^+_P$ of
+the L20 estimates satisfy $\eps_Z<1/2$, $\Delta_g>0$,
+$c_{\rm gap}<1$, $C_{20}<1$ and $H_{20}<1$ in outward rational
+interval arithmetic, with the recorded values of $g_{20}$ and
+$c^+_{20}$ stated below. The scripts and records are in the
+directory \path{research/advance_2026_10_24/local/}. The record
+\path{l20_refined_Q_grid.json}, built by \path{l20_collision_balanced.py} on the
+rank-four, rectangular and gap evaluators \path{l20_rank4.py},
+\path{l20_rectangular.py} and \path{l20_rectangular_gap.py} (and on the star
+matrix and the frame cap of \path{l20_full_star.py}, which asserts the
+characteristic polynomial of \cref{lem:l20-star-matrix}(a) in exact symbolic
+arithmetic), contains $45$ endpoints from $2^{20}$ to $2^{50}$, among them the
+$33$ piece starts. The nonstar ledger of $N_A$ (\cref{prop:l20-rectangular}(b))
+is the histogram \path{middle_factor_probe/rectangular_A.hist.json.gz} of the
+same directory. At each endpoint $P$ it evaluates in outward rational
+interval arithmetic $N_{\rm ns}$, $N_A$, $D_{\rm bal}$, $m_\star$, $\eps_Z$,
+$k_4$, $s_P$, $h_P$, $c_{\rm gap}$, $C_{20}$, $H_{20}$ and $\chi^+_P$, checks
+$\eps_Z<1/2$, $\Delta_g>0$, $c_{\rm gap}<1$, $C_{20}<1$ and $H_{20}<1$, and
+records $g_{20}(P)$, rounded up to $10^{-12}$, and $c^+_{20}(P)$. At $Q_3$ it
+gives $g_{20}=5.500057067029$ and $c^+_{20}<20.633953751661$, hence a block
+cap below $5.500255036718$ at $L_{\rm loc}$; at $2^{20}$, $g_{20}=5.597878403332$;
+the limit is $\sqrt{30}$. These are the inherited uniform-root prices, preserved as a baseline in
+\cref{tab:data:l20-grid}. The selected native reconstruction recomputes
+the protected collision price of \cref{imp:local:collision-gap} at all
+33 piece starts, with the same positive coefficient and marginal data.
+It then replaces L20 and L21 on the seven middle pieces from $2^{30}$ by the
+prices of \cref{cert:positive-root-caps}. The reference uses
+the selected value at $Q_3$, $g_{20}=5.481634403216$, proved
+through \cref{imp:local:collision-gap}; the larger value
+$5.500057067029$ recorded above is the weaker bound of
+\cref{prop:l20-collisions}, retained only as a comparison. At
+$Q_3$ the selected uniform root also has
+$c^+_{20}=20.633953751661$ and
+block cap below $5.481831709798$ at budget $585$.
+The exact selected spectra and weights are in
+\path{research/push_2026_10_25/global/refined_L570_source.json};
+\path{research/improvements_2026_10_25/verify.py} independently
+checks the collision, endpoint and native-completion interfaces,
+and \path{research/push_2026_10_25/verify.py} authenticates their
+unchanged identity after scalar reanchoring.
+\end{certificate}
+
+\paragraph{Consequences and what to read next.}
+\Cref{thm:bmor} (the cell charges above $X_{\rm Ch}$); \cref{lem:paley-triple}
+(class-three counts); \cref{lem:record:fold-identification},
+\cref{def:graphs:labeling} and \cref{def:spec:data} (the twelve-label graphs
+and their cuts); \cref{thm:spectral-criterion} and
+\cref{cor:spectral-criterion-blocks}, with the inputs of
+\cref{cor:extraction-compressed,lem:oct24-collision} (the route-A caps);
+\cref{lem:majorant} (evaluation at the piece start and at the endpoints);
+\cref{lem:spec:expansion,lem:spec:stars}, \cref{lem:general-star},
+\cref{cor:star-matrix}, \cref{lem:spec:affpair}(d), \cref{lem:l20-star-mean} and
+\cref{lem:record:weighted-moment}, \cref{lem:swapped-rectangle},
+\cref{prop:matching:positive}(a$''$), \cref{thm:weil}, \eqref{eq:two-root},
+\cref{cor:soft-kernels}(a), \cref{cor:extraction-leaf}, \cref{cor:incident-weights} and
+\cref{lem:record:root-marginal}(ii),(iii) (the cap of L20);
+\cref{lem:spec:cutkernel} and \cref{lem:spec:tensorcomp}(b) (block caps);
+\cref{lem:record:repricing} and \cref{def:closing-quantities} (prices and the
+selection factor at $a$). Certificates:
+\cref{cert:record:middle-price,cert:layer12-grid,cert:l20-grid}.
+
+\paragraph{Hypotheses verified in this section (\cref{tab:hypotheses}).} the inputs of the rows ``(CP1)
+middle'' and ``$P$, $V$, $D$, $U_0$, tags'' that do not depend on the reference:
+the middle partition and its charges
+(\cref{def:record:exact-blocks,lem:record:block-charge,lem:record:lower-start-sums},
+\cref{cert:record:middle-price}) and the caps of the twelve-label cuts L21, E21
+and L10 and of the cut L20 of the uniform root
+(\cref{lem:layer12-caps,prop:l20-collisions};
+\cref{cert:layer12-grid,cert:l20-grid}); and the piece caps of the restorations
+(\cref{lem:piece-caps}), an input of the row ``(CP5) variance classes''. The
+first two rows are completed in \cref{sec:middle-frame}.

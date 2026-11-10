@@ -1,0 +1,1890 @@
+
+\section{Second-order character sums: $O(p^{-1})$ where Weil gives $O(p^{-1/2})$}\label{sec:dl}
+
+\paragraph{What this section proves and how to read it.}
+A bound is \emph{second order} if it is $O(r^2)=O(1/p)$ where one
+Weil bound gives $O(r)$. Three such bounds are proved, for a
+four-cycle kernel, a two-variable sum, and trace functions with one
+free label (called \emph{moving pinned values} below; ``root'' in
+lemma names refers to pinned values, not to the Part~V principal
+law). A reader willing to accept \cref{thm:dl:K,thm:dl:H2} as stated
+can skip the sheaf arguments; external inputs are collected in
+\cref{app:external}.
+Weil's bound gives square-root cancellation in a sum of one quadratic
+character of one polynomial; after the normalizations of the local
+laws this square-root cancellation is a relative error of order
+$r=p^{-1/2}$. The spectral criteria of
+\cref{sec:spectral}, as they are applied in Part~V, are
+conditional: part of a labelling is fixed, and the joint law of the remaining
+labels is compared with a product law. Errors of two one-variable counts can
+then correlate, and several terms must be of order $r^2$, uniformly in the
+fixed labels. This section proves the three second-order estimates the
+construction needs, in the generality in which they are used. No graph occurs
+in \cref{subsec:dl:K,subsec:dl:H2}, and \cref{subsec:moving-root} uses a half
+law only through its one-vertex conditional laws, except for the density bound
+of \cref{lem:wt:stars}(a), which uses the tuple densities of a graph law.
+\begin{enumerate}[label=(\arabic*)]
+\item \emph{The four-cycle kernel} $\chi\big(\prod_{i,j\le2}(y_j-x_i)\big)$ on
+ordered pairs of distinct labels has norm at most $2/p=2r^2$ for uniform
+probability (\cref{thm:dl:K,cor:dl:normalized}), where Cauchy--Schwarz gives
+only $r$. This is the norm of a decided complete rectangle (one all of whose pairs are present or absent; \cref{subsec:extraction:partition}) in the witness
+kernels (\cref{lem:matching:kernel}) and of the $K_{2,2}$ core of the
+completion variance (\cref{lem:push:localvariance}). Split along the diagonal
+of two auxiliary labels, it bounds the remainder of the raw pair maps by order
+$q=1/p$ (\cref{cor:raw-pair-maps}): this bound is used for the
+positive roots of the late middle pieces (\cref{sec:positive-roots}).
+\item \emph{The two-variable sum} $\sum_{y,z}\chi\big(f(y)g(z)(y-z)\big)$ with
+split squarefree $f,g$ is $O(p)$ rather than $O(p^{3/2})$ (\cref{thm:dl:H2}).
+It bounds the complete conditional means of the product rows
+(\cref{subsec:advance:product-rows}) and the pair term of the completion
+variance. It also bounds the conditional pivot means of weighted star
+marginals (\cref{lem:wt:stars}), which bound the higher-star marginals ($|T|\ge3$ in \cref{lem:wt:stars}) of the
+dense comparisons and of the six-query mixture of the upper range
+(\cref{prop:dense-comparison,prop:le-mixture}).
+\item \emph{The moving-root traces} $\tau_S$ describe the integrated-centre
+stars of a cut kernel once all labels but one are fixed. They are almost
+orthogonal for distinct root sets, also against character weights
+(\cref{lem:moving-root-moments}). Ordered pivot groups turn this into the
+star marginal $M_\star$ and the star mean $z_\star$ of the upper root
+(\cref{prop:advance:ordered-star,lem:star-mean}), which enter
+\cref{lem:record:direct-star-inputs,lem:upper-completed-root}; the uniform
+forms of the moments enter the conditional row bounds of the product rows
+(\cref{cor:moving-root-uniform,cor:moving-root-conditional}).
+\end{enumerate}
+The first estimate is representation theory of $\mathrm{PGL}_2(\Fp)$ together
+with Jacobi sums. The second and third come from Deligne's theorem applied to
+the Katz--Sarnak sheaves of the family of curves $y^2=f(x)(x-z)$; the external
+inputs are stated in \cref{app:external}. One further second-order input is
+not proved here: the twisted second moment
+$\sum_\lambda\chi(\lambda)T_\lambda^2$ of the Legendre traces
+$T_\lambda=\sum_y\chi\big(y(y-1)(y-\lambda)\big)$, to which the
+graph moment $M_{G_5}$ behind the variance savings (the graph
+$G_5$ and its moment are defined in
+\cref{lem:record:weighted-moment}) reduces, is evaluated through
+a cusp form of
+weight four (\cref{thm:ahlgren-ono}) and enters
+\cref{lem:record:weighted-moment} directly.
+\Cref{subsec:second-order-uses} lists where each estimate enters.
+Throughout, $p$ is an odd prime, $r=p^{-1/2}$, $\chi=\chi_p$ is the quadratic
+character with $\chi(0)=0$, and $\E_x$ is the average over $x\in\Fp$.
+
+\subsection{The four-cycle kernel}\label{subsec:dl:K}
+
+For four distinct points, the character kernel of a complete
+rectangle $K_{2,2}$ is the quadratic character of a cross-ratio
+(it is $0$ when points coincide), so it is invariant under
+$\mathrm{PGL}_2(\Fp)$
+acting on pairs of points of the projective line. The permutation
+representation on ordered pairs of distinct points is induced from the split
+torus and has multiplicities at most two, so the kernel acts by computable
+scalars on all but one isotypic component. The scalars are twisted sums over
+the split and the nonsplit torus: products of two Jacobi sums and squares of
+sums of modulus $\sqrt p$. This gives spectral norm at most $2p$
+for the character matrix (\cref{thm:dl:K}), that is $2/p$ after
+normalisation by counting measure
+(\cref{cor:dl:normalized}).
+
+\paragraph{Notation.} Points of $\mathbb P^1=\mathbb P^1(\Fp)$ are represented
+by the column vectors $(u,1)^{\mathsf T}$, $u\in\Fp$, and
+$\infty=(1,0)^{\mathsf T}$; for column vectors $a=(a_0,a_1)^{\mathsf T}$,
+$b=(b_0,b_1)^{\mathsf T}$ put $a\wedge b=a_0b_1-a_1b_0$. Let
+$\mathcal X=\{(x_1,x_2)\in\mathbb P^1\times\mathbb P^1:x_1\ne x_2\}$, so
+$|\mathcal X|=p(p+1)$, and for $x,z\in\mathcal X$ let
+\begin{equation}\label{eq:dl:M}
+  M(x,z)=\chi\Big(\prod_{i,j\in\{1,2\}}(z_i\wedge x_j)\Big),
+\end{equation}
+computed with the chosen representatives. For finite points
+$z_i\wedge x_j=z_i-x_j$, so on pairs of finite points
+$M(x,z)=\chi\big((z_1-x_1)(z_1-x_2)(z_2-x_1)(z_2-x_2)\big)$. We also write $M$
+for the matrix $(M(x,z))_{x,z\in\mathcal X}$ and for the operator
+$(Mh)(x)=\sum_{z\in\mathcal X}M(x,z)h(z)$ on $\C^{\mathcal X}$ with the
+standard inner product $\ip hk=\sum_x\overline{h(x)}k(x)$.
+
+If $\{z_1,z_2\}\cap\{x_1,x_2\}=\emptyset$, the product in \eqref{eq:dl:M} is
+the cross-ratio
+$[z_1,z_2;x_1,x_2]=\frac{(z_1\wedge x_1)(z_2\wedge x_2)}{(z_1\wedge x_2)(z_2\wedge x_1)}$
+times the nonzero square $\big((z_1\wedge x_2)(z_2\wedge x_1)\big)^2$, so
+$M(x,z)=\chi([z_1,z_2;x_1,x_2])$; otherwise $M(x,z)=0$. The cross-ratio does
+not depend on the representatives and is invariant under
+$\mathrm{GL}_2(\Fp)$. Thus $M(x,z)$ depends only on the orbit of the
+configuration $(x,z)$, which is why its spectrum can be computed by
+representation theory.
+
+Let $\Gamma=\mathrm{PGL}_2(\Fp)$, of order $p(p^2-1)$, acting on $\mathbb P^1$
+by matrices on column vectors and diagonally on $\mathcal X$, and let
+$\Lambda(g)h(y)=h(g^{-1}y)$ be the permutation representation on
+$\C^{\mathcal X}$. We fix a nonsquare $D\in\Fp^\times$ and an element
+$\sqrt D\in\F_{p^2}$ with $(\sqrt D)^2=D$, so $\F_{p^2}=\Fp(\sqrt D)$; for
+$\zeta\in\F_{p^2}$, $\bar\zeta=\zeta^p$, $N\zeta=\zeta\bar\zeta\in\Fp$ and
+$\tr\zeta=\zeta+\bar\zeta\in\Fp$. Let $\mathsf U=\{s\in\F_{p^2}:Ns=1\}$, a
+cyclic group of order $p+1$ (the kernel of the norm, which maps
+$\F_{p^2}^\times$ onto $\Fp^\times$), and $\eta$ its unique character of order
+$2$; for $s\in\mathsf U$, $s^{-1}=\bar s$ and $\tr s=s+s^{-1}$. The map
+$\zeta\mapsto\zeta/\bar\zeta=\zeta^{1-p}$ is a homomorphism
+$\F_{p^2}^\times\to\mathsf U$ with kernel $\Fp^\times$, hence onto (orders
+$p^2-1$ and $p+1$); the elements $\zeta=m+\sqrt D$, $m\in\Fp$, together with
+$\zeta=1$ represent the cosets of $\Fp^\times$, and $\zeta=1$ is the one with
+$\zeta/\bar\zeta=1$. In $\Gamma$ we use the elements
+$u=\begin{psmallmatrix}1&1\\0&1\end{psmallmatrix}$,
+$h_a=\begin{psmallmatrix}a&0\\0&1\end{psmallmatrix}$ ($a\in\Fp^\times$), and,
+for $\xi\in\F_{p^2}\setminus\Fp$, the image $g_\xi$ in $\Gamma$ of the
+$\Fp$-linear map $\zeta\mapsto\xi\zeta$ of $\F_{p^2}=\Fp\oplus\Fp\sqrt D$ (in
+the basis $1,\sqrt D$); $g_\xi$ has the eigenvalues $\xi,\bar\xi$.
+Multiplicative characters vanish at $0$.
+
+\begin{lemma}[Invariance]\label{lem:dl:invariance}
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item The value $M(x,z)$ does not depend on the chosen representatives.
+  Moreover $M(x,z)=M(z,x)$, and $M(gx,gz)=M(x,z)$ for every
+  $g\in\mathrm{GL}_2(\Fp)$. Hence $M$ is real symmetric and commutes with
+  $\Lambda(g)$ for every $g\in\Gamma$.
+\item $\Gamma$ acts transitively on $\mathcal X$, and the stabilizer of
+  $x_0=(0,\infty)$ is the image $\mathsf T=\{h_a:a\in\Fp^\times\}$ of the
+  diagonal matrices, of order $p-1$. Hence
+  $\C^{\mathcal X}\cong\mathrm{Ind}_{\mathsf T}^\Gamma\mathbf 1$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) For column vectors and $g\in\mathrm{GL}_2(\Fp)$,
+$(ga)\wedge(gb)=\det g\,(a\wedge b)$, and $(ca)\wedge b=c(a\wedge b)=a\wedge(cb)$.
+Each of the four points $x_1,x_2,z_1,z_2$ occurs in exactly two of the four
+factors $z_i\wedge x_j$. Replacing a representative $a$ by $ca$
+($c\in\Fp^\times$) therefore multiplies the product by $c^2$, and replacing
+every point by its image under $g$ multiplies it by $(\det g)^4$ times a
+product of squares of the normalizing constants of the images; in all cases
+the product is multiplied by a nonzero square, which does not change $\chi$.
+Moreover
+$\prod_{i,j}(x_i\wedge z_j)=\prod_{i,j}(-(z_j\wedge x_i))=\prod_{i,j}(z_i\wedge x_j)$,
+so $M$ is symmetric; it is real. If $g\in\Gamma$, then
+$(M\Lambda(g)h)(x)=\sum_zM(x,z)h(g^{-1}z)=\sum_zM(x,gz)h(z)
+=\sum_zM(g^{-1}x,z)h(z)=(\Lambda(g)Mh)(x)$.
+(b) Given $(x_1,x_2)\in\mathcal X$ with representatives $a_1,a_2$, the matrix
+with columns $a_1,a_2$ is invertible and maps $\infty=(1,0)^{\mathsf T}$ to
+$x_1$ and $0=(0,1)^{\mathsf T}$ to $x_2$; so $\Gamma$ is transitive on
+$\mathcal X$. A matrix fixing the points $0$ and $\infty$ has both standard
+basis vectors as eigenvectors, so it is diagonal, and its image in $\Gamma$ is
+some $h_a$. Since $|\Gamma|/|\mathsf T|=p(p+1)=|\mathcal X|$, the permutation
+representation on $\mathcal X$ is $\mathrm{Ind}_{\mathsf T}^\Gamma\mathbf 1$.
+\end{proof}
+
+\begin{lemma}[Classes and characters of $\Gamma$]\label{lem:dl:group}
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item For $\xi\in\F_{p^2}\setminus\Fp$, the conjugacy class of $g_\xi$ in
+  $\Gamma$ depends only on $s=\xi/\bar\xi\in\mathsf U\setminus\{1\}$; we write
+  $g_s$ for it. Moreover $h_a$ is conjugate to $h_{1/a}$ and $g_s$ to
+  $g_{1/s}$, and for every class function $F$ on $\Gamma$
+  \begin{equation}\label{eq:dl:classsum}
+    \sum_{g\in\Gamma}F(g)=F(1)+(p^2-1)F(u)
+    +\frac{p(p+1)}2\sum_{a\in\Fp^\times\setminus\{1\}}F(h_a)
+    +\frac{p(p-1)}2\sum_{s\in\mathsf U\setminus\{1\}}F(g_s).
+  \end{equation}
+\item The irreducible complex representations of $\Gamma$ are, up to
+  isomorphism, the following, with the characters shown at $u$, $h_a$
+  ($a\ne1$) and $g_s$ ($s\ne1$):
+  \begin{center}\small
+  \begin{tabular}{@{}lllllr@{}}
+  \toprule
+  representation & dimension & $u$ & $h_a$ & $g_s$ & number\\
+  \midrule
+  $\mathbf 1$ & $1$ & $1$ & $1$ & $1$ & $1$\\
+  $\mathrm{sgn}$ & $1$ & $1$ & $\chi(a)$ & $\eta(s)$ & $1$\\
+  $\mathrm{St}$ & $p$ & $0$ & $1$ & $-1$ & $1$\\
+  $\mathrm{St}\otimes\mathrm{sgn}$ & $p$ & $0$ & $\chi(a)$ & $-\eta(s)$ & $1$\\
+  $\pi(\mu)$, $\mu\in\widehat{\Fp^\times}$, $\mu^2\ne1$ & $p+1$ & $1$
+    & $\mu(a)+\bar\mu(a)$ & $0$ & $(p-3)/2$\\
+  $D_\nu$, $\nu\in\widehat{\mathsf U}$, $\nu^2\ne1$ & $p-1$ & $-1$ & $0$
+    & $-(\nu(s)+\bar\nu(s))$ & $(p-1)/2$\\
+  \bottomrule
+  \end{tabular}
+  \end{center}
+  Here $\pi(\mu)\cong\pi(\bar\mu)$ and $D_\nu\cong D_{\bar\nu}$, and the last
+  column is the number of isomorphism classes of each kind; all characters are
+  real. $\mathrm{St}$ is the complement of $\mathbf 1$ in the permutation
+  representation of $\Gamma$ on $\mathbb P^1$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We use \cref{thm:prelim:gl2} with $q=p$. Scaling a matrix does not change its
+type, so every $g\ne1$ in $\Gamma$ has a well-defined type (b), (c) or (d).
+
+(a) Let $\xi,\xi'\in\F_{p^2}\setminus\Fp$ with
+$\xi'/\bar\xi'\in\{\xi/\bar\xi,\bar\xi/\xi\}$. The multiplications by $\xi'$
+and by $\bar\xi'$ have the same eigenvalues $\{\xi',\bar\xi'\}$, so they are
+conjugate in $\mathrm{GL}_2(\Fp)$ (\cref{thm:prelim:gl2}; explicitly, the
+$\Fp$-linear map $\zeta\mapsto\bar\zeta$ conjugates one into the other).
+Replacing $\xi'$ by $\bar\xi'$ if necessary, we may therefore assume
+$\xi'/\bar\xi'=\xi/\bar\xi$. Then $c=\xi'/\xi$ satisfies $\bar c=c$, so
+$c\in\Fp^\times$, and the multiplication by $\xi'=c\xi$ is $c$ times the
+multiplication by $\xi$; hence $g_{\xi'}=g_\xi$ in $\Gamma$. This shows that
+the class depends only on $s$ and that $g_s\sim g_{1/s}$. Similarly $h_{1/a}$
+is the image of $\mathrm{diag}(1,a)$, which is conjugate to $\mathrm{diag}(a,1)$.
+
+For \eqref{eq:dl:classsum} we count the elements of $\Gamma$ of each type; each
+element of $\Gamma$ has exactly $p-1$ preimages in $\mathrm{GL}_2(\Fp)$. By
+\cref{thm:prelim:gl2}(iv), a conjugacy class of $\mathrm{GL}_2(\Fp)$ of type
+(b), (c) or (d) has $p^2-1$, $p(p+1)$ or $p(p-1)$ elements.
+\emph{Type (b).} For $x\in\Fp^\times$ the non-scalar matrices with
+characteristic polynomial $(T-x)^2$ form one class, so there are
+$(p-1)(p^2-1)$ such matrices and $p^2-1$ elements of type (b) in $\Gamma$. All
+of them are conjugate to $u$: the matrix
+$\begin{psmallmatrix}x&1\\0&x\end{psmallmatrix}$ represents the same element as
+$\begin{psmallmatrix}1&1/x\\0&1\end{psmallmatrix}
+=\mathrm{diag}(1/x,1)\,u\,\mathrm{diag}(1/x,1)^{-1}$.
+\emph{Type (c).} For $a\in\Fp^\times\setminus\{1\}$ let $C_a\subseteq\Gamma$ be
+the set of elements with a preimage whose eigenvalues are $x,ax$ for some $x$;
+then $C_a=C_{1/a}$, every element of $C_a$ is conjugate to $h_a$, and the $C_a$
+partition the elements of type (c). The eigenvalue sets $\{x,ax\}$,
+$x\in\Fp^\times$, are $p-1$ distinct sets if $a\ne-1$ and $(p-1)/2$ if $a=-1$.
+So $|C_a|=p(p+1)$ for $a\ne\pm1$ and $|C_{-1}|=p(p+1)/2$. In the sum
+$\frac{p(p+1)}2\sum_{a\ne1}F(h_a)$ each set $C_a$ with $a\ne-1$ appears twice
+(as $a$ and $1/a$) with weight $\frac{p(p+1)}2$, and $C_{-1}$ once; so this sum
+is $\sum_{g\text{ of type (c)}}F(g)$.
+\emph{Type (d).} For $s\in\mathsf U\setminus\{1\}$ let $C'_s\subseteq\Gamma$ be
+the set of elements with a preimage whose eigenvalues $\xi,\bar\xi$ satisfy
+$\xi/\bar\xi\in\{s,1/s\}$; by \cref{thm:prelim:gl2} and the first part of
+(a), every element of $C'_s$ is conjugate to $g_s$. The equation
+$\xi/\bar\xi=s$ has $p-1$ solutions, and the eigenvalue sets $\{\xi,\bar\xi\}$
+with $\xi/\bar\xi=s$ are $p-1$ distinct sets if $s\ne-1$ (since then
+$\bar\xi/\xi=1/s\ne s$) and $(p-1)/2$ if $s=-1$. So $|C'_s|=p(p-1)$ for
+$s\ne\pm1$ and $|C'_{-1}|=p(p-1)/2$, and as for type (c) the last sum in
+\eqref{eq:dl:classsum} is $\sum_{g\text{ of type (d)}}F(g)$. (The count
+$1+(p^2-1)+\frac{p(p+1)}2(p-2)+\frac{p(p-1)}2p=p^3-p$ confirms that every
+element is counted once.)
+
+(b) The irreducible representations of $\Gamma$ are those of
+$\mathrm{GL}_2(\Fp)$ on which the scalar matrices act trivially. By
+\cref{thm:prelim:gl2}(iii) and Schur's lemma (a scalar matrix acts on an
+irreducible representation by its character value divided by the dimension),
+the scalar $xI$ acts on $U_\alpha$ and on $V_\alpha$ by $\alpha(x)^2$, on
+$W_{\alpha,\beta}$ by $\alpha\beta(x)$ and on $X_\varphi$ by $\varphi(x)$.
+Hence the representations of $\Gamma$ are: $U_\alpha$, $V_\alpha$ with
+$\alpha^2=1$, that is $\alpha\in\{1,\chi\}$ (we put $\mathbf 1=U_1$,
+$\mathrm{sgn}=U_\chi$, $\mathrm{St}=V_1$, $\mathrm{St}\otimes\mathrm{sgn}=V_\chi$);
+$W_{\mu,\bar\mu}=:\pi(\mu)$ with $\mu\ne\bar\mu$, that is $\mu^2\ne1$; and
+$X_\varphi$ with $\varphi|_{\Fp^\times}=1$ and $\varphi^p\ne\varphi$. A
+character $\varphi$ of $\F_{p^2}^\times$ trivial on $\Fp^\times$ factors through
+the surjection $\zeta\mapsto\zeta/\bar\zeta$ onto $\mathsf U$:
+$\varphi(\zeta)=\nu(\zeta/\bar\zeta)$ for a unique $\nu\in\widehat{\mathsf U}$;
+since $(\zeta/\bar\zeta)^p=\bar\zeta/\zeta$, $\varphi^p=\varphi$ iff
+$\bar\nu=\nu$ iff $\nu^2=1$; we put $D_\nu=X_\varphi$. The isomorphisms are
+those of \cref{thm:prelim:gl2}(ii), and the numbers follow ($p-3$ characters
+$\mu$ of $\Fp^\times$ and $p-1$ characters $\nu$ of $\mathsf U$ have square
+$\ne1$). The values: $u$ is of type (b) with $x=1$, $h_a$ of type (c) with
+$(x,y)=(a,1)$, and $g_\xi$ of type (d) with $\zeta=\xi$; so
+$\varphi(\xi)+\varphi(\bar\xi)=\nu(s)+\nu(\bar s)=\nu(s)+\bar\nu(s)$. Finally
+$\xi\mapsto\chi(N\xi)$ is a character of $\F_{p^2}^\times$ that is trivial on
+$\Fp^\times$ ($Nc=c^2$) and nontrivial (the norm is onto $\Fp^\times$), so it is
+$\nu_0(\xi/\bar\xi)$ with $\nu_0$ of order $2$, that is $\chi(N\xi)=\eta(s)$;
+this gives the values of $\mathrm{sgn}$ and $\mathrm{St}\otimes\mathrm{sgn}$ at
+$g_s$. All values are real.
+\end{proof}
+
+\begin{lemma}[Decomposition]\label{lem:dl:decomp}
+As a representation of $\Gamma$,
+\[
+  \C^{\mathcal X}\cong\mathbf 1\oplus\mathrm{St}^{\oplus2}
+  \oplus(\mathrm{St}\otimes\mathrm{sgn})
+  \oplus\bigoplus_{\{\mu,\bar\mu\}}\pi(\mu)\oplus\bigoplus_{\{\nu,\bar\nu\}}D_\nu,
+\]
+the sums over the unordered pairs with $\mu^2\ne1$, resp.\ $\nu^2\ne1$;
+$\mathrm{sgn}$ does not occur.
+\end{lemma}
+
+\begin{proof}
+By \cref{lem:dl:invariance}(b) and Frobenius reciprocity, the multiplicity of
+an irreducible $\pi$ is
+$m_\pi=\dim\pi^{\mathsf T}=\frac1{p-1}\sum_{a\in\Fp^\times}\chi_\pi(h_a)
+=\frac1{p-1}\big(\dim\pi+\sum_{a\ne1}\chi_\pi(h_a)\big)$. With the table of
+\cref{lem:dl:group}(b) and $\sum_{a\ne1}\chi(a)=-1$,
+$\sum_{a\ne1}(\mu+\bar\mu)(a)=-2$ ($\mu\ne1$): $m_{\mathbf 1}=1$,
+$m_{\mathrm{sgn}}=0$, $m_{\mathrm{St}}=\frac{p+p-2}{p-1}=2$,
+$m_{\mathrm{St}\otimes\mathrm{sgn}}=1$, $m_{\pi(\mu)}=\frac{p+1-2}{p-1}=1$,
+$m_{D_\nu}=1$. (Check:
+$1+2p+p+\frac{p-3}2(p+1)+\frac{p-1}2(p-1)=p(p+1)$.)
+\end{proof}
+
+\begin{lemma}[Eigenvalue on a multiplicity-one constituent]\label{lem:dl:schur}
+Let $\pi$ be an irreducible representation of $\Gamma$ of multiplicity one in
+$\C^{\mathcal X}$, and $V_\pi$ its isotypic subspace. Then $M$ acts on $V_\pi$
+as the scalar
+\[
+  \lambda_\pi=\frac1{|\Gamma|}\sum_{g\in\Gamma}\chi_\pi(g)\,\Phi(g),\qquad
+  \Phi(g)=\sum_{x\in\mathcal X}M(x,gx).
+\]
+$\Phi$ is a class function.
+\end{lemma}
+
+\begin{proof}
+$M$ commutes with $\Lambda(\Gamma)$ (\cref{lem:dl:invariance}(a)), so it
+preserves $V_\pi\cong\pi$ and acts there by a scalar $\lambda_\pi$ (Schur's
+lemma). $P_\pi=\frac{\dim\pi}{|\Gamma|}\sum_g\overline{\chi_\pi(g)}\Lambda(g)$ is
+the orthogonal projection onto $V_\pi$, so
+$\lambda_\pi\dim\pi=\mathrm{Tr}(MP_\pi)
+=\frac{\dim\pi}{|\Gamma|}\sum_g\overline{\chi_\pi(g)}\,\mathrm{Tr}(M\Lambda(g))$.
+The matrix of $\Lambda(g)$ has the entries $[y=gx]$, so
+$\mathrm{Tr}(M\Lambda(g))=\sum_xM(x,gx)=\Phi(g)$; the characters are real
+(\cref{lem:dl:group}(b)). $\Phi(kgk^{-1})=\Phi(g)$ by the substitution
+$x\mapsto kx$ and \cref{lem:dl:invariance}(a).
+\end{proof}
+
+For $a\in\Fp^\times$ put $\Upsilon(a)=\sum_{t\in\Fp}\chi\big(t(a-t)(at-1)\big)$,
+and for $s\in\mathsf U$ put
+$R(s)=\sum_{t\in\mathsf U\setminus\{1\}}\chi(\tr s-\tr t)$.
+
+\begin{lemma}[The function $\Phi$]\label{lem:dl:Phi}
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item $\Phi(1)=0$ and $\Phi(u)=-p(1+\chi(-1))$.
+\item $\Phi(h_a)=(p-1)(\Upsilon(a)-1)$ for $a\ne1$; $\Upsilon(1/a)=\Upsilon(a)$
+  and $\Upsilon(1)=-\chi(-1)$.
+\item $\Phi(g_s)=-(p+1)\,\eta(s)\,R(s)$ for $s\in\mathsf U\setminus\{1\}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) $x_1\wedge x_1=0$, so $M(x,x)=0$. The element $u$ maps $(v,1)^{\mathsf T}$
+to $(v+1,1)^{\mathsf T}$ and fixes $\infty$. If $x$ contains $\infty$, the
+factor $(u\infty)\wedge\infty$ vanishes. For finite $x$ with $d=x_1-x_2\ne0$
+the four factors $(ux)_i-x_j$ are $1$, $1+d$, $1-d$, $1$, so
+$\Phi(u)=p\sum_{d\ne0}\chi(1-d^2)$. Now
+$\sum_{d\in\Fp}\chi(1-d^2)=\chi(-1)\sum_d\chi((d-1)(d+1))=-\chi(-1)$ by the
+two-root identity \eqref{eq:two-root}, and the term $d=0$ is $1$; so
+$\Phi(u)=p(-\chi(-1)-1)$.
+(ii) $h_a$ fixes $0$ and $\infty$, so pairs containing one of them contribute
+$0$. For $x_1,x_2\in\Fp^\times$ write $x_2=tx_1$, $t\notin\{0,1\}$; the four
+factors are $(a-1)x_1$, $(a-t)x_1$, $(at-1)x_1$, $(a-1)tx_1$, with product
+$(a-1)^2x_1^4\,t(a-t)(at-1)$. Hence
+$\Phi(h_a)=(p-1)\sum_{t\ne0,1}\chi(t(a-t)(at-1))=(p-1)(\Upsilon(a)-1)$: the
+term $t=0$ of $\Upsilon(a)$ is $0$ and the term $t=1$ is $\chi((a-1)^2)=1$.
+Next, $\Upsilon(1/a)=\sum_t\chi\big(t(1-at)(t-a)a^{-2}\big)=\Upsilon(a)$, and
+$\Upsilon(1)=\sum_t\chi(-t(t-1)^2)=\sum_{t\ne1}\chi(-t)=-\chi(-1)$.
+(iii) Identify $\Fp^2$ with $\F_{p^2}$ by $(a_0,a_1)\mapsto\alpha=a_0+a_1\sqrt D$.
+For $\alpha$, $\beta$ corresponding to $a$, $b$ one checks
+$\bar\alpha\beta-\alpha\bar\beta=2\sqrt D(a_0b_1-a_1b_0)$, so
+$a\wedge b=(\bar\alpha\beta-\alpha\bar\beta)/(2\sqrt D)$. The points of
+$\mathbb P^1$ are the cosets $\F_{p^2}^\times/\Fp^\times$, and $g_\xi$ acts by
+multiplication by $\xi$. The multiplications by elements of $\F_{p^2}^\times$
+form a subgroup of $\mathrm{GL}_2(\Fp)$ whose image $\mathsf T'\subseteq\Gamma$
+acts simply transitively on $\mathbb P^1$ and commutes with $g_\xi$. For
+$k\in\mathsf T'$, $M(kx,g_\xi kx)=M(kx,kg_\xi x)=M(x,g_\xi x)$ by
+\cref{lem:dl:invariance}(a); every $x\in\mathcal X$ is mapped by exactly one
+$k\in\mathsf T'$ to a pair with first point $[1]$, so
+$\Phi(g_\xi)=(p+1)\sum_wM\big(([1],[w]),([\xi],[\xi w])\big)$, the sum over the
+$p$ cosets $[w]\ne[1]$. The numerators $2\sqrt D(z_i\wedge x_j)$ of the four
+factors are $\bar\xi-\xi$, $\bar\xi w-\xi\bar w$, $\bar\xi\bar w-\xi w$ and
+$N(w)(\bar\xi-\xi)$, and the common denominator $(2\sqrt D)^4=16D^2$ is a
+square. Write $\xi=\xi_0+\xi_1\sqrt D$ with $\xi_1\ne0$; then
+$(\bar\xi-\xi)^2=4\xi_1^2D$ is a nonsquare. Further
+\[
+  (\bar\xi w-\xi\bar w)(\bar\xi\bar w-\xi w)=N(w)\tr(\xi^2)-N(\xi)\tr(w^2)
+  =N(w)N(\xi)\big(\tr s-\tr t\big),\qquad s=\xi/\bar\xi,\ t=w/\bar w,
+\]
+since $\tr(\zeta^2)/N\zeta=\zeta/\bar\zeta+\bar\zeta/\zeta$. Hence the summand
+is $-\chi(N\xi)\chi(\tr s-\tr t)=-\eta(s)\chi(\tr s-\tr t)$
+(\cref{lem:dl:group}(b) for $\chi(N\xi)=\eta(s)$), and as $[w]$ runs over the
+cosets $\ne[1]$, $t=w/\bar w$ runs over $\mathsf U\setminus\{1\}$ bijectively.
+\end{proof}
+
+We also need two identities. Let $s\in\mathsf U\setminus\{1\}$ and write
+$s=w/\bar w$ with $w=m+\sqrt D$. Then $\tr s-2=-(s-1)(\bar s-1)=-N(s-1)$ and
+$s-1=(w-\bar w)/\bar w=2\sqrt D/\bar w$, so $N(s-1)=-4D/N(w)$ and
+$\chi(\tr s-2)=\chi(D)\chi(Nw)=-\eta(s)$. Since $\chi(2-\tr t)=\chi(-1)\chi(\tr t-2)$ and $\sum_{t\in\mathsf U}\eta(t)=0$,
+\begin{equation}\label{eq:dl:trace2}
+  \sum_{t\in\mathsf U}\chi(2-\tr t)=\chi(-1),\qquad
+  \sum_{s\in\mathsf U}\psi(s)\chi(\tr s-2)=-\sum_{s\ne1}(\psi\eta)(s)=1
+  \quad(\psi\in\widehat{\mathsf U},\ \psi\ne\eta).
+\end{equation}
+For $\psi\in\widehat{\mathsf U}$ and $\mu\in\widehat{\Fp^\times}$ put
+\[
+  \mathcal N(\psi)=\sum_{s,t\in\mathsf U}\psi(s)\chi(\tr s-\tr t),\qquad
+  \mathcal S(\mu)=\sum_{a\in\Fp^\times}\mu(a)\Upsilon(a),
+\]
+and let $\Jac(\psi_1,\psi_2)=\sum_{v\in\Fp}\psi_1(v)\psi_2(1-v)$ be the Jacobi
+sum of \cref{thm:jacobi}. Since $\tr(s^{-1})=\tr s$ and
+$\Upsilon(1/a)=\Upsilon(a)$, $\mathcal N(\bar\psi)=\mathcal N(\psi)$ and
+$\mathcal S(\bar\mu)=\mathcal S(\mu)$. Since $\Fp^\times\subseteq\F_{p^2}^\times$
+is a subgroup of a finite abelian group, $\chi$ extends to a character
+$\tilde\chi$ of $\F_{p^2}^\times$; we fix one ($\tilde\chi(0)=0$). For
+$\kappa\in\widehat{\mathsf U}$ put
+$\mathcal C(\kappa)=\sum_{v\in\mathsf U}\kappa(v)\tilde\chi(v-1)$.
+
+\begin{lemma}[Line sums]\label{lem:dl:line}
+Let $\Xi$ be a character of $\F_{p^2}^\times$ whose restriction to
+$\Fp^\times$ is nontrivial, and $\alpha\in\F_{p^2}\setminus\Fp$. Then
+$\big|\sum_{m\in\Fp}\Xi(m+\alpha)\big|=\sqrt p$.
+\end{lemma}
+
+\begin{proof}
+$m+\alpha\ne0$ for all $m$, and
+$|\sum_m\Xi(m+\alpha)|^2=p+\sum_{m\ne n}\Xi\big(\frac{m+\alpha}{n+\alpha}\big)$.
+We claim that $(m,n)\mapsto w=\frac{m+\alpha}{n+\alpha}$ is a bijection from
+$\{(m,n)\in\Fp^2:m\ne n\}$ onto $\F_{p^2}\setminus\Fp$. If $w=c\in\Fp$, then
+$(1-c)\alpha=cn-m\in\Fp$, which forces $c=1$ and $m=n$; so the map lands in
+$\F_{p^2}\setminus\Fp$. Given $w\notin\Fp$, the elements $1,w$ are a basis of
+$\F_{p^2}$ over $\Fp$, so $m-wn=(w-1)\alpha$ has exactly one solution
+$(m,n)\in\Fp^2$, and $m\ne n$ (otherwise $(w-1)(m+\alpha)=0$, impossible); this
+solution is the unique preimage. Hence the last sum is
+$\sum_{\F_{p^2}^\times}\Xi-\sum_{\Fp^\times}\Xi=0-0$, because $\Xi$ is
+nontrivial on $\Fp^\times$, hence on $\F_{p^2}^\times$.
+\end{proof}
+
+\begin{lemma}[Torus sums]\label{lem:dl:split}
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item Let $C$ be a cyclic group of even order, $-1$ its element of order two,
+  $\psi$ a character of $C$ and $F:C\to\C$. If $\psi(-1)=-1$ then
+  $\sum_{y\in C}\psi(y)F(y^2)=0$. If $\psi(-1)=1$ then
+  $\sum_{y\in C}\psi(y)F(y^2)=\sum_\kappa\sum_{w\in C}\kappa(w)F(w)$, the sum
+  over the two characters $\kappa$ of $C$ with $\kappa^2=\psi$.
+\item \emph{(Split torus.)} If $\mu(-1)=-1$ then $\mathcal S(\mu)=0$. If
+  $\mu(-1)=1$, then
+  \[
+    \mathcal S(\mu)=\chi(-1)\sum_{\kappa}\Jac(\kappa,\chi)\Jac(\bar\kappa\chi,\chi),
+  \]
+  the sum over the two characters $\kappa$ of $\Fp^\times$ with
+  $\kappa^2=\bar\mu$. If $\mu^2\ne1$, or if $\mu=\chi$, then
+  $|\mathcal S(\mu)|\le2p$.
+\item \emph{(Nonsplit torus.)} Let $\psi\in\widehat{\mathsf U}$ and
+  $\rho=(\psi\bar{\tilde\chi})|_{\mathsf U}$. If $\rho(-1)=-1$ then
+  $\mathcal N(\psi)=0$; otherwise
+  $\mathcal N(\psi)=\sum_{\kappa}\mathcal C(\kappa)^2$, the sum over the two
+  $\kappa\in\widehat{\mathsf U}$ with $\kappa^2=\rho$. Moreover
+  $|\mathcal C(\kappa)|=\sqrt p$ for every $\kappa\in\widehat{\mathsf U}$; hence
+  $|\mathcal N(\psi)|\le2p$ for every $\psi$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) If $\psi(-1)=-1$, the substitution $y\mapsto-y$ multiplies the sum by
+$\psi(-1)=-1$, so it vanishes. If $\psi(-1)=1$: the characters of $C$ form a
+cyclic group of even order, in which the characters with value $1$ at $-1$
+form the subgroup of index two, that is the squares; so $\psi=\kappa_0^2$, and
+the characters with square $\psi$ are $\kappa_0$ and $\kappa_0\chi_C$, where
+$\chi_C$ is the character of order two of $C$. As $y\mapsto y^2$ is two-to-one
+onto the subgroup $C^2$ of squares and $\kappa_0+\kappa_0\chi_C=2\kappa_0\one_{C^2}$,
+$\sum_y\psi(y)F(y^2)=\sum_y\kappa_0(y^2)F(y^2)=2\sum_{w\in C^2}\kappa_0(w)F(w)
+=\sum_{w\in C}(\kappa_0+\kappa_0\chi_C)(w)F(w)$.
+
+(b) The terms $t=0$ of $\Upsilon$ vanish. For $t\ne0$ write $a=tb$; then
+$t(a-t)(at-1)=t^2(b-1)(t^2b-1)$. With $c=t^2b$ we have
+$\mu(a)=\bar\mu(t)\mu(c)$ and $\chi(b-1)=\chi(c-t^2)$, so
+\[
+  \mathcal S(\mu)=\sum_{c\ne0}\mu(c)\chi(c-1)\,I(c),\qquad
+  I(c)=\sum_{t\ne0}\bar\mu(t)\chi(c-t^2).
+\]
+Apply (a) with $C=\Fp^\times$, $\psi=\bar\mu$ (so $\psi(-1)=\mu(-1)$) and
+$F(y)=\chi(c-y)$: if $\mu(-1)=-1$ then $I(c)=0$, and otherwise
+$I(c)=\sum_\kappa\sum_{y\ne0}\kappa(y)\chi(c-y)$. For $c\ne0$ the substitution
+$y=cv$ gives $\sum_y\kappa(y)\chi(c-y)=(\kappa\chi)(c)\Jac(\kappa,\chi)$. Hence
+$\mathcal S(\mu)=\sum_\kappa\Jac(\kappa,\chi)\sum_{c\ne0}(\mu\kappa\chi)(c)\chi(c-1)$,
+and $\mu\kappa=\bar\kappa$ (as $\kappa^2=\bar\mu$), while
+$\sum_c(\bar\kappa\chi)(c)\chi(c-1)=\chi(-1)\sum_c(\bar\kappa\chi)(c)\chi(1-c)
+=\chi(-1)\Jac(\bar\kappa\chi,\chi)$.
+Moduli: if $\mu^2\ne1$ then $\kappa^4\ne1$, so $\kappa\ne1$, $\kappa\ne\chi$;
+hence $\kappa$, $\chi$, $\kappa\chi$ and $\bar\kappa\chi$, $\chi$,
+$\bar\kappa\chi\cdot\chi=\bar\kappa$ are nontrivial, and \cref{thm:jacobi} gives
+$|\Jac|=\sqrt p$ for both Jacobi sums. If $\mu=\chi$ is even,
+i.e. $\chi(-1)=1$ ($p\equiv1\pmod4$), $\kappa$ has order $4$, so
+$\kappa\chi=\bar\kappa$ and $\bar\kappa\chi=\kappa$ are
+nontrivial, and again $|\Jac|=\sqrt p$. In both cases
+$|\mathcal S(\mu)|\le2p$; if $\mu=\chi$ is odd
+($\chi(-1)=-1$), $\mathcal S(\chi)=0$.
+
+(c) For $s,t\in\mathsf U$, $\tr s-\tr t=(s-t)(st-1)/(st)\in\Fp$. Since
+$\tilde\chi$ restricts to $\chi$ on $\Fp^\times$ and is multiplicative,
+$\chi(\tr s-\tr t)=\tilde\chi(s-t)\tilde\chi(st-1)\bar{\tilde\chi}(st)$ (both
+sides vanish iff $t\in\{s,s^{-1}\}$). Put $t=sw$, $w\in\mathsf U$: the summand
+$\psi(s)\chi(\tr s-\tr t)$ becomes
+$\rho(s)\cdot\bar{\tilde\chi}(w)\tilde\chi(1-w)\cdot\tilde\chi(s^2w-1)$. So
+$\mathcal N(\psi)=\sum_{w}\bar{\tilde\chi}(w)\tilde\chi(1-w)
+\sum_{s\in\mathsf U}\rho(s)\tilde\chi(s^2w-1)$. Apply (a) with $C=\mathsf U$
+(cyclic of even order $p+1$; note $-1\in\mathsf U$) and
+$F(y)=\tilde\chi(yw-1)$: the inner sum vanishes if $\rho(-1)=-1$, and otherwise
+it is $\sum_\kappa\sum_{y\in\mathsf U}\kappa(y)\tilde\chi(yw-1)
+=\sum_\kappa\bar\kappa(w)\mathcal C(\kappa)$ ($v=yw$). Finally
+$\bar{\tilde\chi}(w)\tilde\chi(1-w)=\tilde\chi(w^{-1}-1)$, and
+$\sum_w\bar\kappa(w)\tilde\chi(w^{-1}-1)=\mathcal C(\kappa)$ ($w\mapsto w^{-1}$).
+
+For $|\mathcal C(\kappa)|$: the map $z\mapsto z^{p-1}=\bar z/z$ sends
+$\F_{p^2}^\times$ onto $\mathsf U$ with kernel $\Fp^\times$, the coset of $1$
+goes to $1$ (whose term $\tilde\chi(1-1)=0$ vanishes), and the cosets of
+$z=m+\sqrt D$, $m\in\Fp$, go bijectively to $\mathsf U\setminus\{1\}$. For such
+$z$, $\bar z/z-1=-2\sqrt D/z$. Hence, with the character
+$\Xi(z)=\kappa(z^{p-1})\bar{\tilde\chi}(z)$ of $\F_{p^2}^\times$,
+\[
+  \mathcal C(\kappa)=\tilde\chi(-2\sqrt D)\sum_{m\in\Fp}\Xi(m+\sqrt D),
+\]
+and $\Xi$ restricts to $\bar\chi=\chi\ne1$ on $\Fp^\times$, because
+$z\mapsto\kappa(z^{p-1})$ is trivial there. \Cref{lem:dl:line} with
+$\alpha=\sqrt D$ gives $|\mathcal C(\kappa)|=\sqrt p$.
+\end{proof}
+
+\begin{theorem}[Four-cycle operator norm]\label{thm:dl:K}
+For every odd prime $p$, every eigenvalue of the real symmetric matrix $M$ of
+\eqref{eq:dl:M} lies in $[-2p,2p]$. In particular every principal submatrix of
+$M$ (for instance the one indexed by the ordered pairs of distinct elements of
+$\Fp$) has spectral norm at most $2p$.
+\end{theorem}
+
+\begin{proof}
+By \cref{lem:dl:decomp} $\C^{\mathcal X}$ is the orthogonal sum of the isotypic
+subspaces, which $M$ preserves (it commutes with $\Lambda(\Gamma)$). We
+determine the eigenvalues on each.
+
+\emph{$\pi(\mu)$, $\mu^2\ne1$.} By \cref{lem:dl:schur}, \eqref{eq:dl:classsum},
+\cref{lem:dl:Phi} and \cref{lem:dl:group}(b),
+\begin{align*}
+  \lambda&=\frac1{|\Gamma|}\Big[(p^2-1)\Phi(u)
+    +\frac{p(p+1)}2\sum_{a\ne1}(\mu+\bar\mu)(a)(p-1)(\Upsilon(a)-1)\Big]\\
+  &=-(1+\chi(-1))+\frac12\sum_{a\ne1}(\mu+\bar\mu)(a)(\Upsilon(a)-1).
+\end{align*}
+Since $\sum_{a\ne1}\mu(a)=-1$ and $\Upsilon(1)=-\chi(-1)$,
+$\sum_{a\ne1}\mu(a)(\Upsilon(a)-1)=\mathcal S(\mu)+\chi(-1)+1$, and likewise for
+$\bar\mu$ with $\mathcal S(\bar\mu)=\mathcal S(\mu)$. So
+$\lambda=\mathcal S(\mu)$, and $|\lambda|\le2p$ by \cref{lem:dl:split}(b).
+
+\emph{$D_\nu$, $\nu^2\ne1$.} Here $\chi_\pi(u)=-1$, $\chi_\pi(h_a)=0$, so
+$\lambda=(1+\chi(-1))+\frac12\sum_{s\ne1}(\nu+\bar\nu)(s)\eta(s)R(s)$. For
+$\psi\in\widehat{\mathsf U}$ with $\psi\ne\eta$, removing from $\mathcal N(\psi)$
+the row $s=1$ and the column $t=1$ (whose common term $\chi(0)$ is $0$) gives,
+by \eqref{eq:dl:trace2}, $\sum_{s\ne1}\psi(s)R(s)=\mathcal N(\psi)-\chi(-1)-1$.
+With $\psi=\nu\eta$ and $\psi=\bar\nu\eta$ (both $\ne\eta$ as $\nu\ne1$) and
+$\mathcal N(\bar\nu\eta)=\mathcal N(\overline{\nu\eta})=\mathcal N(\nu\eta)$, we
+get $\lambda=\mathcal N(\nu\eta)$, and $|\lambda|\le2p$ by
+\cref{lem:dl:split}(c).
+
+\emph{$\mathrm{St}\otimes\mathrm{sgn}$.} Here $\chi_\pi(u)=0$,
+$\chi_\pi(h_a)=\chi(a)$, $\chi_\pi(g_s)=-\eta(s)$, so
+\begin{align*}
+  \lambda&=\frac12\sum_{a\ne1}\chi(a)(\Upsilon(a)-1)+\frac12\sum_{s\ne1}R(s)\\
+  &=\frac12\big(\mathcal S(\chi)+\chi(-1)+1\big)
+  +\frac12\big(\mathcal N(\mathbf 1)-\chi(-1)-1\big)
+  =\frac12\big(\mathcal S(\chi)+\mathcal N(\mathbf 1)\big),
+\end{align*}
+and $|\lambda|\le2p$ by \cref{lem:dl:split}(b),(c).
+
+\emph{The trivial representation.} It is spanned by the constant function, with
+eigenvalue the row sum $\sum_zM(x_0,z)$, which is the same for all $x_0$
+(transitivity). For $x_0=(0,\infty)$: with the representatives $(z_i,1)$, $(0,1)$, $(1,0)$ fixed above, $z_i\wedge0=z_i$ and $z_i\wedge\infty=-1$
+for finite $z_i$, while $\infty\wedge\infty=0$; so $M(x_0,z)=\chi(z_1z_2)$ if
+$z_1,z_2\in\Fp$ and $0$ otherwise, and
+$\sum_{z_1\ne z_2}\chi(z_1z_2)=(\sum_{v}\chi(v))^2-\sum_v\chi(v^2)=-(p-1)$.
+
+\emph{$\mathrm{St}$ (multiplicity $2$).} Let $C(z,x)=\chi(z\wedge x)$ for
+$z,x\in\mathbb P^1$. Then $\sum_{z\in\mathbb P^1}C(z,x)C(z,x')=p\,[x=x']$: for
+$x=x'$ there are $p$ points $z\ne x$; for $x\ne x'$ both finite,
+$\sum_{z\in\Fp}\chi((z-x)(z-x'))=-1$ by \eqref{eq:two-root}, and the term
+$z=\infty$ is $\chi(1)^2=1$; for $x'=\infty$, $x$ finite,
+$\sum_{z\in\Fp}\chi(z-x)\chi(-1)=0$ and the term $z=\infty$ vanishes. Now
+$M(x,z)=\phi_x(z_1)\phi_x(z_2)$ with $\phi_x(z)=C(z,x_1)C(z,x_2)$, so
+$\sum_{z\in\mathbb P^1}\phi_x(z)=0$ and
+$\phi_x(z)^2=\one[z\notin\{x_1,x_2\}]$. For $f:\mathbb P^1\to\C$ with
+$\sum f=0$ put $F_1(x)=f(x_1)$, $F_2(x)=f(x_2)$. Then
+\[
+  (MF_1)(x)=\sum_{z_1}f(z_1)\phi_x(z_1)\sum_{z_2\ne z_1}\phi_x(z_2)
+  =-\sum_{z_1}f(z_1)\phi_x(z_1)^2=-\sum_{z_1\notin\{x_1,x_2\}}f(z_1)
+  =f(x_1)+f(x_2),
+\]
+and, $M(x,z)$ being symmetric in $(z_1,z_2)$, also $MF_2=F_1+F_2$. The space
+$V_1=\{F_1+F_2':\ \sum f=\sum f'=0\}$ (with $F'_2(x)=f'(x_2)$) has dimension
+$2p$ (if $f(x_1)+f'(x_2)=0$ for all $x_1\ne x_2$, then $f$ is constant, as
+$p+1\ge3$, hence $0$, and then $f'=0$), is $\Gamma$-invariant and is isomorphic
+to $\mathrm{St}\oplus\mathrm{St}$ (\cref{lem:dl:group}(b): $\mathrm{St}$ is the
+space of functions on $\mathbb P^1$ with sum $0$). Since $m_{\mathrm{St}}=2$,
+$V_1$ is the $\mathrm{St}$-isotypic subspace, and $M$ acts on it as the
+identity on $\mathrm{St}$ tensored with
+$\begin{psmallmatrix}1&1\\1&1\end{psmallmatrix}$, with eigenvalues $2$ and $0$.
+
+So every eigenvalue of $M$ is one of $\mathcal S(\mu)$, $\mathcal N(\nu\eta)$,
+$\frac12(\mathcal S(\chi)+\mathcal N(\mathbf 1))$, $-(p-1)$, $2$, $0$, all of
+modulus at most $2p$. A principal submatrix of a real symmetric matrix is a
+compression, so its norm is at most $\norm M\le2p$.
+\end{proof}
+
+Every application of \cref{thm:dl:K} in this paper needs it for normalized counting measure, for
+functions that vanish on noninjective tuples, and sometimes against
+conditional laws with bounded densities. We record these forms once.
+
+\begin{corollary}[The four-cycle kernel for uniform probability]\label{cor:dl:normalized}
+Let $a,b\ge2$, let $\varsigma_{ij}\in\{\pm1\}$ ($i\le a$, $j\le b$), and put
+\[
+  K(x,y)=\prod_{i\le a,\ j\le b}\chi\big(\varsigma_{ij}(y_j-x_i)\big)
+  \qquad(x\in\Fp^a,\ y\in\Fp^b).
+\]
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item If $f:\Fp^a\to\C$ vanishes on the tuples with $x_1=x_2$ and
+  $h:\Fp^b\to\C$ on the tuples with $y_1=y_2$ (in particular, if both vanish on
+  noninjective tuples), then, for uniform probability on $\Fp^a$ and $\Fp^b$,
+  \begin{equation}\label{eq:dl:normalized}
+    \Big|\E_{x,y}\overline{f(x)}\,K(x,y)\,h(y)\Big|\le\frac2p\,\norm f_2\norm h_2 .
+  \end{equation}
+  For $a=b=2$: the operator with kernel $K$ relative to uniform probability on
+  $\Fp^2$, compressed to the functions that vanish on the diagonal, has norm
+  at most $2/p=2r^2$.
+\item Let $\nu_1,\nu_2$ be probability measures on $\Fp^a$, $\Fp^b$ with
+  $\nu_1\{x_1=x_2\}=\nu_2\{y_1=y_2\}=0$ and densities relative to uniform
+  probability at most $D_1$, $D_2$. Then for $f\in L^2(\nu_1)$, $h\in L^2(\nu_2)$,
+  \[
+    \Big|\E_{x\sim\nu_1,\,y\sim\nu_2}\overline{f(x)}\,K(x,y)\,h(y)\Big|
+    \le\frac2p\sqrt{D_1D_2}\,\norm f_{\nu_1}\norm h_{\nu_2}.
+  \]
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+Since $\chi(\varsigma(y-x))=\chi(\varsigma)\chi(y-x)$, the signs multiply $K$ by a
+constant of modulus one; we take them equal to $1$.
+
+(a) First let $a=b=2$. For finite pairs $K(x,y)=M(x,y)$, and $f,h$ are supported
+on the set $\mathcal X_{\rm aff}$ of ordered pairs of distinct elements of
+$\Fp$. So the left side of \eqref{eq:dl:normalized} is
+$p^{-4}|\mathbf f^*M_{\rm aff}\mathbf h|$, where $M_{\rm aff}$ is the principal
+submatrix of $M$ on $\mathcal X_{\rm aff}$ and $\mathbf f$, $\mathbf h$ are the
+vectors of values. By \cref{thm:dl:K} this is at most
+$p^{-4}\cdot2p\,\norm{\mathbf f}_{\ell^2}\norm{\mathbf h}_{\ell^2}
+=p^{-4}\cdot2p\cdot p\norm f_2\cdot p\norm h_2=\frac2p\norm f_2\norm h_2$. For
+general $a,b$ fix $x'=(x_3,\dots,x_a)$ and $y'=(y_3,\dots,y_b)$. Then
+$K(x,y)=K_{2,2}\big((x_1,x_2),(y_1,y_2)\big)\,\alpha(x_1,x_2)\beta(y_1,y_2)c$,
+where $K_{2,2}$ is the kernel for $a=b=2$, $\alpha=\prod_{i\le2<j}\chi(y_j-x_i)$,
+$\beta=\prod_{j\le2<i}\chi(y_j-x_i)$ and $c=\prod_{i,j>2}\chi(y_j-x_i)$ have
+modulus at most one and depend on $(x',y')$. The sliced functions
+$f(\cdot,x')\alpha$ and $h(\cdot,y')\beta$ vanish on the diagonal, so the case
+$a=b=2$ bounds the inner average over $(x_1,x_2,y_1,y_2)$ by
+$\frac2p\norm{f(\cdot,x')}_2\norm{h(\cdot,y')}_2$. Averaging over the
+independent $x'$ and $y'$ and applying Cauchy--Schwarz separately in $x'$ and in
+$y'$ gives \eqref{eq:dl:normalized}.
+
+(b) Let $d_i$ be the density of $\nu_i$. The left side is
+$|\E_{x,y}\overline{(fd_1)(x)}K(x,y)(hd_2)(y)|$ for uniform probability, and
+$fd_1$, $hd_2$ vanish where $x_1=x_2$, resp.\ $y_1=y_2$. By (a) it is at most
+$\frac2p\norm{fd_1}_2\norm{hd_2}_2$, and
+$\norm{fd_1}_2^2=\E[d_1^2|f|^2]\le D_1\E[d_1|f|^2]=D_1\norm f_{\nu_1}^2$, and
+likewise for $h$.
+\end{proof}
+
+The positive roots of the late middle pieces (\cref{sec:positive-roots})
+multiply a root kernel by a polynomial of degree two in quartic traces
+$\E_s\psi_y(s)\psi_{y'}(s)$ of two pairs of labels, built from the \emph{pair
+traces} $\psi_y(s)=\chi(s-y_0)\chi(s-y_1)$. The maps defined by pair traces are close to rank one in the sense of \eqref{eq:raw-pair-split} below ($\norm R^2\le c_0q^2$ there): their diagonal part is explicit, and their off-diagonal part
+is the four-cycle kernel, of norm $O(1/p)$ by \cref{cor:dl:normalized}.
+
+\begin{corollary}[Raw pair maps]\label{cor:raw-pair-maps}
+Let $p$ be an odd prime and $q=1/p$. Unless said otherwise every label is
+uniform on $\Fp$, and $L^2(\Fp^k)$ carries the uniform probability. For a pair
+$y=(y_0,y_1)$ of labels put $\psi_y(s)=\chi(s-y_0)\chi(s-y_1)$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item The maps $h\mapsto\E_s\chi(s-a)h(s)$ ($h\in L^2(\Fp)$) and $F\mapsto\E_{s,t}\chi(s-a)\chi(t-a)F(s,t)$ ($F\in L^2(\Fp^2)$), into functions of $a\in\Fp$, have norms
+  $r$ and $\sqrt{q(1-q)}\le r$. The \emph{raw pair map}
+  $h\mapsto\E_s\psi_y(s)h(s)$ has norm $\sqrt{q(1-q)}$ into functions of
+  $y\in\Fp^2$, and norm at most $r$ into functions of $y$ uniform on the ordered
+  pairs of distinct labels. A tensor product of such maps on independent labels
+  has the product of their norms as its norm.
+\item Let $y$ be uniform on the ordered pairs of distinct labels, let
+  $S\colon L^2(\Fp^2)\to L^2(y)$ be the map
+  $(SF)(y)=\E_{s,u}\psi_y(s)\psi_y(u)F(s,u)$, and let $d=\sqrt p\,\one_{s=u}$, a
+  unit vector of $L^2(\Fp^2)$. Then
+  \begin{equation}\label{eq:raw-pair-split}
+    S=r(1-2q)\,\one\ip d{\cdot}+R,\qquad Rd=0,\qquad\norm R^2\le c_0q^2,\qquad
+    c_0=\frac4{1-q}+2q .
+  \end{equation}
+  In detail, the space $L^2(\Fp^2)$ is the orthogonal sum of $\C d$, of the
+  functions $Df$, where $(Df)(s,u)=\sqrt p\,\one_{s=u}f(s)$ and
+  $f\in L^2_0(\Fp)$, and of the functions that vanish on the diagonal
+  $\{s=u\}$. On the second space
+  $(RDf)(y)=-qr\big(f(y_0)+f(y_1)\big)$ and $\norm{RDf}\le\sqrt2\,qr\norm f$; on
+  the third, $R$ agrees with $S$ and has norm at most $2q/\sqrt{1-q}$. For every
+  $y$ the row $(s,u)\mapsto\psi_y(s)\psi_y(u)-r(1-2q)\,d(s,u)$ of $R$ has norm at
+  most one in $L^2(\Fp^2)$.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+By \eqref{eq:two-root}, $\E_a\chi(s-a)\chi(s'-a)=\one_{s=s'}-q$ for all $s,s'$.
+
+(a) The first map is the Paley operator $P$ of \cref{lem:square-shift}, of norm
+$r$ by part (c) there. Write $R_2$ for the second map and $R_3$ for the raw pair
+map into functions of $y\in\Fp^2$. Then
+\[
+ (R_2R_2^*g)(a)=\E_{a'}\big(\E_s\chi(s-a)\chi(s-a')\big)^2g(a'),\qquad
+ (R_3^*R_3h)(s)=\E_{s'}\big(\E_{y_0}\chi(s-y_0)\chi(s'-y_0)\big)^2h(s'),
+\]
+and both kernels are $(\one_{a=a'}-q)^2=(1-2q)\one_{a=a'}+q^2$ (with $s,s'$ in
+place of $a,a'$ in the second). The operator with this kernel is $q(1-2q)$ times
+the identity on $L^2_0(\Fp)$ and $q(1-q)$ on the constants, so
+$\norm{R_2}=\norm{R_3}=\sqrt{q(1-q)}$. For $y$ uniform on distinct pairs: the
+uniform probability on $\Fp^2$ is $1-q$ times the law of $y$ plus $q$ times the
+uniform law on the diagonal, and on the diagonal
+$\E_{y_0}\psi_{(y_0,y_0)}(s)\psi_{(y_0,y_0)}(s')=\E_{y_0}\one_{y_0\notin\{s,s'\}}
+=1-2q+q\one_{s=s'}$; hence
+\[
+ \E_y\psi_y(s)\psi_y(s')=\frac{(1-2q)\one_{s=s'}+q^2-q(1-2q+q\one_{s=s'})}{1-q}
+ =\frac{1-2q-q^2}{1-q}\one_{s=s'}-\frac{q(1-3q)}{1-q},
+\]
+and the Gram operator of the raw pair map is $q(1-2q-q^2)/(1-q)\le q$ on
+$L^2_0(\Fp)$ and $q^2$ on the constants. Finally, the norm of a tensor product of
+operators is the product of their norms.
+
+(b) The map $D\colon L^2(\Fp)\to L^2(\Fp^2)$ is an isometry onto the functions
+supported on the diagonal, and $D\one=d$; this gives the orthogonal
+decomposition. Since $y_0\ne y_1$, $\psi_y(s)^2=\one_{s\notin\{y_0,y_1\}}$, so
+\[
+ (SDf)(y)=\sqrt p\,\E_{s,u}\one_{s=u}\psi_y(s)\psi_y(u)f(s)
+ =r\,\E_s\one_{s\notin\{y_0,y_1\}}f(s)=r\,\E f-qr\big(f(y_0)+f(y_1)\big).
+\]
+For $f=\one$ this is $Sd=r(1-2q)\one$, and $\ip dd=1$ gives $Rd=0$. For
+$f\in L^2_0(\Fp)$, $\ip d{Df}=\E f=0$, so $RDf=SDf=-qr(f(y_0)+f(y_1))$; as $y_0$
+and $y_1$ are uniform and $\E f(y_0)\overline{f(y_1)}=-\norm f^2/(p-1)$,
+$\norm{RDf}^2=2q^3\big(1-\frac1{p-1}\big)\norm f^2\le2q^3\norm f^2$.
+
+A function $F$ that vanishes on the diagonal has $\ip dF=0$, so $RF=SF$. The
+kernel $\psi_y(s)\psi_y(u)=\prod_{i\in\{0,1\}}\prod_{v\in\{s,u\}}\chi(v-y_i)$ is the
+kernel $K$ of \cref{cor:dl:normalized} with $a=b=2$, the pair $y$ in the role of
+$x$ and all signs $+1$. For $G\in L^2(y)$ let $\tilde G$ be its extension by zero
+to $\Fp^2$, so that $\norm{\tilde G}_{L^2(\Fp^2)}=(1-q)^{1/2}\norm G$. By
+\cref{cor:dl:normalized}(a), $\tilde G$ and $F$ vanishing on the diagonals,
+\[
+ \big|\ip G{SF}_{L^2(y)}\big|
+ =\frac1{1-q}\Big|\E_{y\in\Fp^2}\overline{\tilde G(y)}\,(SF)(y)\Big|
+ \le\frac1{1-q}\cdot\frac2p\,(1-q)^{1/2}\norm G\norm F
+ =\frac{2q}{\sqrt{1-q}}\norm G\norm F .
+\]
+For a general $F=\lambda d+Df+F'$, with $f\in L^2_0(\Fp)$ and $F'$ vanishing on
+the diagonal, $RF=RDf+RF'$, and Cauchy--Schwarz gives
+$\norm{RF}^2\le\big(2q^3+\frac{4q^2}{1-q}\big)\big(\norm f^2+\norm{F'}^2\big)
+\le c_0q^2\norm F^2$.
+
+Finally, the row of $S$ at $y$ is $k_y(s,u)=\psi_y(s)\psi_y(u)$, of modulus at
+most one, so $\norm{k_y}\le1$; and $\ip d{k_y}=(Sd)(y)=r(1-2q)$, so the row of
+$R$ at $y$, $k_y-r(1-2q)d=k_y-\ip d{k_y}d$, is the orthogonal projection of
+$k_y$ onto $d^\perp$.
+\end{proof}
+
+\noindent For two pairs $y,y'$ of distinct labels the normalized quartic trace
+$H=r^{-1}\E_s\psi_y(s)\psi_{y'}(s)$ (the scores of the positive roots,
+\cref{def:positive-root}, are of this form) satisfies $H^2=q^{-1}\ip{k_y}{k_{y'}}$,
+where $k_y$ is the row of $S$ at $y$, and so, by (b),
+\[
+ H^2=(1-2q)^2+q^{-1}\ip{\rho_y}{\rho_{y'}},\qquad\rho_y=k_y-r(1-2q)\,d .
+\]
+The square of a score thus differs from the constant $(1-2q)^2$ by a Gram kernel
+of the rows of $R$, divided by $q$. With the notation of
+\cref{lem:swapped-rectangle} (in particular that this Gram kernel
+is positive semidefinite), the bound $\norm R^2\le c_0q^2$ turns
+this
+into an error of order $q$ in the square estimates of the positive roots
+(\cref{lem:root-square}).
+
+\begin{remark}[The constant $2$]\label{rem:dl:K-sharp}
+The formulas of the proof of \cref{thm:dl:K} reproduce the full spectrum of $M$ for every odd
+prime $p\le73$ (floating-point computations of two internal referees, the
+second up to $p\le89$; evaluating the formulas for every odd prime $p<2000$
+gives $\max|\lambda|<2p$ throughout), and $\max|\lambda|/p$ reaches
+$2-4.4\cdot10^{-12}$ at $p=71$. These floating-point computations suggest
+that the constant $2$ is optimal; they do not prove optimality (and are
+not used). The
+exact finite consistency tests of \cref{thm:dl:K} are described in
+\cref{rem:cert:deligne-tests}; they are not used in any proof.
+\end{remark}
+
+\input{sections/15a_cubic_resultant}
+
+\subsection{A two-variable character sum}\label{subsec:dl:H2}
+
+The second estimate concerns two labels whose characters are coupled through
+one factor $y-z$. For fixed $z$ the inner sum over $y$ is, up to an explicit
+correction, minus the trace of Frobenius at $z$ on a sheaf of rank
+$2\lfloor\deg f/2\rfloor$ attached to the family of curves $y^2=f(x)(x-z)$
+(Katz--Sarnak). Twisting by the Kummer sheaf of $g$ keeps this sheaf
+geometrically irreducible of rank at least two. So the $H^2_c$ coinvariants vanish (\cref{lem:tame-trace-bound} below), i.e.\ no term of order $p^{3/2}$ occurs; the compactly supported cohomology lives in degree one, its
+dimension is the tame Euler characteristic, and Deligne's theorem bounds its
+Frobenius eigenvalues by $p$. This is square-root cancellation in both
+variables.
+
+For an integer $m\ge1$ put $\gamma(m)=m$ if $m$ is even and $\gamma(m)=m-1$ if
+$m$ is odd ($\gamma(m)=2\lfloor m/2\rfloor$; for $z$ distinct from the roots of $f$, this is twice the genus of the smooth projective model of $y^2=f(x)(x-z)$ with $\deg f=m$), and for integers $m\ge2$, $n\ge1$, $s\ge0$
+\begin{equation}\label{eq:dl:B}
+  \mathcal B(m,n,s)=\gamma(m)(m+n-s-1)+[m\text{ odd}]\big((n-1)r+mr^2\big)
+  +m\big((m-2)r+r^2\big).
+\end{equation}
+
+\begin{theorem}[Two-variable character sum]\label{thm:dl:H2}
+Let $p$ be an odd prime, $r=p^{-1/2}$, $m\ge2$ and $n\ge1$ integers,
+$a_1,\dots,a_m\in\Fp$ distinct, $b_1,\dots,b_n\in\Fp$ distinct,
+$c,c'\in\Fp^\times$,
+\[
+  f(X)=c\prod_{i=1}^m(X-a_i),\qquad g(X)=c'\prod_{k=1}^n(X-b_k),\qquad
+  s=\big|\{a_1,\dots,a_m\}\cap\{b_1,\dots,b_n\}\big| .
+\]
+Then $\Sigma=\sum_{y,z\in\Fp}\chi\big(f(y)\,g(z)\,(y-z)\big)$ satisfies
+$|\Sigma|\le p\,\mathcal B(m,n,s)$, and if $n\ge2$ also
+$|\Sigma|\le p\,\mathcal B(n,m,s)$.
+\end{theorem}
+
+\noindent The main term $\gamma(m)(m+n-s-1)$ is the dimension of a cohomology
+group of weight at most $2$; all other terms are the displayed
+multiples of $r$ and $r^2$ in \eqref{eq:dl:B}, with coefficients
+depending only on $m$ and $n$. (Only split
+polynomials occur in this paper. For even $m$ the same proof works for
+squarefree $f,g$ that do not split, with Weil's bound for general squarefree
+polynomials in place of \cref{thm:weil}; for odd $m$ the construction in
+\cref{lem:dl:sheaf} uses a root of $f$ in $\Fp$.) The proof rests on the
+following lemma, in which $U_f=\mathbb A^1_{\Fp}\setminus\{a_1,\dots,a_m\}$ and
+traces and Frobenius eigenvalues are regarded as complex numbers through the
+isomorphism of $\overline{\mathbb Q}_\ell$ with $\C$ fixed in
+\cref{subsec:external:sheaves}. Its parts (v) and (vi) are used only in
+\cref{subsec:moving-root}.
+
+\begin{lemma}[The sheaf of the family $y^2=f(x)(x-z)$]\label{lem:dl:sheaf}
+Let $f=\prod_{i=1}^m(X-a_i)$ with $m\ge2$ and distinct $a_i\in\Fp$ \textup(so
+$f$ is monic\textup), and put
+\[
+  \tau_f(z)=\frac1p\Big(\sum_{y\in\Fp}\chi\big(f(y)(y-z)\big)+[m\text{ odd}]\Big)
+  \qquad(z\in\Fp).
+\]
+If $m$ is odd, fix a root $a$ of $f$ \textup(any root may be
+chosen\textup). The construction below, applied to this fixed
+$a$, gives a lisse $\overline{\mathbb Q}_\ell$-sheaf
+$\mathcal F'$ on $U_f$ such that:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item $\mathcal F'$ has rank $\gamma(m)$ and is pure of weight $1$;
+\item $\mathcal F'$ is geometrically irreducible;
+\item $\mathcal F'$ is tame at every point of
+  $\mathbb P^1\setminus U_f=\{a_1,\dots,a_m,\infty\}$;
+\item $p\,\tau_f(z)=-\mathrm{Tr}(\mathrm{Frob}_z\mid\mathcal F')$ for every
+  $z\in U_f(\Fp)$;
+\item there is a perfect alternating pairing
+  $\mathcal F'\otimes\mathcal F'\to\overline{\mathbb Q}_\ell(-1)$ of lisse sheaves
+  on $U_f$;
+\item for every root $a_i$ of $f$ if $m$ is even, and for every root $a_i\ne a$
+  if $m$ is odd, the inertia group at $a_i$ acts on $\mathcal F'$ through
+  unipotent automorphisms, not all trivial.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\emph{$m$ even.} Let $\mathcal F'=\mathcal F_f$ be the sheaf of
+\cref{thm:prelim:ks} with $k=\Fp$ and $h=f$, a polynomial of degree
+$m=2\cdot\frac m2$, $\frac m2\ge1$, with $m$ distinct roots; then $U_h=U_f$.
+Parts (i), (ii), (iii) and (v) are \cref{thm:prelim:ks}(i), (iii), (ii) and
+(v), and \cref{thm:prelim:ks}(iv) with $E=\Fp$, $t=z$, gives
+$-\mathrm{Tr}(\mathrm{Frob}_z\mid\mathcal F_f)=\sum_x\chi((x-z)f(x))=p\,\tau_f(z)$.
+For (vi), $\mathcal F_f$ is tame at $a_i$ (\cref{thm:prelim:ks}(ii)), so its
+local monodromy there factors through the pro-cyclic tame quotient
+(\ref{it:prelim:E3}), and the inertia image is the closure of the group
+generated by the element $u$ of \cref{thm:prelim:ks}(vi). As $(u-1)^2=0$, the
+powers $u^k=1+k(u-1)$ are unipotent, hence so is every element
+$1+c(u-1)$ of the closure, and $u\ne1$.
+
+\emph{$m$ odd.} Then $m\ge3$. Put $f_1=f/(X-a)$, so $\deg f_1=m-1\ge2$ is even
+and $f_1(a)\ne0$, and
+\[
+  f_1^\sharp(X)=X^{m-1}f_1\big(a+X^{-1}\big)=\prod_{a_i\ne a}\big(1+(a-a_i)X\big).
+\]
+$f_1^\sharp$ has degree $m-1$ (leading coefficient $f_1(a)\ne0$), the $m-1$
+distinct roots $1/(a_i-a)\in\Fp^\times$ ($a_i\ne a$), and $f_1^\sharp(0)=1$.
+Let $\varphi_a:\mathbb A^1\setminus\{a\}\to\mathbb A^1\setminus\{0\}$,
+$\varphi_a(z)=1/(z-a)$, an isomorphism of $\Fp$-schemes that extends to the
+automorphism $z\mapsto1/(z-a)$ of $\mathbb P^1$ (with $a\mapsto\infty$,
+$\infty\mapsto0$). It maps $U_f$ onto
+$W=\mathbb A^1\setminus(\{0\}\cup Z(f_1^\sharp))$, since
+$\varphi_a(a_i)=1/(a_i-a)$ for $a_i\ne a$. Let $\mathcal F_{f_1^\sharp}$ be the
+sheaf of \cref{thm:prelim:ks} with $k=\Fp$, $h=f_1^\sharp$ (degree
+$m-1=2\cdot\frac{m-1}2$, $\frac{m-1}2\ge1$, distinct roots), lisse on
+$U_{f_1^\sharp}=\mathbb A^1\setminus Z(f_1^\sharp)\supseteq W$, and let
+$\mathcal L=\mathcal L_{\chi(a-z)}$ be the Kummer sheaf \ref{it:prelim:E4} of the
+polynomial $a-z$, lisse on $\mathbb A^1\setminus\{a\}\supseteq U_f$. Put
+\[
+  \mathcal F'=\varphi_a^*\big(\mathcal F_{f_1^\sharp}|_W\big)\otimes\mathcal L|_{U_f}.
+\]
+\emph{Transport of (i)--(iii) and (v).} Restriction to a dense open,
+pull-back by an isomorphism, and tensoring with a rank-one sheaf preserve
+geometric irreducibility (\ref{it:prelim:E1}). Thus
+\cref{thm:prelim:ks}(i),(iii) and \ref{it:prelim:E2}, \ref{it:prelim:E4}
+give rank $m-1=\gamma(m)$, purity of weight $1$ and geometric
+irreducibility for $\mathcal F'$. For tameness, the automorphism
+$\varphi_a$ sends the roots other than $a$ to $Z(f_1^\sharp)$, sends $a$
+to infinity, and sends infinity to $0$. The original sheaf is tame at
+$Z(f_1^\sharp)$ and infinity and lisse at $0$; hence its restriction to $W$
+and pull-back are tame at every missing point. The Kummer sheaf is tame
+there too, so their tensor product is tame (\ref{it:prelim:E3}). Finally,
+$\mathcal L\otimes\mathcal L$ is the constant sheaf, since its monodromy
+character has order dividing two (\ref{it:prelim:E4}). Pulling back the
+pairing of \cref{thm:prelim:ks}(v) and using this trivialization gives the
+perfect alternating pairing for $\mathcal F'$, with the same target
+$\overline{\mathbb Q}_\ell(-1)$. This proves (i)--(iii) and (v).
+
+(iv) Let $z\in U_f(\Fp)$ and $w=\varphi_a(z)=1/(z-a)$, so $-w=1/(a-z)$. By
+\ref{it:prelim:E1}, \ref{it:prelim:E4} and \cref{thm:prelim:ks}(iv) with $E=\Fp$,
+\[
+  -\mathrm{Tr}(\mathrm{Frob}_z\mid\mathcal F')
+  =-\chi(a-z)\,\mathrm{Tr}(\mathrm{Frob}_w\mid\mathcal F_{f_1^\sharp})
+  =\sum_{x'\in\Fp}\chi\big((a-z)(x'-w)f_1^\sharp(x')\big).
+\]
+On the other hand, the term $y=a$ of $\sum_y\chi(f(y)(y-z))$ vanishes
+($f(a)=0$), and $y\mapsto x'=1/(y-a)$ is a bijection of $\Fp\setminus\{a\}$ onto
+$\Fp^\times$ with $y=a+1/x'$. For such $y$,
+$f(y)=x'^{-1}f_1(a+1/x')=x'^{-m}f_1^\sharp(x')$ and
+$y-z=x'^{-1}\big((a-z)x'+1\big)=x'^{-1}(a-z)(x'-w)$, so
+$f(y)(y-z)=x'^{-(m+1)}(a-z)(x'-w)f_1^\sharp(x')$ with $m+1$ even. Hence
+\begin{align*}
+  \sum_y\chi\big(f(y)(y-z)\big)
+  &=\sum_{x'\ne0}\chi\big((a-z)(x'-w)f_1^\sharp(x')\big)\\
+  &=-\mathrm{Tr}(\mathrm{Frob}_z\mid\mathcal F')-\chi\big((a-z)(-w)f_1^\sharp(0)\big)
+  =-\mathrm{Tr}(\mathrm{Frob}_z\mid\mathcal F')-1,
+\end{align*}
+since $(a-z)(-w)=1$ and $f_1^\sharp(0)=1$; that is,
+$p\,\tau_f(z)=-\mathrm{Tr}(\mathrm{Frob}_z\mid\mathcal F')$.
+(vi) Let $a_i\ne a$ be a root of $f$. The automorphism of $\mathbb P^1$
+extending $\varphi_a$ maps $a_i$ to the root $1/(a_i-a)$ of $f_1^\sharp$ and,
+by \ref{it:prelim:E3}, the inertia groups at $a_i$ onto those at $1/(a_i-a)$;
+so the inertia at $a_i$ acts on $\varphi_a^*(\mathcal F_{f_1^\sharp}|_W)$ as the
+inertia at $1/(a_i-a)$ acts on $\mathcal F_{f_1^\sharp}|_W$, that is, as it acts
+on $\mathcal F_{f_1^\sharp}$ (restriction to the dense open $W$ keeps the
+inertia groups and the local monodromy at this point, \ref{it:prelim:E3}).
+This is as stated in (vi), by the argument of
+the even case applied to $\mathcal F_{f_1^\sharp}$ (\cref{thm:prelim:ks}(ii),
+(vi)). The sheaf $\mathcal L$ is lisse at $a_i$, so the
+inertia at $a_i$ acts trivially on it (\ref{it:prelim:E3}), and the tensor
+product has the same local monodromy at $a_i$ as
+$\varphi_a^*\mathcal F_{f_1^\sharp}$.
+\end{proof}
+
+For odd $m$ we have $m\ge3$, so the root $a$ can be chosen different from any
+given root of $f$. Thus every root of $f$ is, for some allowed
+choice of the root $a$ in the construction of $\mathcal F'$, a
+point at which the inertia acts through nontrivial unipotent
+automorphisms; this is how part (vi) is used in
+\cref{lem:moving-root-moments}.
+
+The cohomological step used below is the same for one trace and for a product
+of two traces. Once the geometric coinvariants vanish, only the rank, the
+weight and the number of punctures enter the bound.
+
+\begin{lemma}[Tame trace bound]\label{lem:tame-trace-bound}
+Let $B\subseteq\Fp$ have $m\ge1$ elements, let
+$U=\mathbb A^1_{\Fp}\setminus B$, and let $\mathcal G$ be a lisse sheaf on $U$
+of rank $R$, mixed of weights at most $w$, and tame at every point of
+$B\cup\{\infty\}$. Suppose its generic stalk $V$ has zero coinvariants under
+$\pi_1^{\rm geom}(U)$. Then
+\[
+ \dim H^1_c(U\otimes\bar\F_p,\mathcal G)=R(m-1),\qquad
+ \left|\sum_{x\in U(\Fp)}\mathrm{Tr}(\mathrm{Frob}_x\mid\mathcal G)\right|
+ \le R(m-1)p^{(w+1)/2}.
+\]
+In particular the coinvariant hypothesis holds if $\mathcal G$ is
+geometrically irreducible of rank at least two.
+\end{lemma}
+
+\begin{proof}
+By \cref{thm:prelim:curves}, compactly supported cohomology vanishes outside
+degrees one and two, and $H^2_c\cong V_{\pi_1^{\rm geom}(U)}(-1)=0$.
+Tameness at all $m+1$ missing points makes every Swan conductor zero, so
+\cref{thm:prelim:gos} gives
+$-\dim H^1_c=R(2-(m+1))$. By \cref{thm:prelim:lefschetz}, the trace sum is
+$-\mathrm{Tr}(\mathrm{Frob}_p\mid H^1_c)$, and every eigenvalue in this trace
+has modulus at most $p^{(w+1)/2}$ by \cref{thm:prelim:weights}.
+Finally, the span of the vectors $gv-v$ is invariant. For an irreducible
+representation it is zero or all of $V$; the first possibility makes the
+action trivial, which is incompatible with irreducibility in rank at least
+two. Thus the coinvariants vanish in the stated special case.
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:dl:H2}]
+\emph{Step 0 (normalization).} Replacing $f,g$ by $f/c$, $g/c'$ multiplies
+$\Sigma$ by $\chi(cc')=\pm1$, and $\mathcal B$ does not depend on $c,c'$; so we
+may assume $f$ and $g$ monic. Write $Z(f)=\{a_i\}$, $Z(g)=\{b_k\}$, so
+$|Z(f)\cup Z(g)|=m+n-s$.
+
+\emph{Step 1 (the three parts).}
+$\Sigma=\sum_{z\in\Fp}\chi(g(z))\sum_y\chi\big(f(y)(y-z)\big)$. For
+$z=a_j\in Z(f)$, $f(y)(y-a_j)=(y-a_j)^2f_j(y)$ with
+$f_j=\prod_{i\ne j}(X-a_i)$, $\deg f_j=m-1\ge1$, so
+$\chi(f(y)(y-a_j))=\chi(f_j(y))$ for $y\ne a_j$ and $0$ for $y=a_j$; by
+\cref{thm:weil},
+$|\sum_y\chi(f(y)(y-a_j))|\le|\sum_y\chi(f_j(y))|+1\le(m-2)\sqrt p+1$. For
+$z\notin Z(f)$, \cref{lem:dl:sheaf}(iv) gives
+$\sum_y\chi(f(y)(y-z))=p\,\tau_f(z)-[m\text{ odd}]
+=-\mathrm{Tr}(\mathrm{Frob}_z\mid\mathcal F')-[m\text{ odd}]$. Hence
+\begin{multline*}
+  \Sigma=-\sum_{z\in U_f(\Fp)}\chi(g(z))\,\mathrm{Tr}(\mathrm{Frob}_z\mid\mathcal F')
+  \ -\ [m\text{ odd}]\sum_{z\in U_f(\Fp)}\chi(g(z))\\
+  +\ \sum_{z\in Z(f)}\chi(g(z))\sum_y\chi\big(f(y)(y-z)\big).
+\end{multline*}
+The last part is at most $m\big((m-2)\sqrt p+1\big)$ in modulus. The middle sum
+differs from $\sum_{z\in\Fp}\chi(g(z))$ by at most $m$ terms of modulus at most
+$1$, and $|\sum_z\chi(g(z))|\le(n-1)\sqrt p$ by \cref{thm:weil}; so the middle
+part is at most $(n-1)\sqrt p+m$ (and occurs only for odd $m$).
+
+\emph{Step 2 (the sheaf $\mathcal G$).} Let
+$U'=U_f\setminus Z(g)=\mathbb A^1\setminus(Z(f)\cup Z(g))$,
+$\mathcal L_{\chi(g)}$ the Kummer sheaf of $g$ of \ref{it:prelim:E4}, lisse on
+$\mathbb A^1\setminus Z(g)\supseteq U'$, and
+$\mathcal G=\mathcal L_{\chi(g)}|_{U'}\otimes\mathcal F'|_{U'}$. As $\chi(g(z))=0$
+for $z\in Z(g)$, the first part is
+$-\sum_{z\in U'(\Fp)}\mathrm{Tr}(\mathrm{Frob}_z\mid\mathcal G)$ by
+\ref{it:prelim:E1} and \ref{it:prelim:E4}. $\mathcal G$ is lisse of rank
+$\gamma(m)\ge2$ and pure of weight $1$ (\cref{lem:dl:sheaf}(i),
+\ref{it:prelim:E2}); it is geometrically irreducible (\cref{lem:dl:sheaf}(ii):
+the restriction to the dense open $U'$ and the tensor product with a rank-one
+sheaf preserve this, \ref{it:prelim:E1}); and it is tame at every point of
+$\mathbb P^1\setminus U'=Z(f)\cup Z(g)\cup\{\infty\}$ by \ref{it:prelim:E3}
+(restriction to a dense open keeps tameness, a sheaf is tame at a point where it
+is lisse, and tensor products of tame sheaves are tame): $\mathcal F'$ is tame at
+$Z(f)\cup\{\infty\}$ (\cref{lem:dl:sheaf}(iii)) and lisse at the points of
+$Z(g)\setminus Z(f)\subseteq U_f$, and $\mathcal L_{\chi(g)}$ is tame at the
+points of $Z(g)\cup\{\infty\}$ (\ref{it:prelim:E4}) and lisse at those of
+$Z(f)\setminus Z(g)$.
+
+\emph{Step 3 (cohomology).} The sheaf of Step~2 satisfies
+\cref{lem:tame-trace-bound}: its rank is $\gamma(m)\ge2$, its weight is $1$,
+it is geometrically irreducible, and it is tame at all
+$m+n-s+1$ missing points, including infinity. Therefore
+\[
+ \left|\sum_{z\in U'(\Fp)}\mathrm{Tr}(\mathrm{Frob}_z\mid\mathcal G)\right|
+ \le\gamma(m)(m+n-s-1)p.
+\]
+The trace sum is $-p\sum_{z\in U'(\Fp)}\chi(g(z))\tau_f(z)$, a rational
+integer by \cref{lem:dl:sheaf}(iv), so the bound is independent of the
+identification of $\overline{\mathbb Q}_\ell$ with $\C$. It bounds the first
+part of Step~1.
+
+\emph{Step 4 (conclusion).} Adding the three parts,
+\[
+  |\Sigma|\le\gamma(m)(m+n-s-1)p+[m\text{ odd}]\big((n-1)\sqrt p+m\big)
+  +m\big((m-2)\sqrt p+1\big)=p\,\mathcal B(m,n,s).
+\]
+Finally, $\Sigma=\chi(-1)\sum_{z,y}\chi\big(g(z)f(y)(z-y)\big)$ is, up to sign,
+the sum of the theorem for the pair $(g,f)$; if $n\ge2$ the bound just proved
+applies to it and gives $|\Sigma|\le p\,\mathcal B(n,m,s)$.
+\end{proof}
+
+\begin{remark}[Sharpness and the coefficients of $\mathcal B$]\label{rem:dl:H2-sharp}
+(i) The main term is nearly attained (numerically): for $f$
+proportional to $g$ of degree two
+($m=n=s=2$) the group $H^1_c$ has dimension $2$, and exact computations for
+primes up to $9\cdot10^4$ give $|\Sigma|/(p\mathcal B)$ up to $0.998$
+(numerical, not used). The consistency test of \cref{thm:dl:H2} against exact
+double sums is described in \cref{rem:cert:deligne-tests}; it is not an input
+of any proof.
+(ii) As a polynomial in $r$, $\mathcal B(m,n,0)=C_0+C_1r+C_2r^2$ with
+$(C_0,C_1,C_2)=\big(\gamma(m)(m+n-1),\ m(m-2)+[m\text{ odd}](n-1),\
+m(1+[m\text{ odd}])\big)$; these are the coefficient triples with which the
+completion variance (\cref{lem:push:localvariance}) uses the theorem.
+(iii) $\mathcal B(m,n,s)$ is nonincreasing in $s$ and nondecreasing in $n$.
+Since $\mathcal B(2,4,0)=10+2r^2$, $\mathcal B(3,4,0)=12+6r+6r^2$ and
+$\mathcal B(4,4,0)=28+8r+4r^2$, and $r\le1/\sqrt3$, we get
+$\mathcal B(m,n,s)\le\mathcal B(4,4,0)<40$ for $2\le m\le4$, $1\le n\le4$,
+$s\ge0$ and every odd prime; the product rows use this.
+\end{remark}
+
+\subsection{Trace functions with one free label}\label{subsec:moving-root}
+
+At a root cut of the upper range the star part of the cut kernel is an average
+over the label $z$ of an integrated centre of a product of characters
+$\chi(z-x_j)$ over the leaves $j$ of the star. Fixing all half labels except
+the label $x_i$ of one leaf turns such a star into an affine function of a
+single \emph{moving-root trace} $\tau_S(x_i)$, whose fixed roots $S$ are the
+labels of the other leaves (\cref{lem:star-trace}). The second moments of
+combinations of these traces against the conditional law of $x_i$ (a
+uniform law on an allowed set, whose density is a product of characters with
+the neighbouring labels as roots) are governed by the almost-orthogonality of
+traces with distinct root sets against character weights
+(\cref{lem:moving-root-moments}). This is a statement about sheaves: distinct
+root sets give non-isomorphic sheaves, even after a quadratic twist, because
+their local monodromy at a root in the symmetric difference differs. First moments satisfy \eqref{eq:advance:rank-first}, with its factor $r^2$ in place of the pointwise factor $r$ in $|\tau_S|\le sr$ (\cref{lem:moving-root-trace}(b)), and they make pivot groups almost
+orthogonal without any independence assumption
+(\cref{prop:advance:ordered-star}). For a graph law the same conditioning,
+with the conditional means bounded through \cref{thm:dl:H2} and the diagonal
+terms through densities, bounds star marginals with arbitrary real
+coefficients (\cref{lem:wt:stars}). The subsection ends with the exact mean of
+the complete star (\cref{lem:star-mean}).
+
+\subsubsection{Trace functions and stars}\label{subsec:advance:conditional-star}
+
+For a set $S\subseteq\Fp$ of $s=|S|\ge2$ distinct elements put
+$f_S=\prod_{c\in S}(X-c)$ and
+\begin{equation}\label{eq:moving-root-tau}
+  \tau_S(x)=\frac1p\Big(\sum_{z\in\Fp}\chi\Big((z-x)\prod_{c\in S}(z-c)\Big)
+  +\one_{|S|\ \rm odd}\Big)\qquad(x\in\Fp).
+\end{equation}
+Thus $\tau_S=\tau_{f_S}$ in the notation of \cref{lem:dl:sheaf}. We write
+$\mathcal F_S$ for a sheaf on $\mathbb A^1\setminus S$ given by
+\cref{lem:dl:sheaf} for $f=f_S$ (for odd $s$ with some choice of the root $a$),
+and $h(s)=2\lfloor s/2\rfloor=\gamma(s)$ for its rank. The correction
+$\one_{|S|\ \rm odd}$ accounts for the points at infinity: for
+$x\notin S$ and odd $s$ the polynomial $(z-x)f_S(z)$ is squarefree of even
+degree with leading coefficient one, so the smooth projective curve
+$y^2=(z-x)f_S(z)$ has two rational points at infinity, which the affine sum
+misses. With the correction, $p\,\tau_S(x)$ is, for every $s$ and $x\notin S$,
+minus the trace of Frobenius on the first cohomology of that curve.
+
+\begin{lemma}[Moving-root traces]\label{lem:moving-root-trace}
+Let $S\subseteq\Fp$ with $|S|=s\ge2$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item $\tau_S$ is real, and $\tau_S(x)=-p^{-1}\,\mathrm{Tr}(\mathrm{Frob}_x\mid\mathcal F_S)$
+  for $x\notin S$.
+\item $|\tau_S(x)|\le h(s)r$ for $x\notin S$, and
+  $|\tau_S(x)|\le\big((s-2)\sqrt p+2\big)/p\le sr$ for $x\in S$. In particular
+  $|\tau_S|\le sr$ on $\Fp$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) is \cref{lem:dl:sheaf}(iv). (b) For $x\notin S$, $\mathcal F_S$ has rank
+$h(s)$ and is pure of weight $1$ (\cref{lem:dl:sheaf}(i)), so each Frobenius
+eigenvalue at $x$ has modulus $\sqrt p$, and $|p\,\tau_S(x)|\le h(s)\sqrt p$.
+For $x\in S$, $(z-x)f_S(z)=(z-x)^2f_{S\setminus\{x\}}(z)$; the term $z=x$
+vanishes, and for $z\ne x$ the summand is $\chi(f_{S\setminus\{x\}}(z))$. Hence
+$p\,\tau_S(x)=\sum_z\chi(f_{S\setminus\{x\}}(z))-\chi(f_{S\setminus\{x\}}(x))
++\one_{s\ \rm odd}$. The first sum has modulus at most $(s-2)\sqrt p$ by
+\cref{thm:weil} (a product of $s-1\ge1$ distinct linear factors), and the two
+other terms have modulus at most one; finally $2\le2\sqrt p$.
+\end{proof}
+
+\begin{lemma}[Star-trace dictionary]\label{lem:star-trace}
+Let $x:U\to\Fp$ be injective, $T\subseteq U$ nonempty, and
+$w_T(x)=\E_z\prod_{j\in T}\chi(z-x_j)$. Then $w_T(x)=0$ if $|T|=1$,
+$w_T(x)=-1/p$ if $|T|=2$, and for $|T|\ge3$ and every $i\in T$,
+\[
+  w_T(x)=\tau_{x(T\setminus\{i\})}(x_i)-\frac{\one_{|T|\ \rm even}}p,\qquad
+  x(T\setminus\{i\})=\{x_j:j\in T\setminus\{i\}\}.
+\]
+For signs $\varsigma_j\in\{\pm1\}$,
+$\E_z\prod_{j\in T}\chi(\varsigma_j(z-x_j))=\big(\prod_{j\in T}\chi(\varsigma_j)\big)w_T(x)$.
+\end{lemma}
+
+\begin{proof}
+For $|T|=1$, $\sum_z\chi(z-x_j)=0$. For $|T|=2$, $\sum_z\chi((z-x_j)(z-x_{j'}))=-1$
+by \eqref{eq:two-root}, as $x_j\ne x_{j'}$. For $|T|\ge3$ and $i\in T$,
+$\prod_{j\in T}(z-x_j)=(z-x_i)\prod_{c\in S}(z-c)$ with
+$S=x(T\setminus\{i\})$, a set of $|T|-1\ge2$ distinct elements, and
+$|S|$ is odd iff $|T|$ is even; so $w_T(x)=\tau_S(x_i)-\one_{|T|\ \rm even}/p$
+by \eqref{eq:moving-root-tau}. The signs factor out since $\chi$ is
+multiplicative.
+\end{proof}
+
+\paragraph{The star function.} Consider spectral data (\cref{def:spec:data})
+with half vertex set $U^+$, half graph $G^+$, cross signs $\varsigma_{jk}$ and
+$N(k)=\{j\in U^+:\varsigma_{jk}\ne0\}$. The column stars of the cut kernel
+centred at $k$ have kernels $\prod_{j\in T}\chi(\varsigma_{jk}(x'_k-x_j))$,
+$\emptyset\ne T\subseteq N(k)$; averaging the centre label $z$ uniformly on $\Fp$ gives the \emph{integrated-centre star function}
+\begin{equation}\label{eq:star-function}
+  h_\star(x)=\sum_{k\in U^+}\Big(\E_z\prod_{j\in N(k)}\big(1+\chi(\varsigma_{jk}(z-x_j))\big)-1\Big)
+  =\sum_{\emptyset\ne T\subseteq U^+}a_Tw_T(x),\qquad
+  a_T=\sum_{k:\,T\subseteq N(k)}\ \prod_{j\in T}\chi(\varsigma_{jk}).
+\end{equation}
+We fix this sign convention: the signs $\chi(\varsigma_{jk})$ belong to the
+centre $k$, and no factor $\chi(-1)^{|T|}$ appears. (Writing the characters as
+$\chi(x_j-z)$ multiplies $a_T$ by $\chi(-1)^{|T|}$; the bounds below use $|a_T|$
+for odd $|T|$, and for even $|T|$ the factor is one, so they do not depend on
+the convention.) By \cref{lem:star-trace}, on injective labellings $h_\star$ is a
+constant plus a linear combination of the traces
+$\tau_{x(T\setminus\{i\})}(x_i)$, $|T|\ge3$, for any choice of $i\in T$. The
+row stars map constants to constants
+(\cref{lem:spec:stars}(b)), so they disappear under projection off constants.
+
+\subsubsection{Means and mean squares of the traces $\tau_S$}\label{subsec:moving-root-moments}
+
+For a finite set $A\subseteq\Fp$ put $\chi_A(x)=\prod_{a\in A}\chi(x-a)$, the
+squarefree character factor with root set $A$ ($\chi_\emptyset=1$).
+
+\begin{lemma}[Moving-root moments]\label{lem:moving-root-moments}
+Let $p$ be an odd prime, $r=p^{-1/2}$, $h(s)=2\lfloor s/2\rfloor$, and let
+$S,T,A\subseteq\Fp$ with $|S|=s\ge2$, $|T|=t\ge2$ and $|A|=u\ge0$; the three
+sets may overlap arbitrarily. Then
+\begin{align}
+ \Big|\E_x\chi_A\tau_S\tau_T-p^{-1}\one_{S=T,\ A=\emptyset}\Big|
+ &\le r^3\Big[(s+t+u-1)h(s)h(t)+1+r(s+t+u)st\Big],
+ \label{eq:advance:rank-second}\\
+ \big|\E_x\chi_A\tau_S\big|
+ &\le r^2\Big[(s+u-1)h(s)+r(s+u)s\Big].
+ \label{eq:advance:rank-first}
+\end{align}
+\end{lemma}
+
+\begin{proof}
+Let $U=\mathbb A^1\setminus(S\cup T\cup A)$ and $\pi=\pi_1^{\rm geom}(U)$. We use
+sheaves $\mathcal F_S$, $\mathcal F_T$ of \cref{lem:dl:sheaf} for $f_S$, $f_T$,
+restricted to $U$, with $\mathcal F_T=\mathcal F_S$ if $T=S$; when $s$ or $t$ is
+odd, the root $a$ of that construction (the \emph{inversion root}) is chosen in
+Step~3 (\cref{lem:dl:sheaf} and \cref{lem:moving-root-trace} hold for every
+choice). Let $\mathcal L$ be the Kummer sheaf of
+$g_A=\prod_{a\in A}(X-a)$ restricted to $U$ (the constant sheaf if
+$A=\emptyset$), with monodromy character $\lambda$; so
+$\mathrm{Tr}(\mathrm{Frob}_x\mid\mathcal L)=\chi_A(x)$ for $x\in U(\Fp)$
+(\ref{it:prelim:E4}). Put $\mathcal G=\mathcal F_S\otimes\mathcal F_T\otimes\mathcal L$,
+and write $V_S$, $V_T$ for the generic stalks of $\mathcal F_S$, $\mathcal F_T$ as
+representations $\rho_S$, $\rho_T$ of $\pi$.
+
+\emph{Step 1 (traces and omitted points).} For every $x\in U(\Fp)$,
+\cref{lem:moving-root-trace}(a) and \ref{it:prelim:E1} give
+\[
+  \chi_A(x)\tau_S(x)\tau_T(x)=p^{-2}\,\mathrm{Tr}(\mathrm{Frob}_x\mid\mathcal G).
+\]
+For $x\in A$, $\chi_A(x)=0$. The remaining points $x\in(S\cup T)\setminus A$ number at
+most $s+t$, and there $|\chi_A\tau_S\tau_T|\le st\,r^2$ by
+\cref{lem:moving-root-trace}(b). Hence
+\begin{equation}\label{eq:moving-root-omitted}
+  \Big|\E_x\chi_A\tau_S\tau_T-p^{-3}\sum_{x\in U(\Fp)}
+  \mathrm{Tr}(\mathrm{Frob}_x\mid\mathcal G)\Big|
+  \le p^{-1}(s+t)st\,r^2\le r^4(s+t+u)st .
+\end{equation}
+
+\emph{Step 2 (the top cohomology).} $\mathcal G$ is lisse on $U$ of rank
+$h(s)h(t)$, pure of weight $2$ (\ref{it:prelim:E2}; $\mathcal L$ has weight $0$),
+and tame at every point of $\mathbb P^1\setminus U$ (\cref{lem:dl:sheaf}(iii),
+\ref{it:prelim:E3}, \ref{it:prelim:E4}). By
+\cref{thm:prelim:lefschetz,thm:prelim:curves},
+\[
+  \sum_{x\in U(\Fp)}\mathrm{Tr}(\mathrm{Frob}_x\mid\mathcal G)
+  =\mathrm{Tr}(\mathrm{Frob}_p\mid H^2_c)-\mathrm{Tr}(\mathrm{Frob}_p\mid H^1_c),
+  \qquad H^i_c=H^i_c(U\otimes\bar\F_p,\mathcal G),
+\]
+and $H^2_c\cong(V_S\otimes V_T\otimes\lambda)_\pi(-1)$. The dual of the space of
+coinvariants is the space of $\pi$-invariant linear forms on
+$V_S\otimes V_T\otimes\lambda$, that is the $\pi$-invariants of
+$V_S^\vee\otimes V_T^\vee\otimes\lambda^{-1}$. The pairing of
+\cref{lem:dl:sheaf}(v) identifies $V_S$ with $V_S^\vee$ as $\pi$-representations
+($\pi$ acts trivially on $\overline{\mathbb Q}_\ell(-1)$), and $\lambda^{-1}=\lambda$;
+so this space is $(V_S\otimes V_T^\vee\otimes\lambda)^\pi
+=\mathrm{Hom}_\pi(V_T,V_S\otimes\lambda)$. The representations $V_T$ and
+$V_S\otimes\lambda$ are irreducible (\cref{lem:dl:sheaf}(ii); restriction to a
+dense open and twisting by a rank-one sheaf preserve geometric irreducibility,
+\ref{it:prelim:E1}). By Schur's lemma, $\dim H^2_c=1$ if
+$V_S\cong V_T\otimes\lambda$ (equivalently $V_T\cong V_S\otimes\lambda$, as
+$\lambda^2=1$), and $H^2_c=0$ otherwise.
+
+\emph{Step 3 (local monodromy: $H^2_c=0$ unless $S=T$ and
+$A=\emptyset$).} For a finite point $c\in\mathbb P^1\setminus U$ let
+$I_c\subseteq\pi$ be an inertia group at $c$ (\ref{it:prelim:E3}). A sheaf lisse
+at $c$ has trivial inertia image there, and a rank-one sheaf has scalar inertia
+image. Restriction to the dense open $U$ keeps the local monodromy at $c$
+(\ref{it:prelim:E3}), so \cref{lem:dl:sheaf}(vi) for $\mathcal F_S$ on
+$\mathbb A^1\setminus S$ holds for its restriction to $U$. For every $c\in A$
+the character $\lambda$ is nontrivial on $I_c$: $c$ is a simple root of $g_A$, so
+the double covering $w^2=g_A(z)$ is ramified at $c$ and the local monodromy of
+$\mathcal L$ at $c$ is the character of order $2$ of $I_c$ (the case of odd
+multiplicity in \ref{it:prelim:E4}, and \ref{it:prelim:E3} for the restriction
+to $U$).
+
+Suppose $S\ne T$. Choose $c_0\in S\triangle T$; exchanging $S$ and $T$ if
+necessary, $c_0\in S\setminus T$. If $s$ is odd, construct $\mathcal F_S$ with an
+inversion root different from $c_0$. By \cref{lem:dl:sheaf}(vi),
+$\rho_S(I_{c_0})$ is not contained in the scalars (a unipotent scalar is the
+identity), while $\mathcal F_T$ is lisse at $c_0$ and $\mathcal L$ has rank one,
+so $\rho_T\otimes\lambda$ maps $I_{c_0}$ into the scalars. Hence
+$V_S\not\cong V_T\otimes\lambda$.
+
+Suppose $S=T$ and $A\ne\emptyset$, so that $\mathcal F_T=\mathcal F_S$. Choose
+$c_0\in A$ and, if $c_0\in S$ and $s$ is odd, construct $\mathcal F_S$ with an
+inversion root different from $c_0$. Take $g\in I_{c_0}$ with $\lambda(g)=-1$.
+If $c_0\notin S$, then $\rho_S(g)=1$ ($\mathcal F_S$ is lisse at $c_0$), while
+$(\rho_S\otimes\lambda)(g)=-1$. If $c_0\in S$, then $\rho_S(g)$ is unipotent by
+\cref{lem:dl:sheaf}(vi), so all its eigenvalues are $1$, while all eigenvalues of
+$(\rho_S\otimes\lambda)(g)=-\rho_S(g)$ are $-1$. In both cases $\rho_S(g)$ and
+$(\rho_S\otimes\lambda)(g)$ are not conjugate, so $V_S\not\cong V_S\otimes\lambda$.
+
+Thus $H^2_c=0$ unless $S=T$ and $A=\emptyset$. (In that case $\lambda=1$,
+$V_T=V_S$ and $H^2_c$ is one-dimensional; the case is computed directly in
+Step~4.)
+
+\emph{Step 4 (the diagonal case).} Let $S=T$ and $A=\emptyset$. Write
+$p\,\tau_S(x)=Y(x)+\one_{s\ \rm odd}$ with $Y(x)=\sum_z\chi(z-x)\chi(f_S(z))$.
+Then $\sum_xY(x)=0$, since $\sum_x\chi(z-x)=0$. By the two-root identity
+\eqref{eq:two-root}, $\sum_x\chi\big((z-x)(z'-x)\big)$ is $p-1$ if $z=z'$ and
+$-1$ otherwise, and $\chi(f_S(z))^2=\one_{z\notin S}$; so
+\begin{gather*}
+  \sum_xY(x)^2=p(p-s)-\Big(\sum_z\chi(f_S(z))\Big)^2,\\
+  \E_x\tau_S^2=\frac{\sum_xY(x)^2+p\one_{s\ \rm odd}}{p^3}
+  =\frac1p-\frac{h(s)}{p^2}-\frac1{p^3}\Big(\sum_z\chi(f_S(z))\Big)^2,
+\end{gather*}
+as $s-\one_{s\ \rm odd}=h(s)$. By \cref{thm:weil}(a) the last sum has modulus at
+most $(s-1)\sqrt p$, so
+$|\E_x\tau_S^2-p^{-1}|\le\big(h(s)+(s-1)^2\big)r^4\le2s^3r^4$, which is the last
+term of \eqref{eq:advance:rank-second} for $T=S$, $u=0$. Conceptually, the main
+term $1/p$ is the one invariant of $\mathcal F_S\otimes\mathcal F_S$, the pairing
+of \cref{lem:dl:sheaf}(v), on which Frobenius acts by $p$; the computation does
+not use this. The sheaves are needed for distinct root sets and nontrivial
+weights.
+
+\emph{Step 5 (dimension and weights).} If $S\ne T$ or $A\ne\emptyset$,
+Steps~2 and~3 show that the geometric coinvariants of $\mathcal G$ vanish.
+Its rank is $h(s)h(t)$, its weight is $2$, and it is tame at the
+$|S\cup T\cup A|+1$ missing points, including infinity. Thus
+\cref{lem:tame-trace-bound} gives
+\[
+ \Big|\sum_{x\in U(\Fp)}\mathrm{Tr}(\mathrm{Frob}_x\mid\mathcal G)\Big|
+ \le h(s)h(t)(|S\cup T\cup A|-1)p^{3/2}
+ \le(s+t+u-1)h(s)h(t)p^{3/2}.
+\]
+Dividing by $p^3$ and adding \eqref{eq:moving-root-omitted} gives
+\eqref{eq:advance:rank-second}, with the term $1$ of the bracket to spare
+(it allows for the invariant of the diagonal case).
+
+\emph{Step 6 (the first moment).} Let $U'=\mathbb A^1\setminus(S\cup A)$ and
+$\mathcal G'=\mathcal F_S\otimes\mathcal L'$ on $U'$, with $\mathcal L'$ the Kummer
+sheaf of $g_A$ on $U'$. $\mathcal G'$ is lisse of rank $h(s)\ge2$, pure of weight
+$1$, tame, and geometrically irreducible (as in Step~2, by
+\cref{lem:dl:sheaf}(i)--(iii) and \ref{it:prelim:E1}--\ref{it:prelim:E4}), so \cref{lem:tame-trace-bound} applies with $|S\cup A|$ finite punctures and
+gives
+$|\sum_{x\in U'(\Fp)}\mathrm{Tr}(\mathrm{Frob}_x\mid\mathcal G')|
+\le h(s)(|S\cup A|-1)p\le(s+u-1)h(s)p$.
+For $x\in U'(\Fp)$,
+$\chi_A(x)\tau_S(x)=-p^{-1}\mathrm{Tr}(\mathrm{Frob}_x\mid\mathcal G')$; $\chi_A$
+vanishes on $A$; and the at most $s$ points of $S\setminus A$ contribute at
+most $p^{-1}\cdot s\cdot sr=s^2r^3$ to $\E_x\chi_A\tau_S$. So
+$|\E_x\chi_A\tau_S|\le r^2(s+u-1)h(s)+r^3(s+u)s$, which is
+\eqref{eq:advance:rank-first}.
+\end{proof}
+
+The sizes enter the bounds through the ranks $h(s)$, $h(t)$, the puncture bound $s+t+u$, and the term $r(s+t+u)st$ in \eqref{eq:advance:rank-second}. The root cuts use root sets of sizes $2$ to $11$ and
+weights with at most ten roots, and they use the rank-sensitive bounds
+themselves, through the pivot groups of \cref{subsec:advance:ordered-star}. The
+product rows use root sets of sizes $2$ to $5$, weights with at most four
+roots, and the uniform constant $512$ below; the constant $6000$ is the
+corresponding uniform constant for the sizes of the root cuts.
+
+\begin{corollary}[Uniform constants]\label{cor:moving-root-uniform}
+For every odd prime $p$ and $S,T,A\subseteq\Fp$ with $2\le|S|,|T|\le11$ and
+$|A|\le10$,
+\[
+  \Big|\E_x\chi_A\tau_S\tau_T-\frac{\one_{S=T,\ A=\emptyset}}p\Big|\le6000\,p^{-3/2}.
+\]
+If $|S|,|T|\le5$ and $|A|\le4$, the constant $6000$ can be replaced by $512$.
+\end{corollary}
+
+\begin{proof}
+The bracket of \eqref{eq:advance:rank-second} is nondecreasing in $s$, $t$ and
+$u$. At $(s,t,u)=(11,11,10)$ it is $31\cdot100+1+32\cdot121r=3101+3872r$
+(rank $100$, at most $32$ finite punctures); at $(5,5,4)$ it is
+$13\cdot16+1+14\cdot25r=209+350r$ (rank $16$, at most $14$ finite punctures).
+Since $p\ge3$, $r\le1/\sqrt3$, and $3101+3872/\sqrt3<6000$,
+$209+350/\sqrt3<512$.
+\end{proof}
+
+\begin{corollary}[Conditional $L^2$ bound]\label{cor:moving-root-conditional}
+Let $y_1,\dots,y_d\in\Fp$ be distinct, $\varsigma_1,\dots,\varsigma_d\in\{\pm1\}$,
+$E\subseteq\Fp$ a set containing $y_1,\dots,y_d$, and
+$\Phi=\{x\in\Fp\setminus E:\varsigma_j(x-y_j)\in\Qsq\ \text{for}\ j\le d\}$; let
+$\nu$ be the uniform law on $\Phi$, and suppose $|\Phi|\ge(1-e)p2^{-d}$ with
+$e<1$, so that $\gamma=p2^{-d}/|\Phi|\le(1-e)^{-1}$. Let $S_1,\dots,S_m$ be
+distinct subsets of $\Fp$ of sizes in $[2,\bar s]$ and $b_1,\dots,b_m\in\R$.
+Then
+\[
+  \Big\|\sum_lb_l\tau_{S_l}\Big\|_{L^2(\nu)}
+  \le\sqrt\gamma\,r\Big[\sum_lb_l^2+2^dC\,r\Big(\sum_l|b_l|\Big)^2\Big]^{1/2},
+\]
+with $C=6000$ if $\bar s\le11$ and $d\le10$, and $C=512$ if $\bar s\le5$ and
+$d\le4$. In particular, for at most four pinned labels
+$y_1,\dots,y_d$ ($d\le4$) and root sets of sizes $2$ to $5$,
+the factor $2^dC$ may be taken equal to $8192$.
+\end{corollary}
+
+\begin{proof}
+For $x\in\Phi$ each factor $1+\chi(\varsigma_j(x-y_j))$ equals $2$, and every
+factor is nonnegative; so the density of $\nu$ relative to uniform probability is
+at most $\gamma\prod_j\big(1+\chi(\varsigma_j(x-y_j))\big)$, and, the function
+$F=\sum_lb_l\tau_{S_l}$ being real, $\E_\nu F^2\le\gamma\,\E_x\big[\prod_j(1+\chi(\varsigma_j(x-y_j)))F^2\big]$:
+dropping the factor $\one[x\notin E]\le1$ from the nonnegative integrand only increases the right side. Expanding the product
+over the subsets $P\subseteq\{1,\dots,d\}$, with $y(P)=\{y_j:j\in P\}$,
+\[
+  \E_x\Big[\prod_j\big(1+\chi(\varsigma_j(x-y_j))\big)F^2\Big]
+  =\sum_P\chi\Big(\prod_{j\in P}\varsigma_j\Big)\sum_{l,l'}b_lb_{l'}
+  \E_x\chi_{y(P)}\tau_{S_l}\tau_{S_{l'}}.
+\]
+By \cref{cor:moving-root-uniform} (arbitrary overlaps of $S_l$, $S_{l'}$ and the
+pins are allowed), the main terms with $P=\emptyset$ and $l=l'$ give
+$p^{-1}\sum_lb_l^2$, and all error terms, including the diagonal errors, together are at most
+$2^dC\,r^3(\sum_l|b_l|)^2$ in modulus, since the root sets $S_l$ are distinct.
+For $d\le4$ and $C=512$, $2^dC\le16\cdot512=8192$.
+\end{proof}
+
+\begin{remark}[One family of moments]\label{rem:trace-moment-family}
+\Cref{thm:dl:H2} and \eqref{eq:advance:rank-first} are first moments, and
+\eqref{eq:advance:rank-second} is a second moment, of the same normalized
+traces: $\Sigma=p^2\E_z\chi_{Z(g)}\tau_f-[m\text{ odd}]\sum_z\chi_{Z(g)}(z)$ when
+$f$ and $g$ are monic. Their common cohomological step is \cref{lem:tame-trace-bound}.
+The output statements keep the data needed by their different applications: \cref{thm:dl:H2} keeps the exact number of common roots and the
+symmetric variant, which the product rows and the completion variance use;
+\cref{lem:moving-root-moments} keeps the ranks and the puncture counts, which
+the pivot groups below need.
+\end{remark}
+
+\subsubsection{Grouping stars by a distinguished free label}\label{subsec:advance:ordered-star}
+
+The conditional laws to which the moments are applied are those of a half
+law given all labels but one.
+
+\begin{definition}[Pinned half laws]\label{def:pinned-law}
+Let $U$ be a finite set of $n$ vertices, and for each $i\in U$ let
+$N^0(i)\subseteq U\setminus\{i\}$, $d_i=|N^0(i)|$ (the degree inside the half; $d^0_i$ in the notation of \cref{sec:spectral}), and signs
+$\varsigma^0_{ij}\in\{\pm1\}$ ($j\in N^0(i)$). A probability law $\mu$ on the
+injective maps $x:U\to\Fp$ is a \emph{pinned half law} with count errors
+$e_i\in[0,1)$ if, for every $i\in U$ and every $x$ in the support of $\mu$, the
+conditional law of $x_i$ given $x_{-i}=(x_j)_{j\ne i}$ is the uniform law on
+\[
+  \Phi_i(x_{-i})=\big\{y\in\Fp\setminus x(U\setminus\{i\}):\
+  \varsigma^0_{ij}(y-x_j)\in\Qsq\ \text{for all}\ j\in N^0(i)\big\},
+\]
+and $|\Phi_i(x_{-i})|\ge(1-e_i)p2^{-d_i}$.
+\end{definition}
+
+For an oriented graph $G^+$ on $U$, the uniform law $\lambda_p(G^+)$ on
+$\mathrm{Inj}_p(G^+)$ (\cref{def:graphs:labeling}) is a pinned half law, with
+$N^0(i)$ the neighbours of $i$, $\varsigma^0_{ij}=+1$ for an edge $(j,i)$ and
+$-1$ for an edge $(i,j)$: given $x_{-i}$, the admissible values of $x_i$ are
+exactly $\Phi_i(x_{-i})$. By \cref{lem:extension}, with the at most $n-1$
+other labels excluded, one may take $e_i=e_{d_i}(p,n)$ whenever this is below
+one.
+
+\begin{lemma}[Ordered almost orthogonality]\label{lem:ordered-orthogonality}
+Let $x=(x_1,\dots,x_n)$ be a random vector with values in a finite set, with an
+arbitrary joint law, and let $F=\sum_{i=1}^nF_i$, where each $F_i$ is a real
+function of $(x_j)_{j\le i}$. Suppose that for every $i$, almost surely,
+$\E[F_i^2\mid x_{-i}]\le\alpha_i^2$ and $|\E[F_i\mid x_{-i}]|\le\beta_i$. Then
+\[
+  \E F^2\le\sum_i\alpha_i^2+2\sum_i\beta_i\sum_{j<i}\alpha_j .
+\]
+\end{lemma}
+
+\begin{proof}
+$\E F^2=\sum_i\E F_i^2+2\sum_{j<i}\E F_iF_j$, and $\E F_i^2\le\alpha_i^2$. For
+$j<i$ the function $F_j$ does not involve $x_i$, so it is a function of $x_{-i}$
+and $\E F_iF_j=\E\big[F_j\,\E[F_i\mid x_{-i}]\big]$, of modulus at most
+$\beta_i\E|F_j|\le\beta_i(\E F_j^2)^{1/2}\le\beta_i\alpha_j$.
+\end{proof}
+
+No independence between the $F_i$ is assumed: the cross terms are controlled
+by conditioning on all variables but the later one, which turns the later
+function into a combination of traces with fixed roots and the earlier one
+into a constant.
+
+\paragraph{Pivot groups.} Let $\mu$ be a pinned half law on $U$, fix a total
+order of $U$, and let $a_T\in\R$ be coefficients indexed by the subsets
+$T\subseteq U$ with $|T|\ge3$. Each such $T$ is assigned to its greatest vertex
+$i(T)$, its \emph{pivot}; put $s_T=|T|-1$ and
+$F_i(x)=\sum_{T:\,i(T)=i}a_T\,\tau_{x(T\setminus\{i\})}(x_i)$. For $i\in U$, with
+all sums over the $T$ with $i(T)=i$ and with $d=d_i$, put
+\begin{equation}\label{eq:pivot-sums}
+\begin{gathered}
+ A_i=\sum_Ta_T^2,\qquad L_i=\sum_T|a_T|,\qquad
+ U_i=\sum_T|a_T|h(s_T),\\
+ V_i=\sum_T|a_T|(s_T-1)h(s_T),\qquad
+ W_i=\sum_T|a_T|s_T,\qquad X_i=\sum_T|a_T|s_T^2,\\
+ E_i=2^d\Big[2U_iV_i+\big(\tfrac d2+1\big)U_i^2+L_i^2
+   +r\big\{2W_iX_i+\tfrac d2W_i^2\big\}\Big],\qquad
+ D_i^2=\frac{A_i+rE_i}{1-e_i},\\
+ K_i=\frac{2^d}{1-e_i}\Big[V_i+\tfrac d2U_i
+   +r\big\{X_i+\big(\tfrac d2+n-1\big)W_i\big\}\Big].
+\end{gathered}
+\end{equation}
+These nonnegative expressions also apply when $d_i=0$, and they vanish for a
+vertex that is the pivot of no support.
+
+\begin{lemma}[Conditional moments of a pivot group]\label{lem:pivot-moments}
+In this setting, for every $i\in U$ and every $x$ in the support of $\mu$,
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item $\E_\mu[F_i^2\mid x_{-i}]\le r^2D_i^2$;
+\item $|\E_\mu[F_i\mid x_{-i}]|\le r^2K_i$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Fix $i$ and $x_{-i}$, and write $d=d_i$, $X_{-i}=x(U\setminus\{i\})$ (a set of
+$n-1$ labels), $\varsigma_j=\varsigma^0_{ij}$ and $y_j=x_j$ for $j\in N^0(i)$.
+Given $x_{-i}$, $F_i=\sum_Ta_T\tau_{S_T}$ is a combination of traces with the
+fixed root sets $S_T=x(T\setminus\{i\})$ of sizes $s_T\ge2$, and these root sets
+are distinct, since $x$ is injective and distinct $T$ with the same pivot have
+distinct sets $T\setminus\{i\}$. The conditional law of $x_i$ has density
+$\gamma_i\prod_{j\in N^0(i)}\big(1+\chi(\varsigma_j(y-x_j))\big)\one[y\notin X_{-i}]$
+relative to uniform probability on $\Fp$, with
+$\gamma_i=p2^{-d}/|\Phi_i(x_{-i})|\le(1-e_i)^{-1}$. For $P\subseteq N^0(i)$ write
+$x(P)=\{x_j:j\in P\}$ and $\varsigma_P=\prod_{j\in P}\varsigma_j$; then
+$\prod_{j\in N^0(i)}(1+\chi(\varsigma_j(y-x_j)))=\sum_P\chi(\varsigma_P)\chi_{x(P)}(y)$.
+Over the $2^d$ subsets, $\sum_P1=2^d$ and $\sum_P|P|=\frac d22^d$.
+
+(a) As in the proof of \cref{cor:moving-root-conditional}, discarding the
+restriction $y\notin X_{-i}$ from a square,
+$\E_\mu[F_i^2\mid x_{-i}]\le\gamma_i\sum_P\chi(\varsigma_P)\sum_{T,T'}a_Ta_{T'}
+\E_y\chi_{x(P)}\tau_{S_T}\tau_{S_{T'}}$. By \eqref{eq:advance:rank-second} with
+$(s,t,u)=(s_T,s_{T'},|P|)$, the terms with $P=\emptyset$ and $T=T'$ give
+$p^{-1}\sum_Ta_T^2=r^2A_i$, and the error is at most
+\[
+  r^3\sum_P\sum_{T,T'}|a_T||a_{T'}|\Big[(s_T+s_{T'}+|P|-1)h(s_T)h(s_{T'})+1
+  +r(s_T+s_{T'}+|P|)s_Ts_{T'}\Big].
+\]
+Summing over $P$ replaces $|P|$ by $\frac d2$ and multiplies by $2^d$. Writing
+$s_T+s_{T'}-1+\frac d2=(s_T-1)+(s_{T'}-1)+(1+\frac d2)$, the rank part sums to
+$2U_iV_i+(\frac d2+1)U_i^2+L_i^2$ and the restored-point part to
+$2W_iX_i+\frac d2W_i^2$. So the error is at most $r^3E_i$, and
+$\E_\mu[F_i^2\mid x_{-i}]\le\gamma_i(r^2A_i+r^3E_i)\le r^2D_i^2$.
+
+(b) Unlike the second moment, the first moment cannot drop the excluded
+labels. Write $\one[y\notin X_{-i}]=1-\one[y\in X_{-i}]$:
+\[
+  \E_\mu[F_i\mid x_{-i}]=\gamma_i\sum_P\chi(\varsigma_P)\sum_Ta_T\E_y\chi_{x(P)}\tau_{S_T}
+  -\frac{\gamma_i}p\sum_{y\in X_{-i}}\prod_{j\in N^0(i)}\big(1+\chi(\varsigma_j(y-x_j))\big)F_i(y).
+\]
+By \eqref{eq:advance:rank-first}, the first part is at most
+$\gamma_ir^2\sum_P\sum_T|a_T|\big[(s_T+|P|-1)h(s_T)+r(s_T+|P|)s_T\big]
+=\gamma_ir^22^d\big[V_i+\frac d2U_i+r(X_i+\frac d2W_i)\big]$ in modulus. In the
+second part there are $n-1$ points, the pin product is at most $2^d$, and
+$|F_i(y)|\le\sum_T|a_T|s_Tr=rW_i$ by \cref{lem:moving-root-trace}(b); so it is
+at most $\gamma_ip^{-1}(n-1)2^drW_i=\gamma_ir^32^d(n-1)W_i$. This $(n-1)W_i$ term
+covers the excluded labels exactly, and the sum is at most $r^2K_i$.
+\end{proof}
+
+Every vertex of a support with pivot $j$ precedes or equals $j$, so $F_j$ is a
+function of $(x_k)_{k\le j}$, as \cref{lem:ordered-orthogonality} requires.
+
+\begin{proposition}[Norm of a sum of higher star functions in a fixed vertex order]\label{prop:advance:ordered-star}
+Let $\mu$ be a pinned half law on $U$, fix a total order of $U$ and real
+coefficients $a_T$ ($T\subseteq U$, $|T|\ge3$), and let $F_i$, $D_i$, $K_i$ be as
+in \eqref{eq:pivot-sums}. Then
+\[
+  \Big\|\sum_{i\in U}F_i\Big\|_{L^2(\mu)}\le M_\star
+  :=r\Big[\sum_iD_i^2+2r\sum_iK_i\sum_{j<i}D_j\Big]^{1/2},
+  \qquad |\E_\mu F_i|\le r^2K_i\quad(i\in U).
+\]
+In particular $\norm{P_0\sum_iF_i}_\mu\le M_\star$, where $P_0$ is the projection
+off constants. No bound on $n$, on the degrees or on $|T|$ is needed; the root
+cuts of the upper range have $n=36$, $d_i\le10$ and $|T|\le12$.
+\end{proposition}
+
+\begin{proof}
+Apply \cref{lem:ordered-orthogonality}, with the vertices listed in the fixed
+order, $\alpha_i=rD_i$ and $\beta_i=r^2K_i$ (\cref{lem:pivot-moments}(a),(b)):
+$\E_\mu(\sum_iF_i)^2\le r^2\sum_iD_i^2+2r^3\sum_iK_i\sum_{j<i}D_j=M_\star^2$.
+Integrating \cref{lem:pivot-moments}(b) gives the bound for $\E_\mu F_i$, and
+$P_0$ is a contraction.
+\end{proof}
+
+\begin{remark}[The order, and monotonicity in $r$]\label{rem:pivot-order}
+The order is only a choice of bound: the proposition holds for every total
+order. The certificates place the vertices in decreasing internal degree,
+breaking ties by their original indices, so every support uses one of its
+vertices of smallest internal degree as its pivot. If each $e_i$ is replaced by
+a bound $\bar e_i(r)<1$ that is a polynomial in $r$ with nonnegative
+coefficients (as $e_t(p,n)$ of \cref{lem:extension} is), then $D_i$, $K_i$, and
+hence $M_\star/r$ and the quantity $z_\star/r^2$ of \cref{lem:star-mean}, are
+nondecreasing functions of $r$; so evaluation at the largest $r$ in the range (the smallest prime) bounds every smaller $r$, hence every larger prime (\cref{lem:majorant}).
+\end{remark}
+
+\paragraph{Diagonal and pivot bounds.}
+The next lemma bounds the same kind of star marginal for a graph law, with
+arbitrary real coefficients, by the $T=T'$ density bounds of part~\textup{(a)} and the conditional-mean bounds of part~\textup{(b)}
+computed with \cref{thm:dl:H2} instead of conditional moments. It needs no
+order of the vertices: each cross term is conditioned on all labels but that
+of one vertex outside the other support.
+
+\begin{lemma}[Weighted star marginals in $L^2$]\label{lem:wt:stars}
+Let $G^+$ be an oriented graph on a set $U$ of $n$ vertices with degrees $d_i$
+and maximum degree $\Delta^+$, let $p$ be an odd prime with
+$e_{\Delta^+}(p,n)<1$, put $q=1/p$, and let $\mu=\lambda_p(G^+)$, a pinned half
+law whose neighbour sets $N^0(i)$ are the sets of neighbours in $G^+$
+(\cref{def:pinned-law}). For $T\subseteq U$ let $e(T)$ be the number of edges of
+$G^+$ inside $T$ and $w_T(x)=\E_z\prod_{j\in T}\chi(z-x_j)$ as in
+\cref{lem:star-trace}, and put
+$R_U=\prod_{i\in U}\frac{1+e_{d_i}(p,n)}{1-e_{d_i}(p,n)}$ (the quantity $R_{\rm full}$ of \cref{lem:spec2:paley-one} when $U=U^+$). For $|T|\ge3$ and
+$j\in T$ put $s_T=|T|-1$, $d=d_j$, $o=|N^0(j)\cap T|$,
+\begin{gather}
+ D^{\rm st}_T=\min\Big(2^{e(T)}R_U,\ \min_{i\in T}\frac{2^{d_i}}{1-e_{d_i}(p,n)},
+ \ (|T|-1)^2\Big),\label{eq:wt:Dst}\\
+ \beta_{T,j}=\frac q{1-e^-_d(n)}\Big[(d-o)+d(s_T-1)r
+ +\sum_{a=2}^d\sum_{u\ge0}\binom ou\binom{d-o}{a-u}\mathcal B_{\min}(s_T,a,u)
+ +2^d(n-1)s_Tr\Big],\label{eq:wt:beta}
+\end{gather}
+with the graded count error $e^-_d(n)$ of \eqref{eq:graphs:graded},
+$\mathcal B_{\min}(m,a,u)=\min\big(\mathcal B(m,a,u),\mathcal B(a,m,u)\big)$ with
+$\mathcal B$ of \eqref{eq:dl:B}, and binomial coefficients outside their range
+zero. For $T\ne T'$ of size at least three let $\Xi_{TT'}$ be the least of the
+numbers $\beta_{T,j}(D^{\rm st}_{T'})^{1/2}r$ ($j\in T\setminus T'$) and
+$\beta_{T',j}(D^{\rm st}_T)^{1/2}r$ ($j\in T'\setminus T$). Then for all
+$T,T'\subseteq U$ of size at least three:
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item $\E_\mu w_T^2\le qD^{\rm st}_T$;
+\item $|\E_\mu[w_T\mid x_{U\setminus\{j\}}]|\le\beta_{T,j}$ for $j\in T$ and
+  every feasible $x_{U\setminus\{j\}}$;
+\item $|\E_\mu w_Tw_{T'}|\le\Xi_{TT'}$ if $T\ne T'$.
+\end{enumerate}
+Consequently, for real coefficients $c_T$,
+\[
+ \Big\|\sum_{|T|\ge3}c_Tw_T\Big\|^2_\mu\le q\sum_Tc_T^2D^{\rm st}_T
+ +\sum_{T\ne T'}|c_Tc_{T'}|\,\Xi_{TT'} .
+\]
+\end{lemma}
+
+\begin{proof}
+By \cref{lem:graphs:sequential}\ref{it:seq:count},\ref{it:seq:coarse},
+$\mathrm{Inj}_p(G^+)\ne\emptyset$, so $\mu$ is defined, and it is supported on
+injective labellings. Write $x_{-j}=x_{U\setminus\{j\}}$ and
+$X_{-j}=\{x_k:k\ne j\}$. Since $e_t(p,n)$ is nondecreasing in $t$
+(\ref{it:et:poly}), $e_{d_i}(p,n)\le e_{\Delta^+}(p,n)<1$ for every $i$, and
+$e^-_d(n)\le e_d(p,n)<1$ (\ref{it:et:compare}).
+
+(a) Any one of three bounds suffices. \emph{Weil.} On injective labellings
+$\prod_{j\in T}(z-x_j)$ has $|T|$ distinct roots, so $|w_T|\le(|T|-1)r$ by
+\cref{thm:weil}(a), and $\E_\mu w_T^2\le(|T|-1)^2q$. \emph{Density.} By
+\cref{lem:graphs:vertex}\ref{it:vertex:tuple} with $V=T$, $C=\emptyset$ and any
+ordering of $T$, the law of $x_T$ under $\mu$ has density at most
+$2^{e(T)}R_{U\setminus T}\prod_{i\in T}(1-e_{t_i}(p,n))^{-1}$ with respect to the
+uniform probability on $\Fp^T$, where $t_i\le d_i$ is the number of earlier
+neighbours of $i$ in $T$, so that $\sum_it_i=e(T)$; as
+$(1-e_{t_i})^{-1}\le(1-e_{d_i})^{-1}\le(1+e_{d_i})/(1-e_{d_i})$, the density is at
+most $2^{e(T)}R_U$. Extend $w_T$ to all of $\Fp^T$ by its defining formula. By
+\eqref{eq:two-root}, with $s=|T|\ge3$,
+\begin{align*}
+ \E_{v\in\Fp^T}w_T(v)^2&=\E_{z,z'}\prod_{j\in T}\E_{v_j}\chi(z-v_j)\chi(z'-v_j)
+ =\E_{z,z'}(\one_{z=z'}-q)^s\\
+ &=q\big[(1-q)^s+(p-1)(-q)^s\big]\le q(1-q),
+\end{align*}
+since $(1-q)^s\le(1-q)^2$ and $(p-1)q^s\le(p-1)q^2$; so
+$\E_\mu w_T^2\le2^{e(T)}R_U\,q$. \emph{Conditional.} Fix $i\in T$, let
+$f=\prod_{l\in T\setminus\{i\}}(X-x_l)$ and
+$\mathcal G(\xi)=p^{-1}\sum_{y\in\Fp}\chi\big(f(y)(y-\xi)\big)$, so that
+$w_T=\mathcal G(x_i)$. Since
+$\sum_\xi\chi\big((y-\xi)(y'-\xi)\big)=p\one_{y=y'}-1$ by \eqref{eq:two-root},
+\[
+ \sum_{\xi\in\Fp}\mathcal G(\xi)^2
+ =p^{-2}\sum_{y,y'}\chi\big(f(y)f(y')\big)\big(p\one_{y=y'}-1\big)
+ =p^{-2}\Big[p(p-|T|+1)-\Big(\sum_y\chi(f(y))\Big)^2\Big]\le1 .
+\]
+By \cref{lem:graphs:vertex}\ref{it:vertex:dens}, given a feasible $x_{-i}$ the
+label $x_i$ is uniform on a set $\Phi_i$ of at least
+$p2^{-d_i}(1-e_{d_i}(p,n))$ elements, so
+$\E_\mu[w_T^2\mid x_{-i}]\le|\Phi_i|^{-1}\sum_\xi\mathcal G(\xi)^2
+\le q2^{d_i}/(1-e_{d_i}(p,n))$. Averaging over $x_{-i}$, and taking the least of
+the three bounds and of the choices of $i$, gives (a).
+
+(b) Fix $j\in T$ and a feasible $x_{-j}$; let $d$, $o$, $s_T$ be as in
+\eqref{eq:wt:beta}, and $f$, $\mathcal G$ as in (a) with $i=j$, so that
+$w_T=\mathcal G(x_j)$ and $\deg f=s_T\ge2$. Given $x_{-j}$, the label $x_j$ is
+uniform on the admissible set $\Phi_j=\Phi_j(x_{-j})$ of \cref{def:pinned-law}
+(\cref{lem:graphs:vertex}\ref{it:vertex:dens}). Put $\varsigma_k=\varsigma^0_{jk}$,
+$\varsigma_P=\prod_{k\in P}\varsigma_k$ and $x(P)=\{x_k:k\in P\}$, and use the
+character weights $\chi_A$ of \cref{subsec:moving-root-moments}. For
+$\xi\notin X_{-j}$ every $\xi-x_k$ is nonzero, and
+\[
+ \one_{\Phi_j}(\xi)=\prod_{k\in N^0(j)}\tfrac12\big(1+\chi(\varsigma_k)\chi(\xi-x_k)\big)
+ =2^{-d}\sum_{P\subseteq N^0(j)}\chi(\varsigma_P)\chi_{x(P)}(\xi).
+\]
+Hence, with $g_P=\prod_{k\in P}(X-x_k)$,
+\[
+ \sum_{\xi\in\Phi_j}\mathcal G(\xi)=2^{-d}\sum_{P\subseteq N^0(j)}\chi(\varsigma_P)
+ \Big[\frac{\Sigma_P}p-\sum_{\xi\in X_{-j}}\chi_{x(P)}(\xi)\mathcal G(\xi)\Big],
+ \qquad
+ \Sigma_P=\sum_{y,\xi\in\Fp}\chi\big(f(y)\,g_P(\xi)\,(y-\xi)\big).
+\]
+\emph{$P=\emptyset$:} $\Sigma_\emptyset=\sum_y\chi(f(y))\sum_\xi\chi(y-\xi)=0$.
+\emph{$P=\{k\}$:} $\sum_\xi\chi\big((\xi-x_k)(y-\xi)\big)=\chi(-1)(p\one_{y=x_k}-1)$
+by \eqref{eq:two-root}, so $\Sigma_P=\chi(-1)\big[p\chi(f(x_k))-\sum_y\chi(f(y))\big]$
+and $|\Sigma_P|/p\le|\chi(f(x_k))|+(s_T-1)r$ by \cref{thm:weil}(a); as $x$ is
+injective, $\chi(f(x_k))=0$ exactly when $k\in T$. So the $d$ sets with $|P|=1$
+contribute at most $(d-o)+d(s_T-1)r$. \emph{$|P|=a\ge2$:} $f$ and $g_P$ are monic
+and split with distinct roots, of degrees $s_T\ge2$ and $a\ge2$, and by
+injectivity they have exactly $u=|P\cap T|$ common roots; \cref{thm:dl:H2} with
+$c=c'=1$, in both of its forms, gives $|\Sigma_P|\le p\,\mathcal B_{\min}(s_T,a,u)$,
+and there are $\binom ou\binom{d-o}{a-u}$ such sets $P$ for given $a$ and $u$.
+\emph{The excluded labels:} $|\mathcal G(\xi)|\le s_Tr$ for every $\xi$. If $\xi$
+is not a root of $f$, $f(y)(y-\xi)$ has $s_T+1$ distinct roots and
+\cref{thm:weil}(a) applies; if it is, $f(y)(y-\xi)=(y-\xi)^2\tilde f(y)$ with
+$\tilde f$ of degree $s_T-1\ge1$ with distinct roots, the term $y=\xi$ vanishes,
+and $|p\,\mathcal G(\xi)|\le|\sum_y\chi(\tilde f(y))|+1\le(s_T-2)\sqrt p+1\le
+s_T\sqrt p$. The $2^d$ sets $P$ and the $n-1$ labels of $X_{-j}$ therefore
+contribute at most $2^d(n-1)s_Tr$. Altogether
+$|\sum_{\xi\in\Phi_j}\mathcal G(\xi)|$ is at most $2^{-d}$ times the bracket of
+\eqref{eq:wt:beta}. Finally
+$\E_\mu[w_T\mid x_{-j}]=|\Phi_j|^{-1}\sum_{\xi\in\Phi_j}\mathcal G(\xi)$, and
+\cref{lem:extension}\ref{it:ext:lower}, with the $d$ distinct roots $x_k$
+($k\in N^0(j)$), the signs $\chi(\varsigma_k)$ and the excluded set $X_{-j}$, which
+has $n-1\le n$ elements and contains the roots, gives
+$|\Phi_j|\ge p2^{-d}(1-e^-_d(n))>0$. Dividing gives (b).
+
+(c) Let $j\in T\setminus T'$. Then $w_{T'}$ is a function of $x_{T'}$ and
+$T'\subseteq U\setminus\{j\}$, so
+$\E_\mu w_Tw_{T'}=\E_\mu\big[w_{T'}\,\E_\mu[w_T\mid x_{-j}]\big]$, and by (b) and (a)
+$|\E_\mu w_Tw_{T'}|\le\beta_{T,j}\E_\mu|w_{T'}|\le\beta_{T,j}(qD^{\rm st}_{T'})^{1/2}
+=\beta_{T,j}(D^{\rm st}_{T'})^{1/2}r$. The case $j\in T'\setminus T$ is symmetric,
+and one of the two sets is nonempty as $T\ne T'$. For the last assertion expand
+$\norm{\sum_Tc_Tw_T}^2_\mu=\sum_{T,T'}c_Tc_{T'}\E_\mu w_Tw_{T'}$, and bound the
+diagonal terms by (a) and the others by (c).
+\end{proof}
+
+For a soft cross kernel the higher-star part of the marginal density of one half relative to $\mu$ is $\sum_{|T|\ge3}c_Tw_T$, where $T$ runs over sets of leaves in that half
+and $c_T$ is the sum, over the centres in the other half, of the star
+coefficients of support $T$ (\cref{cor:star-matrix}); for the cut kernel $K_0$ of \cref{sec:spectral} (all soft coefficients equal to $1$ on $E_\times$) $c_T=a_T$ of \eqref{eq:star-function}. The coefficients are arbitrary, so the
+signs and sizes of the soft entries play no role in the lemma. The certificates
+of the dense comparisons and of the six-query mixture
+(\cref{prop:dense-comparison,prop:le-mixture}) evaluate the bound with the count
+error $\big(\sum_{k\ge3}\binom dk(k-1)\big)r+\big(\binom d2+2^dn\big)q$ in place of
+$e^-_d(n)$. Since $\sum_{k\ge3}\binom dk(k-1)=a_d+b_d-\binom d2$ (proof of
+\cref{lem:extension}, and \ref{it:et:compare}), this error exceeds $e^-_d(n)$ by
+$\big(b_d-\binom d2\big)(r-q)\ge0$ ($b_d=2^{d-1}-1\ge\binom d2$ for $d\ge1$); the
+certificates use this weaker form: $\beta_{T,j}$ increases with $e^-_d(n)$ through the factor $(1-e^-_d(n))^{-1}$ in \eqref{eq:wt:beta}, so replacing $e^-_d(n)$ by a larger error below $1$ only enlarges the bound. For fixed coefficients, $D^{\rm st}_T$,
+$\beta_{T,j}/q$ and $\Xi_{TT'}/(qr)$ are nondecreasing functions of $r$: they are
+built from the polynomials $e_t(p,n)$, $e^-_t(n)$ and $\mathcal B(m,a,u)$ in $r$
+with nonnegative coefficients (\ref{it:et:poly}, \eqref{eq:dl:B}) by sums,
+products, minima and the maps $x\mapsto(1-x)^{-1}$, $x\mapsto(1+x)/(1-x)$ on
+$[0,1)$. So the bound divided by $q$ is nondecreasing in $r$, and a check at one
+prime covers every larger prime at which the coefficients are the same
+(\cref{lem:majorant}).
+
+\subsubsection{The complete-star mean}\label{subsec:advance:star-normalizer}
+
+The constant $Z_0=\E_{\mu\otimes\mu}K_0$ normalizing the cut kernel $K_0$ of \cref{sec:spectral} needs the mean of the star function, not only
+its centred part; here the affine constants of \cref{lem:star-trace} must be
+kept.
+
+\begin{lemma}[The complete-star mean]\label{lem:star-mean}
+Consider spectral data with the star function $h_\star$ and the coefficients
+$a_T$ of \eqref{eq:star-function}. Let $\mu=\lambda_p(G^+)$ be a pinned half law
+with count errors $e_i$, fix a total order of $U^+$, let $F_i$, $K_i$, $M_\star$
+be the quantities of \cref{subsec:advance:ordered-star} for the coefficients
+$a_T$ with $|T|\ge3$, and put
+\[
+  B_{\rm even}=\sum_{T:\ |T|\ \text{even}\ \ge2}a_T
+  =\sum_{k\in U^+}\Big(\frac12\Big[\prod_{j\in N(k)}\big(1+\chi(\varsigma_{jk})\big)
+  +\prod_{j\in N(k)}\big(1-\chi(\varsigma_{jk})\big)\Big]-1\Big).
+\]
+Then $h_\star=\sum_iF_i-B_{\rm even}/p$ on $\mathrm{Inj}_p(G^+)$. Consequently
+$h_\star-\E_\mu h_\star=P_0\sum_iF_i$, $\norm{h_\star-\E_\mu h_\star}_\mu\le M_\star$,
+and
+\[
+  |\E_\mu h_\star|\le z_\star:=r^2\Big(\sum_iK_i+|B_{\rm even}|\Big).
+\]
+\end{lemma}
+
+\begin{proof}
+By \eqref{eq:star-function} and \cref{lem:star-trace}, the supports with $|T|=1$
+contribute nothing, those with $|T|=2$ contribute $-a_T/p$, and those with
+$|T|\ge3$ contribute $a_T\big(\tau_{x(T\setminus\{i(T)\})}(x_{i(T)})-\one_{|T|\ \rm
+even}/p\big)$. Summing, $h_\star=\sum_iF_i-p^{-1}\big(\sum_{|T|=2}a_T
++\sum_{|T|\ge4\ \rm even}a_T\big)=\sum_iF_i-B_{\rm even}/p$. For the second
+expression of $B_{\rm even}$: for a centre $k$ with signs
+$c_j=\chi(\varsigma_{jk})$, $\sum_{T\subseteq N(k),\ |T|\ \rm even}\prod_{j\in T}c_j
+=\frac12\big[\prod_j(1+c_j)+\prod_j(1-c_j)\big]$, and the empty support, which
+contributes $1$, is subtracted. (For $|N(k)|\ge1$ a centre whose signs $c_j$ are
+all equal contributes $2^{|N(k)|-1}-1$, and every other centre contributes
+$-1$.) Then $\E_\mu h_\star=\sum_i\E_\mu F_i-B_{\rm even}/p$ and
+$h_\star-\E_\mu h_\star=P_0\sum_iF_i$, and \cref{prop:advance:ordered-star} gives
+both bounds, as $1/p=r^2$.
+\end{proof}
+
+\begin{remark}[How the mean enters, and what is not done]\label{rem:star-mean-scope}
+The row stars have the same mean as the column stars, and together the stars
+contribute $2\E_\mu h_\star$ to the normalizer of the cut kernel
+(\cref{lem:spec:stars}(c)). This is how $z_\star$ and
+$Z_\star\ge2|\E_\mu h_\star|$ enter hypothesis \ref{it:record:star-H3} of
+\cref{thm:record:direct-star}, and how the same bound enters the normalizer
+error of route~A (\cref{thm:spectral-criterion}). The number $z_\star$ depends
+on the class of $p$ through the signs $\chi(\varsigma_{jk})$: the
+root caps proved by Route~B, applied at $p\equiv3\pmod4$, use its value for that class
+(\cref{lem:record:direct-star-inputs}(ii)), and the completed-root caps use the
+larger of its two values (\cref{lem:upper-completed-root}). Two cautions
+apply. The affine constants are kept: the two-leaf stars and the constants
+$-\one_{|T|\ \rm even}/p$ make up $B_{\rm even}/p$, which does not vanish in the
+mean. And the estimate bounds $\E_\mu h_\star$ itself; the bound for the centred part $P_0h_\star=h_\star-\E_\mu h_\star$ is not used in its place.
+
+For one half law the mean is known exactly. On the half reference of the middle
+root cut L20, the graph law on the six vertices $(a_0,a_1,b_0,b_1,c_0,c_1)$ whose only edges are the four arrows $a_i\to c_j$ ($i,j\in\{0,1\}$) from the pair $(a_0,a_1)$ to the pair $(c_0,c_1)$, the remaining two vertices $(b_0,b_1)$ being isolated, the two-leaf star means
+cancel, the three-leaf ones add up to zero at each centre, and the four-leaf
+ones are given
+exactly in terms of the graph moment $M_{G_5}$ of the variance credits
+(\cref{lem:l20-star-mean}, proved in \cref{sec:variance} next to that moment).
+The normalizer of that cut uses this exact value instead of the general bound
+(\cref{subsec:middle-l20}).
+\end{remark}
+
+\subsection{Where these estimates enter}\label{subsec:second-order-uses}
+
+\Cref{tab:second-order-uses} lists every use in the final construction. The
+sheaves of \cref{lem:dl:sheaf} stand behind all rows except those of
+\cref{thm:dl:K,cor:dl:normalized,cor:raw-pair-maps}, which rest on the
+representation theory of $\mathrm{PGL}_2(\Fp)$, and the last row, an external
+evaluation through a modular form (\cref{subsec:external:modular}).
+
+\begin{table}[ht]
+\small
+\caption{Where the second-order estimates enter.}\label{tab:second-order-uses}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{3.1cm}%
+>{\raggedright\arraybackslash}p{5.6cm}>{\raggedright\arraybackslash}p{5.4cm}@{}}
+\toprule
+estimate & enters as & in\\
+\midrule
+\cref{thm:dl:K}, \cref{cor:dl:normalized}(a)
+ & the norm $2r^2$ of a two-vertex strongly connected block of a witness kernel
+   (\cref{lem:matching:kernel}), hence the complete-rectangle coefficient of the
+   compressed partitions (\cref{lem:advance:compressed-partition})
+ & the nonstar bounds of every spectral cap: the twelve-label grid, the caps of
+   the root cut L20 (\cref{subsec:middle-l20,sec:positive-roots}), the ten
+   nonroot upper cuts, $N_{\rm ns}$ of the direct-star root
+   (\cref{lem:record:direct-star-inputs}(iii)), the pinned rows of \cref{subsec:push:pinnedremainder}\\
+\cref{cor:dl:normalized}
+ & the injective $K_{2,2}$ core $2r^2$ of a matched neighbourhood in the
+   completion variance (\cref{lem:push:localvariance}, through
+   \cref{lem:matching:kernel}(b))
+ & the coupling block (\cref{cor:spec2:coupling}) of the completed-root caps (\cref{lem:upper-completed-root})
+   from $2^{52}$\\
+\cref{cor:raw-pair-maps}
+ & the remainder $\norm R^2\le c_0q^2$ of the raw pair maps (b), and the norms
+   $r$ and $\sqrt{q(1-q)}$ of the maps of (a)
+ & the square identity, the linear trace and the layer squares of the
+   positive roots
+   (\cref{lem:root-square,lem:root-linear,prop:root-layer})\\
+\cref{thm:dl:H2}
+ & the pair term of the completion variance, through the coefficient triples of
+   $\mathcal B(a,b,0)$ (\cref{rem:dl:H2-sharp}(ii))
+ & the coupling block of the completed-root caps (\cref{lem:upper-completed-root}) from $2^{52}$\\
+\cref{thm:dl:H2}
+ & the complete conditional means (PR1) of the product rows, with
+   $p\,\mathcal B(4,4,0)<40p$ (\cref{rem:dl:H2-sharp}(iii),
+   \cref{subsec:advance:product-rows})
+ & the row inputs of the upper bands\\
+\cref{lem:wt:stars} (through \cref{thm:dl:H2})
+ & the $L^2$ norm of the weighted higher-star marginals of a soft cross kernel
+ & the dense comparisons and the six-query mixture of the upper range
+   (\cref{prop:dense-comparison,prop:le-mixture})\\
+\cref{cor:moving-root-uniform,cor:moving-root-conditional}
+ & the weighted moments (PR7) and the conditional $L^2$ bounds (PR8) of the
+   product rows
+ & the row inputs of the upper bands\\
+\cref{prop:advance:ordered-star,lem:star-mean}
+ & $M_\star$, $z_\star$ and $Z_\star$ (\cref{lem:record:direct-star-inputs}(i),(ii))
+ & the direct-star root on the upper bands from $P_3$ to $2^{52}$
+   (\cref{thm:record:direct-star}) and the completed-root caps from $2^{52}$
+   (\cref{lem:upper-completed-root})\\
+\cref{thm:ahlgren-ono} (\cref{app:external})
+ & the bounds $-(1-q)(2qr+q^2)\le M_{G_5}\le(1-q)(2qr-q^2)$ of the graph
+   moment \eqref{eq:record:modular-moment}, in the second moment of a
+   neighbourhood count (\cref{lem:record:weighted-moment}) and in the quartic
+   star mean (\cref{lem:l20-star-mean})
+ & the root-half variances $\chi_p$ (the $\chi^2$-divergences of \cref{sec:variance}, not the character $\chi_p$ above) of the middle roots
+   (\cref{lem:record:root-marginal}) in the restorations and the completion of
+   the root cut L20 (\cref{subsec:middle-l20}); the star mean of that cut; the
+   linear prices and the normalization of the positive roots
+   (\cref{lem:root-linear,lem:root-normalization})\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Consequences and what to read next.}
+This section used the following inputs; its outputs are the three second-order estimates of the opening, whose uses are listed in \cref{tab:second-order-uses}.
+From Part~II: Weil's bound (\cref{thm:weil}), Jacobi sums (\cref{thm:jacobi}),
+the two-root identity \eqref{eq:two-root}, the Paley operator
+(\cref{lem:square-shift}(c)), and, in \cref{rem:pivot-order} and in the discussion after \cref{lem:wt:stars} only (not in any proof), the admissible majorants of
+\cref{lem:majorant}. From Part~IV: strict-square labellings and the extension
+count (\cref{def:graphs:labeling,lem:extension}), to see that half laws are
+pinned and, with the one-vertex conditional laws and tuple densities of graph
+laws (\cref{lem:graphs:vertex}\ref{it:vertex:dens},\ref{it:vertex:tuple}), the
+sequential counts (\cref{lem:graphs:sequential}), the graded lower count
+\cref{lem:extension}\ref{it:ext:lower} and the properties
+\ref{it:et:compare}, \ref{it:et:poly} of the count errors, in
+\cref{lem:wt:stars}; spectral data
+(\cref{def:spec:data}) for the cross signs of the star function; and, in remarks and discussion only (not in any proof), \cref{lem:spec:stars,cor:star-matrix,lem:swapped-rectangle}. From
+\cref{app:external}: the character table of $\mathrm{GL}_2(\Fp)$ with its
+class sizes (\cref{thm:prelim:gl2}); the $\ell$-adic facts
+\ref{it:prelim:E1}--\ref{it:prelim:E4}; the trace formula, the cohomology of
+open curves, Deligne's theorem and the Euler characteristic formula
+(\cref{thm:prelim:lefschetz,thm:prelim:curves,thm:prelim:weights,thm:prelim:gos});
+and the Katz--Sarnak family with its self-duality and its local monodromy at the
+finite roots (\cref{thm:prelim:ks}).

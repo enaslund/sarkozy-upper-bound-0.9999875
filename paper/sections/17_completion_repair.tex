@@ -1,0 +1,1473 @@
+\section{Making a graph law reflection positive, and replacing a law at fixed marginals}\label{sec:completion-repair}
+
+\paragraph{What this section proves and how to read it.}
+A graph law need not be reflection positive: its cut operator can have a
+negative part of size about $gp^{-1/2}$. This section proves three
+constructions that, with the spectral caps, produce the objects
+Theorem~C needs. A \emph{completion} adds four smaller summand
+types (folds, matchings, merges, constants, with weights in powers
+of $r=p^{-1/2}$) to make the law reflection positive at every cut.
+\emph{Polarization} dominates two summands by two others in the
+$2\times2$ block order. A \emph{replacement at fixed marginals}
+(called a \emph{repair} in Part~V) reweights a coupling by
+$1+f(x)+g(y)$ to prescribed one-half marginals with the same
+support; ``repair'' never means a small perturbation, and a
+repaired record keeps the actual half marginals of the record it
+replaces, so differences annihilate constants. Inputs: spectral
+caps (\cref{sec:spectral}). Outputs: the completion, polarization
+and repair theorems applied in Part~V. A first reading should
+follow the chamber geometry and the three statements below; weight
+calculations are reference material.
+
+\begin{enumerate}[label=(\arabic*)]
+\item \emph{The five-type completion} (\cref{lem:five-type}). Adding to a
+ root law its folds, matchings, merges and constants, with weights in powers
+ of $r=p^{-1/2}$ fixed by four scalar inequalities, gives a law that is
+ reflection positive at every chamber cut; adding one-layer diagonals
+ restores the reserved cut $\iota$. This is (CP1) of \cref{def:cp1} for the
+ middle atoms (\cref{lem:front12:reference}), the upper atoms
+ (\cref{lem:upper-reference-rp}) and the tail atoms (\cref{sec:tail-index}).
+ Its joint form (f) completes rows whose fold and matching kernels are bounded
+ together, in one Gram matrix, with a mean allowance $t_Y>0$ for each row
+ subject to $t_Y\le H^{-1}$ and $M\ge H+t_Y$
+ (\cref{cor:joint-completion-blocks}); the bands of the upper range use it.
+\item \emph{Polarization} (\cref{lem:tr:polarization}). At the chamber cut
+ $\vartheta_0$ the two nonaligned fold records are dominated by the two
+ matching records plus a merge correction of one more order in $r$. This is
+ the first-stage order (CP2)(a) of \cref{def:cp2} (\cref{sec:middle-frame}),
+ the matching bridge of the variance credits (\cref{sec:variance}) and, in all
+ degrees, the fold coupon of the mean credit (\cref{prop:record:mean-credit}).
+\item \emph{Additive marginal repair} (\cref{lem:tr:repair}) with the
+ centred norm of an additive reweighting
+ (\cref{lem:record:additive-cancellation}). A coupling with the required support whose prescribed target
+ marginals are $\mu_X=(1+u)\nu_X$ and $\mu_Y=(1+v)\nu_Y$ with
+ $|u|\le U_X$, $|v|\le U_Y$ (and the $L^2$ bounds of \cref{lem:tr:repair})
+ is reweighted by $1+f(x)+g(y)$ to a coupling with exactly those marginals
+ and the same support, and its centred conditional norm stays of the same order; the
+ centred correction is bounded in the actual marginal space, with separate
+ symmetric and skew parts and, against a law with the same marginals, without a
+ marginal-variance term (\cref{lem:record:centered-correction}). If a coupling
+ with the prescribed marginals and the required support is at hand, a positive
+ kernel is completed by mixing it in (\cref{cor:markov-completion}). Apart from
+ the matching records of the middle range, whose law keeps the half marginals of
+ the records it replaces without a repair (\cref{lem:record:e-law}), the
+ comparison records of (CP4) of \cref{def:cp4} are such repaired records or
+ finite combinations of them: the signed fold law of the middle range combines
+ three positive components completed through an accepting coupling
+ (\cref{sec:middle-records}); the middle merge repairs use \cref{lem:tr:repair}
+ (\cref{lem:merge-repair}); the upper range uses one-way repairs (imposing edges in one
+direction only across the reserved cut), dense
+ comparisons repaired by the initial-segment bound of \cref{lem:tr:repair}(g)
+ and a convex mixture of such repairs (\cref{sec:upper-comparison}); and the
+ tail uses one-way repairs
+ (\cref{sec:tail-index}).
+\end{enumerate}
+A repaired record keeps the actual half marginals of the record it replaces,
+and so does a signed combination of such records with total coefficient one;
+so every record difference annihilates the constants on both sides of the
+reserved cut. This is what makes the sharp prices, the variance credits and
+the common mean of Part~V (the empty-support component retained
+in \cref{lem:record:common-mean}(a)) possible. \Cref{subsec:chamber-geometry} fixes the
+chamber geometry of the records, which all three statements use.
+
+\subsection{How records sit inside chambers (supports and symmetries)}\label{subsec:chamber-geometry}
+
+Throughout this section the patterns below act in one chamber
+coordinate $\Z/6\Z$ (two in \cref{lem:five-type}(d)); all remaining slot data
+of a configuration are carried by the objects in $\mathfrak X$. We use the
+rotation $\rot$, the chamber reflections $\vartheta_i(j)=2i-1-j$ with plus
+halves $H_i=\{i,i+1,i+2\}$ ($\vartheta_{i+3}=\vartheta_i$), and the group
+$\mathcal G_6$ of \cref{def:slot-array,lem:slot-array}(i): the translations
+$u\mapsto u+2k$ and the reflections $\vartheta_0,\vartheta_1,\vartheta_2$
+($u\mapsto5-u$, $1-u$, $3-u$).
+
+An \emph{object} carries the labels of a finite set $\mathfrak X$, and a
+\emph{configuration} is $\Psi=(\Psi_u)_{u\in\Z/6\Z}\in\mathfrak X^{\Z/6\Z}$. For a
+cut $\vartheta=\vartheta_i$ we use the cut matrix $C_\vartheta$, the order
+$\succeq_\vartheta$ and the cut form of \cref{def:cc:order} on configurations, and
+write the diagonal cut form at a real function $g$ on $\mathfrak X^{H_i}$ as
+\[
+ Q^{\vartheta}_\kappa(g)=\int g(\Psi|_{H_i})\,g\bigl((\Psi\circ\vartheta)|_{H_i}\bigr)
+ \,d\kappa(\Psi)=\ip g{C_\vartheta(\kappa)g},\qquad Q_\kappa=Q^{\vartheta_0}_\kappa .
+\]
+For a law $\lambda$ on $\mathfrak X^{H_i}$ the diagonal copy
+$\operatorname{Diag}_\vartheta(\lambda)$
+(\cref{lem:commoncut}(i)) is fixed \emph{samplewise} by
+$\vartheta$, meaning $\Psi\circ\vartheta=\Psi$ for every
+configuration $\Psi$ in its support, and its cut form is
+$\E_\lambda g^2$.
+
+\begin{definition}[Patterns and types]\label{def:patterns}
+For a map $\phi\colon\Z/6\Z\to O$ into a finite set of objects and a law
+$\lambda$ on $\mathfrak X^O$, $\Pi_\phi(\lambda)$ is the law of the configuration
+$\omega\circ\phi=(\omega_{\phi(u)})_u$, $\omega\sim\lambda$; we write $\Pi_\phi$
+when $\lambda$ is clear. The \emph{patterns}, listed as $(\phi(0),\dots,\phi(5))$,
+are:
+\begin{itemize}
+\item the identity of $\Z/6\Z$ (type $\rm L$, the \emph{root});
+\item the three \emph{folds} $F_0=(0,1,2,2,1,0)$, $F_1=(1,0,0,1,2,2)$,
+ $F_2=(2,2,1,0,0,1)$ (type $\rm D$), with $O=\{0,1,2\}$;
+\item the two \emph{matchings} $E_0=(0,1,1,2,2,0)$ and $E_1=(0,0,1,1,2,2)$
+ (type $\rm S$), constant on the blocks of the pair partitions
+ $\mathcal P_e=\{\{0,5\},\{1,2\},\{3,4\}\}$ and
+ $\mathcal P_o=\{\{0,1\},\{2,3\},\{4,5\}\}$, whose $k$th blocks are
+ $E_0^{-1}(k)$ and $E_1^{-1}(k)$;
+\item the six \emph{merges} $G_{sk}=\one[E_s(\cdot)=k]$, $s\in\{0,1\}$,
+ $k\in\{0,1,2\}$ (type $\rm R$), with values in $\{0,1\}$:
+ $G_{00}=(1,0,0,0,0,1)$, $G_{01}=(0,1,1,0,0,0)$, $G_{02}=(0,0,0,1,1,0)$,
+ $G_{10}=(1,1,0,0,0,0)$, $G_{11}=(0,0,1,1,0,0)$, $G_{12}=(0,0,0,0,1,1)$; we
+ write $G_e=G_{00}$ and $G_o=G_{11}$;
+\item the constant map $0$, counted twice as $C_0$ and $C_1$ (type $\rm C$),
+ so that $\pi_{\rm C}$ in \cref{def:five-type-datum} contains two copies of
+ $\Pi_0(\nu)$ and contributes the term $2a_{\rm C}z^2$ in
+ \cref{lem:five-type}(a).
+\end{itemize}
+The types $\rm L,D,S,R,C$ have the \emph{multiplicities}
+$1,3,2,6,2$ and the \emph{formal degrees} $0,1,1,2,3$, where the
+formal degree is the exponent of $r$ in the graded weight of
+\cref{lem:five-type}.
+\end{definition}
+
+The geometry of these patterns is the following finite check. The root graph
+of the middle reference, with one or two layers, is the \emph{rotation lift}
+$G_{\rm L}$ below; with two layers its uniform law is the twelve-label root of
+\cref{sec:middle-reference}, and on the three late middle pieces the root is a
+positive reweighting of this law, with the same support and the same
+symmetries (\cref{sec:positive-roots}).
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+pattern & plus half $(\Psi_0,\Psi_1,\Psi_2)$ & reflected half $(\Psi_5,\Psi_4,\Psi_3)$ & position\\
+\midrule
+$F_0$ & $(\omega_0,\omega_1,\omega_2)$ & $(\omega_0,\omega_1,\omega_2)$ & diagonal\\
+$F_1$ & $(\omega_1,\omega_0,\omega_0)$ & $(\omega_2,\omega_2,\omega_1)$ & $\mathcal U\to\mathcal V$\\
+$F_2$ & $(\omega_2,\omega_2,\omega_1)$ & $(\omega_1,\omega_0,\omega_0)$ & $\mathcal V\to\mathcal U$\\
+$E_0$ & $(\omega_0,\omega_1,\omega_1)$ & $(\omega_0,\omega_2,\omega_2)$ & $\mathcal U\to\mathcal U$\\
+$E_1$ & $(\omega_0,\omega_0,\omega_1)$ & $(\omega_2,\omega_2,\omega_1)$ & $\mathcal V\to\mathcal V$\\
+$G_{00}=G_e$ & $(\omega_1,\omega_0,\omega_0)$ & $(\omega_1,\omega_0,\omega_0)$ & diagonal on $\mathcal U$\\
+$G_{01}$ & $(\omega_0,\omega_1,\omega_1)$ & $(\omega_0,\omega_0,\omega_0)$ & $\mathcal U\to\mathcal Z$\\
+$G_{02}$ & $(\omega_0,\omega_0,\omega_0)$ & $(\omega_0,\omega_1,\omega_1)$ & $\mathcal Z\to\mathcal U$\\
+$G_{10}$ & $(\omega_1,\omega_1,\omega_0)$ & $(\omega_0,\omega_0,\omega_0)$ & $\mathcal V\to\mathcal Z$\\
+$G_{11}=G_o$ & $(\omega_0,\omega_0,\omega_1)$ & $(\omega_0,\omega_0,\omega_1)$ & diagonal on $\mathcal V$\\
+$G_{12}$ & $(\omega_0,\omega_0,\omega_0)$ & $(\omega_1,\omega_1,\omega_0)$ & $\mathcal Z\to\mathcal V$\\
+$C_0,C_1$ & $(\omega_0,\omega_0,\omega_0)$ & $(\omega_0,\omega_0,\omega_0)$ & diagonal on $\mathcal Z$\\
+\bottomrule
+\end{tabular}
+\caption{The halves of $\omega\circ\phi$ at $\vartheta_0$, for
+$\omega=(\omega_0,\omega_1,\omega_2)$, and the corners
+$\mathcal U=\{(b,y,y)\colon y\ne b\}$, $\mathcal V=\{(y,y,b)\colon y\ne b\}$,
+$\mathcal Z=\{(b,b,b)\}$ of $\mathfrak X^{H_0}$ in which they lie when the
+labels $\omega_o$ that occur are distinct. In the position column
+$\mathcal A\to\mathcal B$ means that the plus half lies in $\mathcal A$ and
+the reflected half in $\mathcal B$.}
+\label{tab:corner}
+\end{table}
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+$\alpha$ & $(F_0\circ\alpha,F_1\circ\alpha,F_2\circ\alpha)$ & $\psi_{0,\alpha}$ & $\psi_{1,\alpha}$\\
+\midrule
+$\vartheta_1\colon u\mapsto1-u$ & $(F_1,F_0,F_2)$ & $(0\ 1)$ & $(1\ 2)$\\
+$\vartheta_2\colon u\mapsto3-u$ & $(F_2,F_1,F_0)$ & $(0\ 2)$ & $(0\ 1)$\\
+$\vartheta_0\colon u\mapsto5-u$ & $(F_0,F_2,F_1)$ & $(1\ 2)$ & $(0\ 2)$\\
+$u\mapsto u+2$ & $(F_2,F_0,F_1)$ & $(0\ 1\ 2)$ & $(0\ 1\ 2)$\\
+\bottomrule
+\end{tabular}
+\caption{Precomposition with the generators of $\mathcal G_6$:
+$E_s\circ\alpha=\psi_{s,\alpha}\circ E_s$, where $(0\ 1\ 2)$ is the cycle
+$0\mapsto1\mapsto2\mapsto0$.}
+\label{tab:reflection}
+\end{table}
+
+\begin{lemma}[Chamber geometry of the records]\label{lem:record:fold-identification}
+Let $\Blk$ be a finite set of primes and $\Lambda$ a finite set of layers. Let
+$G_{\rm L}$ be the oriented graph on $\Z/6\Z\times\Lambda$ with the edges
+$(u,\ell)\to(\rot u,\ell')$ for all $u$ and all $\ell,\ell'\in\Lambda$ (all layer
+lifts of the six rotation edges $0\to2\to4\to0$ and $1\to5\to3\to1$); let
+$G_{\rm F}$ be the graph on $\{0,1,2\}\times\Lambda$ with the
+edges $(0,\ell)\to(2,\ell')$ for all $\ell,\ell'\in\Lambda$,
+and $G_{\rm E}$ the graph on $\{0,1,2\}\times\Lambda$
+without edges. An object carries one label of $X_{\Blk}=\prod_{p\in\Blk}\Fp$ per
+layer, so $\mathfrak X=X_{\Blk}^\Lambda$. The graph law $\lambda_{\Blk}(G_{\rm L})$ is a law on
+$\mathfrak X^{\Z/6\Z}$; put $\lambda_{\rm F}=\lambda_{\Blk}(G_{\rm F})$ and
+$\lambda_{\rm E}=\lambda_{\Blk}(G_{\rm E})$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item The reflections $u\mapsto k-u$ $(k\in\{1,3,5\})$ and the translation
+ $u\mapsto u+2$ map the edge set of $G_{\rm L}$ onto itself. Hence $\lambda_{\Blk}(G_{\rm L})$ is invariant under $\mathcal G_6$, and at each $\vartheta_i$ it is a coupling
+ of two copies of one half law.
+\item For $j\in\{0,1,2\}$, $F_j\circ\vartheta_{2j}=F_j$, and $F_j$ maps the
+ points $2j,2j+1,2j+2$ of $H_{2j}$ (indices mod $6$) to $0,1,2$. Hence for every
+ law $\lambda$ on $\mathfrak X^{\{0,1,2\}}$,
+ $\Pi_{F_j}(\lambda)=\operatorname{Diag}_{\vartheta_{2j}}(\lambda^{(j)})$, where
+ $\lambda^{(j)}$ is the law on $\mathfrak X^{H_{2j}}$ which puts the labels of the
+ object $o$ at $2j+o$, $o\in\{0,1,2\}$. We call $\vartheta_{2j}$ the
+ \emph{fold chamber} of $F_j$.
+\item The subgraph of $G_{\rm L}$ induced on $H_{2j}\times\Lambda$, read in the
+ order $(2j,2j+1,2j+2)$, is $G_{\rm F}$. Hence the half marginal of
+ $\lambda_{\Blk}(G_{\rm L})$ on $H_{2j}$, read in this order, is a law on the support of
+ $\lambda_{\rm F}$, and it does not depend on $j$.
+\item Let $\Lambda=\{0,1\}$ and let $\iota$ be the layer swap, with plus half the
+ layer $0$. If a law $\lambda$ on $\mathfrak X^O$ is invariant under the swap of
+ the two layer labels of every object, then every image $\Pi_\phi(\lambda)$ is
+ symmetric at $\iota$, and its actual half marginal at $\iota$ is the image
+ under $\phi$ of the layer-zero marginal of $\lambda$. In particular
+ $\Pi_{F_j}(\lambda_{\rm F})$ and $\Pi_{E_s}(\lambda_{\rm E})$ are symmetric at
+ $\iota$; the actual half marginal of the first is $\Pi_{F_j}(m_0)$, where
+ $m_0$ is the law of the layer-zero triple under $\lambda_{\rm F}$, that of the second the
+ uniform law on the ordered triples of labels distinct at every prime of
+ $\Blk$, placed by $E_s$.
+\item Precomposition with $\alpha\in\mathcal G_6$ permutes the folds, maps
+ $E_s$ to $\psi\circ E_s$ for a permutation $\psi=\psi_{s,\alpha}$ of
+ $\{0,1,2\}$, maps $G_{sk}$ to $G_{s,\psi^{-1}(k)}$, and fixes the constant
+ maps; for the generators the action is that of \cref{tab:reflection}. The
+ fold $F_j$ and the merges $G_e$, $G_o$ are fixed by the following
+ chamber reflections: $F_0$, $G_e$ and $G_o$ by $\vartheta_0$, $F_1$ by $\vartheta_2$,
+ $F_2$ by $\vartheta_4=\vartheta_1$.
+\item At $\vartheta_0$ the halves of $\omega\circ\phi$ are those of
+ \cref{tab:corner}. The corners $\mathcal U$, $\mathcal V$, $\mathcal Z$ are
+ pairwise disjoint.
+\end{enumerate}
+Parts (b), (e) and (f) use only the patterns, and hold for objects with labels
+in any finite set $\mathfrak X$.
+\end{lemma}
+
+\begin{proof}
+(a) Under $u\mapsto3-u$ the edges $0\to2$, $2\to4$, $4\to0$ go to $3\to1$,
+$1\to5$, $5\to3$, and conversely; under $u\mapsto1-u$ they go to $1\to5$,
+$5\to3$, $3\to1$, and under $u\mapsto5-u$ to $5\to3$, $3\to1$, $1\to5$; the
+translation by two permutes each of the two directed triangles. Since all layer
+lifts of every rotation edge are edges, these maps, acting on the first
+factor, are automorphisms of $G_{\rm L}$, and they generate $\mathcal G_6$. A
+graph automorphism permutes the injective strict-square labellings at every
+prime, so it preserves $\lambda_{\Blk}(G_{\rm L})$. A law invariant under
+$\vartheta_i$ has the same law on its two halves.
+
+(b) At the points $2j,2j+1,2j+2$ the fold $F_j$ takes the values $0,1,2$
+(for $F_2$ the points are $4,5,0$), and $\vartheta_{2j}(u)=4j-1-u$, that is
+$5-u$, $3-u$ and $1-u$ for $j=0,1,2$; substitution in the tuples gives
+$F_j(\vartheta_{2j}u)=F_j(u)$. So every configuration $\omega\circ F_j$ is fixed
+by $\vartheta_{2j}$, and its plus half carries $\omega_o$ at $2j+o$.
+
+(c) Inside $H_{2j}$ the only rotation edge is $2j\to2j+2$: $\rot(2j)=2j+2$,
+while $\rot(2j+1)=2j-1$ and $\rot(2j+2)=2j+4$ lie outside $H_{2j}$, and the odd
+position $2j+1$ is joined in $G_{\rm L}$ only to odd positions. With all layer lifts the induced
+graph is $G_{\rm F}$ in the stated order. The restriction of an injective
+strict-square labelling of $G_{\rm L}$ to $H_{2j}\times\Lambda$ is one of the
+induced graph. The translation $u\mapsto u+2j$ maps $H_0$ onto $H_{2j}$ in order and
+preserves $G_{\rm L}$, so by (a) the half marginal does not depend on $j$.
+
+(d) The layer swap commutes with $\omega\mapsto\omega\circ\phi$, so the image of
+a swap-invariant law is $\iota$-invariant, which is the symmetry of its cut
+matrix at $\iota$; its plus half is the layer-zero part. The swap is an
+automorphism of $G_{\rm F}$ (all layer lifts of $0\to2$ are edges) and of
+$G_{\rm E}$, so $\lambda_{\rm F}$ and $\lambda_{\rm E}$ are swap invariant. Under
+$\lambda_{\rm E}$ the six labels are uniform among those distinct at every
+prime, so the layer-zero triple is uniform on the ordered triples of distinct
+labels.
+
+(e) Substitution in the tuples gives \cref{tab:reflection}; for instance
+$E_0(1-u)=(1,0,0,2,2,1)$, which is $E_0$ with the names $0,1$ exchanged, and
+$F_1(3-u)=F_1(u)$. Since the generators map each block of $\mathcal P_e$ and of
+$\mathcal P_o$ onto a block of the same partition, so does every
+$\alpha\in\mathcal G_6$, and $E_s\circ\alpha=\psi\circ E_s$ for the induced
+permutation $\psi$ of the block names. Then
+$G_{sk}(\alpha u)=\one[\psi(E_s(u))=k]=G_{s,\psi^{-1}(k)}(u)$. The last
+sentence is (b) together with $G_{00}(5-u)=G_{00}(u)$ and
+$G_{11}(5-u)=G_{11}(u)$.
+
+(f) Substitution gives \cref{tab:corner}. If $(b,y,y)=(y',y',b')$ with
+$y\ne b$ and $y'\ne b'$, then $y'=b$ and $y'=y$, contradicting $y\ne b$; a
+point of $\mathcal Z$ has three equal entries, so in either form above it
+has $y=b$ and lies in neither $\mathcal U$ nor $\mathcal V$. Hence the
+corners are pairwise disjoint.
+\end{proof}
+
+The cut forms of all components at $\vartheta_0$ are read off
+\cref{tab:corner}: the cut form of every component other than the root and the
+aligned fold $F_0$ depends on a half-function $g$ only through its
+restrictions to the corners $\mathcal U$, $\mathcal V$ and $\mathcal Z$.
+In Part~V the two facts used most are (b), which says that the two-layer fold
+record is the diagonal copy, at its own chamber, of its induced law, and (d),
+which identifies its actual half marginal at the reserved cut.
+
+\subsection{The five-type completion}\label{subsec:five-type}
+
+A labelling law is made positive at a chamber cut in steps of one order of
+$r=p^{-1/2}$ each. Relative to the diagonal of its own half law, its cut
+operator is bounded below by $-\delta$ with $\delta$ of order $r$ (the
+\emph{root envelope}, from the spectral caps). In the graph-law
+applications that diagonal is supplied by the aligned fold
+(\cref{lem:record:fold-identification}(b),(c)): a copy of the half law
+placed symmetrically, which is fixed by the cut and positive there. In
+\cref{lem:five-type} this is the general root-envelope hypothesis
+$\Pi_{\rm L}\succeq_{\vartheta_0}-\delta\,\Pi_{F_0}$, with $\Pi_{F_0}$
+built from $\pi_{\rm F}$. The aligned fold at one cut is a nonaligned
+fold at the others, where its form couples the two corners
+$\mathcal U,\mathcal V$; this coupling is dominated by the matchings up to the kernel
+errors $e_{\rm F},e_{\rm E}$ of \cref{lem:five-type}(b); those errors, and
+the mean-zero parts $U^\circ,V^\circ$ of (c), are dominated by the merges,
+and the linear terms of the merges by the constants. So the
+five types enter with the formal degrees $0,1,1,2,3$, and the constants may
+carry degree three although the merges have degree two, because the last
+condition $a_{\rm C}a_{\rm S}\ge a_{\rm R}^2$ of \cref{lem:five-type}(b)
+has total degree $3+1=2+2$ in the graded weights.
+
+\begin{definition}[Five-type datum]\label{def:five-type-datum}
+A \emph{five-type datum} on a finite set $\mathfrak X$ consists of
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item a probability measure $\nu$ on $\mathfrak X$, the law of the middle
+ object $\omega_1$ in (iii) and (iv) below (the \emph{middle law}), and,
+ for each $b\in\supp\nu$, a probability measure $\nu^b$ on $\mathfrak X$ (the
+ \emph{conditional reference});
+\item a symmetric probability measure $\Gamma$ on $\mathfrak X^2$ with
+ $\Gamma(dx\,db)=\nu(db)\nu^b(dx)$;
+\item an exchangeable probability measure $\pi_{\rm E}$ on
+ $\mathfrak X^{\{0,1,2\}}$ with
+ \[
+  \pi_{\rm E}(d\omega_0\,d\omega_1\,d\omega_2)=\nu(d\omega_1)\,\nu^{\omega_1}(d\omega_0)\,
+  \nu^{\omega_1}(d\omega_2)\,T_{\rm E}^{\omega_1}(\omega_0,\omega_2);
+ \]
+\item a probability measure $\pi_{\rm F}$ on $\mathfrak X^{\{0,1,2\}}$ with
+ \[
+  \pi_{\rm F}(d\omega_0\,d\omega_1\,d\omega_2)=\nu(d\omega_1)\,\nu^{\omega_1}(d\omega_0)\,
+  \nu^{\omega_1}(d\omega_2)\,T_{\rm F}^{\omega_1}(\omega_0,\omega_2);
+ \]
+\item a probability measure $\pi_{\rm L}$ on $\mathfrak X^{\Z/6\Z}$ invariant
+ under $\mathcal G_6$;
+\end{enumerate}
+with nonnegative kernels $T_{\rm E}^b,T_{\rm F}^b$. A kernel $T$ is the
+operator $Th(x)=\int T(x,y)h(y)\,\nu^b(dy)$ on $L^2(\nu^b)$; norms, inner
+products, means and the projection $\Jproj$ onto the constants refer to
+$L^2(\nu^b)$. The \emph{components} of the datum are
+$\Pi_{\rm L}=\pi_{\rm L}$, $\Pi_{F_j}=\Pi_{F_j}(\pi_{\rm F})$,
+$\Pi_{E_s}=\Pi_{E_s}(\pi_{\rm E})$, $\Pi_{G_{sk}}=\Pi_{G_{sk}}(\Gamma)$ (the
+objects $0,1$ of $\Gamma$) and $\Pi_{C_0}=\Pi_{C_1}=\Pi_0(\nu)$; $\pi_t$ is the
+sum of the components of the type $t$, and for weights
+$a=(a_{\rm L},a_{\rm D},a_{\rm S},a_{\rm R},a_{\rm C})\ge0$ the \emph{five-type
+measure} is $\mathcal Q_a=\sum_ta_t\pi_t$.
+\end{definition}
+
+In the applications $\Gamma$ is the two-object marginal of $\pi_{\rm E}$ and
+$\nu$, $\nu^b$ are its one-object marginal and conditional law (the merges and
+constants use only some objects of the matching law); then (ii) holds, and
+$T^b_{\rm E}$, the density of the conditional law of the objects $0,2$ given
+$\omega_1=b$, is a coupling of $\nu^b$ with itself, $T_{\rm E}^b\one=
+(T_{\rm E}^b)^*\one=\one$. The fold kernel $T_{\rm F}^b$ contains the density of
+the middle law of $\pi_{\rm F}$ relative to $\nu$ and those of its conditional
+outer marginals relative to $\nu^b$, so no equality of the middle laws of the
+fold and matching laws is assumed.
+
+\begin{definition}[Two coordinates]\label{def:two-coordinate-five-type}
+Let $X$ be a finite set of labels, $\Lambda$ a finite set of layers and
+$W=\Z/6\Z\times\Z/6\Z\times\Lambda$. Put $O_{\rm L}=\Z/6\Z$ and
+$O_{\rm F}=O_{\rm E}=\{0,1,2\}$. The types $\rm L,D,S,R,C$ have
+the \emph{field types} (the named graph $G_{\rm L},G_{\rm F}$ or
+$G_{\rm E}$ from which the coordinate law is taken; ``field''
+here does not refer to $\Fp$)
+$\mathfrak f({\rm L})={\rm L}$, $\mathfrak f({\rm D})={\rm F}$,
+$\mathfrak f({\rm S})=\mathfrak f({\rm R})=\mathfrak f({\rm C})={\rm E}$ and the
+pattern sets $P_{\rm L}=\{{\rm id}\}$, $P_{\rm D}=\{F_0,F_1,F_2\}$,
+$P_{\rm S}=\{E_0,E_1\}$, $P_{\rm R}=\{G_{sk}\}$, $P_{\rm C}=\{C_0,C_1\}$. Suppose
+given, for each pair of field types, a probability law
+$\lambda_{\mathfrak f_0\mathfrak f_1}$ on $X^{O_{\mathfrak f_0}\times O_{\mathfrak f_1}
+\times\Lambda}$. A \emph{state} is $t=(t_0,t_1)$, of degree
+$\deg t_0+\deg t_1$. For patterns $\phi=(\phi_0,\phi_1)\in P_{t_0}\times P_{t_1}$
+the component $\Pi_{t,\phi}$ is the law of $e_\phi(y)$, where
+$e_\phi(y)_{(u_0,u_1,\ell)}=y_{\phi_0(u_0),\phi_1(u_1),\ell}$ and
+$y\sim\lambda_{\mathfrak f(t_0)\mathfrak f(t_1)}$; $\pi_t=\sum_\phi\Pi_{t,\phi}$, and
+for weights $a_t\ge0$ we put $\mathcal Q=\sum_ta_t\pi_t$. The \emph{row data
+of the coordinate $0$ at the field type $\mathfrak f'$} are the laws, on the
+row space $\mathfrak X=X^{O_{\mathfrak f'}\times\Lambda}$, of the families of rows
+$(y_{o,\cdot,\cdot})_o$ of $y\sim\lambda_{{\rm L}\mathfrak f'}$ (this is
+$\pi_{\rm L}$), $y\sim\lambda_{{\rm F}\mathfrak f'}$ ($\pi_{\rm F}$) and
+$y\sim\lambda_{{\rm E}\mathfrak f'}$ ($\pi_{\rm E}$), together with the law
+$\Gamma$ of the rows $0,1$ and the law $\nu$ of the row $0$ of
+$\lambda_{{\rm E}\mathfrak f'}$, and the conditional law $\nu^b$ of the row $0$
+given that the row $1$ is $b$. The row data of the coordinate $1$ are defined
+in the same way with the two coordinates exchanged. We write
+$\vartheta_{c,i}$ for the reflection $\vartheta_i$ in the coordinate $c$.
+\end{definition}
+
+\begin{lemma}[Five-type completion]\label{lem:five-type}
+Let $(\nu,\nu^b,\Gamma,\pi_{\rm E},\pi_{\rm F},\pi_{\rm L})$ be a five-type datum
+on $\mathfrak X$, and $a\ge0$ weights.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item \emph{Invariance and cut forms.} $\mathcal Q_a$ is invariant under
+ $\mathcal G_6$. For a real function $g$ on $\mathfrak X^{H_0}$ put
+ $U_b(y)=g(b,y,y)$, $V_b(y)=g(y,y,b)$, $z_b=g(b,b,b)$, $u_b=\E_{\nu^b}U_b$ and
+ $v_b=\E_{\nu^b}V_b$, and let $\E_b$ be the average over $b\sim\nu$. Then
+ \begin{gather*}
+  Q_{\Pi_{F_0}}(g)=\E_{\pi_{\rm F}}g(\omega)^2,\qquad
+  Q_{\Pi_{F_1}}(g)=Q_{\Pi_{F_2}}(g)=\E_b\ip{U_b}{T_{\rm F}^bV_b},\\
+  Q_{\Pi_{E_0}}(g)=\E_b\ip{U_b}{T_{\rm E}^bU_b},\qquad
+  Q_{\Pi_{E_1}}(g)=\E_b\ip{V_b}{T_{\rm E}^bV_b},\\
+  Q_{\Pi_{G_e}}(g)=\E_b\|U_b\|^2,\qquad Q_{\Pi_{G_o}}(g)=\E_b\|V_b\|^2,\\
+  Q_{\Pi_{G_{01}}}(g)=Q_{\Pi_{G_{02}}}(g)=\E_b[z_bu_b],\qquad
+  Q_{\Pi_{G_{10}}}(g)=Q_{\Pi_{G_{12}}}(g)=\E_b[z_bv_b],\qquad
+  Q_{\Pi_{C_k}}(g)=\E_bz_b^2 .
+ \end{gather*}
+ For every $b\in\supp\nu$, every linear operator $T$ on
+ $L^2(\nu^b)$, every $e\ge0$ with $\|T-\Jproj\|\le e$ and all
+  real $\Phi,\Psi\in L^2(\nu^b)$,
+ $\ip\Phi{T\Psi}\ge\E_{\nu^b}\Phi\,\E_{\nu^b}\Psi
+ -e\|\Phi\|\|\Psi\|$.
+\item \emph{Full-norm criterion.} Suppose that
+ $\|T_{\rm F}^b-\Jproj\|\le e_{\rm F}$ and $\|T_{\rm E}^b-\Jproj\|\le e_{\rm E}$ for
+ every $b\in\supp\nu$, and
+ \[
+  a_{\rm S}\ge a_{\rm D},\qquad a_{\rm R}\ge e_{\rm F}a_{\rm D}+e_{\rm E}a_{\rm S},
+  \qquad a_{\rm C}a_{\rm S}\ge a_{\rm R}^2 .
+ \]
+ Then $\mathcal Q_a-a_{\rm L}\Pi_{\rm L}\succeq_{\vartheta_0}a_{\rm D}\Pi_{F_0}$. If
+ moreover the root envelope $\Pi_{\rm L}\succeq_{\vartheta_0}-\delta\,\Pi_{F_0}$
+ holds and $a_{\rm D}\ge\delta a_{\rm L}$ (no condition if $a_{\rm L}=0$), then
+ $\mathcal Q_a$ is reflection
+ positive at every chamber cut $\vartheta_i$, $i\in\Z/6\Z$. For $r>0$ and the
+ \emph{graded weights} $(w_{\rm L},w_{\rm D}r,w_{\rm S}r,w_{\rm R}r^2,w_{\rm C}r^3)$,
+ with $e_{\rm F}=fr$, $e_{\rm E}=hr$ and $\delta=dr$, the conditions read
+ \[
+  w_{\rm D}\ge d\,w_{\rm L},\qquad w_{\rm S}\ge w_{\rm D},\qquad
+  w_{\rm R}\ge fw_{\rm D}+hw_{\rm S},\qquad w_{\rm C}w_{\rm S}\ge w_{\rm R}^2 .
+ \]
+\item \emph{Schur criterion.} Suppose that for every $b\in\supp\nu$ the
+ matching kernel has exact marginals, $T_{\rm E}^b\one=(T_{\rm E}^b)^*\one=\one$,
+ with $\|T_{\rm E}^b-\Jproj\|\le\rho_{\rm E}$, and that the fold kernel
+ $K_b=T_{\rm F}^b$ has the \emph{fold data}
+ \[
+  m_b:=\ip\one{K_b\one}\in[H^{-1},H],\qquad
+  \|(I-\Jproj)K_b\one\|,\ \|(I-\Jproj)K_b^*\one\|\le\beta,\qquad
+  \|(I-\Jproj)K_b(I-\Jproj)\|\le q_\perp .
+ \]
+ Let $a_{\rm D}>0$, $M=a_{\rm S}/a_{\rm D}$, $s=a_{\rm R}/a_{\rm D}$,
+ $k=a_{\rm C}/a_{\rm D}$, and let $t_Y>0$ (the \emph{mean allowance})
+ satisfy
+ \[
+  M\ge H+t_Y,\qquad t_Y\le H^{-1},\qquad
+  s\ge q_\perp+M\rho_{\rm E}+\beta^2/t_Y,\qquad kM\ge s^2 .
+ \]
+ Then $\mathcal Q_a-a_{\rm L}\Pi_{\rm L}\succeq_{\vartheta_0}a_{\rm D}\Pi_{F_0}$, and
+ under the root envelope and $a_{\rm D}\ge\delta a_{\rm L}$ of (b) the measure
+ $\mathcal Q_a$ is reflection positive at every chamber cut. For
+ $t_Y=\frac12$ the conditions
+ follow from $H\le\frac32$, $M\ge2$, $s\ge q_\perp+M\rho_{\rm E}+2\beta^2$ and
+ $kM\ge s^2$. For graded weights, with $h=\rho_{\rm E}/r$ and
+ $f_{\rm al}=(q_\perp+\beta^2/t_Y)/r$, the conditions read
+ $w_{\rm D}\ge d\,w_{\rm L}$, $w_{\rm S}\ge(H+t_Y)w_{\rm D}$,
+ $w_{\rm R}\ge f_{\rm al}w_{\rm D}+hw_{\rm S}$ and $w_{\rm C}w_{\rm S}\ge w_{\rm R}^2$,
+ together with $t_Y\le H^{-1}$.
+\item \emph{Two coordinates (slice principle).} In the setting of
+ \cref{def:two-coordinate-five-type}, suppose that for each coordinate $c$ and
+ each field type $\mathfrak f'$ the row data of $c$ at $\mathfrak f'$ form a
+ five-type datum, and that for each type $t'$ the five weights $a_t$ of the
+ states $t$ with $t_{1-c}=t'$, as $t_c$ ranges over the five types, satisfy
+ the hypotheses of (b), of (c) or of (f) for the row data of $c$ at
+ $\mathfrak f(t')$, these five weights playing the roles of
+ $a_{\rm L},a_{\rm D},a_{\rm S},a_{\rm R},a_{\rm C}$ there respectively, in
+ each case together with the root envelope and the inequality
+ $a_{\rm D}\ge\delta a_{\rm L}$ of (b) in these roles. Then
+ $\mathcal Q$ is reflection positive at every chamber cut $\vartheta_{c,i}$ of
+ both coordinates. More precisely, for fixed $c$, $t'$ and $\phi'\in P_{t'}$,
+ the sum of the components $a_t\Pi_{t,\phi}$ with $t_{1-c}=t'$ and
+ $\phi_{1-c}=\phi'$ is the image of the five-type measure of these row data
+ under the emission (placement map) $e_{\phi'}\colon\mathfrak X^{\Z/6\Z}\to X^W$,
+ $e_{\phi'}(\Psi)_{(u_0,u_1,\ell)}=\Psi_{u_c}(\phi'(u_{1-c}),\ell)$.
+\item \emph{The reserved cut (fold pairing).} Let $\Lambda=\{0,1\}$, let $\iota$
+ be the layer swap, and for a one-layer measure $\kappa$ let
+ $\operatorname{Diag}_\iota(\kappa)$ be the law that carries the same one-layer
+ configuration on both layers. Consider the components of one coordinate
+ (objects carrying one label per layer) or of two coordinates as in (d), and
+ the one-layer components $\Pi^{(1)}$ built in the same way from one-layer
+ laws; let $\pi_{t,j}$ be the sum of the $j$-layer components of the type or
+ state $t$. Suppose that every two-layer component $\Pi$ of $t$ satisfies
+ $\Pi\succeq_\iota-k_tr\operatorname{Diag}_\iota(\Pi^{(1)})$, where
+ $\Pi^{(1)}$ is a fixed one-layer component with the same patterns as
+ $\Pi$ (one such component being fixed for each two-layer component), and
+ let $w_t,v_t\ge0$ with
+ $v_t\ge k_tw_t$ for every $t$. Then
+ \[
+  \widetilde\mu=\sum_tw_tr^{\deg t}\pi_{t,2}
+   +r\sum_tv_tr^{\deg t}\operatorname{Diag}_\iota(\pi_{t,1})\succeq_\iota0 .
+ \]
+ $\operatorname{Diag}_\iota$ preserves the order $\succeq_\vartheta$ at every
+ chamber cut $\vartheta$; in particular it maps a one-layer measure that is
+ reflection positive at a chamber cut to a measure reflection positive there.
+ Hence if the two-layer data with the weights $w_tr^{\deg t}$ and the one-layer
+ data with the weights $v_tr^{\deg t}$ satisfy the hypotheses of (b), (c), (d)
+ or (f), root envelopes included (for (b) in graded form: $v_{\rm D}\ge d_1v_{\rm L}$,
+ $v_{\rm S}\ge v_{\rm D}$, $v_{\rm R}\ge f_1v_{\rm D}+h_1v_{\rm S}$,
+ $v_{\rm C}v_{\rm S}\ge v_{\rm R}^2$ with the one-layer inputs; all these conditions
+ are homogeneous in $v$), then $\widetilde\mu$ is
+ reflection positive at every chamber cut of the active coordinates and at
+ $\iota$. Finally, if a field
+ law $\lambda$ and its one-layer law $\lambda^{(1)}$ satisfy
+ $\lambda\succeq_\iota-kr\operatorname{Diag}_\iota(\lambda^{(1)})$, then so do
+ their images under every emission $e_\phi$ (in one coordinate, the map
+ $\omega\mapsto\omega\circ\phi$); so components that use only some
+ objects of a field law, the merges and the constants, inherit its bound. A
+ component may also be used with a smaller proved coefficient than $k_t$
+ in its own order at $\iota$, and $\Pi^{(1)}$ need
+ not be the one-layer marginal of $\Pi$: only the order
+ $\Pi\succeq_\iota-k_tr\operatorname{Diag}_\iota(\Pi^{(1)})$ is used.
+\item \emph{Joint Schur criterion.} Suppose that for every $b\in\supp\nu$ the
+ matching kernel has exact marginals, as in (c), and the fold kernel has the
+ \emph{joint data}
+ \[
+  K_b=T_{\rm F}^b=m_b\bigl(\varphi_0\otimes\varphi_2+C_b+R_b\bigr),\qquad
+  m_b\in[H^{-1},H],
+ \]
+ with $\E\varphi_0=\E\varphi_2=1$ (both $\varphi_0$ and $\varphi_2$
+ depend on $b$, the index being suppressed) and
+ $\|\varphi_o-\one\|\le\upsilon$ ($o=0,2$),
+ where $\varphi_0\otimes\varphi_2$ is the kernel $\varphi_0(x)\varphi_2(y)$ and the
+ kernels $C_b$, $R_b$ annihilate the constants on both sides, with
+ $\|R_b\|\le\eps_{\rm T}$; and that, with
+ $E_b=\frac12(T_{\rm E}^b+(T_{\rm E}^b)^*)-\Jproj$,
+ \[
+  E_b\succeq-\eps_{\rm E}I,\qquad
+  \begin{pmatrix}E_b&C_b\\ C_b^*&E_b\end{pmatrix}\succeq-\kappa_{\rm J}I
+  \quad\text{on }L^2(\nu^b)\oplus L^2(\nu^b).
+ \]
+ Let $a_{\rm D}$, $M$, $s$ and $k$ be as in (c), and let $t_Y>0$ satisfy
+ \[
+  t_Y\le H^{-1},\qquad M\ge H+t_Y,\qquad
+  s\ge s_{\rm J},\qquad kM\ge s^2,
+ \]
+ where
+ \[
+  s_{\rm J}=M\eps_{\rm E}+H(\kappa_{\rm J}-\eps_{\rm E})_++H\eps_{\rm T}
+  +\Bigl(H+\frac{H^2}{t_Y}\Bigr)\upsilon^2 .
+ \]
+ Then the conclusions of (c) hold. For graded weights, with
+ $h=\eps_{\rm E}/r$, $k_{\rm J}=\kappa_{\rm J}/r$ and
+ \[
+  f_{\rm J}=\frac{H\{(k_{\rm J}-h)_+r+\eps_{\rm T}\}+(H+H^2/t_Y)\upsilon^2}{r},
+ \]
+ the conditions read $w_{\rm D}\ge d\,w_{\rm L}$,
+ $w_{\rm S}\ge(H+t_Y)w_{\rm D}$, $w_{\rm R}\ge f_{\rm J}w_{\rm D}+hw_{\rm S}$ and
+ $w_{\rm C}w_{\rm S}\ge w_{\rm R}^2$, together with $t_Y\le H^{-1}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) By \cref{lem:record:fold-identification}(e), precomposition with
+$\alpha\in\mathcal G_6$ permutes the fold patterns, maps $E_s$ to
+$\psi\circ E_s$, permutes the merges of each partition and fixes the constant
+maps. The law of $\Psi\circ\alpha$ under $\Pi_\phi(\lambda)$ is
+$\Pi_{\phi\circ\alpha}(\lambda)$, and $\Pi_{\psi\circ E_s}(\pi_{\rm E})=
+\Pi_{E_s}(\pi_{\rm E})$ because $\pi_{\rm E}$ is exchangeable. Hence every sum
+$\pi_t$ with $t\ne{\rm L}$ is invariant, and $\Pi_{\rm L}$ is invariant by (v).
+
+The cut forms are read off \cref{tab:corner}. The halves of $\Pi_{F_0}$
+coincide. For $F_1$ the halves are $(\omega_1,\omega_0,\omega_0)$ and
+$(\omega_2,\omega_2,\omega_1)$, so its form is
+$\E_{\pi_{\rm F}}[U_{\omega_1}(\omega_0)V_{\omega_1}(\omega_2)]=\E_b\ip{U_b}{T_{\rm F}^bV_b}$
+by (iv); $F_2$ exchanges the two halves and gives the same value. For $E_1$
+the form is $\E_{\pi_{\rm E}}[V_{\omega_1}(\omega_0)V_{\omega_1}(\omega_2)]=
+\E_b\ip{V_b}{T_{\rm E}^bV_b}$ by (iii). For $E_0$ the object on both halves is
+$\omega_0$, and the form is $\E_{\pi_{\rm E}}[U_{\omega_0}(\omega_1)U_{\omega_0}(\omega_2)]
+=\E_b\ip{U_b}{T_{\rm E}^bU_b}$, because $(\omega_1,\omega_0,\omega_2)$ again has the
+law $\pi_{\rm E}$. For the merges $(\omega_0,\omega_1)\sim\Gamma$: $G_e$ gives
+$\E_\Gamma[U_{\omega_1}(\omega_0)^2]=\E_b\|U_b\|^2$ by (ii), and $G_{01}$, $G_{02}$
+give $\E_\Gamma[z_{\omega_0}U_{\omega_0}(\omega_1)]=\E_b[z_bu_b]$ by (ii) and the
+symmetry of $\Gamma$; $G_o$, $G_{10}$ and $G_{12}$ are the same with $V$ in
+place of $U$. The constants give $\E_\nu z_b^2$. Finally
+$\ip\Phi{T\Psi}=\ip\Phi{\Jproj\Psi}+\ip\Phi{(T-\Jproj)\Psi}$ and
+$\ip\Phi{\Jproj\Psi}=\E\Phi\,\E\Psi$.
+
+(b) Fix $b\in\supp\nu$ and omit it from the notation. Let $\Phi_b$ be the sum of
+the terms of the integrand of $Q_{\mathcal Q_a-a_{\rm L}\Pi_{\rm L}-a_{\rm D}\Pi_{F_0}}(g)$
+given by (a):
+\[
+ \Phi_b=2a_{\rm D}\ip U{T_{\rm F}V}+a_{\rm S}\bigl(\ip U{T_{\rm E}U}+\ip V{T_{\rm E}V}\bigr)
+ +a_{\rm R}\bigl(\|U\|^2+\|V\|^2+2z(u+v)\bigr)+2a_{\rm C}z^2 .
+\]
+By (a) and $2\|U\|\|V\|\le\|U\|^2+\|V\|^2$,
+\[
+ \Phi_b\ge(a_{\rm R}-e_{\rm F}a_{\rm D}-e_{\rm E}a_{\rm S})\bigl(\|U\|^2+\|V\|^2\bigr)
+ +a_{\rm S}(u^2+v^2)+2a_{\rm D}uv+2a_{\rm R}z(u+v)+2a_{\rm C}z^2 .
+\]
+The first term is nonnegative. With $w=u+v$,
+$a_{\rm S}(u^2+v^2)+2a_{\rm D}uv=\frac12(a_{\rm S}+a_{\rm D})w^2
++\frac12(a_{\rm S}-a_{\rm D})(u-v)^2\ge\frac12a_{\rm S}w^2$, because
+$a_{\rm S}\ge a_{\rm D}\ge0$. The binary form
+$\frac12a_{\rm S}w^2+2a_{\rm R}zw+2a_{\rm C}z^2$ has nonnegative diagonal
+coefficients and determinant $a_{\rm S}a_{\rm C}-a_{\rm R}^2\ge0$, so
+$\Phi_b\ge0$. The cut form at $\vartheta_0$ of
+$\mathcal Q_a-a_{\rm L}\Pi_{\rm L}-a_{\rm D}\Pi_{F_0}$ at $g$ is $\E_b\Phi_b\ge0$,
+and its cut matrix is symmetric, because $\mathcal Q_a$ and $\Pi_{\rm L}$ are
+$\vartheta_0$-invariant by (a) and $\Pi_{F_0}$ is fixed samplewise by
+$\vartheta_0$ (\cref{lem:record:fold-identification}(b)). This is the first
+claim. Under the root envelope and $a_{\rm D}\ge\delta a_{\rm L}$ (for
+$a_{\rm L}=0$ the term $a_{\rm L}\Pi_{\rm L}$ vanishes, and the chain holds with
+$\delta=0$),
+\[
+ \mathcal Q_a\succeq_{\vartheta_0}a_{\rm L}\Pi_{\rm L}+a_{\rm D}\Pi_{F_0}
+ \succeq_{\vartheta_0}(a_{\rm D}-\delta a_{\rm L})\Pi_{F_0}\succeq_{\vartheta_0}0,
+\]
+the last step by \cref{lem:commoncut}(i). Since $\mathcal Q_a$ is
+$\mathcal G_6$-invariant, chamber transport (\cref{lem:slot-array}(i))
+gives every cut $\vartheta_i$. For the graded weights, divide
+$a_{\rm D}\ge\delta a_{\rm L}$ and the first displayed condition by $r$ and the
+second by $r^2$; in the third both sides carry $r^4$, since $3+1=2+2$.
+
+(c) Fix $b$ and omit it. Write $U=u+U^\circ$, $V=v+V^\circ$ with
+$U^\circ,V^\circ\perp\one$, $\sigma_U=\|U^\circ\|$, $\sigma_V=\|V^\circ\|$, and
+$K=K_b$; only $m_b$ keeps its index. Then
+$\ip U{KV}=m_buv+u\ip{(I-\Jproj)K^*\one}{V^\circ}+v\ip{U^\circ}{(I-\Jproj)K\one}
++\ip{U^\circ}{(I-\Jproj)K(I-\Jproj)V^\circ}$, so the fold data give
+\[
+ 2\ip U{KV}\ge2m_buv-2\beta\bigl(|u|\sigma_V+|v|\sigma_U\bigr)
+ -q_\perp(\sigma_U^2+\sigma_V^2).
+\]
+Since $T_{\rm E}$ has exact marginals,
+$\ip U{T_{\rm E}U}=u^2+\ip{U^\circ}{(T_{\rm E}-\Jproj)U^\circ}\ge u^2-\rho_{\rm E}\sigma_U^2$,
+and likewise for $V$; and $\|U\|^2=u^2+\sigma_U^2$. Hence $\Phi_b/a_{\rm D}$, with
+$\Phi_b$ as in (b), is at least
+\[
+ (s-q_\perp-M\rho_{\rm E})(\sigma_U^2+\sigma_V^2)+(M+s)(u^2+v^2)+2m_buv
+ -2\beta\bigl(|u|\sigma_V+|v|\sigma_U\bigr)+2sz(u+v)+2kz^2 .
+\]
+By $2\beta|u|\sigma_V\le t_Yu^2+\beta^2\sigma_V^2/t_Y$ and the same
+for $(v,\sigma_U)$, this is at least
+\[
+ \Bigl(s-q_\perp-M\rho_{\rm E}-\frac{\beta^2}{t_Y}\Bigr)(\sigma_U^2+\sigma_V^2)
+ +A(u^2+v^2)+2m_buv+2sz(u+v)+2kz^2,\qquad A=M+s-t_Y.
+\]
+The fluctuation term is nonnegative. With $w_\pm=(u\pm v)/\sqrt2$ the rest is
+$(A-m_b)w_-^2+(A+m_b)w_+^2+2\sqrt2\,szw_++2kz^2$. Here
+$A-m_b\ge M-t_Y-H+s\ge s\ge0$, and $A+m_b\ge M+s-t_Y+H^{-1}\ge M$, so
+the binary form in $(w_+,z)$ has nonnegative diagonal coefficients and
+determinant $2k(A+m_b)-2s^2\ge2(kM-s^2)\ge0$. Thus $\Phi_b\ge0$, and the rest of
+the proof is that of (b). For $t_Y=\frac12$: $M\ge2\ge H+\frac12$ and
+$\frac12<\frac23\le H^{-1}$. The graded form follows as in (b), since
+$s=w_{\rm R}r/w_{\rm D}$, $M=w_{\rm S}/w_{\rm D}$ and $k=w_{\rm C}r^2/w_{\rm D}$.
+
+(d) Fix $c=0$; the coordinate $1$ is the same with the coordinates exchanged.
+Fix a type $t'$ of the coordinate $1$ and $\phi_1\in P_{t'}$, and let
+$\mathcal Q^{\rm row}$ be the five-type measure of the row data of $0$ at
+$\mathfrak f(t')$ with the weights $a_{(t_0,t')}$. For a type $t_0$ and
+$\phi_0\in P_{t_0}$, the configuration $\Psi_{u_0}=y_{\phi_0(u_0),\cdot,\cdot}$ of
+rows of $y\sim\lambda_{\mathfrak f(t_0)\mathfrak f(t')}$ has the law of the
+component $\phi_0$ of the row data: the rows of $\lambda_{{\rm L}\mathfrak f(t')}$
+are $\pi_{\rm L}$, the three rows of $\lambda_{{\rm F}\mathfrak f(t')}$ are
+$\pi_{\rm F}$, those of $\lambda_{{\rm E}\mathfrak f(t')}$ are $\pi_{\rm E}$, and
+a merge or a constant reads only the rows $0,1$ or the row $0$, whose laws
+are $\Gamma$ and $\nu$. Moreover
+$e_{\phi_1}(\Psi)_{(u_0,u_1,\ell)}=y_{\phi_0(u_0),\phi_1(u_1),\ell}$. So the sum
+of $a_t\Pi_{t,\phi}$ over the states $t=(t_0,t')$ and the patterns
+$(\phi_0,\phi_1)$ is $(e_{\phi_1})_*\mathcal Q^{\rm row}$, which is the slice
+decomposition. Let $\vartheta=\vartheta_{0,i}$, with plus half
+$W_+=H_i\times\Z/6\Z\times\Lambda$. The emission is half-local for the cuts
+$\vartheta_i$ of $\Z/6\Z$ and $\vartheta$ of $W$ in the sense of
+\cref{lem:commoncut}(v): $e_{\phi_1}(\Psi)|_{W_+}=\varphi(\Psi|_{H_i})$ and the
+reflected half of $e_{\phi_1}(\Psi)$ is $\varphi$ of the reflected half of
+$\Psi$, with
+$\varphi(x)=(x_{u_0}(\phi_1(u_1),\ell))_{(u_0,u_1,\ell)\in W_+}$ for
+$x\in\mathfrak X^{H_i}$; so the image of a measure reflection positive at
+$\vartheta_i$ is reflection positive at $\vartheta$. By (b), (c) or (f),
+$\mathcal Q^{\rm row}$ is reflection positive at every $\vartheta_i$, and so is
+each image. Summing over $t'$ and $\phi_1$ proves the claim.
+
+(e) A component $\Pi$ of $t$, with the weight $w_tr^{\deg t}$, together with
+its one-layer diagonal, with the weight $v_tr^{\deg t+1}$, satisfies
+\[
+ w_tr^{\deg t}\Pi+v_tr^{\deg t+1}\operatorname{Diag}_\iota(\Pi^{(1)})
+ \succeq_\iota(v_t-k_tw_t)\,r^{\deg t+1}\operatorname{Diag}_\iota(\Pi^{(1)})
+ \succeq_\iota0,
+\]
+by the hypothesis and because a diagonal copy is fixed samplewise by $\iota$
+(\cref{lem:commoncut}(i)); summing over the components gives
+$\widetilde\mu\succeq_\iota0$. Let $\vartheta$ be a chamber cut, acting on the
+chamber coordinates only. The diagonal embedding $z'\mapsto z$,
+$z_{(u,\ell)}=z'_u$, is half-local for $\vartheta$ on the one-layer and on the
+two-layer slots, so by \cref{lem:commoncut}(v) it preserves the order
+$\succeq_\vartheta$; this is the statement about $\operatorname{Diag}_\iota$, and
+the two sums of $\widetilde\mu$
+are then reflection positive at the chamber cuts by (b), (c), (d) or (f). Finally
+$e_\phi$ is half-local for the layer swaps of the field labels and of the
+slots, so by \cref{lem:commoncut}(v) the image of
+$\lambda+kr\operatorname{Diag}_\iota(\lambda^{(1)})\succeq_\iota0$ is
+$(e_\phi)_*\lambda+kr\operatorname{Diag}_\iota((e_\phi)_*\lambda^{(1)})\succeq_\iota0$.
+The argument uses each component only through its own order at $\iota$ and
+the one-layer sums only through their own completion inequalities; this is
+the last sentence of (e).
+
+(f) Fix $b$ and omit it; write $U=u+U^\circ$, $V=v+V^\circ$, $\sigma_U$, $\sigma_V$
+as in (c), and $\alpha=\ip{U^\circ}{\varphi_0-\one}$,
+$\alpha'=\ip{\varphi_2-\one}{V^\circ}$, so that $|\alpha|\le\upsilon\sigma_U$ and
+$|\alpha'|\le\upsilon\sigma_V$. Since $\E\varphi_0=\E\varphi_2=1$ and $C_b$, $R_b$
+annihilate the constants on both sides,
+\[
+ \ip U{K_bV}=m_b(u+\alpha)(v+\alpha')+m_b\ip{U^\circ}{(C_b+R_b)V^\circ}.
+\]
+By $0\le m_b\le H$ and Young's inequality with the allowance $t_Y$,
+\begin{gather*}
+ 2m_b(u\alpha'+v\alpha)\ge-t_Y(u^2+v^2)
+ -\frac{H^2\upsilon^2}{t_Y}(\sigma_U^2+\sigma_V^2),\\
+ 2m_b\bigl(\alpha\alpha'+\ip{U^\circ}{R_bV^\circ}\bigr)\ge
+ -H(\upsilon^2+\eps_{\rm T})(\sigma_U^2+\sigma_V^2).
+\end{gather*}
+The matching kernel has exact marginals, so
+$\ip U{T_{\rm E}U}=u^2+\ip{U^\circ}{E_bU^\circ}$, and likewise for $V$. The
+remaining terms $a_{\rm S}(\ip{U^\circ}{E_bU^\circ}+\ip{V^\circ}{E_bV^\circ})
++2m_ba_{\rm D}\ip{U^\circ}{C_bV^\circ}$ are the form of the block operator
+$\bigl(\begin{smallmatrix}a_{\rm S}E_b&m_ba_{\rm D}C_b\\
+m_ba_{\rm D}C_b^*&a_{\rm S}E_b\end{smallmatrix}\bigr)$ at $(U^\circ,V^\circ)$. Apply \cref{cor:joint-row-split} with
+$h=\eps_{\rm E}$, $\mathsf k_\Blk=\max(\kappa_{\rm J},\eps_{\rm E})$ and
+$m=m_b$. Its hypotheses hold because $a_{\rm S}=Ma_{\rm D}\ge Ha_{\rm D}$
+and $m_b\le H$; the splitting uses only these block inequalities, not the
+prime-product origin of the operators. Thus the remaining terms are at least
+\[
+ -\bigl(a_{\rm S}\eps_{\rm E}+Ha_{\rm D}(\kappa_{\rm J}-\eps_{\rm E})_+\bigr)
+ (\sigma_U^2+\sigma_V^2).
+\]
+Collecting, $\Phi_b/a_{\rm D}$, with $\Phi_b$ as in (b), is at least
+\[
+ (s-s_{\rm J})(\sigma_U^2+\sigma_V^2)+A(u^2+v^2)+2m_buv+2sz(u+v)+2kz^2,
+ \qquad A=M+s-t_Y,
+\]
+which is the form of the proof of (c) with the fluctuation coefficient
+$s-s_{\rm J}\ge0$. Its mean part is nonnegative exactly as there, because
+$M\ge H+t_Y$, $t_Y\le H^{-1}$ and $kM\ge s^2$; so $\Phi_b\ge0$, and the
+rest of the proof is that of (b). In graded form $\eps_{\rm E}=hr$ and
+$\kappa_{\rm J}=k_{\rm J}r$, so $s_{\rm J}=(w_{\rm S}/w_{\rm D})hr+f_{\rm J}r$ and
+$s\ge s_{\rm J}$ reads $w_{\rm R}\ge f_{\rm J}w_{\rm D}+hw_{\rm S}$; the other conditions
+read as in (c).
+\end{proof}
+
+\begin{corollary}[Joint rows of a block]\label{cor:joint-completion-blocks}
+Let $\Blk$ be a finite set of primes with least prime $P$, $r=P^{-1/2}$ and
+$r_p=p^{-1/2}$. Fix a value $b$ of the middle object of a five-type datum whose
+conditional kernels at $b$ are products over the primes of $\Blk$:
+$\nu^b=\bigotimes_p\nu_p$, $T^b_{\rm E}=\bigotimes_pT_{{\rm E},p}$ with
+$T_{{\rm E},p}$ a self-adjoint coupling of $\nu_p$ with itself, and
+$T^b_{\rm F}=m_bT_{{\rm F},\Blk}$, $T_{{\rm F},\Blk}=\bigotimes_pT_{{\rm F},p}$, with
+$T_{{\rm F},p}$ of mass one and marginal densities $u_{{\rm L},p}$, $u_{{\rm R},p}$
+relative to $\nu_p$. Let $C_{{\rm F},p}=T_{{\rm F},p}-u_{{\rm L},p}\otimes u_{{\rm R},p}$
+and $C_{{\rm E},p}=T_{{\rm E},p}-\Jproj_p$, as in \cref{lem:joint-rows}, and suppose
+that for every $p\in\Blk$
+\[
+ \|C_{{\rm F},p}\|\le c_{\rm F}r_p,\qquad \|C_{{\rm E},p}\|\le c_{\rm E}r_p,\qquad
+ \begin{pmatrix}C_{{\rm E},p}&C_{{\rm F},p}\\ C_{{\rm F},p}^*&C_{{\rm E},p}\end{pmatrix}
+ \succeq-k_{\rm J}r_pI,
+\]
+with $c_{\rm F}r,c_{\rm E}r<1$ and $(c_{\rm F}^2+c_{\rm E}^2)r\le k_{\rm J}$. Let
+$m_b\in[H^{-1},H]$, let the block marginal densities
+$U_{\rm L}=\bigotimes_pu_{{\rm L},p}$ and $U_{\rm R}=\bigotimes_pu_{{\rm R},p}$ satisfy
+$\|U_{\rm L}-\one\|,\|U_{\rm R}-\one\|\le\upsilon$, let
+$E_\Blk=T^b_{\rm E}-\Jproj\succeq-hrI$, and put
+\[
+ E_{\rm T}=(2\upsilon+\upsilon^2)\Bigl(\prod_{p\in\Blk}(1+c_{\rm F}r_p)-1\Bigr),
+\]
+which is at most $(2\upsilon+\upsilon^2)(e^{nc_{\rm F}r}-1)$ if $\Blk$ has at most
+$n$ primes. Then the joint data of \cref{lem:five-type}(f) hold at $b$ with
+$\varphi_0=U_{\rm L}$, $\varphi_2=U_{\rm R}$, $\eps_{\rm E}=hr$,
+$\kappa_{\rm J}=k_{\rm J}r$ and $\eps_{\rm T}=E_{\rm T}$. Consequently, if this holds
+at every $b\in\supp\nu$ and $0<t_Y\le H^{-1}$, then for row parameters
+\[
+ M\ge H+t_Y,\qquad
+ f\ge\frac{H\{(k_{\rm J}-h)_+r+E_{\rm T}\}+(H+H^2/t_Y)\upsilon^2}{r},
+\]
+and $h$, the completion inequalities $w_{\rm D}\ge d\,w_{\rm L}$,
+$w_{\rm S}\ge Mw_{\rm D}$, $w_{\rm R}\ge fw_{\rm D}+hw_{\rm S}$,
+$w_{\rm C}w_{\rm S}\ge w_{\rm R}^2$ imply the graded conditions of
+\cref{lem:five-type}(f). This holds for the two-layer and for the one-layer rows
+alike, so the corollary serves the ordinary completion, with the two-layer rows,
+and the reserved one, with the one-layer rows (\cref{lem:five-type}(e)).
+\end{corollary}
+
+\begin{proof}
+The kernels $C_{{\rm F},p}$ and $C_{{\rm E},p}$ annihilate the constants on both
+sides. Hence $C_\Blk=\bigotimes_p(\Jproj_p+C_{{\rm F},p})-\Jproj_\Blk$ and
+$E_\Blk=\bigotimes_p(\Jproj_p+C_{{\rm E},p})-\Jproj_\Blk$ annihilate them too, and
+their joint block is bounded by \cref{lem:joint-rows}(b). Indeed on its
+singleton sectors the joint block is $\succeq-k_{\rm J}rI$ (using
+$r_p\le r$), and on sectors with at least two primes it is
+$\succeq-(c_{\rm F}^2+c_{\rm E}^2)r^2I\succeq-k_{\rm J}rI$.
+Hence the joint block of $(E_\Blk,C_\Blk)$ is $\succeq-k_{\rm J}rI$.
+Write
+$T_{{\rm F},\Blk}=U_{\rm L}\otimes U_{\rm R}+C_\Blk+R_\Blk$. Since
+$T_{{\rm F},\Blk}\one=U_{\rm L}$, $T_{{\rm F},\Blk}^*\one=U_{\rm R}$ and $C_\Blk$
+annihilates the constants, so does $R_\Blk$; and
+$\|R_\Blk\|\le(2\upsilon+\upsilon^2)(\prod_p(1+\|C_{{\rm F},p}\|)-1)\le E_{\rm T}$ by
+\cref{lem:joint-rows}(c). With $C_b=C_\Blk$ and $R_b=R_\Blk$ these are the joint
+data of \cref{lem:five-type}(f); the bound by $e^{nc_{\rm F}r}$ is $1+x\le e^x$.
+Finally $f\ge f_{\rm J}$ and $M\ge H+t_Y$, so the four completion
+inequalities with $(d,M,f,h)$ imply those of \cref{lem:five-type}(f). Nothing in
+the argument depends on the number of layers.
+\end{proof}
+
+\begin{remark}[Fold data from marginal densities]\label{rem:five-type-fold-data}
+Suppose that, for every $b\in\supp\nu$, the middle density $m_b$ --- the
+density at $b$ of the $\omega_1$-marginal of $\pi_{\rm F}$ relative to
+$\nu$, equal to $\ip\one{K_b\one}$ for $K_b=T_{\rm F}^b$ by the
+factorisation in \cref{def:five-type-datum}(iv) --- lies in $[H^{-1},H]$, and the conditional law of $(\omega_0,\omega_2)$ given
+$\omega_1=b$ under $\pi_{\rm F}$ has marginal densities $\varphi_0,\varphi_2$
+relative to $\nu^b$, with $\varphi_o\le R_{\rm m}$ and
+$\|\varphi_o-\one\|\le\upsilon$, and maximal correlation at most $\rho_{\rm F}$
+relative to its own marginals. Then the fold data of (c) hold with
+$\beta=H\upsilon$ and $q_\perp=H(R_{\rm m}\rho_{\rm F}+\upsilon^2)$, and
+\[
+ f_{\rm al}=\frac{HR_{\rm m}\rho_{\rm F}+(H+H^2/t_Y)\upsilon^2}{r} .
+\]
+Indeed $K_b=m_b(\varphi_0\otimes\varphi_2+c_b)$, where the kernel $c_b$ represents
+the covariance, $\ip h{c_bh'}=\operatorname{Cov}(h(\omega_0),h'(\omega_2)\mid\omega_1=b)$;
+so $c_b\one=c_b^*\one=0$ and $\|c_b\|\le R_{\rm m}\rho_{\rm F}$, because
+$\|h\|^2_{\varphi_o\nu^b}\le R_{\rm m}\|h\|^2$. Hence $\ip\one{K_b\one}=m_b$,
+$(I-\Jproj)K_b\one=m_b(\varphi_0-\one)$, and the perpendicular block is
+$m_b\bigl((\varphi_0-\one)\otimes(\varphi_2-\one)+(I-\Jproj)c_b(I-\Jproj)\bigr)$. With
+$t_Y=1/50$ this is the Schur row coefficient
+$f_{\rm Schur}=(HR_{\rm m}\rho_{\rm F}+(H+50H^2)\upsilon^2)/r$ of the tail datum of the
+upper range (\ref{it:record:upper-F5}). The joint form (f) splits the
+covariance kernel as $c_b=C_b+R_b$ and bounds $C_b$ together with the matching
+row, in one Gram matrix, instead of adding the two norms: the term
+$HR_{\rm m}\rho_{\rm F}$ becomes $H\{(k_{\rm J}-h)_+r+\eps_{\rm T}\}$, and on a block
+with the data of \cref{cor:joint-completion-blocks}
+\[
+ f_{\rm J}=\frac{H\{(k_{\rm J}-h)_+r+E_{\rm T}\}+(H+H^2/t_Y)\upsilon^2}{r},
+\]
+with a rational $t_Y$ chosen for each row; this is the row coefficient of the
+bands of the upper range (\ref{it:record:upper-F5}). Both criteria keep a
+change of marginals and a centred correlation apart: in the constant direction the
+matching contribution dominates the fold term because $M\ge H+t_Y$ while
+$m_b\le H$, and Young's inequality with the allowance $t_Y$ absorbs the
+constant--perpendicular coupling of the fold, so a linear marginal error
+enters only through its square. The allowance enters only through
+$M\ge H+t_Y$, $t_Y\le H^{-1}$ and the term $H^2\upsilon^2/t_Y$, so
+it may be chosen freely, row by row.
+\end{remark}
+
+\begin{remark}[The model computation and its ancestors]\label{rem:five-type-model}
+The proof of (b), (c) and (f) is one computation: the cut forms of the twelve
+components other than the root and the aligned fold are explicit in the
+conditional means $u_b,v_b$, the fluctuations and the constant value $z_b$, and
+the four inequalities are the conditions for the resulting form in $(u,v,z)$ to
+be positive after the rotation $w_\pm=(u\pm v)/\sqrt2$. Only the inequalities
+matter: any nonnegative weights satisfying them give a positive law, so the
+certificates may choose rational weights by a sequential recipe or jointly, and
+then check the inequalities exactly. Without a root ($a_{\rm L}=0$) and with
+$a_{\rm D}=1$, $a_{\rm S}=1+a_{\rm R}$ and $a_{\rm C}=a_{\rm R}$, (b) is the array
+completion of the middle range of the $216$-slot design: its condition
+$a_{\rm R}(1-e_{\rm E})\ge e_{\rm F}+e_{\rm E}$ is the second inequality of (b),
+and the other two hold for these weights. Its later row completions, with a
+separate bound for the middle density and with split marginal and fluctuation
+bounds, are described in \cref{sec:history}.
+\end{remark}
+
+\begin{remark}[How the completions are certified]\label{rem:five-type-certificates}
+Every certified completion inequality is an instance of (b)--(f) with the
+stored inputs. A middle reference (\cref{lem:front12:reference}) uses
+(b) with the full-norm row coefficients $f_2,h_2$, (b) for the one-layer
+diagonals with $f_1,h_1$, and (e): $4+4+5=13$ inequalities per piece, $429$ for
+the $33$ pieces (\cref{cert:record:frame-data}(c)); the type-S inequality of (e) (the matching type, of field
+type ${\rm E}$) is checked in the stronger form
+$v_{\rm S}\ge2k_{\rm E}w_{\rm S}$, where $k_{\rm E}=k_{\rm S}$ is the
+coefficient $k_t$ of (e) for $t={\rm S}$, and the
+protection inequality $v_{\rm D}\ge2k_{\rm D}w_{\rm D}$ of
+\cref{lem:front12:reference}(iv), which implies the type-D inequality of (e), is
+checked with them. An upper band uses (d) in both coordinates and for both
+layer counts, with (e): $40$ slice inequalities for $w$, $40$ for $v$ and the $25$ domination
+inequalities $v_t\ge k_tw_t$ of (e), one for each of the $25$ states,
+$105$ per band and $32550$ for the $310$ bands
+(\cref{cert:upper-completion}). Its slices use (f), through
+\cref{cor:joint-completion-blocks}, with $h=\eps_{\rm E}/r$ and a rational mean
+allowance $t_Y$ for each row, with $t_YH<1$ and $M\ge H+t_Y$. The
+tail datum of the upper range (\cref{def:record:upper-bands}(e)) has its own
+$105$ inequalities, and its slices use (c) with $t_Y=1/50$ and
+$h=\rho_{\rm E}/r$: in all six rows of the tail datum (three field types, two
+layer counts) the coefficient $f_{\rm Schur}$ of \cref{rem:five-type-fold-data} is
+smaller than the full-norm one and $H<103/100$, and the floor
+$w_{\rm S}\ge\frac{21}{20}w_{\rm D}$ of its slices gives $M\ge H+t_Y$ and
+$t_Y\le H^{-1}$ (\ref{it:record:upper-F5}).
+\end{remark}
+
+\begin{remark}[Fold pairing]\label{rem:fold-pairing}
+Part (e) pairs each component with the diagonal copy of a one-layer law, one
+power of $r$ higher: the copy is fixed samplewise by the cut, hence positive
+there, and it is positive at every other cut at which that law is. The
+reserved cut is cheap because the half graph of a two-layer labelling at
+$\iota$ is its one-layer graph, so the copy that cancels a component's negative
+envelope is the one-layer version of the same component, and the one-layer
+versions are made positive at the chamber cuts by their own completion
+inequalities. The paired law need not be the half law of the component. On the
+three late middle pieces the two-layer root is a positive reweighting of the
+uniform root, and its layer cut is capped against the diagonal copy of the
+uniform one-layer root, which the completion supplies
+(\cref{sec:positive-roots}); the reserved merges and constants of the upper
+range carry smaller caps, proved for the marginals they observe
+(\cref{prop:observed-caps}). The same pairing, applied in every chamber
+coordinate at once, made the high range of the $216$-slot design positive
+(\cref{sec:history}).
+\end{remark}
+
+\subsection{Polarization: dominating two summands by two others}\label{subsec:polarization}
+
+The first stage $\lambda$ must drop the fold records $F_1,F_2$,
+which do not accept the queries, without losing positivity at the
+chamber cut $\vartheta_0$ used for the first stage. At $\vartheta_0$
+these two folds are nonaligned: their cut forms couple the two
+corners $\mathcal U$ and $\mathcal V$ of the half space, while the
+matching records $E_0,E_1$ act inside each corner separately
+(\cref{tab:corner}). Polarization is the inequality that lets the
+matchings replace the folds: the sum of the two matching forms
+exceeds twice the fold form by the square $(u-v)^2$ of the
+difference of the conditional means on the corners (a nonnegative
+deficit term, favourable to us), less the explicit error term of
+\eqref{eq:polarization} (the row errors), and those errors are in turn
+dominated by the two merge records $G_e,G_o$, which are diagonal
+on the corners. When the domination holds with both signs in
+front of the fold terms, it also holds after taking tensor
+products over any set of blocks (part~(d)), which the mean credit
+of (CP7) uses.
+
+\begin{lemma}[Polarization]\label{lem:tr:polarization}
+Let $\nu^b$ be a probability measure on a finite set, and $T_{\rm F}$,
+$T_{\rm E}$, $T_{\rm E'}$ kernels on $L^2(\nu^b)$ with
+$\|T_{\rm F}-\Jproj\|\le e_{\rm F}$ and
+$\|T_{\rm E}-\Jproj\|,\|T_{\rm E'}-\Jproj\|\le e_{\rm E}$. For real $U,V\in L^2(\nu^b)$
+with means $u,v$,
+\begin{equation}\label{eq:polarization}
+ \ip U{T_{\rm E}U}+\ip V{T_{\rm E'}V}-2\ip U{T_{\rm F}V}\ge(u-v)^2
+ -(e_{\rm F}+e_{\rm E})\bigl(\|U\|^2+\|V\|^2\bigr).
+\end{equation}
+Consequently, for the components of a five-type datum with
+$\|T_{\rm F}^b-\Jproj\|\le e_{\rm F}$ and $\|T_{\rm E}^b-\Jproj\|\le e_{\rm E}$ for
+every $b\in\supp\nu$, and every $\varepsilon\ge e_{\rm F}+e_{\rm E}$:
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item $\Pi_{E_0}+\Pi_{E_1}+\varepsilon(\Pi_{G_e}+\Pi_{G_o})
+ \succeq_{\vartheta_0}\Pi_{F_1}+\Pi_{F_2}$;
+\item if $\nu^b(\{b\})=0$ for every $b\in\supp\nu$, so that the
+ conditional law $\nu^b$ gives mass $0$ to the value $b$ itself and the
+  middle object differs from each outer object almost surely under the
+  fold law, then both orders
+ $\Pi_{E_0}+\Pi_{E_1}+\varepsilon(\Pi_{G_e}+\Pi_{G_o})
+ \succeq_{\vartheta_0}\pm(\Pi_{F_1}+\Pi_{F_2})$ hold. Equivalently, with $A=C_{\vartheta_0}(\Pi_{E_0}+\varepsilon\Pi_{G_e})$,
+ $D=C_{\vartheta_0}(\Pi_{E_1}+\varepsilon\Pi_{G_o})$ and
+ $K=C_{\vartheta_0}(\Pi_{F_1})$, viewed as matrices on
+ $\R^{\mathfrak X^{H_0}}$ supported on the blocks
+ $\mathcal U\times\mathcal U$, $\mathcal V\times\mathcal V$ and
+ $\mathcal U\times\mathcal V$ respectively and zero elsewhere, both
+ matrices
+ $\bigl(\begin{smallmatrix}A&\pm K\\ \pm K^{\mathsf T}&D\end{smallmatrix}\bigr)$ on
+ $\R^{\mathcal U}\oplus\R^{\mathcal V}$ are positive semidefinite; in
+ particular $A,D\succeq0$;
+\item let $X$ be a finite nonempty set of blocks, and for $\Blk\in X$ let a
+ five-type datum on $\mathfrak X_{\Blk}$ satisfy the hypotheses of (b) with
+ constants $\varepsilon_{\Blk}\ge e_{{\rm F},\Blk}+e_{{\rm E},\Blk}$. Then, as
+ measures on $(\prod_{\Blk}\mathfrak X_{\Blk})^{\Z/6\Z}$ and for both signs,
+ \[
+  \bigotimes_{\Blk}\bigl(\Pi_{E_0,\Blk}+\varepsilon_{\Blk}\Pi_{G_e,\Blk}\bigr)
+  +\bigotimes_{\Blk}\bigl(\Pi_{E_1,\Blk}+\varepsilon_{\Blk}\Pi_{G_o,\Blk}\bigr)
+  \pm\Bigl(\bigotimes_{\Blk}\Pi_{F_1,\Blk}+\bigotimes_{\Blk}\Pi_{F_2,\Blk}\Bigr)
+  \succeq_{\vartheta_0}0,
+ \]
+ and $\bigotimes_{\Blk}\bigl(\Pi_{E_0,\Blk}+\Pi_{E_1,\Blk}+\varepsilon_{\Blk}
+ (\Pi_{G_e,\Blk}+\Pi_{G_o,\Blk})\bigr)\succeq_{\vartheta_0}
+ \bigotimes_{\Blk}\Pi_{F_1,\Blk}+\bigotimes_{\Blk}\Pi_{F_2,\Blk}$;
+\item for every number $k$ of tensor factors: if $\vartheta$ is a
+ cut of a slot set $V$ and, for
+ $j=1,\dots,k$, $\kappa_j$ and $\zeta_j$ are finite signed measures on
+ $\mathfrak X_j^V$ with $\kappa_j\pm\zeta_j\succeq_\vartheta0$ for both signs, then
+ \[
+  \bigotimes_{j=1}^k\kappa_j-\bigotimes_{j=1}^k\zeta_j
+  =2^{-k}\sum_{\sigma\in\{\pm1\}^k}(1-\sigma_1\cdots\sigma_k)
+  \bigotimes_{j=1}^k(\kappa_j+\sigma_j\zeta_j),
+ \]
+ every product on the right is $\succeq_\vartheta0$, and
+ $\bigotimes_j\kappa_j\pm\bigotimes_j\zeta_j\succeq_\vartheta0$ for both signs. In
+ particular, under the hypotheses of (c), with
+ $\mathcal Q^{\rm E}_\Blk=\Pi_{E_0,\Blk}+\Pi_{E_1,\Blk}
+ +\varepsilon_\Blk(\Pi_{G_e,\Blk}+\Pi_{G_o,\Blk})$ and
+ $\mathcal Q^{\rm F}_\Blk=\Pi_{F_1,\Blk}+\Pi_{F_2,\Blk}$,
+ \[
+  \bigotimes_{\Blk\in X}\mathcal Q^{\rm E}_\Blk\pm\bigotimes_{\Blk\in X}\mathcal Q^{\rm F}_\Blk
+  \succeq_{\vartheta_0}0\qquad\text{for both signs.}
+ \]
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+By \cref{lem:five-type}(a),
+$\ip U{T_{\rm E}U}\ge u^2-e_{\rm E}\|U\|^2$, $\ip V{T_{\rm E'}V}\ge v^2-e_{\rm E}\|V\|^2$
+and $2\ip U{T_{\rm F}V}\le2uv+2e_{\rm F}\|U\|\|V\|\le2uv+e_{\rm F}(\|U\|^2+\|V\|^2)$,
+which gives \eqref{eq:polarization}.
+
+(a) By \cref{lem:five-type}(a), the cut form at $\vartheta_0$ of the difference of
+the two sides at $g$ is
+$\E_b\bigl[\ip{U_b}{T_{\rm E}^bU_b}+\ip{V_b}{T_{\rm E}^bV_b}+\varepsilon(\|U_b\|^2+\|V_b\|^2)
+-2\ip{U_b}{T_{\rm F}^bV_b}\bigr]$, which is at least
+$\E_b(u_b-v_b)^2\ge0$ by \eqref{eq:polarization}. The cut matrix is symmetric:
+$\Pi_{E_s}$ and $\Pi_{G_e},\Pi_{G_o}$ are $\vartheta_0$-invariant, and
+$\vartheta_0$ exchanges $\Pi_{F_1}$ and $\Pi_{F_2}$
+(\cref{lem:record:fold-identification}(e)).
+
+(b) If $\nu^b(\{b\})=0$, the fold law has
+$\omega_1\ne\omega_0,\omega_2$ almost surely. The matching law has all three
+objects distinct by exchangeability, and the merge law has its two objects
+distinct. In particular, for $E_0$,
+$\omega_0\ne\omega_2$ because $(\omega_0,\omega_2)$ has the law of
+$(\omega_0,\omega_1)$ by exchangeability. Thus the
+cut matrices of $\Pi_{E_0}$ and $\Pi_{G_e}$ live on $\mathcal U\times\mathcal U$,
+those of $\Pi_{E_1}$ and $\Pi_{G_o}$ on $\mathcal V\times\mathcal V$, that of
+$\Pi_{F_1}$ on $\mathcal U\times\mathcal V$ and that of $\Pi_{F_2}$, which is
+$K^{\mathsf T}$ because $\Pi_{F_2}$ is the image of $\Pi_{F_1}$ under
+$\vartheta_0$ (\cref{rem:cut-symmetries}(a)), on $\mathcal V\times\mathcal U$. Given $g$, let $\tilde g$ equal
+$g$ on $\mathcal U$ and $-g$ on $\mathcal V$; the corners are disjoint
+(\cref{lem:record:fold-identification}(f)). The forms of $\Pi_{E_s}$, $\Pi_{G_e}$,
+$\Pi_{G_o}$ at $\tilde g$ equal those at $g$, and the fold forms change sign,
+so (a) at $\tilde g$ is the order with the lower sign at $g$. The two orders are the two
+block matrices evaluated at $(x|_{\mathcal U},x|_{\mathcal V})$, and a diagonal
+block of a positive semidefinite matrix is positive semidefinite.
+
+(c) Let $\mathcal H_{\Blk}=\R^{\mathfrak X_{\Blk}^{H_0}}$, and extend $A_{\Blk}$,
+$D_{\Blk}$, $K_{\Blk}$ of (b) by zero to $\mathcal H_{\Blk}$. The block matrices
+$\bigl(\begin{smallmatrix}A_{\Blk}&\pm K_{\Blk}\\ \pm K_{\Blk}^{\mathsf T}&D_{\Blk}
+\end{smallmatrix}\bigr)$ remain positive semidefinite on
+$\mathcal H_{\Blk}\oplus\mathcal H_{\Blk}$, because their form at $(x,y)$ is the
+form of (b) at $(x|_{\mathcal U},y|_{\mathcal V})$. Choose the sign $-$ at one
+block and $+$ at the others, or $+$ at every block. By
+\cref{lem:record:block-gram},
+$\bigl(\begin{smallmatrix}\bigotimes A_{\Blk}&\pm\bigotimes K_{\Blk}\\
+\pm\bigotimes K_{\Blk}^{\mathsf T}&\bigotimes D_{\Blk}\end{smallmatrix}\bigr)\succeq0$
+for both signs, and its form at $(x,x)$ is
+$\ip x{(\bigotimes A_{\Blk}+\bigotimes D_{\Blk}\pm(\bigotimes K_{\Blk}+\bigotimes
+K_{\Blk}^{\mathsf T}))x}$. By \eqref{eq:cc:kron} these four Kronecker products
+are the cut matrices at $\vartheta_0$ of the four tensor products in the first
+claim, which is therefore proved; the cut matrices are symmetric, each factor
+being $\vartheta_0$-invariant or exchanged with its partner. For the second
+claim expand the left side into the $2^{|X|}$ products
+$\bigotimes_{\Blk}(\Pi_{E_{s_{\Blk}},\Blk}+\varepsilon_{\Blk}\Pi_{G_{s_{\Blk}s_{\Blk}},\Blk})$,
+$s\in\{0,1\}^X$. The two constant choices of $s$ give the first claim with the
+sign $-$; every other product has the cut matrix $\bigotimes_{\Blk}M_{\Blk}$
+with $M_{\Blk}\in\{A_{\Blk},D_{\Blk}\}$, a Kronecker product of positive
+semidefinite matrices.
+
+(d) Expand the products on the right. The product with $\zeta_j$ at the
+positions $j\in S$ and $\kappa_j$ elsewhere has the coefficient
+$2^{-k}\sum_\sigma(1-\prod_j\sigma_j)\prod_{j\in S}\sigma_j=[S=\emptyset]-[S=\{1,\dots,k\}]$,
+because $\sum_\sigma\prod_{j\in T}\sigma_j=2^k[T=\emptyset]$ for every
+$T\subseteq\{1,\dots,k\}$ and $\prod_j\sigma_j\prod_{j\in S}\sigma_j=\prod_{j\notin S}\sigma_j$;
+this is the identity. Each factor $\kappa_j+\sigma_j\zeta_j$ is
+$\succeq_\vartheta0$, so each product is $\succeq_\vartheta0$ by \eqref{eq:cc:kron},
+and the coefficients $1-\sigma_1\cdots\sigma_k\in\{0,2\}$ are nonnegative; hence
+$\bigotimes_j\kappa_j-\bigotimes_j\zeta_j\succeq_\vartheta0$. Replacing $\zeta_1$ by
+$-\zeta_1$, which satisfies the same hypothesis, gives the other sign. For cut
+matrices this is \cref{lem:record:block-gram}(d); the identity moreover writes
+the difference as a nonnegative combination of tensor products
+of the $\succeq_\vartheta0$ signed measures
+$\kappa_j+\sigma_j\zeta_j$, so that any of them may be discarded. For the last claim, (b) gives
+$\mathcal Q^{\rm E}_\Blk\pm\mathcal Q^{\rm F}_\Blk\succeq_{\vartheta_0}0$ for every
+$\Blk\in X$.
+\end{proof}
+
+\begin{remark}[Where polarization is used]\label{rem:polarization-uses}
+(1) In the middle frame (\cref{def:record:frame}) (a) is applied to the
+one-layer datum with $\varepsilon=(f_1+h_1)r$; multiplied by the record weight
+$v_{\rm D}r^2$ and copied to the reserved diagonal, which preserves the order at
+$\vartheta_0$ (\cref{lem:five-type}(e)), it is the first-stage order
+$E_{\rm add}+G\succeq_{\vartheta_0}F_{\rm fold}$ of (CP2)(a). (2) In the variance
+credits (a) is applied to the two-layer datum with
+$\varepsilon_{\Blk}=(f_2+h_2)r_{\Blk}$ (\cref{lem:record:paired-e-bridge}(a)); this
+datum also satisfies the hypothesis $\nu^b(\{b\})=0$ of (b), and (c)
+gives the aligned bridge of several blocks (\cref{lem:record:paired-e-joint}(a)).
+(3) The one-layer datum of (1) also satisfies the hypothesis of (b), whose two
+orders, copied to the reserved diagonal as in (1), give
+$E_{\rm add}+G\pm F_{\rm fold}\succeq_{\vartheta_0}0$ on every block; (d) carries
+both orders to the products over any set of blocks, in every degree. This is
+the fold coupon of the mean credit (\cref{prop:record:mean-credit}). In all
+three the order is an order of
+cut matrices, not of measures; only actual components of the reference are
+subtracted, so the laws built from it stay nonnegative. In the middle range
+$T_{\rm F}^b$ carries no middle density, the $F$ and $E$ laws having the same
+middle law at class-three primes (\cref{lem:record:class-three}).
+\end{remark}
+
+\subsection{Reweighting to prescribed marginals}\label{subsec:additive-repair}
+
+A comparison record must accept the queries, which is a condition on its
+support, and it must keep the actual half marginals at $\iota$ of the record
+it replaces, so that the difference annihilates the constants. A coupling with
+the right support and slightly wrong marginals is corrected by the additive
+reweighting $1+f(x)+g(y)$: the marginal equations are linear in $(f,g)$, and a
+positive reweighting keeps the support. The next lemma bounds the centred norm
+of such a reweighting; it holds for any additive perturbation with centred
+$f,g$, not only for the solution of the marginal equations.
+
+\begin{lemma}[Centred norm of an additive reweighting]\label{lem:record:additive-cancellation}
+Let $\nu$ be a probability measure on $X\times Y$, finite sets, with marginals
+$\nu_X,\nu_Y$ of full support, and let its centred conditional operator
+$A\colon L^2_0(\nu_Y)\to L^2_0(\nu_X)$, $(Ag)(x)=\E_\nu[g(y)\mid x]$, have norm at
+most $\rho$. Let $d\tilde\nu=(1+f(x)+g(y))\,d\nu\ge0$ with
+$\E_{\nu_X}f=\E_{\nu_Y}g=0$, and let $1+u$, $1+v$ be the densities of its
+marginals relative to $\nu_X$, $\nu_Y$. If $u\ge-U_X$, $v\ge-U_Y$,
+$\|u\|_2\le e_X$, $\|v\|_2\le e_Y$, $\|f\|_\infty\le F_X$ and $\|g\|_\infty\le F_Y$,
+with $U_X,U_Y<1$, then the centred conditional operator of $\tilde\nu$, relative
+to its own marginals, has norm at most
+\[
+ \frac{\rho(1+F_X+F_Y)+e_Xe_Y}{\sqrt{(1-U_X)(1-U_Y)}} .
+\]
+The bounds $\|u\|_2\le e_X$, $\|v\|_2\le e_Y$ enter only through
+$\|u\|_2\|v\|_2\le e_Xe_Y$, so the conclusion holds whenever $e_Xe_Y\ge\|u\|_2\|v\|_2$.
+\end{lemma}
+
+\begin{proof}
+Apply \cref{lem:recentering}(a), with the references $\nu_X,\nu_Y$, to the form
+$\mathfrak b(h,k)=\int hk\,d\tilde\nu$ (\cref{rem:recentering-uses}(3)): its
+densities are $\varrho_L=1+u$ and $\varrho_R=1+v$, so for $h,k$ centred under the
+marginals of $\tilde\nu$, with $h_0=h-\E_{\nu_X}h$ and $k_0=k-\E_{\nu_Y}k$,
+\[
+ \int hk\,d\tilde\nu=\int h_0k_0(1+f+g)\,d\nu-\ip u{h_0}\ip v{k_0} .
+\]
+Since $k_0$ is centred, $\|Ak_0\|\le\rho\|k_0\|$. Hence
+\[
+ \Bigl|\int h_0k_0\,d\nu\Bigr|=|\ip{h_0}{Ak_0}|\le\rho\|h_0\|\|k_0\|,\qquad
+ \Bigl|\int h_0fk_0\,d\nu\Bigr|=|\ip{h_0f}{Ak_0}|\le F_X\rho\|h_0\|\|k_0\|,
+\]
+and the term with $g$ is bounded in the same way through $A^*$. By
+Cauchy--Schwarz, $|\ip u{h_0}\ip v{k_0}|\le e_Xe_Y\|h_0\|\|k_0\|$. Finally
+$1+u\ge1-U_X$ gives
+$\|h\|^2_{\tilde\nu_X}\ge(1-U_X)\E_{\nu_X}h^2\ge(1-U_X)\|h_0\|^2$, and likewise for
+$k$.
+\end{proof}
+
+\begin{lemma}[Additive marginal repair]\label{lem:tr:repair}
+Let $\nu$, $A$ and $\rho<1$ be as in \cref{lem:record:additive-cancellation},
+and let $K_\infty$ bound $A$ and $A^*$ as operators from $L^2$ to $L^\infty$,
+$\|Ag\|_\infty\le K_\infty\|g\|_{L^2(\nu_Y)}$ and
+$\|A^*h\|_\infty\le K_\infty\|h\|_{L^2(\nu_X)}$; one may take
+$K_\infty=(\sup d\nu/d(\nu_X\otimes\nu_Y))^{1/2}$. Let $\mu_X=(1+u)\nu_X$ and
+$\mu_Y=(1+v)\nu_Y$ be probability measures with $|u|\le U_X$, $|v|\le U_Y$,
+$\|u\|_2\le e_X$ and $\|v\|_2\le e_Y$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item The equations $f+Ag=u$, $g+A^*f=v$ have exactly one solution with
+ $f\in L^2_0(\nu_X)$, $g\in L^2_0(\nu_Y)$, namely
+ $f=(I-AA^*)^{-1}(u-Av)$, $g=v-A^*f$. The signed measure
+ $\nu'=(1+f(x)+g(y))\,\nu$ has the marginals $\mu_X$, $\mu_Y$. The norms are
+ bounded equation by equation:
+ $\|f\|_2\le(e_X+\rho e_Y)/(1-\rho^2)$ and $\|g\|_2\le(e_Y+\rho e_X)/(1-\rho^2)$.
+ If a group acts on $X$ and on $Y$, the diagonal action
+ $(x,y)\mapsto(gx,gy)$ preserves $\nu$, and the two actions preserve
+ $\mu_X$ and $\mu_Y$ respectively, then $f$, $g$ and $\nu'$ are invariant
+ under these actions.
+\item $\|f\|_\infty\le U_X+K_\infty\|g\|_2\le F_X:=U_X+K_\infty(e_Y+\rho e_X)/(1-\rho^2)$,
+ and likewise $\|g\|_\infty\le F_Y$.
+\item If $\|f\|_\infty+\|g\|_\infty<1$, for instance if $F_X+F_Y<1$, then $\nu'$ is
+ a probability measure with the marginals $\mu_X,\mu_Y$, and
+ $1+f+g\ge1-\|f\|_\infty-\|g\|_\infty>0$; so $\nu'$ has the support of $\nu$ and
+ satisfies every constraint that holds $\nu$-almost surely.
+\item \emph{(One-way repair.)} If $|u|,|v|\le U<1$, then
+ $\|f\|_2,\|g\|_2\le U/(1-\rho)$ and $\|f\|_\infty,\|g\|_\infty\le
+ F:=U(1+K_\infty/(1-\rho))$; if $2F<1$, (c) applies.
+\item \emph{(Swap symmetry.)} If $X=Y$, $\nu$ is invariant under
+ $(x,y)\mapsto(y,x)$ and $\mu_X=\mu_Y$, then $A^*=A$ and $f=g=s$, where $s$ is
+ the centred solution of $(I+A)s=u$; $\nu'$ is swap invariant.
+\item \emph{(Centred norm and difference.)} Under (c) and $U_X,U_Y<1$, $\nu'$
+ satisfies the hypotheses of \cref{lem:record:additive-cancellation} with the
+ bounds $U_X,U_Y,e_X,e_Y$ above (or any $e_X,e_Y$ with
+ $e_Xe_Y\ge\|u\|_2\|v\|_2$) and any $F_X\ge\|f\|_\infty$, $F_Y\ge\|g\|_\infty$; so
+ its centred conditional operator, relative to $\mu_X,\mu_Y$, has norm at most
+ \[
+  \rho'=\frac{\rho(1+F_X+F_Y)+e_Xe_Y}{\sqrt{(1-U_X)(1-U_Y)}};
+ \]
+ in the case of (d),
+ \[
+  \rho'\le\frac{\rho(1+2F)+U^2}{1-U}\le\frac{\rho(1+2F)+U^2+2FU}{1-U}.
+ \]
+ If $\pi$ is a coupling of $\mu_X$ and $\mu_Y$ whose centred conditional
+ operator has norm at most $\rho(\pi)$, then $\nu'-\pi$ has zero marginals
+ and, as an operator from $L^2(\mu_Y)$ to $L^2(\mu_X)$, norm at most
+ $\rho'+\rho(\pi)$.
+\item \emph{(Neumann series split after $N$ terms.)} For this part $\rho<1$ is not assumed. Let
+ $\mathcal V_X\subseteq L^2_0(\nu_X)$ and $\mathcal V_Y\subseteq L^2_0(\nu_Y)$ be
+ subspaces with $A\mathcal V_Y\subseteq\mathcal V_X$, $A^*\mathcal V_X\subseteq\mathcal V_Y$
+ and $\|A|_{\mathcal V_Y}\|\le\rho_I<1$. If $u\in\mathcal V_X$, $v\in\mathcal V_Y$,
+ $|u|,|v|\le U$ and $\|u-Av\|_2,\|v-A^*u\|_2\le e_I$, then
+ \[
+  f=\sum_{j\ge0}(AA^*)^j(u-Av)\in\mathcal V_X,\qquad
+  g=\sum_{j\ge0}(A^*A)^j(v-A^*u)\in\mathcal V_Y
+ \]
+ solve the equations of (a), and for every integer $N\ge1$
+ \[
+  \|f\|_\infty,\ \|g\|_\infty\le F_N:=2NU+\frac{K_\infty\rho_I^{2N-1}e_I}{1-\rho_I^2} .
+ \]
+ If $2F_N<1$, the conclusions of (c) hold for this solution. If a group acts on
+ $X$ and on $Y$, the diagonal action $(x,y)\mapsto(gx,gy)$ preserves
+ $\nu$, and
+ $\mathcal V_X$, $\mathcal V_Y$ consist of invariant functions, then $f$, $g$ and
+ $\nu'$ are invariant.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) $A$ maps centred functions to centred functions, since
+$\E_{\nu_X}Ag=\E_{\nu_Y}g$. The positive operator $AA^*$ on $L^2_0(\nu_X)$ has norm
+at most $\rho^2<1$, so $I-AA^*$ is invertible, and substitution gives
+$f+Ag=(I-AA^*)f+Av=u$ and $g+A^*f=v$; the targets are centred because $\mu_X$
+and $\mu_Y$ are probability measures. If $(f,g)$ solves the equations with
+$u=v=0$, then $f=AA^*f$, so $f=0$ and $g=0$: the solution is unique. For
+centred $f,g$ the marginal densities of $\nu'$ are
+$1+f+\E_\nu[g(y)\mid x]=1+f+Ag=1+u$ and $1+v$. Taking norms in each equation
+separately, $\|f\|\le e_X+\rho\|g\|$ and $\|g\|\le e_Y+\rho\|f\|$, so
+$\|f\|\le e_X+\rho e_Y+\rho^2\|f\|$, which is the first bound; likewise for $g$.
+(The norm $\rho$ of the off-diagonal operator on
+$L^2_0(\nu_X)\oplus L^2_0(\nu_Y)$ alone would give only
+$\|(f,g)\|\le\|(u,v)\|/(1-\rho)$, a loss of $\sqrt2$ in the one-way case.) A
+symmetry of the data commutes with $A$ and $A^*$ and maps a centred solution to
+a centred solution, which is therefore the same one.
+
+(b) $f=u-Ag$, so $\|f\|_\infty\le\|u\|_\infty+K_\infty\|g\|_2$, and (a) bounds
+$\|g\|_2$. If $k=d\nu/d(\nu_X\otimes\nu_Y)$, then
+$|Ag(x)|^2\le\int k(x,y)^2\,\nu_Y(dy)\,\|g\|_2^2\le\sup k\,\|g\|_2^2$, because
+$\int k(x,y)\,\nu_Y(dy)=1$.
+
+(c) By (a) $\nu'$ has mass one and the marginals $\mu_X,\mu_Y$, and
+$1+f+g\ge1-\|f\|_\infty-\|g\|_\infty>0$ on the support of $\nu$.
+
+(d) With $U_X=U_Y=e_X=e_Y=U$, (a) gives $U(1+\rho)/(1-\rho^2)=U/(1-\rho)$ and (b)
+gives $U+K_\infty U/(1-\rho)=F$.
+
+(e) Under the swap the system for $(f,g)$ becomes the system for $(g,f)$; by
+uniqueness $f=g$, and then $f+Af=u$.
+
+(f) $\nu'\ge0$ by (c), $f,g$ are centred and $1+u,1+v$ are the densities of the
+marginals of $\nu'$, with $u\ge-U_X$ and $v\ge-U_Y$;
+\cref{lem:record:additive-cancellation} gives $\rho'$, and in the case of (d)
+$F_X=F_Y=F$, $e_Xe_Y\le U^2$ and $\sqrt{(1-U)^2}=1-U$. Finally $\nu'$ and $\pi$
+have the same marginals; their operators relative to $\mu_X,\mu_Y$ agree on the
+constants, both fix them on both sides, and both map centred functions to
+centred functions, so the difference is the difference of the centred parts,
+of norm at most $\rho'+\rho(\pi)$.
+
+(g) Since $A^*\mathcal V_X\subseteq\mathcal V_Y$, the restriction of $A^*$ to
+$\mathcal V_X$ is the adjoint of $A|_{\mathcal V_Y}\colon\mathcal V_Y\to\mathcal V_X$;
+so $AA^*$ maps $\mathcal V_X$ into itself with norm at most $\rho_I^2$, and
+$A^*A$ maps $\mathcal V_Y$ into itself with norm at most $\rho_I^2$. Hence both
+series converge, $f\in\mathcal V_X$, $g\in\mathcal V_Y$, $(I-AA^*)f=u-Av$, and
+$A^*(AA^*)^j=(A^*A)^jA^*$ gives $g=\sum_j(A^*A)^jv-\sum_j(A^*A)^jA^*u=v-A^*f$.
+Then $g+A^*f=v$ and $f+Ag=(I-AA^*)f+Av=u$. The operators $A$ and $A^*$ are
+conditional expectations, hence contractions of $L^\infty$, so each of the first
+$N$ terms of the series for $f$ has sup norm at most $\|u-Av\|_\infty\le2U$. For
+$j\ge N$ write $(AA^*)^j(u-Av)=A\bigl[A^*(AA^*)^{j-1}(u-Av)\bigr]$; its sup norm
+is at most $K_\infty\|A^*(AA^*)^{j-1}(u-Av)\|_2\le K_\infty\rho_I^{2j-1}e_I$. Summing
+over $j\ge N$ gives $F_N$, and the same argument with $A$ and $A^*$ exchanged
+bounds $g$. The marginal densities of $\nu'$ are $1+f+Ag=1+u$ and
+$1+g+A^*f=1+v$, as in (a), and the proof of (c) applies. In the last claim
+$f\in\mathcal V_X$ and $g\in\mathcal V_Y$ are invariant, and so is
+$\nu'=(1+f+g)\nu$, since $\nu$ is.
+\end{proof}
+
+\begin{remark}[Blocks and the certified forms]\label{rem:repair-forms}
+(1) On a block the replaced and the repaired records are tensor products over
+the primes whose prime operators fix the constants of the same marginal spaces;
+if every prime centred norm of both is at most $\frac12$, \cref{lem:sector}(b)
+bounds the block difference by the largest prime difference: on
+functions with exact support a set $S$ of $k$ primes the difference is a
+sum of $k$ terms, each the prime difference at one prime of $S$ times
+centred factors of norm at most $\frac12$ at the other $k-1$ primes,
+hence at most $k2^{1-k}\le1$ times the largest prime difference, and on
+the empty support the difference vanishes. (2) The certificates evaluate (f) in two forms. The middle merge
+repairs (\cref{lem:merge-repair}) use the weaker form with $+2FU$, which the
+stronger one implies, with the influence bound for $\rho(\pi)$; the one-way
+repairs of the upper range (\cref{sec:upper-comparison}) use
+$(\rho(1+2F)+U^2)/(1-U)$, with the smaller of the influence bound and the
+spectral bound of the replaced record for $\rho(\pi)$, and in their joint-star
+refinement a smaller bound for $\|u\|_2\|v\|_2$ in place of $U^2$, which (f)
+allows. In every case the targets are the actual half marginals of the replaced
+record, the solution of (a) keeps the support of the new graph law, and (a)
+makes it invariant under the square-affine maps when the data are. (3) The
+dense comparisons of the upper range and the components of its six-query
+mixture (\cref{prop:dense-comparison,prop:le-mixture}) are repaired by (g) on
+the functions invariant under the square-affine maps, where the centred
+leading stars vanish; on these subspaces $\|A\|\le\rho_I$ with the
+certified $\rho_I<1$ of the applications, and the tail of the series in
+(g) beyond its first $N$ terms contributes at most
+$K_\infty\rho_I^{2N-1}e_I/(1-\rho_I^2)$ to the $L^\infty$ bound $F_N$
+there; the certificates record $N$ for each endpoint ($N=2$
+for the dense records, $N=1$ for the components of the mixture). The changes
+of these records, and those of the forest records (\cref{prop:forest-records}),
+from the records they replace are bounded in the actual marginal space by
+\cref{lem:record:centered-correction}: for the dense comparisons and the
+mixture by its part (c), without a marginal-variance term; for the forest
+records by its part (b), which also gives the full operator norms on
+$L^2(m)$ entering the block-gate inequalities \eqref{eq:upper-block-gate}
+for the forest records,
+and for the field pairs FE and EF the symmetric part by its part (c).
+\end{remark}
+
+A repaired law is compared with the record it replaces in the space of
+its actual marginals, while its bounds are proved in one common fixed
+half chart. The next lemma carries out this change of space for a
+reweighting $(1+f(x)+g(y))K$. It bounds separately the norm of the centred operator and
+the norms of its symmetric and skew parts; and against a second law with the same
+marginals, the rank-one terms produced by centring on the left and
+on the right cancel, so that no marginal-variance term remains.
+
+\begin{lemma}[Centred additive correction]\label{lem:record:centered-correction}
+Let $\nu$ be a probability measure on a finite set $\mathcal H$,
+$\Pi_\perp=I-\Jproj$ on $L^2(\nu)$, and $K$ a real kernel on
+$\mathcal H\times\mathcal H$ with $\int K\,d(\nu\otimes\nu)=1$ (in the applications
+a probability density relative to $\nu\otimes\nu$). Write $h\otimes k$ for the
+kernel $h(x)k(y)$, and put $\delta_L=K\one-\one$, $\delta_R=K^*\one-\one$ and
+$K_c=\Pi_\perp K\Pi_\perp$, so that
+\[
+ K=\one\otimes\one+\delta_L\otimes\one+\one\otimes\delta_R+K_c ,
+\]
+with $\delta_L$, $\delta_R$ centred. Let $\|K_c\|\le c$,
+$\|\operatorname{Sym}K_c\|\le s$, $\|\operatorname{Skew}K_c\|\le a$ and
+$\|\delta_L\|_\nu,\|\delta_R\|_\nu\le e$, all on $L^2(\nu)$. Let $f$, $g$ be real
+functions on $\mathcal H$ with $\|f\|_\infty,\|g\|_\infty\le F$, and
+$K'=(1+f(x)+g(y))K$. Here a kernel $\kappa$ denotes both the
+measure $\kappa\,d(\nu\otimes\nu)$ and the operator
+$h\mapsto\int\kappa(\cdot,y)h(y)\,\nu(dy)$ on $L^2(\nu)$; its half
+marginals are the marginals of that measure. For a kernel $\kappa$ of
+mass one with both half marginals
+equal to a probability measure $m$, the \emph{centred operator} $\mathcal C_\kappa$
+on $L^2(m)$ is defined by
+$\ip\phi{\mathcal C_\kappa\psi}_m=\int\phi(x)\psi(y)\kappa(x,y)\,\nu(dx)\,\nu(dy)
+-\E_m\phi\,\E_m\psi$; for a probability density it is the centred conditional
+operator relative to the marginals.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item The centred correction $D=\Pi_\perp(K'-K)\Pi_\perp$ is
+ \[
+  D=(\Pi_\perp f)\otimes\delta_R+\delta_L\otimes(\Pi_\perp g)
+  +\Pi_\perp(fK_c)\Pi_\perp+\Pi_\perp(K_cg)\Pi_\perp ,
+ \]
+ where $fK_c$ and $K_cg$ are the kernels $f(x)K_c(x,y)$ and $K_c(x,y)g(y)$, and
+ \[
+  \|D\|\le\|f\|_\nu\|\delta_R\|_\nu+\|\delta_L\|_\nu\|g\|_\nu
+  +(\|f\|_\infty+\|g\|_\infty)\|K_c\|\le2F(c+e).
+ \]
+\item Suppose that $K'$ has mass one and both half marginals $m=(1+u_0)\nu$, with
+ $1+u_0\ge e^{-\ell_m}$ and $\|u_0\|_\nu^2\le b_0$. Then
+ \[
+  K'-(1+u_0)\otimes(1+u_0)=K_c+D-u_0\otimes u_0 ,
+ \]
+ and the norms of $\mathcal C_{K'}$, of its symmetric part and of
+ its skew part are at most
+ \[
+  e^{\ell_m}\bigl(c+2F(c+e)+b_0\bigr),\qquad
+  e^{\ell_m}\bigl(s+2F(c+e)+b_0\bigr),\qquad
+  e^{\ell_m}\bigl(a+2F(c+e)\bigr).
+ \]
+\item Suppose moreover that $O$ is a kernel of mass one with the same half
+ marginals $m$ (in the applications the record that is replaced). Then
+ \[
+  K'-O=\Pi_\perp(K-O)\Pi_\perp+D ,
+ \]
+ and the symmetric and skew parts of $\mathcal C_{K'}-\mathcal C_O$ have norms at
+ most $e^{\ell_m}(\|\operatorname{Sym}\Pi_\perp(K-O)\Pi_\perp\|+2F(c+e))$ and
+ $e^{\ell_m}(\|\operatorname{Skew}\Pi_\perp(K-O)\Pi_\perp\|+2F(c+e))$: there is no
+ marginal-variance term.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The kernel $h(x)k(y)$ has the compression $(\Pi_\perp h)(x)(\Pi_\perp k)(y)$, so
+a term that is constant in $x$ or in $y$ is killed by $\Pi_\perp\cdot\Pi_\perp$.
+The four terms of the decomposition of $K$ are its four compressions by $\Jproj$
+and $\Pi_\perp$: $\Jproj K\Jproj=\one\otimes\one$ because $K$ has mass one,
+$\Pi_\perp K\Jproj=(K\one-\one)\otimes\one$, $\Jproj K\Pi_\perp=\one\otimes(K^*\one-\one)$,
+and $\delta_L$, $\delta_R$ are centred for the same reason.
+
+(a) Expand $(f(x)+g(y))K$ with this decomposition and compress. In
+$f(x)K(x,y)$ the terms $f\otimes\one$ and $(f\delta_L)\otimes\one$ are killed, and
+$f\otimes\delta_R$ and $fK_c$ give $(\Pi_\perp f)\otimes\delta_R$ and
+$\Pi_\perp(fK_c)\Pi_\perp$, since $\Pi_\perp\delta_R=\delta_R$; in $g(y)K(x,y)$
+the terms $\one\otimes g$ and $\one\otimes(g\delta_R)$ are killed, and
+$\delta_L\otimes g$ and $K_cg$ give the other two terms. The rank-one terms have
+norms $\|\Pi_\perp f\|_\nu\|\delta_R\|_\nu\le\|f\|_\nu\|\delta_R\|_\nu$ and
+$\|\delta_L\|_\nu\|\Pi_\perp g\|_\nu\le\|\delta_L\|_\nu\|g\|_\nu$; the last two are
+compressions of the products of $K_c$ with the multiplications by $f$ and by
+$g$, of norms at most $\|f\|_\infty\|K_c\|$ and $\|g\|_\infty\|K_c\|$. With
+$\|f\|_\nu\le\|f\|_\infty\le F$ and $\|g\|_\nu\le F$ this is at most $2F(c+e)$.
+The bound uses only the sup norms of $f$, $g$, and no centring of them.
+
+(b) Since $K'\one=K'^*\one=1+u_0$ and $\E_\nu u_0=0$, the kernel
+$X=K'-(1+u_0)\otimes(1+u_0)$ annihilates the constants on both sides, so it equals
+its compression
+$\Pi_\perp K'\Pi_\perp-u_0\otimes u_0=K_c+D-u_0\otimes u_0$. By the density transport of \cref{lem:record:actual-correlation}(b), with
+$\psi=1+u_0$ and $W\phi=(1+u_0)^{1/2}\phi$,
+\[
+ \mathcal C_{K'}=W^*M_{1+u_0}^{-1/2}XM_{1+u_0}^{-1/2}W.
+\]
+Here $M_{1+u_0}$ denotes multiplication by $1+u_0$. The transport multiplies
+norm bounds by at most $e^{\ell_m}$ and preserves symmetric and skew parts.
+The rank-one term $u_0\otimes u_0$ is self-adjoint, of norm $\|u_0\|_\nu^2\le b_0$,
+so it enters the full and the symmetric norms and not the skew one; and the
+symmetric and skew parts of $D$ have norms at most $\|D\|$.
+
+(c) $K'$ and $O$ have mass one and the same half marginals, so $K'-O$
+annihilates the constants on both sides and equals its compression
+$\Pi_\perp(K'-O)\Pi_\perp=\Pi_\perp(K-O)\Pi_\perp+D$. As in (b),
+$\mathcal C_{K'}-\mathcal C_O=W^*M_{1+u_0}^{-1/2}(K'-O)M_{1+u_0}^{-1/2}W$: the two
+subtractions
+$(1+u_0)\otimes(1+u_0)$ cancel. Take symmetric and skew parts.
+\end{proof}
+
+A second way to correct the marginals of a positive kernel adds instead of
+reweighting. If a coupling $J$ with the prescribed (target) marginals and the
+required support is at hand, a kernel with marginal defects
+$\alpha,\beta$ bounded in absolute value by $M$ and satisfying
+$J\beta=0$ and $J^*\alpha=0$ is corrected by the added term
+$J(\alpha+\beta+2M)$ of \cref{cor:markov-completion}. This uses
+neither the inversion of $I-AA^*$ nor a hypothesis $\rho<1$, and the
+centred change is at most $2M(\|QRQ\|+2\|QJQ\|)$ there.
+
+\begin{corollary}[Completion by mixing in a coupling of the target marginals]\label{cor:markov-completion}
+Let $m_X$, $m_Y$ be probability measures on finite sets $X$, $Y$, and let $R\ge0$
+be a density relative to $m_X\otimes m_Y$ of mass one, with marginal defects
+$\alpha=\one-R\one$ and $\beta=\one-R^*\one$, $|\alpha|,|\beta|\le M$. Let $J\ge0$ be a
+density relative to $m_X\otimes m_Y$ with $J\one=\one$ and $J^*\one=\one$ (a
+coupling of $m_X$ and $m_Y$) such that $J\beta=0$ and $J^*\alpha=0$. Then
+\[
+ P=\frac{R+J\bigl(\alpha(x)+\beta(y)\bigr)+2MJ}{1+2M},
+\]
+where $J(\alpha(x)+\beta(y))$ is the kernel $J(x,y)(\alpha(x)+\beta(y))$, is a
+probability density relative to $m_X\otimes m_Y$ with marginals $m_X$ and $m_Y$,
+it vanishes wherever $R$ and $J$ both vanish, and, with $Q$ the projections off
+the constants,
+\[
+ \|Q(P-R)Q\|\le2M\bigl(\|QRQ\|+2\|QJQ\|\bigr),
+\]
+the norms being those of operators from $L^2(m_Y)$ to $L^2(m_X)$. If a group acts on $X$ and on $Y$ preserving $m_X$ and
+$m_Y$, and the diagonal action on $X\times Y$ preserves the densities
+$R$ and $J$, then $P$ is invariant under the diagonal action.
+\end{corollary}
+
+\begin{proof}
+$J(x,y)(\alpha(x)+\beta(y)+2M)\ge0$ because $\alpha+\beta\ge-2M$, so $P\ge0$. As an
+operator the kernel $J(x,y)(\alpha(x)+\beta(y))$ is $M_\alpha J+JM_\beta$, with
+$M_\alpha$ the multiplication by $\alpha$. By $J\one=\one$ and $J\beta=0$,
+$(1+2M)P\one=(\one-\alpha)+\alpha+0+2M\one$; by $J^*\one=\one$ and $J^*\alpha=0$,
+$(1+2M)P^*\one=(\one-\beta)+0+\beta+2M\one$. So $P$ has the marginals $m_X$ and
+$m_Y$, and mass one; the support claim is clear. Next, $J$ maps centred functions
+to centred functions, since $\ip\one{J\psi}=\ip{J^*\one}\psi$, and constants to
+constants; so $JQ=QJQ$ and $QJ\Jproj=0$. Hence $QM_\alpha JQ=QM_\alpha(QJQ)$ and
+$QJM_\beta Q=(QJQ)(QM_\beta Q)$, and
+$\|Q(M_\alpha J+JM_\beta)Q\|\le2M\|QJQ\|$. Therefore
+\[
+ Q(P-R)Q=\frac{Q(M_\alpha J+JM_\beta)Q+2M\,QJQ-2M\,QRQ}{1+2M}
+\]
+has norm at most $2M(\|QRQ\|+2\|QJQ\|)$. Finally $\alpha$ and $\beta$ are invariant
+when $R$, $m_X$ and $m_Y$ are, and the formula for $P$ is equivariant.
+\end{proof}
+
+\paragraph{Consequences and what to read next.}
+From \cref{sec:positivity}: cut matrices and the order $\succeq_\vartheta$
+(\cref{def:cc:order}, \eqref{eq:cc:kron}, \cref{rem:cut-symmetries}), diagonal
+laws of samplewise fixed records and images under half-local maps
+(\cref{lem:commoncut}(i),(v)), block brackets and their tensorization
+(\cref{lem:record:block-gram}, with (d) for symmetric brackets), and the chamber
+group with chamber transport (\cref{def:slot-array,lem:slot-array}). From
+\cref{sec:lifts}: the sector lemma (\cref{lem:sector}), for block differences.
+From \cref{sec:labellings}: the laws $\lambda_{\Blk}(G)$
+(\cref{def:graphs:labeling}). From \cref{sec:cuts}: the recentering identity
+(\cref{lem:recentering}(a)) and density transport
+(\cref{lem:record:actual-correlation}(b)). From \cref{sec:extraction}: the joint fold and
+matching rows (\cref{lem:joint-rows}(b),(c), \cref{cor:joint-row-split}).
+Nothing from Part~III or Part~V is used; the references to Part~V name
+applications.

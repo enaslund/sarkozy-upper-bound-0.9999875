@@ -1,0 +1,972 @@
+\section{Obstructions, limits and pitfalls}\label{sec:obstructions}
+
+\paragraph{What this section is for (not used in the proof).}
+This section records what did not work, where the method stops, and the errors
+the proof had to avoid. Nothing in it is a premise of the main theorem, and no
+proof of Parts~II--V cites it. Each statement is quoted, with its scope, from
+the place where it is derived (a section of this paper, the archived manuscripts
+of \cref{subsec:cert:archive}, or a research note), or is checked here by an
+elementary argument (\cref{lem:obs:rejection-covers}, \cref{rem:obs:root-support}(i))
+or a stated enumeration.
+It serves a reader
+who wants to know why the construction of \cref{sec:design} has its shape, and
+one who wants to push the exponent further. \Cref{sec:history} tells the
+development in order; here the material is grouped by kind: the accounting
+(\cref{subsec:obs:plain,subsec:obs:reserved,subsec:obs:pairing}), the prime
+ranges (\cref{subsec:obs:prefix,subsec:obs:class-one}), the root law and twelve
+queries (\cref{subsec:obs:root,subsec:obs:twelve}), the obstruction
+polynomials of the earlier recurrence (\cref{subsec:obs:polynomials}), limits
+(\cref{subsec:obs:limits}), tested directions (\cref{subsec:obs:tested}),
+pitfalls (\cref{subsec:obs:pitfalls}) and the scope of the reviews
+(\cref{subsec:obs:reviews}). As in \cref{sec:history}, ``row~$n$'' is a row of
+\cref{tab:history:checkpoints}, ``old \S$n$'' a section of the archived
+manuscript of $644$ pages and ``master \S$n$'' a section of the archived
+manuscript of $770$ pages, whose labels are quoted as master labels. Numbers
+marked ``about'' are not certified.
+
+\subsection{The crude bound exceeds $1$ (distinct from $\Theta<1$)}\label{subsec:obs:plain}
+
+Without classes, without the common mean and with the norm envelopes as
+matching envelopes (so that the dominator price is
+$T=S+A$, the symmetric plus skew price, by the norm-envelope
+case of (CP6) in \cref{def:cp6}), the comparison argument of
+\cref{sec:comparison-proof} gives only the \emph{plain criterion}
+$L_0+\mathcal E+J+W<1$, with $\mathcal E=B(e^S\cosh A-1)$ and
+$J=Be^{S+A}(R_I/2)^6$. Theorem~C (\cref{thm:comparison}) refines it in three
+independent ways, described in \cref{subsec:walk:accounting}: the classes of
+(CP5) (\cref{sec:variance,sec:envelopes}), the direct Gram
+(\cref{sec:matching-mean}), and the common mean (\cref{lem:record:common-mean}),
+with which the trivial credit $m=1-L_0$ gives the closing
+$L_0+\frac{63}{64}\mathcal E+J+W$ and a credit $m>1$ lowers it by a further
+$(m-1+L_0)/64$ (\cref{rem:cp:trivial-mean}).
+
+\begin{remark}[Why the plain criterion is refined]\label{rem:record:plain}
+At the October~18 checkpoint ($\eps=441/44375000$,
+\cref{subsec:history:layers}) the plain criterion fails even when the reserved
+cost already contains the variance discounts of degrees one and two: its value
+is then $1.1219\ldots>1$. The certified ledger of that checkpoint, which its
+record verifier checks (\cref{subsec:cert:archive}), shows what each refinement
+bought (upper bounds, rounded up; the gains are differences of the displayed
+values):
+\begin{center}
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.62\textwidth}rr@{}}
+\toprule
+After this step & Closing & Gain\\
+\midrule
+Variance discounts of degrees one and two; plain matching term & $1.121918$ & \\
+Direct old/new $F$ matching Gram & $1.012226$ & $0.109692$\\
+Variance discounts of degrees three and four & $1.012152$ & $0.000074$\\
+Common mean, reserved coefficient $63/64$ & $0.999627$ & $0.012525$\\
+Positive $F$ singleton mean, doubled & $0.995618$ & $0.004009$\\
+Distinct-block pair mean and its polarized copy & $0.995490$ & $0.000128$\\
+Extra direct-envelope singleton and pair means & $0.995315$ & $0.000175$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Each line is a separate valid inequality between the same quantities, and no saving is counted in two lines.
+\end{remark}
+
+For the baseline construction \cref{subsec:walk:accounting} gives the same
+decomposition at the values of \cref{tab:closing-values}: there the plain
+criterion is about $1.603$, the closing without the common mean and the mean
+credit about $1.021$, and every refinement is needed. The accounting also has
+limits. The
+coefficient $63/64$ was also derived pattern by pattern; the stronger
+coefficient $31/32$ of that derivation needs the comparison and the matching to
+use one bracket for every index-support pattern, which fails once the direct Gram prices the
+$F$ records. At the October~18 checkpoint the positive mean of the
+reserved-diagonal records had the ceiling $(e^{U_0}-1)/64$, about $0.016$, and
+the coupons took about $0.0043$ of it. The final mean credit saves about
+$0.0092$: its coupons have degrees up to four and use chosen side diagonals
+that the matching cap already pays, and late-pool coupons of degrees five and
+six complete them (\cref{prop:record:mean-credit}).
+
+\subsection{No positive order at the reserved cut}\label{subsec:obs:reserved}
+
+The variance credits of \cref{sec:variance} need lower bounds for the energies
+of the products of the actual half marginals of the fold records $F_1,F_2$ and
+the matching records $E_0,E_1$ of a middle block. The bracket lives at
+$\iota$, so the natural place to look for them is the reserved cut. It is the
+wrong place.
+
+\begin{remark}[A reserved-cut barrier and its scope]\label{rem:record:variance-n1}
+At $\iota$ the half law of each of these records is folded: the six labels of a
+layer take three distinct values, in the pattern of the fold
+(\cref{lem:record:fold-identification}), while the root of the reference
+labels a layer injectively. So the half laws are singular to that of the root,
+and an independent analysis (statement N1 of
+\path{research/roadmap_2026_10_18_claude/item03/main/VARIANCE_NOTE.md}) drew
+three consequences: (i) no positive semidefinite order at $\iota$ between a
+record's product of marginals and the reference bounds its unselected energy
+from below, since in the block coordinate that product has rank one; (ii) an
+exact toy with a folded law singular to the root law (energies $1$ and $1/k$ in the selected and unselected cases of that note, $Y\approx0.998$, $k=4,\dots,256$) violates the
+inequality such an order would give; (iii) measuring the zero-marginal record
+differences by the reference's centred norm in $L^2(m_\Blk)$ gives norms larger by a factor of about $10^3$ than the centred norms in the records' own marginals. These statements concern orders at $\iota$ against the reference,
+and they are correct there. They explain how the restoration of
+\cref{sec:variance} is built: it compares the root with $F_j$ at the fold
+chamber of $F_j$, where both half laws live on six distinct labels with
+mutually bounded densities (\cref{hyp:variance:A}, with a pointwise and a
+chi-square bound in \cref{lem:record:root-marginal}), reaches $E_0,E_1$ by a
+polarization at a chamber cut, and at $\iota$ uses only each record's own
+centred norm in its own actual marginal space (\cref{subsec:variance:centred}).
+The toy has no chamber cut and violates hypothesis (A) of \cref{hyp:variance:A} (mutually bounded half-law densities on the common chamber), which step~(B) of \cref{lem:record:restoration} uses, so it is not a counterexample to it; the
+referees of the record gate reached the same conclusion.
+\end{remark}
+
+\subsection{Pairing and signed blocks: norms against envelopes}\label{subsec:obs:pairing}
+
+The fold records $F_1,F_2$ must be replaced by laws that accept the queries and
+keep the actual half marginals. The final construction uses the signed
+whole-block law (\cref{def:record:mixture}): its first-order change at $\iota$
+is purely skew, a three-arm star (a star with three cross pairs) of norm about $1.2732\,r$, and its whole
+symmetric part is of order $1/p$ (\cref{prop:signed-bounds}). At the
+October~18 checkpoint a different choice won, the orientation mixture of the
+next remark, and at row~11 the pure pairing, which the signed law contains as
+its case $\tlaw=0$ (\cref{lem:mirror}).
+
+\begin{remark}[Pairing and its barrier]\label{rem:record:pairing-barrier}
+The pure paired repair has leading constants $(0,\sqrt2)\,r$ (symmetric, skew)
+for $F$ and $(0,1)\,r$ for the paired matching record. For $p\equiv3\pmod4$,
+$p\ge43$, every accepting replacement of the two-layer $F_1$ record with the
+exact old half marginals that keeps the old cross edge $y_0\to x_2$ differs from
+the reference record by at least $(2-3q)^{1/2}r$ in operator norm on $L^2(m_0)$ ($q=1/p$; $m_0$ as in \cref{lem:old-f-law}),
+and every accepting replacement of $E_0$ or $E_1$ by at least $r/(1-q)$ (Lemma~LB
+of \path{research/roadmap_2026_10_18_claude/item01/deepen2/BARRIER.md}); so
+pairing is optimal only within the class that keeps $y_0\to x_2$. The orientation mixture
+of the October~18 checkpoint leaves that class: it mixes the four laws that keep
+or reverse $y_0\to x_2$ and $x_0\to y_1$, with weights
+$(.5803723,.2409463,.1786814,0)$ on (keep, keep), (keep, reverse),
+(reverse, keep), (reverse, reverse), and its leading coefficients have norms
+$0.30636\ldots$ and $0.97207\ldots$, of sum $1.2784\ldots<\sqrt2$. Joint flips
+of the two edges beat pairing at first order for every ratio of symmetric to
+skew price below $\sqrt{7/3}$
+(\path{research/roadmap_2026_10_18/coordinator/ORIENTATION_MIXTURE_PARETO.md}).
+The signed whole-block law leaves that class as well: in all three of its
+components the factor $1+\mathsf B$ of the old cross edge $y_0\to x_2$ is replaced by $1+(1-\tlaw)\mathsf B$, two of them reverse the mirror edge $x_0\to y_1$, and
+one of these also the old edge $x_0\to y_2$
+(\cref{lem:signed-components,def:record:mixture}; master \S43,
+\path{paper/sections/advance_2026_10_24/local.tex}:19-36, 95-108).
+\end{remark}
+
+At row~11 the construction returned to pure pairing, which loses on norms,
+because the closing prices the symmetric and the skew parts differently. In the
+reserved cost $B(e^S\cosh A-1)-D$ the symmetric price enters at first order,
+through $e^S$, the skew price only through $\cosh A$ (\cref{rem:middle-bracket});
+and the even skew products are charged by positive joint envelopes below $B$
+(\cref{thm:envelopes,lem:reflection-averaging}), the aligned classes keeping a
+fraction of their variance credit (\cref{lem:class-credit}). Against row~10,
+which kept the mixture, $S$ fell from about $0.12$ to below $0.0181$ and $A$
+rose from about $0.70$ to below $0.952$, and the discount $D>0.428$ more than
+paid for the larger $A$ (old \S41). Two repairs are compared by their prices in
+the complete reserved cost, not by the norms of their leading terms. The signed
+law of the final construction keeps the zero symmetric leading change of
+pairing and lowers its skew leading change from $\sqrt2\,r$ to about
+$1.2732\,r$, at the variation $1+\tlaw$ (\cref{rem:obs:sign-frontier}); the pure
+law itself had reached its limits (\cref{rem:obs:pure-sharpness}).
+
+\begin{remark}[The pure paired law at its limits]\label{rem:obs:pure-sharpness}
+Take the pure paired law in the form of row~12: its raw kernel is that of the
+case $\tlaw=0$ of \cref{def:record:mixture}, and its repair and its actual
+leading two-arm star $L_{F,p}$ are those of master \S42. Its difference at the prime $p$, $D_{F,p}$, satisfies, for primes $p\equiv3\pmod4$,
+\[
+ \lim_{p\to\infty}p\,\|D^{\rm s}_{F,p}\|=2,\qquad
+ \lim_{p\to\infty}p\,\|D^{\rm a}_{F,p}-L_{F,p}\|=\sqrt5,
+\]
+with witnesses on nontrivial translation sectors (master \S42,
+\texttt{cont:local:sharpness},
+\path{paper/sections/continuation_2026_10_24/local.tex}:1074-1156;
+\path{research/continuation_2026_10_24/local/SHARPNESS.md}); at the first piece
+of row~12 the two coefficients were about $2.010$ and $2.268$, against about
+$10.836$ and $16.677$ in the bounds of row~11. The coefficient $\sqrt6$ of the
+direct old/new Gram of the matching envelopes of that law is sharp for scalar
+side diagonals: the leading two-side Gram has the characteristic polynomial
+$z^4(z^2-6)(z^2-2)$, so a common scalar side shift must be at least $\sqrt6$,
+and two different scalar shifts have average at least $\sqrt6$
+(\path{research/continuation_2026_10_24/local/DIRECT_GRAM_OBSTRUCTION.md}).
+Both statements concern that law and that decomposition: a further gain in the
+middle needed another law, and they say nothing about the optimality of the
+exponent.
+\end{remark}
+
+\begin{remark}[The leading frontier of signed fold laws]\label{rem:obs:sign-frontier}
+Average the $256$ complete cross-sign patterns of the fold record that contain
+the accepted query, with arbitrary real weights of total mass one, and let
+$n_{\rm s}$, $n_{\rm a}$ be the symmetric and skew leading norms of the change, in
+units of $r$. Then, for every relative price weight $c\ge1$ on the symmetric part, $c\,n_{\rm s}+n_{\rm a}\ge\sqrt{3/2}$, without
+any positivity. A zero symmetric leading error forces the four sign moments of
+the cross edges into a family with one parameter $\tlaw$, whose skew leading
+norm is $(1+\tlaw^2+(1-\tlaw)^2)^{1/2}$, least at $\tlaw=1/2$; nonnegative weights
+force $\tlaw=0$, pure pairing, with $\sqrt2$; for $0\le\tlaw\le1$ a signed law of the
+family has total variation at least $1+\tlaw$, and the three-component law of
+\cref{def:record:mixture} attains it. On the same family the scalar coefficient of the direct Gram of the matching sides in the leading Euclidean model is at least
+$s_\tlaw=(4-2\tlaw+2\tlaw^2+2(1+\tlaw^2)^{1/2})^{1/2}$, with equality for that law
+(\cref{lem:record:direct-gram}): $\sqrt6$ at $\tlaw=0$, about $2.3842$ at
+$\tlaw=127/500$
+(\path{research/advance_2026_10_24/local/SIGNED_LEADING_FRONTIER.md}:9-82, checked
+by \path{research/advance_2026_10_24/local/check_signed_frontier.json}; master
+\S43, \texttt{adv:local:signed-law},
+\path{paper/sections/advance_2026_10_24/local.tex}:95-146). The statement
+concerns the leading Euclidean model: it rules out a further leading gain from
+more signed cross orientations with these objectives, not a different law, and
+the selected $\tlaw=127/500$ is chosen by the complete closing, which also depends
+on the envelopes, the restorations, the coupons and the finite remainders.
+\end{remark}
+
+\subsection{The walls of the prefix at primes $p\equiv1\pmod4$}\label{subsec:obs:prefix}
+
+A \emph{wall} in this section means a value of the exponent at
+which one explicit bound of the construction reaches $1$, so that
+this layout of the construction cannot pass it without a new idea.
+For the prefix the binding bound is the price of deleting
+coincident labels from the square clique; the remark computes the
+two walls it gives.
+
+\begin{remark}[The prefix walls]\label{rem:record:prefix-walls}
+The numerical comparisons in this remark use the baseline $\vartheta=1$ and $a=\PushA$. With $\mcl$ digit pairs the prefix deletes its exception at a total price at most
+$\eta_{\mcl}P_4^{1+2\mcl a}$, $\eta_{\mcl}=2^{1-\mcl}-2^{-2\mcl}$
+(\cref{lem:frontier:iidenergy}),
+which at $P_4=2^{512}$ is below $2^{513-\mcl(1-1024a)}$: each digit pair halves the
+exception and multiplies the selection factor of a prefix prime by at most
+$2^{1024a}$. This gives two walls. (i) For a free number of digit pairs the
+bound tends to zero exactly when $2^{1024a}<2$, that is $a<1/1024$, or
+$\eps<1/72704\approx1.3754\cdot10^{-5}$; at the baseline exponent
+$1024a=0.909759\ldots$ and $2^{1024a}\approx1.879$, so $\eps$ is about $91\%$ of
+this wall. (ii) With $\mcl=2048$, the number used up to row~10, the exponent
+vanishes at $a=1535/2^{21}$, that is $\eps\approx1.0309\cdot10^{-5}$. The October~18 checkpoint (binary exponent $513-\mcl(1-1024a)$ about $-55.2$) and row~10
+($\eps\approx9.963\cdot10^{-6}$) lie below this wall; row~11 and all later rows
+lie above it, and at the baseline exponent it would be about $+328.19$. This is why
+$\mcl=8192$: at the baseline $a$ the exponent is negative exactly for $\mcl\ge5685$,
+and at $\mcl=8192$ it is about $-226.25$, far inside the allowance $10^{-12}$;
+with $8192$ pairs it stays inside the allowance on the whole analytic range
+$a\le9/10000$ (at $a=9/10000$ it is $-80783/625\approx-129.25$), and it vanishes
+at $a=7679/2^{23}\approx9.154\cdot10^{-4}$. More digit pairs cost only a larger
+fixed modulus (\cref{lem:frontier:iidenergy}(iv), \cref{rem:prefix-digits}).
+Both walls belong to the layout, not to the method:
+a clique prefix stopped at a smaller power of two $P$, with the all-prime tail
+starting there, replaces $1024a$ by $2a\log_2P$ and moves both walls to larger
+exponents.
+\end{remark}
+
+\subsection{Why class one is a prefix}\label{subsec:obs:class-one}
+
+The five-type completion of the middle range expresses the $F$ and $E$ kernels
+against one conditional reference, the common middle law of two labels
+(\cref{lem:five-type,lem:front12:reference}), and needs that law to be uniform on
+ordered distinct pairs. For $p\equiv3\pmod4$ it is, because the exchange
+$(u,u')\mapsto(u',u)$, which preserves the completion counts, interchanges the
+two orbits of ordered distinct pairs under the maps $z\mapsto\alpha z+\beta$ with
+$\chi(\alpha)=1$ (\cref{lem:record:class-three}(ii)). For $p\equiv1\pmod4$ the exchange preserves
+the orbits and the counts differ: the pairs with $\chi(u'-u)=1$ have $312$ completions to $F$-configurations and the others $264$ at $p=13$ (\cref{rem:middle-class-three}), and
+$1464$ against $1344$ at $p=17$ (by enumeration). At class-one primes, on the
+other hand, the strict-square relation is symmetric and the square clique costs
+only an exception (\cref{lem:frontier:iidlocal}). So every class-one prime below
+$P_4$ is a prefix prime, the middle and upper ranges are class three
+(\cref{sec:frontier:iidprefix}), and class one returns only in the tail, with
+caps certified for both classes (\cref{subsec:advance:parity,sec:tail-index}).
+
+\subsection{The root law: forced support and forced norm}\label{subsec:obs:root}
+
+The chamber cap $d$ of the twelve-label root, the negative cap of its cut L20,
+fixes the first-order weights $w_{\rm D}=w_{\rm S}$ of the reference, in
+particular the weight $w_{\rm D}r$ of every fold record, through the completion
+inequality $w_{\rm D}\ge d$ (\cref{lem:front12:reference}). Two scoped facts say
+where a gain can come from.
+
+\begin{remark}[Support closure and the forced norm]\label{rem:obs:root-support}
+(i) Let $\Gamma$ be a probability law on the labellings of the twelve vertices
+$(u,\ell)$ of $G_{\rm L,2}$ at a prime $p\equiv3\pmod4$ whose half marginal on the six half vertices $\{0,1,2\}\times\{0,1\}$ is that of the uniform root, and which is
+invariant under the three chamber reflections $u\mapsto k-u$, $k\in\{1,3,5\}$.
+Then $\Gamma$ is supported on the labellings that satisfy all $24$ edges of
+$G_{\rm L,2}$; in particular none of the sixteen cross edges of L20 can be
+dropped. Indeed the group generated by the reflections carries $\{0,1,2\}$ to the
+six consecutive triples $H_a=\{a,a+1,a+2\}$ (the reflections give $H_5,H_1,H_3$,
+and the translations by $0,2,4$, products of two reflections, give $H_0,H_2,H_4$);
+each contains exactly one of the six rotation edges, with
+its four layer lifts, and every rotation edge lies in exactly one $H_a$. The half
+marginal of the uniform root is carried by the labellings of $G_{\rm F,2}$
+(\cref{lem:layer12-geometry}(b)), so the failure of the edge inside $\{0,1,2\}$
+is a null event, and invariance carries this to every $H_a$ (master \S43,
+\texttt{adv:local:root-support-closure},
+\path{paper/sections/advance_2026_10_24/local_interim.tex}:128-151). Positive
+reweightings of the accepted support are allowed; signed measures and changed
+half laws are not covered.
+
+(ii) Let $T$ be the density operator, relative to $\mu_p\otimes\mu_p$ with
+$\mu_p=\lambda_p(G_{\rm F,2})$, of any probability law on twelve distinct labels
+that satisfies the sixteen cross constraints of L20, whatever its marginals,
+and let $P_0$ be the projection onto the mean-zero functions. Then
+$\|P_0TP_0\|\ge\sqrt{30}\,r\,(1-o(1))$; the proof compares normalized traces of
+$T$ with the fifteen star features of \cref{lem:general-star}
+(master \S43, \texttt{adv:local:forced-root-norm},
+\path{paper/sections/advance_2026_10_24/local_interim.tex}:153-213). The record
+\path{research/advance_2026_10_24/local/check_l20_forced_norm.json} evaluates the
+finite form of the bound at four endpoints; at $Q_3$ it gives
+$\|P_0TP_0\|\ge5.4472\,r$. The bound concerns the centred norm only: a diagonal entry of order $r$ not constrained by the cross conditions in a higher-star block can move the negative
+eigenvalue of that block without changing its forced off-diagonal entries, so the
+negative eigenvalue is not forced.
+\end{remark}
+
+So a law that keeps the symmetries and the half marginal of the root cannot drop
+a constraint, and a gain must come from a positive reweighting of the accepted
+support; by (ii) it can lower only the negative cap, the centred norm of every
+law on that support being at least about $\sqrt{30}\,r$. The completion
+inequalities and the block caps use the negative
+and the positive cap at each cut (\cref{lem:layer12-caps}), not the centred
+norm, and a reweighting that changes the half marginal of the root is paid in
+the restorations (\cref{lem:record:root-marginal}(iv)). This is what the
+positive roots of \cref{sec:positive-roots} do. In the selected construction,
+the chamber block caps $w_{\rm D}$ on the pieces from $2^{36}$, $2^{40}$ and
+$2^{45}$ are below $5.46078$, $5.45753$ and $5.43446$, against about
+$5.4776$, $5.4773$ and $5.4772$ for the uniform root
+(\cref{cert:positive-root-caps,cert:l20-grid}); four earlier pieces are tilted
+as well. Their centred norm still satisfies (ii), so the gain concerns the
+negative cap that the completion actually pays. The asymptotic tilts
+that preceded them (an eighth-trace tilt whose centred quartic diagonal response
+is at least $0.9065\,r$ for $p\ge2^{20}$; quartet tilts with limiting
+coefficients about $5.4718$ and $5.4754$; a linear pair-trace tilt, about
+$5.4664$; the average of individual squares, about $5.4562$; the square of the
+average, about $5.4421$) carried unpriced $O(q)$ remainders and bounds on their
+own marginals, and none moved the exponent until both cuts and the restoration
+inputs were proved in the fixed charts (master \S43,
+\path{paper/sections/advance_2026_10_24/local_interim.tex}:215-1349;
+\cref{subsec:history:oct2425}).
+
+\subsection{Why twelve queries do not help}\label{subsec:obs:twelve}
+
+The twelve queries of $\mathcal E_{12}$, with the sources $(u,v,0)$,
+$u\in\{0,5\}$, have $24$ distinct endpoints and project to two first-coordinate
+pairs (\cref{subsec:front12:construction}). With twelve disjoint indices each
+conductor still occurs twice in the complementary folds, the least square step
+is unchanged, and the clique exception is the two-pair mass already charged in \cref{lem:frontier:iidenergy}. So,
+given comparison data for $\mathcal E_{12}$ with the actual marginals and the
+bounds of (CP0)--(CP8), \cref{thm:comparison} with $k=12$ applies, and its closing
+condition reads
+\[
+ \frac{4095}{4096}\bigl(L_0+\mathcal E\bigr)+J_{12}+W_{12}+\frac{1-m}{4096}<1,
+ \qquad J_{12}=Be^{T_{12}}\Bigl(\frac{R_I}2\Bigr)^{12},
+\]
+\[
+ W_{12}=Be^{S+A}\Bigl[\Bigl(1+\frac{R_I}{2\Kint^{35/36}}\Bigr)^{12}-1\Bigr],
+\]
+with $T_{12}$ the matching exponent of such data (master \S43,
+\texttt{adv:upper:twelve-interface},
+\path{paper/sections/advance_2026_10_24/upper_twelve.tex}:27-96). Such data are not
+available. Locally, accepting laws exist: exact Markov couplings of the actual
+half law accept both fold queries $x_1\to y_0$, $x_2\to y_1$, or both queries of
+a matching fork, and their operators vanish on invariant mean-zero functions, so
+\cref{cor:markov-completion} with such a coupling turns every nonnegative
+invariant accepting raw kernel of mass one with bounded marginal defects ($|\alpha|,|\beta|\le M$ there) into a
+law with exactly the actual half marginals (master \S43,
+\texttt{adv:local:two-query-markov}, \texttt{adv:local:two-query-repair},
+\path{paper/sections/advance_2026_10_24/local_interim.tex}:1-120). The
+obstruction is the price on the unchanged references.
+
+\begin{remark}[Two queries force a symmetric error]\label{rem:obs:twelve}
+Let $K$ be any real signed law of mass one on pairs of halves of the fold record,
+written as a density relative to $m_0\otimes m_0$, with $m_0$ the actual half
+marginal of \cref{lem:old-f-law}, that accepts $\chi(y_0-x_1)=\chi(y_1-x_2)=1$.
+Then $\|P_0(\operatorname{Sym}K-T_{\rm old})P_0\|\ge(1/\sqrt3-o(1))\,r$, and uniformly
+at least $0.57263\,r$ for $p\ge2^{24}$, where $T_{\rm old}$ is the reference fold
+record of \cref{lem:old-f-law} and $P_0$ the projection off the constants of
+$L^2(m_0)$. For the two queries with common source $x_0\to y_1$, $x_0\to y_2$ (the matching fork), every signed law of mass
+one on uniform injective triples that accepts $x_0\to y_1$ and $x_0\to y_2$ has
+symmetric and skew changes whose norms add up to at least $(\sqrt3-o(1))\,r$
+(master \S43, \texttt{adv:upper:actual-two-query},
+\texttt{adv:upper:actual-fork-frontier},
+\path{paper/sections/advance_2026_10_24/upper_interim.tex}:209-370;
+\path{research/advance_2026_10_24/upper/check_actual_two_query_barrier.json}). No
+positivity, invariance or marginal condition is assumed. With these references a
+twelve-query fold record pays a symmetric price of order $r$, not $1/p$, and a
+twelve-query matching record with a symmetric error of order $1/p$ has a skew
+coefficient at least about $\sqrt3$. The statement concerns the unchanged half
+laws and reference records, not twelve queries as such: a different reference,
+or a joint treatment of the symmetric terms, could change its consequences.
+\end{remark}
+
+A twelve-query construction would therefore need fold and matching records that
+accept both queries of their halves, with comparison bounds against a changed
+reference, and new class bounds (CP5) for their leading stars. Parts of the
+construction accept $\mathcal E_{12}$ already, but its six-query refinements do
+not: the signed fold records of the middle accept, in each fold, only the one
+cross edge that $\mathcal E_6$ needs there, while $\mathcal E_{12}$ needs both
+$x_1\to y_0$ and $x_2\to y_1$; the LE components of the upper range add only the
+edge that $\mathcal E_6$ requires (\cref{def:dense-comparison,prop:le-mixture}); and the
+records $G_{01}L$, $G_{10}L$ are retained because they accept $\mathcal E_6$
+(\cref{lem:six-query-retention};
+\path{research/advance_2026_10_24/upper/SIX_QUERY_UPPER.md}). A twelve-query construction would have to repair or delete them instead of retaining them.
+
+\subsection{Obstruction polynomials of the singleton recurrence}
+\label{subsec:obs:polynomials}
+
+Before the comparison theorem, records that did not accept a coupled family
+were covered, not repaired. In the singleton-recurrence design of the
+$216$-slot period (\cref{subsec:history:216}), nine edge families crossing the reserved cut are
+indexed by $\Phi=\{0,1,2\}^2$, with rows $\mathcal R_i=\{(i,j):j\}$ and columns
+$\mathcal C_j=\{(i,j):i\}$. The law of a middle atom is a sum of typed parts:
+type $\star$ accepts every family, a residual part none, and the fifteen
+\emph{rescue types} $\mathrm{row}_i$, $\mathrm{col}_j$, $\mathrm{cr}_{i,j}$
+accept $\operatorname{Acc}(\mathrm{row}_i)=\mathcal R_i$,
+$\operatorname{Acc}(\mathrm{col}_j)=\mathcal C_j$ and
+$\operatorname{Acc}(\mathrm{cr}_{i,j})=\mathcal R_i\cup\mathcal C_j$. A record,
+one type at every atom, accepts the intersection of the acceptance sets of its
+types. For a coupled set $\emptyset\ne\mathfrak F\subseteq\Phi$, records that
+accept a family of $\mathfrak F$ cancel through the actual-square kernel; the
+others were covered in the Loewner order at the reserved cut, which fixes every
+middle record samplewise, by one \emph{cylinder} per residual
+part and one per minimal obstruction placed on distinct atoms,
+where a cylinder here is a law depending only on the labels at
+finitely many named atoms (a cylinder set in the product). A set $S$ of rescue types is
+\emph{$\mathfrak F$-incompatible} if
+$\mathfrak F\cap\bigcap_{t\in S}\operatorname{Acc}(t)=\emptyset$ (the empty
+intersection being $\Phi$), and a \emph{minimal $\mathfrak F$-obstruction} is an
+inclusion-minimal incompatible set. With priced intensities at most $x$, $y$,
+$z$ for rows, columns and crosses, the cover costs at most
+$Z+P_{\mathfrak F}(x,y,z)$, with $Z$ the residual intensity and
+$P_{\mathfrak F}=\sum_Sx^{n_{\rm r}(S)}y^{n_{\rm c}(S)}z^{n_{\rm x}(S)}$ over the
+minimal obstructions, $n_{\rm r},n_{\rm c},n_{\rm x}$ counting the rows, columns
+and crosses of $S$. The all-family criterion closed when
+$\frac12M^{|\mathfrak F|}[Z+P_{\mathfrak F}+|\mathfrak F|/\Kint+e^H]<1$, with $M$
+the modulus moment of the index and $H$ the upper exceptional intensity. The
+singleton checkpoint ($\eps\approx3.3\cdot10^{-9}$) coupled the nine families
+one at a time and covered the records that accept none of them, with
+$P_\Phi$ about $0.369$.
+
+\begin{lemma}[Rejection-class covers]\label{lem:obs:rejection-covers}
+Let $\emptyset\ne\mathfrak F\subseteq\Phi$, put
+$\operatorname{Rej}(t)=\mathfrak F\setminus\operatorname{Acc}(t)$ for a rescue
+type $t$, give $\mathrm{row}_i$, $\mathrm{col}_j$, $\mathrm{cr}_{i,j}$ the weights
+$x,y,z$, and let $w_X$ be the total weight of the types $t$ with
+$\operatorname{Rej}(t)=X$. A \emph{minimal cover} of $\mathfrak F$ is a family of
+distinct sets with union $\mathfrak F$ no proper subfamily of which has union
+$\mathfrak F$.
+\begin{enumerate}[label=(\roman*)]
+\item $S$ is $\mathfrak F$-incompatible if and only if
+ $\bigcup_{t\in S}\operatorname{Rej}(t)=\mathfrak F$.
+\item $S$ is a minimal $\mathfrak F$-obstruction if and only if the sets
+ $\operatorname{Rej}(t)$, $t\in S$, are nonempty, pairwise distinct, and form a
+ minimal cover of $\mathfrak F$.
+\item $P_{\mathfrak F}=\sum_{\mathcal C}\prod_{X\in\mathcal C}w_X$ over the minimal
+ covers $\mathcal C$ of $\mathfrak F$ by nonempty rejection sets, and every
+ minimal $\mathfrak F$-obstruction has at most $|\mathfrak F|$ elements.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) is De Morgan's law,
+$\mathfrak F\cap\bigcap_S\operatorname{Acc}(t)=\mathfrak F\setminus\bigcup_S
+\operatorname{Rej}(t)$; for $S=\emptyset$ both sides are false. (ii) By (i)
+compatibility passes to subsets, so $S$ is minimal if and only if it is
+incompatible and every $S\setminus\{t\}$ is compatible. If $S$ is minimal, no
+$t\in S$ has $\operatorname{Rej}(t)=\emptyset$ and no two share a rejection set,
+since removing such a $t$ would not change the union; a proper subfamily of
+$\{\operatorname{Rej}(t):t\in S\}$ is then the family of a proper subset of $S$,
+which does not cover. Conversely such a family makes $S$ incompatible and every
+$S\setminus\{t\}$ compatible. (iii) By (ii) the minimal obstructions correspond
+bijectively to the pairs of a minimal cover $\mathcal C$ of $\mathfrak F$ by
+nonempty rejection sets and a choice of one type $t_X$ with
+$\operatorname{Rej}(t_X)=X$ for each $X\in\mathcal C$; for fixed $\mathcal C$,
+summing the monomials over the choices gives $\prod_{X\in\mathcal C}w_X$. Each member of a minimal cover
+has a point of $\mathfrak F$ in no other member, so $|\mathcal C|\le|\mathfrak F|$.
+\end{proof}
+
+For the transversal $\mathfrak D=\{(0,0),(1,1),(2,2)\}$ the types of
+$A_i=\{\mathrm{row}_i,\mathrm{col}_i,\mathrm{cr}_{i,i}\}$ reject the two
+diagonal cells other than $(i,i)$, the two crosses of
+$B_k=\{\mathrm{cr}_{a,b},\mathrm{cr}_{b,a}\}$, $\{a,b,k\}=\{0,1,2\}$, reject
+$(k,k)$; with the weights $s=x+y+z$ and $2z$ and the minimal covers
+$\{A_i,A_j\}$, $\{A_i,B_i\}$ (three each) and $\{B_0,B_1,B_2\}$,
+$P_{\mathfrak D}=3s^2+6sz+8z^3$. For the two-pair set
+$\mathfrak E=\{(0,1),(1,0)\}$ the types $\mathrm{row}_2,\mathrm{col}_2,
+\mathrm{cr}_{2,2}$ reject $\mathfrak E$, two classes of weight $x+y+3z$ reject
+one cell each, and two crosses reject nothing: $P_{\mathfrak E}=s+(x+y+3z)^2$.
+
+\begin{table}[ht]
+\centering
+\small
+\caption{Obstruction polynomials of four coupled sets, $s=x+y+z$
+(\cref{lem:obs:rejection-covers}; confirmed by enumerating all sets of rescue
+types).}
+\label{tab:obs:polynomials}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.2\textwidth}ccc
+                 >{\raggedright\arraybackslash}p{0.47\textwidth}@{}}
+\toprule
+Coupled set $\mathfrak F$ & $|\mathfrak F|$ & minimal & largest &
+$P_{\mathfrak F}(x,y,z)$\\
+\midrule
+$\Phi$ (all families) & $9$ & $165$ & $4$ &
+$3x^2+3y^2+36xyz+36(x+y)z^2+6z^3+45z^4$\\
+transversal $\mathfrak D$ & $3$ & $53$ & $3$ & $3s^2+6sz+8z^3$\\
+two-pair set $\mathfrak E$ & $2$ & $28$ & $2$ & $s+(x+y+3z)^2$\\
+two rows $\mathfrak R=\mathcal R_0\cup\mathcal R_1$ & $6$ & $77$ & $4$ &
+$x+x^2+3(y+z)^2+12xyz+18xz^2$\newline${}+12(y+z)z^2+9z^4$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The two-column set is the transpose of $\mathfrak R$, with polynomial
+$P_{\mathfrak R}(y,x,z)$. The transversal and the two-pair set occurred only in
+research designs, the two-row set in an earlier unpublished design. By
+\cref{lem:obs:rejection-covers}(i), $P_{\mathfrak F}$ has a term of degree one
+exactly when $\mathfrak F$ misses a row or a column (if
+$\mathcal R_i\cup\mathcal C_j$ misses $\mathfrak F$, so does $\mathcal R_i$). For
+one family, $\mathfrak F=\{(i,j)\}$, the two other rows, the two other columns
+and the four crosses off row $i$ and column $j$ are obstructions by themselves:
+$P_{\{(i,j)\}}=2x+2y+4z$. This first-order term is why coupling a single pair is
+costly; at the type masses of the first version's middle terminal it was about
+$61.6$ per unit of terminal weight. A set without first-order terms has at least
+three cells, with equality exactly for the six permutation matrices, which all
+have $P_{\mathfrak D}$ by the symmetry $S_3\times S_3$ of $\Phi$; but the
+modulus moment enters as $M^{|\mathfrak F|}$, so larger sets cost more in the
+index. Which set paid depended on the design. Theorem~C has no obstruction
+polynomial: its queries are fixed, and a record that does not accept them is
+repaired, keeping the actual conditional marginals, or deleted at the price of
+its own mass (\cref{sec:completion-repair}). A record of weight $O(r)$ whose
+repair moves it by $O(r)$ then costs $O(1/p)$ instead of entering a union bound
+with its full intensity; this was the source of the gain of the fixed-family
+transfer, the $216$-slot construction that is the first instance of the scheme
+of Theorem~C (\cref{subsec:history:216}).
+
+\subsection{Limits of the method}\label{subsec:obs:limits}
+
+\emph{The kernel cutoff.} The circle method of \cref{app:kernel20} needs its
+major-arc exponent in the window $(10\beta/3,\,1/4-19\beta/12)$, nonempty exactly
+when $\beta<3/59$ (\cref{rem:record:K20-range}); at $\beta=1/20$ the window is
+$(1/6,41/240)$ and contains $17/100$. So moduli up to $N^{1/20}$ are close to the
+limit $N^{3/59}$ of this argument.
+
+\emph{The error exponent.} For the baseline, the induction needs $a<\sigma$
+(\cref{thm:record:lineardensity}), so the stage of
+\cref{def:record:analytic-stage}, $\sigma=1/825$, cannot give more than
+$\eps<1/(71\cdot825)\approx1.707\cdot10^{-5}$, whatever the local laws. It is not
+binding: $\sigma-a=65195254/201416015625$, $a\approx0.733\,\sigma$, and the
+exponent is limited by $\Theta<1$. A larger $\sigma$ needs a new stage, since $\sigma$ enters (S1)--(S4) of the stage inequalities (\cref{def:record:analytic-stage}), with new kernel and analytic
+certificates; this was not attempted. The gate $a<\sigma$ does not hinge on the
+kernel at $\beta=1/20$: with a separate outside cutoff the comparison needs no
+kernel and the cancellation needs it only at $\beta=1/36$, and the stage
+$(\beta,\tau,t_{\rm an},\sigma)=(1/36,1/230,1/108,1/1000)$ was checked at the
+October~18 exponent; it is not used.
+
+\emph{The analytic domain.} For the baseline, the analytic stage, the transfer gates and the
+prefix allowance are certified on the whole range $0<a\le9/10000$, independently
+of $Q_3$ and $P_3$ (\cref{cert:record:analytic-stage};
+\path{research/advance_2026_10_24/global/ANALYTIC_DOMAIN.md}). This allows
+$\eps\le9/710000\approx1.2676\cdot10^{-5}$, about $1.30\%$ above the baseline
+exponent; with $8192$ digit pairs the prefix wall lies at
+$\eps\approx1.2893\cdot10^{-5}$ (\cref{rem:record:prefix-walls}). Beyond the range
+the gates must be audited again, and beyond that wall the prefix needs more
+digit pairs; this is a limit of the certificate and of the layout, not of the
+method, and the baseline closing becomes limiting before it is reached
+(\path{research/further_2026_10_25/SYNTHESIS.md}:187-195). The selected theorem rechecks the analytic, prefix and density gates on $0<a\le91/100000$ and uses $\vartheta=\FourRoutesDensity$ (\cref{cert:four-routes-closing}).
+
+\emph{The $2$-adic scope.} The earlier unit-square kernel used a $2$-part
+of $8$. The root classes of \cref{lem:kernel-depth-classes} now cover every
+nonvanishing square class with at least three remaining binary digits after
+its even valuation is removed. This includes the selected physical modulus
+$2^{129}$ and root valuations below $64$. Zero classes are still excluded;
+conditioning on the random depth does not replace the full physical modulus $\Mzero$ in cancellation (\cref{rem:record:item13}).
+
+\emph{Second-order inputs.} The certified budget uses Deligne's theorems, the
+Katz--Sarnak local monodromy and the evaluation of Ahlgren and Ono
+(\cref{thm:ahlgren-ono}) for its second-order bounds. This explains their role in
+this proof; it does not establish that they are necessary for a comparable
+exponent by another argument (\cref{subsec:intro:deligne}).
+
+\emph{Allowed couplings in the envelope bounds.} One natural off-diagonal operator
+between fold and matching features, a coherent cross arm, has a kernel whose
+total variation, and hence the coupling mass of every expansion of it into
+positive couplings, is at least $(p-2-1/p)/(2\sqrt p)$, unbounded in $p$; so it
+cannot enter the uniform comparison of the envelopes at no extra price
+(\path{research/advance_2026_10_24/envelopes/COHERENT_ARM_OBSTRUCTION.md}). The
+larger invariant background of the bracket with one fold copy improves the
+exponent of the invariant envelope cap but supplies no new permutation of the
+fold features, since every element of the root group maps a fold pattern to a
+fold pattern with the identity permutation of its object names
+(\path{research/advance_2026_10_24/envelopes/PHYSICAL_ORBIT_SCOPE.md}). The
+matching energy pairs a test function on the source side with one on the target side without swapping them, so the envelope reflection is not available there for free
+(\path{research/advance_2026_10_24/envelopes/MATCHING_REFLECTION_SCOPE.md}). And in
+the pure-$E$ singleton algebra every positive $Z\succeq\pm T$, $T$ a tensor of $k$
+unit matching arms, has collected coupling mass at least $4^k$, so the uniform
+discount of a pure-$E$ class cannot be positive once
+$(R_{\rm err}-2u)4^k\ge B(A_E/A^{\rm arm}_E)^k$, $u$ the exactly-one-tag credit per
+unit mass (master \S43, \texttt{adv:env:pure-E-mass-floor},
+\path{paper/sections/advance_2026_10_24/envelopes_interim.tex}:214-249). These are
+limits of the present allowed couplings, not of positive envelopes.
+
+\emph{Fold copies in the bracket.} The bracket carries one copy of the folded
+fold records (\cref{lem:record:gram}). With $c<1$ copies the protection
+inequality, which then reads $c\,v_{\rm D}\ge2k_{\rm D}w_{\rm D}$ (it is
+\eqref{eq:protection} at $c=1$), raises $v_{\rm D}$; the reference with $c<1$ copies is, before renormalization, a subprobability (total mass $<1$) whose normalization enters every comparison coefficient; and
+subtracting only the two selected fold patterns breaks the root invariance on
+which the invariant envelope caps rest. These are requirements of a different
+reference, not an impossibility
+(\path{research/further_2026_10_25/envelopes/BETA_BELOW_ONE_SCOPE.md}).
+
+\emph{The layer cap of the positive roots.} For the individual-square family,
+the proved layer coefficient tends, as $p\to\infty$, to $\sqrt3+\sqrt7$ for each fixed $\ulaw>0$, twice the norm
+$(\sqrt3+\sqrt7)/2\approx2.189$ of the leading matrix of one component of the
+layer cut; the layer caps of the uniform root on these pieces are between about
+$2.189$ and $2.196$ (\cref{cert:layer12-grid}). The proof prices the two
+one-component terms of the tilted kernel separately, through the auxiliary
+space, so its bound does not tend to the uniform value as $\ulaw\to0$
+(\cref{prop:root-layer};
+\path{research/further_2026_10_25/local/L21_PAIR_SQUARE_TILT.md}:84-125, 240-250).
+The selected estimates bound the finite-$p$ remainder of this argument directly. A sharper
+leading layer estimate for this family would lower the weight $v_{\rm L}$
+on its six tilted pieces; the coherent last-piece law has its own layer
+bound in \cref{sec:positive-roots}.
+
+\emph{Six queries.} With the pure paired comparison law six disjoint universal
+queries are the most: a universally supported query must project to one of the
+six directed rotation edges of the root, and on the common support of the root and of the three fold records $F_0,F_1,F_2$ the only universally supported queries run from
+layer $0$ to layer $1$ over the first-coordinate pair $0\to2$, so each of them
+meets one of the six slots $(0,v,0)$
+(\path{research/continuation_2026_10_24/envelopes/QUERY_OBSTRUCTION.md}). This is
+a support statement for that law, not for every modified comparison law;
+\cref{subsec:obs:twelve} says why the twelve-query family is not used either.
+
+\subsection{Tested and not pursued}\label{subsec:obs:tested}
+
+\Cref{sec:history} places these in the development; here is why each was
+dropped.
+\begin{itemize}
+\item \emph{An E-only envelope of degree six at row~11.} Its coupling mass was
+ about $4103.8$, against about $257.9$ with four factors, and at the selected
+ endpoint of row~11 its complete cost exceeded $B_*$, so the coupling error
+ consumed the saving. In the final portfolio the class $(0,6)$ pays, with a
+ saving of about $4.9\cdot10^{-6}$ (\cref{cor:envelope-costs}); the coupling-mass
+ floor of the pure-$E$ classes is in \cref{subsec:obs:limits}.
+\item \emph{Graph laws at class-one primes.} The octahedron law on $\Zsix$
+ (twelve unordered strict-square edges, all pairs but the antipodal ones, which
+ make sense because $-1$ is a square) has small completion weights, but query
+ edges on which its records have zero difference needed fine indices and their
+ energy factor; a larger law with strictly square accepted edges served the upper
+ part of the finite prefix. The square clique costs only an exception.
+\item \emph{The sparse middle law and the best-cut comparison} of the
+ $216$-slot period ($180$ of the $252$ middle edges, one amplified edge and then
+ four, every term estimated at its best cut; \cref{subsec:history:sparse}). In
+ the final design every query
+ crosses the reserved cut; an ordinary cut and the reserved cut need not share a
+ comparison energy, and a compatible multi-cut theorem was not proved.
+\item \emph{An averaged completion denominator for the upper root} gives $g\approx4887$ for the root cut LL20 at $2^{49}$, computed from inputs that were not certified, against $2711.73\ldots$ for the direct-star root
+ (\cref{thm:record:direct-star}) at the October~18 checkpoint; in this
+ architecture the degree-twenty root is forced.
+\item \emph{The other directions of the October~23 handoffs}
+ (\path{research/push_2026_10_24/README.md}): stronger upper reports that could
+ not be recovered and changed extraction and density frameworks; rows 12--14
+ took up further background and mean savings in their own form
+ (\cref{subsec:history:oct2425}). Their gains do not add to the final result
+ without compatible laws and complete costs.
+\item \emph{A continuous orientation family} of the pure law at row~12, mixing
+ its four orientation components, each repaired to the same actual marginal:
+ every direction on the finite grid of mixture weights tested in the two named records worsened the complete bound, and the tests are not an optimality proof
+ (\path{research/continuation_2026_10_24/local/ORIENTATION_CONTINUATION.md},
+ \path{research/continuation_2026_10_24/README.md}:128-135).
+\item \emph{Quartet tilts of the root.} The one-cut and the chamber-average
+ quartic tilts have limiting coefficients about $5.4718$ and $5.4754$, above
+ those of the pair-trace tilts (master \S43,
+ \texttt{adv:local:single-cut-negative-tilt},
+ \texttt{adv:local:chamber-negative-tilt},
+ \path{paper/sections/advance_2026_10_24/local_interim.tex}:487-881).
+\item \emph{Larger kernels and pinned Grams.} The complete four-vertex character
+ kernel on injective quadruples has norm at most $24p^{-2}$ (previously
+ $96p^{-2}$; master \S43, \texttt{adv:upper:quartic24},
+ \path{paper/sections/advance_2026_10_24/upper_interim.tex}:9-179), but the selected extraction class counts do not change, and the bound does not justify
+ deleting collision terms of the grouped extraction (\cref{subsec:obs:pitfalls}).
+ One-pin, same-pin and two-pin weighted pair Grams through a twisted
+ symmetric-square Legendre moment (\texttt{adv:env:one-pin-pair},
+ \texttt{adv:env:same-pin-conditional}, \texttt{adv:env:two-pin-pair},
+ \path{paper/sections/advance_2026_10_24/envelopes_interim.tex}:9-173) give a
+ conditional pair-arm corollary that no selected row uses, since none has that
+ pin structure. The absolute two-tag composition
+ (\texttt{adv:env:absolute-two-tag}, envelopes\_interim.tex:175-212) relates its
+ endpoint energies by a map that is not a chamber reflection of the reference,
+ so the grouped first-stage error keeps its countwise minimum.
+\item \emph{Proved refinements not used in the closing.} Support-dependent conditional
+ densities improve the conditional $F$ row constants, but other completion
+ constraints already determine the selected weights (master \S43,
+ \texttt{adv:local:conditional-support-density},
+ \path{paper/sections/advance_2026_10_24/local.tex}:1594-1676); the even-degree
+ root-range parameters $10r+7q$, $10r+71q$, $10r+103q$, $10r+31q$, which
+ \cref{thm:weil}(b) gives, are used by no scalar (\texttt{adv:global:root-even},
+ \path{paper/sections/advance_2026_10_24/global.tex}:178-199); the one-edge and
+ two-edge squared-trace kernels with leading constant $4$ (master \S44,
+ \texttt{fur:local:one-edge}, \texttt{fur:local:two-edge},
+ \path{paper/sections/further_2026_10_25/local.tex}:1-559) aim at a balanced root
+ law of $48$ scores whose cross-score covariance is unproved.
+\item \emph{Other root laws.} A quartic multiplier model suggests a coefficient
+ about $5.4229$, conditional on unproved cubic and quartic identities for stars rooted at one vertex
+ (\path{research/further_2026_10_25/global/QUARTIC_TILT_MODEL.md}); a balanced
+ two-orbit model of $48$ scores about $5.3961$, with its rooted covariance
+ unproved (\path{research/advance_2026_10_24/WORK_LOG.md}:379-380); in the
+ quadratic model, and conditional on its interfaces, mixing in individually
+ squared scores of the other orbit cannot improve the limit, about $5.44209$, of
+ the square of the average
+ (\path{research/further_2026_10_25/global/individual_square_scope.md}). In the floating-point searches (\emph{screens}) reported for row~14, on the
+ first tilted piece the parameter $\ulaw=4/5$ has a slightly smaller chamber
+ coefficient (about $5.469937$ against $5.469962$) but a larger layer coefficient
+ (about $5.477768$ against $5.445397$), and no global ordering of the two is
+ proved (\path{research/further_2026_10_25/global/FIRST_BAND_PARAMETER_SCREEN.md});
+ on its last piece the square of the average with $\ulaw=51/40$ has the smaller
+ chamber coefficient (about $5.451162$ against $5.456784$ for the individual
+ squares with $\ulaw=1$) at a larger layer coefficient (about $4.473194$ against
+ $4.430848$), and only the complete closing, which prices both, decides such a
+ trade (master \S44;
+ \path{research/further_2026_10_25/envelopes/finite_l20_parameter_grid.json},
+ \path{research/further_2026_10_25/local/l21_pair_square_tilt.json}). The
+ individual squares with $\ulaw=3/4$ already lower the chamber coefficient of the
+ uniform root at $2^{35}$, inside the piece from $2^{34}$ to $2^{36}$; splitting
+ that piece at $2^{35}$ would need a fresh prime partition, a price replay, a
+ native comparison and a complete scalar
+ (\path{research/further_2026_10_25/SYNTHESIS.md}:178-184). These are historical
+ screens, not the selected laws: rows 15--16 use individual squares from
+ $2^{30}$ on six existing pieces, then the coherent $39$-score square with
+ $\ulaw=67/40$ and floor $1/100$ from $2^{45}$
+ (\cref{def:positive-root,cert:positive-root-caps}).
+\item \emph{An interpolation of the matching law} with a bare one-query law, which
+ keeps the query and the marginals and moves part of the leading $E$ price from
+ skew to symmetric: in a numerical screen with envelopes replaced by their limiting coefficients at the tested parameters the reserved cost rises at the rate of about $0.309$ per unit of the
+ moved fraction before the restoration credit, which would subtract about $0.119$ from $\mathcal E$, so it was
+ not pursued; this is not a lower bound over all envelopes
+ (\path{research/further_2026_10_25/envelopes/E_TRADE_SCREEN.md}).
+\item \emph{The late-pool threshold} $2^{31}$ is the best of the $30$ threshold
+ pools tested at the parameters of row~12, not an optimum over arbitrary pools or
+ other parameters
+ (\path{research/continuation_2026_10_24/envelopes/TAIL_THRESHOLD.md}).
+\end{itemize}
+
+\begin{remark}[The three depth-index changes]\label{rem:record:item13}
+At the October~18 checkpoint three changes of the index were computed: the exact
+class-three contraction with least square step $144$, a fixed interval count
+$\Kint$, and residues refined by $p$-adic and $2$-adic depths (modulo $p^{128}$
+with increments $t^2$, $p^{64}\nmid t$, at the class-three primes below $Q_3$,
+modulo $2^{129}$ at $2$, with random conditioning depths). At that checkpoint the
+fixed $\Kint$ alone lowered $\Theta$ by about $7.3\cdot10^{-4}$ and the depths by only about $2.8\cdot10^{-5}$. All three changes are now part of the selected construction. The required
+extension to nonvanishing square classes is proved in
+\cref{lem:kernel-depth-classes,lem:imp:padic-envelope}; the finite-filtration
+form of \cref{lem:record:common-mean} supplies the depth-energy identity.
+The selected finite moment is certified in \cref{cert:index-moment}.
+The historical small numerical gain explains why this change alone does not
+provide a substantial exponent improvement.
+\end{remark}
+
+\paragraph{Instructive choices in the spectral method.}
+\begin{itemize}
+\item \emph{Centring at the mean under the actual half marginal $m_p$} leaves
+ $\E_\mu[F_\perp\mid x_k]=\kappa_F$ at every vertex, and this constant $\kappa_F$ enters every star and $K_{2,2}$ term; centring at the mean under the half law
+ $\mu$ removes these terms exactly, at the price of a second-order cross term
+ (\cref{subsec:spec:centring}, \cref{prop:spec2:mucentre}).
+\item \emph{Softening:} interpolating each cross constraint
+ $\mathbf 1_{\Qsq}$ by $(1-t)/2+t\,\mathbf 1_{\Qsq}$, the derivative in one edge
+ isolates $(\chi-\one_{\{0\}})/2$. Its character part has norm $1/(2\sqrt p)$ and its diagonal part norm $1/(2p)$ under uniform normalization; integration
+ along a path gives relative cut estimates of order $p^{-1/2}$. They served the
+ high range of the $216$-slot design; the final caps come from the two routes of
+ \cref{sec:spectral} (\cref{thm:spectral-criterion,thm:record:direct-star}) and,
+ at the chamber cut of the middle root, from complete actual stars
+ (\cref{subsec:middle-l20,sec:positive-roots}).
+\item \emph{Tensor stability} needs no Perron--Frobenius argument or spectral
+ gap: top singular vectors of a tensor product can be chosen as products of those of the
+ factors, also for non-symmetric kernels. Block bounds in the
+ final rows of the table are obtained from one-prime bounds by
+ tensoring, using the multiplicativity of chi-square defects
+ (\cref{lem:spec:tensorcomp}(f)) and the exactness of the block
+ marginals.
+\item \emph{The three-block test.} With the first-order four-cycle bound the
+ inner $K_{2,2}$ term, bounded through the pure-pair feature-family bound
+ $\sum_J\|\Pi_{H_J}F\|^2\le\mathrm{Fr}\,\|F\|^2$, is of order one (about $9$ at
+ $2^{44}$), and a three-block test charged it to the pure-pair component; with
+ the bound over
+ $\mathrm{GL}_2$ it is $O(r)$ (about $4\cdot10^{-6}$), and a two-block test,
+ charging it inside the scalar $\bar c_\perp$, suffices.
+\item \emph{Class-one refinements.} At $p\equiv1\pmod4$ the contributions of the even edge subsets of the coupling term vanish under a nonsquare dilation, and the internal-edge Paley
+ sum $\Sigma_2=\sum_{t,u}\chi(t(t-1)u(u-1)(u-t))$ satisfies $|\Sigma_2|\le2p$, by
+ Kloosterman, Gauss and Jacobi sums (numerically $\Sigma_2=2(a^2-b^2)$ for
+ $p=a^2+b^2$, $a$ odd). The stored tail caps use neither, only the cruder
+ class-one bounds of \cref{lem:spec2:paley-one} and, at the root cuts, the
+ parity transfer of \cref{lem:spec2:parity-transfer}.
+\item \emph{Restricted criteria} for functions of a vertex subset $A$ supplied
+ row envelopes to the $216$-slot completions; their only new feature,
+ $\E_\mu[F_\perp\mid x_c]$ non-constant for $c\notin A$, costs outer stars and
+ outer $K_{2,2}$ terms. The final completions use full-cut caps.
+\end{itemize}
+
+\subsection{Errors to avoid when checking or extending the proof}\label{subsec:obs:pitfalls}
+
+These rules were learned from errors found during the work and from the
+reviews; the final chain observes each of them.
+\begin{itemize}
+\item Never normalize a dominated measure (\cref{rem:cc:mixed}). Work in the
+ actual half marginal; an induced half law needs its completion-density
+ comparison. Class-three inputs (the common middle law, the Paley counts, the
+ class-three caps) are never applied at class-one primes.
+\item An upper bound is never a lower bound: the lower endpoint of a certified
+ interval enclosing an upper bound for a norm is not a lower bound for the norm,
+ which needs its own witness, such as a Rayleigh quotient. Polynomials are
+ evaluated at upper prices only because their coefficients are nonnegative
+ (\cref{rem:cp:monotone}).
+\item Never subtract unrelated upper bounds: a discount enters only as the
+ nonnegative coefficient of its class, fixed before the series is rewritten and
+ evaluated at the upper prices, and an exponential of an upper price, such as
+ the background factor $e^{t\Uinv}$, is subtracted only inside a majorant with
+ nonnegative coefficients in the same tag variables
+ (\cref{rem:completion-subtraction}); and a jointly certified cap is never
+ replaced by a sum of looser bounds.
+\item Savings of one degree do not simply add: an exact product can improve the
+ exponential envelope but does not automatically add to an existing discount of
+ that degree, and of two bounds for one degree the smaller is kept. The indices
+ are actual tensor factors, not cells or bands (splitting every factor into
+ equal pieces preserves $S$ and $A$ and approaches the envelope). For numbers $b,r$ and $q\ge0$, from $b+q-r$ keep $(b+q-r)_+$, not $(b-r)_++q$; a credit shared by all the orientation signs jointly is established only after summing over the signs; a diagonal added to an upper envelope gives
+ a mean credit only if it is in the comparison identity.
+\item A variance credit cannot be kept with a smaller envelope: the credit inside
+ an envelope class is $c\,g$ with $c\le\kappa$ (\cref{lem:class-credit}).
+\item Let $U\ge0$ be a moment (an $L^r$ norm of a fixed
+ function under a fixed positive measure) that was priced at
+ exponent $a_0$, and let $W\ge0$ be a lower moment of the same
+ function under the same measure, not yet priced (\emph{unpriced}).
+ Replacing $U$ by $W$ after repricing improves the bound only if
+ $W>U/C$, where $C=e^{t_0L}$ with $t_0$ the repricing increment
+ $2(a-a_0)$ and $L=570$ the block budget; and $U,W$ must be
+ moments for one common positive measure. Local losses
+ recur at every induction step and are charged at every step, as $R_I$ is.
+\item A larger kernel cutoff or error exponent alone is not a closing theorem.
+ The square step, the rounded child scale $\ell$ and its factor $\lambda$ (\cref{lem:record:fibre-scale}(b)) must be kept; a
+ same-input scalar inequality does not tensorize across correlated primes, and a
+ label shared by several slots does not make them independently averaged.
+\item Parameters may be chosen by floating-point search; every inequality used is certified in outward arithmetic
+ (\cref{app:certificates}). The integer $\Kint$ is evaluated using the certified
+ majorant. Optimality of the square-shift contraction is claimed only within
+ its stated class of transitions, and failure of $\Theta<1$ at nearby parameters
+ $(a,\Kint)$ concerns that majorant only. Feasibility is not
+ monotone in $a$ when a design's conditions are tuned to its exponent.
+\item The $\sqrt2$ slip. For $f+Ag=u$, $g+A^*f=v$ with $\|A\|\le\rho<1$ and
+ $\|u\|,\|v\|\le U$, the direct-sum norm gives only
+ $\max(\|f\|,\|g\|)\le\sqrt2\,U/(1-\rho)$; the bound $U/(1-\rho)$ of the one-way
+ repairs needs the equation-by-equation estimates of the proof of
+ \cref{lem:tr:repair}, which an earlier proof of the one-way repair skipped.
+\item A coupled $0$--$1$ mask is not an operator contraction:
+ $\bigl(\begin{smallmatrix}1&1\\1&-1\end{smallmatrix}\bigr)$ has norm $\sqrt2$, and
+ zeroing its lower right entry gives $(1+\sqrt5)/2$. So a bound for a complete
+ kernel does not justify deleting the collision terms of a grouped extraction,
+ and the extraction keeps every special-value and merge allowance (master \S43,
+ \texttt{adv:upper:injective-obstruction},
+ \path{paper/sections/advance_2026_10_24/upper_interim.tex}:181-207).
+\item In pinned pair Grams exclude the pin labels: on $\one_a-\one_b$ at the pins
+ $a,b$ the two-pin kernel has the Rayleigh quotient $-q+4q^2-3q^3$, of order $q$,
+ while on the mean-zero functions supported off the pins its norm is at most
+ $2qr+3q^2$
+ (\path{paper/sections/advance_2026_10_24/envelopes_interim.tex}:114-152).
+\item A positive diagonal response is not a negative spectral bound, cross
+ moments of chamber scores need not be nonnegative, and a bound on a tilted law's
+ own marginal is not the fixed-chart bound that the completion needs
+ (\path{paper/sections/advance_2026_10_24/local_interim.tex}:207-221, 417-418;
+ \cref{sec:positive-roots}).
+\item A local improvement is never inserted into an old closing with stale
+ dependent quantities: every reference weight, completion inequality and
+ assigned price is regenerated, and the gains of different changes interact
+ (\path{research/advance_2026_10_24/SYNTHESIS.md}:21-24).
+\item Inside the remainder polynomial of a class only the separately proved
+ leading and remainder prices may stand: neither a raw-arm price nor a full price
+ minus a remainder price may replace a leading price there, since neither bounds
+ the leading part of a record change (\cref{rem:completion-subtraction}).
+\item An invariant coefficient is not spent twice: a class priced at $\kappa_b$
+ on the invariant background keeps only the variance allocation proved for its
+ envelope (\cref{lem:class-credit}); and orbit coupons come from an explicit
+ decomposition into invariant positive couplings, not from symmetrizing signed
+ coefficients (\cref{lem:orbit-coupon}).
+\end{itemize}
+
+\subsection{Scope of the reviews}\label{subsec:obs:reviews}
+
+The constructions, proofs and computations were developed in several
+parallel lines of work carried out with AI models, an OpenAI Codex model
+(gpt-6-astra) and Anthropic's Claude models, partly building on four
+earlier research reports handed over between those lines of work. The
+initial synthesized text was written with Claude models; the
+29~October revision integrates new arguments developed with
+ChatGPT Pro Astra~6 and Codex, replacing the corresponding local
+estimates and
+shortening the historical account. Its exact checks and their
+limits are stated in \cref{cert:astra-local}. The reviews are internal reviews by AI models, not external
+referee reports. The review (called the record gate in its record) of the October~18 checkpoint
+(\path{research/record_gate_2026_10_18/}), with referees of the other model
+family, refereed every component of that chain in a mathematics or computation
+lens, re-implemented its computations, and passed every component with minor
+findings. It checked the research notes and computations, not the text; relied
+on the named external theorems; spot-checked without re-running three large
+inherited computations (the histogram tree of the upper nonstar classes, the
+prime histogram of the middle blocks, the middle spectral grid); and did not
+re-referee the earlier sections written with Claude models, whose only review by
+the other family was a scoped audit whose three findings the final chain
+respects. The components of 24~October that row~11 added (the pure paired law
+with its envelopes and restorations, the exact index law with fixed $\Kint$, the
+ordered collision bound) were checked by independent re-implementations and
+audits (\path{research/push_2026_10_24/}); no referee gate of the other family is
+recorded for them. The components that rows 12--14 added (the exact actual laws
+and collected channels, the signed whole-block law, the bracket with one fold
+copy and the two-cut error, the matrix envelopes and orbit coupons, the complete
+actual stars and the direct chamber cap, the dense upper comparisons and joint
+rows, the positive roots and their restoration, the assigned invariant price)
+were checked by reviewers within the agent team and by independent
+re-implementations, recorded with them
+(\path{research/continuation_2026_10_24/global_review/CROSS_REVIEW.md},
+\path{research/continuation_2026_10_24/upper_arithmetic/LOCAL_PROOF_REVIEW.md},
+\path{research/continuation_2026_10_24/upper_arithmetic/GLOBAL_PROOF_REVIEW.md},
+\path{research/advance_2026_10_24/envelopes/BETA_CROSS_REVIEW.md},
+\path{research/advance_2026_10_24/local/GRAM_BACKGROUND_REVIEW.md},
+\path{research/advance_2026_10_24/local/GROUPED_FIRST_STAGE_REVIEW.md},
+\path{research/advance_2026_10_24/local/GENERAL_STAR_FRAME_REVIEW.md},
+\path{research/further_2026_10_25/REVIEW.md},
+\path{research/further_2026_10_25/local/LOCAL_PROOF_REVIEW.md}); their closing
+number has an author assembly and an independently written one, which agree on
+the $45$ compared components
+(\path{research/further_2026_10_25/verification/selected.json}), and these records remain frozen. The combined manuscript of 26 October adds independent reviews by the other model family of
+\cref{lem:class-credit,lem:merge-repair,lem:upper-stars}, recorded in
+\path{research/merge_2026_10_26/CROSS_FAMILY_REVIEW.md} and
+\path{research/merge_2026_10_26/upper_stars_review.md}, together with focused
+reviews of the selected root laws and analytic conductor interface. These
+are internal reviews, not external referee reports. The merge also records
+a focused review of the tagged, signed and auxiliary-price forms of
+(CP2)--(CP5), \cref{lem:sharp-first,cor:two-cut-series,lem:record:record-expansion},
+and their use in the closing
+(\path{research/merge_2026_10_26/comparison_review.md}). This review corrected
+two abstract edge cases: degree-class replacement now requires even degree
+at least two, and redistribution of upper prices treats zero actual totals
+separately. All selected classes have degrees two, four or six and positive
+totals, so neither correction changes the bound.
+
+The refined reference-fold cap, the pair-feature matrix at general strength
+and the root-normalization prices
+(\cref{lem:old-f-law,lem:root-pair-matrix,lem:root-normalization}) have a separate
+focused review and independent finite algebra checks in
+\path{research/merge_2026_10_26/inherited_local_review.md}. The pair-score
+symmetry lemma is explicitly scoped to its two families; coherent-root
+admissibility at the selected parameter is
+\cref{lem:imp:coherent39-law}. These reviews establish the stated interfaces
+under their cited upstream hypotheses, rather than claiming a new
+independent proof of every local input or an external review of the entire
+manuscript. The weighted star-marginal bound of the archived text is used again here (\cref{lem:wt:stars}), with its density step referred to
+\cref{lem:graphs:vertex}. The certificate verifies finite assertions and the
+authenticity of their inputs, not the analytic reductions or the external
+theorems (\cref{subsec:cert:model}).
+
+The 30~October revision follows two full source-reading passes by a single
+Codex reviewer. The principal repairs retain the raw total-variation factor
+in the density-sensitive comparison and sum it only after splitting by the
+full selected modulus; distinguish fixed-selection asymptotics from the
+uniform estimates needed for the complete expansion; and apply the physical
+pair normalization once, to raw endpoint coefficients. The revision also
+corrects the outer-logarithm remainder in \cref{app:openai-constant}, operator
+domains, and several baseline-versus-final numerical attributions. The
+selected exponent and frozen numerical construction are unchanged. The
+line-coverage record, reproducible checks, findings and remaining limits are
+recorded in \path{analysis/proof_repair_review_2026_10_30.json} and its
+companion text report. This is an internal adversarial review, not an
+independent external referee report or a formal verification of the proof.
+
+\paragraph{Consequences.}
+Nothing here is a premise of the main theorem. The numbers quoted are those of
+\cref{app:certificates}, \cref{tab:closing-values}, the checkpoints recorded in
+\cref{subsec:history:checkpoints}, the research notes named in the text and the
+fragments and research notes of master \S\S42--44 named in the text; the
+enumerations of \cref{subsec:obs:class-one,subsec:obs:polynomials} are
+corroboration only.

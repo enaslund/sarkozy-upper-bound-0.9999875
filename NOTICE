@@ -1,0 +1,14 @@
+An Upper Bound Exponent of 0.9999873 for Square-Difference-Free Sets
+Copyright 2026 Eric Naslund
+Contact: naslund.math@gmail.com
+
+The Apache License, Version 2.0 in LICENSE covers this repository's original
+work: the paper in LaTeX and PDF form, the Lean formalization, embedded
+certificate data, documentation and publication tools.
+
+Parts of the Lean formalization adapt Apache-2.0-licensed material from
+OpenAI's math repository. See lean/NOTICES.md and lean/LICENSE.openai for
+the source attribution, modifications and upstream license.
+
+Cited external publications and software dependencies retain their own
+copyright notices and licenses. This notice does not relicense those works.

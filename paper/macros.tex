@@ -1,0 +1,134 @@
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{thmtools}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage[margin=1.05in]{geometry}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage[hypertexnames=false,colorlinks=true,linkcolor=blue!50!black,citecolor=green!35!black,urlcolor=blue!60!black]{hyperref}
+\usepackage[capitalise,noabbrev]{cleveref}
+\renewcommand{\theHtable}{lt.\arabic{table}} % longtable anchors use \theHtable; keep them apart from float anchors
+\Urlmuskip=0mu plus 1mu\relax % let long URLs stretch at their break points
+\usepackage{tikz}
+\usepackage{graphicx}
+\renewcommand{\topfraction}{.95}
+\renewcommand{\textfraction}{.05}
+\renewcommand{\floatpagefraction}{.80}
+
+\declaretheorem[name=Theorem,numberwithin=section,style=plain]{theorem}
+\declaretheorem[name=Proposition,sibling=theorem,style=plain]{proposition}
+\declaretheorem[name=Lemma,sibling=theorem,style=plain]{lemma}
+\declaretheorem[name=Corollary,sibling=theorem,style=plain]{corollary}
+\declaretheorem[name=Claim,sibling=theorem,style=plain]{claim}
+\declaretheorem[name=Theorem,numbered=no,style=plain]{theorem*}
+\declaretheorem[name=Definition,sibling=theorem,style=definition]{definition}
+\declaretheorem[name=Construction,refname={Construction,Constructions},Refname={Construction,Constructions},sibling=theorem,style=definition]{construction}
+\declaretheorem[name=Certificate,refname={Certificate,Certificates},Refname={Certificate,Certificates},sibling=theorem,style=definition]{certificate}
+\declaretheorem[name=Hypothesis,refname={Hypothesis,Hypotheses},Refname={Hypothesis,Hypotheses},sibling=theorem,style=definition]{hypothesis}
+\declaretheorem[name=Remark,sibling=theorem,style=remark]{remark}
+\declaretheorem[name=Example,sibling=theorem,style=remark]{example}
+\numberwithin{equation}{section}
+
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\F}{\mathbb F}
+\newcommand{\Fp}{\mathbb F_p}
+\newcommand{\Zsix}{\Z/6\Z}
+
+\newcommand{\E}{\mathbb E}
+\renewcommand{\Pr}{\mathbb P}
+\newcommand{\one}{\mathbf 1}
+\newcommand{\ind}[1]{\mathbf 1_{\{#1\}}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\ip}[2]{\left\langle #1,#2\right\rangle}
+\newcommand{\opnorm}[1]{\left\|#1\right\|_{\mathrm{op}}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\dd}{\,\mathrm d}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\rad}{\operatorname{rad}}
+\newcommand{\lcm}{\operatorname{lcm}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\Unif}{\operatorname{Unif}}
+\newcommand{\PSD}{\succeq}
+\newcommand{\e}{e}            % e(t) = exp(2 pi i t) is written \ee
+\newcommand{\ee}[1]{e\!\left(#1\right)}
+
+\newcommand{\Qsq}[1][p]{Q_{#1}^{*}}           % nonzero squares mod p
+\newcommand{\Ap}[1][p]{A_{#1}}                 % indicator of nonzero squares
+\newcommand{\Om}[1][p]{\Omega_{#1}}            % strict-square pairs
+\newcommand{\Xs}[1]{X_{#1}}                    % product of prime fields over a prime set
+
+\newcommand{\Vslots}{V}                         % slot set (Z/6)^2 x {0,1}
+\newcommand{\rot}{\mathsf c}                    % rotation on Z/6
+\newcommand{\Rel}{\mathsf R}                    % relation y in {x, x+-1, c(x)}
+\newcommand{\Pone}{P_1}
+\newcommand{\Ptwo}{P_2}
+\newcommand{\Pthree}{P_3}
+\newcommand{\Pfour}{P_4}
+\newcommand{\Mmod}{M}                           % small modulus 8 prod_{3<=p<P1} p
+\newcommand{\Lift}{\mathcal L}                  % Fourier lift
+\newcommand{\Yf}{\mathcal Y}                    % functional Y(N,A)
+\newcommand{\Ym}{\mathfrak Y}                   % max over A
+\newcommand{\aux}{\nu_{\mathrm{aux}}}           % auxiliary residue/interval law
+\newcommand{\Mmap}{M_{\mathrm{map}}}
+\newcommand{\Nmap}{N_{\mathrm{map}}}
+\newcommand{\Nplus}{N_{+}}
+\newcommand{\cut}[2]{(#1,#2)}                    % cut in coordinate #1 at position #2
+
+\newcommand{\Pstar}{P^{*}}                      % start of the middle range (specified by the design)
+\newcommand{\PpartII}{P_{\mathrm{II}}}          % start of Part II (equal to P* in the selected design)
+\newcommand{\Pfive}{P_5}                        % start of the mixing tail = 2^65536 (sigma stage (c))
+\newcommand{\Mzero}{M_0}                        % full physical modulus of the external index
+\newcommand{\Kint}{K}                           % number of intervals of the external index
+\newcommand{\Fc}{\mathfrak F}                   % coupled set of edge families, subset of Phi
+\newcommand{\Dc}{\mathfrak D}                   % the transversal {(0,0),(1,1),(2,2)}
+\newcommand{\ThetaF}[1][\Fc]{\Theta_{#1}}       % closing quantity Theta_F(a)
+\newcommand{\Thetaone}{\Theta_{\mathrm{single}}} % centered selected-singleton closing quantity
+\newcommand{\PF}[1][\Fc]{P_{#1}}                % union-bound polynomial of minimal F-obstructions
+\newcommand{\MK}{M_{K}}                         % modulus moment M_K(2c)
+\newcommand{\Qsqmod}[1]{\mathcal Q_{#1}}        % unit squares modulo an integer (Q_{M_0})
+\newcommand{\Gom}{G_{\mathrm{om}}}              % one-mark field graph G_{s_row} on rows 0,1,2 (research: G_F)
+\newcommand{\Gex}{G_{\mathrm{ex}}}              % exchangeable three-row graph (research: G_E)
+\newcommand{\QQ}{\mathcal{Q}\!\mathcal{Q}}      % two-dimensional completion (p3_array Def. 4)
+\newcommand{\QQphi}{\QQ^{\varphi}}              % type-weighted two-dimensional completion (p3_partII)
+\newcommand{\Benv}{\mathsf B}                   % block constant B_0+B_1 (sum of the two positive-envelope constants)
+\newcommand{\cplus}{c_{+}}                      % one-sided middle-row mismatch constant (= 2715)
+\newcommand{\Rcut}{R_{\mathrm{cut}}}            % half-marginal density ratio of a cut
+\newcommand{\Op}{\mathsf A_p}                   % normalised cut operator at the prime p
+\newcommand{\gneg}[1]{\widehat g^{-}_{#1}}      % negative-side high-range constant, depth #1
+\newcommand{\gpos}[1]{\widehat g^{+}_{#1}}      % positive-side high-range constant, depth #1
+\newcommand{\Hmat}{\mathbf H}                   % star Gram (model) matrix
+\newcommand{\Azero}{\mathbf A_{0}}              % E1 matrix chi(xi) eps_G Delta^E
+\newcommand{\cperp}{\bar c_{\perp}}             % perp-block constant
+\newcommand{\Lsc}{\mathsf L}                    % scale of the hybrid functional: N = K*Lsc (research: L)
+\newcommand{\Hhi}{H_{\mathrm{hi}}}              % high-range exponent gamma_a W_3 + T_infty(a) in Theta (research: H)
+\newcommand{\Jc}{\mathcal J}                    % random inclusion set of the coupling energy (research: J)
+\newcommand{\cpk}[1][p]{\varpi_{#1}}            % coupling-kernel norm 1/(sqrt p - 1) (research: delta_p)
+
+\newcommand{\Blk}{\mathcal B}                    % a block (atom) of primes; B alone is the bracket energy factor
+\newcommand{\Nbr}{\mathsf N}                     % the reserved Gram bracket measure (never the scale N)
+\newcommand{\Nbrz}{\mathsf N_0}                  % its record-difference-free part
+\newcommand{\Jac}{\operatorname{Jac}}            % Jacobi sum
+\newcommand{\Jall}{J_{\mathrm{all}}}             % the all-ones kernel
+\newcommand{\Jproj}{\mathbb J}                   % the projection onto constants
+\newcommand{\sq}{\operatorname{sq}}              % least square divisible by d
+\newcommand{\mcl}{m_{\mathrm{cl}}}               % digit pairs of the square-clique prefix
+\newcommand{\tside}{\tau_{\mathrm{side}}}        % direct-Gram side weight
+
+\newcommand{\tlaw}{\mathsf t}                    % signed-law parameter 127/500 (never the repricing factor t)
+\newcommand{\ulaw}{\mathsf u}                    % root-tilt parameter of a selected middle piece
+\newcommand{\Hs}[1]{\mathsf H_{#1}}              % opposite-base-pair scores H_0, H_1, H_2
+\newcommand{\Hbar}{\bar{\mathsf H}}              % their mean (the block density factor is \bar H_X)
+\newcommand{\tagser}{\mathfrak h}                % tagged first-stage series h(d,v) and its majorant h_n^+
+\newcommand{\Uinv}{U^{\mathrm{inv}}}             % assigned price of the invariant tags E_add+H
+\newcommand{\Phat}{\hat P}                       % normalized Paley operator P/r

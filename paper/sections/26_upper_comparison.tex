@@ -1,0 +1,1860 @@
+
+\section{Upper primes II: the comparison law $\nu$ and prices $S_{\rm u},A_{\rm u}$}
+\label{sec:upper-comparison}
+
+\paragraph{What this section proves and how to read it.}
+This section proves (CP4) for upper atoms: of the degree-two and
+degree-three records, $92$ do not force $\mathcal E_6$; $84$ are
+replaced by \emph{one-way replacements} (called \emph{one-way
+repairs} below: a forcing law with the same actual half marginals
+imposing twelve projected pairs), six by a positive mixture, two
+by replacements keeping the old cross edges (\emph{dense}
+replacements), and every other record is kept if it accepts
+$\mathcal E_6$ and deleted if it does not. Types such as LE,
+EL, FF name field-type pairs of two-layer records, expanded at
+first use. Formulas (F7)--(F9) continue (F1)--(F6) of
+\cref{sec:upper-reference}, whose completion item is numbered (F10);
+\cref{lem:record:domain} extends a bound
+checked at a band start to every larger prime in the band---its
+catalogue of admissibilities is a list of separate checked
+inequalities, each citable by its display. Inputs:
+\cref{sec:upper-reference}. Outputs: $S_{\rm u}(a),A_{\rm u}(a)$ for
+\cref{sec:closing}.
+The previous section built, for every block $\Blk$ of class-three primes in
+$[\Pthree,\Pfour)=[167\cdot2^{40},2^{512})$, the all-cut reference $\mu_\Blk$
+(\cref{lem:upper-reference-rp}), its spectral caps and its conditional rows.
+The reference does not accept the six queries $\mathcal E_6$. This section
+builds and prices the comparison law $\nu_\Blk$ that does.
+
+Of the two-layer records of degrees two and three, $92$ do not accept
+$\mathcal E_6$ (\cref{lem:six-query-retention}). Each is replaced by a positive
+law with the actual half marginals of the record:
+\begin{itemize}
+\item $84$ by \emph{one-way repairs}, which impose the twelve projected queries
+ (\cref{sec:frontier:upper-oneway});
+\item the six LE records by a positive mixture of four softened six-query laws
+ (\cref{prop:le-mixture});
+\item two EL records by a dense law (\cref{prop:dense-comparison}).
+\end{itemize}
+Two further EL records and their reserved companions accept $\mathcal E_6$ and
+are kept, and every other nonaccepting record is deleted. The distance of a
+replacing law from the old record is controlled by the additive repair package
+(\cref{lem:tr:repair}) and by norm bounds in the actual frame of the record:
+complete star matrices (\cref{subsec:spec:actual-stars}) for the dense laws and
+the mixture, and, from $2^{48}$, for the FF, FE and EF repairs of degree two
+(\cref{prop:forest-records}), whose frames and remainders come from the star
+lemma (\cref{lem:upper-stars}).
+
+A change is charged by its norms. The symmetric price pays the change, and the
+skew price only the skew part of the new law, because the old record is
+symmetric (\cref{rem:cp:charging}(iii)).
+
+The local inputs are evaluated at points not above the start of their band.
+\Cref{lem:record:domain} extends them to every larger class-three prime and to
+every block of the band, and \cref{cert:upper-lower-bands} certifies the
+evaluation at $2^{47}$. \Cref{prop:record:upper} verifies (CP4) of
+\cref{thm:comparison} for the upper atoms and bounds their prices by
+$S_{\rm u}(a)$ and $A_{\rm u}(a)$, which enter $S$, $A$ and the matching exponent
+$T$ of the closing (\cref{cert:closing}). The tail atoms keep the twelve-query
+comparison of the tail datum, with the all-prime star cap
+(\cref{lem:tail-prices}). Part (iii) of \cref{prop:record:upper} bounds the price
+of an upper block by a constant times $b^{-3/2}q_\Blk^{2a}$.
+
+Throughout, $p$ is an odd prime, $r=p^{-1/2}$ and $q=1/p$. A band's data use its
+budget $L_{\rm band}$ (\cref{def:record:upper-bands}(b)); $L_{\rm u}=50000/27$ is the
+budget of the tail datum (\cref{def:record:parameters}). Operators are taken
+relative to the measures named, and $Q$ is the projection onto the mean-zero
+functions. For $p\equiv3\pmod4$, $\Phat$ is the normalized Paley operator
+(\cref{subsec:spec:actual-stars}).
+
+\subsection{One-way replacements imposing twelve projected pairs}\label{sec:frontier:upper-oneway}
+
+\paragraph{Queries and records.}
+The comparison law has to accept the six queries $\mathcal E_6$ of
+\cref{subsec:front6:construction}. The one-way repairs and the tail are built
+for the twelve disjoint slot-pair queries on the original
+labels (called \emph{physical} queries below, to distinguish
+them from their projected images under pattern emissions)
+\begin{equation}\label{eq:upper-twelve}
+ \bigl((u,v,0),(\rot(u),\rot(v),1)\bigr),\qquad u\in\{0,5\},\quad v\in\Z/6\Z,
+\end{equation}
+of \cref{subsec:front12:construction}, which run from layer $0$ to layer
+$1$ and contain $\mathcal E_6$ (the queries with $u=0$). A \emph{record} of
+$\mu_\Blk$ (\cref{def:upper-reference}) is one of its components
+(\cref{subsec:layer72:upper}). It has a state
+$\mathfrak t=(\mathfrak t_0,\mathfrak t_1)\in\{L,D,S,R,C\}^2$ of formal
+degree $\deg\mathfrak t$, and is either a two-layer record, a component
+of $\pi_{\mathfrak t,2}$, or a folded record, a component of
+$\operatorname{Diag}_\iota(\pi_{\mathfrak t,1})$ of total degree
+$\deg\mathfrak t+1$. A record \emph{accepts} a query $(s,s')$, in this
+record (support) sense, if every
+labelling $z$ in its support has $z_{s'}-z_s$ a nonzero square at every
+prime of the block. (A \emph{latent record} is a record before
+emission: specified by layer kind, state and pattern pair, with
+the hidden objects retained; there are $392$ in all.) The exact
+enumeration of all latent records
+(\path{research/frontier_2026_10_17/sparse/high72_oneway_geometry.py} and
+\path{high72_oneway_higher_geometry.py}) gives the following ledger for the
+twelve queries. Every record of formal degree at most one, and every folded
+record of total degree at most two, accepts. Of the $37$ two-layer records of
+degree two exactly seven accept; the other thirty have the state multiplicities
+\[
+ LR\colon6,\quad RL\colon4,\quad DD\colon6,\quad DS\colon4,\quad
+ SD\colon6,\quad SS\colon4 .
+\]
+None of the $64$ two-layer records of degree three accepts (states
+$LC\colon2$, $CL\colon2$, $DR\colon18$, $RD\colon18$, $SR\colon12$,
+$RS\colon12$). Exactly seven folded records of total degree three accept,
+with multiplicities $DD\colon3$, $DS\colon2$, $RL\colon2$. No two-layer
+record of degree at least four and no folded record of total degree at least
+four accepts.
+
+For the six queries two more records of degree two accept, with their reserved
+companions. The two-layer records of state $RL$ are the components with a merge
+pattern $G_{sk}$ ($s\in\{0,1\}$, $k\in\{0,1,2\}$) in the first coordinate and the
+identity in the second (\cref{def:two-coordinate-five-type}); we write $G_{sk}L$
+for the record of the pattern $G_{sk}$, and $LG_{sk}$ for the record of state
+$LR$ with the pattern $G_{sk}$ in the second coordinate. Their field pairs are
+$EL$ and $LE$.
+
+\begin{lemma}[Records that accept the six queries]\label{lem:six-query-retention}
+Every record of formal degree at most one and every folded record of total
+degree at most two accepts $\mathcal E_6$.
+\begin{itemize}
+\item Of the $37$ two-layer records of degree two exactly nine accept
+ $\mathcal E_6$: the seven of the twelve-query ledger and the two EL records
+ $G_{01}L$, $G_{10}L$ of state $RL$.
+\item Of the $37$ folded records of total degree three exactly nine accept: the
+ seven of that ledger and the reserved companions of $G_{01}L$ and $G_{10}L$.
+\item No two-layer record of degree at least three and no folded record of total
+ degree at least four accepts.
+\end{itemize}
+So $92$ two-layer records of degrees two and three do not accept $\mathcal E_6$:
+the $28$ of degree two, with the state multiplicities $LR\colon6$, $RL\colon2$,
+$DD\colon6$, $DS\colon4$, $SD\colon6$, $SS\colon4$, and the $64$ of degree three.
+The other records that do not accept are the $28$ folded records of total degree
+three and all records of total degree at least four.
+\end{lemma}
+
+\begin{proof}
+The merge patterns are $G_{sk}(j)=\one[E_s(j)=k]$ with the matching patterns
+$E_0=(0,1,1,2,2,0)$ and $E_1=(0,0,1,1,2,2)$, so
+$(G_{01}(0),G_{01}(2))=(0,1)$ and $(G_{10}(0),G_{10}(2))=(1,0)$. Under the emission
+of $G_{sk}L$ the query from $(0,v,0)$ to $(2,\rot v,1)$ of $\mathcal E_6$ reads the
+slots
+\[
+ (G_{sk}(0),v,0)\quad\text{and}\quad(G_{sk}(2),\rot v,1)
+\]
+of the field graph $G_{{\rm EL},2}$, and under the emission of its reserved
+companion the slots $(G_{sk}(0),v)$ and $(G_{sk}(2),\rot v)$ of $G_{{\rm EL},1}$,
+copied onto both layers. These graphs contain every edge from $(i,v,\ell)$ to
+$(j,\rot v,\ell')$ with $i\ne j$: the $\rm E$ coordinate is related because $i\ne j$,
+and the $\rm L$ coordinate is forward (\cref{subsec:push:layer72spectral}). Hence for $G_{01}L$, $G_{10}L$ and their
+companions every query of $\mathcal E_6$ is an edge of the field graph, and every
+labelling in the support accepts it. These records are records of $\mu_\Blk$, with
+its mass, invariance and actual marginals. The remaining assertions are an exact
+finite enumeration: \path{research/advance_2026_10_24/upper/six_query_geometry.py}
+tests all $392$ latent records against $\mathcal E_6$ (record
+\path{six_query_geometry.json} of that directory, with the counts by layers,
+degree and acceptance), and \path{review_six_query_upper.py} of the same directory
+reconstructs the fold arrays and the graph predicates independently and repeats
+the $392$ tests (\path{six_query_upper_review.json},
+\texttt{PASS\_\allowbreak INDEPENDENT\_\allowbreak SIX\_\allowbreak QUERY\_\allowbreak UPPER}). The last sentence follows from
+the counts.
+\end{proof}
+
+Compared with the twelve-query ledger, which the tail keeps, a band thus keeps
+two of the four nonaccepting $RL$ records of degree two and their reserved
+companions; the other two, $G_{02}L$ and $G_{12}L$, and the six $LR$ records are
+replaced by the laws of \cref{subsec:upper-actual-frames}.
+
+\paragraph{The repair.}
+Fix a nonaccepting two-layer record of degree two or three (a band repairs $84$
+of them, \cref{lem:six-query-retention}; the tail repairs all $94$ of the
+twelve-query ledger), and a prime $p$ of the block. Its law at $p$ is the image
+under the emission of the record (\cref{subsec:layer72:upper}) of the two-layer
+field law $\pi^{\rm old}=\lambda_p(G)$ (\cref{def:graphs:labeling}), where
+$G=G_{\varphi_0\varphi_1,2}$ is the two-layer graph of the field types of the
+record, on the layers $X=U\times\{0\}$ and $Y=U\times\{1\}$, $|U|=n$. The
+hidden objects of merges and constants are kept as vertices of $G$ until
+after the repair; the emission forgets them only at the end. The layer swap
+is an automorphism of $G$, and both layers induce the one-layer graph
+$H=G_{\varphi_0\varphi_1,1}$ on $U$ (\cref{lem:upper-geometry}(b),(c)). Let
+$G^{\rm new}$ be the oriented graph whose edges are those of the two copies
+of $H$ together with the $m_\times$ images, under the pattern maps of the
+emission, of the twelve queries \eqref{eq:upper-twelve}: the cross-layer
+edges of $G$ are removed and the projected queries are imposed. Put
+$\pi^{\rm new}=\lambda_p(G^{\rm new})$.
+The induced half laws of $\pi^{\rm old}$ and $\pi^{\rm new}$ coincide (both
+are $\lambda_H$); by the layer symmetry of $G$ the two actual half marginals
+of $\pi^{\rm old}$ are one law $\mu^{\rm old}$; the two actual half
+marginals $\pi^{\rm new}_X$, $\pi^{\rm new}_Y$ of $\pi^{\rm new}$ need not
+coincide. The \emph{one-way repair} of the record is the law
+\[
+ \pi^{\rm rep}=\bigl(1+f(x)+g(y)\bigr)\,\pi^{\rm new}
+\]
+of \cref{lem:tr:repair} that gives both half marginals the value
+$\mu^{\rm old}$ (formula \ref{it:record:upper-F7} below), followed by the
+emission. It is supported in the support of $\pi^{\rm new}$, so it accepts
+all twelve queries.
+
+This is why one-way queries can be repaired. Every imposed edge runs from
+layer $0$ to layer $1$, across the reserved cut and in one direction, so no
+opposite constraints arise; the new graph keeps the old induced halves, and
+both old actual half marginals can be restored exactly. What is lost is the
+symmetry between the layers, and with it positivity of the
+repaired law at $\iota$; no such positivity is claimed or needed: the change is charged through its
+norms, the symmetric price paying the change and the skew price only the skew
+part of the repaired law, since the old record is symmetric at $\iota$
+(\cref{rem:cp:charging}(iii), \cref{prop:record:upper}).
+The emission acts within each layer, so a test function of an emitted half
+is a test function of the field half: the emission preserves the half
+marginals at $\iota$ and cannot increase an operator norm between them. The
+comparison retains every accepting record, repairs $84$ records, replaces the
+six $LE$ records and the two nonaccepting $EL$ records of degree two by the
+laws of \cref{subsec:upper-actual-frames}, and deletes every other nonaccepting
+record (\cref{def:upper-comparison}).
+
+\paragraph{The repair formula.}
+The coefficients of a repaired record are evaluated by the following formula,
+which continues the list \ref{it:record:upper-F1}--\ref{it:record:upper-F6}
+of the upper local formulas. For a graph $G'$ and a set $S$ of pinned
+vertices let $c^+_{G'}(S)=\sum e^+_t$ and $c^-_{G'}(S)=\sum-\log(1-e^-_t(z))$ be the
+logarithmic count bounds of \ref{it:record:upper-F1} along its fixed
+insertion order, so that the normalized number of injective labellings
+extending a pinned labelling lies in $[e^{-c^-},e^{c^+}]$; $j$ ranges over the
+two halves $X,Y$.
+\begin{enumerate}[label=\textup{(F\arabic*)},start=7]
+\item\label{it:record:upper-F7} \emph{One-way repairs.} For a repaired record
+ at the prime $p$ put
+ \begin{align*}
+  \ell_U&=\max_j\max\bigl\{c^+_G(j)+c^-_{G^{\rm new}}(j)+c^+_{G^{\rm new}}(\emptyset)
+  +c^-_G(\emptyset),\\
+  &\qquad\qquad\ c^+_{G^{\rm new}}(j)+c^-_G(j)+c^+_G(\emptyset)
+  +c^-_{G^{\rm new}}(\emptyset)\bigr\},\qquad U=e^{\ell_U}-1,\\
+  \ell_{\rm new}&=\max_j\bigl(c^-_{G^{\rm new}}(j)+c^-_H(\emptyset)
+  +c^+_{G^{\rm new}}(\emptyset)\bigr),\qquad
+  \ell_{\rm old}=\max_j\bigl(c^-_G(j)+c^-_H(\emptyset)+c^+_G(\emptyset)\bigr),\\
+  K_\infty&=\bigl(2^{m_\times}\exp(2c^+_H(\emptyset)+c^-_{G^{\rm new}}(\emptyset)
+  +2\ell_{\rm new})\bigr)^{1/2},
+ \end{align*}
+ let $\rho_{\rm new}$ be the bound \ref{it:record:upper-F2} for
+ $G^{\rm new}$ between its two layers, and put
+ \[
+  F=U\Bigl(1+\frac{K_\infty}{1-\rho_{\rm new}}\Bigr),\qquad
+  \rho'=\frac{\rho_{\rm new}(1+2F)+U^2}{1-U}.
+ \]
+ Let $\rho_{\rm old}$ be the smaller of the bound \ref{it:record:upper-F2}
+ for $G$ between its layers and $e^{\ell_{\rm old}}(gr+B_{\rm top}r^2)$,
+ where $g$ and $B_{\rm top}$ are the constants of \ref{it:record:upper-F6}
+ for the layer cut of the field pair of the record (for the pairs $LE$ and
+ $EF$ those of $EL$ and $FE$, by the coordinate interchange), certified at an
+ evaluation point $p_0\le p$ of that cut. \emph{Hypotheses:} $U<1$,
+ $\rho_{\rm new}<1$, $2F<1$, $\rho_{\rm old}<\frac12$ and $\rho'<\frac12$.
+ \emph{Conclusion:} the one-way repair $\pi^{\rm rep}$ exists; it is a
+ probability law, invariant under the square-affine maps, with both actual
+ half marginals equal to $\mu^{\rm old}$; its centred conditional operator
+ has norm at most $\rho'$; and $\pi^{\rm rep}-\pi^{\rm old}$ has zero
+ marginals and, relative to $\mu^{\rm old}$ on both halves, norm at most
+ $\rho_{\rm old}+\rho'$, its skew part norm at most $\rho'$. The record has the
+ \emph{symmetric coefficient} $C^{\rm s}=(\rho_{\rm old}+\rho')/r$ and the
+ \emph{skew coefficient} $C^{\rm a}=\rho'/r$, each rounded upward to $10^{-9}$,
+ with $\rho'$ the smaller value of \ref{it:record:upper-F8} for the ten records
+ named there; from $2^{48}$ the FF, FE and EF records of degree two of the bands
+ may use the coefficients of \ref{it:record:upper-F9} instead.
+\end{enumerate}
+
+\begin{proof}[Proof of \ref{it:record:upper-F7}]
+\emph{Densities.} The marginal of a uniform injective graph law on a half,
+at a point, is the number of completions of that point divided by the
+number of all labellings. Writing both numbers as normalized counts and
+dividing, the powers of $p$ and of $2$ cancel, and \ref{it:record:upper-F1}
+gives
+\[
+ e^{-\ell_U}\le\frac{d\mu^{\rm old}}{d\pi^{\rm new}_j}\le e^{\ell_U},\qquad
+ \frac{d\pi^{\rm new}_j}{d\lambda_H}\ge e^{-\ell_{\rm new}},\qquad
+ \frac{d\mu^{\rm old}}{d\lambda_H}\ge e^{-\ell_{\rm old}}
+ \qquad(j=X,Y);
+\]
+the four ratios in $\ell_U$ are the forward and reverse ratios with either
+half pinned. In the same way
+$d\pi^{\rm new}/d(\lambda_H\otimes\lambda_H)\le2^{m_\times}e^{2c^+_H(\emptyset)
++c^-_{G^{\rm new}}(\emptyset)}$, the factor $2^{m_\times}$ coming from the
+$m_\times$ cross constraints, and dividing by the two marginal densities gives
+$\sup d\pi^{\rm new}/d(\pi^{\rm new}_X\otimes\pi^{\rm new}_Y)\le K_\infty^2$.
+So $K_\infty$ bounds the conditional operator of $\pi^{\rm new}$ and its
+adjoint from $L^2$ to $L^\infty$ (\cref{lem:tr:repair}).
+
+\emph{The repair.} Put $1+u=d\mu^{\rm old}/d\pi^{\rm new}_X$ and
+$1+v=d\mu^{\rm old}/d\pi^{\rm new}_Y$. Then $|u|,|v|\le U$, and
+\ref{it:record:upper-F2} bounds the centred conditional operator of
+$\pi^{\rm new}$ by $\rho_{\rm new}<1$. \Cref{lem:tr:repair}(d), with
+$\rho=\rho_{\rm new}$, gives the centred solution $f,g$ with
+$\|f\|_\infty,\|g\|_\infty\le F$, and since $2F<1$, part (c) makes
+$\pi^{\rm rep}$ a probability law, supported in the support of
+$\pi^{\rm new}$, with both half marginals $\mu^{\rm old}$. The data
+$\pi^{\rm new}$, $\mu^{\rm old}$ are invariant under the square-affine maps
+(\cref{lem:marginals}), so by part (a) $f$, $g$ and $\pi^{\rm rep}$ are
+invariant. Part (f) (\cref{lem:record:additive-cancellation}), with
+$F_X=F_Y=F$ and $e_X=e_Y=U$, bounds the centred conditional operator of
+$\pi^{\rm rep}$ by $(\rho_{\rm new}(1+2F)+U^2)/(1-U)=\rho'$; and as
+$\pi^{\rm old}$ is also a coupling of $\mu^{\rm old}$ with itself,
+$\pi^{\rm rep}-\pi^{\rm old}$ has zero marginals and norm at most
+$\rho'+\rho(\pi^{\rm old})$, where $\rho(\pi^{\rm old})$ is the centred
+conditional norm of $\pi^{\rm old}$.
+
+\emph{The replaced record.} It remains to show $\rho(\pi^{\rm old})\le\rho_{\rm old}$.
+The first bound is \ref{it:record:upper-F2}. For the second let $\mathcal A$
+be the operator on $L^2(\lambda_H)$ with kernel
+$d\pi^{\rm old}/d(\lambda_H\otimes\lambda_H)$: the normalized cut operator of
+the layer cut of $G$, whose half law is $\lambda_H$ (\cref{lem:spec:cutkernel}).
+By \ref{it:record:upper-F6}, that is by \cref{thm:spectral-criterion}(b),(c)
+at the prime $p\ge p_0$, $\|Q\mathcal AQ\|\le gr$ and
+$\|\mathcal A1-1\|^2=\|Q\mathcal A1\|^2\le\eps_\varrho(r)^2\le
+r^2p_0\eps_\varrho(r_0)^2\le B_{\rm top}r^2$, with $r_0=p_0^{-1/2}$ and
+$B_{\rm top}=p_0\eps_\varrho(r_0)^2/(1-gr_0)$, the $B^+$ of
+\cref{thm:spectral-criterion}(d). As
+$\mathcal A1=\mathcal A^*1=d\mu^{\rm old}/d\lambda_H\ge e^{-\ell_{\rm old}}$,
+\cref{lem:recentering}(b), with $z=1$, $\eps=0$, $c=gr$,
+$M_L=M_R=B_{\rm top}^{1/2}r$ and $l_L=l_R=\ell_{\rm old}$, gives
+$\rho(\pi^{\rm old})\le e^{\ell_{\rm old}}(gr+B_{\rm top}r^2)$
+(\cref{rem:recentering-uses}(2)): the spectral certificate for the half law
+controls the correlation relative to the actual marginals.
+
+\emph{The skew part.} The layer swap is an automorphism of $G$, so the old
+record is symmetric at $\iota$ and its centred operator is self-adjoint; the
+skew part of $\pi^{\rm rep}-\pi^{\rm old}$ is therefore that of $\pi^{\rm rep}$
+alone (\cref{rem:cp:charging}(iii)), of norm at most $\rho'$.
+\end{proof}
+
+\subsection{Star terms in the one-way replacements}\label{subsec:upper-stars}
+
+A one-way replacement imposes new cross edges between the two
+layers. The general bound \ref{it:record:upper-F2} charges for
+every new edge separately, through the influence matrix. For ten
+records of the twelve-query list retained in this range---the six
+$LR$ records and the four nonaccepting $RL$ records of degree two
+(field pairs $\rm LE$ and $\rm EL$)---there are too many new edges
+for that bound: their halves have $n=18$ labels, with six new
+edges forming two disjoint three-edge paths ($LR$), or twelve
+forming six disjoint two-edge stars with all centres in one layer
+($RL$). Charged edge by edge, these ten records would dominate the
+degree-two prices at the tail primes. The following lemma instead
+expands the whole new cross kernel into its star terms (bounded
+together), the remaining supports and the coincidences, giving a
+sharper bound for the correlation $\rho_{\rm new}$ of the new law.
+Nothing else in the repair formula
+\ref{it:record:upper-F7} changes. At $2^{54}$ the lemma gives the
+joint-star bounds used for the tail primes
+(\cref{cert:tail-caps}). In the bands these ten records are kept,
+mixed or replaced densely, not repaired one-way
+(\cref{lem:six-query-retention,prop:le-mixture,prop:dense-comparison});
+there the setting of the lemma is reused for the records of
+\cref{prop:forest-records}.
+
+\paragraph{Setting.}
+Let $H$ be an oriented graph on $n$ vertices with maximum degree at most
+$\Delta$, let $\lambda_H$ be its uniform injective law, and let $G^{\rm new}$
+consist of two copies of $H$, on layers $X$ and $Y$, and of $m_\times$ cross
+edges, each joining a vertex $u\in X$ and a vertex $v\in Y$ in one of the two
+directions, whose bipartite graph $\mathbf D$ has maximum degree at most two and
+no cycle of length four (a union of paths, for instance). $\mathbf D$ also
+denotes its signed $n\times n$ incidence matrix: $\mathbf D_{uv}=1$ for an edge
+from $u$ to $v$, $\mathbf D_{uv}=\chi(-1)$ for an edge from $v$ to $u$, and
+$\mathbf D_{uv}=0$ otherwise. (The new graphs of the one-way repairs have only
+edges from $X$ to $Y$; reversed edges occur in the replaced records of
+\cref{prop:forest-records}.) Let $N_X$ and $N_Y$ be the numbers of vertices of
+cross degree two in $X$ and in $Y$, and put $N_1=m_\times$, $N_2=N_X+N_Y$,
+$N_*=2^{m_\times}-1-N_1-N_2$. With the lower insertion error
+$e^-_\Delta(z)=a_\Delta r+(b_\Delta+z2^\Delta)r^2$ of
+\eqref{eq:graphs:graded} put
+\begin{gather*}
+ \kappa_{\rm pr}=\Bigl(\frac{2^\Delta}{1-e^-_\Delta(n-1)}\Bigr)^2,\qquad
+ C_{\rm col}=n^22^{m_\times},\\
+ \mathcal R=(N_*\kappa_{\rm pr}+C_{\rm col})q,\qquad
+ Z_-=1-(N_2+N_*\kappa_{\rm pr}+C_{\rm col})q .
+\end{gather*}
+Let $\mathcal E=(\eps_{ij})$ be the influence matrix of $H$ for the empty
+pinning, formed with the coarse count error
+$w_\Delta=w_\Delta(p,n)=2^\Delta(\frac\Delta2r+nr^2)$ (\cref{def:mid:influence},
+\eqref{eq:graphs:et}), $e_{\rm inf}$ its largest row sum,
+$\eta=e_{\rm inf}^2/(1-e_{\rm inf})$, $\Gamma=1+e_{\rm inf}+(n-1)\eta$ and
+$\gamma=2-\Gamma$. For a vertex $c$ of cross degree two in $X$, with cross
+neighbours $w,w'$, and a vertex $k$ of $Y$ put
+\[
+ \mathbf C_X[c,k]=\begin{cases}q(q+r)/(1-q),&k\in\{w,w'\},\\
+ r\bigl((\eps_{wk}^2+\eps_{w'k}^2)^{1/2}+\eta\bigr),&k\notin\{w,w'\},
+ \end{cases}
+\]
+and define $\mathbf C_Y$ in the same way with the layers exchanged.
+Kernels on $(x,y)$ are operators from $L^2(\lambda_H)$ (functions of $y$) to
+$L^2(\lambda_H)$ (functions of $x$), relative to $\lambda_H\otimes\lambda_H$.
+For $S\subseteq\mathbf D$ put $\chi_S(x,y)=\prod_{(u,v)\in S}\chi(y_v-x_u)$ and
+$\mathbf D_S=\prod_{(u,v)\in S}\mathbf D_{uv}$. A \emph{two-star} is a pair of
+cross edges with a common vertex, its \emph{centre}; there is one at each vertex
+of cross degree two. The \emph{centred star operator} is
+\[
+ \mathcal S^{\rm c}=\sum_{(u,v)\in\mathbf D}\mathbf D_{uv}\chi_{\{(u,v)\}}
+ +\mathcal S_X+\mathcal S_Y,\qquad
+ \mathcal S_Z=\sum_{S\text{ a two-star with centre in }Z}\mathbf D_S\bigl(\chi_S+q\bigr)
+ \quad(Z=X,Y).
+\]
+Let $\mathcal V\subseteq L^2_0(\lambda_H)$, the \emph{singleton span}, be spanned
+by the functions $h(x_i)$ with $h\in L^2_0(\Fp)$ and $i$ a vertex; let
+$\mathcal V_X$, $\mathcal V_Y$ be its copies in the two halves, and
+$P_{\mathcal V_X}$, $P_{\mathcal V_Y}$ the orthogonal projections onto them.
+
+\begin{lemma}[Upper stars]\label{lem:upper-stars}
+In this setting assume that $w_\Delta<\frac12$ and $e^-_{\Delta+1}(2n)<1$, so
+that $w_\Delta$ and $e^-_{\Delta+1}(2n)$ are count errors for $H$ and its empty
+pinning (\cref{def:mid:influence}(i)); that $e_{\rm inf}<\frac14$; that
+$e^-_\Delta(n-1)<1$ and $Z_->0$; and let $e^{-\ell_{\rm new}}$ be a lower
+bound for both densities $d\pi^{\rm new}_X/d\lambda_H$ and $d\pi^{\rm new}_Y/d\lambda_H$,
+where $\pi^{\rm new}=\lambda_p(G^{\rm new})$. Put $\xi_1=\mathcal R/Z_-$ and
+\[
+ b_{\rm raw}=\Bigl(N_1+N_2\Bigl(\frac2{1-q}\Bigr)^{1/2}\Bigr)r+\mathcal R .
+\]
+\begin{enumerate}[label=(\alph*)]
+\item\emph{Forest stars.} The centred conditional operator of
+ $\pi^{\rm new}$ has norm at most $e^{\ell_{\rm new}}(\xi_0+\xi_0^2)$, where
+ $\xi_0=b_{\rm raw}/Z_-$.
+\item\emph{Joint stars, every odd prime.} The centred star operator
+ $\mathcal S^{\rm c}$ has norm at most
+ \begin{equation}\label{eq:frontier:all-prime-star-cap}
+  b_{\rm all}=r\biggl(\Gamma\|\mathbf D\|
+  +\Bigl(\frac{2\Gamma N_X}{1-q}\Bigr)^{1/2}
+  +\Bigl(\frac{2\Gamma N_Y}{1-q}\Bigr)^{1/2}\biggr),
+ \end{equation}
+ and the centred conditional operator of $\pi^{\rm new}$ has norm at most
+ $e^{\ell_{\rm new}}(\xi+\xi_1^2)$ with $\xi=(b+\mathcal R)/Z_-$, $b=b_{\rm all}$.
+ No orthogonality between the input pair functions is needed.
+\item\emph{Singleton projections, $p\equiv3\pmod4$.} If $\gamma>0$, then
+ \[
+  \|\mathcal S_XP_{\mathcal V_Y}\|\le\Bigl(\frac\Gamma\gamma\Bigr)^{1/2}\|\mathbf C_X\|_{\rm F},
+  \qquad
+  \|P_{\mathcal V_X}\mathcal S_Y\|\le\Bigl(\frac\Gamma\gamma\Bigr)^{1/2}\|\mathbf C_Y\|_{\rm F}.
+ \]
+\item\emph{Targets.} If $\mu^{\rm old}$ is a probability law with
+ $\|d\mu^{\rm old}/d\lambda_H-1\|_{L^2(\lambda_H)}\le\epsilon_{\rm old}$, then
+ $u=d\mu^{\rm old}/d\pi^{\rm new}_X-1$ and $v=d\mu^{\rm old}/d\pi^{\rm new}_Y-1$
+ satisfy
+ $\|u\|^2_{L^2(\pi^{\rm new}_X)},\|v\|^2_{L^2(\pi^{\rm new}_Y)}
+ \le e^{\ell_{\rm new}}(\epsilon_{\rm old}+\xi_1)^2$.
+\end{enumerate}
+The lemma applies to every graph of this form, the new graph of a repair or the
+two-layer graph of a replaced record.
+\end{lemma}
+
+\begin{proof}
+\emph{Step 0: coordinates and embeddings.} The law $\lambda_H$ is invariant
+under the square-affine maps $z\mapsto sz+c$ ($s$ a nonzero square, $c\in\Fp$)
+applied to all labels (\cref{lem:marginals}). Hence every coordinate is
+uniform on $\Fp$, and every pair of distinct coordinates has a law invariant
+under the maps, supported off the diagonal; the maps have two orbits there,
+$\{b'-b\text{ a square}\}$ and its complement, each of size $p(p-1)/2$, so
+the pair law has density at most $2p/(p-1)=2/(1-q)$ with respect to the
+uniform law on $\Fp^2$. Both halves are copies of $(\Fp^U,\lambda_H)$, and the
+following embeddings are used in either of them. For a vertex $i$ let
+$\Phi_i\colon L^2_0(\Fp)\to L^2(\lambda_H)$, $\Phi_ih=h(x_i)$, an isometry, and let
+$\Phi\colon\bigoplus_iL^2_0(\Fp)\to L^2(\lambda_H)$, $(h_i)\mapsto\sum_i\Phi_ih_i$.
+The diagonal blocks of $\Phi^*\Phi$ are identities. An off-diagonal block
+$\Phi_i^*\Phi_j$ has norm the maximal correlation $\rho(x_i;x_j)$. The matrix
+$\mathcal E$ is symmetric and nonnegative, so $\|\mathcal E\|\le e_{\rm inf}<1$,
+and \cref{prop:middle-negative}(a), for the empty pinning with
+$e=e_{\rm inf}$, gives $\rho(x_i;x_j)\le\eps_{ij}+\eta$. The block Schur test
+gives $\|\Phi^*\Phi-I\|\le e_{\rm inf}+(n-1)\eta$, hence
+\[
+ \gamma I\preceq\Phi^*\Phi\preceq\Gamma I,
+\]
+and the same for the restriction of $\Phi$ to any set of coordinates. The range
+of $\Phi$ is the singleton span $\mathcal V$, and $\mathcal V_X$, $\mathcal V_Y$ are
+its copies in the two halves. For disjoint sets $A,A'$ of vertices,
+\cref{prop:middle-negative}(b) also gives
+$\rho(x_A;x_{A'})\le\|\mathcal E_{AA'}\|+\eta$.
+
+\emph{Step 1: the kernel.} On labellings with all $2n$ labels distinct, every
+cross difference $y_v-x_u$ is nonzero, and the indicator of the edge between $u$
+and $v$ is $\frac12(1+\mathbf D_{uv}\chi(y_v-x_u))$: for an edge from $v$ to $u$
+the constraint is that $x_u-y_v$ is a square, and
+$\chi(x_u-y_v)=\chi(-1)\chi(y_v-x_u)$. Hence $\pi^{\rm new}$ has density $K_0/Z_0$
+with respect to $\lambda_H\otimes\lambda_H$, where
+$K_0=\mathbf 1\{\text{all labels distinct}\}\prod_{(u,v)\in\mathbf D}
+(1+\mathbf D_{uv}\chi(y_v-x_u))$ and $Z_0=\E K_0$. Expanding the product,
+\[
+ K_0=\sum_{S\subseteq\mathbf D}\mathbf D_S\chi_S-K_{\rm col},
+\]
+where $0\le K_{\rm col}\le2^{m_\times}\mathbf 1\{\text{some }x_i=y_j\}$. Three
+pairwise meeting edges of a bipartite graph share a vertex; as every vertex has
+cross degree at most two, a nonempty $S\subseteq\mathbf D$ in which any two edges
+meet is a single edge or a pair of edges at a common vertex (a \emph{two-star});
+there are $N_1$ of the first kind and $N_2$ of the second, one at each vertex of
+cross degree two. Every other nonempty $S$ contains two disjoint edges
+$(u,v),(u',v')$, and since $\mathbf D$ has no $4$-cycle at most one of
+$(u,v'),(u',v)$ lies in $\mathbf D$. The signs $\mathbf D_S$ have modulus one and
+play no role in the bounds below.
+
+\emph{Step 2: single edges.} Let $\mathcal P$ act on $L^2(\Fp)$ by
+$\mathcal Ph(a)=\E_b\chi(b-a)h(b)$, the Paley operator of
+\cref{lem:square-shift}. By part (c) of that lemma $\|\mathcal P\|=r$ and
+$\mathcal P1=\mathcal P^*1=0$, so $\mathcal P$ annihilates the constants and
+maps into $L^2_0$. Since $y_v$ is uniform, the
+kernel $\chi(y_v-x_u)$ is $\Phi_u\mathcal P\Phi_v^*$, of norm at most $r$ and
+mean zero, and the sum of the single-edge kernels $\mathbf D_{uv}\chi(y_v-x_u)$ is
+\[
+ \mathcal S_{\rm e}=\Phi\,(\mathbf D\otimes\mathcal P)\,\Phi^*,\qquad
+ \|\mathcal S_{\rm e}\|\le\Gamma\|\mathbf D\|r .
+\]
+It maps into $\mathcal V_X$, the singleton span of the layer $X$, and
+vanishes on the orthogonal complement of $\mathcal V_Y$ in $L^2_0$.
+
+\emph{Step 3: two-stars.} Let $c\in X$ have cross neighbours $w,w'\in Y$, let
+$\varrho$ be the law of $(y_w,y_{w'})$ and let
+$\mathcal K\colon L^2(\varrho)\to L^2(\Fp)$ have kernel
+$\chi(b-a)\chi(b'-a)$, $a$ the centre and $(b,b')$ the leaves. The kernel
+$\chi_S$ of the star is the operator $h\mapsto(\mathcal K\Phi_{ww'}^*h)(x_c)$,
+with $\Phi_{ww'}^*h=\E[h\mid y_w,y_{w'}]$. Its constant images are constant: by
+\eqref{eq:two-root}, $\mathcal K^*1(b,b')=\E_a\chi(b-a)\chi(b'-a)=-q$ on the
+support $b\ne b'$ of $\varrho$, and $\mathcal K1$ is constant because $\varrho$
+is translation invariant; hence $\mathcal K1=\ip{\mathcal K^*1}1=-q$ and
+\[
+ \mathcal K=Q\mathcal KQ-q\,(1\otimes1),\qquad
+ \chi_S=\Phi_c(Q\mathcal KQ)\Phi_{ww'}^*-q\,(1\otimes1),
+\]
+since for $h=h_0+\E h$ with $h_0$ centred, $\mathcal Kh=\mathcal Kh_0-q\E h$ and
+$\E\mathcal Kh_0=\ip{\mathcal K^*1}{h_0}=0$. In particular the mean of a
+two-star is $-q$. For the norm, let $\mathcal K_{\rm u}$ be the operator with the
+same kernel on the uniform law of $\Fp^2$; $\mathcal K_{\rm u}\mathcal
+K_{\rm u}^*$ has kernel $(\mathbf 1\{a=a'\}-q)^2$, which is the operator
+$q(1-2q)I+q^2\Jproj$, of norm $q(1-q)\le q$. As $\mathcal Kh=\mathcal K_{\rm u}
+(h\,d\varrho/d\Unif)$ and $\|h\,d\varrho/d\Unif\|^2\le\frac2{1-q}\|h\|_\varrho^2$,
+\[
+ \|Q\mathcal KQ\|\le\|\mathcal K\|\le\Bigl(\frac2{1-q}\Bigr)^{1/2}r .
+\]
+A star with centre in $Y$ and leaves $w,w'\in X$ is treated through its
+adjoint, which has the same form ($\chi(b-a)\chi(b-a')=\chi(a-b)\chi(a'-b)$).
+Group the centred stars $\mathbf D_S(\chi_S+q)$ by their centres; there is one
+star at each centre. For centres in $X$ the sum is $\mathcal S_X=\Phi\circ\Psi$
+with $\Psi h=(\mathbf D_{S_c}Q\mathcal K_cQ\Phi^*_{w_cw'_c}h)_c$, and $\|\Psi h\|^2=\sum_c
+\|Q\mathcal K_cQ\Phi^*_{w_cw'_c}h\|^2\le N_X\beta_\star^2\|h\|^2$, where
+$\beta_\star$ bounds every $\|Q\mathcal K_cQ\|$; with the embedding bound of
+Step 0, $\|\mathcal S_X\|\le(\Gamma N_X)^{1/2}\beta_\star$, and likewise for the
+sum $\mathcal S_Y$ over the centres in $Y$,
+$\|\mathcal S_Y\|\le(\Gamma N_Y)^{1/2}\beta_\star$. Thus
+$\mathcal S^{\rm c}=\mathcal S_{\rm e}+\mathcal S_X+\mathcal S_Y$; it
+annihilates the constants and maps into $L^2_0$. With
+$\beta_\star=(2/(1-q))^{1/2}r$ the triangle inequality gives
+$\|\mathcal S^{\rm c}\|\le b_{\rm all}$, the first claim of (b).
+
+\emph{Step 4: the other supports.} Let $S$ contain the disjoint edges
+$(u,v),(u',v')$ of Step 1. Condition on the labels $\hat x$ of
+$X\setminus\{u,u'\}$ and $\hat y$ of $Y\setminus\{v,v'\}$; under
+$\lambda_H\otimes\lambda_H$ the two halves are independent. Given $\hat x$, the
+pair $(x_u,x_{u'})$ is uniform on the admissible pairs; inserting $x_u$ and
+then $x_{u'}$, each with at most $\Delta$ constraints to labelled vertices and
+at most $n-1$ excluded labels, \cref{lem:extension}(c) gives at least
+$\bigl(p2^{-\Delta}(1-e^-_\Delta(n-1))\bigr)^2$ admissible pairs, since
+$2^{-t}(1-e^-_t(z))$ is nonincreasing in $t$ and $z$ (property
+\ref{it:et:main} of \cref{subsec:labellings:defs}). So the conditional law
+of $(x_u,x_{u'})$ has density at most $\kappa_{\rm pr}$ with respect to the
+uniform law of $\Fp^2$, and the same holds for $(y_v,y_{v'})$. Given
+$(\hat x,\hat y)$, the edges of $S$ inside the conditioned labels give a
+constant of modulus at most one, the edges with one end among the four free
+labels give one-sided multipliers of modulus at most one, and the edges
+among the free labels give the kernel
+$\chi(b-a)\chi(b'-a')$, possibly times $\chi(b'-a)$ or $\chi(b-a')$, with
+$a=x_u$, $a'=x_{u'}$, $b=y_v$, $b'=y_{v'}$. The two free matching edges,
+together with at most one of the other rectangle edges, satisfy the acyclic case of \cref{lem:matching:kernel}(a)
+with $k=2$, so this kernel has norm at most $r^2=q$ under the uniform law
+on $\Fp^2\times\Fp^2$. The multipliers are absorbed into the test functions,
+and converting the densities costs $\kappa_{\rm pr}^{1/2}$ on each side, as in Step 3. So the
+conditional form is at most $\kappa_{\rm pr}q$ times the conditional norms of
+the test functions, and Cauchy--Schwarz over $(\hat x,\hat y)$ gives
+$\|\mathbf D_S\chi_S\|\le\kappa_{\rm pr}q$. The within-half injectivity is part of
+the conditional laws and is kept. Summing, the remaining supports have total
+norm at most $N_*\kappa_{\rm pr}q$, and each has mean of modulus at most
+$\kappa_{\rm pr}q$.
+
+\emph{Step 5: coincidences.} As $0\le K_{\rm col}\le2^{m_\times}\sum_{i,j}\mathbf
+1\{x_i=y_j\}$ and every coordinate is uniform, every row and column integral
+of $K_{\rm col}$ is at most $2^{m_\times}n^2q$; Schur's test gives
+$\|K_{\rm col}\|\le C_{\rm col}q$, and $0\le\E K_{\rm col}\le C_{\rm col}q$.
+
+\emph{Step 6: assembly.} By Steps 1--5,
+$K_0=(1-q\sum_S\mathbf D_S)(1\otimes1)+\mathcal S^{\rm c}+\mathcal R_*-K_{\rm col}$,
+the sum over the two-stars $S$, where $\mathcal R_*$ is the sum of the kernels
+$\mathbf D_S\chi_S$ of Step 4. Single edges and centred stars have mean zero, so
+$Z_0=1-q\sum_S\mathbf D_S+\E(\mathcal R_*-K_{\rm col})$ and
+$|Z_0-1|\le(N_2+N_*\kappa_{\rm pr}+C_{\rm col})q=1-Z_-<1$. Let $\mathcal A$ be
+the operator with kernel $K_0/Z_0$, the density of $\pi^{\rm new}$. Since
+$\mathcal S^{\rm c}$ annihilates the constants and maps into $L^2_0$,
+\[
+ QK_0Q=\mathcal S^{\rm c}+Q(\mathcal R_*-K_{\rm col})Q,\qquad
+ QK_01=Q(\mathcal R_*-K_{\rm col})1,\qquad
+ QK_0^*1=Q(\mathcal R_*-K_{\rm col})^*1,
+\]
+of norms at most $\|\mathcal S^{\rm c}\|+\mathcal R$, $\mathcal R$ and
+$\mathcal R$; in particular $\|Q\mathcal A1\|,\|Q\mathcal A^*1\|\le\xi_1$. The
+actual marginals are $\pi^{\rm new}_X=(\mathcal A1)\lambda_H$ and
+$\pi^{\rm new}_Y=(\mathcal A^*1)\lambda_H$, with densities at least
+$e^{-\ell_{\rm new}}$. \Cref{lem:recentering}(b), applied to the kernel $K_0$
+with $z=Z_0$, $\eps=1-Z_-$, $c=\|\mathcal S^{\rm c}\|+\mathcal R$,
+$M_L=M_R=\mathcal R$ and $l_L=l_R=\ell_{\rm new}$, bounds the centred
+conditional norm of $\pi^{\rm new}$ by
+$e^{\ell_{\rm new}}((\|\mathcal S^{\rm c}\|+\mathcal R)/Z_-+\xi_1^2)$, which is (b)
+with any bound $b$ for $\|\mathcal S^{\rm c}\|$. For (a), the triangle
+inequality over the supports, with the norms $r$ and $(2/(1-q))^{1/2}r$ of
+single edges and two-stars (Steps 2 and 3), gives
+$\|K_0-1\otimes1\|\le b_{\rm raw}$, which bounds $\|QK_0Q\|$, $\|QK_01\|$ and
+$\|QK_0^*1\|$; the same lemma with $c=M_L=M_R=b_{\rm raw}$ gives
+$e^{\ell_{\rm new}}(\xi_0+\xi_0^2)$.
+
+\emph{Step 7: singleton projections.} Let $p\equiv3\pmod4$. For a two-star with
+centre $c\in X$ and leaves $S=\{w,w'\}$, the operator $Q\mathcal K_cQ\Phi^*_{ww'}$ of
+Step 3 is $W_S^*$, the adjoint of the star feature of \cref{lem:general-star} for
+the law $\lambda_H$ of the half $Y$: both send $h$ to the mean-zero part of
+$a\mapsto\E[\chi(a-y_w)\chi(a-y_{w'})h(y)]$, and $Q\mathcal K_c1=0$. By part (a)
+there, with $w_S=-q$, $W_S^*W_S=q(1-2q-q^2)/(1-q)\,I\preceq qI$, so
+$\|Q\mathcal K_cQ\|\le r$; the unknown imbalance of the two orbits of the leaf pair
+drops out because $\chi(-1)=-1$, which is one of the places where the class-three
+primes are cheaper. For $k\in\{w,w'\}$ part (d) gives
+$\|W_S^*\Phi_k\|\le q\sqrt{1+q}\,r/(1-q)\le q(q+r)/(1-q)=\mathbf C_X[c,k]$. For a
+vertex $k\notin\{w,w'\}$, $W_S$ takes values in the functions of $(y_w,y_{w'})$, so
+$W_S^*\Phi_k=W_S^*\Phi_{ww'}\Phi^*_{ww'}\Phi_k$, and $\Phi^*_{ww'}\Phi_k$ has norm at
+most $\rho((y_w,y_{w'});y_k)\le(\eps_{wk}^2+\eps_{w'k}^2)^{1/2}+\eta$ by Step 0; so
+$\|W_S^*\Phi_k\|\le\mathbf C_X[c,k]$. Let now $g\in\mathcal V_Y$. As $\Phi^*\Phi\succeq\gamma I$ with
+$\gamma>0$, $g=\Phi a$ with $\|a\|^2\le\|g\|^2/\gamma$, and $\mathcal S_Xg=\Phi(Ma)$,
+where the block matrix
+$M=(\mathbf D_{S_c}Q\mathcal K_cQ\Phi^*_{w_cw'_c}\Phi_k)_{c,k}$ has norm at most the
+norm of the matrix of its block norms, hence at most $\|\mathbf C_X\|_{\rm F}$. So
+$\|\mathcal S_XP_{\mathcal V_Y}\|\le(\Gamma/\gamma)^{1/2}\|\mathbf C_X\|_{\rm F}$,
+and in the same way, with the layers exchanged,
+$\|P_{\mathcal V_X}\mathcal S_Y\|=\|\mathcal S_Y^*P_{\mathcal V_X}\|\le
+(\Gamma/\gamma)^{1/2}\|\mathbf C_Y\|_{\rm F}$; repeated leaf supports cause no
+difficulty. This is (c).
+
+\emph{Step 8: targets.} Write $d\mu^{\rm old}/d\lambda_H=1+w_{\rm old}$ and
+$d\pi^{\rm new}_X/d\lambda_H=1+w_{\rm new}$, so $w_{\rm new}=Q\mathcal A1$ and
+$\|w_{\rm new}\|\le\xi_1$. Then
+\[
+ \|u\|^2_{L^2(\pi^{\rm new}_X)}=\int\frac{(w_{\rm old}-w_{\rm new})^2}
+ {1+w_{\rm new}}\,d\lambda_H\le e^{\ell_{\rm new}}(\epsilon_{\rm old}+\xi_1)^2,
+\]
+and likewise for $v$; no change of reference and no normalizer is involved.
+\end{proof}
+
+The two cross graphs of the ten records give $(N_1,N_2,N_*)=(6,4,53)$,
+$\|\mathbf D\|=(1+\sqrt5)/2$ and $N_X=N_Y=2$ for the two paths with three edges
+(the six $LR$ records), and $(N_1,N_2,N_*)=(12,6,4077)$, $\|\mathbf D\|=\sqrt2$
+and $\{N_X,N_Y\}=\{6,0\}$ for the six two-edge stars (the four $RL$ records:
+$N_X=6$ for two of them, $N_Y=6$ for the other two; $b_{\rm all}$ is symmetric
+in $N_X,N_Y$); the geometry checks the component sizes, the support counts and
+every matching rectangle used in Step 4. As $r\to0$ the coefficients
+$b_{\rm all}/r$ tend to $(1+\sqrt5)/2+4\approx5.618$ and
+$\sqrt2+\sqrt{12}\approx4.878$. The lemma is applied to the ten records of the
+tail through the following formula.
+
+\begin{enumerate}[label=\textup{(F\arabic*)},start=8]
+\item\label{it:record:upper-F8} \emph{Joint stars} (\cref{lem:upper-stars}(a),(b),(d))
+ for the ten $EL/LE$ records of degree two of the twelve-query ledger, at the
+ tail, with $n=18$, $\Delta=4$, so that
+ $\kappa_{\rm pr}=256/(1-e^-_4(17))^2$, $C_{\rm col}=18^22^{m_\times}$ and
+ $\Gamma=1+e_{\rm inf}+17\eta$. In \ref{it:record:upper-F7} replace
+ $\rho_{\rm new}$ by the smallest of the bound \ref{it:record:upper-F2} and the
+ bounds of \cref{lem:upper-stars}(a),(b), and $U^2$ by
+ \[
+  \epsilon_{\rm tg}^2=\min\bigl\{U^2,\ e^{\ell_{\rm new}}
+  \bigl(B_{\rm top}^{1/2}r+\xi_1\bigr)^2\bigr\},
+ \]
+ keeping $U$ and $F$:
+ $\rho'=(\rho_{\rm new}(1+2F)+\epsilon_{\rm tg}^2)/(1-U)$. \emph{Hypotheses:}
+ internal degree at most four; $w_\Delta<\frac12$ and $e^-_{\Delta+1}(2n)<1$;
+ $e_{\rm inf}<\frac14$; $Z_->0$ and $1-e^-_4(17)>0$; repaired correlation
+ below $\frac12$.
+\end{enumerate}
+
+\begin{proof}[Proof of \ref{it:record:upper-F8}]
+The old actual half marginal satisfies
+$\|d\mu^{\rm old}/d\lambda_H-1\|=\|Q\mathcal A_{\rm old}1\|\le
+B_{\rm top}^{1/2}r$, with $\mathcal A_{\rm old}$ the operator $\mathcal A$ of
+the proof of \ref{it:record:upper-F7}, so
+\cref{lem:upper-stars}(d) applies with $\epsilon_{\rm old}=B_{\rm top}^{1/2}r$,
+and $\|u\|_2\|v\|_2\le\epsilon_{\rm tg}^2$. The original multiplier cap $F$,
+computed with the bound \ref{it:record:upper-F2}, still bounds
+$\|f\|_\infty$ and $\|g\|_\infty$. Part (f) of \cref{lem:tr:repair}, with
+$e_Xe_Y\le\epsilon_{\rm tg}^2$ and any valid bound for the centred conditional
+norm of $\pi^{\rm new}$, gives the new $\rho'$.
+\end{proof}
+
+All the scalar majorants of \ref{it:record:upper-F7} and \ref{it:record:upper-F8},
+divided by their leading power of $r$, are nondecreasing in $r$ at fixed
+spectral constants $g$, $B_{\rm top}$; \cref{lem:record:domain} below uses this.
+The tail uses the all-prime form \eqref{eq:frontier:all-prime-star-cap}.
+
+\subsection{Replacements keeping the old cross edges}\label{subsec:upper-actual-frames}
+
+Three further kinds of degree-two replacement keep some of the
+old cross edges, so the old and new kernels must be compared in
+one common system: from $2^{48}$ the sixteen FF, FE and EF repairs
+(\cref{prop:forest-records}), and in every band the two remaining
+EL records and the six LE records, which are replaced by dense
+positive laws
+(\cref{prop:dense-comparison,prop:le-mixture}). In each case the
+kernels are expanded in characters
+(\cref{lem:upper-stars}, \cref{cor:soft-kernels}), and their
+complete star parts are written using one fixed list of functions
+of the common half law---the single-label functions and the star
+functions of \cref{lem:general-star,cor:star-matrix}. A star part
+is then an explicit small matrix in these functions; for the dense
+laws, the mixture and the FE and EF repairs, the old and the new
+star part are two such matrices in the same functions, and the
+norm of their difference is checked by an exact rational test
+(\cref{rem:realified-gates}). The nonstar terms, the coincidences,
+the normalizing constants and the reweighting to the old actual
+marginals are bounded separately. The replacing law is positive,
+accepts its queries and has the actual half marginals of the old
+record, so when the two kernels are compared in one fixed half
+chart the rank-one terms from centring cancel in the difference
+(\cref{lem:record:centered-correction}(c)). A forest repair is in
+addition bounded on its own, its marginal variance entering only
+its full and symmetric bounds, by part~(b) there. The symmetric and the
+skew part of the change are bounded separately; each proposition
+lists the finite inequalities (gates) that carry its bounds from
+one prime to blocks (\cref{lem:record:domain}(ii)). Throughout
+this subsection $p\equiv3\pmod4$.
+
+\paragraph{Forest records.}
+The FF, FE and EF records of degree two (states $DD$, $DS$, $SD$; six, four and
+six records) have half graphs $H$ with $n=9$ labels and maximum degree three
+(FF) or two (FE, EF). The new cross graph of each has maximum degree two and no
+cycle of length four: six cross edges forming a matching for FF, three paths with
+two edges for EF, and two hexagons for FE. So has the old cross graph of an FE or
+EF record, two hexagons with edges in both directions. The certificates check
+these properties on every nonempty cross-edge subset. The setting of
+\cref{lem:upper-stars} therefore applies to the new graph $G^{\rm new}$ and, for
+FE and EF, to the old graph $G$. The bound \ref{it:record:upper-F2} for the new
+law pays every cross edge through the influence matrix; here the star part of
+the new law is a fixed matrix in the actual features, and for FE and EF the old
+and the new star part are compared in one synthesis.
+
+\begin{proposition}[Degree-two FF, FE and EF records]\label{prop:forest-records}
+Let $\pi^{\rm old}=\lambda_p(G)$ be one of the sixteen FF, FE and EF records of
+degree two, with its one-way repair $\pi^{\rm rep}$ of \ref{it:record:upper-F7}
+and the quantities $F$, $\ell_{\rm old}$, $B_{\rm top}$, $\rho_{\rm old}$ and
+$\rho'$ of that formula. Take the setting of \cref{lem:upper-stars} for
+$G^{\rm new}$, with $\Delta$ the largest degree of $H$, except that
+$\kappa_{\rm pr}$ may be replaced by its larger value $256/(1-e^-_4(n-1))^2$
+(property \ref{it:et:main}), and put
+$E_{\rm proj}=(\Gamma/\gamma)^{1/2}(\|\mathbf C_X\|_{\rm F}+\|\mathbf C_Y\|_{\rm F})$.
+Let $\mathcal S$ be the set of leaf pairs of the two-stars of $G^{\rm new}$, and
+$\Gamma_W=1+\max_{S\in\mathcal S}\sum_{T\ne S}N_{ST}$, where $N_{ST}=\rho_S$ for
+disjoint $S,T$ and $N_{ST}=2\rho_{ab}/(1-q)+q(q+r)^2/(1-q)^2$ for $S=\{a,b\}$,
+$T=\{a,b'\}$; here $\rho_S$ and $\rho_{ab}$ are the bounds \ref{it:record:upper-F2}
+for the maximal correlation of $x_S$ and $x_{U\setminus S}$ and for the
+conditional one of $x_b$ and $x_{U\setminus\{a,b\}}$ given $x_a$;
+set $\Gamma_W=1$ when $\mathcal S$ is empty. Put
+$\Gamma_F=\max(\Gamma,\Gamma_W)$, let $k_{\rm f}$, $k_{\rm s}$, $k_{\rm a}$ bound
+the norms of the star matrix $M(i)$ of $\mathbf D$ and of its symmetric and skew
+parts (\cref{cor:star-matrix}), and put
+\[
+ c=\frac{\Gamma_Fk_{\rm f}r+E_{\rm proj}+\mathcal R}{Z_-},\quad
+ s=\frac{\Gamma_Fk_{\rm s}r+E_{\rm proj}+\mathcal R}{Z_-},\quad
+ a=\frac{\Gamma_Fk_{\rm a}r+E_{\rm proj}+\mathcal R}{Z_-},\quad
+ e=\frac{\mathcal R}{Z_-}.
+\]
+\begin{enumerate}[label=(\alph*)]
+\item Suppose that the hypotheses of \ref{it:record:upper-F7} and of
+ \cref{lem:upper-stars} hold, that $\gamma>0$, and that the correlations above
+ satisfy the hypotheses of \ref{it:record:upper-F2}. Relative to $\mu^{\rm old}$
+ on both halves, the centred operator of $\pi^{\rm rep}$ has full, symmetric and
+ skew norms at most
+ \begin{gather*}
+  c_{\rm new}=\min\bigl\{\rho',\,e^{\ell_{\rm old}}\bigl(c+2F(c+e)+B_{\rm top}q\bigr)\bigr\},\\
+  s_{\rm new}=e^{\ell_{\rm old}}\bigl(s+2F(c+e)+B_{\rm top}q\bigr),\qquad
+  a_{\rm new}=e^{\ell_{\rm old}}\bigl(a+2F(c+e)\bigr),
+ \end{gather*}
+ and the change $\pi^{\rm rep}-\pi^{\rm old}$ has symmetric part of norm at most
+ $\rho_{\rm old}+s_{\rm new}$ and skew part of norm at most $a_{\rm new}$.
+\item Let the record be FE or EF, and form $\Gamma_F$ with the leaf pairs of the
+ two-stars of $G$ and of $G^{\rm new}$ together. For $h\in\{{\rm old},{\rm new}\}$
+ let $E_h$, $\mathcal R_h$ and $N_{2,h}$ be the quantities $E_{\rm proj}$,
+ $\mathcal R$ and $N_2$ of $G$ and of $G^{\rm new}$, let $k_h$ bound the norm of
+ the star matrix of the cross graph of $G$, respectively $G^{\rm new}$, and
+ $k_\Delta$ that of the symmetric part of their difference in one synthesis. Put
+ $\eps_h=N_{2,h}q+\mathcal R_h$ and $U_h=\Gamma_Fk_hr+E_h+\mathcal R_h$. If
+ $\eps_h<\frac12$ for both $h$, the symmetric part of the change has norm at most
+ $d_{\rm sym}=e^{\ell_{\rm old}}(d_{\rm raw}+2F(c+e))$, with $c$, $e$ of (a) and
+ \[
+  d_{\rm raw}=\Gamma_Fk_\Delta r+\sum_h\Bigl(E_h+\mathcal R_h+\frac{\eps_hU_h}{1-\eps_h}\Bigr).
+ \]
+\item \emph{Block gates:} $c_{\rm new}<\frac12$ and
+ $c_{\rm new}^2<\min(s_{\rm new},a_{\rm new})$; for FE and EF also
+ $\rho_{\rm old}^2+c_{\rm new}^2<d_{\rm sym}$.
+\end{enumerate}
+For the sixteen records the exact rational tests at $\Phat=i$ give
+$(k_{\rm f},k_{\rm s},k_{\rm a})=(1,0.707107,0.707107)$ for FF,
+$(2.414214,1.581139,1.581139)$ for FE and $(1.732051,0.866026,0.866026)$ for EF,
+and $(k_{\rm old},k_{\rm new},k_\Delta)=(2.414214,2.414214,2.739626)$ for FE and
+$(2.414214,1.732051,2.361993)$ for EF; the decimals are exact rationals.
+\end{proposition}
+
+\begin{proof}
+\emph{The frame.} By Step~0 of the proof of \cref{lem:upper-stars},
+$\gamma I\preceq\Phi^*\Phi\preceq\Gamma I$. The pair features $W_S/r$,
+$S\in\mathcal S$, of \cref{lem:general-star} satisfy $(W_S/r)^*(W_S/r)\preceq I$
+(part (a) there) and $\|(W_S/r)^*(W_T/r)\|\le N_{ST}$ for $S\ne T$ (part (e), with
+the correlations of \ref{it:record:upper-F2}), so their synthesis $\mathcal W$
+has $\|\mathcal W\|^2\le\Gamma_W$ (\cref{lem:weighted-frame}(a), as in
+\cref{lem:general-star}(f)). Let $Q_{\mathcal V}$ project onto the orthogonal
+complement of $\mathcal V$ in $L^2_0(\lambda_H)$, and let $\mathcal F^\circ$ be the
+synthesis of the features $\Phi_i$ and $Q_{\mathcal V}W_S/r$. Then
+$\mathcal F^\circ\mathcal F^{\circ*}=\Phi\Phi^*+Q_{\mathcal V}\mathcal W\mathcal W^*Q_{\mathcal V}$
+is a sum of two positive operators with orthogonal ranges, so
+$\|\mathcal F^\circ\|^2\le\Gamma_F$. The projection is applied to the whole pair
+synthesis after the correlations are used, so it need not keep the pair
+features measurable in their pairs.
+
+\emph{The raw kernel.} By Steps 1--6 of the proof of \cref{lem:upper-stars} the
+new law has density $K=K_0/Z_0$ relative to $\lambda_H\otimes\lambda_H$, with
+$K_0=(1-q\sum_S\mathbf D_S)(\one\otimes\one)+\mathcal S^{\rm c}+\mathcal R_*-K_{\rm col}$,
+where $\mathcal S^{\rm c}$ annihilates the constants and maps into $L^2_0$, the
+operators $Q(\mathcal R_*-K_{\rm col})Q$, $Q(\mathcal R_*-K_{\rm col})\one$ and
+$Q(\mathcal R_*-K_{\rm col})^*\one$ have norms at most $\mathcal R$, and
+$Z_0\ge Z_-$. By \cref{cor:star-matrix}, $\mathcal S^{\rm c}$ is the doubly
+centred complete star part $r\mathcal FM(\Phat)\mathcal F^*$ of the soft cross
+kernel of $\mathbf D$, with $\mathcal F$ the synthesis of the $\Phi_i$ and of the
+$W_S/r$; a left star with centre $c\in X$ contributes $\mathbf D_S\Phi_cW_S^*$, and
+a right star $\mathbf D_SW_S\Phi_c^*$. Replacing $W_S$ by $Q_{\mathcal V}W_S$
+removes $\mathbf D_S\Phi_cW_S^*P_{\mathcal V_Y}$ from the left stars and
+$P_{\mathcal V_X}\mathbf D_SW_S\Phi_c^*$ from the right stars, so
+\[
+ \mathcal S^{\rm c}=r\mathcal F^\circ M(\Phat)\mathcal F^{\circ*}
+ +\mathcal S_XP_{\mathcal V_Y}+P_{\mathcal V_X}\mathcal S_Y ,
+\]
+and by \cref{cor:star-matrix} and \cref{lem:upper-stars}(c) the full, symmetric
+and skew parts of $\mathcal S^{\rm c}$ have norms at most
+$\Gamma_Fk_{\rm f}r+E_{\rm proj}$, $\Gamma_Fk_{\rm s}r+E_{\rm proj}$ and
+$\Gamma_Fk_{\rm a}r+E_{\rm proj}$. Dividing by $Z_0\ge Z_-$, in the notation of
+\cref{lem:record:centered-correction} with $\nu=\lambda_H$ and $\Pi_\perp=Q$,
+$K=\one\otimes\one+\delta_L\otimes\one+\one\otimes\delta_R+K_c$ with
+$\|K_c\|\le c$, $\|\operatorname{Sym}K_c\|\le s$, $\|\operatorname{Skew}K_c\|\le a$
+and $\|\delta_L\|,\|\delta_R\|\le e$.
+
+(a) The one-way repair is $K'=(1+f(x)+g(y))K$ with $\|f\|_\infty,\|g\|_\infty\le F$
+(\ref{it:record:upper-F7}). Its half marginals are $\mu^{\rm old}=(1+u_0)\lambda_H$
+with $1+u_0\ge e^{-\ell_{\rm old}}$ and $\|u_0\|^2\le B_{\rm top}q$ (proof of
+\ref{it:record:upper-F7}). \Cref{lem:record:centered-correction}(b), with
+$b_0=B_{\rm top}q$, gives the three norms, and $\rho'$ bounds the full one by
+\ref{it:record:upper-F7}. The old record is symmetric at $\iota$, its centred
+operator $C_{\rm old}$ self-adjoint of norm at most $\rho_{\rm old}$; so the
+symmetric part of the change is $\operatorname{Sym}C_{\rm rep}-C_{\rm old}$, of norm
+at most $s_{\rm new}+\rho_{\rm old}$, and its skew part is
+$\operatorname{Skew}C_{\rm rep}$ (\cref{rem:cp:charging}(iii)), of norm at most
+$a_{\rm new}$.
+
+(b) The graph $G$ has the half graph $H$ in both layers, so the setting of
+\cref{lem:upper-stars} applies to it with its own cross graph, whose reversed
+edges have $\mathbf D_{uv}=-1$; its density relative to $\lambda_H\otimes\lambda_H$
+is $O=K^{\rm old}_0/Z^{\rm old}_0$. In one synthesis over the union of the leaf
+pairs of both graphs, with $\|\mathcal F^\circ\|^2\le\Gamma_F$, the two centred
+star parts are $r\mathcal F^\circ M_h(\Phat)\mathcal F^{\circ*}$ plus their
+projection terms, so the symmetric part of
+$\mathcal S^{\rm c}_{\rm new}-\mathcal S^{\rm c}_{\rm old}$ has norm at most
+$\Gamma_Fk_\Delta r+E_{\rm new}+E_{\rm old}$ (\cref{cor:star-matrix}, its last
+clause), and the centred unnormalized kernel
+$X_h=\mathcal S^{\rm c}_h+Q(\mathcal R_{*,h}-K_{{\rm col},h})Q$ of $h$ has norm at
+most $U_h$. By Step~6, $|Z^h_0-1|\le\eps_h<\frac12$, so
+$\|X_h/Z^h_0-X_h\|\le\eps_hU_h/(1-\eps_h)$; no equality of the two normalizers is
+assumed. Hence
+$\|\operatorname{Sym}Q(K-O)Q\|=\|\operatorname{Sym}(X_{\rm new}/Z^{\rm new}_0-X_{\rm old}/Z^{\rm old}_0)\|\le d_{\rm raw}$,
+and \cref{lem:record:centered-correction}(c), with the correction of (a), gives
+$d_{\rm sym}$: the two rank-one terms of the actual centring cancel, because
+$K'$ and $O$ have the same half marginals.
+
+(c) The block gates are used in \cref{lem:record:domain}(ii).
+\end{proof}
+
+Part~(c) is a numerical condition on the formulas in (a)--(b), not
+a consequence of the analytic argument above for arbitrary
+parameters: it must be checked wherever the proposition is applied.
+The certificates evaluate the proposition at $2^{48}$ and at
+$2^{49}$, where all these checked inequalities hold, for all sixteen
+records; \cref{lem:record:domain} extends them to larger primes. The records are
+\path{research/continuation_2026_10_24/upper_arithmetic/extended_forest.json}
+and, for FE and EF, \path{forest_difference.json} of the same directory. Two
+independent reviews re-enumerate every cross-edge subset, repeat the exact matrix
+tests and recompute the pair correlations, the normalizers and the transport and
+block gates: \path{extended_forest_review.json}, with the status
+\texttt{PASS\_\allowbreak INDEPENDENT\_\allowbreak EXTENDED\_\allowbreak FOREST\_\allowbreak GATES},
+and \path{forest_difference_review.json}, with the status
+\texttt{PASS\_\allowbreak INDEPENDENT\_\allowbreak COMMON\_\allowbreak FOREST\_\allowbreak DIFFERENCE}. The
+coefficients $C^{\rm s}=(\rho_{\rm old}+s_{\rm new})/r$ for FF and $d_{\rm sym}/r$
+for FE and EF, and $C^{\rm a}=a_{\rm new}/r$, rounded upward to $10^{-9}$, sum by
+state to the ledgers (symmetric/skew)
+\begin{center}
+\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+ & $DD$ (FF) & $DS$ (FE) & $SD$ (EF)\\
+\midrule
+$2^{48}$ & $23.333853648/4.2501729$ & $11.616266188/6.654718256$ & $14.670537186/5.203325484$\\
+$2^{49}$ & $23.331070512/4.247966928$ & $11.423578056/6.557982124$ & $14.524506324/5.20122549$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Below $2^{48}$ the same records keep the coefficients of \ref{it:record:upper-F7};
+their ledgers at $2^{47}$, about $43.09/24.01$, $41.67/32.01$ and $62.49/48.00$, are
+those of \cref{cert:upper-lower-bands}.
+
+\paragraph{Dense laws.}
+The LE and EL records of degree two have halves with $n=18$ labels and dense old
+cross graphs, with $72$ cross edges in both directions. A one-way repair removes
+all of them and imposes only the projected queries, so its change is of the size
+of the whole old cross kernel. A dense law keeps the old cross graph, adds the
+few missing required edges and softens only the old edges that meet them; its
+star matrix then differs from the old one in a few entries, and the two are
+compared in one synthesis.
+
+\begin{definition}[Softened laws]\label{def:dense-comparison}
+Let $\pi^{\rm old}$ be an LE or EL record of degree two, with half graph $H$ on
+$n=18$ labels, and let $\mu=\lambda_H$ be its law, the common induced-half chart
+of the record. Let $D_0$ be the signed cross-incidence matrix of the old record:
+$(D_0)_{ij}=1$ for an edge from $x_i$ to $y_j$, $-1$ for an edge from $y_j$ to
+$x_i$, and $0$ otherwise. For a real $n\times n$ matrix $D$ with entries in
+$[-1,1]$ put
+\[
+ H_D(x,y)=\one\{x_i\ne y_j\ \forall i,j\}\prod_{i,j}\bigl(1+D_{ij}\chi(y_j-x_i)\bigr),
+ \qquad K_D=\frac{H_D}{Z_D},\qquad Z_D=\int H_D\,d(\mu\otimes\mu).
+\]
+The old law is $K_{D_0}$, the density of $\pi^{\rm old}$ relative to $\mu\otimes\mu$;
+it is symmetric under the layer interchange, with both half marginals
+$m_0=g_0\mu$. Fix a list of \emph{required edges}, the projections under the
+emission of the record of a family of queries. The \emph{softening} $D_1$ of $D_0$
+with parameters $(\beta,\tilde\beta)\in[0,1]^2$ is formed as follows:
+\begin{itemize}
+\item every required old edge is kept;
+\item every missing required edge is added, with coefficient $1$ (it runs from
+ layer $0$ to layer $1$);
+\item let $R$ and $C$ be the rows and the columns of the added edges; an unrequired
+ old entry $(i,j)$ is multiplied by $\beta$ if $i\in R$ or $j\in C$, and otherwise
+ by $\tilde\beta$ if $j\in R$ or $i\in C$;
+\item all other entries are unchanged.
+\end{itemize}
+The \emph{dense EL law} uses the twelve-query list (the projections of
+\eqref{eq:upper-twelve}) and $(\beta,\tilde\beta)=(7/10,2/5)$, which adds six
+edges. The \emph{LE components} use the list of $\mathcal E_6$, $\tilde\beta=1$ and
+$\beta\in\{0,\frac15,\frac25,1\}$, which adds one edge. No required edge is an old
+edge of the opposite direction, so $H_{D_1}\ge0$, every required edge has
+coefficient one, and the support of $H_{D_1}$ satisfies every required query.
+\end{definition}
+
+\begin{proposition}[Replacements keeping the old cross edges]\label{prop:dense-comparison}
+Let $\pi^{\rm old}$ be an LE or EL record of degree two and $K_1=K_{D_1}$ a
+softening of \cref{def:dense-comparison} (in the construction: the dense EL law of
+the two EL records $G_{02}L$, $G_{12}L$, and the four LE components of
+\cref{prop:le-mixture}), with raw half marginals $g_{1,L}\mu$, $g_{1,R}\mu$. For
+$h\in\{0,1\}$ (old, new) let
+\begin{itemize}
+\item $\mathcal R_h$ be the nonstar-plus-collision bound of $H_{D_h}$
+ (\cref{cor:soft-kernels}), $T_{2,h}$ the sum of the moduli of its two-star
+ coefficients and $T_{>,h}=\sum_{|S|\ge3}|c_S|(|S|-1)$ over its higher stars,
+ counted before grouping, $\eps_h=T_{2,h}q+T_{>,h}r+\mathcal R_h$ and
+ $z_h=1-\eps_h$;
+\item $\Gamma$ be the frame bound of \cref{lem:general-star}(f) for the union of
+ the old and the new star supports, $k_{\rm s}$, $k_{\rm a}$ bounds for the norms of
+ $\operatorname{Sym}(M_1-M_0)(i)$ and $\operatorname{Skew}(M_1-M_0)(i)$, $k_0$ one
+ for $\|M_0(i)\|$ (\cref{cor:star-matrix}), $k_1=k_0+k_{\rm s}+k_{\rm a}$, and
+ $C_h=(\Gamma k_hr+\mathcal R_h)/z_h$;
+\item $W_h$ be the larger of the two bounds of \cref{lem:wt:stars} for the
+ higher-star marginals of the two sides of $H_{D_h}$, and $u_h=(W_h+\mathcal R_h)/z_h$;
+\item $\ell_h$ be a number such that both raw marginals of $K_{D_h}$ have densities $\ge e^{-\ell_h}$ relative to $\mu$ (the \emph{lower-density exponent} of the proof of \ref{it:record:upper-F7}), and $U$ the bound for the deviations of the ratios
+ $g_0/g_{1,L}$, $g_0/g_{1,R}$ from one, both from the count orders of
+ \ref{it:record:upper-F1} as in \ref{it:record:upper-F7};
+\item $m_\times$ be the number of nonzero entries of $D_1$.
+\end{itemize}
+Put $K_\infty=(2^{m_\times}e^{2\ell_1}/z_1)^{1/2}$,
+$\rho_I=e^{\ell_1}(\mathcal R_1/z_1+u_1^2)$, $e_I=(1+\rho_I)e^{\ell_1/2}(u_0+u_1)$
+and, for an integer $N\ge1$,
+$F_N=2NU+K_\infty\rho_I^{2N-1}e_I/(1-\rho_I^2)$. Suppose $\eps_h<\frac12$, $U<1$,
+$\rho_I<1$ and $2F_N<1$.
+\begin{enumerate}[label=(\alph*)]
+\item There are $f$, $g$ with $\|f\|_\infty,\|g\|_\infty\le F_N$ such that
+ $K_1'=(1+f(x)+g(y))K_1$ is a probability coupling of $m_0$ with itself, invariant
+ under the square-affine maps and supported where $K_1>0$; it accepts the required
+ queries (for the dense EL law the twelve queries), and the record is replaced by
+ its image under the emission.
+\item With $E=\sum_h\bigl(\mathcal R_h+\eps_h(\Gamma k_hr+\mathcal R_h)/z_h\bigr)$,
+ the change from $\pi^{\rm old}$, relative to $m_0$, has symmetric part of norm
+ at most $d_{\rm s}=e^{\ell_0}(\Gamma k_{\rm s}r+E+2F_N(C_1+u_1))$ and skew part of
+ norm at most $d_{\rm a}=e^{\ell_0}(\Gamma k_{\rm a}r+E+2F_N(C_1+u_1))$.
+\item \emph{Block gates:} with $c_0=e^{\ell_0}(C_0+u_0^2)$ and $c_1=c_0+d_{\rm s}+d_{\rm a}$,
+ $\max(c_0,c_1)<\frac12$ and $c_0^2+c_1^2<\min(k_{\rm s},k_{\rm a})r$.
+\end{enumerate}
+For the dense EL law of $G_{02}L$ and $G_{12}L$ the exact tests at $\Phat=\pm i$
+give $k_{\rm s}=2.97$, $k_{\rm a}=2.08$ and $k_0=5.606$.
+\end{proposition}
+
+\begin{proof}
+\emph{Kernels and remainders.} $H_{D_h}$ is the soft kernel of
+\cref{cor:soft-kernels} for the cross pairs of the support of $D_h$, with the
+strict-cross mask: it is $\one\otimes\one$ plus its complete star part plus its
+nonstar part minus its collision part, and the last two are bounded by those of
+the Boolean kernel of the support, whose sum is $\mathcal R_h$
+(\cref{cor:soft-kernels}(a),(b)). A two-star has mean $-q$ \eqref{eq:two-root}
+and a higher star with $|S|$ leaves a mean of modulus at most $(|S|-1)r$
+(\cref{thm:weil}), so $|Z_{D_h}-1|\le\eps_h$.
+
+\emph{Star parts.} By \cref{cor:star-matrix}, in one synthesis $\mathcal F$ over
+the union of the old and new supports, the doubly centred complete star parts of
+$H_{D_0}$ and $H_{D_1}$ are $r\mathcal FM_h(\Phat)\mathcal F^*$, with
+$\|\mathcal F\|^2\le\Gamma$; the pivots of \cref{lem:general-star}(c) have the
+densities $2^{\deg j}/(1-e_{\deg j}(p,n))$ of \cref{lem:graphs:vertex}. The layer
+interchange reverses every old cross edge, so $D_0$ is antisymmetric, and its left
+and right higher stars are equal transposes; so $M_0(i)$ is Hermitian, its full cap
+needs no skew term, and $\operatorname{Skew}(M_1-M_0)=\operatorname{Skew}M_1$.
+Normalizing each kernel by its own $Z_{D_h}$, the centred kernel of $h$ has norm at
+most $C_h$, and the symmetric and skew parts of the difference of the two centred
+kernels have norms at most $\Gamma k_{\rm s}r+E$ and $\Gamma k_{\rm a}r+E$: the
+leading parts differ by $r\mathcal F(M_1-M_0)(\Phat)\mathcal F^*$, the remainders
+add $\mathcal R_0+\mathcal R_1$, and each normalizer is paid separately, since
+$|Z_{D_h}^{-1}-1|\le\eps_h/z_h$; no equality of the two normalizers is assumed.
+
+\emph{Marginals.} The marginal images of the two-stars are constants. The centred
+marginal density of a side is the higher-star sum $\sum_{|T|\ge3}c_Tw_T$ of
+\cref{lem:wt:stars}, with the star coefficients $c_T$ of that side, plus the
+marginals of the nonstar and collision parts, divided by $Z_{D_h}$; so the raw
+marginal densities satisfy $\|g_{h,L}-\one\|_\mu,\|g_{h,R}-\one\|_\mu\le u_h$.
+
+\emph{Repair.} Let $A$ be the centred conditional operator of $K_1$ relative to its
+raw marginals, and let $\mathcal V_L$, $\mathcal V_R$ be the functions that are
+invariant under the square-affine maps, applied to all labels at once, and have
+mean zero under these marginals. The laws are invariant under these maps, so $A$
+maps $\mathcal V_R$ into $\mathcal V_L$ and $A^*$ maps $\mathcal V_L$ into $\mathcal V_R$,
+and the targets $u=g_0/g_{1,L}-1$, $v=g_0/g_{1,R}-1$ lie in $\mathcal V_L$,
+$\mathcal V_R$. The functions of $\mathcal V_L$ and $\mathcal V_R$ are invariant under
+the simultaneous translations, and the ranges of the features of
+\cref{lem:general-star} are orthogonal to such functions, so the star part of
+$K_1$ vanishes on them; the identity of \cref{lem:recentering}(b) holds for every
+pair of centred functions, and applied to functions of $\mathcal V_L$ and
+$\mathcal V_R$ it gives $\|A|_{\mathcal V_R}\|\le e^{\ell_1}(\mathcal R_1/z_1+u_1^2)=\rho_I$. A soft
+count is a convex combination of hard counts with the same support, by
+$1+b\chi=\frac{1+b}2(1+\chi)+\frac{1-b}2(1-\chi)$, and the bounds
+\ref{it:record:upper-F1} are uniform in the signs; so $|u|,|v|\le U$. Next
+$\|u-Av\|\le\|u\|+\rho_I\|v\|$, and
+$\|u\|_{L^2(g_{1,L}\mu)}\le e^{\ell_1/2}\|g_0-g_{1,L}\|_\mu\le e^{\ell_1/2}(u_0+u_1)$, so
+$e_I$ bounds $\|u-Av\|$ and $\|v-A^*u\|$. Finally $H_{D_1}\le2^{m_\times}$, so the
+density of $K_1$ relative to the product of its raw marginals is at most
+$K_\infty^2$, which bounds $A$ and $A^*$ from $L^2$ to $L^\infty$.
+\Cref{lem:tr:repair}(g), with $\mathcal V_X=\mathcal V_L$, $\mathcal V_Y=\mathcal V_R$
+and these constants, gives the centred solution $f,g$ with
+$\|f\|_\infty,\|g\|_\infty\le F_N$; as $2F_N<1$, part (c) there makes $K_1'$ a
+probability law with both marginals $g_0\mu=m_0$, supported where $K_1>0$, so
+accepting every required query, and the last clause of (g) makes it invariant
+under the square-affine maps, as $\mathcal V_L$ and $\mathcal V_R$ consist of
+invariant functions. The emission preserves the half
+marginals at $\iota$ and cannot increase operator norms, as for the one-way
+repairs. This is (a).
+
+\emph{Change.} In the chart $\mu$, $K_1'$ and $K_0=K_{D_0}$ have the same half
+marginals $m_0$, so \cref{lem:record:centered-correction}(c), with $K=K_1$, $O=K_0$,
+$c=C_1$, $e=u_1$ and $F=F_N$, writes $K_1'-K_0$ as $Q(K_1-K_0)Q$ plus a correction
+of norm at most $2F_N(C_1+u_1)$; the rank-one terms of the actual centring cancel.
+The transport to $L^2(m_0)$ costs $e^{\ell_0}$, as $m_0\ge e^{-\ell_0}\mu$. This is
+(b).
+
+\emph{Gates.} By \cref{lem:recentering}(b), $c_0$ bounds the actual centred norm of
+the old law; that of the new law is at most $c_1$, its centred operator being the
+old one plus the symmetric and the skew part of the change. The gates of (c) are
+used in \cref{lem:record:domain}(ii).
+
+\emph{Records.} The six LE records have identical weighted edge arrays in the
+common chart. The four EL records of state $RL$ that do not accept the twelve
+queries are carried onto the record $G_{01}L$ by exact isomorphisms of their
+weighted edge arrays: $G_{02}L$ has the arrays of $G_{01}L$, and $G_{12}L$ is mapped
+onto it by the interchange of the halves together with the negation of all field
+labels and a permutation of each half
+(\path{research/advance_2026_10_24/upper/physical_orbits.json},
+\texttt{PASS\_\allowbreak EXACT\_\allowbreak SAME\_\allowbreak HALF\_\allowbreak PHYSICAL\_\allowbreak ISOMORPHISMS}). Such a map conjugates the
+operators by an isometry and preserves symmetric and skew norms, so one computation
+for $G_{01}L$ serves $G_{02}L$ and $G_{12}L$; $G_{01}L$ is only a
+computational representative here and is itself kept
+(\cref{lem:six-query-retention}).
+\end{proof}
+
+As in \cref{prop:forest-records}, part~(c) here and in
+\cref{prop:le-mixture} is a numerical condition to be checked at
+each application, not proved for arbitrary parameters by the
+analytic argument. For the dense EL law, at $p_0=2^{47}$ and
+$p_0=2^{48}$ these checked inequalities hold with $N=2$
+($F_N<0.004120$ and $F_N<0.002913$), and the coefficients
+$(C^{\rm s},C^{\rm a})=(d_{\rm s},d_{\rm a})/r$, rounded upward to $10^{-12}$, are
+\begin{align*}
+ (s_{\rm EL},a_{\rm EL})&=(3.291966120220,\,2.401350027793)&&\text{at }2^{47},\\
+ (s_{\rm EL},a_{\rm EL})&=(3.197237469233,\,2.306801866952)&&\text{at }2^{48}.
+\end{align*}
+The records are \path{research/advance_2026_10_24/upper/lower_p47/dense_completed.json}
+(\cref{cert:upper-lower-bands}(e)) and \path{dense_p48/completed_invariant.json}
+of the same directory, with the extraction witness \path{dense_p48/certificate.json};
+the independent review \path{dense_review_full.json} of that directory
+(\texttt{PASS\_\allowbreak INDEPENDENT\_\allowbreak DENSE\_\allowbreak REPAIR}) regenerates the complete integer
+histograms ($249685$ rows) and repeats the $16$ exact PSD tests, the frame,
+marginal, repair and block gates and the ten physical isomorphisms. By
+\cref{lem:record:domain} these coefficients hold at every class-three prime
+$p\ge p_0$ and give the block bounds $s_{\rm EL}b^{-1/2}$ and $a_{\rm EL}b^{-1/2}$.
+
+\paragraph{The LE mixture.}
+For the six LE records of degree two the six queries project to three cross edges,
+one of them missing, and the six records have the same old half graph, old cross
+graph and required edges. Each LE component of \cref{def:dense-comparison},
+repaired to the old actual marginal, is a positive accepting law, so every convex
+mixture of them is one too. The star matrix of a mixture is the mixture of the
+component matrices, and its norm can be smaller than that of every component: the
+symmetric and skew caps $k_{\rm s}$, $k_{\rm a}$ of the four components lie
+between $1.914$ and $2.854$, and both caps of the two mixtures are below $1.724$.
+
+\begin{proposition}[Replacing an LE record by a positive mixture of four dense laws]\label{prop:le-mixture}
+Let $\pi^{\rm old}$ be one of the six LE records of degree two, with old law $K_0$
+and actual half marginal $m_0=g_0\mu$. Let $E'$ be the cross graph formed by the old
+cross edges and the two missing edges of the twelve-query list; it contains the
+supports of the four LE components $K_{D^{(j)}}$, $j=0,\dots,3$, of
+\cref{def:dense-comparison} ($\beta_j=0,\frac15,\frac25,1$). Normalize and repair each
+component to $m_0$ as in \cref{prop:dense-comparison}(a), with the quantities
+$\eps_{j,h}$, $z_{j,h}$, $C_{j,h}$, $u_j$ and $F_j$ of that proposition for the
+component $j$ and its own matrix caps, except that the remainder $\mathcal R_{j,1}$
+of its new side is that of the Boolean kernel of $E'$; write $K_j'$ for the repaired
+component. For weights $w_j\ge0$ with $\sum_jw_j=1$ put $K=\sum_jw_jK_j'$. Let
+$\Gamma$ be the frame bound of \cref{lem:general-star}(f) for the union of the old
+and of all four new star supports, $M_j(\Phat)$ the star matrix of component $j$
+minus that of $K_0$, $M=\sum_jw_jM_j$, $k_{\rm s}$, $k_{\rm a}$ bounds for the norms of
+$\operatorname{Sym}M(i)$ and $\operatorname{Skew}M(i)$, and
+\[
+ E_j=\sum_h\bigl(\mathcal R_{j,h}+\eps_{j,h}C_{j,h}\bigr)+2F_j(C_{j,1}+u_j),\qquad
+ E=\sum_jw_jE_j .
+\]
+If the gates of \cref{prop:dense-comparison} hold for every component, then $K$ is
+a probability coupling of $m_0$ with itself, invariant under the square-affine maps,
+that accepts $\mathcal E_6$, and its change from the old record has symmetric and
+skew parts of norms at most
+\[
+ d_{\rm s}=e^{\ell_0}(\Gamma k_{\rm s}r+E),\qquad d_{\rm a}=e^{\ell_0}(\Gamma k_{\rm a}r+E).
+\]
+\emph{Block gates:} with $c_0=\sum_jw_jc_{0,j}$, where $c_{0,j}$ is the bound
+$e^{\ell_0}(C_{j,0}+u_0^2)$ of \cref{prop:dense-comparison}(c) for the old law, and
+$c_1=c_0+d_{\rm s}+d_{\rm a}$: $\max(c_0,c_1)<\frac12$ and
+$c_0^2+c_1^2<\min(k_{\rm s},k_{\rm a})r$. For the weight vectors
+$\mathrm I=(\frac15,\frac15,\frac1{10},\frac12)$ and
+$\mathrm{II}=(290450,1,233954,475595)/10^6$ the exact tests give
+$(k_{\rm s},k_{\rm a})=(1722417/10^6,\,856249/500000)$ for I and
+$(43077/25000,\,1711273/10^6)$ for II.
+\end{proposition}
+
+\begin{proof}
+Every factor of a raw component has the form $1+b\chi$ with a
+signed coefficient $b=D_{ij}$ satisfying $|b|\le1$, and is therefore
+nonnegative. Every required factor has coefficient of modulus one
+with the required sign; so each raw component is nonnegative and accepts
+$\mathcal E_6$, and by \cref{prop:dense-comparison}(a) each repaired component is a
+probability coupling of $m_0$ with itself, supported where the raw one is, and
+invariant. A convex combination of such couplings is one. The supports of the
+components are contained in $E'$, and their character coefficients have modulus at
+most one, so the complete nonstar sum and the collision bound of the Boolean kernel
+of $E'$ dominate those of each component term by term (\cref{cor:soft-kernels});
+this is an absolute expansion, not a monotonicity of a signed norm under the
+deletion of edges. The normalizer, the counts, the marginal errors and the repair
+of each component are its own, as in \cref{prop:dense-comparison}. In one synthesis
+$\mathcal F$ over the union of all supports, with $\|\mathcal F\|^2\le\Gamma$, the
+proof of \cref{prop:dense-comparison}(b) writes the centred change of component $j$
+relative to $\mu$ as $r\mathcal FM_j(\Phat)\mathcal F^*$ plus a remainder of norm at
+most $E_j$, the rank-one terms of the actual centring cancelling because every
+repaired component has the marginals $m_0$. Mixing with the weights $w_j$, the
+centred change of $K$ is $r\mathcal FM(\Phat)\mathcal F^*$ plus a remainder of norm at
+most $E$, and the transport to $L^2(m_0)$, common to all components, costs
+$e^{\ell_0}$. \Cref{cor:star-matrix} bounds the symmetric and skew parts of the
+leading term by $\Gamma k_{\rm s}r$ and $\Gamma k_{\rm a}r$. The gates play the role
+of those of \cref{prop:dense-comparison}(c); $c_0$ is a convex combination of valid
+bounds for the old centred norm.
+\end{proof}
+
+The proposition is evaluated at the eight endpoints $2^{47}$, $167\cdot2^{40}$,
+$2^{48}$, $2^{49}$, $2^{50}$, $2^{52}$, $2^{56}$ and $2^{60}$, with the extraction
+coefficients of $E'$ certified at $2^{47}$ and $2^{48}$, valid at every larger prime
+(\cref{cor:soft-kernels}), and the collision bounds evaluated at each endpoint. A
+band uses the weight vector II only when its complete pair of coefficients is no
+larger than that of I: the $301$ bands below $2^{52}$ use II and the nine from
+$2^{52}$ use I, so no pair of prices is assembled from two different laws. The
+coefficients $(C^{\rm s},C^{\rm a})=(d_{\rm s},d_{\rm a})/r$ at the endpoints used,
+rounded upward to $10^{-12}$, are
+\begin{center}
+\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+endpoint & vector & $s_{\rm LE}$ & $a_{\rm LE}$\\
+\midrule
+$167\cdot2^{40}$ & II & $1.872914263008$ & $1.861100843756$\\
+$2^{48}$ & II & $1.838921462687$ & $1.827109278261$\\
+$2^{49}$ & II & $1.801556462666$ & $1.789745796952$\\
+$2^{50}$ & II & $1.777352768400$ & $1.765543176463$\\
+$2^{52}$ & I & $1.749386716250$ & $1.739466627572$\\
+$2^{56}$ & I & $1.729118677881$ & $1.719199405722$\\
+$2^{60}$ & I & $1.724091674882$ & $1.714172606843$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The records are
+\path{research/further_2026_10_25/upper/dense_six.json} (vector I) and
+\path{dense_six_refined.json} (vector II) of that directory, produced by
+\path{dense_six.py} and \path{reweight_dense_six.py}; the independent reviews
+\path{dense_six_review.json} ($236174$ complete extraction rows, $24$ exact PSD tests,
+the four supergraph inclusions, all component repairs and the eight block gates) and
+\path{dense_six_refined_review.json} (the $32$ unchanged component ledgers and the
+eight fresh endpoint gates), both \texttt{PASS\_\allowbreak INDEPENDENT\_\allowbreak POSITIVE\_\allowbreak SIX\_\allowbreak QUERY\_\allowbreak LE\_\allowbreak MIXTURE}.
+The histograms of $E'$ are those of the dense twelve-query LE softening,
+$(\beta,\tilde\beta)=(2/3,1)$, in \path{research/advance_2026_10_24/upper/dense_p48/}
+and \path{lower_p47/dense_certificate.json} of that directory.
+
+\paragraph{The formula.}
+The three propositions continue the list of upper formulas.
+\begin{enumerate}[label=\textup{(F\arabic*)},start=9]
+\item\label{it:record:upper-F9} \emph{Actual-frame comparisons} (bands). These give
+ the symmetric and skew coefficients of three kinds of changed records:
+ \begin{itemize}
+ \item the FF, FE and EF repairs of degree two on the bands from $2^{48}$:
+  $C^{\rm s}=(\rho_{\rm old}+s_{\rm new})/r$, for FE and EF $C^{\rm s}=d_{\rm sym}/r$,
+  and $C^{\rm a}=a_{\rm new}/r$ (\cref{prop:forest-records});
+ \item the two dense EL records: $(C^{\rm s},C^{\rm a})=(d_{\rm s},d_{\rm a})/r$
+  (\cref{prop:dense-comparison});
+ \item the six LE records: $(C^{\rm s},C^{\rm a})=(d_{\rm s},d_{\rm a})/r$ for the weight
+  vector of the band (\cref{prop:le-mixture}).
+ \end{itemize}
+ \emph{Hypotheses:} the gates listed in the three propositions, their block gates
+ included.
+\end{enumerate}
+
+\input{sections/26a_upper_refinements}
+
+\subsection{A bound at a band start holds at every larger prime in the band}\label{subsec:upper-domain}
+
+The formulas \ref{it:record:upper-F1}--\ref{it:record:upper-F10} are proved
+for any prime at which explicit gates hold. The following lemma states
+these gates and shows that, once they are checked at an evaluation point,
+the bounds hold with the same or better coefficients at every larger
+class-three prime and for every block of such primes. The block gates are
+used with the fixed endpoint constants, as explained in Step~3 below.
+
+\begin{lemma}[Domain of the upper formulas]\label{lem:record:domain}
+Let $p_0>1$ be real (in the applications an evaluation point of the upper
+data: the start of a band, $2^{47}$, $167\cdot2^{40}$, $j\,2^{42}$, or a power of
+two from $2^{48}$ to $2^{64}$) and $L'\le10000$ a block length. Fix the combinatorial data of the upper
+local computation: the graphs, the insertion orders, the matching partitions and
+supports, the repair records and their star supports, the pin classes and
+potentials of the joint rows, the softened laws and the mixture weights, and the
+rational parameters of the matrix tests. Suppose that, with every quantity
+evaluated by the formulas \ref{it:record:upper-F1}--\ref{it:record:upper-F9} at
+$r=p_0^{-1/2}$ and with block count $L'/\log p_0$:
+\begin{enumerate}[label=\textup{(G\arabic*)}]
+\item\label{it:record:upper-G1} $e^-_t(z)<1$ at every insertion of every row,
+ repair and spectral graph, including both half-pinned conditional counts;
+\item\label{it:record:upper-G2} in every application of
+ \ref{it:record:upper-F2}, $w<\frac12$, $w^{\rm conn}<1$, $rq_{\rm inf}<1$ and
+ the resulting bound $\rho<1$;
+\item\label{it:record:upper-G3} the hypotheses of \ref{it:record:upper-F3} and
+ \ref{it:record:upper-F4} (the pin-count error $e_t$ and the pinned-extraction
+ error $e^{\rm pin}_t$ of \cref{prop:pinned-extraction} with $\varpi=t$ below
+ $\frac12$, $I_0>\frac12$, the normalizer errors $\eps_{\rm F},\eps_{\rm E}$ below
+ $\frac12$, every nonstar denominator positive, the normalizer error of
+ \ref{it:record:upper-F4} below one and its selected correlation below one); for the
+ rows of \ref{it:record:upper-F5}, $M\ge H+t_{\rm Y}$, $t_{\rm Y}H<1$ and, in the
+ bands, $c_{\rm F}r_0<1$ (for the tail datum, with $M=21/20$ and
+ $t_{\rm Y}=1/50$, the first two follow from $H<103/100$); and the gates of
+ \cref{prop:conditional-star}, \cref{lem:joint-rows} and \cref{lem:joint-pins} of the
+ band's endpoint table;
+\item\label{it:record:upper-G4} for each nonroot cut, the hypotheses of
+ \ref{it:record:upper-F6} hold, including $d/\sqrt{p_0}<1$ at length $L'$, and the
+ gates of \cref{prop:observed-caps};
+\item\label{it:record:upper-G5} for each repaired record ($84$ in a band, $94$ for
+ the tail datum), $U<1$, $\rho_{\rm new}<1$, $2F<1$, $\rho_{\rm old}<\frac12$ and
+ $\rho'<\frac12$;
+\item\label{it:record:upper-G6} for the ten $EL/LE$ records of degree two of the
+ tail datum, the hypotheses of \ref{it:record:upper-F8};
+\item\label{it:record:upper-G7} the gates of \ref{it:record:upper-F9}.
+\end{enumerate}
+Let $p\ge p_0$ be a prime with $p\equiv3\pmod4$. Then:
+\begin{enumerate}[label=(\roman*)]
+\item the prime-level hypotheses in
+ \ref{it:record:upper-G1}--\ref{it:record:upper-G7} hold at $p$
+ (the block gates are used at $p_0$ in (ii)), and the prime-level conclusions
+ of \ref{it:record:upper-F1}--\ref{it:record:upper-F9}
+ hold at $p$ with every normalized coefficient at most its value at $p_0$:
+ the row coefficients $f$ and $h$, with the same $M$ and $t_{\rm Y}$; the spectral $g$
+ and $B_{\rm top}$; and the symmetric and skew coefficients of the repaired and
+ replaced records;
+\item for every $X\ge p_0$ and every block $\Blk$ of primes $p\equiv3\pmod4$,
+ all at least $X$, with $\log q_\Blk\le L'$ and least prime $b$, the conditional rows
+ have coefficients at most $f\,b^{-1/2}$ and $h\,b^{-1/2}$, the nonroot
+ negative coefficients are at most $d\,b^{-1/2}$ with
+ $d=g\exp(B_{\rm top}L'/(X\log X))$, and each repaired or replaced record differs
+ from the old record by an operator with zero marginals whose symmetric and skew
+ parts have norms at most $C^{\rm s}b^{-1/2}$ and $C^{\rm a}b^{-1/2}$, where
+ $f,h,g,B_{\rm top},C^{\rm s},C^{\rm a}$ are the values at $p_0$;
+\item the conclusions of (i) for \ref{it:record:upper-F1}--\ref{it:record:upper-F8},
+ with \ref{it:record:upper-F5} in its Schur form and without the gates that concern
+ the bands only (those of \cref{prop:conditional-star,lem:joint-rows,lem:joint-pins},
+ of \cref{prop:observed-caps} and of \ref{it:record:upper-F9}), hold at every prime
+ $p\ge p_0$ of either class for the data of the tail datum and of the tail
+ comparison; here the matrix tests of \ref{it:record:upper-F6}, which are part of
+ \ref{it:record:upper-G4}, and the class-dependent constants of
+ \ref{it:record:upper-F3} and \ref{it:record:upper-F4} are evaluated for both prime
+ classes, as the certificates do. Part (iii) is used only by \cref{lem:tail-law}
+ and \cref{cert:tail-caps}.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\emph{Step 1: the size of $p$ enters only through the gates.} Each of
+\ref{it:record:upper-F1}--\ref{it:record:upper-F9} is stated for every odd
+prime at which its listed hypotheses hold, and these hypotheses are the gates:
+\ref{it:record:upper-F1} is \cref{lem:extension} (Weil's bound in both
+parities) with \ref{it:record:upper-G1}; \ref{it:record:upper-F2} is
+\cref{cor:influence-schur}, the certified form of \cref{prop:middle-negative},
+under \ref{it:record:upper-G2};
+\ref{it:record:upper-F3} and \ref{it:record:upper-F4} consist of complete
+conditional means valid for every odd prime, exact identities, Cauchy--Schwarz,
+divisions by the denominators of \ref{it:record:upper-G3}, trace constants uniform
+for $p\ge3$ and, in the bands, the full star matrices of
+\cref{prop:conditional-star}; \ref{it:record:upper-F5} is \cref{lem:five-type}(f),
+with \cref{lem:joint-rows,lem:joint-pins} and \cref{cor:joint-completion-blocks}, in
+the bands, and an inequality between quadratic forms in
+$H,R_{\rm m},\upsilon,\rho_{\rm F},\rho_{\rm E}$ and the weight ratios
+(\cref{lem:five-type}(c)) for the tail datum; \ref{it:record:upper-F6} is
+\cref{thm:spectral-criterion} under \ref{it:record:upper-G4}, with the observed caps
+of \cref{prop:observed-caps}; \ref{it:record:upper-F7} and \ref{it:record:upper-F8}
+were proved above; and \ref{it:record:upper-F9} consists of
+\cref{prop:forest-records,prop:dense-comparison,prop:le-mixture}, each stated for
+every prime $p\equiv3\pmod4$ at which its gates hold. The class of $p$ enters only
+in the following places: in the bands, which use class-three data only, the matrix
+tests of \ref{it:record:upper-F6} and of \cref{prop:observed-caps} at both Fourier
+signs, the gates of the joint rows and of \ref{it:record:upper-F9} at $\Phat=\pm i$,
+and the pair Gram of \cref{lem:upper-stars}(c); for the tail datum, the matrix tests
+of \ref{it:record:upper-F6}, which are checked for both classes; and the constants
+of the rows \ref{it:record:upper-F3}, \ref{it:record:upper-F4}, which depend on the
+class through $\chi(-1)$ in the signs of the pinned constraints and are evaluated
+for both classes, the larger value being used (\cref{subsec:advance:product-rows}).
+The numerical domains at which the evaluators first checked the gates, and their
+display assertions $p\ge2^{46}$, $2^{50}$, $2^{54}$, $2^{60}$, $2^{70}$, $2^{72}$,
+are evaluation points; no step of the proofs uses them.
+
+\emph{Step 2: monotonicity in $r$ and in the block count.} The combinatorial
+data are fixed. Every scalar error entering a prime-level gate, and every normalized coefficient after
+its indicated power of $r$ is removed, is built from $r$ and the block count
+$l=L'/\log p_0$ by the operations of \cref{lem:majorant}(i)--(iii), so it is
+admissible (nonnegative and nondecreasing in $(r,l)$): power series with
+nonnegative coefficients ($e^\pm_t$, $e^{\rm pin}_t$, the count logarithms $c^\pm$
+and $\ell_h$, the count errors $w$, $w^{\rm conn}$, $w_\Delta$, the influence
+entries, $q_{\rm inf}$, $c_\times$, $\kappa_{\rm pr}$, $e_{\rm inf}$, $\eta$, $\Gamma$,
+the entries and frame bounds of \cref{lem:general-star}(c)--(f) and $\Gamma_W$, the
+coefficients of the fixed extraction histograms and the collision series of
+\cref{cor:soft-kernels}, and the bounds of \cref{lem:wt:stars}); $x\mapsto1/(1-x)$ on
+$[0,1)$ ($R_Z$, $1/Z_-$, $1/z_h$, $1/I_0$ with $I_0=1-\binom n2\kappa r^2$, the row
+normalizers, $1/(1-U)$, $1/(1-\rho)$, $1/(1-\rho_I^2)$, $1/(1-\eps_h)$, $1/\gamma$
+with $\gamma=1-(e_{\rm inf}+(n-1)\eta)$, and $(1-e^-_4(n-1))^{-2}$); exponentials and
+$(e^x-1)/x$ ($U$, $e^{\ell_{\rm new}}$, $e^{\ell_{\rm old}}$, $e^{\ell_h}$, $K_\infty$,
+$H$, $R_{\rm m}$, $\upsilon^2/r^2$ and the block inflation $B_{\rm top}lr^2$); sums,
+products, square roots, maxima and minima; and norms of entrywise nonnegative
+matrices ($\|\mathbf C\|_{\rm F}$). The upper count logarithms are
+$c^+=\sum e^+_t$ (\ref{it:record:upper-F1}), not $\sum\log(1+e^+_t)$, which need
+not be small (\cref{lem:majorant}(iii)); so every logarithmic count ratio
+$\ell$, and $\ell/r$, is a power series with nonnegative coefficients, and
+$U/r=\bigl((e^{\ell_U}-1)/\ell_U\bigr)(\ell_U/r)$ is admissible. For instance
+\[
+ f_{\rm Schur}=HR_{\rm m}\,\frac{\rho_{\rm F}}r+(H+50H^2)\frac{\upsilon^2}{r^2}\,r,\qquad
+ \frac{\rho'}r=\frac{(\rho_{\rm new}/r)(1+2F)+U\,(U/r)}{1-U},
+\]
+and $F_N=2NU+K_\infty\rho_I^{2N-1}e_I/(1-\rho_I^2)$ with the chosen number $N$ of
+initial terms held fixed. In the joint rows of \ref{it:record:upper-F5} the
+coefficients $k_{\rm J}$, $c_{\rm F}$ and $h$ of the endpoint table are held at their
+values at $p_0$, which bound the rows at $p$ by the same argument, and $t_{\rm Y}$ is
+fixed. As $p$ increases from $p_0$, $r$
+decreases, and the number of primes in a block of logarithmic length at most $L'$ is
+at most $L'/\log p_0$. By \cref{lem:majorant}(a) these scalar errors at $p$ are at most
+their values at $p_0$, so the prime-level scalar gates hold at $p$, and every
+coefficient is at most its value at $p_0$. This does not infer a comparison
+between two decreasing quantities from separate monotonicity: the block gates
+\eqref{eq:upper-block-gate} are used only at $p_0$ in Step~3.
+A minimum of bounds is taken only among bounds whose own hypotheses
+hold, and these hypotheses are among the gates. For \ref{it:record:upper-F6} the
+uniformity is part of \cref{thm:spectral-criterion}: its matrix tests are fixed
+rational inequalities checked with the endpoint values of the errors
+(\cref{lem:majorant}(d)), and its conclusions hold at every $p\ge p_0$ with the same
+$g$ and $B_{\rm top}$; the matrix tests of \ref{it:record:upper-F9} are fixed rational
+inequalities as well. No monotonicity of an eigenvector or of an optimized parameter
+is used. This proves (i).
+
+\emph{Step 3: blocks.} Let $\Blk$ be as in (ii); it has at most
+$L'/\log b\le L'/\log p_0$ primes, all with the bounds of (i). The row bounds
+are the block form of \ref{it:record:upper-F5}: densities and chi-square
+defects multiply and correlations are maximized over the primes
+(\cref{lem:sector}(c),(f)), so the per-prime bounds of (i) give the block
+quantities of \ref{it:record:upper-F5} (see its proof). The nonroot bound is the
+block form of \ref{it:record:upper-F6}, \cref{lem:spec:tensorcomp}(b),(c) with
+$\sum_{p\in\Blk}1/p\le L'/(b\log b)\le L'/(X\log X)$.
+For a repaired or replaced record, both block laws are tensor products over the
+primes of $\Blk$ of couplings with the same actual half marginals, and the old one is
+self-adjoint at $\iota$, so their difference has zero marginals. Let $\delta_p$ and
+$\delta'_p$ be the centred norms of the old and of the new law at $p$, and
+$c_{\rm old}$, $c_{\rm new}$ their bounds at $p_0$; by (i),
+$\delta_p\le c_{\rm old}r_p/r_0$ and $\delta'_p\le c_{\rm new}r_p/r_0$, with
+$r_p=p^{-1/2}$, $r_0=p_0^{-1/2}$. By the closing clause of \cref{lem:sector}(b) the
+norms of the symmetric and of the skew part of the block difference are the maxima,
+over the nonempty sets $S$ of primes of $\Blk$, of the norms of their restrictions to
+the sector of $S$. For $S=\{p\}$ these are the parts of the prime difference, at most
+$C^{\rm s}r_p\le C^{\rm s}b^{-1/2}$ and $C^{\rm a}r_p\le C^{\rm a}b^{-1/2}$ by (i). For
+$|S|\ge2$ let $j<k$ be the two least primes of $S$. All $\delta$, $\delta'$ are below
+one, so the restriction of the difference has norm at most
+$\delta_j\delta_k+\delta'_j\delta'_k\le(c_{\rm old}^2+c_{\rm new}^2)r_j/r_0$, and that
+of its skew part, the old law being self-adjoint, at most
+$\delta'_j\delta'_k\le c_{\rm new}^2r_j/r_0$. So the \emph{block gates}
+\begin{equation}\label{eq:upper-block-gate}
+ c_{\rm old}^2+c_{\rm new}^2\le C^{\rm s}r_0,\qquad c_{\rm new}^2\le C^{\rm a}r_0
+\end{equation}
+give the bounds $C^{\rm s}b^{-1/2}$ and $C^{\rm a}b^{-1/2}$ on these sectors too. For
+a one-way repair \ref{it:record:upper-F7}, $c_{\rm old}=\rho_{\rm old}$ and
+$c_{\rm new}=\rho'$ are below $\frac12$ by \ref{it:record:upper-G5}, while
+$C^{\rm s}r_0\ge\rho_{\rm old}+\rho'$ and $C^{\rm a}r_0\ge\rho'$, so
+\eqref{eq:upper-block-gate} holds. For \ref{it:record:upper-F9} it follows from the
+gates of the three propositions (\ref{it:record:upper-G7}): for the forest records
+$c_{\rm old}=\rho_{\rm old}<\frac12$ and $c_{\rm new}^2<\min(s_{\rm new},a_{\rm new})$,
+with $C^{\rm s}r_0\ge\rho_{\rm old}+s_{\rm new}$ (respectively
+$\rho_{\rm old}^2+c_{\rm new}^2<d_{\rm sym}\le C^{\rm s}r_0$ for FE and EF) and
+$C^{\rm a}r_0\ge a_{\rm new}$; for the dense laws and the mixture
+$c_{\rm old}=c_0$, $c_{\rm new}=c_1$, and $c_0^2+c_1^2<\min(k_{\rm s},k_{\rm a})r_0\le
+\min(d_{\rm s},d_{\rm a})\le\min(C^{\rm s},C^{\rm a})r_0$, because $e^{\ell_0}\ge1$ and
+$\Gamma\ge1$. This proves (ii).
+
+\emph{Step 4: both classes.} By Step 1 the class of $p$ enters only the class-three
+tests and Paley gates of the bands, and the tests and row constants of the tail
+datum, which are evaluated for both classes; Step 2 does not depend on the class.
+This proves (iii).
+\end{proof}
+
+The lemma applies the per-prime spectral constants once: a repair reads only
+the endpoint values of $g$ and $B_{\rm top}$ of the relevant nonroot cut,
+never its block cap $d$, and the block inflation $\exp(B_{\rm top}L'/(X\log
+X))$ is applied only to the band inputs $d$. Its domain for the root cuts is
+that of \cref{lem:record:monotone-endpoint} and \cref{lem:upper-completed-root}.
+
+\paragraph{Evaluation points.}
+Every band records an \emph{anchor}: $2^{47}$ for the $45$ bands of
+$[\Pthree,2^{48})$; $2^b$ for the bands of $[2^b,2^{b+1})$, $48\le b\le51$; and its
+own start from $2^{52}$. Each input of a band $[X,Y)$ is evaluated at a point not
+above $X$, for blocks of logarithmic length at most the band's budget
+(\cref{def:record:upper-bands}(c)):
+\begin{itemize}
+\item root caps: at $X$, with the frame witness of the anchor
+ (\cref{cert:upper-root-caps});
+\item nonroot and observed caps: at $2^{47}$ below $2^{48}$ and at $2^{48}$ above,
+ inflated at $X$ and at the band's budget (\cref{cert:upper-band-inputs}(a),(b));
+\item rows: the product-row quantities of \ref{it:record:upper-F3} and
+ \ref{it:record:upper-F4} at $X$, and the joint coefficients of
+ \ref{it:record:upper-F5}(a) from the largest of the $17$ joint-row endpoint tables
+ not above $X$ (\cref{cert:upper-band-inputs}(c));
+\item one-way repairs \ref{it:record:upper-F7}: the symmetric coefficients at the
+ largest of $2^{47}$, $2^{48}$, $2^{49}$, $2^{50}$, $2^{52}$, $2^{54}$ not above $X$,
+ the skew coefficients at the largest of $2^{47}$, $2^{48}$, $2^{49}$ not above $X$;
+\item forest records (\cref{prop:forest-records}): at $2^{48}$ on $[2^{48},2^{49})$
+ and at $2^{49}$ from $2^{49}$;
+\item dense EL law: at $2^{47}$ below $2^{48}$ and at $2^{48}$ above;
+\item LE mixture: at the largest of its eight endpoints not above $X$.
+\end{itemize}
+\Cref{lem:record:domain} extends every input to all blocks of the band. The repair
+coefficients at $2^{47}$ are those of \cref{cert:upper-lower-bands}(d). At $2^{48}$
+and $2^{49}$ the symmetric coefficients are those of
+\path{research/roadmap_2026_10_18/item12/lower_repair_gates_48.json} and
+\path{lower_repair_gates_49.json}, and the skew coefficients are the values $\rho'/r$
+of the same records, rounded upward as in
+\path{research/continuation_2026_10_24/upper_arithmetic/skew_only.py} (record
+\path{skew_only.json} of that directory at $2^{49}$). At $2^{50}$, $2^{52}$ and
+$2^{54}$ the symmetric coefficients are those of
+\path{research/frontier_2026_10_17/sparse/high72_oneway_repairs.json} and
+\path{high72_oneway_repairs_degree3.json}, re-checked by
+\path{high72_oneway_adapter.py} of that directory. The band record
+\path{research/further_2026_10_25/upper/upper_dense_refined.json} carries the
+symmetric and skew ledgers of every band. The tail uses the repair records of
+degrees two and three at $2^{54}$, with the all-prime joint-star rows of
+\path{high72_oneway_jointstar.json} (\ref{it:record:upper-F8}, \cref{cert:tail-caps}).
+
+\begin{certificate}[The bands below $2^{48}$]\label{cert:upper-lower-bands}
+For the $45$ bands of $[\Pthree,2^{48})$ the local data are evaluated for
+class-three primes at $2^{47}$, except the root inputs, evaluated at the start of
+the band with the frame witness at $2^{47}$, the rows, evaluated at the start of the
+band with the joint coefficients of the largest joint-row table not above it, and
+the LE mixture, evaluated at $\Pthree$. The files named are in
+\path{research/advance_2026_10_24/upper/lower_p47/}.
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Nonroot caps} at $2^{47}$ (table of \cref{subsec:upper-nonroot}):
+ \path{class3_caps.json}, reviewed by \path{class3_review.json}
+ (\texttt{PASS\_\allowbreak INDEPENDENT\_\allowbreak CLASS3\_\allowbreak NONROOT\_\allowbreak UPPER}, $20$ exact PSD tests).
+\item \emph{Observed caps} $g_G=2.268819655$, $g_C=0.079761731$
+ (\cref{prop:observed-caps}): \path{observed_caps.json}, reviewed by
+ \path{observed_review.json} (\texttt{PASS\_\allowbreak INDEPENDENT\_\allowbreak OBSERVED\_\allowbreak MARGINAL\_\allowbreak CAPS}).
+\item \emph{Root anchor} at $2^{47}$ (\cref{cert:record:direct-star,cert:upper-root-caps}),
+ with the lower coefficient replay \path{root_coefficients_review.json}
+ (\texttt{PASS\_\allowbreak INDEPENDENT\_\allowbreak LOWER\_\allowbreak ROOT\_\allowbreak COEFFICIENTS}).
+\item \emph{One-way repairs.} The $84$ repairs at $2^{47}$ with the coefficients of
+ \ref{it:record:upper-F7}: \path{repairs.json}, with the review
+ \path{native_review.json}, status
+ \texttt{PASS\_\allowbreak LOWER\_\allowbreak NATIVE\_\allowbreak ROOT\_\allowbreak FIELD\_\allowbreak AND\_\allowbreak INDEPENDENT\_\allowbreak REPAIR\_\allowbreak REPLAY}
+ ($84$ independent actual-marginal repairs, $588$ explicit count orders, $168$
+ correlations, $32$ root and $96$ original row replays, $4$ exact anchor PSD tests,
+ $96$ log-convex coefficient checks, and the bindings of the complete symmetric and
+ skew repair ledgers).
+\item \emph{Dense EL law} at $2^{47}$, with $s_{\rm EL}=3.291966120220$ and
+ $a_{\rm EL}=2.401350027793$: \path{dense_certificate.json} and
+ \path{dense_completed.json}, reviewed by \path{dense_review.json}
+ (\texttt{PASS\_\allowbreak INDEPENDENT\_\allowbreak DENSE\_\allowbreak REPAIR}: four complete histograms and all matrix,
+ actual-frame, marginal, repair and uniform-support gates).
+\item \emph{LE mixture} at $\Pthree$ (\cref{prop:le-mixture}), and the \emph{rows} at
+ the start of each band, with the joint-row tables at $\Pthree$ and at $j2^{42}$,
+ $j\in\{42,44,46,48,50,56,60\}$ (\cref{cert:upper-band-inputs}(c)).
+\end{enumerate}
+The resulting state ledgers, the same in all $45$ bands, are (symmetric/skew)
+\begin{center}
+\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+\multicolumn{2}{@{}l}{degree two} & \multicolumn{2}{l@{}}{degree three}\\
+\midrule
+$LR$ & $11.237485578048/11.166605062536$ & $LC$ & $51.202575332/37.711621448$\\
+$RL$ & $6.58393224044/4.802700055586$ & $CL$ & $51.405075886/37.914122002$\\
+$DD$ & $43.091020254/24.006543228$ & $DR$ & $207.354081636/163.894569102$\\
+$DS$ & $41.670210072/32.01254062$ & $RD$ & $163.470704406/120.011191872$\\
+$SD$ & $62.49133143/48.004827252$ & $SR$ & $108.629454264/108.629445156$\\
+$SS$ & $45.271035916/45.271032884$ & $RS$ & $106.542130168/106.542121068$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The commands are listed in
+\path{research/advance_2026_10_24/upper/LOWER47_AUDIT.md}. The completion gates and
+the prices are those of \cref{cert:upper-completion} and \cref{prop:record:upper}.
+\end{certificate}
+
+By \cref{lem:record:domain}, and by \cref{lem:record:monotone-endpoint} for the root
+entries, the inputs are valid for every block of their bands. The bands below
+$2^{48}$ carry about $60\%$ of $S_{\rm u}(a_{\rm u})$ and $65\%$ of $A_{\rm u}(a_{\rm u})$,
+and those of $[2^{48},2^{49})$ about $27\%$ and $24\%$.
+
+\subsection{(CP4) for upper atoms with prices $S_{\rm u},A_{\rm u}$}\label{subsec:upper-prices}
+
+We can now define the comparison law in the upper range: each
+record of the reference is kept if it already accepts the six
+queries, replaced by the repairs of the preceding subsections if
+it does not, or deleted. The rest of the subsection sums the
+resulting symmetric and skew prices into $S_{\rm u}$ and
+$A_{\rm u}$, which is hypothesis~(CP4) for upper atoms.
+
+\begin{definition}[The upper comparison law]\label{def:upper-comparison}
+Let $\Blk$ be a block of an upper band (\cref{def:record:upper-bands}), with
+least prime $b$ and $r=b^{-1/2}$, and let $\mu_\Blk=\widetilde\mu_\Blk/P_\mu(r)$
+be its reference (\cref{def:upper-reference}): $\widetilde\mu_\Blk$ is the sum
+of the records, the $m_{\mathfrak t}$ two-layer records of $\pi_{\mathfrak t,2}$
+with the weight $w_{\mathfrak t}r^{\deg\mathfrak t}$ and the $m_{\mathfrak t}$
+folded records of $\operatorname{Diag}_\iota(\pi_{\mathfrak t,1})$ with the
+weight $v_{\mathfrak t}r^{\deg\mathfrak t+1}$, each the tensor product over the
+primes of $\Blk$ of its laws at the single primes. The comparison law is
+$\nu_\Blk=\widetilde\nu_\Blk/P_\mu(r)$, where $\widetilde\nu_\Blk$ is obtained
+from $\widetilde\mu_\Blk$ record by record, each with its weight:
+\begin{enumerate}[label=(\alph*)]
+\item a record that accepts the six queries $\mathcal E_6$ is kept;
+\item each of the $84$ nonaccepting two-layer records of degree two or three that
+ are not LE or EL records of degree two is replaced by its one-way repair
+ \ref{it:record:upper-F7}, tensorized over the primes of $\Blk$;
+\item[(b$'$)] the six LE records of degree two are replaced by the mixture of
+ \cref{prop:le-mixture}, with the weight vector of the band, and the two
+ nonaccepting EL records of degree two by the dense law of
+ \cref{prop:dense-comparison}, each tensorized over the primes of $\Blk$;
+\item every other record is deleted.
+\end{enumerate}
+Let $\Lambda^{\rm s}_k(\mathfrak t)$ and $\Lambda^{\rm a}_k(\mathfrak t)$ be the band's
+symmetric and skew ledgers: the sums of the symmetric, respectively skew,
+coefficients of the changed records of state $\mathfrak t$ and degree
+$k\in\{2,3\}$, at the band's evaluation points (\cref{subsec:upper-domain}). The
+polynomials of the band are
+\[
+ \Pi^{\rm rep}_{\rm s}(r)=r^3\sum_{\mathfrak t}w_{\mathfrak t}\Lambda^{\rm s}_2(\mathfrak t)
+ +r^4\sum_{\mathfrak t}w_{\mathfrak t}\Lambda^{\rm s}_3(\mathfrak t),\qquad
+ \Pi^{\rm del}(r)=\sum_{d=3}^7C^{\rm del}_dr^d,
+\]
+$\Pi^{\rm rep}_{\rm a}$ likewise with $\Lambda^{\rm a}$, where $C^{\rm del}_d$ is the
+total weight of the deleted records of overall degree $d$,
+summed over individual records with their multiplicities
+$\mathfrak m_{\mathfrak t}$ ($w_{\mathfrak t}$ for a two-layer
+record with $d=\deg\mathfrak t$, $v_{\mathfrak t}$ for a folded
+record with $d=\deg\mathfrak t+1$); in particular the constant
+records contribute with multiplicity $2$.
+\end{definition}
+
+By \cref{lem:six-query-retention}, the deleted records are the twenty-eight
+nonaccepting folded records of total degree three and all records of total degree
+at least four; so $\Pi^{\rm del}$ has no terms below degree three, and its
+coefficients of degrees four to seven are those of $P_\mu$. The changed records of
+degrees two and three give the terms of degrees three and four of
+$\Pi^{\rm rep}_{\rm s}$ and $\Pi^{\rm rep}_{\rm a}$. All three polynomials are signed
+comparison errors only: neither $P_\mu$ nor the normalization of $\nu_\Blk$ is
+truncated.
+
+\begin{proposition}[(CP4) in the upper range: the totals $S_{\rm u}$ and $A_{\rm u}$]\label{prop:record:upper}
+Let $\Blk$ be a block of an upper band $[X,Y)$, with least prime $b$.
+\begin{enumerate}[label=(\roman*)]
+\item $\mu_\Blk$ is reflection positive at every cut and has uniform one-slot
+ marginals. $\nu_\Blk$ is a nonnegative measure with the normalizing
+ denominator $P_\mu$ of $\mu_\Blk$, invariant under the maps of
+ \ref{it:record:R3}, so its one-slot marginals are multiples of the uniform
+ law; every retained record accepts $\mathcal E_6$ (the one-way repairs and the
+ dense EL laws accept the twelve queries, and the LE mixtures $\mathcal E_6$); the
+ pair marginal under $\nu_\Blk$ of every query of $\mathcal E_6$ is a multiple of
+ $\Unif(\Om[\Blk])=\bigotimes_{p\in\Blk}\Unif(\Om)$; and under the normalized
+ accepted part every query pair is a strict-square pair at every prime of $\Blk$,
+ which is \ref{it:record:R5}. At $\iota$, $\nu_\Blk-\mu_\Blk$ satisfies the bracket
+ of \cref{def:record:comparison-law} with
+ \[
+  s_\Blk\le\bigl(\Pi^{\rm rep}_{\rm s}+\Pi^{\rm del}\bigr)(b^{-1/2})\,q_\Blk^{2a},\qquad
+  a_\Blk\le\Pi^{\rm rep}_{\rm a}(b^{-1/2})\,q_\Blk^{2a},
+ \]
+ and $\nu_\Blk$ is admissible (\cref{def:admissible}).
+\item For each band and each $d$, define $\mathcal U_d(a)$ to be
+ the displayed upper bound for
+ $\sum_\Blk q_\Blk^{2a}b_\Blk^{-d/2}$ over the blocks of the
+ band, namely
+ $\mathcal U_d(a)=e^{2(a-a_{\rm c})l}\,\mathcal U_d(a_{\rm c})$, where
+ $\mathcal U_d(a_{\rm c})$ is the bound of \cref{lem:record:block-charge}(i), at
+ $s=d/2$, for the band's partition at an exponent $a_{\rm c}\le a$ ($a_{\rm c}=883/10^6$
+ for the bands below $2^{52}$, $85941/125000000$ for the inherited partitions from
+ $2^{52}$), and $l\ge\max_\Blk\log q_\Blk$ is the recorded bound for the band's block
+ products (\cref{lem:record:repricing}). Then the upper parts of $S$ and $A$ satisfy
+ \[
+  \sum_{\Blk\ \rm upper}s_\Blk+\sum_{p\ge\Pfour}s_p\le S_{\rm u}(a),\qquad
+  \sum_{\Blk\ \rm upper}a_\Blk+\sum_{p\ge\Pfour}a_p\le A_{\rm u}(a),
+ \]
+ where
+ \begin{gather*}
+  S_{\rm u}(a)=\sum_{\rm bands}\sum_d\bigl([r^d]\Pi^{\rm rep}_{\rm s}+[r^d]\Pi^{\rm del}
+  \bigr)\,\mathcal U_d(a)+S_{\rm tail}(a),\\
+  A_{\rm u}(a)=\sum_{\rm bands}\sum_d[r^d]\Pi^{\rm rep}_{\rm a}\,\mathcal U_d(a)
+  +A_{\rm tail}(a),
+ \end{gather*}
+ and $S_{\rm tail}(a)$, $A_{\rm tail}(a)$ are the bounds of
+ \cref{lem:tail-prices}(iv) for the prices of the tail atoms $p\ge\Pfour$.
+\item With $C_{\rm band}=\sum_{d=3}^7\bigl([r^d]\Pi^{\rm rep}_{\rm s}+[r^d]\Pi^{\rm rep}_{\rm a}
+ +[r^d]\Pi^{\rm del}\bigr)X^{-(d-3)/2}$,
+ $s_\Blk+a_\Blk\le C_{\rm band}\,b^{-3/2}q_\Blk^{2a}$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) The reference is \cref{lem:upper-reference-rp}: by its part (ii) the
+inputs of the band, the root entries of both routes included, are valid on
+every block, so part (i) applies to $\mu_\Blk$. We write $\tilde s_\Blk$,
+$\tilde a_\Blk$ for the sums of the unpriced coefficients
+$\tilde\pi^{\rm s}_{\Blk,t}$, $\tilde\pi^{\rm a}_{\Blk,t}$ of
+\cref{def:record:comparison-law}(b).
+
+\emph{Records kept.} A kept record is a record of $\mu_\Blk$; it accepts
+$\mathcal E_6$ by definition (\cref{lem:six-query-retention}). \emph{Records
+repaired.} By \ref{it:record:upper-F7} and \cref{lem:record:domain}(ii), at the
+band's evaluation points, a repaired record of state $\mathfrak t$ is replaced by a
+probability law $\pi^{\rm rep}_\Blk$, invariant under the square-affine maps at each
+prime, supported where the projected queries hold (so it accepts the twelve
+queries), with the actual half marginals $\mu^{\rm old}_\Blk$ of the old record
+$\pi^{\rm old}_\Blk$; and $\Delta=\pi^{\rm rep}_\Blk-\pi^{\rm old}_\Blk$ has zero
+marginals, and at $\iota$ its symmetric and skew parts
+$\zeta^{\rm s}=\frac12(\Delta+\Delta^*)$, $\zeta^{\rm a}=\frac12(\Delta-\Delta^*)$ have
+norms at most $C^{\rm s}_{\mathfrak t}r$ and $C^{\rm a}_{\mathfrak t}r$ relative to
+$\mu^{\rm old}_\Blk$, with the coefficients of \ref{it:record:upper-F7}, or of
+\ref{it:record:upper-F9} for the forest records. The skew bound holds because
+$\pi^{\rm old}_\Blk$ is symmetric at $\iota$, so
+$\operatorname{Skew}\Delta=\operatorname{Skew}\pi^{\rm rep}_\Blk$
+(\cref{rem:cp:charging}(iii)). Let $D^{\rm old}$ be the reserved-diagonal copy of
+$\mu^{\rm old}_\Blk$. Then
+\[
+ \begin{pmatrix}C^{\rm s}_{\mathfrak t}rD^{\rm old}&\zeta^{\rm s}\\ \zeta^{\rm s}&C^{\rm s}_{\mathfrak t}rD^{\rm old}
+ \end{pmatrix}\succeq_\iota0,\qquad
+ \begin{pmatrix}C^{\rm a}_{\mathfrak t}rD^{\rm old}&\zeta^{\rm a}\\ \zeta^{\rm a*}&C^{\rm a}_{\mathfrak t}rD^{\rm old}
+ \end{pmatrix}\succeq_\iota0,
+\]
+since $\bigl(\begin{smallmatrix}cD&K\\K^*&cD\end{smallmatrix}\bigr)\succeq0$ as
+soon as $\|D^{-1/2}KD^{-1/2}\|\le c$; here $D^{\rm old}$ has uniform one-slot
+marginals, by invariance. With its weight $w_{\mathfrak t}r^{\deg\mathfrak t}$,
+the record contributes at most $w_{\mathfrak t}C^{\rm s}_{\mathfrak t}r^{\deg\mathfrak t+1}$
+to $\tilde s_\Blk$ and $w_{\mathfrak t}C^{\rm a}_{\mathfrak t}r^{\deg\mathfrak t+1}$ to
+$\tilde a_\Blk$. \emph{Records replaced.} The same argument applies, with the
+coefficients of \ref{it:record:upper-F9} and \cref{lem:record:domain}(ii), to the
+dense EL laws and to the LE mixtures: they are positive laws that accept
+$\mathcal E_6$ (the dense ones the twelve queries), are invariant and have the
+actual half marginals of the record they replace
+(\cref{prop:dense-comparison,prop:le-mixture}). Summing over the changed records
+gives $\Pi^{\rm rep}_{\rm s}(r)$ and $\Pi^{\rm rep}_{\rm a}(r)$, because the ledgers
+are the sums of the coefficients by state. \emph{Records deleted.} A
+deleted two-layer record is a coupling of its actual half marginal
+$\mu_{\rm h}$ with itself, symmetric under the layer interchange, so its cut
+matrix $C_\iota$ at $\iota$ is self-adjoint with
+$-D_{\rm h}\preceq_\iota C_\iota\preceq_\iota D_{\rm h}$, $D_{\rm h}$ the
+reserved-diagonal copy of $\mu_{\rm h}$; a deleted folded record is itself a
+reserved-diagonal law. Either way the change $-wr^d\cdot(\text{record})$ is
+symmetric and satisfies the first bracket with the coefficient $wr^d$ (its
+mass) and the second with coefficient $0$ (\cref{rem:cp:charging}(i)); summing gives
+$\Pi^{\rm del}(r)$ in $\tilde s_\Blk$ only. The changed records are exactly the
+records omitted from the deletion polynomial, so nothing is counted twice.
+Dividing by $P_\mu(r)\ge1$ only decreases the coefficients, and the prices carry
+the factor $q_\Blk^{2a}$ of \cref{def:price}.
+
+\emph{Acceptance and admissibility.} Every retained record, kept, repaired or
+replaced, accepts $\mathcal E_6$; under it each query pair has a nonzero square
+difference at every prime of $\Blk$, which is \ref{it:record:R5}. Every retained
+record is invariant under the maps of \ref{it:record:R3} (a tensor product over the
+primes of invariant laws, \cref{lem:marginals}\ref{it:marg:closure}; a mixture of
+invariant laws is invariant) and supported where each query pair of
+$\mathcal E_6$ lies in $\Om[\Blk]$, so its pair marginal on every query of
+$\mathcal E_6$ is $\Unif(\Om[\Blk])$ (\cref{lem:marginals}\ref{it:marg:pair}). Every
+repaired or replaced record is a positive law with exactly the actual half
+marginals of the record it replaces, and its one-slot marginals are uniform, as are
+those of every diagonal envelope above; the differences have zero one-slot
+marginals (\cref{lem:marginals}\ref{it:marg:one}). Every deleted record is a positive record
+of $\mu_\Blk$; all these laws are laws of the field labels, independent of the
+interval, residue and inclusion indices. This is (O1) of \cref{def:admissible}. The
+sharp bounds of \cref{lem:record:domain}(ii) are operator norms between the actual
+half spaces at $\iota$, with no label conditioned; this is (O2). The root caps enter
+only as completion inputs of $\mu_\Blk$ and create no selected law, and the upper
+laws introduce no index projection and no fold, so (O3) and (O4) are those of the
+frame.
+
+(ii) Sum (i) over the blocks of each band. For a polynomial $\sum_dc_dr^d$ with
+$c_d\ge0$ the sum over the blocks is $\sum_dc_d\sum_\Blk q_\Blk^{2a}b_\Blk^{-d/2}
+\le\sum_dc_d\,\mathcal U_d(a)$. The instance of $\mathcal U_d(a)$ is valid by
+\cref{lem:record:block-charge}(i), which applies because every band $[X,Y)$ lies
+above $X_{\rm Ch}$ and has even endpoints, and by \cref{lem:record:repricing},
+which needs $a\ge a_{\rm c}$ and $\log q_\Blk\le l$. Add the tail prices of
+\cref{lem:tail-prices}(iv).
+
+(iii) The three polynomials have no terms below degree three, and
+$b^{-(d-3)/2}\le X^{-(d-3)/2}$ for $d\ge3$.
+\end{proof}
+
+\begin{lemma}[One initial term in the upper marginal repair]
+\label{lem:upper:neumann-refinement}
+In the setting of \ref{it:record:upper-F7}, one may replace the bound
+$F=U(1+K_\infty/(1-\rho_{\rm new}))$ by
+\[
+ F_* = \min\left\{F,\ 2U+
+       \frac{K_\infty\rho_{\rm new}U}{1-\rho_{\rm new}}\right\}.
+\]
+This bounds the same canonical centred solution and therefore changes
+neither the repaired probability law nor its actual half marginals.
+The smaller value may be used in the centred norm in
+\ref{it:record:upper-F7}, and in the additive-repair correction terms
+of \ref{it:record:upper-F8} and \ref{it:record:upper-F9}; all other
+terms in those formulas are retained. The resulting symmetric and
+skew caps may each be minimized with the previously certified cap
+for the same physical law, with upward rational rounding. The dense
+$LE,EL$ laws keep their separately certified invariant-space bounds.
+\end{lemma}
+\begin{proof}
+Use the full centred spaces in \cref{lem:tr:repair}(g), with
+$\rho_I=\rho_{\rm new}$, $N=1$, and
+$e_I=(1+\rho_{\rm new})U$: both right sides have this $L^2$ bound
+by the triangle inequality. This gives the second term in $F_*$.
+Uniqueness in \cref{lem:tr:repair}(a) identifies the solution with the
+one already used in(F7). Its support, symmetries and exact marginals
+are unchanged, and the old positivity gate still applies since
+$F_*\le F$. Every cited centred norm or repair correction is
+nondecreasing in the multiplier bound. The remaining inequalities
+involving the full (unprojected) norms on the whole support,
+namely the block gates \eqref{eq:upper-block-gate} for the new
+caps, are checked in the record named at the end of this proof,
+with the retained full-norm majorants and the new symmetric and
+skew caps. Thus the substitutions are valid without changing the
+mixture law on the original labels or its positive reference
+$\mu_\Blk$.
+\end{proof}
+
+
+\paragraph{The upper prices in the closing.}
+The record \path{research/further_2026_10_25/upper/upper_dense_refined.json} holds,
+for each of the $310$ bands, the weights, the three polynomials
+$\Pi^{\rm rep}_{\rm s}$, $\Pi^{\rm rep}_{\rm a}$ and $\Pi^{\rm del}$ (fields
+\texttt{comparison.repair}, \texttt{comparison.skew} and
+\texttt{comparison.deletion}) and the charges $\mathcal U_d(a_{\rm u})$, $3\le d\le7$,
+at $a_{\rm u}=883/10^6$:
+\begin{itemize}
+\item for the $301$ bands below $2^{52}$ the charges are the bounds of
+ \cref{lem:record:block-charge}(i) for their two-cell partitions;
+\item for the nine bands from $2^{52}$ they are the stored charges of their
+ inherited partitions (\cref{def:record:upper-bands}(b)) at $85941/125000000$,
+ multiplied by $\exp(2(a_{\rm u}-85941/125000000)l)$; two repricing steps compose to
+ one.
+\end{itemize}
+At $a_{\rm u}$ this gives $S_{\rm bands}(a_{\rm u})<0.013780948065193294$ and
+$A_{\rm bands}(a_{\rm u})<0.006641335659555205$ for the band subtotals (the sums
+over bands in \cref{prop:record:upper}(ii), before the tail sums are added). The closing reprices every term by $\exp(2(a-a_{\rm u})l)$, with $l$ the
+term's recorded bound for the block products (at most $885.436$), and adds the tail
+sums of \cref{lem:tail-prices}(iv). This is done by
+\path{research/continuation_2026_10_24/global/closing.py} (\texttt{upper\_price}),
+called by \path{research/advance_2026_10_24/global/closing_beta.py}. At the baseline
+exponent, $S_{\rm u}(a)<0.013866153512$ and $A_{\rm u}(a)<0.006682351376$. They
+enter $S$, $A$ and the matching exponent $T$ of the closing (\cref{cert:closing}).
+The band record is regenerated from the certified baseline, without an optimizer, by
+\path{research/further_2026_10_25/upper/verify.py}, and the independent review
+\path{dense_refined_upper_review.json} of that directory
+(\texttt{PASS\_\allowbreak INDEPENDENT\_\allowbreak POSITIVE\_\allowbreak SIX\_\allowbreak QUERY\_\allowbreak LE\_\allowbreak UPPER}) re-checks its $620$ ledgers $\Lambda^{\rm s}$, $\Lambda^{\rm a}$ and $930$
+polynomials $\Pi^{\rm rep}_{\rm s}$, $\Pi^{\rm rep}_{\rm a}$, $\Pi^{\rm del}$
+(two ledgers and three polynomials per band).
+
+No bound of the form $q_\Blk^{2a}\le e$ is used on upper blocks: every block is
+charged the factor $q_\Blk^{2a}$ once per expanded term, through $S$
+and $A$, and at the final exponent these factors reach about
+$e^{2a\cdot885.436}\approx4.81$. Neither the restoration and variance lemmas of
+the middle range nor the positive means use a cap on upper blocks.
+
+\paragraph{Consequences and what to read next.}
+From the upper range I: the bands and weights (\cref{def:record:upper-bands}),
+the two-layer graphs and their components (\cref{lem:upper-geometry},
+\cref{subsec:layer72:upper}), the reference and its positivity
+(\cref{def:upper-reference}, \cref{lem:upper-reference-rp}),
+the formulas \ref{it:record:upper-F1}--\ref{it:record:upper-F6} and
+\ref{it:record:upper-F10}, with the two-class evaluation of the rows
+(\cref{subsec:advance:product-rows}) and the joint rows (\cref{lem:joint-pins}), and
+the root, nonroot and observed caps with their domain
+(\cref{cert:upper-root-caps,cert:upper-band-inputs,lem:record:monotone-endpoint,lem:upper-completed-root,prop:observed-caps}).
+From Parts II--IV: the six queries, their twelve-query superset and the merge
+patterns (\cref{subsec:front6:construction,subsec:front12:construction},
+\cref{def:two-coordinate-five-type}); the additive repair package with its
+initial-segment form and the exact marginal cancellation
+(\cref{lem:tr:repair,lem:record:additive-cancellation}); same-measure transport
+(\cref{lem:record:centered-correction}); recentering (\cref{lem:recentering});
+pinned influence (\cref{prop:middle-negative,cor:influence-schur,def:mid:influence});
+the graded extension count, vertex densities and witness kernels
+(\cref{lem:extension,lem:graphs:vertex,lem:matching:kernel}); square-affine invariance and pair laws
+(\cref{lem:marginals}); the two-root identity \eqref{eq:two-root}, Weil's bound
+(\cref{thm:weil}) and the Paley operator (\cref{lem:square-shift}); the complete
+stars, frames and soft kernels
+(\cref{lem:general-star,cor:star-matrix,rem:realified-gates,lem:weighted-frame,cor:soft-kernels});
+the weighted star marginals (\cref{lem:wt:stars}); admissible majorants
+(\cref{lem:majorant}); the sector lemma with separate symmetric and skew
+coefficients (\cref{lem:sector}(b)); the five-type completion with joint rows
+(\cref{lem:five-type,lem:joint-rows,prop:conditional-star,cor:joint-completion-blocks});
+block lifting (\cref{lem:spec:tensorcomp}); the cut kernel and the spectral
+criterion (\cref{lem:spec:cutkernel,thm:spectral-criterion}); block charges and
+repricing (\cref{lem:record:block-charge,lem:record:repricing}); the charging rules,
+skew-only charging among them (\cref{rem:cp:charging}); and the definitions of
+prices, comparison laws and admissibility
+(\cref{def:price,def:record:comparison-law,def:admissible}). From the tail: the
+tail prices (\cref{lem:tail-prices}).
+
+\paragraph{Hypotheses verified in this section: (CP4) and (R5) for upper atoms.}
+For every upper block, $\nu_\Blk$ is a nonnegative measure with the normalizer
+of $\mu_\Blk$; every retained record accepts $\mathcal E_6$, with every query
+pair a strict-square pair at every prime (\ref{it:record:R5}), and the one-slot
+and query-pair marginals of $\nu_\Blk$ are multiples of the uniform laws; at
+$\iota$, $\nu_\Blk-\lambda_\Blk=\nu_\Blk-\mu_\Blk$ (the first-stage atoms are the
+middle blocks, \cref{def:cp2,def:construction}) is a sum of symmetric and skew record
+changes, priced separately, with reserved-diagonal envelopes of actual half
+marginals and uniform one-slot marginals; and the prices sum to at most
+$S_{\rm u}(a)$ and $A_{\rm u}(a)$, the tail included (\cref{prop:record:upper}). The
+laws are admissible (CP8). This is the upper row of (CP4) in \cref{tab:hypotheses}.

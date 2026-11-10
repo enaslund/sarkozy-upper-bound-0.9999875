@@ -1,0 +1,554 @@
+\providecommand{\PushA}{\frac{5422587}{6103515625}}
+\providecommand{\PushExponent}{\frac{5422587}{433349609375}}
+\providecommand{\PushK}{890666}
+\providecommand{\PushTheta}{0.99999999997327}
+\section{Baseline closing: $\Theta<1$ with $\theta=1$}\label{sec:closing}
+
+\paragraph{What this section proves and how to read it.}
+This section proves the baseline \cref{thm:baseline} only. Recall
+$\Theta=(63/64)(L_0+\mathcal E)+J+W+(1-m)/64$ with
+$\mathcal E=B(e^S\cosh A-1)-D$ (\cref{thm:comparison} and
+\cref{subsec:intro:inequality}). Every quantity is defined at
+$a=\PushA$ as a sum of middle prices, upper-band prices converted
+from their evaluation exponents, or an explicit function thereof.
+Outward-interval evaluation gives $\Theta<\PushTheta$; Theorem~C
+with $\theta=1$ then gives $\alpha^{71}\ll\Lsc^{-a}$, i.e.
+$\eps=a/71$, the $71$st-root step being
+$\alpha\le C\Lsc^{-a/71}$ with an absolute constant $C$. The
+margin $1-\Theta$ is about
+$2.7\cdot10^{-11}$, so numbers are stated exactly as evaluated; no bound may be replaced by a larger bound for the same quantity without re-evaluating $\Theta$. The
+words \emph{robust} and \emph{inflation} below mean: errors come
+only from the two allowed remainders (\cref{def:robust}), and
+prices are increased to the theorem exponent $a$ from smaller
+evaluation exponents (repricing). The improved theorem redoes this
+evaluation at $\vartheta>1$ in \cref{sec:four-routes-closing}.
+
+\subsection{Definitions of $L_0,S,A,D,\mathcal E,T,R_I,J,W,m$ (baseline)}\label{subsec:closing-quantities}
+
+This subsection defines the ten numbers entering $\Theta$. Two
+conversions are applied first. The middle prices were computed
+(certified) at a smaller exponent $a_0=\PushAnchor<a$, the
+\emph{anchor}, and are converted to the exponent $a$ of the
+theorem (``repriced'') by \cref{cor:first-stage-repricing} and
+\cref{lem:record:repricing}, using the block bound
+$\sum_{p\in\Blk}\log p\le L=570$. The upper prices have their own
+anchor $a_{\rm u}=883/10^6$ and are repriced term by term in each
+band (\cref{prop:record:upper}). All rounding is upward: we write
+$\operatorname{up}(x)=10^{-30}\lceil10^{30}x\rceil$, the next
+multiple of $10^{-30}$ above $x$. A certified quantity $v$ is
+stored in the data file (the ``native source'' of
+\cref{app:certificates}) as an interval enclosure with an exact
+rational upper end $v^{\rm ex}$ and a decimal upper end
+$v^{\rm hi}\ge v^{\rm ex}$; we put
+$\operatorname{hi}(v)=\operatorname{up}(v^{\rm hi})$, and it is
+these rounded upper ends that enter every formula below. For the middle piece $i$
+($1\le i\le33$), with left endpoint $X_i$ of its prime interval (\cref{sec:middle-reference}) and $q_{X_i}=1/X_i$, and for $d\in\{2,3,4\}$,
+$I_{d,i}$ is the certified degree-$d$ charge of the piece at $a_0$, the bound
+of \cref{lem:record:block-charge} for
+$\sum_{\Blk}q_{\Blk}^{2a_0}b_{\Blk}^{-d/2}$ ($b_\Blk$ the least
+prime of $\Blk$) over its blocks
+(\cref{cert:record:middle-price}), and $\bar I_{d,i}=\operatorname{hi}(I_{d,i})$.
+A local coefficient evaluated at $X_i$ enters a price through
+$\operatorname{up}$ of the upper end of its outward enclosure;
+we write this rounded majorant with the same letter as the
+coefficient. Thus every letter below denotes the rounded upper
+value, and every inequality is in the safe (upper) direction.
+
+\begin{definition}[The closing quantities]\label{def:closing-quantities}
+\leavevmode
+\begin{enumerate}[label=(\arabic*)]
+\item \emph{Repricing.} $a_0=\PushAnchor$, $L=570$ and $t=e^{2(a-a_0)L}$;
+ $C=e^{2aL}$; the piece caps $C_i=e^{2aL_i}$ of \cref{lem:piece-caps}, and
+ $C_X=\prod_{\Blk\in X}C_{i(\Blk)}$ for a set $X$ of middle blocks, $i(\Blk)$
+ the piece of $\Blk$.
+\item \emph{First stage and bracket.} Let $U_0'$, $P'$, $D'$ and $V'$ be the
+ recorded upper ends of the totals at $a_0$ of \cref{lem:record:middle-prices}
+ over the $33$ pieces (\cref{cert:record:middle-price}):
+ $U_0'\le0.8469081935391429860$, $P'\le1.6936504653996419205$,
+ $D'\le4.741704122562283\cdot10^{-5}$ and $V'\le3.3872533701481774716$. Put
+ \[
+  U_0=tU_0',\qquad P=tP',\qquad d=\tfrac12tD',\qquad v=\tfrac12tV',
+ \]
+ where $D'$ and $V'$ are the stored totals at $a_0$ of the sharp prices \eqref{eq:record:sharp} and total-variation prices summed over all middle atoms and both first-stage record differences (the ``tags'' of \cref{def:record:frame}(e)), and the two tags carry equal halves of these totals by \cref{lem:record:middle-prices}, so that $d=\tfrac12tD'$ and $v=\tfrac12tV'$ are the repriced per-tag totals $d_j,v_j$ of \cref{def:cp2}, and
+ \[
+  R_{\rm err}=e^{U_0}\tagser_4^+(d,v),\qquad L_0=e^{P}\tagser_4^+(d,v),\qquad
+  B=e^{U_0}+R_{\rm err},
+ \]
+ with the majorant $\tagser_4^+$ of \cref{cor:two-cut-series}. By
+ \cref{prop:closing-data}(a) these numbers bound the totals of the same names
+ of (CP2) and (CP3), and the closing uses them in place of those totals
+ (\cref{rem:cp:monotone}); \cref{sec:variance} writes $B_*$ and $R_*$ for them.
+ (The letter $D$ is reserved for the discount of (10).)
+\item \emph{Middle prices.} For the piece $i$ the \emph{rows} at $a_0$ are the summands of \cref{tab:data:prices} for that piece, as stored in the data, before the normalisation by $Z_i^{-1}$ of \cref{sec:four-routes-closing}. The fold and matching rows agree with
+ \eqref{eq:middle-piece-prices}; the two generic rows $S_{{\rm oth},i}$ and $A_{{\rm oth},i}$ use the larger caps stored in the data (\cref{tab:data:prices}), at least those of \eqref{eq:middle-piece-prices}, which also bound the two-layer
+ constant and merge repairs.
+ Explicitly, for its two
+ fold records the raw-arm ($y^{\rm arm}$), leading, remainder, full skew (leading plus remainder) and symmetric prices
+ $A^{\rm arm}_{F,i}$, $A^{\rm lead}_{F,i}$, $A^{\rm rem}_{F,i}$,
+ $A_{F,i}=A^{\rm lead}_{F,i}+A^{\rm rem}_{F,i}$ and $S_{F,i}$; the same prices
+ $A^{\rm arm}_{E,i}$, $A^{\rm lead}_{E,i}$, $A^{\rm rem}_{E,i}$, $A_{E,i}$, $S_{E,i}$
+ of its two matching records; and the symmetric and skew prices $S_{{\rm oth},i}$,
+ $A_{{\rm oth},i}$ of its other records (merges, deletions and the remaining
+ changed records). They are formed from the completion weights
+ $w_{{\rm D},i}$, $w_{{\rm S},i}$ (\cref{rem:middle-weights}), the charges
+ $\bar I_{d,i}$, the endpoint coefficients $\ell_\tlaw(X_i)$, $a_F(X_i)$, $s_F(X_i)$
+ of the signed fold records (\cref{prop:signed-bounds}), $a_E(X_i)$, $s_E(X_i)$,
+ $r_E(X_i)$ of the matching records
+ (\cref{lem:record:exact-marginal-e,lem:oct24:matching-star}) and the source coefficients for the generic rows $S_{{\rm oth},i},A_{{\rm oth},i}$, and rounded per piece on
+ $10^{-30}\Z$; for instance
+ $A^{\rm lead}_{F,i}=\operatorname{up}(2w_{{\rm D},i}\ell_\tlaw(X_i)\bar I_{2,i})$ and
+ $A_{E,i}=2\operatorname{up}(w_{{\rm S},i}a_E(X_i)\bar I_{2,i})$. The totals at
+ $a$ are $t$ times the sums over the pieces:
+ $A^{\rm arm}_F=t\sum_iA^{\rm arm}_{F,i}$, and likewise $A^{\rm lead}_F$,
+ $A^{\rm rem}_F$, $A_F$, $S_F$, $A^{\rm arm}_E$, $A^{\rm lead}_E$,
+ $A^{\rm rem}_E$, $A_E$, $S_E$, $S_{\rm oth}$ and $A_{\rm oth}$; and
+ $S_{\rm mid}=S_F+S_E+S_{\rm oth}$, $A_{\rm mid}=A_F+A_E+A_{\rm oth}$.
+\item \emph{Symmetric and skew totals.}
+ \[
+  S=S_{\rm mid}+S_{\rm u}(a)+10^{-12},\qquad A=A_{\rm mid}+A_{\rm u}(a)+10^{-12},
+ \]
+ where $S_{\rm u}(a)$, $A_{\rm u}(a)$ are the symmetric and skew ledgers of the
+ $310$ upper bands of \cref{prop:record:upper}, certified at $a_{\rm u}$ and
+ repriced term by term, each term with its own logarithmic product bound, plus
+ the tail sums of \cref{lem:tail-prices}(iv).
+\item \emph{Matching exponent.} $T_K=t\bigl(T^{\rm aux\prime}_K+T^{\rm inc\prime}_K\bigr)$
+ is the price of the chosen side diagonals of \cref{prop:signed-sides}(iii):
+ $T^{\rm aux\prime}_K=\sum_i\operatorname{up}\bigl((k^{\rm aux}_{{\rm L},i}
+ +k^{\rm aux}_{{\rm R},i})\bar I_{2,i}\bigr)$ is the price bound for the excess coefficients
+ $k^{\rm aux}_{s,i}=w_{{\rm D},i}d^{\rm aux}_s(X_i)-v_{{\rm D},i}$ of the auxiliary
+ sides (orientation weights, local cap $L_{\rm loc}=585$), and $T^{\rm inc\prime}_K$
+ the increments $\delta^+_{s,i}$ of the chosen sides over the auxiliary sides (\cref{prop:signed-sides}(ii)), $s\in\{{\rm L},{\rm R}\}$.
+ Further $T_{QE}=S_E+A_E$ and
+ \[
+  T=S_E+A_E+S_{\rm oth}+A_{\rm oth}+T_K+S_{\rm u}(a)+A_{\rm u}(a)+10^{-12}.
+ \]
+\item \emph{Invariant price.} With $\pi_i=(f_1+h_1)_i$ the polarization coefficient (an upper end) of \cref{sec:envelopes} for the piece,
+ \[
+  \Uinv=\sum_i\Bigl[2v_{{\rm D},i}I^{\rm ex}_{2,i}
+  +\frac{12w_{{\rm S},i}}{1-3/X_i}I^{\rm ex}_{3,i}\Bigr],
+ \]
+ the price at $a_0$ assigned to the invariant tags $E_{\rm add}+H$ of the
+ bracket (\cref{lem:oct24:invariant-background}(v)); it is an exact rational,
+ $\Uinv=0.84688441321358980128331130\ldots$, and with the price
+ $\sum_i2v_{{\rm D},i}\pi_iI^{\rm ex}_{3,i}$ assigned to the generic tag $G$ it
+ satisfies $\Uinv+\sum_i2v_{{\rm D},i}\pi_iI^{\rm ex}_{3,i}\le U_0'$. The
+ \emph{background factor} is $e^{t\Uinv}$; the tag $G$ is not invariant and is
+ paid in $U_0$ only.
+\item \emph{Leading class costs.} For each of the sixteen envelope classes of
+ \cref{cor:envelope-costs} (the classes $(n,m)$ with $n\ge1$,
+ $n+m\in\{2,4,6\}$; the aligned and the crossed matching pairs, written
+ $(EE,{\rm al})$ and $(EE,{\rm cr})$; and $(0,4)$, $(0,6)$), with the caps
+ $\kappa_H\ge\kappa_b\ge0$ (generic and invariant backgrounds, \cref{cor:envelope-costs}), the coupling mass $M_{n,m}$ and the
+ invariant orbit mass $M^{\rm inv}_{n,m}$ of its envelope
+ (\cref{tab:data:envelopes}),
+ \[
+  C_{n,m}=\kappa_He^{U_0}-(\kappa_H-\kappa_b)e^{t\Uinv}+M_{n,m}R_{\rm err}
+  -M^{\rm inv}_{n,m}e^{t\Uinv}t\delta_{\rm s},
+ \]
+ where
+ $\delta_{\rm s}=\frac12D'-\sum_i\operatorname{up}\bigl((v_{{\rm D},i}+v_{{\rm S},i})
+ s_{\rm fold}(X_i)I^{\rm hi}_{4,i}\bigr)$ is the price saving at $a_0$ of one
+ folded tag, its sharp price minus its symmetric price (\cref{lem:orbit-coupon}),
+ $s_{\rm fold}$ being the symmetric coefficient of
+ \cref{lem:record:one-stage-folded-e}.
+\item \emph{Savings.} With the remainder polynomial
+ $\mathcal R_{n,m}=(A^{\rm lead}_F+A^{\rm rem}_F)^n(A^{\rm lead}_E+A^{\rm rem}_E)^m
+ -(A^{\rm lead}_F)^n(A^{\rm lead}_E)^m$, the \emph{saving} of a class is
+ \[
+  D_{n,m}=\frac{BA_F^nA_E^m-C_{n,m}(A^{\rm arm}_F)^n(A^{\rm arm}_E)^m
+  -B\mathcal R_{n,m}}{n!\,m!}
+ \]
+ for the twelve classes with $n\ge1$, $n+m\in\{2,4,6\}$ of (7) and for $(0,4)$, $(0,6)$; for the two
+ matching pairs, $D_{EE,{\rm al}}$ and $D_{EE,{\rm cr}}$ are the same expression
+ with $(n,m)=(0,2)$, the cost of the pair class and the divisor $4$ in place of $2$, since the aligned and crossed pairs each have total $A_E^2/4$ (proof of \cref{prop:closing-data}(d)). A class is replaced only if the lower end of its interval enclosure (\cref{cert:closing}) is positive;
+ otherwise its saving is omitted. All sixteen savings are positive.
+\item \emph{Variance credit.} $D_{\rm var}$ is \eqref{eq:variance:dvar} of \cref{cor:variance:final} evaluated with the following substitutions: the rows of (3) for its record weights, multiplied by the repricing factor $t$; the restoration function evaluated at the piece caps of (1) with the error $R_{\rm err}$ of (2); and the gains given by \cref{prop:background-variance} and \cref{lem:pool-coupons} (including their terms pooled over the pieces from $2^{31}$). Its skew pair credits are those of the fold records, with the cap
+ $\kappa_{FF}$, and of the aligned matching pairs, with the invariant cap of
+ their envelope and the gains proved only for the selected laws, and its credits of degrees three
+ and four include those of the pure quartic classes $(4,0)$ and $(0,4)$ on their raw-arm prices
+ (\cref{lem:class-credit}).
+\item \emph{Discount and reserved cost.}
+ \[
+  D=D_{\rm var}+\sum_{n\ge1}D_{n,m}+D_{EE,{\rm al}}+D_{EE,{\rm cr}}+D_{0,4}+D_{0,6},
+  \qquad
+  \mathcal E=B\bigl(e^S\cosh A-1\bigr)-D.
+ \]
+\item \emph{Mean credit.} $m=1+m_F+m_Q-R_{\rm err}e^{T_K+T_{QE}}$, with the
+ coupons $m_F$ (empty matching tag set) and $m_Q$ (nonempty matching tag set)
+ of \cref{prop:record:mean-credit} at the piece caps, the late-pool coupons of
+ degrees five and six included (\cref{lem:pool-coupons}).
+\item \emph{Index terms.} $\Kint=\PushK$. For the conductor moment use the certified upper bound
+ \[
+ R_I\le R_I^+=1.247139907406884705556794769493
+ \]
+ for the finite depth-$64$ moment $M_{\rm pad}(\Kint)$ (every later occurrence of $R_I$ in an upper bound means $R_I^+$), certified using
+ \cref{prop:imp:padic-price,cor:imp:padic-majorant}
+ (\cref{cert:index-moment}); and
+ \[
+  \begin{aligned}
+  J&=Be^T\Bigl(\frac{R_I}2\Bigr)^6,\\
+  W&=Be^{S+A}\Bigl[\Bigl(1+\frac{R_I}2\Kint^{-35/36}\Bigr)^6-1\Bigr].
+  \end{aligned}
+ \]
+\item \emph{Closing number.}
+ $\Theta=\frac{63}{64}(L_0+\mathcal E)+J+W+\frac{1-m}{64}$.
+\end{enumerate}
+\end{definition}
+
+The prices of (3) are rounded per piece on $10^{-30}\Z$ and are sums of upper
+prices of the records of the piece, by \cref{lem:middle-comparison-prices} and
+the block charges; by \cref{lem:record:record-expansion}(iii) they may be
+distributed over the blocks of the piece in proportion to the actual prices,
+and the complete polynomial, which has nonnegative coefficients, is evaluated
+at them. The endpoint coefficients are values at the piece start of admissible
+majorants (\cref{lem:majorant}), so they bound the coefficients of every prime
+and block of the piece. No upper estimate of a norm is used as a lower estimate
+of that norm; the subtracted exponential $e^{t\Uinv}$ and the coupon
+$M^{\rm inv}_{n,m}e^{t\Uinv}t\delta_{\rm s}$ are subtracted only inside
+coefficientwise majorants (\cref{rem:completion-subtraction}).
+
+The closing has the form of the comparison theorem; the work is in the
+discount. The even skew part $B(\cosh A-1)$ of the reserved cost is far larger
+than its symmetric part, and the envelope classes of \cref{sec:envelopes}
+replace it, degree by degree, by class costs on raw-arm monomials: a class of
+$n$ fold and $m$ matching records replaces its full-norm term $BA_F^nA_E^m$ by $C_{n,m}(A^{\rm arm}_F)^n(A^{\rm arm}_E)^m$ for its leading parts and by $B$ times the remainder polynomial $\mathcal R_{n,m}$ of (8) for the rest. The cost $C_{n,m}$ bounds the energy of the blocks outside the class: $\kappa_He^{U_0}$ for a generic outside background, lowered on the invariant
+outside background, whose price $t\Uinv$ is assigned exactly, plus the
+couplings of the envelope, each paying the error $R_{\rm err}$ of the bracket,
+less the orbit coupon of \cref{lem:orbit-coupon}.
+
+\begin{proposition}[The closing quantities bound the data of the comparison theorem]
+\label{prop:closing-data}
+For the construction of Part~V, at every scale $\Lsc\ge1$:
+\begin{enumerate}[label=(\alph*)]
+\item the totals $U_0$, $P$ and the tag totals of (CP2), and $R_{\rm err}$,
+ $L_0$, $B$ of (CP2) and (CP3), are at most the numbers of
+ \cref{def:closing-quantities}(2) (the tag totals at most $d$ and $v$);
+\item the summed symmetric and skew prices of (CP4) are at most $S$ and $A$;
+\item the summed price of the matching-envelope diagonals of (CP6) is at
+ most $T$;
+\item the complete polynomial of \cref{lem:record:record-expansion}, formed
+ with the class bounds of \cref{cor:envelope-costs} and the credits of
+ \cref{def:closing-quantities}(9), at the upper prices of (3)--(4), is at most
+ $\mathcal E$;
+\item the mean energies satisfy (CP7) with the $m$ of (11);
+\item $R_I$ of (CP0)(d) is at most the value of (12).
+\end{enumerate}
+The following gates hold: every retained saving of (8) is positive; every
+orbit coupon of (7) is at most $M_{n,m}R_{\rm err}$; every restoration gain lies
+in $[0,1)$, and every restoration coefficient $\ell$ (the $l$ of \cref{lem:record:restoration}) at cap $C_X$ satisfies $0\le\ell\le C_X/2$; in
+every piece $k^{\rm aux}_{{\rm L},i},k^{\rm aux}_{{\rm R},i}\ge0$ and the
+protection gate $v_{{\rm D},i}\ge2w_{{\rm D},i}k_{{\rm D},i}$ (\eqref{eq:protection})
+hold, and so do the matching gates of \cref{sec:matching-mean}; $D'\le V'$,
+$d<6$ and $dv<36$; $B>1$; every credit of (9) on a raw-arm
+monomial of a replaced class is below the cost of that class
+(\cref{lem:class-credit}); and $0<a\le9/10000$. Hence the closing number of
+\cref{thm:comparison} for this construction is at most $\Theta$.
+\end{proposition}
+
+\begin{proof}
+(a) The first-stage atoms are the middle blocks (\cref{def:record:frame}); they
+have $e_p=1$ and $\log q_\Blk\le L$ (\cref{lem:record:local-domain}(ii)). By
+\cref{lem:record:middle-prices} and \cref{cert:record:middle-price}, $U_0'$,
+$P'$, $D'$ and $V'$ bound the totals $U_0$, $P$, $D$ and $V$ at $a_0$, and
+each of the two tags carries half of $D$ and of $V$
+(\cref{def:record:frame}(e)), so that $D'/2$ and $V'/2$ bound both tag totals
+at $a_0$. \Cref{cor:first-stage-repricing} gives at $a$ the bounds $tU_0'$
+and $tP'$ for $U_0$ and $P$, the bounds $d$ and $v$ for the sharp and the
+variation total of each tag, and $L_0\le e^{tP'}\tagser$,
+$R_{\rm err}\le e^{tU_0'}\tagser$, $B\le e^{tU_0'}(1+\tagser)$, where, by the
+monotonicity of the series (\cref{rem:cp:tags}), $\tagser$ may be taken at
+the common values $d$, $v$ of the two tags. Since $D'\le V'$, $d\le v$, and
+with $d<6$ and $dv<36$ \cref{cor:two-cut-series} at $n=4$ bounds this series
+by $\tagser_4^+(d,v)$.
+
+(b) \emph{Middle.} By \cref{lem:middle-comparison-prices} the symmetric and
+skew prices of the records of a middle block $\Blk$ with least prime $b$, and
+their raw-arm, leading and remainder auxiliary prices, are at most
+$q_\Blk^{2a}b^{-k/2}$ times the coefficients of that lemma, $k$ the degree of
+the price; the coefficients are evaluated at the piece start and bound those of
+every block of the piece (\cref{lem:record:local-domain}(iii)). Summed over the
+blocks of the piece at $a_0$, $\sum_\Blk q_\Blk^{2a_0}b_\Blk^{-k/2}\le\bar I_{k,i}$,
+so the rows of (3) bound the prices of the records of the piece at $a_0$.
+Every middle block has $\log q_\Blk\le L$, so at $a$ these prices are at most
+$t$ times their values at $a_0$ (\cref{lem:record:repricing}); summing over
+the pieces gives $S_{\rm mid}$ and $A_{\rm mid}$. \emph{Upper bands and tail:}
+\cref{prop:record:upper}(ii), every term of the band ledger repriced from
+$a_{\rm u}$ at its own logarithmic product (at most $L_{\rm band}\le886$), and
+\cref{lem:tail-prices}(iv). \emph{Prefix:} the deleted exception (the coincident-label part of the prefix comparison) is a diagonal at the reserved cut $\iota$ and is included in $S$ only, at the total price, with $\mcl=8192$ the number of digit pairs, $2^{513-\mcl+1024\mcl a}=2^{-1380939795479/6103515625}<8\cdot10^{-69}$
+(\cref{lem:frontier:iidenergy}), inside the allowance $10^{-12}$
+(\cref{cert:record:frame-data}(f)), which also holds a second copy of the
+tail prices (\cref{rem:prefix-digits}). These are all the atoms
+(\cref{def:construction}(a)).
+
+(c) This is \cref{prop:record:matching}(ii) with the chosen sides of
+\cref{prop:signed-sides}. In a middle block the envelope $M_{s,\Blk}-\Nbr_\Blk$
+consists of the chosen side diagonals, of price at most $T_K$
+(\cref{prop:signed-sides}(iii) and the factor $t$), the chosen matching
+diagonal, of price at most $T_{QE}$ (by the matching gates of \cref{sec:matching-mean}),
+and the norm envelopes of the other record changes,
+of price at most $S_{\rm oth}+A_{\rm oth}$; outside the middle the envelopes are the
+norm envelopes of the upper, tail and prefix changes, of price at most
+$S_{\rm u}(a)+A_{\rm u}(a)+10^{-12}$. The prices of the fold records do not
+enter $T$.
+
+(d) We use \cref{lem:record:record-expansion} with $B'$ the number $B$ of (2),
+which bounds the energy factor of (CP3) by (a), at the per-block upper prices
+and auxiliary prices obtained from the totals of (3)--(4) by
+\cref{lem:record:record-expansion}(iii), the two records of one kind in a
+block receiving equal shares; the auxiliary prices of a record are its
+raw-arm, leading and remainder prices (\cref{lem:middle-comparison-prices}).
+Every selection of a class has at most six atoms.
+
+\emph{Variance classes.} The classes of \cref{cor:variance:final}(i) and (iii)
+whose selections contain a symmetric factor have the class costs $B-g$ with
+gains $g\in[0,1)$. By \cref{lem:record:record-expansion}(iv) the series
+$\Psi_0=B'(e^{S(x)}\cosh A(x)-1)-\mathcal D_{\rm sym}(x)$, in which
+$\mathcal D_{\rm sym}$ carries these gains, the monomials with a repeated
+block receiving the gain of their piece multiset, below $1<B'$, is a complete
+polynomial for them; its coefficients on the monomials in skew variables alone
+are those of $B'(e^{S(x)}\cosh A(x)-1)$.
+
+\emph{Envelope classes.} The sixteen classes of \cref{cor:envelope-costs}
+satisfy (CP5) with the class bounds
+$C_{n,m}\pi^{\rm arm}_\omega+B(\pi^{\rm tot}_\omega-\pi^{\rm lead}_\omega)$
+(\cref{thm:envelopes}(i)), and $C_{n,m}\ge0$: since $\Uinv\le U_0'$,
+$e^{U_0}\ge e^{t\Uinv}$, so that
+$\kappa_He^{U_0}-(\kappa_H-\kappa_b)e^{t\Uinv}\ge\kappa_be^{t\Uinv}$, and the orbit
+coupon is at most $M_{n,m}R_{\rm err}$ (\cref{lem:orbit-coupon}); hence
+$C_{n,m}\ge\kappa_be^{t\Uinv}\ge0$. By \cref{lem:record:record-expansion}(v), with
+the kinds of the remark after it (the fold records and the merged matching
+records for the general classes and for $(0,4)$, $(0,6)$; the two matching
+records $E_0$, $E_1$ separately for the pairs, the aligned and the crossed
+pairs each having the total $A_E^2/4$), replacing these classes subtracts
+from $\Psi_0$ polynomials whose values at the upper prices are the savings
+of (8); the classes are disjoint and none contains a selection of a
+variance class of the previous step.
+
+\emph{Credits.} Inside the classes $(2,0)$, $(EE,{\rm al})$, $(4,0)$ and
+$(0,4)$ the credits of \cref{lem:class-credit} are subtracted on the raw-arm
+monomials, as the last part of \cref{lem:record:record-expansion}(v) allows:
+every credit $cg$ satisfies $0\le cg<C_{n,m}$ (\cref{lem:class-credit}), so the
+credited class bounds have nonnegative coefficients. Indeed the
+gains $g$ are below one and $c\le\kappa_be^{t\Uinv}\le
+C_{n,m}$: in the first three classes $c=\kappa_b$, and in class
+$(0,4)$ the aligned variance cap satisfies the certified
+inequality $c<\kappa_be^{t\Uinv}$ (the two sides are $0.667$
+and $1.12$ to three digits; the certified values are in
+\cref{tab:data:envelopes,cert:envelopes}). By
+\cref{cor:variance:final}(iv) the subtractions of $\mathcal D_{\rm sym}$ and of
+these credits together lower the polynomial at the upper prices by at least
+$D_{\rm var}$, every coefficient staying nonnegative.
+
+\emph{Conclusion.} The resulting series $\Psi$ is a complete polynomial
+(\cref{lem:record:record-expansion}(ii)). At the upper prices the totals of
+the price and auxiliary variables are those of (3)--(4), so
+$\Psi(\hat\pi,\hat y)\le B(e^S\cosh A-1)-(D-D_{\rm var})-D_{\rm var}=\mathcal E$.
+This proves the complete bound; it does not assert that an isolated formal
+discount bounds a distinct-block discount from below
+(\cref{rem:completion-subtraction}).
+
+(e) \Cref{prop:record:mean-credit} at the piece caps, with the error exponent
+$T_K+T_{QE}$; its gates are among those listed. (f)
+\Cref{prop:imp:padic-price,cor:imp:padic-majorant} and
+\cref{cert:index-moment}.
+
+The gates are asserted by the author assembly of \cref{cert:closing}: the
+orbit coupons by \path{research/advance_2026_10_24/global/closing_beta.py},
+lines 204--205; the savings by lines 223, 228, 234 and 240 there (a general or
+quartic class is retained only if its saving is positive, and the classes
+$(2,0)$ and the matching pairs must be); the series and $D'\le V'$, $d<6$,
+$dv<36$ by \path{research/advance_2026_10_24/global/grouped_first_stage.py},
+lines 27--37, which also checks that $\tagser_4^+$ does not exceed the
+one-sharp bound of \cref{rem:cp:tags}; the regime $0\le\ell\le C_X/2$ by
+\path{research/continuation_2026_10_24/envelopes/restoration.py}, lines 36--37;
+the gains by lines 148 and 160 of \texttt{closing\_beta.py} and line 31 of
+\path{research/advance_2026_10_24/envelopes/beta_higher_variance.py}; the caps
+$1\le C_i\le C$ by line 16 of
+\path{research/advance_2026_10_24/envelopes/piece_cap_restoration.py}; and the
+sides $k^{\rm aux}_{s,i}\ge0$ by line 42 of \texttt{closing\_beta.py} and line
+129 of \path{research/advance_2026_10_24/global/piece_data_beta.py}; and the
+matching gates by line 112 of \texttt{closing\_beta.py}. The
+protection gate is asserted on all $33$ selected native pieces by
+\path{research/improvements_2026_10_25/envelopes/check_gap_native.py}, rerun
+on the rebuilt source of \path{research/push_2026_10_25/design.json};
+$0<a\le9/10000$ is asserted by the selected design verifier.
+Moreover, $B>1$ since $U_0>0$, and the credit gates follow from the
+bound $C_{n,m}\ge\kappa_be^{t\Uinv}$ shown in (d).
+
+Finally, $\Theta$ is the closing number of \cref{thm:comparison} at $k=6$,
+$d=72$, $\theta=1$ for $\mathcal E\ge\Psi(\hat\pi,\hat y)$, with $J$ and $W$ as in
+\cref{prop:oct24-index-cost}. By \cref{rem:cp:monotone} the closing number
+is nondecreasing in $L_0$, $B$, $S$, $A$, $T$, $R_I$, the prices and the
+auxiliary prices, and nonincreasing in $m$; so the bounds (a)--(f) show that the
+closing number of the construction is at most $\Theta$.
+\end{proof}
+
+\Cref{tab:closing-values} lists the values. The upper bands and tail
+contribute $S_{\rm u}(a)\approx0.0138662$ and
+$A_{\rm u}(a)\approx0.00668235$. The class savings remove about $0.456895$
+and the variance credits about $0.00995856$ from the reserved cost. The
+reserved contribution $\frac{63}{64}(L_0+\mathcal E)+\frac{1-m}{64}$ is
+about $0.748200$, the matching term $J$ about $0.251761$, and the wrap $W$
+about $3.8345\cdot10^{-5}$. These rounded descriptions are explanatory only.
+
+\begin{table}[ht]
+\centering
+\caption{The closing quantities, rounded outward from the certificate's
+enclosures ($<$ upper bound, $>$ lower bound, $\ldots$ exactly defined).
+The certificate evaluates $\Theta$ from the full enclosures, not from these
+values.}
+\label{tab:closing-values}
+\begin{tabular}{@{}llll@{}}
+\toprule
+quantity & value & quantity & value\\
+\midrule
+$t$ & $1.0000000616512\ldots$ & $D-D_{\rm var}$ & $>0.456895419675$\\
+$C$ & $<2.753348440327$ & $D_{\rm var}$ & $>0.009958560315$\\
+$U_0$ & $<0.846908245753$ & $D$ & $>0.466853979991$\\
+$B$ & $<2.332628665480$ & $\mathcal E$ & $<0.768964199811$\\
+$R_{\rm err}$ & $<0.000204255886$ & $m_F$ & $>0.400172842378$\\
+$L_0$ & $<0.000476332373$ & $m_Q$ & $>0.190134971388$\\
+$S_{\rm u}(a)$ & $<0.013866153512$ & $m$ & $>1.589940741988$\\
+$A_{\rm u}(a)$ & $<0.006682351376$ & $R_I$ & $<1.247139907407$\\
+$S$ & $<0.014554805967$ & $J$ & $<0.251761455211$\\
+$A$ & $<0.969271826335$ & $W$ & $<0.000038344989$\\
+$T$ & $<0.607496889411$ & $\Theta$ & $<\PushTheta$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Outward-interval evaluation: $\Theta<\PushTheta$}\label{subsec:closing-certificate}
+
+It remains to evaluate the explicit number $\Theta$ defined in
+\cref{subsec:closing-quantities}. This is a finite computation:
+every price is a sum of explicit terms at finitely many prime
+thresholds, evaluated in outward-interval arithmetic so that
+rounding can only enlarge the result. The certificate states the
+outcome and identifies the programs and data files that produce
+it; \cref{app:certificates} explains what such a check does and
+does not prove.
+
+\begin{certificate}[The closing]\label{cert:closing}
+The selected rational design
+\path{research/push_2026_10_25/design.json} has
+\[
+ a=\PushA,\qquad \eps=a/71=\PushExponent,\qquad \Kint=\PushK,
+\]
+and the outward evaluation of \cref{def:closing-quantities} obeys
+$\Theta<\PushTheta<1$. The entry point
+\path{research/push_2026_10_25/verify.py} invokes the selected adapter
+\path{research/improvements_2026_10_25/global/selected.py} with this design.
+Two independently written assemblies of the scalar totals use the
+separate evaluators of \path{research/advance_2026_10_24/}, with the
+invariant-background and root-restoration adapters of the later
+checkpoints. The finite conductor law is supplied by
+\path{research/improvements_2026_10_25/global/padic_moment.py}; its
+independent check and the recomputation of the closing from it are
+part of the selected verification. The outputs equal the stored
+\path{research/push_2026_10_25/artifacts/author.json} and
+\path{research/push_2026_10_25/artifacts/independent.json}; the enclosures of all $45$ compared scalar components intersect. The independent enclosure of $\Theta$ is
+\begingroup\footnotesize
+\begin{gather*}
+ [0.99999999997325941882402031814341317621743080026301922476436792225715828504384175,\\
+ 0.99999999997325941882402031814341317621743080026301922476436792225715828504384968],
+\end{gather*}
+\endgroup
+and the author's upper endpoint is below
+$0.999999999973259418824020318144$.
+Both are strictly below $\PushTheta$, giving a certified margin greater than
+$2.673\cdot10^{-11}$. The archival launcher \path{paper/verify.py} restores
+and authenticates the original source layouts before replaying their
+certificates (\cref{app:certificates}). These finite checks do not replace
+the analytic reductions or external theorems, whose proofs and assumptions
+are given in the text.
+\end{certificate}
+
+\paragraph{How the certificate evaluates $\Theta$.}
+The certificate evaluates every item of \cref{def:closing-quantities} from the sources whose hashes \cref{app:certificates} checks: the selected middle source
+\path{research/push_2026_10_25/global/refined_L570_source.json}, its exact
+charge evidence and native parent; the unchanged upper source
+\path{research/further_2026_10_25/upper/upper_dense_refined.json}; and the
+envelope bundle
+\path{research/further_2026_10_25/envelopes/exact_background_pairs.json}.
+The exact charges are regenerated at $a_0=\PushAnchor$, then repriced by
+$t=e^{2(a-a_0)L}$; the proof is blockwise monotonicity of
+$q_\Blk^{2a}$, as in \cref{lem:record:repricing}.
+The root-restoration adapter supplies the actual marginal data of all seven tilted pieces of \cref{def:positive-root}, and the conductor adapter supplies the finite-depth upper
+majorant. All first-stage totals, comparison prices, discounts and coupons
+are recomputed from these sources. The formulas and their checks are listed
+in \cref{subsec:cert:evaluation}.
+
+\subsection{Proof of the baseline ($\theta=1$) by Theorem~C}\label{subsec:proof-main}
+
+Theorem~C now applies directly: it only remains to point, for each
+hypothesis (CP0)--(CP8), to the statement of Part~V that verifies
+it for the construction, and to $\Theta<1$ from the preceding
+subsection.
+
+\begin{proof}[Proof of \cref{thm:baseline}]
+By \cref{thm:comparison} it suffices to verify, for the construction of
+Part~V with $k=6$ queries on $d=72$ slots and $\theta=1$, the hypotheses
+(CP0)--(CP8) at every scale, the boundedness of the totals independently of
+the scale, and $\Theta<1$.
+
+\emph{Hypotheses.} \Cref{tab:hypotheses} lists for each hypothesis the
+statement of Part~V that verifies it: (CP0) the slot array, the queries,
+the atoms and the analytic stage, with
+$a=\PushA\le9/10000<1/825=\sigma$,
+$\sigma-a=65195254/201416015625$, and the gates of the stage on the whole
+domain $0<a\le9/10000$
+(\cref{cert:record:analytic-stage,cert:record:frame-data}), and the index law
+(\cref{prop:oct24-index-cost}); (CP1) the prefix, middle, upper and tail
+references, with \ref{it:record:R4} (\cref{lem:record:tail-mixing}); (CP2),
+(CP3) the first stage and the law dominating it in a $2\times2$ block;
+(CP4) the comparison law in every range, with \ref{it:record:R5}, the signed
+fold records being finite signed combinations of nonnegative accepting
+product laws, so that the quantities $n_\nu$ and $\mathfrak v_\nu$ of \cref{def:cp4} are finite; (CP5) the
+class bounds of \cref{sec:envelopes} and the variance classes of
+\cref{sec:variance}, whose selections have at most six blocks;
+(CP6), (CP7) the matching
+envelopes and the mean credit; (CP8) admissibility (\cref{def:admissible}),
+robustness (\cref{lem:record:rec}) and summability (\cref{lem:tail-prices}(iv)).
+
+\emph{Bounded totals.} Every total is a sum of certified per-atom upper
+prices over finitely many atoms below $\Pfour$, independent of $N$, and over
+the tail primes, whose prices are summable (\cref{lem:tail-prices}(iv)). So
+\cref{prop:closing-data} holds at every scale with the same constants.
+
+\emph{Closing inequality.} By \cref{prop:closing-data} the closing number of
+\cref{thm:comparison} is at most $\Theta$, and $\Theta<\PushTheta<1$ by
+\cref{cert:closing}. Robustness, the clause of (CP8), follows from
+\cref{lem:record:rec}(i) as in \cref{rem:cp:robust-final}: every gate on a
+quantity that the inflation changes is strict (the savings, the gains, the
+gates $d<6$, $dv<36$, and $\Theta<1$), except the orbit-coupon gate, which is a
+nonnegativity condition on a coefficient that only grows under inflation; the
+restoration regime $0\le\ell\le C_X/2$ is kept by the inflation, which lowers $\ell$ and raises the effective cap to $(1+\delta)C_X$ (\cref{rem:cp:robust-final}(c)); and the side gates $k^{\rm aux}_{s,i}\ge0$, the
+protection gate and $0<a\le9/10000$ concern fixed numbers of the construction.
+So the function $\Theta(\delta)$ of \cref{lem:record:rec}
+($\delta$ the inflation parameter, with $\Theta(0)=\Theta$) is
+continuous at $\delta=0$, with value below one there.
+
+\emph{Conclusion.} \Cref{thm:comparison} gives, for every $\Lsc\ge1$,
+$\Yf(\Lsc,\cdot)\le C\Lsc^{-a}\alpha$ at every square-difference-free subset
+of $[\Kint\Lsc]$ of density $\alpha$, hence
+$s(N)\le C'N^{1-a/71}$ for every $N\ge1$ with an absolute constant $C'$. As
+$a/71=\PushExponent=\eps$, this is \cref{thm:baseline}.
+\end{proof}
+
+\paragraph{Consequences and what to read next.}
+\Cref{thm:comparison,rem:cp:monotone,tab:hypotheses};
+\cref{lem:record:repricing,cor:first-stage-repricing,cor:two-cut-series,lem:record:one-stage-folded-e}
+and \cref{cert:record:frame-data,cert:record:middle-price};
+\cref{lem:record:middle-prices,lem:piece-caps,lem:middle-comparison-prices,prop:signed-bounds,lem:oct24:matching-star,lem:record:exact-marginal-e};
+\cref{prop:record:upper,lem:tail-prices,lem:frontier:iidenergy};
+\cref{prop:record:matching,prop:signed-sides};
+\cref{lem:record:record-expansion,rem:completion-subtraction};
+\cref{cor:envelope-costs,thm:envelopes,lem:class-credit,lem:orbit-coupon,lem:oct24:invariant-background};
+\cref{cor:variance:final,prop:background-variance,lem:pool-coupons};
+\cref{prop:record:mean-credit};
+\cref{prop:oct24-index-cost,lem:index-moments,cert:index-moment};
+\cref{cert:record:analytic-stage}; and \cref{lem:record:rec,rem:cp:robust-final}.
+
+\paragraph{Hypotheses verified in this section.}
+The row ``$\Theta<1$'' of \cref{tab:hypotheses}, $\Theta<\PushTheta$
+(\cref{prop:closing-data,cert:closing}), and \cref{thm:baseline}.

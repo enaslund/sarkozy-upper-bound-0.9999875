@@ -1,0 +1,379 @@
+\section{Stronger density estimates: multilinear bounds and a new prefix law}
+\label{sec:density:moments-prefix}
+
+\paragraph{What this section proves and how to read it.}
+To obtain $\vartheta>1$ one needs a multilinear bound
+$|\int\prod_vf_v\,d\pi|\le\prod_v\|f_v\|_{L^r}$ with $r<72$
+(a \emph{unit mixed moment}, defined below; ``moment'' here means
+this multilinear norm, not $\E X^k$). This section proves two
+finite-alphabet inequalities giving such bounds and constructs a
+replacement prefix law (independent slot labels from the same
+clique) satisfying them. Inputs: \cref{sec:frontier:iidprefix}.
+Outputs: the moment hypotheses used in \cref{sec:density-upgrade}.
+Baseline results do not depend on this section.
+
+\begin{definition}[Unit mixed moment]\label{def:density:mixed-moment}
+Let $d\ge1$ and $r\ge1$. Let $\pi$ be a probability measure on $X^d$, with each coordinate uniform
+on the finite set $X$. It has \emph{unit mixed $L^r$ norm} if
+\[
+ \left|\int\prod_{v=1}^d f_v(x_v)\,d\pi(x)\right|
+ \le\prod_{v=1}^d\|f_v\|_{L^r(X)}
+\]
+for all real or complex functions $f_v$, where all norms use uniform
+probability measure. Its \emph{density endpoint} is $d/r$. If $\pi'$ on $X^{d'}$ and $\pi''$ on $X^{d''}$ have unit mixed $L^r$ norm, so does $\pi'\otimes\pi''$, by successive integration; the same holds for convex mixtures and common coordinate permutations. A bound at $r$ also holds at every larger exponent.
+\end{definition}
+
+\subsection{Uniform convexity and mixtures on a finite alphabet}
+
+The stronger induction needs moment bounds whose density endpoint $d/r$ exceeds $1$. The elementary inequality behind them is uniform
+convexity of $L^r$ norms; we prove it, and the finite-alphabet
+mixture estimate built on it, here because the exact constants
+matter later.
+
+\begin{lemma}[Uniform convexity]\label{lem:density:uniform-convexity}
+On a finite probability space, for $1<r\le2$ and nonnegative $f$,
+\[
+ \|f\|_r^2\ge(\E f)^2+(r-1)\|f-\E f\|_r^2.
+\]
+\end{lemma}
+\begin{proof}
+For a positive function $g$ and a real direction $h$, differentiation gives
+\begin{align*}
+ \frac{d^2}{dt^2}\|g+th\|_r^2\bigg|_{t=0}
+ &=2(r-1)\|g\|_r^{2-r}\E(g^{r-2}h^2)\\
+ &\quad+2(2-r)\|g\|_r^{2-2r}\bigl(\E(g^{r-1}h)\bigr)^2
+ \ge2(r-1)\|h\|_r^2.
+\end{align*}
+The last step follows from H\"older applied to
+$|h|^r=(g^{r-2}h^2)^{r/2}g^{r(2-r)/2}$.
+Take $g=\E f$, $h=f-\E f$, and integrate the second derivative along
+$g+th$, $0\le t\le1$. The first derivative at zero vanishes. If $f$ has
+zeros, apply the argument to $f+\varepsilon$ and let $\varepsilon$ decrease
+to zero; the assertion is immediate when $\E f=0$.
+\end{proof}
+
+\begin{lemma}[Typed finite-alphabet mixture]\label{lem:density:typed-mixture}
+Let $|X|=Q\ge2$ and $1\le s<R<d$. Put $\kappa=s/R$ and, for $R<v\le d$,
+\[
+ C_v(Q)=\frac d v Q^{(v/R-1)(d/v-1)}
+ \frac{Q^{v/R}-(v/R)Q+v/R-1}
+      {\kappa Q+1-\kappa-Q^\kappa}.
+\]
+Let $\pi=\sum_j w_j\pi_j$, where $w_j\ge0$, $\sum_jw_j=1$, and each
+$\pi_j$ has unit mixed $L^{r_j}$ norm and uniform coordinate marginals.
+Suppose $\sum_{j:r_j\le s}w_j\ge w_0$.
+Components with $s<r_j\le R$ require no further condition. For every
+remaining component choose $v_j\in(R,d]$ such that $\pi_j$ has unit mixed $L^{v_j}$ norm (for example $v_j=d$). If
+\[
+ \sum_{j:\,v_j>R}w_j C_{v_j}(Q)\le w_0,
+\]
+then $\pi$ has unit mixed $L^R$ norm. Moreover, if
+$Q^{\kappa-1}\le\kappa/2$, then
+\begin{equation}\label{eq:density:typed-mixture-coarse}
+ C_v(Q)\le\frac{2d}{\kappa v}Q^{d/R-d/v}.
+\end{equation}
+In particular, a mixture of a unit mixed $L^s$ law of weight $1-t$ and
+an arbitrary uniform-marginal law of weight $t$ has unit mixed $L^R$ norm
+whenever $t(1+C_d(Q))\le1$.
+\end{lemma}
+
+\begin{proof}
+We first prove a one-coordinate estimate. Let $f$ be a function on $X$ with $\|f\|_R=1$, and write $u=|f|^R$. Then $\E u=1$ and $0\le u\le Q$.
+For $\lambda>1$ put
+\[
+ \phi(t)=t^\lambda-\lambda t+\lambda-1,
+ \qquad\psi(t)=\kappa t+1-\kappa-t^\kappa.
+\]
+Both functions and their first derivatives vanish at $1$, and
+$\phi''(t)/\psi''(t)$ is a positive constant times
+$t^{\lambda-\kappa}$. It follows that
+\[
+ \frac{\phi(t)}{\psi(t)}\le\frac{\phi(Q)}{\psi(Q)}
+ \quad(0\le t\le Q),
+\]
+with $\phi(1)/\psi(1)$ interpreted as $\phi''(1)/\psi''(1)=\lambda(\lambda-1)/(\kappa(1-\kappa))$. For completeness, on $t<1$
+the ratio is a weighted average of $\phi''/\psi''$ on $[t,1]$, hence at most
+its value at $1$. On $t>1$, first $\phi'/\psi'$ and then $\phi/\psi$ are
+increasing weighted averages of the preceding increasing ratio.
+
+Take $\lambda=v/R$ and $A=\E u^\lambda$. Since
+$1\le A\le Q^{\lambda-1}$ and $d/v\ge1$,
+\begin{align*}
+ \|f\|_v^d-1
+ &=A^{d/v}-1\\
+ &\le\frac d v Q^{(\lambda-1)(d/v-1)}(A-1)\\
+ &\le C_v(Q)(1-\E u^\kappa)
+ \le C_v(Q)(1-\|f\|_s^d).
+\end{align*}
+The last inequality uses $\|f\|_s^d=(\E u^\kappa)^{d/s}\le\E u^\kappa$.
+If $Q^{\kappa-1}\le\kappa/2$, then
+$\psi(Q)\ge\kappa Q/2$ and $\phi(Q)\le Q^\lambda$; this proves
+\eqref{eq:density:typed-mixture-coarse}.
+
+For unequal inputs normalized by $\|f_v\|_R=1$, apply H\"older to the
+component index with weights $w_j$:
+\[
+ |\Lambda_\pi((f_v)_v)|
+ \le\sum_jw_j\prod_v\|f_v\|_{r_j}
+ \le\prod_v\left(\sum_jw_j\|f_v\|_{r_j}^d\right)^{1/d}\le1.
+\]
+The final inequality follows from the preceding scalar bound, since the
+weight $w_0$ supplies the deficit $1-\|f_v\|_s^d$. Ordinary H\"older gives
+unit mixed $L^d$ norm for every law with uniform coordinate marginals,
+which proves the final assertion.
+\end{proof}
+
+\subsection{A pair moment and independent draws from a digit clique}
+
+The basic local input is one pair of labels whose difference is a
+square, or a nonsquare. The next lemma gives its moment bound;
+independent draws from the digit clique of the prefix are products
+of such pairs, so the same bound applies to them.
+
+\begin{lemma}[Square-pair moment]\label{lem:density:edge-moment}
+Let $p$ be an odd prime. A uniform ordered strict square pair, or a
+uniform ordered nonsquare pair, in $\Fp$ has unit mixed $L^{1+1/j}$ norm
+whenever $j$ is a positive integer satisfying
+\begin{equation}\label{eq:density:edge-integer-gate}
+ j^{j+1}\left(\frac{p+1}{p-1}\right)^{j-1}
+ \frac1{(\sqrt p-1)^2}\le1.
+\end{equation}
+The conclusion persists on $\Z/p^2\Z$ when each label is written as $x+py$ with $x,y\in\Fp$, the two $y$-coordinates are independent and uniform, and the pair of $x$-coordinates has either of these laws.
+\end{lemma}
+\begin{proof}
+Relative to uniform probability measure, the centered bilinear form $(f,g)\mapsto\E fg-\E f\E g$ of the pair law has norm at most $L=(p+1)/(p-1)$ on $L^1\times L^1$ and at most $\rho=(\sqrt p+1)/(p-1)=1/(\sqrt p-1)$ on $L^2\times L^2$. The latter is the standard Paley
+character-spectrum bound; it holds for $p\equiv1$ and $p\equiv3\pmod4$ and for either choice of square or nonsquare difference. Bilinear interpolation at $r=1+1/j$ gives centered
+$L^r$ norm at most $\beta=L^{(j-1)/(j+1)}\rho^{2/(j+1)}$.
+Under \eqref{eq:density:edge-integer-gate}, $\beta\le r-1$.
+For nonnegative inputs of $L^r$ norm one and means $m,n$, the expectation of the product of the two inputs under the pair law is therefore at most
+\[
+ mn+\frac\beta{r-1}\sqrt{(1-m^2)(1-n^2)}\le1,
+\]
+by \cref{lem:density:uniform-convexity} and Cauchy--Schwarz in $\R^2$.
+Positivity of the pair law allows absolute values of arbitrary inputs.
+For the prime-square law, first average each input over its high digit;
+this is an $L^r$ contraction.
+\end{proof}
+
+\begin{corollary}[Invariant distinct pairs]\label{lem:density:invariant-pair}
+For $p\ge64$, any probability law on ordered distinct pairs in $\Fp$
+which is invariant under simultaneous square-affine maps has unit mixed
+$L^{3/2}$ norm.
+\end{corollary}
+\begin{proof}
+Such a law is a convex mixture of the square and nonsquare pair laws:
+these are the two orbits of the square-affine group on distinct pairs.
+For $j=2$, the left side of \eqref{eq:density:edge-integer-gate} is at most
+$8\cdot65/(63\cdot49)<1$ for $p\ge64$. Apply
+\cref{lem:density:edge-moment} and mix.
+\end{proof}
+
+\begin{lemma}[Thirty-six digit-clique draws]\label{lem:density:clique36}
+Let $2^{16}\le p<2^{512}$ be a prime congruent to $1$ modulo $4$.
+Let $(A,B)\in(\Z/p^2\Z)^2$ have the digit-pair law of
+\cref{def:clique-law}: its low digits are a uniform strict square pair,
+and its high digits are independent and uniform. Conditional on $(A,B)$,
+draw $36$ labels independently, each uniform on $\{A,B\}$. Their law has
+unit mixed $L^{600/17}$ norm, equivalently density endpoint $51/50$.
+\end{lemma}
+\begin{proof}
+Put $d=36$, $\theta=51/50$ and $R=d/\theta=600/17$. Choose the unique
+$b\in\{16,32,\ldots,496\}$ with $2^b\le p<2^{b+16}$. In increasing order
+of $b$, use respectively
+\[
+\begin{gathered}
+ 5,9,12,15,18,20,23,26,28,31,33,36,38,40,43,45,\\
+ 47,50,52,54,56,58,61,63,65,67,69,71,73,75,77
+\end{gathered}
+\]
+for the integer $j$, and put $r=1+1/j$, $s=18r$, $\kappa=s/R$.
+The condition \eqref{eq:density:edge-integer-gate} holds at $p=2^b$, with
+$\sqrt p=2^{b/2}$, and hence for every $p$ in the dyadic
+interval $[2^b,2^{b+16})$ (called a band only in this proof; not
+an upper band) by monotonicity in $p$.
+
+Expand the independent binary choices into their $2^{36}$ choice vectors.
+The choice vectors with eighteen $A$'s and eighteen $B$'s have total weight $w_0=\binom{36}{18}/2^{36}$ and
+unit mixed $L^s$ norm: apply the pair moment to the two products of
+$18$ inputs and then H\"older within each product. For minority count
+$0\le k<18$, the total weight of the two complementary classes is
+$w_k=2\binom{36}{k}/2^{36}$. The corresponding law has unit mixed norm at
+\[
+ v_k=\begin{cases}
+ 36,&k=0,\\
+ \min\{36,(36-k)r\},&1\le k<18.
+ \end{cases}
+\]
+The truncation at $36$ (the $\min\{36,\cdot\}$ in the display;
+not a spectral cap) follows from uniform marginals. Thus only the classes with $v_k>R$ occur in the sum in \cref{lem:density:typed-mixture}.
+
+Here $Q=p^2$. The following finite rational tests hold on every band:
+\begin{gather}
+ 2^{-\lfloor2b(1-\kappa)\rfloor}\le\kappa/2,
+ \label{eq:density:clique-denominator}\\
+ \frac1{w_0}\sum_{k:\,v_k>R}w_k\frac{72}{\kappa v_k}
+ 2^{\lceil2(b+16)(\theta-36/v_k)\rceil}
+ \le\frac{95659840}{13884957009}<1.
+ \label{eq:density:clique-binomial-gate}
+\end{gather}
+For each of the $31$ values of $b$ these are two explicit integer/rational inequalities: the first uses
+$Q\ge2^{2b}$, and the second uses $Q\le2^{2(b+16)}$ and rounds every power
+of two upward. The largest ratio occurs at $b=16$.
+The standalone checker
+\path{research/four_routes_2026_10_26/dense_moments/check_iid72_prefix_moments.py}
+reproduces these tests, the listed interpolation gates and the price
+bounds below using only integer and rational arithmetic; its output is
+\path{research/four_routes_2026_10_26/dense_moments/iid72_prefix_moment_gates.json}.
+Equations \eqref{eq:density:clique-denominator}--\eqref{eq:density:clique-binomial-gate}
+and \cref{lem:density:typed-mixture} prove the assertion.
+\end{proof}
+
+\begin{lemma}[At most two copies per label]\label{lem:density:clique-copies}
+Under the digit-pair law of \cref{lem:density:clique36}, fix a map from independent draws from $\{A,B\}$ to the $72$ physical slots under which each draw is used at most twice.
+The resulting law has unit mixed $L^{1200/17}$ norm. The same holds after
+tensoring $m$ independent digit pairs, for any number $m$ of
+digit pairs, and applying any common random square-affine
+permutation of $\Z/p^{2m}\Z$.
+\end{lemma}
+\begin{proof}
+Write $C=\{A,B\}$ for the random two-element clique and $\nu_C$ for the uniform law on $C$.
+Conditional Cauchy--Schwarz in each group of one or two slots gives
+\[
+ \E\left[\prod_v|f_v|\,\middle|\,C\right]
+ \le\prod_v(\nu_C|f_v|^2)^{1/2}.
+\]
+H\"older on $C$ with $72$ equal exponents, followed by
+\cref{lem:density:clique36} with identical input $|f_v|^2$, bounds the
+unconditional expectation by
+\[
+ \prod_v\bigl[\E_C(\nu_C|f_v|^2)^{36}\bigr]^{1/72}
+ \le\prod_v\|f_v\|_{1200/17}.
+\]
+The bound for one digit pair implies the bound for $m$ independent digit pairs, for arbitrary functions of the full digit vector, by successive integration. A fixed affine permutation
+preserves the uniform norms, and its positive average preserves the bound.
+\end{proof}
+
+\subsection{The replacement prefix and its dominators}
+
+With these moments the prefix law of \cref{sec:frontier:iidprefix}
+can be strengthened: at large prefix primes the $72$ labels are
+drawn independently from the square clique, instead of through six
+chamber labels. The theorem states the properties of this
+replacement law and of the laws dominating it, which remain valid
+for density exponents up to $51/50$.
+
+\begin{theorem}[A prefix with density endpoint $51/50$]
+\label{thm:density:iid-prefix}
+At each prefix prime $p\equiv1\pmod4$, keep the $m=\mcl=8192$
+digit pairs, label group $\Z/p^{2m}\Z$, random square clique $\mathcal C_p$
+and common square-affine map of \cref{def:clique-law}. For $p\ge2^{16}$,
+replace its six-label pullback by $72$ conditionally independent uniform
+draws from $\mathcal C_p$, one per slot. For $p<2^{16}$ retain
+the law of \cref{def:clique-law}. Then:
+\begin{enumerate}[label=(\alph*)]
+\item The new reference is reflection positive at every cut of the slot array $V$ of \cref{def:slot-array} used in the construction,
+ square-affine invariant, and has uniform one-slot marginals. Every
+ nonzero difference of two labels in its support has the same square
+ property as in \cref{lem:frontier:iidlocal}(iii).
+\item At a large prefix prime, the reference, the diagonal copy of its
+ actual reserved half, and every law obtained by identifying disjoint
+ pairs among its independent labels have unit mixed $L^{1200/17}$ norm.
+ These statements tensor over selected prefix atoms.
+\item For the six actual queries, let $E_p$ be the restriction of the new reference law $\mu_p$ to the union of their equality events, and put
+ \[
+  \eta=1-(1-2^{-m})^6\le6\cdot2^{-m}.
+ \]
+ Both reserved-half marginals of $E_p$ equal $\eta h_p$, where $h_p$ is
+ the actual $36$-label half marginal of the new reference $\mu_p$.
+ With $D_p=\operatorname{Diag}_\iota(h_p)$ and $\nu_p=\mu_p-E_p$,
+ \[
+ \begin{pmatrix}\mu_p+\eta D_p&\nu_p\\
+                 \nu_p^*&\mu_p+\eta D_p\end{pmatrix}\succeq_\iota0.
+ \]
+ The measure $\nu_p=\mu_p-E_p$ is nonnegative, has mass $1-\eta>0$, and accepts all six
+ queries. The symmetric and skew parts of $E_p$ each have operator norm at most $\eta$ between the actual half $L^2$ spaces; no symmetry of $E_p$ is assumed.
+\item For $0<a\le91/100000$ and $1<\theta\le51/50$, each of the three
+ aggregate prefix allowances $S,A,T$ is less than $2\cdot10^{-13}$,
+ including the factor $Q^{\theta-1}$, for alphabet size $Q$, at the unchanged small primes. Thus each is below the bound $10^{-12}$ assigned to it in \cref{def:closing-quantities}.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Conditional on the clique and affine map, the $72$ new labels
+are iid. At every reflection cut with two halves of $36$ slots
+(a balanced reflection) the two halves are independent and have
+the same law, so its cut form is the square of a conditional
+mean.
+This proves reflection positivity. The existing common affine averaging
+gives invariance and uniform marginals. The digit argument for the square
+property is unchanged: if the first digit pair at which two
+clique elements differ is the pair in position $j$ (counted from
+$0$), their difference has $p$-adic valuation $2j$ and unit part
+congruent to $\pm(b_j-a_j)$ modulo $p$, and $-1$ is a
+square. Hensel lifting then gives the required unit square. This proves
+(a). Part (b) is \cref{lem:density:clique-copies}; the reserved diagonal
+uses $36$ independent labels, each exactly twice.
+
+The query endpoints on the original labels are pairwise
+disjoint and each query crosses the reserved binary cut.
+Conditional on the clique and on the labels of the plus half,
+the six labels at the minus endpoints of the six queries are
+independent uniform choices from a set of $2^m$ elements. Each equality has probability $2^{-m}$,
+independently, so their union has probability $\eta$, independent of the
+plus-half realization. The reverse argument gives the other marginal.
+Every positive coupling is a contraction between its actual marginal
+$L^2$ spaces. Hence
+\[
+ \begin{pmatrix}\eta D_p&E_p\\E_p^*&\eta D_p\end{pmatrix}
+ \succeq_\iota0.
+\]
+Changing the signs of the off-diagonal blocks and adding the positive
+block matrix with all four entries $\mu_p$ proves the displayed bracket
+in (c). The accepted part removes precisely the zero query differences.
+The symmetric and skew parts of its change have operator norms at most
+$\eta$, and $E_p$ is dominated at $\iota$ by the diagonal envelope $\eta D_p$.
+Using the separate symmetric and skew envelopes for matching instead
+costs at most $2\eta D_p$. In all cases the chosen matching sides contain
+$\mu_p$ plus a positive diagonal, so the lower bound for the mean constant $m$ from these sides is the same as for $\mu_p$.
+The first-stage bracket at a prefix atom remains the one for $\mu_p$.
+
+An individual query-equality measure has mass $2^{-m}$ and, after
+normalization, identifies exactly one pair of otherwise independent
+clique labels. It therefore has the moment in (b). The union measure is
+dominated by the sum of these six positive measures. This gives a valid
+positive-spectator price without claiming a unit moment for $E_p/\eta$.
+For the density comparison before the Gram step, its actual variation
+is $\eta$ and its one-slot marginals are uniform. These are separate uses of the deleted measure $E_p$.
+
+For a uniform alphabet of size $Q$, ordinary H\"older and finite-space
+norm comparison give, for every positive uniform-marginal law on $72$ slots,
+\[
+ |\Lambda((f_v)_v)|\le Q^{\theta-1}
+                    \prod_v\|f_v\|_{72/\theta}.
+\]
+Apply this only to the terms of the selection expansion (\cref{def:price}) supported at the unchanged primes $p<2^{16}$, where $Q=p^{2m}$. An unselected prefix stays in the RP outside
+reference and pays no such cost. Complete selection of a clique prime
+has the existing conductor price $p^{2ma}$, not $p^{4ma}$.
+Bounding the number of primes by the number of integers gives the common
+upper bound, for each of $S,A,T$,
+\begin{align*}
+ &12\cdot2^{16+m(-1+32(a+\theta-1))}
+   +12\cdot2^{512+m(-1+1024a)}\\
+ &\qquad\le12\left(2^{-2694}+2^{-46}\right)
+       <2\cdot10^{-13}<10^{-12}.
+\end{align*}
+The factor $12$ is $6$ for the six equality events times $2$ for bounding the symmetric and skew parts separately. The first term is also less than $2^{-2600}$.
+The new large-prime unit moment leaves only the usual conductor price
+in the second term. This proves (d).
+\end{proof}
+
+\begin{remark}
+The prefix replacement changes no coordinate group, conductor cutoff,
+external index variable or square-affine map. The fixed-prefix conductor
+argument and the actual-square kernel therefore retain their stated
+scope. It changes the local law at the large class-one prefix primes,
+and the exceptional deletion can now have both symmetric and skew parts.
+Its moment and bracket proofs above account for that change explicitly.
+The conclusion is the list of moment and bracket properties of the selected prefix laws assumed in \cref{sec:density-upgrade},
+not a stronger moment assertion for arbitrary admissible measures.
+\end{remark}

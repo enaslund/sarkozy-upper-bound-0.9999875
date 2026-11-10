@@ -1,0 +1,220 @@
+\section{The exponent from the OpenAI parameters as displayed}\label{app:openai-constant}
+
+\paragraph{What this appendix proves and how to read it.}
+Theorem~1.1 of \cite{OpenAI} asserts $|A|\le CN^{1-c}$ for an
+unspecified absolute $c>0$ (their $c$ is our $\eps$). This appendix
+evaluates $c$ for \emph{one displayed choice} of their parameters:
+the fixed construction of their \S3.1, the threshold $P$
+beyond which their conditional-mixing estimate (a bound on
+conditional correlations given the other labels) applies to the
+prime cutoff, and their stated lower bound $\rho\ge M_0^{-23}$
+for the proportion $\rho$ of residue classes modulo $M_0$ that
+are good (admit the required square increments, their
+Lemma~8.1). Equation
+numbers such as (3.16) and (9.13) refer to \cite{OpenAI}, not to
+this paper. Two scope warnings are essential. First, this is not a
+claim about the best exponent obtainable from their method with
+different parameters or sharper local estimates; it quantifies only
+the choices as displayed. Second, the integers $d$ and $e_0$ below
+are exact, but the prime product in $M_0$ is left unevaluated and
+logarithms are asymptotic approximations, not interval
+certificates. Nothing in Parts~I--V depends on this appendix; it
+justifies only the comparison in the abstract and
+\cref{subsec:intro:new}. The computation is reproduced by a short
+standard-library program in the repository accompanying this paper
+(\path{analysis/openai_constant/compute_openai_constant.py}); rerunning
+it reproduces
+\path{analysis/openai_constant/openai_constant_results.json}
+byte for byte.
+
+\paragraph{Result.}
+For this specialization the exponent is, symbolically,
+\begin{equation}\label{eq:oa:symbolic}
+  \eps_{\mathrm{OA}}
+   =\frac1d\cdot
+     \frac{-\log\bigl(1-\tfrac34 M_0^{-23}\bigr)}{4\log M_0},
+   \qquad
+   M_0=8\!\!\prod_{3\le p<P}\!p,\qquad
+   P=\big\lceil(C_{\rm lead}+C_{\rm mix})^{32}\big\rceil,
+\end{equation}
+with $d=(24!)^{161}$ and $C_{\rm lead},C_{\rm mix}$ as in
+\eqref{eq:oa:clead} below. At the level of the asymptotic estimates
+proved below,
+\begin{equation}\label{eq:oa:tower}
+  \eps_{\mathrm{OA}}=2^{-2^{X}},\qquad
+  X=96e_0+16\log_2e_0+\log_2\frac{23}{\ln2}+176+o(1)
+   =96e_0+307462.2929\ldots,
+\end{equation}
+where
+\begin{equation}\label{eq:oa:e0}
+  e_0=(24!)^{161}\sum_{j=81}^{161}\binom{161}{j}(24!-1)^{161-j}
+     =2.01561769398235743936\ldots\times10^{5781}
+\end{equation}
+is the exact number of directed square constraints (edges) in
+their graph $G_\emptyset$ (their `leading list graph': vertices
+the $d$ tuples of orderings, with an edge $v\to w$ when $w$ agrees
+with the prescribed translate of $v$ in at least $81$ of the $161$
+blocks; \cref{subsec:oa:fixed}); $e_0$ has $5782$ decimal
+digits. In \eqref{eq:oa:tower} the $o(1)$ term, and the
+$O(\cdot)$ terms below, are as the corresponding parameter
+($e_0$, $P$ or $M_0$) tends to infinity in the estimates of
+\cite{OpenAI}; at the displayed finite values they are not
+enclosed (second scope warning). At that asymptotic level
+$\log_{10}\log_{10}\log_{10}(1/\eps_{\mathrm{OA}})$ is
+$5782.7652891675\ldots$ (digits of the asymptotic expression,
+not certified digits of the exact defined value), so
+\begin{equation}\label{eq:oa:decimal}
+  \eps_{\mathrm{OA}}\approx10^{-10^{10^{5782.7653}}},
+\end{equation}
+a triple exponential. The decimals in the top exponent matter:
+replacing $5782.7653$ by $5782$ changes the value by many orders of
+magnitude on a double-logarithmic scale, so \eqref{eq:oa:decimal}
+should always be quoted with them, or as
+$\log_{10}\log_{10}\log_{10}(1/\eps_{\mathrm{OA}})\approx5782.77$.
+Using the exact good-residue proportion $\rho$ in place of
+$\rho\ge M_0^{-23}$ changes only the additive constant in $X$ (to
+$96e_0+288250.69\ldots$); the tower height and leading term $96e_0$
+are unchanged.
+
+\subsection{The fixed construction}\label{subsec:oa:fixed}
+
+Their \S3.1 and (3.1) fix $h=24$, $t_0=80$ and
+$\ell=2t_0+1=161$ blocks. Write $K=24!=620448401733239439360000$
+for the number of orderings in one block, $d=K^\ell=(24!)^{161}$
+($\log_{10}d=3830.6256\ldots$) for the number of their points
+(their analogue of slots; their $161$ blocks are blocks of the
+ordering construction, not prime blocks of this paper),
+$r=K/2$, and $\delta=1/(10h^2)=1/5760$. The remaining displayed
+quantities are the marked-cut bound
+$\kappa=\tfrac9{10}\delta^{h-1}\approx2.9\cdot10^{-87}$ (their
+Lemma~3.3; $\kappa$ is used below only through the constant $c_*$
+in $P_{\rm ref}$), the index-weight bound
+$B=\exp\bigl(d(t_0+1)\binom h2\delta/2\bigr)$ with
+$\log_2B=1.1823\cdot10^{3831}$ (their (3.8)), and the out-degree
+$\Delta=\sum_{j\ge81}\binom{161}{j}(K-1)^{161-j}$
+($\log_{10}\Delta=1950.6788\ldots$) in $G_\emptyset$, so that
+$e_0=d\Delta$ as in \eqref{eq:oa:e0}. The count for $\Delta$ is
+exact: in each block a vertex $w$ either equals the one
+prescribed translate of $v$ in their definition of
+$G_\emptyset$ (their \S3.1; one choice) or not ($K-1$ choices),
+and an edge
+$v\to w$ requires at least $t_0+1=81$ matching blocks.
+
+\subsection{The prime threshold $P$}\label{subsec:oa:P}
+
+Their proof takes one integer $P$ exceeding every threshold
+(Proposition~3.1, Lemma~3.6, (7.1) of \cite{OpenAI}). In
+$\log_2$ size the candidates are: $P_{\rm ref}$, the threshold
+of their (3.16) (its constants $C_*,c_*,n$ are those of their
+Proposition~3.1; the formula is not needed here), for which the
+program computes $\log_2P_{\rm ref}=2.26\cdot10^{3835}$ (well
+below $2^{e_0}$ on a logarithmic scale in the sense checked by the
+program); $P_{\rm mass}=(2^{e_0+1}e_0)^2$ with
+$\log_2P_{\rm mass}=2e_0+38412.2$ (their (3.19));
+$C_{\rm exc}^{16/17}$ with $C_{\rm exc}=c_0^{-1}\binom{161}{81}B$,
+$c_0=2^{-e_0-1}$ (their (3.22)), for which the program computes
+$\log_2C_{\rm exc}=e_0+1.1823\cdot10^{3831}$; the Lemma~3.6 threshold
+$(C_{\rm lead}+C_{\rm mix})^{32}$; and the Gauss-bound threshold of
+their (7.1), with $\log_2$ below $7$. The Lemma~3.6 threshold is
+the largest of these: the program checks $\log_2P_{\rm ref}<e_0$
+and $\log_2C_{\rm exc}<2e_0$, and with
+$\log_2P_{\rm mass}=2e_0+38412.2$ each candidate is below the
+value $96e_0+176+16\log_2e_0$ of \eqref{eq:oa:logP} below. There
+\begin{equation}\label{eq:oa:clead}
+  C_{\rm lead}=c_0^{-1}\bigl(2^{e_0+1}+2^{2e_0+2}\bigr)\sqrt{32e_0},
+  \qquad C_{\rm mix}=2^\ell B/c_0,
+\end{equation}
+so $\log_2C_{\rm lead}=3e_0+5.5+\tfrac12\log_2e_0+O(2^{-e_0})$ and
+$C_{\rm mix}/C_{\rm lead}<2^{-e_0}$. The requirement
+$C_{\rm cond}p^{-1/16}\le p^{-1/32}$ for $p\ge P$, with
+$C_{\rm cond}=C_{\rm lead}+C_{\rm mix}$, gives
+$P=\lceil C_{\rm cond}^{32}\rceil$, i.e.
+\begin{equation}\label{eq:oa:logP}
+  \log_2P=96e_0+176+16\log_2e_0+O(2^{-e_0}).
+\end{equation}
+The mechanism is worth stating in words: the leading component of
+their tuple law has mass about $2^{-e_0}$, and the
+conditional-mixing estimate divides by that mass. Even with the
+exact degree in place of the crude bound used there, this division
+alone forces $\log_2P\ge32e_0$ at this step. A different mixing
+estimate need not contain the factor $c_0^{-1}=2^{e_0+1}$;
+removing this normalisation
+is one of the structural changes in the present paper
+(\cref{subsec:intro:new}).
+
+\subsection{Small modulus, good residues, and the exponent}\label{subsec:oa:exponent}
+
+Write $M_0=8\prod_{3\le p<P}p$, so
+$\ln M_0=\ln4+\vartheta(P-1)=P\bigl(1+O((\log P)^{-3})\bigr)$ by
+explicit Chebyshev bounds, where $\vartheta$ is Chebyshev's
+function. Their Lemma~8.1 gives $\rho\ge M_0^{-23}$ for the
+good-residue proportion. With their parameters
+$\beta=10^{-5}$, $\gamma=1/64$,
+$\tau=\beta\gamma/(1000(d+1))$ and $\sigma_0=\gamma\tau/4$
+(their (6.1), (7.3); these letters are OpenAI's, not parameters
+of this paper), their (9.13) sets their
+$a_0$ (not the evaluation exponent $a_0$ of this paper) to
+$\min\{\tfrac14,\sigma_0/2,\log(1/r_{\rm OA})/(4\log M_0)\}$
+with $r_{\rm OA}=1-\tfrac34\rho$ (not the $r=K/2$ above), and
+then $\eps_{\mathrm{OA}}=a_0/d$. The
+analytic entry alone would give
+$\sigma_0/(2d)=1.711\ldots\cdot10^{-7674}$, enormous compared with
+the residue entry, so the third entry is the minimum. Hence
+\[
+  \log_2\frac1{\eps_{\mathrm{OA}}}
+   =23\log_2M_0+\log_2d+\log_2\frac{16}3+\log_2\ln M_0
+     +O(M_0^{-23}),
+\]
+and hence
+\[
+ X=\log_2\log_2(1/\eps_{\mathrm{OA}})
+ =\log_2P+\log_2(23/\ln2)
+   +O\!\left((\log P)^{-3}+\frac{\log P+\log d}{P}\right).
+\]
+The first error term retains the relative error in $\ln M_0$;
+the second comes from the additive logarithmic terms before taking
+the outer logarithm. Together with \eqref{eq:oa:logP}, these are
+$o(1)$ in \eqref{eq:oa:tower}. Converting bases gives
+$\log_{10}\log_{10}\log_{10}(1/\eps_{\mathrm{OA}})
+=5782.7652891675\ldots$, i.e.\ \eqref{eq:oa:decimal}; at the
+displayed values the omitted asymptotic corrections change this
+triple logarithm by about $10^{-5779}$ (the program's estimate,
+not an interval enclosure), so the quoted $5782.77$ is
+unaffected.
+
+For comparison, the exact proportion is
+$\rho=8^{-23}\prod_{3\le p<P}R_{24}(p)$ with
+\[
+  R_{24}(p)=
+  \frac{(p-1)^{24}+(p-1)\sum_{j=0}^{12}\binom{24}{2j}
+        (\epsilon_pp)^j}{(2p)^{24}},
+  \qquad\epsilon_p=(-1)^{(p-1)/2},
+\]
+the cycle-closing probability for $24$ uniform residue labels with
+nonzero-square increments. This gives
+$\log_2(1/\rho)=24\pi(P)+O(\log\log P)$ and therefore
+$X=96e_0+288250.69\ldots$ in place of \eqref{eq:oa:tower}: the
+same tower with a different additive constant, invisible in
+\eqref{eq:oa:decimal} at the displayed precision.
+
+The implied constants in their Propositions~6.1, 7.2, 8.2 and~9.1
+affect only the prefactor $C$ and the starting scale; they never
+enter $a_0$, which is fixed before the induction. They therefore
+leave no unspecified parameter in \eqref{eq:oa:symbolic}. This
+does not make \eqref{eq:oa:decimal} an exact numerical evaluation
+(the product defining $M_0$ has about $P/\log P$ factors and is
+never formed), nor an optimal choice within their framework.
+
+\paragraph{Consequences.} Nothing in Parts~I--V uses this
+appendix. Its chain $e_0\to c_0\to C_{\rm cond}\to P\to M_0\to
+\rho\to a_0$ shows where the tower comes from: not from the degree
+$d$ alone, but from dividing by the mass $c_0$ of the leading
+graph in the mixing step, which forces $\log_2P\ge32e_0$, and
+then dividing by $\log M_0$, of size $P$, in their $a_0$. The present paper
+removes the first normalisation by relative (density-normalised)
+estimates and makes the factor coming from good residues
+independent of $M_0$ by coupling; these two changes remove the
+division by $c_0$ in $P$ and the division by $\log M_0$ in their
+$a_0$, i.e.\ two of the three exponentials in
+\eqref{eq:oa:decimal}, before any local constant is optimised;
+see \cref{subsec:intro:new}.
