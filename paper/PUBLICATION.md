@@ -102,7 +102,7 @@ Its duplicate working-tree copy was removed after the comparison, retaining
 one upload file. The receipt's **source-package** hash identifies a package
 and must not be compared directly with this individual file hash.
 
-An outdated upload is therefore ruled out for the latest failure. The current
+An outdated upload is therefore ruled out for the 20:08 package. The current
 source already contains the repair, and no further extraction defect has been
 reproduced locally. The exact failure in Hexagon's stamping processor remains
 unknown. Use **Report a problem** on the existing submission, include its
@@ -112,6 +112,26 @@ PDF was processed and request reprocessing of the received package. A local
 Node.js experiment failed with a 1 MiB stdout buffer and succeeded with 8 MiB;
 the extracted plain text is 2,353,114 bytes. This is only a resource-limit
 example, not evidence that Hexagon uses that implementation or limit.
+
+A subsequent preview retry was also reported as failed. Its supplied compiler
+log shows two successful PDFLaTeX passes, each writing 603 pages and 5,150,107
+bytes, and ends with Latexmk's `All targets ... are up-to-date`. The byte count
+matches the repaired local PDF, although size alone does not establish byte
+identity. The log contains underfull-box layout warnings, not a fatal TeX
+error. The captured preview-page code displays `Compilation failed` and the
+older-distribution compatibility hint for any failed preview job; those labels
+do not identify which stage failed. The short error banner for this retry was
+not included in the supplied excerpt.
+
+The failure is therefore not confined to final stamping: a preview job can
+also fail after PDF generation. The available compiler log does not reveal
+that later error. Additional local read/write checks with pdf-lib 1.17.1 and
+qpdf 12.4.2 preserve all 603 page-content streams and page dimensions, and both
+rewritten PDFs pass full structured-text extraction. These are compatibility
+checks, not reproductions of Hexagon's private PDF processor. Their results
+are included in the diagnostic audit; the temporary outputs are not upload
+alternatives. The latest preview error message/code and the server's
+postprocessing diagnostics are still needed to identify the cause.
 
 The receipt means the source was received; the displayed processing failure
 still needs attention. There is no evidence supporting another TeX change or

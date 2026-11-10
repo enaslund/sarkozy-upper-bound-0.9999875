@@ -1,8 +1,8 @@
 {
   "format": 1,
   "audited_on": "2026-11-10",
-  "scope": "Diagnostic comparison of a downloaded hosted preview with local PDFs; not a successful hosted stamping receipt.",
-  "conclusion": "The source downloaded from the received 20:08 package is byte-identical to the repaired current upload, ruling out an outdated upload. Local extraction succeeds with four parsers. The downloaded preview retains the pre-repair Unicode map and an earlier creation time; its relation to the latest processing attempt is not established. Hexagon's stamping command and diagnostic details are needed to identify the remaining failure.",
+  "scope": "Diagnostic comparison, extraction and parse/write checks of local PDFs and a downloaded hosted preview; not a successful hosted preview or stamping receipt.",
+  "conclusion": "The received 20:08 source is byte-identical to the repaired current upload. Local extraction succeeds with four parsers, and two PDF read/write paths preserve the page content and valid structured text. A later hosted preview also failed after its compiler log reported successful generation of a 603-page, 5150107-byte PDF. That size matches the local PDF but does not establish byte identity. The latest preview banner/errorCode and private postprocessing diagnostics are not supplied; the backend failure cause remains unknown.",
   "current_source": {
     "file": "paper/hexagon-standalone.tex",
     "sha256": "038d18837786be84048785c35eed37a3884e64c26d29b367959e50d7736d3d8e"
@@ -220,5 +220,76 @@
     "node_version": "v24.21.0",
     "command": "child_process.execFile(\"pdftotext\", [PDF, \"-\"]); default options versus {maxBuffer: 8 * 1024 * 1024}; also [-f, 1, -l, 1, PDF, -] with default options",
     "node_documentation": "https://nodejs.org/download/release/v24.22.1/docs/api/child_process.html"
+  },
+  "later_preview_retry": {
+    "source_of_evidence": "Compiler log pasted by the submitter after the earlier stamping investigation.",
+    "workflow_failure_reported_by_user": "preview",
+    "compiler": "pdfTeX 1.40.28, TeX Live 2025, format .mathlake-pdflatex",
+    "pdflatex_passes": 2,
+    "reported_pdf_pages": 603,
+    "reported_pdf_bytes": 5150107,
+    "last_latexmk_status": "All targets (/workspace/mathlake/output/paper.pdf) are up-to-date",
+    "fatal_tex_errors_in_supplied_log": false,
+    "underfull_box_warnings_present": true,
+    "local_pdf_size_matches": true,
+    "remote_pdf_sha256_available": false,
+    "size_match_proves_byte_identity": false,
+    "preview_banner_or_error_code": null,
+    "stage_conclusion": "The compiler portion completed; the failed preview job has a subsequent failure not described in its compiler log.",
+    "captured_ui_behavior": "The captured preview-page JavaScript displays Compilation failed and the older-TeX compatibility hint whenever preview.status is failed, without checking for a TeX engine error."
+  },
+  "pdf_parse_write_compatibility": {
+    "scope": "Local PDF parse/write compatibility checks; not a reproduction of Hexagon's private sanitization or stamping code.",
+    "source_pdf_sha256": "c669316d221a664f0731da7708a4f97fa27559e9f94399e1646780008573aa6c",
+    "pdf_lib": {
+      "tool": "pdf-lib",
+      "version": "1.17.1",
+      "throwOnInvalidObject": true,
+      "pages": 603,
+      "input_sha256": "c669316d221a664f0731da7708a4f97fa27559e9f94399e1646780008573aa6c",
+      "output_bytes": 5149019,
+      "seconds": 0.158486982
+    },
+    "results": [
+      {
+        "tool": "pdf-lib",
+        "file_sha256": "4bfddc72b8f12ca3275962bf514ac980cebc0d46df4da566a8c10d1e53269223",
+        "bytes": 5149019,
+        "pages": 603,
+        "qpdf_version": "12.4.2",
+        "qpdf_issues": [],
+        "page_content_streams_identical": true,
+        "media_boxes_identical": true,
+        "structured_text": {
+          "command": "pdftotext -bbox-layout",
+          "valid_xml": true,
+          "pages": 603,
+          "words": 515528,
+          "bytes": 57787713
+        }
+      },
+      {
+        "tool": "pikepdf/qpdf",
+        "file_sha256": "ca81adc2859caf491adc9fdf3b7e1d13fbefd74d94fe27dd213d9ce3545a6469",
+        "bytes": 5162247,
+        "pages": 603,
+        "qpdf_version": "12.4.2",
+        "qpdf_issues": [],
+        "page_content_streams_identical": true,
+        "media_boxes_identical": true,
+        "structured_text": {
+          "command": "pdftotext -bbox-layout",
+          "valid_xml": true,
+          "pages": 603,
+          "words": 515528,
+          "bytes": 57787713
+        }
+      }
+    ],
+    "methods": {
+      "pdf_lib": "PDFDocument.load(input, {throwOnInvalidObject: true, updateMetadata: false, parseSpeed: ParseSpeeds.Fastest}); doc.save({useObjectStreams: false, addDefaultPage: false})",
+      "qpdf": "pikepdf.open(input).save(output, force_version=\"1.4\", object_stream_mode=pikepdf.ObjectStreamMode.disable)",
+      "validation": "qpdf syntax check; compare all decoded page-content streams and MediaBoxes; parse all pdftotext -bbox-layout XHTML."
+    }
   }
 }
