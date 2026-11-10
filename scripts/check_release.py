@@ -32,6 +32,7 @@ PAPER_FILES = {
     "README.md", "PUBLICATION.md", "build.py", "package_publication.py", "submission.py",
     "main.pdf", "figures/dependency_graph.pdf", "hexagon-source.zip",
     "build_record.json", "publication_manifest.json", "hexagon-standalone.tex",
+    "hexagon-submit.tex", "hexagon-submit.pdf",
     "preview_diagnostics.py", "preview-diagnostics/verification.json",
     "preview-diagnostics/static/hexagon-standalone.tex",
     "preview-diagnostics/static/paper.pdf",
@@ -214,6 +215,11 @@ def main():
             privacy_check(name, path.read_text())
     publication = check_archive(closure)
     run(sys.executable, "-B", str(ROOT / "paper/preview_diagnostics.py"), "--check")
+    for alias, original in (
+            ("hexagon-submit.tex", "preview-diagnostics/static/hexagon-standalone.tex"),
+            ("hexagon-submit.pdf", "preview-diagnostics/static/paper.pdf")):
+        require((ROOT / "paper" / alias).read_bytes() == (ROOT / "paper" / original).read_bytes(),
+                f"Top-level submission copy differs from verified artifact: {alias}")
     pages = check_pdf(ROOT / "paper/main.pdf")
     check_pdf(ROOT / "paper/figures/dependency_graph.pdf")
     require(check_pdf(ROOT / "paper/preview-diagnostics/static/paper.pdf") == pages,

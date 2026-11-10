@@ -1,8 +1,8 @@
 # Reading the paper
 
 For the next Hexagon preview, use the complete
-[source without PDF navigation](preview-diagnostics/static/hexagon-standalone.tex)
-and inspect its matching [PDF](preview-diagnostics/static/paper.pdf). It preserves
+[hexagon-submit.tex](hexagon-submit.tex)
+and inspect its matching [hexagon-submit.pdf](hexagon-submit.pdf). It preserves
 the complete manuscript and reference values; hosted acceptance remains
 unconfirmed. See [the publication guide](PUBLICATION.md) for the rejection
 code, local checks and upload instructions.

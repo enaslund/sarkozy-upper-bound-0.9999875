@@ -1,11 +1,14 @@
 # Publication files
 
 For the next Hexagon preview, use the complete
-[submission source without PDF navigation](preview-diagnostics/static/hexagon-standalone.tex).
-Its matching [603-page PDF](preview-diagnostics/static/paper.pdf) is provided
+[hexagon-submit.tex](hexagon-submit.tex).
+Its matching [hexagon-submit.pdf](hexagon-submit.pdf) is provided
 for inspection. The content and reference values have been checked against
 the canonical manuscript. Hosted acceptance is still unconfirmed; this candidate
 addresses the PDF processing failure described below.
+These two files are directly in `paper/` and are byte-for-byte copies of the
+verified static files. Before replacing the existing staged source on Hexagon,
+rename the downloaded `hexagon-submit.tex` to `hexagon-standalone.tex`.
 
 The canonical upload is [hexagon-standalone.tex](hexagon-standalone.tex).
 This single file includes every section, appendix, macro, numerical table,
@@ -177,12 +180,14 @@ the Python package `pikepdf` available:
 
 ```sh
 python3 -B paper/preview_diagnostics.py --verify
+cp paper/preview-diagnostics/static/hexagon-standalone.tex paper/hexagon-submit.tex
+cp paper/preview-diagnostics/static/paper.pdf paper/hexagon-submit.pdf
 python3 -B paper/preview_diagnostics.py --check
 ```
 
 The first command compiles all four versions in separate temporary directories
 with shell escape disabled, then installs the diagnostic sources, complete
-static PDF and receipt only after the checks pass. The second checks saved
+static PDF and receipt only after the checks pass. The last command checks saved
 source, PDF and receipt hashes; it does not recompile. Regenerate the diagnostics after changing the canonical
 export. Neither command calls Hexagon or changes the canonical publication files.
 
