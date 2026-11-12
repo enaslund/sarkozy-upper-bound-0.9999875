@@ -4,22 +4,30 @@ Upload **[hexagon-standalone.tex](hexagon-standalone.tex)** to Hexagon under
 that exact filename. Its matching **[hexagon-standalone.pdf](hexagon-standalone.pdf)**
 is provided for inspection. No copying or renaming is required.
 
-**Latest hosted status (10 November, 22:50 UTC):** preview succeeded, but final
-identifier stamping failed with `text_extraction_failed`. Hexagon now requires
-staff review. Use **Report a problem** on the existing submission; there is no
-new TeX version to upload or evidence supporting a duplicate submission.
-
-This is the only single-file Hexagon export. It includes the complete paper,
-bibliography and vector diagram, disables PDF navigation using the configuration
-that passed the hosted preview, and includes the Unicode text-extraction repair.
+The default export includes the complete 603-page paper, bibliography and vector
+diagram, with the same clickable contents, 291 bookmarks and 8,314 links as
+[main.pdf](main.pdf). It retains the Unicode delimiter mappings, PDF 1.4
+compatibility settings, longtable repair and PDF bookmark text corrections.
 It needs standard TeX packages but no other manuscript files or shell escape.
+
+The earlier navigation-free source and PDF are preserved byte-for-byte as
+**[hexagon-standalone-basic-file.tex](hexagon-standalone-basic-file.tex)** and
+[hexagon-standalone-basic-file.pdf](hexagon-standalone-basic-file.pdf).
+This is a frozen fallback: packaging checks its hashes and never overwrites it.
+Use the default `hexagon-standalone.tex` to try the richer PDF on Hexagon;
+upload only that file, not both alternatives together.
+
+On 12 November the author reported that the Hexagon bug was fixed and requested
+restored navigation. The richer export is verified locally; its acceptance by
+Hexagon still requires a new hosted preview. The old source/PDF and the
+historical diagnostic record remain available for comparison.
 
 The editable manuscript remains in [main.tex](main.tex) and its modular inputs;
 [main.pdf](main.pdf) retains links and bookmarks for ordinary reading. The
 [hexagon-source.zip](hexagon-source.zip) is the modular source archive for
 reproducing that manuscript. Use the single-file export above for Hexagon.
-The temporary alternative export and diagnostic copies have been removed;
-their checks are now part of the normal packaging command.
+The normal packaging command rebuilds the default export; the basic fallback
+retains the earlier source and PDF.
 
 The export seeds references, table widths and contents on the first pass only.
 Ordinary auxiliary files are regenerated and take precedence on later passes.
@@ -51,129 +59,36 @@ The packaging command builds the manuscript, extracts and independently
 compiles the modular ZIP, then compiles the single-file upload in a clean
 directory with job name `paper` and shell escape disabled. The upload has
 603 pages and the same 2,345 label and citation records as the manuscript.
-Text comparisons remove whitespace only: disabling links can rewrap a few
-paragraphs, and inlining the diagram affects spatial extraction heuristics.
+Text comparisons remove whitespace only: inlining the diagram can affect
+spatial extraction heuristics. Every link and bookmark must match `main.pdf`
+in its source page, title and target as applicable; every internal destination
+must resolve to the same page.
 
-The upload must pass qpdf syntax checks, contain no link annotations or
-bookmarks, and produce valid `pdftotext -bbox-layout` XHTML for every page.
+The upload must pass qpdf syntax checks, retain the manuscript navigation,
+and produce valid `pdftotext -bbox-layout` XHTML for every page.
 These checks run before the source and matching PDF are installed together.
 [publication_manifest.json](publication_manifest.json) records the upload
 source/PDF hashes, toolchain, text and reference comparisons, PDF checks and
 structured-text results. The build also rejects unresolved references,
 duplicate labels, overfull boxes and the previously repaired package warnings.
 
-The preceding submission passed Hexagon's private preview, then failed during
-its final identifier-stamping step with `text_extraction_failed`. A local audit
-found 1,194 XML-invalid control characters across 324 pages, caused by missing
-Unicode mappings for large mathematical delimiters. `pdftotext` returned zero
-while writing malformed XHTML, despite correct page rendering.
+The earlier investigation found missing Unicode mappings for large mathematical
+delimiters: a correctly rendered PDF could produce malformed extraction XHTML.
+[math_unicode.tex](math_unicode.tex) repairs those mappings without changing
+glyphs or mathematical content. The repair remains in both export variants.
 
-[math_unicode.tex](math_unicode.tex) supplies the missing font-specific mappings
-for all four delimiter sizes and the two vertical delimiter pieces. The repaired
-PDF has no invalid control characters and extracts valid XHTML across all
-603 pages. The repair changes the font's Unicode map, with unchanged page
-content and reference values; a 72-dpi comparison of all rendered pages also
-matched. It is included directly in the single-file export.
+[text-extraction-audit.json](text-extraction-audit.json) preserves the 10 November
+investigation of intermittent preview failures and final identifier-stamping
+failures, including the independent parser checks and source comparisons.
+Its audited source/PDF now have the `hexagon-standalone-basic-file` names;
+their hashes are unchanged. Its older hosted preview is a separate historical
+artifact and lacks the Unicode repair. The author's 12 November report of a
+Hexagon fix does not establish which internal error caused those failures.
 
-An earlier 10 November retry also reported `text_extraction_failed`. The receipt
-emails confirmed that the source packages were received under the same identifier;
-receipt and preview success do not establish successful final processing or
-publication. At that point the submission page offered **Fix and resubmit**.
-The latest status below supersedes that earlier recovery instruction.
-
-An audit of the downloaded hosted preview found that it still has the old
-Unicode map. Its PDF creation time is 18:48:58 UTC, before the repair was
-committed at 19:35 UTC. All 2,149 PDF objects match the earlier local PDF except
-the metadata object; the trailer identifier also differs. Its bounding-box
-XHTML contains the same 1,194 invalid control characters, first appearing on
-page 12. Metadata alone cannot establish whether this preview came from an
-earlier attempt or was reused during the latest one; the final-stage compiled
-PDF has not been made available for comparison.
-
-The current upload PDF passes full-document extraction with Poppler 25.03.0,
-PDF.js 6.5.438, pypdf 7.0.1 and pdfminer.six 20260107. Poppler's bounding-box
-XHTML parses across all 603 pages with zero invalid control characters.
-[text-extraction-audit.json](text-extraction-audit.json) records the artifact
-hashes and comparisons. The [downloaded hosted preview](hexagon-preview-026c6d05e1a9.pdf)
-is retained as diagnostic evidence; it does not match the current local PDF.
-
-Hexagon's stored source for the 20:08 package was then downloaded and compared:
-it is **byte-for-byte identical** to the current `hexagon-standalone.tex`.
-Both individual files have SHA-256
-`038d18837786be84048785c35eed37a3884e64c26d29b367959e50d7736d3d8e`.
-The received copy is preserved in commit
-[dc43a8a](https://github.com/enaslund/sarkozy-upper-bound-0.9999875/commit/dc43a8a).
-Its duplicate working-tree copy was removed after the comparison, retaining
-one upload file. The receipt's **source-package** hash identifies a package
-and must not be compared directly with this individual file hash.
-
-An outdated upload is therefore ruled out for the 20:08 package. The current
-source already contains the repair, and no further extraction defect has been
-reproduced locally. The exact failure in Hexagon's stamping processor remains
-unknown. Use **Report a problem** on the existing submission, include its
-receipt and this audit, and request the extractor's command, version, exit
-status, stderr, output size and applicable resource limits. Ask which compiled
-PDF was processed and request reprocessing of the received package. A local
-Node.js experiment failed with a 1 MiB stdout buffer and succeeded with 8 MiB;
-the extracted plain text is 2,353,114 bytes. This is only a resource-limit
-example, not evidence that Hexagon uses that implementation or limit.
-
-A subsequent preview retry was also reported as failed. Its supplied compiler
-log shows two successful PDFLaTeX passes, each writing 603 pages and 5,150,107
-bytes, and ends with Latexmk's `All targets ... are up-to-date`. The byte count
-matches the repaired local PDF, although size alone does not establish byte
-identity. The log contains underfull-box layout warnings, not a fatal TeX
-error. The captured preview-page code displays `Compilation failed` and the
-older-distribution compatibility hint for any failed preview job; those labels
-do not identify which stage failed. The author subsequently supplied the
-banner: **Hexagon could not prepare a safe preview PDF from this output.**
-This locates the reported failure in preview PDF preparation after compilation.
-It does not expose the failing validation check or exception.
-
-The failure is therefore not confined to final stamping: a preview job can
-also fail after PDF generation. The available compiler log does not reveal
-that later error. Additional local read/write checks with pdf-lib 1.17.1 and
-qpdf 12.4.2 preserve all 603 page-content streams and page dimensions, and both
-rewritten PDFs pass full structured-text extraction. These are compatibility
-checks, not reproductions of Hexagon's private PDF processor. Their results
-are included in the diagnostic audit; the temporary outputs are not upload
-alternatives. The server's postprocessing diagnostics are still needed to
-identify the cause.
-
-Further comparison of the hosted pre-repair preview and the repaired local
-PDF found that both pass pdfcpu 0.16.4 in strict mode and Ghostscript 10.05.1
-with `-dPDFSTOPONWARNING`. Ghostscript processes all 603 pages in each file;
-its extracted text from the repaired PDF has no XML-invalid control characters
-(excluding ordinary page-break form feeds). These results do not identify
-Hexagon's processor or its limits, and do not establish that the hosted
-pipeline accepts the PDF. They provide no reproduced reason to revert the
-Unicode repair or change the manuscript again.
-
-The latest author-supplied report, for the package received at 22:48 UTC on
-10 November, shows **Compiled successfully** at preview. Both compiler passes
-again produced 603 pages and 5,150,107 bytes. The package hash displayed by
-Hexagon is identical to the 20:08 package hash, and its displayed individual
-source-file hash prefix matches the current export. Preview outcomes have
-therefore varied for the unchanged source; the failing backend condition
-has not been identified. The newly successful hosted PDF has not been
-compared byte-for-byte with the local PDF.
-
-At 22:50 UTC, final processing again reported `text_extraction_failed` while
-applying the repository-controlled identifier stamp. The latest page says
-**Hexagon needs to review processing**, asks the author not to create a duplicate
-submission, and no longer shows **Fix and resubmit**. Leave the existing
-submission intact and use its **Report a problem** link to request staff review
-and reprocessing of that received package. Retain the successful preview PDF
-and compiler log for the report. No further source change is justified by the
-available diagnostic, and the current upload file remains unchanged.
-
-The 603-page length could expose a time, memory or output-size limit during
-text extraction, but no such limit has been confirmed. The successful preview
-and local full-document checks do not establish that final stamping has the
-same resource limits. The diagnostic does not identify an exceeded page limit;
-shortening or splitting the paper is not a demonstrated remedy. Ask Hexagon
-which extraction operation failed and whether a resource limit was reached.
-These tools do not submit a deposit or contact Hexagon.
+[publication_manifest.json](publication_manifest.json) records the new default
+export's own build, text, reference and navigation checks. The frozen fallback
+retains its original verification receipt and original exporter hash. These
+tools prepare local files; they do not submit a deposit or contact Hexagon.
 
 Validation uses final TeX Live 2025: pdfTeX 1.40.28, LaTeX 2025-11-01,
 L3 2026-01-19 and longtable v4.24, matching the hosted log. Final manuscript and

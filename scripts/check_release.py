@@ -33,6 +33,7 @@ PAPER_FILES = {
     "main.pdf", "figures/dependency_graph.pdf", "hexagon-source.zip",
     "build_record.json", "publication_manifest.json", "hexagon-standalone.tex",
     "hexagon-standalone.pdf",
+    "hexagon-standalone-basic-file.tex", "hexagon-standalone-basic-file.pdf",
     # Downloaded hosted output and its extraction audit, retained as evidence.
     "hexagon-preview-026c6d05e1a9.pdf", "text-extraction-audit.json",
 }
@@ -190,8 +191,15 @@ def check_archive(closure):
     raw_pdf = (ROOT / "paper/hexagon-standalone.pdf").read_bytes()
     require(digest(raw_pdf) == standalone["pdf_sha256"] and len(raw_pdf) == standalone["pdf_bytes"],
             "Submission PDF differs from the verified artifact")
-    require(not standalone["qpdf_syntax_issues"] and standalone["annotations"] == 0
-            and not standalone["outlines_present"], "Submission PDF profile check failed")
+    require(standalone["profile"] == "rich" and not standalone["qpdf_syntax_issues"]
+            and standalone["annotations"] > 0 and standalone["outlines_present"],
+            "Submission PDF lost its navigation or has syntax issues")
+    navigation = standalone["verification"]["navigation"]
+    require(navigation["matches_main_pdf"] and navigation["all_internal_targets_resolved"]
+            and navigation["links"] == standalone["annotations"]
+            and navigation["internal_links"] > 0 and navigation["external_links"] > 0
+            and navigation["bookmarks"] > 0 and navigation["named_destinations"] > 0,
+            "Submission navigation verification failed")
     require(standalone["pages"] == publication["pages"], "Standalone page count differs")
     require(standalone["pdf_version"] == record["pdf_version"], "Standalone PDF version differs")
     require(standalone["warnings"] == record["warnings"], "Standalone warning audit differs")
@@ -202,6 +210,21 @@ def check_archive(closure):
                   standalone["verification"]["structured_text"]):
         require(audit["valid_xml"] and audit["pages"] == publication["pages"]
                 and audit["words"] > 0, "PDF structured-text validation failed")
+    basic = publication["basic_fallback"]
+    require(basic["frozen"] and basic["profile"] == "basic"
+            and basic["source"] == "hexagon-standalone-basic-file.tex"
+            and basic["pdf"] == "hexagon-standalone-basic-file.pdf",
+            "Unexpected preserved basic fallback")
+    raw = (ROOT / "paper" / basic["source"]).read_bytes()
+    raw_pdf = (ROOT / "paper" / basic["pdf"]).read_bytes()
+    require(digest(raw) == basic["sha256"] and len(raw) == basic["bytes"]
+            and digest(raw_pdf) == basic["pdf_sha256"] and len(raw_pdf) == basic["pdf_bytes"],
+            "Preserved basic fallback differs from its original verified export")
+    require(not basic["qpdf_syntax_issues"] and basic["annotations"] == 0
+            and not basic["outlines_present"], "Basic fallback profile check failed")
+    audit = basic["verification"]["structured_text"]
+    require(audit["valid_xml"] and audit["pages"] == basic["pages"] and audit["words"] > 0,
+            "Basic fallback structured-text validation failed")
     return publication
 
 
@@ -225,6 +248,8 @@ def main():
     check_pdf(ROOT / "paper/figures/dependency_graph.pdf")
     require(check_pdf(ROOT / "paper/hexagon-standalone.pdf") == pages,
             "Submission candidate page count differs from the manuscript")
+    require(check_pdf(ROOT / "paper/hexagon-standalone-basic-file.pdf")
+            == publication["basic_fallback"]["pages"], "Basic fallback page count differs")
     # This historical preview intentionally fails structured-text validation.
     # Apply the ordinary privacy/attachment checks without treating it as an upload.
     check_pdf(ROOT / "paper/hexagon-preview-026c6d05e1a9.pdf")

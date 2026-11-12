@@ -91,8 +91,70 @@
   },
   "standalone_upload": {
     "source": "hexagon-standalone.tex",
-    "sha256": "038d18837786be84048785c35eed37a3884e64c26d29b367959e50d7736d3d8e",
+    "profile": "rich",
+    "sha256": "3e8ec3cf8abae33894de371a8e859e05e620df1e67e0ebdfafc315eda1f23119",
     "pdf": "hexagon-standalone.pdf",
+    "pdf_sha256": "e22607044006004a3b52a758e4db003a0b476847b87c4a0ba09990dded0b1fe0",
+    "pdf_bytes": 7324037,
+    "pdf_objects": 15402,
+    "annotations": 8314,
+    "outlines_present": true,
+    "qpdf_syntax_issues": [],
+    "bytes": 3162396,
+    "pages": 603,
+    "pdflatex_passes": 2,
+    "pdf_version": "1.4",
+    "warnings": {
+      "package_warnings": {},
+      "underfull_hboxes": 20,
+      "underfull_vboxes": 43,
+      "overfull_boxes": 0
+    },
+    "bibliography_inlined": true,
+    "diagram_inlined": true,
+    "reference_seed": "first build only; regenerated aux/toc take precedence",
+    "verification": {
+      "clean_final_log": true,
+      "identical_text_ignoring_whitespace": true,
+      "navigation": {
+        "matches_main_pdf": true,
+        "all_internal_targets_resolved": true,
+        "links": 8314,
+        "internal_links": 8309,
+        "external_links": 5,
+        "bookmarks": 291,
+        "named_destinations": 3387,
+        "sha256": "f3efa12fd0aa87e7d110095eaf586e65d05fc7784a4f824799a7dde407ba6e1a"
+      },
+      "structured_text": {
+        "command": "pdftotext -bbox-layout",
+        "valid_xml": true,
+        "pages": 603,
+        "words": 515521,
+        "bytes": 57786814
+      },
+      "text_extraction": "pdftotext -raw; remove whitespace only",
+      "identical_labels_and_citations": true,
+      "labels_and_citations": 2345,
+      "jobname": "paper",
+      "separate_output_directory": true,
+      "shell_escape": false,
+      "primitive_diagnostics_all_passes": 0,
+      "multiply_defined_labels_all_passes": 0
+    },
+    "toolchain": {
+      "engine": "pdfTeX 3.141592653-2.6-1.40.28 (TeX Live 2025)",
+      "qpdf": "12.4.2",
+      "latex": "2025-11-01",
+      "l3": "2026-01-19",
+      "longtable": "2025-10-13 v4.24 Multi-page Table package (DPC)"
+    },
+    "export_script_sha256": "7f772f1531ffa12dcf61bbcef54bb097a73970dfb206d901a4a811046a986183"
+  },
+  "basic_fallback": {
+    "source": "hexagon-standalone-basic-file.tex",
+    "sha256": "038d18837786be84048785c35eed37a3884e64c26d29b367959e50d7736d3d8e",
+    "pdf": "hexagon-standalone-basic-file.pdf",
     "pdf_sha256": "c669316d221a664f0731da7708a4f97fa27559e9f94399e1646780008573aa6c",
     "pdf_bytes": 5150107,
     "pdf_objects": 2149,
@@ -138,7 +200,18 @@
       "l3": "2026-01-19",
       "longtable": "2025-10-13 v4.24 Multi-page Table package (DPC)"
     },
-    "export_script_sha256": "db4ea46def377ae5ba9889d42cc1478e38f6d5e42607a0c0e1f4325d1fe14db3"
+    "export_script_sha256": "db4ea46def377ae5ba9889d42cc1478e38f6d5e42607a0c0e1f4325d1fe14db3",
+    "profile": "basic",
+    "preserved_on": "2026-11-12",
+    "frozen": true,
+    "rename_verification": {
+      "status": "PASS",
+      "passes": 2,
+      "source": "hexagon-standalone-basic-file.tex",
+      "pdf_bytes": 5150107,
+      "pdf_sha256": "c669316d221a664f0731da7708a4f97fa27559e9f94399e1646780008573aa6c",
+      "byte_identical_to_preserved_pdf": true
+    }
   },
-  "package_script_sha256": "92dd3df9083cf8dcb123ad773642e78082f50debdcb534e5296ffce03a518e7b"
+  "package_script_sha256": "d8f0dd0166e4085ef964015a925358ae947148a364a7ba1c2400db472240b2d9"
 }

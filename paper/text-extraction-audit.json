@@ -1,16 +1,16 @@
 {
   "format": 1,
   "audited_on": "2026-11-10",
-  "scope": "Local PDF comparison, extraction and parse/write checks, with author-reported hosted workflow results. Not a verification of successful final stamping or publication.",
-  "conclusion": "The received 20:08 source is byte-identical to the repaired current upload. The author subsequently reported a successful preview and a 22:48 package with the same package hash as the 20:08 package. Final processing again failed at 22:50 with text_extraction_failed during identifier stamping, and Hexagon now requires staff review. Preview outcomes have varied for the unchanged source. Local full-document extraction and parser checks pass. The specific backend failure and any role of document length remain unconfirmed; no further TeX change is supported by the available evidence.",
+  "scope": "Historical 10 November PDF investigation. The audited source and PDF are preserved unchanged under the hexagon-standalone-basic-file names. The richer default export has separate verification in publication_manifest.json.",
+  "conclusion": "Historical conclusion as of 10 November: The received 20:08 source is byte-identical to the repaired current upload. The author subsequently reported a successful preview and a 22:48 package with the same package hash as the 20:08 package. Final processing again failed at 22:50 with text_extraction_failed during identifier stamping, and Hexagon now requires staff review. Preview outcomes have varied for the unchanged source. Local full-document extraction and parser checks pass. The specific backend failure and any role of document length remain unconfirmed; no further TeX change is supported by the available evidence.",
   "current_source": {
-    "file": "paper/hexagon-standalone.tex",
+    "file": "paper/hexagon-standalone-basic-file.tex",
     "sha256": "038d18837786be84048785c35eed37a3884e64c26d29b367959e50d7736d3d8e"
   },
   "artifacts": {
     "hosted_preview": "paper/hexagon-preview-026c6d05e1a9.pdf (public companion repository)",
     "before_repair": "public companion git f069133:paper/hexagon-submit.pdf",
-    "current_upload": "paper/hexagon-standalone.pdf"
+    "current_upload": "paper/hexagon-standalone-basic-file.pdf"
   },
   "structured_text_command": "pdftotext -bbox-layout PDF -; validate the entire output with xml.etree.ElementTree.iterparse",
   "object_comparison": "Compare resolved object dictionaries and decoded stream bytes; report the trailer ID separately.",
@@ -382,5 +382,14 @@
     "resource_limit_hypothesis_confirmed": false,
     "source_or_pdf_changed_for_this_report": false,
     "privacy_note": "Private submission URLs, receipt identifier and source-package hashes are omitted."
+  },
+  "resolution_update": {
+    "reported_on": "2026-11-12",
+    "evidence": "The author reports that the Hexagon bug is fixed and requests restoration of the reading-copy navigation.",
+    "specific_backend_cause_confirmed": false,
+    "historical_audit_profile": "basic fallback; source and PDF hashes unchanged after renaming",
+    "new_default_source": "paper/hexagon-standalone.tex",
+    "new_default_verification": "paper/publication_manifest.json: standalone_upload",
+    "new_default_hosted_acceptance_verified": false
   }
 }

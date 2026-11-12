@@ -4,7 +4,8 @@
 Run from any directory: python3 -B paper/package_publication.py
 Only the manuscript's TeX/BibTeX closure and its generated figure enter the
 ZIP. The extracted ZIP is compiled independently, with no repository paths.
-The single Hexagon upload is hexagon-standalone.tex, with a matching PDF.
+The default Hexagon upload is hexagon-standalone.tex, with full PDF navigation.
+The basic-file source/PDF are a frozen fallback and are never overwritten.
 Requires TeX Live, Poppler utilities and Python pikepdf.
 """
 from pathlib import Path
@@ -37,6 +38,10 @@ def command(args, cwd):
 
 
 def package():
+    basic = json.loads((PAPER/'publication_manifest.json').read_text())['basic_fallback']
+    basic_files = {basic['source']: basic['sha256'], basic['pdf']: basic['pdf_sha256']}
+    for name, expected in basic_files.items():
+        assert digest(PAPER/name) == expected, f'Preserved basic fallback changed: {name}'
     with tempfile.TemporaryDirectory(prefix='sarkozy-publication-') as tmp:
         work = Path(tmp)
         compiled = work/'built'
@@ -87,6 +92,8 @@ def package():
         assert build.closure() == closure, 'Sources changed while packaging'
         for path, expected in closure.items():
             assert sha256(files[str(path.relative_to(PAPER))]).hexdigest() == expected
+        for name, expected in basic_files.items():
+            assert digest(PAPER/name) == expected, f'Preserved basic fallback changed: {name}'
         shutil.copy2(compiled/'main.pdf', PAPER/'main.pdf')
         shutil.copy2(compiled/'figures/dependency_graph.pdf', PAPER/'figures/dependency_graph.pdf')
         shutil.copy2(archive, PAPER/'hexagon-source.zip')
@@ -104,6 +111,7 @@ def package():
                 pages=pages, build_commands=['pdflatex main.tex', 'bibtex main',
                                              'pdflatex main.tex', 'pdflatex main.tex']),
             standalone_upload=standalone,
+            basic_fallback=basic,
             package_script_sha256=digest(Path(__file__)))
         (PAPER/'publication_manifest.json').write_text(json.dumps(manifest, indent=2)+'\n')
         print(json.dumps({k: v for k, v in manifest.items() if k != 'files_sha256'}, indent=2))

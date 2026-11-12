@@ -1,11 +1,14 @@
 # Reading the paper
 
-For Hexagon, upload **[hexagon-standalone.tex](hexagon-standalone.tex)**
-under that exact name. Its matching [PDF](hexagon-standalone.pdf) is directly
-beside it in `paper/`. This is the only single-file upload; no copying or
-renaming is required. It includes the text-extraction repair and the preview's
-working PDF configuration. See [PUBLICATION.md](PUBLICATION.md) for checks and
-build instructions.
+For Hexagon, upload **[hexagon-standalone.tex](hexagon-standalone.tex)**.
+Its matching [PDF](hexagon-standalone.pdf) restores the clickable contents,
+bookmarks, cross-references, citations and external links from `main.pdf`,
+while retaining the compilation and Unicode text-extraction fixes.
+The previous basic upload is preserved unchanged as
+[hexagon-standalone-basic-file.tex](hexagon-standalone-basic-file.tex), with
+its [matching PDF](hexagon-standalone-basic-file.pdf). Upload one version only;
+no copying or renaming is required. See [PUBLICATION.md](PUBLICATION.md) for
+checks and build instructions.
 
 The downloaded `hexagon-preview-026c6d05e1a9.pdf` is historical diagnostic
 evidence: it lacks the Unicode repair and does not match the current local PDF.
